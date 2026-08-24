@@ -1,0 +1,170 @@
+import html.parser
+import json
+import pathlib
+import subprocess
+import sys
+import tempfile
+import unittest
+import urllib.parse
+
+
+ROOT = pathlib.Path(__file__).resolve().parents[1]
+
+
+class PageParser(html.parser.HTMLParser):
+    def __init__(self):
+        super().__init__()
+        self.links = []
+        self.images = []
+        self.h1_count = 0
+        self.title_depth = 0
+        self.title = ""
+        self.lang = None
+        self.has_viewport = False
+        self.has_skip_link = False
+        self.meta = {}
+
+    def handle_starttag(self, tag, attrs):
+        values = dict(attrs)
+        if tag == "html":
+            self.lang = values.get("lang")
+        elif tag == "a":
+            href = values.get("href")
+            if href:
+                self.links.append(href)
+            if values.get("class") == "skip-link" and href == "#main":
+                self.has_skip_link = True
+        elif tag == "img":
+            self.images.append(values)
+        elif tag == "h1":
+            self.h1_count += 1
+        elif tag == "title":
+            self.title_depth += 1
+        elif tag == "meta":
+            if values.get("name") == "viewport":
+                self.has_viewport = True
+            key = values.get("property") or values.get("name")
+            if key:
+                self.meta[key] = values.get("content", "")
+
+    def handle_endtag(self, tag):
+        if tag == "title":
+            self.title_depth -= 1
+
+    def handle_data(self, data):
+        if self.title_depth:
+            self.title += data
+
+
+def html_files():
+    return sorted(ROOT.glob("**/*.html"))
+
+
+class PublicSiteTests(unittest.TestCase):
+    def test_every_page_has_basic_accessibility_and_social_metadata(self):
+        self.assertGreaterEqual(len(html_files()), 6)
+        for path in html_files():
+            parser = PageParser()
+            parser.feed(path.read_text())
+            with self.subTest(path=path.relative_to(ROOT)):
+                self.assertEqual(parser.lang, "en")
+                self.assertTrue(parser.has_viewport)
+                self.assertTrue(parser.has_skip_link)
+                self.assertEqual(parser.h1_count, 1)
+                self.assertTrue(parser.title.strip())
+                self.assertTrue(parser.meta.get("description"))
+                self.assertTrue(parser.meta.get("og:title"))
+                self.assertTrue(parser.meta.get("og:description"))
+                self.assertEqual(
+                    parser.meta.get("og:image"),
+                    "https://enterlocus.github.io/locus-support/assets/og.png",
+                )
+                for image in parser.images:
+                    self.assertIn("alt", image)
+
+    def test_local_links_resolve_inside_the_published_tree(self):
+        for path in html_files():
+            parser = PageParser()
+            parser.feed(path.read_text())
+            for href in parser.links:
+                parsed = urllib.parse.urlsplit(href)
+                if parsed.scheme or href.startswith("#"):
+                    continue
+                target = (path.parent / urllib.parse.unquote(parsed.path)).resolve()
+                if parsed.path.endswith("/") or target.is_dir():
+                    target = target / "index.html"
+                with self.subTest(page=path.relative_to(ROOT), href=href):
+                    self.assertTrue(target.is_relative_to(ROOT.resolve()))
+                    self.assertTrue(target.is_file(), target)
+
+    def test_feedback_forms_repeat_the_public_privacy_boundary(self):
+        forms = ROOT / ".github" / "ISSUE_TEMPLATE"
+        for name in ["bug.yml", "feature.yml", "wishlist.yml"]:
+            text = (forms / name).read_text()
+            with self.subTest(form=name):
+                self.assertIn("public", text.lower())
+                self.assertIn("room", text.lower())
+                self.assertIn("credentials", text.lower())
+                self.assertIn("receipts", text.lower())
+                self.assertIn("order", text.lower())
+                self.assertIn("personal information", text.lower())
+                self.assertIn("support@enterlocus.com", text)
+
+    def test_public_repo_does_not_claim_the_private_app_is_open_source(self):
+        self.assertFalse((ROOT / "LICENSE").exists())
+        readme = (ROOT / "README.md").read_text()
+        self.assertIn("private repository", readme)
+        self.assertIn("does **not** publish the app source", readme)
+        self.assertIn("does not publish the private Locus app source", (
+            ROOT / "package-format" / "index.html").read_text())
+
+    def test_homepage_labels_pre_release_pricing_and_support_action(self):
+        homepage = (ROOT / "index.html").read_text()
+        self.assertIn('href="./support/">Get support</a>', homepage)
+        self.assertIn("Planned for V1: bring one custom View", homepage)
+        self.assertNotIn(">Explore Locus</a>", homepage)
+
+    def test_author_guide_uses_the_published_provenance_field_names(self):
+        schema = json.loads((
+            ROOT / "schemas" / "locusplace-provenance-v1.schema.json"
+        ).read_text())
+        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
+        for field in schema["required"]:
+            self.assertIn(field, guide)
+        for field in ["license.identifier", "license.name", "license.url"]:
+            self.assertIn(field, guide)
+        for stale_field in ["licenseName", "licenseURL", "requiredCredit"]:
+            self.assertNotIn(stale_field, guide)
+
+    def test_schemas_have_one_published_source_of_truth(self):
+        self.assertFalse(list((ROOT / "reference").glob("schemas/*.json")))
+        reference = (ROOT / "reference" / "locusplace-format.md").read_text()
+        self.assertIn("../schemas/locusplace-v1.schema.json", reference)
+        self.assertIn("../schemas/locusplace-provenance-v1.schema.json", reference)
+
+    def test_reproducible_examples_pass_the_published_validator(self):
+        with tempfile.TemporaryDirectory() as directory:
+            built = pathlib.Path(directory) / "examples"
+            subprocess.run(
+                [sys.executable, str(ROOT / "examples" / "build_examples.py"), str(built)],
+                check=True,
+                capture_output=True,
+                text=True,
+            )
+            for name in [
+                "view-only.locusplace",
+                "room-only.locusplace",
+                "combined.locusplace",
+            ]:
+                result = subprocess.run(
+                    [sys.executable, str(ROOT / "tools" / "validate_locusplace.py"), str(built / name)],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn("VALID ", result.stdout)
+
+
+if __name__ == "__main__":
+    unittest.main()

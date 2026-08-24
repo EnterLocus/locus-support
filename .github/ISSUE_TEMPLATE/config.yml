@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Private or security report
+    url: mailto:support@enterlocus.com?subject=Locus%20private%20or%20security%20report
+    about: Email us instead of posting room images, account details, credentials, receipts, or personal information in public.
+  - name: Locus support
+    url: https://enterlocus.github.io/locus-support/support/
+    about: Read troubleshooting guidance and contact support.

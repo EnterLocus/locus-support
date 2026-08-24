@@ -1,0 +1,60 @@
+name: Bug report
+description: Tell us about something in Locus that did not work as expected.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for helping improve Locus.
+
+        **This issue is public.** Do not attach photos or recordings of your room, screenshots containing notifications or account information, credentials, receipts, order details, device identifiers, or other personal information. Email [support@enterlocus.com](mailto:support@enterlocus.com?subject=Locus%20private%20bug%20report) for a private or security-sensitive report.
+  - type: textarea
+    id: happened
+    attributes:
+      label: What happened?
+      description: Describe what you saw and what you expected instead. Remove private or identifying details.
+      placeholder: I expected… Instead…
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where did this happen?
+      options:
+        - Places and library
+        - Virtual Space
+        - Room Portal
+        - Browser
+        - Importing a Place
+        - Settings or support
+        - Somewhere else
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Locus version and build
+      description: In Locus, open About Locus. Do not include your Apple ID or device serial number.
+      placeholder: Version 1.0 (1), build abc1234
+  - type: input
+    id: visionos
+    attributes:
+      label: visionOS version
+      placeholder: visionOS 26.5
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Give the smallest set of steps that causes the problem.
+      placeholder: |
+        1. Open…
+        2. Choose…
+        3. Observe…
+  - type: checkboxes
+    id: privacy
+    attributes:
+      label: Privacy check
+      options:
+        - label: I removed private room details, credentials, receipts, order information, account data, notifications, and other personal information.
+          required: true
