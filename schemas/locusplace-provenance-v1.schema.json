@@ -1,0 +1,105 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://enterlocus.github.io/locus-support/schemas/locusplace-provenance-v1.schema.json",
+  "title": "Locus imported-content provenance v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "formatVersion",
+    "creatorOrAgency",
+    "license",
+    "requestedCredit",
+    "modificationNotes",
+    "aiGenerated"
+  ],
+  "properties": {
+    "formatVersion": {
+      "const": 1
+    },
+    "creatorOrAgency": {
+      "$ref": "#/$defs/nonEmptyText200"
+    },
+    "sourcePageURL": {
+      "$ref": "#/$defs/httpsURL"
+    },
+    "originalAssetURL": {
+      "$ref": "#/$defs/httpsURL"
+    },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identifier",
+        "name",
+        "url"
+      ],
+      "properties": {
+        "identifier": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 100
+        },
+        "name": {
+          "$ref": "#/$defs/nonEmptyText200"
+        },
+        "url": {
+          "$ref": "#/$defs/httpsURL"
+        }
+      }
+    },
+    "requestedCredit": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 1000
+    },
+    "modificationNotes": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 2000
+    },
+    "aiGenerated": {
+      "type": "boolean"
+    },
+    "aiProvider": {
+      "$ref": "#/$defs/nonEmptyText200"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "aiGenerated": {
+            "const": true
+          }
+        },
+        "required": [
+          "aiGenerated"
+        ]
+      },
+      "then": {
+        "required": [
+          "aiProvider"
+        ]
+      },
+      "else": {
+        "not": {
+          "required": [
+            "aiProvider"
+          ]
+        }
+      }
+    }
+  ],
+  "$defs": {
+    "nonEmptyText200": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "httpsURL": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://"
+    }
+  }
+}

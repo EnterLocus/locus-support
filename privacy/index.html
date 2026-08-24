@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111816">
+  <title>Privacy — Locus</title>
+  <meta name="description" content="How Locus handles spatial data, browser data, imported Places, purchases, and support messages.">
+  <meta property="og:title" content="Privacy — Locus"><meta property="og:description" content="How Locus handles spatial data, browser data, imported Places, purchases, and support messages."><meta property="og:image" content="https://enterlocus.github.io/locus-support/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.github.io/locus-support/assets/og.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../pricing/">Pricing</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a></nav></header>
+  <main id="main" class="page-main">
+    <header class="page-header"><p class="kicker">Privacy</p><h1>Your room is context, not content to publish.</h1><p>This pre-release privacy notice describes the current V1 product design. It will be reviewed against the approved release candidate and App Store data disclosures before launch.</p><span class="status">Last updated August 24, 2026</span></header>
+    <section class="doc-section"><h2>Spatial and room information</h2><p>Locus asks visionOS for world and room tracking so it can align an authored Room, locate a desk, or open a Room Portal. Locus uses that information on Apple Vision Pro to position and reveal content. The current app does not upload room meshes or camera images to Locus servers.</p><p>visionOS controls camera and sensor access. Locus does not receive a general-purpose camera feed and does not use room data for advertising.</p></section>
+    <section class="doc-section"><h2>Browser activity</h2><p>Locus includes a WebKit browser. Websites you visit can collect information under their own privacy policies, and website data such as cookies may be stored in the browser profile on your device. Locus provides controls to clear history and website data. Do not treat an ordinary website opened inside Locus as part of Locus itself.</p></section>
+    <section class="doc-section"><h2>Imported Places and local library data</h2><p>Place packages that you choose from Files or a supported URL are validated before installation and stored in the app's local library. Deleting an imported Place removes Locus's installed copy; it does not delete the source file from Files or your cloud-storage provider.</p><p>Package metadata can include creator, source, license, credits, modification notes, and AI-generation notes. That metadata is shown so people can understand where a View or Room came from.</p></section>
+    <section class="doc-section"><h2>Purchases</h2><p>Apple processes App Store purchases and subscriptions. Locus receives verified entitlement state needed to unlock features; it does not receive your full payment-card details. StoreKit product setup remains a publisher-controlled release gate, and Locus is not currently available for purchase.</p></section>
+    <section class="doc-section"><h2>Support and public feedback</h2><p>Emailing support sends the information you choose to include to the publisher's support mailbox. Public GitHub issues are visible to everyone. Never post private room images, credentials, receipts, order information, account details, notifications, device identifiers, or other personal data in a public issue.</p><p>Send private or security-sensitive reports to <a href="mailto:support@enterlocus.com?subject=Locus%20private%20or%20security%20report">support@enterlocus.com</a> and include only what is necessary.</p></section>
+    <section class="doc-section"><h2>Data retention and deletion</h2><p>Local browser and imported-package data remain on your device until you clear or remove them, subject to visionOS and device backup behavior. Support messages and issue posts are retained as needed to answer, diagnose, prevent abuse, and keep a record of the resolution. You can request deletion of a support message by emailing support; public GitHub content is also subject to GitHub's platform controls and retention.</p></section>
+    <section class="doc-section"><h2>Contact</h2><p>Questions about this notice: <a href="mailto:support@enterlocus.com?subject=Locus%20Privacy">support@enterlocus.com</a>.</p></section>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Focused spatial workspaces for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../support/">Support</a><a href="./">Privacy</a><a href="https://github.com/EnterLocus/locus-support/issues/new/choose">Feedback</a></nav></footer>
+</body>
+</html>
