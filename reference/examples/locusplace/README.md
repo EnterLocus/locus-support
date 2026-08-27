@@ -5,9 +5,9 @@ real archives:
 
 | Archive | Declared content | Selection behavior |
 |---|---|---|
-| `view-only.locusplace` | one Destination/View | installs reusable content; no synthetic Experience |
-| `room-only.locusplace` | one Space/Room | installs reusable content; no synthetic Experience |
-| `combined.locusplace` | one View, one Room, one virtual-space Experience | resolves and appears as an Experience |
+| `view-only.locusplace` | one Destination/View | validator fixture only; the current product UI imports Views as direct images |
+| `room-only.locusplace` | one Space/Room | supported by **Import a Room** |
+| `combined.locusplace` | one View, one Room, one virtual-space Experience | supported by **Import a Room** as an atomic Room bundle |
 
 The builder creates a decoded 16x8 PNG, strict provenance, an uncompressed USDZ
 with a root USDA layer, Package-v2 manifests, per-file SHA-256 records, and the
@@ -24,20 +24,20 @@ python3 scripts/validate_locusplace.py /tmp/locusplace-examples/combined.locuspl
 The output directory must already be absent or empty; the builder never
 overwrites an existing archive.
 
-For author customization, unzip one of these fixtures, edit its public files,
-and repack it as an ordinary ZIP. The packer regenerates `files` and
-`contentHash`, then runs the same validator:
+For Room authoring, unzip `room-only.locusplace` or `combined.locusplace`, edit
+its public files, and repack it as an ordinary ZIP. The packer regenerates
+`files` and `contentHash`, then runs the same validator:
 
 ```sh
-mkdir /tmp/my-editable-view
-ditto -x -k /tmp/locusplace-examples/view-only.locusplace /tmp/my-editable-view
-python3 scripts/pack_locusplace.py /tmp/my-editable-view /tmp/my-view.zip
+mkdir /tmp/my-editable-room
+ditto -x -k /tmp/locusplace-examples/room-only.locusplace /tmp/my-editable-room
+python3 scripts/pack_locusplace.py /tmp/my-editable-room /tmp/my-room.zip
 ```
 
-The combined fixture proves the transport can install an atomic multi-content
-bundle. Public starter convention is simpler: distribute one reusable View,
-Room, or Experience per ordinary ZIP. Runtime ZIPs exclude Blender/GLB/FBX/OBJ
-authoring sources and original HDR captures; retain those outside the package.
+The combined fixture proves **Import a Room** can install the Room together with
+its paired View and Experience. It does not create a whole-catalog import API.
+Runtime ZIPs exclude Blender/GLB/FBX/OBJ authoring sources and original HDR
+captures; retain those outside the package.
 
 See the [public author guide](../../../create-your-own-place/) for the
-transparent View, Room, Experience, provenance, and asset-format contract.
+supported View input, Room bundle, provenance, and asset-format contract.

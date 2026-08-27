@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://enterlocus.github.io/locus-support/schemas/locusplace-provenance-v1.schema.json",
+  "$id": "https://enterlocus.com/schemas/locusplace-provenance-v1.schema.json",
   "title": "Locus imported-content provenance v1",
   "type": "object",
   "additionalProperties": false,

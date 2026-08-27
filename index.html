@@ -9,14 +9,17 @@
   <meta property="og:title" content="Locus — A focused workspace for Apple Vision Pro">
   <meta property="og:description" content="Calm immersive places. The pages you need. Your real desk.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://enterlocus.github.io/locus-support/">
-  <meta property="og:image" content="https://enterlocus.github.io/locus-support/assets/og.png">
+  <meta property="og:url" content="https://enterlocus.com/">
+  <meta property="og:image" content="https://enterlocus.com/assets/og.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Locus — A focused workspace for Apple Vision Pro">
   <meta name="twitter:description" content="Calm immersive places. The pages you need. Your real desk.">
-  <meta name="twitter:image" content="https://enterlocus.github.io/locus-support/assets/og.png">
+  <meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/">
+  <link rel="icon" type="image/png" href="./assets/favicon.png">
+  <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
   <link rel="stylesheet" href="./assets/site.css">
 </head>
 <body>
@@ -35,19 +38,27 @@
 
   <main id="main">
     <section class="hero">
-      <div class="eyebrow">Designed for Apple Vision Pro</div>
-      <h1>A focused workspace<br>in places worth staying.</h1>
-      <p class="hero-copy">Locus brings calm immersive Views, architectural Rooms, the web pages you need, and your real desk into one spatial workspace.</p>
-      <div class="actions">
-        <a class="button primary" href="./support/">Get support</a>
-        <a class="button secondary" href="./create-your-own-place/">Create your own Place</a>
+      <div class="hero-content">
+        <div class="eyebrow">Designed for Apple Vision Pro</div>
+        <h1>A focused workspace in places worth staying.</h1>
+        <p class="hero-copy">Locus brings calm immersive Views, architectural Rooms, the web pages you need, and your real desk into one spatial workspace.</p>
+        <div class="actions">
+          <a class="button primary" href="./support/">Get support</a>
+          <a class="button secondary" href="./create-your-own-place/">Create your own Place</a>
+        </div>
+        <p class="release-note"><strong>Pre-release:</strong> Locus is in active V1 development and is not currently available for purchase.</p>
       </div>
-      <p class="release-note"><strong>Pre-release:</strong> Locus is in active V1 development and is not currently available for purchase.</p>
+      <figure class="hero-shot">
+        <img src="./assets/screenshots/virtual-space-desk-wide.jpg" width="1920" height="1080" alt="A wide Virtual Space view across a desk and landscape with a spatial browser window">
+        <figcaption>Simulator capture · Virtual Space, desk and browser</figcaption>
+      </figure>
     </section>
 
     <section class="product-grid" aria-label="Locus highlights">
       <article class="feature-card room-card">
-        <div class="card-visual room" aria-hidden="true"><span class="window"></span><span class="desk"></span></div>
+        <figure class="product-shot">
+          <img src="./assets/screenshots/virtual-space.jpg" width="1920" height="1080" alt="An authored Locus Room with a spatial browser window in the Apple Vision Pro simulator">
+        </figure>
         <div>
           <p class="kicker">Virtual Space</p>
           <h2>Architecture around you. Your desk stays real.</h2>
@@ -55,7 +66,9 @@
         </div>
       </article>
       <article class="feature-card portal-card">
-        <div class="card-visual portal" aria-hidden="true"><span></span></div>
+        <figure class="product-shot">
+          <img src="./assets/screenshots/room-portal-open.jpg" width="1920" height="1080" alt="Room Portal simulator fixture with the room surfaces opened onto a landscape">
+        </figure>
         <div>
           <p class="kicker">Room Portal</p>
           <h2>Keep your room. Open one wall somewhere else.</h2>
@@ -63,7 +76,9 @@
         </div>
       </article>
       <article class="feature-card web-card">
-        <div class="browser-stack" aria-hidden="true"><span></span><span></span><span></span></div>
+        <figure class="product-shot browser-shot">
+          <img src="./assets/screenshots/room-portal.jpg" width="1920" height="1080" alt="Locus browser and Room Portal controls arranged together in the Apple Vision Pro simulator">
+        </figure>
         <div>
           <p class="kicker">Spatial browser</p>
           <h2>Your useful pages, arranged for focus.</h2>
@@ -72,15 +87,18 @@
       </article>
     </section>
 
-    <section class="split-section">
+    <section class="split-section with-media">
       <div>
         <p class="kicker">Make it yours</p>
         <h2>Planned for V1: bring one custom View and one custom Room for free.</h2>
       </div>
       <div>
-        <p>Locus packages are ordinary ZIP archives with documented metadata, familiar image or USDZ assets, integrity hashes, and a local validator.</p>
+        <p>Views import directly from a complete 2:1 JPEG, PNG, or HEIC image. Rooms use a documented <code>.locusplace</code> or ZIP package with a USDZ, integrity hashes, and a local validator.</p>
         <a class="text-link" href="./create-your-own-place/">Read the package guide <span aria-hidden="true">→</span></a>
       </div>
+      <figure class="library-shot">
+        <img src="./assets/screenshots/place-library.jpg" width="1920" height="1080" alt="The Locus Place Library showing an installed package in the Apple Vision Pro simulator">
+      </figure>
     </section>
 
     <section class="truth-panel">

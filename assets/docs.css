@@ -1,13 +1,13 @@
-.page-main { max-width: 860px; padding: 5rem 0 8rem; }
+.page-main { max-width: 780px; padding: 5rem 0 8rem; }
 .page-main.wide { max-width: var(--max); }
 .page-header { margin-bottom: 4rem; }
-.page-header h1 { max-width: 850px; font-size: clamp(3rem, 7vw, 6.5rem); }
-.page-header > p { max-width: 720px; color: #d3d9d1; font-size: 1.2rem; line-height: 1.55; }
+.page-header h1 { max-width: 780px; font-size: clamp(2.75rem, 5.2vw, 4.7rem); line-height: 1.02; letter-spacing: -.045em; }
+.page-header > p { max-width: 65ch; color: #d3d9d1; font-size: 1.15rem; line-height: 1.6; }
 .status { display: inline-flex; gap: .45rem; align-items: center; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: 999px; color: var(--warm); font-size: .78rem; font-weight: 700; }
 .doc-section { padding: 2.5rem 0; border-top: 1px solid var(--line); }
 .doc-section h2 { margin: 0 0 1rem; font-size: clamp(1.65rem, 3vw, 2.6rem); letter-spacing: -.035em; }
 .doc-section h3 { margin: 2rem 0 .6rem; font-size: 1.15rem; }
-.doc-section p, .doc-section li { color: #c0c8c0; line-height: 1.65; }
+.doc-section p, .doc-section li { max-width: 70ch; color: #c0c8c0; line-height: 1.68; }
 .doc-section li + li { margin-top: .55rem; }
 .doc-section a, .callout a { color: var(--accent); }
 .callout { margin: 1.5rem 0; padding: 1.2rem 1.3rem; border-left: 3px solid var(--accent); background: rgba(217,248,108,.06); border-radius: 0 .8rem .8rem 0; color: #dbe1d7; line-height: 1.55; }
@@ -30,6 +30,8 @@ td { color: var(--muted); }
 .small-note { color: var(--muted); font-size: .82rem; }
 @media (max-width: 680px) {
   .page-main { padding-top: 3.5rem; }
+  .page-header { margin-bottom: 3rem; }
+  .page-header h1 { font-size: clamp(2.55rem, 11.5vw, 3.5rem); }
   .link-grid, .price-grid { grid-template-columns: 1fr; }
   table { display: block; overflow-x: auto; }
 }
