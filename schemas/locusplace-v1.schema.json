@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://enterlocus.github.io/locus-support/schemas/locusplace-v1.schema.json",
+  "$id": "https://enterlocus.com/schemas/locusplace-v1.schema.json",
   "title": "Locus Place archive envelope v1",
   "description": "The root locusplace.json manifest inside a .locusplace ZIP archive.",
   "type": "object",

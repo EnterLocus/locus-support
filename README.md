@@ -2,7 +2,7 @@
 
 This is the official public home for Locus support, feedback, documentation,
 privacy information, launch copy, and the public Place-package authoring tools.
-The site is published at <https://enterlocus.github.io/locus-support/>.
+The site is published at <https://enterlocus.com/>.
 
 The Locus application source is maintained in a separate private repository.
 Making this support repository public does **not** publish the app source or

@@ -2,17 +2,27 @@
 
 Status: Prototype v0 import and authoring contract.
 
-A `.zip` or `.locusplace` file is one ordinary ZIP archive containing one or
-more Package-v2 Destinations (product name: Views), Spaces (Rooms), and
-Experiences. It is only a secure transport and integrity envelope. It does not
-add a fourth content model, and the viewer never reads provider responses or
-renderer assets directly.
+A `.zip` or `.locusplace` file is one ordinary ZIP archive used by the current
+**Import a Room** action. It must contain at least one Package-v2 Space (product
+name: Room). It may also contain the Destination (View) and Experience that
+pair with that Room. It is only a secure transport and integrity envelope. It
+does not add a fourth content model, and the viewer never reads provider
+responses or renderer assets directly.
 
-For user-authored libraries, publish one reusable View, Room, or Experience per
-ZIP. The envelope can technically list more than one item so Locus can move an
-atomic bundle, but the official starters keep assets independent: one skybox
-ZIP, one house ZIP, and—when they should appear together—one small Experience
-ZIP that references their stable IDs.
+The current product has exactly two author-facing import paths:
+
+- **Import a View:** one complete 2:1 JPEG, PNG, or HEIC image from Photos,
+  Files, or a direct public HTTPS URL. No archive or manifest is selected.
+- **Import a Room:** one `.locusplace` or `.zip` archive from Files or a direct
+  public HTTPS URL. At least one Room is required. A paired View and Experience
+  may travel in the same archive.
+
+There is no product entry point for a raw `catalog/` directory, catalog
+selection JSON, arbitrary directory, standalone Experience, or View-only
+`.locusplace`. The `catalog/` directory below is internal archive layout, not a
+whole-catalog import feature. For predictable ownership and updates, author one
+Room per archive; include its View and Experience only when they form one
+atomic bundle.
 
 The two filename extensions are equivalent. `.locusplace` is the branded
 extension and conforms to the public ZIP type; ordinary `.zip` is accepted so
@@ -33,15 +43,15 @@ imported ownership metadata uses
 example.locusplace
 ├── locusplace.json
 └── catalog/
-    ├── destinations/<destination-id>/
-    │   ├── destination.json
-    │   ├── provenance.json
-    │   └── ...
-    ├── spaces/<space-id>/
+    ├── spaces/<space-id>/              # at least one is required
     │   ├── space.json
     │   ├── provenance.json
     │   └── ...
-    └── experiences/<experience-id>/
+    ├── destinations/<destination-id>/  # optional paired View
+    │   ├── destination.json
+    │   ├── provenance.json
+    │   └── ...
+    └── experiences/<experience-id>/    # optional pairing
         └── experience.json
 ```
 
@@ -52,10 +62,11 @@ package ID declared by `contents`. Package-v2 manifests remain
 forward-compatible with unknown fields, but unknown envelope fields,
 provenance fields, format versions, collections, and content modes fail closed.
 
-A View-only or Room-only archive installs reusable catalog content but does not
-invent an Experience. Only an explicit Experience appears in the Places
-selector. An Experience may refer to content in the same archive or to a
-stable ID already present in the built-in/imported catalog.
+A Room-only archive is accepted by **Import a Room**. A View-only archive is a
+useful validator fixture but is rejected by that product action because it has
+no Room. To make a Room and View appear as an explicit pair, include an
+Experience that references content in the same archive or stable content
+already present in the built-in/imported library.
 
 ## `locusplace.json`
 
@@ -366,10 +377,11 @@ finite, and measured in meters; `yawRadians` is a finite model rotation about
 | `compatibility.minimumViewerVersion` | no | Declarative minimum viewer version string. |
 | `compatibility.requiredCapabilities` | no | Declarative capability strings. |
 
-View-only and Room-only ZIPs install reusable content but do not invent a tile.
-An Experience explicitly composes them. References may resolve within the same
-archive or against built-in/already-installed stable IDs; unresolved references
-fail the whole import.
+Room-only ZIPs install reusable Room content. An Experience can explicitly
+compose that Room with a View. References may resolve within the same archive
+or against built-in/already-installed stable IDs; unresolved references fail
+the whole import. A View-only ZIP can pass the format validator but is not a
+supported product import; import that panorama directly as an image instead.
 
 ## Required provenance
 
@@ -518,8 +530,8 @@ record and refusing to publish unless this validator accepts the result:
 python3 tools/pack_locusplace.py MyEditablePlace MyPlace.zip
 ```
 
-Generate real View-only, Room-only, and combined example archives into a
-temporary or ignored directory, then validate them:
+Generate Room-only and combined product examples plus a View-only validator
+fixture into a temporary or ignored directory, then validate them:
 
 ```sh
 python3 examples/build_examples.py /tmp/locusplace-examples
