@@ -169,7 +169,7 @@ numbers), `orientationXYZW` (four finite numbers with non-zero length), and
 | `splat.metricScaleFactor` | no in Package v2; unsupported in public ZIP imports | Positive finite scale in the reserved contract. |
 | `splat.groundPlaneOffset` | no in Package v2; unsupported in public ZIP imports | Finite authored ground offset in the reserved contract. |
 | `splat.placement` | no in Package v2; unsupported in public ZIP imports | Optional shared transform in the reserved contract. |
-| `environment` | no | HDR sky, IBL, and direct-sun defaults below. Omit for SDR-only. |
+| `environment` | no | Optional image-based-lighting and sun defaults below. Omit entirely for a plain SDR View. |
 | `audio.path` | no in Package v2; unsupported in public ZIP imports | Reserved runtime audio file. Public import rejects the field until complete audio byte validation and playback are product-supported. |
 | `audio.loops` | with Package-v2 audio; unsupported in public ZIP imports | Boolean controlling repetition in the reserved contract. |
 | `provenance` | yes for imports | Package-relative provenance JSON. |
@@ -191,15 +191,13 @@ Panorama coordinates are fixed: `u = 0.5` is yaw 0 and initial forward/world
 top image row is the zenith. `initialYawDegrees` rotates the image inside this
 frame and does not redefine it.
 
-Optional HDR environment:
+Optional environment (lighting only — the visible sky is always the SDR
+panorama):
 
 ```json
 {
   "environment": {
-    "visibleSkyHDR": "hdr/visible-sky.exr",
     "imageBasedLight": "hdr/lighting-ibl.exr",
-    "hdrManifest": "hdr/manifest.json",
-    "skyGainEV": 0,
     "exposureEV": 0,
     "horizonPitchDegrees": 0,
     "directSun": {"enabled": false, "illuminanceLux": 0}
@@ -209,18 +207,20 @@ Optional HDR environment:
 
 | Field | Meaning |
 |---|---|
-| `visibleSkyHDR` | Optional scene-linear OpenEXR used only for the visible sky. 12K is recommended; lower valid 2:1 EXR dimensions are allowed by the import format. |
-| `imageBasedLight` | Separate scene-linear OpenEXR used only to light geometry. It must not be the SDR panorama or visible-sky file. A 1024×512 diffuse IBL is recommended. |
-| `hdrManifest` | Optional package-local audit sidecar for derivation parameters, hashes, and measured defaults; not a runtime image. Its path must end in `.json`; the file must be at most 1 MiB of valid UTF-8 JSON with an object root. Its inner fields are generator-specific audit data and are not interpreted by Locus. |
-| `skyGainEV` | Finite EV gain applied only to visible HDR sky. |
+| `imageBasedLight` | Optional scene-linear OpenEXR used only to light Room geometry. It must not be the SDR panorama. A 1024×512 diffuse IBL is recommended. |
 | `exposureEV` | Finite EV gain applied only to IBL. |
 | `horizonPitchDegrees` | Finite authored horizon correction. |
 | `directSun.enabled` | Whether a separate directional light is authored. |
 | `directSun.azimuthDegrees`, `elevationDegrees` | Finite direction angles; both required when enabled. |
 | `directSun.illuminanceLux` | Finite non-negative illuminance. |
 
-Public EXRs use the simple interchange subset emitted by the repository HDR
-helper: OpenEXR v2, single-part scanline layout, full-resolution half-float
+**Retired fields.** `visibleSkyHDR` and `hdrManifest` were part of an
+earlier HDR-sky pipeline that has been removed from the product. The
+validator now rejects any archive that declares either field, and
+`skyGainEV` has no effect without a visible HDR sky. A previously valid
+archive that used them must drop the fields (and the sky EXR) to import.
+
+Public EXRs use a simple interchange subset: OpenEXR v2, single-part scanline layout, full-resolution half-float
 `R`, `G`, and `B` channels with an optional half-float `A`, using uncompressed,
 ZIPS, or ZIP scanline blocks. ZIP-compressed chunks are decompressed to their
 declared full pixel byte count before ImageIO decode. Tiled, deep, multipart, subsampled,
@@ -228,12 +228,10 @@ integer-channel, float32-channel, or auxiliary-channel EXRs are rejected. The
 chunk offset table, every scanline block, complete file extent, and ImageIO
 decode are checked before installation.
 
-SDR-only is valid: keep the JPEG/PNG panorama and omit HDR fields. A tone-
-mapped SDR image renamed to `.exr` is not HDR. Real HDR starts from a measured
-2:1 360° EXR; only the derived runtime sky and IBL belong in the final ZIP.
-The original EXR cannot be referenced as `hdrManifest`: that field accepts a
-JSON object only. A sidecar may record the external source's path or hash as
-text, but must not embed the source image.
+A plain SDR View — the JPEG/PNG panorama with no `environment` at all — is
+the normal case. The only EXR a View may carry is the optional
+`imageBasedLight`; a tone-mapped SDR image renamed to `.exr` is not a
+lighting asset and will fail EXR validation.
 
 ### Room: `space.json`
 
@@ -423,8 +421,8 @@ be reachable from a recognized Package-v2 asset field; unreferenced files are
 rejected even when they appear in `locusplace.json.files`. `.blend`, `.blend1`,
 `.blend2`, `.fbx`, `.obj`, `.mtl`, `.gltf`, and `.glb` files are rejected even
 when declared. Keep those source files outside the ZIP. A Room ships the final
-USDZ; a View ships the final 2:1 panorama and only the optional runtime HDR
-derivatives it actually uses.
+USDZ; a View ships the final 2:1 panorama and, at most, the optional
+image-based-lighting EXR it actually uses.
 
 ## Security and resource budgets
 
@@ -438,8 +436,8 @@ that the system loader actually parses; the self-reported quality block is
 authoring metadata and cannot reduce those counts.
 
 The byte-level image allowlist is exact: imported panorama and `thumbnail`
-raster fields are JPEG or PNG; `visibleSkyHDR` and `imageBasedLight` are
-OpenEXR; USDZ textures may be JPEG, PNG, or OpenEXR. Public ZIPs reject the
+raster fields are JPEG or PNG; `imageBasedLight` is OpenEXR; USDZ textures
+may be JPEG, PNG, or OpenEXR. Public ZIPs reject the
 reserved Package-v2 `sourceImage` field. Other ImageIO-decodable formats are
 rejected rather than accepted implicitly. Outer-package 3D authoring formats
 are also rejected. A USDZ may contain only USD/USDA/USDC, JPEG, PNG, OpenEXR,
