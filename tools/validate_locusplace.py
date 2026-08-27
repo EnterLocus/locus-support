@@ -758,7 +758,9 @@ def validate_provenance(value: dict[str, Any], path: str) -> None:
             "formatVersion", "creatorOrAgency", "license", "requestedCredit",
             "modificationNotes", "aiGenerated",
         },
-        optional={"sourcePageURL", "originalAssetURL", "aiProvider"},
+        optional={
+            "sourcePageURL", "originalAssetURL", "aiProvider", "importSource",
+        },
         context=path,
     )
     require(type(value["formatVersion"]) is int and value["formatVersion"] == 1,
@@ -784,6 +786,22 @@ def validate_provenance(value: dict[str, Any], path: str) -> None:
         require_text(value.get("aiProvider"), f"{path}.aiProvider", 200)
     else:
         require("aiProvider" not in value, f"{path}.aiProvider requires aiGenerated=true")
+    if "importSource" in value:
+        require(
+            value["importSource"] in {"photos", "files"},
+            f"{path}.importSource must be photos or files",
+        )
+        require(
+            value["creatorOrAgency"] == "Locus user"
+            and license_value["identifier"] == "USER-PROVIDED"
+            and value["requestedCredit"] == "Imported by the user"
+            and value["modificationNotes"]
+                == "Normalized to JPEG and packaged locally by Locus."
+            and value["aiGenerated"] is False
+            and "sourcePageURL" not in value
+            and "originalAssetURL" not in value,
+            f"{path}.importSource is reserved for direct Locus imports",
+        )
 
 
 def require_number_list(value: Any, count: int, field: str, *, positive=False) -> None:
@@ -1181,31 +1199,32 @@ def validate_payload(
         environment = destination.get("environment")
         if environment is not None:
             require(isinstance(environment, dict), f"{base}.environment must be an object")
-            for field in ("visibleSkyHDR", "imageBasedLight"):
-                if field in environment:
-                    asset = referenced_asset(
-                        base, environment[field], f"environment.{field}")
-                    with archive.open(infos[asset]) as source:
-                        dimensions = exr_stream_dimensions(
-                            source, infos[asset].file_size, asset)
-                        require_imageio_decode(source, asset, ".exr")
-                    total_pixels = add_pixels(
-                        total_pixels, dimensions, asset,
-                        maximum_dimension=IMAGE_DIMENSION,
-                        maximum_total=TOTAL_IMAGE_PIXELS,
-                    )
-                    require(
-                        dimensions[0] == 2 * dimensions[1],
-                        f"{asset} dimensions must be positive 2:1",
-                    )
-            if "hdrManifest" in environment:
-                asset = referenced_asset(
-                    base, environment["hdrManifest"], "environment.hdrManifest")
+            for retired in ("visibleSkyHDR", "hdrManifest"):
                 require(
-                    PurePosixPath(asset).suffix.lower() == ".json",
-                    "environment.hdrManifest must reference a .json file",
+                    retired not in environment,
+                    f"unsupported V1 View environment field: {retired}",
                 )
-                decoded_member(archive, infos[asset], asset)
+            if "imageBasedLight" in environment:
+                asset = referenced_asset(
+                    base,
+                    environment["imageBasedLight"],
+                    "environment.imageBasedLight",
+                )
+                require(
+                    asset != panorama_path,
+                    "environment.imageBasedLight must not reuse the visible panorama",
+                )
+                dimensions = archive_image_dimensions(
+                    archive, infos[asset], asset, allow_exr=False)
+                total_pixels = add_pixels(
+                    total_pixels, dimensions, asset,
+                    maximum_dimension=IMAGE_DIMENSION,
+                    maximum_total=TOTAL_IMAGE_PIXELS,
+                )
+                require(
+                    dimensions[0] == 2 * dimensions[1],
+                    f"{asset} dimensions must be positive 2:1",
+                )
         for index, depth in enumerate(destination.get("depthLayers") or []):
             require(isinstance(depth, dict), f"{base}.depthLayers[{index}] must be an object")
             referenced_asset(base, depth.get("path"), f"depthLayers[{index}].path")
@@ -1237,7 +1256,7 @@ def validate_payload(
             decoded_member(archive, infos[provenance], provenance),
             provenance,
         )
-        # A Space carries a picture too, and the shipping importer
+        # A Space carries a picture too since #180, and the shipping importer
         # charges it to the same pixel budget the Destination's images pay.
         # This loop inspects no other image, so the omission is easy to make
         # and it would leave this tool passing an archive the app rejects.
@@ -1250,6 +1269,22 @@ def validate_payload(
                 total_pixels, dimensions, asset,
                 maximum_dimension=IMAGE_DIMENSION, maximum_total=TOTAL_IMAGE_PIXELS,
             )
+        if "caption" in space:
+            require_text(space["caption"], f"{base}.caption", 2_000)
+        if "previewCamera" in space:
+            camera = space["previewCamera"]
+            require(
+                isinstance(camera, dict),
+                f"{base}.previewCamera must be an object",
+            )
+            for field in ("yawDegrees", "pitchDegrees", "zoom"):
+                value = camera.get(field)
+                require(
+                    type(value) in {int, float}
+                    and math.isfinite(value)
+                    and (field != "zoom" or value > 0),
+                    f"{base}.previewCamera.{field} is invalid",
+                )
         require_number_list(space.get("seatedOrigin", {}).get("translationMeters"), 3,
                             f"{base}.seatedOrigin.translationMeters")
         require_number_list(space.get("seatedOrigin", {}).get("orientationXYZW"), 4,
