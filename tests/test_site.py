@@ -143,6 +143,31 @@ class PublicSiteTests(unittest.TestCase):
         self.assertNotIn("Planned for V1", homepage)
         self.assertNotIn(">Explore Locus</a>", homepage)
 
+    def test_pricing_page_is_removed_and_faq_covers_product_boundaries(self):
+        self.assertFalse((ROOT / "pricing" / "index.html").exists())
+        faq = (ROOT / "faq" / "index.html").read_text()
+        for answer in [
+            "Mac Virtual Display",
+            "passkey sign-in",
+            "Why does importing more of my own content cost money?",
+            "What is the Supporter subscription for?",
+            "Blender MCP",
+            "What custom files can I import?",
+            "What does a skybox or View image need?",
+            "12,288 × 6,144",
+            "Where do my browsing and imported-place data go?",
+        ]:
+            self.assertIn(answer, faq)
+
+        sitemap = (ROOT / "sitemap.xml").read_text()
+        self.assertIn("https://enterlocus.com/faq/", sitemap)
+        self.assertNotIn("/pricing/", sitemap)
+        for path in html_files():
+            text = path.read_text()
+            with self.subTest(path=path.relative_to(ROOT)):
+                self.assertNotIn("/pricing/", text)
+        self.assertEqual((ROOT / "index.html").read_text().count('href="./faq/"'), 1)
+
     def test_homepage_uses_five_real_simulator_captures(self):
         parser = PageParser()
         parser.feed((ROOT / "index.html").read_text())

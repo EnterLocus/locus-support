@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111816">
+  <title>Frequently asked questions — Locus</title>
+  <meta name="description" content="Answers about Locus, Mac Virtual Display, passkeys, custom Views and Rooms, Supporter, imports, downloads, and privacy.">
+  <meta property="og:title" content="Frequently asked questions — Locus"><meta property="og:description" content="Practical answers about using Locus and bringing your own Views and Rooms."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/faq/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/faq/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="./">FAQ</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a></nav></header>
+  <main id="main" class="page-main">
+    <header class="page-header"><p class="kicker">FAQ</p><h1>Useful answers, without the small print.</h1><p>How Locus works with Apple Vision Pro, websites, custom places, and continued development.</p></header>
+
+    <section class="faq-list" aria-labelledby="using-heading">
+      <h2 id="using-heading">Using Locus</h2>
+      <details class="faq-item">
+        <summary>What is the difference between a View and a Room?</summary>
+        <div class="faq-answer"><p>A <strong>View</strong> is the 360° scenery around a place. A <strong>Room</strong> is its 3D architecture: the floor, walls, windows, desk position, openings, and other geometry you can move within. Locus combines them into an experience.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What is the difference between Virtual Space and Room Portal?</summary>
+        <div class="faq-answer"><p><strong>Virtual Space</strong> places you inside an authored Room and keeps the real desk available for work. <strong>Room Portal</strong> keeps your real room present and replaces one chosen wall with a View. Room Portal does not turn every wall or the ceiling into a portal.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How do I use Locus with Mac Virtual Display?</summary>
+        <div class="faq-answer"><p>Mac Virtual Display normally does not remain available inside immersive apps. Apple provides a developer setting that can allow it: pair Apple Vision Pro with Xcode, enable <strong>Developer Mode</strong>, restart the headset, then enable <strong>Settings → Developer → Allow Mac Virtual Display</strong>. Connect to your Mac from Control Center before entering a Locus place.</p><p>visionOS—not Locus—creates and controls the Mac window. Locus works normally without Developer Mode or Mac Virtual Display. See the <a href="../experimental-mac-virtual-display/">complete Mac Virtual Display guide</a> for requirements and limitations.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Why can passkey sign-in fail in the Locus browser?</summary>
+        <div class="faq-answer"><p>Locus uses Apple WebKit for websites. Standard passkey requests are handed to WebKit and visionOS; Locus never reads or stores your passwords or passkeys. Compatibility can still differ from Safari: some websites only enable passkeys for browsers they recognize, and Apple Passwords or third-party credential-provider handoff has not yet been verified on a physical Vision Pro for every site.</p><p>If a site offers another sign-in method, use that method for now. When reporting a failure, include the website, visionOS version, and the step that failed—never include a credential or recovery code.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Why does a download open outside Locus?</summary>
+        <div class="faq-answer"><p>The current Locus browser does not save downloaded files. When a download has a safe public URL, Locus can offer it to the system browser or another app; you may need to sign in or start the download again there. Your current Locus environment and tabs remain available when you return.</p></div>
+      </details>
+    </section>
+
+    <section class="faq-list" aria-labelledby="custom-heading">
+      <h2 id="custom-heading">Custom Views and Rooms</h2>
+      <details class="faq-item">
+        <summary>What custom files can I import?</summary>
+        <div class="faq-answer"><p>Import a View as one complete 2:1 equirectangular JPEG, PNG, or HEIC image from Photos, Files, or a direct public HTTPS URL. Import a Room from Files or a direct public HTTPS URL as a <code>.locusplace</code> or ordinary <code>.zip</code> archive containing at least one Room.</p><p>Locus does not directly import a <code>.blend</code>, GLB, OBJ, raw <code>catalog/</code> folder, arbitrary directory, standalone Experience, or View-only <code>.locusplace</code>. See <a href="../create-your-own-place/">Create your own Place</a> for the supported package layout.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What does a skybox or View image need?</summary>
+        <div class="faq-answer"><p>Use one complete 360° equirectangular image in JPEG, PNG, or HEIC format. Its displayed width must be exactly twice its height—for example, 12,288 × 6,144, which is recommended but not required. Partial panoramas, cube-face sets, and multi-frame images are not supported.</p><p>Keep the horizon level. Put the direction you want to face first at the horizontal center of the image; the 360° seam belongs at the far left and right edges. Inspect that seam at full size for jumps in architecture, lighting, sky, or texture before importing. Locus normalizes the image and prepares its preview and Room lighting locally.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>How can I make my own house or Room?</summary>
+        <div class="faq-answer"><p>Model the architecture in Blender at real-world meter scale with +Y up, self-contained materials, and sensible geometry. Export a USDZ, then describe its seated origin, safe head volume, destination openings, collision behavior, and quality measurements in a Locus Room package. Run the public packer and validator before choosing <strong>Import a Room</strong>.</p><p>You can build it by hand, or ask an AI agent connected to Blender through Blender MCP to create and iterate on the house with you. The agent can speed up modeling, material work, checks, and export, but it does not replace your review of scale, seating, openings, comfort, or performance—and Locus still requires the same validated Room package.</p><p>Start with the <a href="../create-your-own-place/">Room authoring guide and examples</a>.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Why does importing more of my own content cost money?</summary>
+        <div class="faq-answer"><p>Everyone can use Locus's built-in library, and the included allowance lets you keep one custom View and one custom Room. A larger personal library needs either the one-time <strong>More Imports</strong> unlock or an active <strong>Supporter</strong> subscription.</p><p>The charge supports the ongoing work behind safe package validation, rendering, library management, visionOS compatibility, support, and continued Locus development.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What is the Supporter subscription for?</summary>
+        <div class="faq-answer"><p>Supporter enables unlimited custom imports while the subscription is active, directly supports continued Locus development, and provides access to Supporter place packs as they are released. There is no promised pack schedule.</p><p>Installed content is not deleted when a subscription ends. New imports above the included allowance and re-downloading a removed Supporter pack require active access. If you only want unlimited imports of your own Views and Rooms, the one-time <strong>More Imports</strong> option is the permanent alternative. Current prices and purchase terms are shown inside Locus by the App Store.</p></div>
+      </details>
+    </section>
+
+    <section class="faq-list" aria-labelledby="privacy-heading">
+      <h2 id="privacy-heading">Privacy and support</h2>
+      <details class="faq-item">
+        <summary>Where do my browsing and imported-place data go?</summary>
+        <div class="faq-answer"><p>Website cookies and site data may be stored in Locus's WebKit profile on your device; Locus provides controls to clear history and website data. Imported Place packages are validated and stored in the app's local library. The current app does not upload room meshes or camera images to Locus servers. Read the <a href="../privacy/">privacy notice</a> for the complete boundary.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What should I include in a support report?</summary>
+        <div class="faq-answer"><p>Include the Locus version, build number and short commit from <strong>Settings → About Locus</strong>, your visionOS version, and the smallest safe steps that reproduce the problem. Do not put room images, credentials, recovery codes, receipts, order details, account information, notifications, or device identifiers in a public issue. Use <a href="../support/">Support</a> to choose a public or private route.</p></div>
+      </details>
+    </section>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Focused spatial workspaces for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="./">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/issues/new/choose">Feedback</a></nav></footer>
+</body>
+</html>

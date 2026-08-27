@@ -490,20 +490,6 @@ and commit. First installs use exclusive atomic rename; updates use an atomic
 directory swap. Any failure removes staging and leaves the installed package
 untouched.
 
-## Entitlement boundary
-
-The importer takes entitlement as explicit input. The signed app's verified
-StoreKit state remains the purchase authority.
-
-- Free and expired-supporter state may hold one custom View ID and one custom
-  Room ID.
-- Lifetime and active-supporter state are unlimited.
-- Expiration never deletes installed content.
-- A stable update of already-counted content remains allowed after expiration;
-  adding content is evaluated against the free allowance.
-
-Deletion and full library management are separate user-facing library actions.
-
 ## Author validation and examples
 
 Validate either filename without installing:
