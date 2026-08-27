@@ -186,6 +186,20 @@ class PublicSiteTests(unittest.TestCase):
         for stale_field in ["licenseName", "licenseURL", "requiredCredit"]:
             self.assertNotIn(stale_field, guide)
 
+    def test_author_guide_matches_current_product_import_entry_points(self):
+        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
+        reference = (ROOT / "reference" / "locusplace-format.md").read_text()
+        for supported in [
+            "Import a View",
+            "Import a Room",
+            ".heic",
+            "at least one Room",
+            "No catalog import",
+        ]:
+            self.assertIn(supported, guide)
+        self.assertIn("There is no product entry point for a raw `catalog/`", reference)
+        self.assertIn("View-only archive", reference)
+
     def test_schemas_have_one_published_source_of_truth(self):
         self.assertFalse(list((ROOT / "reference").glob("schemas/*.json")))
         reference = (ROOT / "reference" / "locusplace-format.md").read_text()
