@@ -135,10 +135,12 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("does not publish the private Locus app source", (
             ROOT / "package-format" / "index.html").read_text())
 
-    def test_homepage_labels_pre_release_pricing_and_support_action(self):
+    def test_homepage_keeps_pricing_details_out_of_product_story(self):
         homepage = (ROOT / "index.html").read_text()
         self.assertIn('href="./support/">Get support</a>', homepage)
-        self.assertIn("Planned for V1: bring one custom View", homepage)
+        self.assertIn("Bring your own scenery and architecture.", homepage)
+        self.assertNotIn("one custom View and one custom Room for free", homepage)
+        self.assertNotIn("Planned for V1", homepage)
         self.assertNotIn(">Explore Locus</a>", homepage)
 
     def test_homepage_uses_five_real_simulator_captures(self):
