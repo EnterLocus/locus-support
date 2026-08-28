@@ -2,6 +2,7 @@ import html.parser
 import hashlib
 import json
 import pathlib
+import runpy
 import subprocess
 import sys
 import tempfile
@@ -303,6 +304,11 @@ class PublicSiteTests(unittest.TestCase):
                 "room-only.locusplace",
                 "combined.locusplace",
             ]:
+                self.assertEqual(
+                    (built / name).read_bytes(),
+                    (ROOT / "examples" / "generated" / name).read_bytes(),
+                    f"published {name} is stale; regenerate it with build_examples.py",
+                )
                 result = subprocess.run(
                     [sys.executable, str(ROOT / "tools" / "validate_locusplace.py"), str(built / name)],
                     check=False,
@@ -311,6 +317,291 @@ class PublicSiteTests(unittest.TestCase):
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn("VALID ", result.stdout)
+
+    def test_published_validator_rejects_a_room_without_an_enterable_seat(self):
+        builder = runpy.run_path(str(ROOT / "examples" / "build_examples.py"))
+        space_id = "space.example-room"
+        space_path = f"catalog/spaces/{space_id}/space.json"
+        teleport_path = f"catalog/spaces/{space_id}/teleport-points.json"
+
+        with tempfile.TemporaryDirectory() as directory:
+            directory = pathlib.Path(directory)
+            cases = []
+
+            missing = builder["room_payload"]()
+            missing_manifest = json.loads(missing[space_path])
+            del missing_manifest["teleportCatalog"]
+            missing[space_path] = builder["json_bytes"](missing_manifest)
+            del missing[teleport_path]
+            cases.append((
+                "missing",
+                missing,
+                "teleportCatalog is required for an enterable Room",
+            ))
+
+            empty = builder["room_payload"]()
+            empty_catalog = json.loads(empty[teleport_path])
+            empty_catalog["houses"][space_id] = []
+            empty[teleport_path] = builder["json_bytes"](empty_catalog)
+            cases.append((
+                "empty",
+                empty,
+                "must contain at least one teleport point",
+            ))
+
+            for name, payload, expected_error in cases:
+                archive = directory / f"{name}.zip"
+                builder["build_archive"](
+                    archive,
+                    package_id=f"place.example-{name}-teleport",
+                    destination_ids=[],
+                    space_ids=[space_id],
+                    experience_ids=[],
+                    payload=payload,
+                )
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(ROOT / "tools" / "validate_locusplace.py"),
+                        str(archive),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                with self.subTest(case=name):
+                    self.assertEqual(result.returncode, 1)
+                    self.assertIn(expected_error, result.stderr)
+
+    def test_view_appearance_metadata_is_documented_and_validated(self):
+        reference = (ROOT / "reference" / "locusplace-format.md").read_text()
+        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
+        faq = (ROOT / "faq" / "index.html").read_text()
+        for term in [
+            "View Brightness",
+            "Contrast",
+            "Color",
+            "Room Lighting",
+            "Add Sunlight",
+            "Sun Position",
+            "Sunlight Strength",
+            "Turn the View",
+        ]:
+            self.assertIn(term, guide)
+        self.assertIn("Edit View", faq)
+        self.assertIn("optional sunlight", faq)
+        for field in [
+            "skyGainEV",
+            "exposureEV",
+            "horizonPitchDegrees",
+            "colorGrade.contrast",
+            "colorGrade.saturation",
+            "directSun.illuminanceLux",
+        ]:
+            self.assertIn(field, reference)
+        self.assertIn("Separate 2:1 JPEG/PNG", reference)
+        self.assertNotIn("lighting-ibl.exr", reference)
+
+        builder = runpy.run_path(str(ROOT / "examples" / "build_examples.py"))
+        destination_id = "destination.example-view"
+        destination_path = (
+            f"catalog/destinations/{destination_id}/destination.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            directory = pathlib.Path(directory)
+            payload = builder["destination_payload"]()
+            destination = json.loads(payload[destination_path])
+            destination["panorama"]["initialYawDegrees"] = 15
+            destination["environment"] = {
+                "imageBasedLight": "lighting.png",
+                "skyGainEV": 0.5,
+                "exposureEV": 0.25,
+                "horizonPitchDegrees": -2,
+                "colorGrade": {"contrast": 1.15, "saturation": 1.2},
+                "directSun": {
+                    "enabled": True,
+                    "azimuthDegrees": 118.35,
+                    "elevationDegrees": 42.85,
+                    "illuminanceLux": 5000,
+                },
+            }
+            payload[destination_path] = builder["json_bytes"](destination)
+            valid = directory / "valid-view.locusplace"
+            builder["build_archive"](
+                valid,
+                package_id="place.example-current-view",
+                destination_ids=[destination_id],
+                space_ids=[],
+                experience_ids=[],
+                payload=payload,
+            )
+            valid_result = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "tools" / "validate_locusplace.py"),
+                    str(valid),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(valid_result.returncode, 0, valid_result.stderr)
+
+            destination["environment"]["colorGrade"]["contrast"] = 2.1
+            payload[destination_path] = builder["json_bytes"](destination)
+            invalid = directory / "invalid-view.locusplace"
+            builder["build_archive"](
+                invalid,
+                package_id="place.example-invalid-view",
+                destination_ids=[destination_id],
+                space_ids=[],
+                experience_ids=[],
+                payload=payload,
+            )
+            invalid_result = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "tools" / "validate_locusplace.py"),
+                    str(invalid),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(invalid_result.returncode, 1)
+            self.assertIn(
+                "environment.colorGrade.contrast must be between 0.5 and 2",
+                invalid_result.stderr,
+            )
+
+    def test_view_appearance_metadata_rejects_invalid_numeric_contract(self):
+        builder = runpy.run_path(str(ROOT / "examples" / "build_examples.py"))
+        destination_id = "destination.example-view"
+        destination_path = (
+            f"catalog/destinations/{destination_id}/destination.json"
+        )
+        cases = [
+            (
+                "yaw",
+                lambda value: value["panorama"].__setitem__(
+                    "initialYawDegrees", "east"
+                ),
+                "panorama.initialYawDegrees must be finite",
+            ),
+            (
+                "brightness",
+                lambda value: value["environment"].__setitem__(
+                    "skyGainEV", True
+                ),
+                "environment.skyGainEV must be finite",
+            ),
+            (
+                "saturation",
+                lambda value: value["environment"]["colorGrade"].__setitem__(
+                    "saturation", 2.1
+                ),
+                "environment.colorGrade.saturation must be between 0 and 2",
+            ),
+            (
+                "sun-direction",
+                lambda value: value["environment"].__setitem__(
+                    "directSun", {"enabled": True, "illuminanceLux": 5000}
+                ),
+                "environment.directSun requires azimuthDegrees and elevationDegrees when enabled",
+            ),
+            (
+                "sun-strength",
+                lambda value: value["environment"].__setitem__(
+                    "directSun", {"enabled": False, "illuminanceLux": -1}
+                ),
+                "environment.directSun.illuminanceLux must be finite and non-negative",
+            ),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            directory = pathlib.Path(directory)
+            for name, mutate, expected in cases:
+                payload = builder["destination_payload"]()
+                destination = json.loads(payload[destination_path])
+                mutate(destination)
+                payload[destination_path] = builder["json_bytes"](destination)
+                archive = directory / f"invalid-{name}.locusplace"
+                builder["build_archive"](
+                    archive,
+                    package_id=f"place.example-invalid-{name}",
+                    destination_ids=[destination_id],
+                    space_ids=[],
+                    experience_ids=[],
+                    payload=payload,
+                )
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(ROOT / "tools" / "validate_locusplace.py"),
+                        str(archive),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                with self.subTest(case=name):
+                    self.assertEqual(result.returncode, 1)
+                    self.assertIn(expected, result.stderr)
+
+    def test_public_room_workflow_is_english_and_omits_private_operations(self):
+        guide = (ROOT / "build-a-room" / "index.html").read_text()
+        for required in [
+            "Build an original Locus Room.",
+            "teleportCatalog",
+            "at least one entry seat",
+            "Import a Room",
+            "current validator reports a missing or empty",
+        ]:
+            self.assertIn(required, guide)
+        for private_detail in [
+            "/Users/",
+            "Dropbox",
+            "Locus Dev",
+            "validate_house_asset_bundle.py",
+        ]:
+            self.assertNotIn(private_detail, guide)
+
+    def test_sample_room_skill_is_valid_optional_and_public_safe(self):
+        path = (
+            ROOT / ".agents" / "skills" / "build-original-locus-room"
+            / "SKILL.md"
+        )
+        skill = path.read_text()
+        self.assertTrue(skill.startswith("---\n"))
+        frontmatter = skill.split("---\n", 2)[1]
+        self.assertIn("name: build-original-locus-room", frontmatter)
+        self.assertIn("description:", frontmatter)
+        flat_skill = " ".join(skill.split())
+        for boundary in [
+            "This is a sample skill",
+            "Room package reference",
+            "validate the finished archive before delivery",
+            "try every declared seat on Apple Vision Pro",
+            "skyGainEV",
+            "colorGrade",
+        ]:
+            self.assertIn(boundary, flat_skill)
+        for private_detail in [
+            "/Users/",
+            "Dropbox",
+            "Locus Dev",
+            ".agents/",
+            "validate_house_asset_bundle.py",
+        ]:
+            self.assertNotIn(private_detail, skill)
+        public_link = (
+            "https://github.com/EnterLocus/locus-support/blob/main/"
+            ".agents/skills/build-original-locus-room/SKILL.md"
+        )
+        for page in [
+            ROOT / "build-a-room" / "index.html",
+            ROOT / "create-your-own-place" / "index.html",
+        ]:
+            self.assertIn(public_link, page.read_text())
 
     def test_demo_room_download_is_pinned_linked_and_valid(self):
         demo = ROOT / "examples" / "demo-room.zip"

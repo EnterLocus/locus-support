@@ -100,6 +100,7 @@ def Xform "Root" {
 def destination_payload() -> dict[str, bytes]:
     destination_id = "destination.example-view"
     base = f"catalog/destinations/{destination_id}"
+    panorama = panorama_png()
     return {
         f"{base}/destination.json": json_bytes(
             {
@@ -113,11 +114,26 @@ def destination_payload() -> dict[str, bytes]:
                     "height": 8,
                     "initialYawDegrees": 0,
                 },
+                "environment": {
+                    "imageBasedLight": "lighting.png",
+                    "skyGainEV": 0.5,
+                    "exposureEV": 0,
+                    "horizonPitchDegrees": 0,
+                    "colorGrade": {
+                        "contrast": 1.15,
+                        "saturation": 1.2,
+                    },
+                    "directSun": {
+                        "enabled": False,
+                        "illuminanceLux": 5000,
+                    },
+                },
                 "caption": "A generated gradient used only for import validation.",
                 "provenance": "provenance.json",
             }
         ),
-        f"{base}/panorama.png": panorama_png(),
+        f"{base}/panorama.png": panorama,
+        f"{base}/lighting.png": panorama,
         f"{base}/provenance.json": json_bytes(PROVENANCE),
     }
 
@@ -152,6 +168,10 @@ def room_payload() -> dict[str, bytes]:
                     }
                 ],
                 "collision": {"mode": "embedded"},
+                "teleportCatalog": {
+                    "path": "teleport-points.json",
+                    "houseID": space_id,
+                },
                 "quality": {
                     "status": "unverified",
                     "triangleCount": 12,
@@ -163,6 +183,22 @@ def room_payload() -> dict[str, bytes]:
             }
         ),
         f"{base}/scene.usdz": usdz_bytes(),
+        f"{base}/teleport-points.json": json_bytes(
+            {
+                "houses": {
+                    space_id: [
+                        {
+                            "id": "seat.center",
+                            "title": "Center Seat",
+                            "anchorXZ": [0.5, 0.5],
+                            "sourceFloorOffset": 0,
+                            "eyeHeight": 1.15,
+                            "yawRadians": 0,
+                        }
+                    ]
+                }
+            }
+        ),
         f"{base}/provenance.json": json_bytes(PROVENANCE),
     }
 
