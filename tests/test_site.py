@@ -168,7 +168,11 @@ class PublicSiteTests(unittest.TestCase):
     def test_faq_states_the_passkey_product_boundary_directly(self):
         faq = (ROOT / "faq" / "index.html").read_text()
         self.assertIn("Does Locus support passkey sign-in?", faq)
-        self.assertIn("Locus does not support passkey sign-in.", faq)
+        self.assertIn(
+            "Locus lets you open web pages inside your workspace, but it is not a "
+            "full web browser and does not support passkey sign-in.",
+            faq,
+        )
         self.assertNotIn("Some websites may not offer passkey sign-in", faq)
         self.assertNotIn("passes standard passkey requests", faq)
 
