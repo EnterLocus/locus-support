@@ -35,7 +35,7 @@ python3 scripts/pack_locusplace.py /tmp/my-editable-room /tmp/my-room.zip
 ```
 
 The combined fixture proves **Import a Room** can install the Room together with
-its paired View and Experience. It does not create a whole-catalog import API.
+its paired View and Experience.
 Runtime ZIPs exclude Blender/GLB/FBX/OBJ authoring sources and original HDR
 captures; retain those outside the package.
 

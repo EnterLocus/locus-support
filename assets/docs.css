@@ -3,6 +3,8 @@
 .page-header { margin-bottom: 4rem; }
 .page-header h1 { max-width: 780px; font-size: clamp(2.75rem, 5.2vw, 4.7rem); line-height: 1.02; letter-spacing: -.045em; }
 .page-header > p { max-width: 65ch; color: #d3d9d1; font-size: 1.15rem; line-height: 1.6; }
+.faq-header { margin-bottom: 2rem; }
+.faq-header h1 { margin-top: 0; }
 .status { display: inline-flex; gap: .45rem; align-items: center; padding: .45rem .7rem; border: 1px solid var(--line); border-radius: 999px; color: var(--warm); font-size: .78rem; font-weight: 700; }
 .doc-section { padding: 2.5rem 0; border-top: 1px solid var(--line); }
 .doc-section h2 { margin: 0 0 1rem; font-size: clamp(1.65rem, 3vw, 2.6rem); letter-spacing: -.035em; }
@@ -20,9 +22,9 @@
 .faq-list { padding: 2.5rem 0; border-top: 1px solid var(--line); }
 .faq-list h2 { margin: 0 0 1rem; font-size: clamp(1.65rem, 3vw, 2.6rem); letter-spacing: -.035em; }
 .faq-item { border-bottom: 1px solid var(--line); }
-.faq-item summary { position: relative; padding: 1.2rem 2.5rem 1.2rem 0; color: var(--ink); cursor: pointer; font-size: 1.08rem; font-weight: 700; line-height: 1.4; list-style: none; }
+.faq-item summary { position: relative; padding: 1.35rem 2.75rem 1.35rem 0; color: var(--ink); cursor: pointer; font-size: clamp(1.2rem, 2.2vw, 1.36rem); font-weight: 700; line-height: 1.35; list-style: none; }
 .faq-item summary::-webkit-details-marker { display: none; }
-.faq-item summary::after { content: "+"; position: absolute; right: .25rem; top: 1.05rem; color: var(--accent); font-size: 1.5rem; font-weight: 400; }
+.faq-item summary::after { content: "+"; position: absolute; right: .25rem; top: 1.14rem; color: var(--accent); font-size: 1.65rem; font-weight: 400; }
 .faq-item[open] summary::after { content: "−"; }
 .faq-item summary:hover, .faq-item summary:focus-visible { color: var(--accent); }
 .faq-answer { padding: 0 2.5rem 1.35rem 0; }

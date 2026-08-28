@@ -17,11 +17,7 @@ The current product has exactly two author-facing import paths:
   public HTTPS URL. At least one Room is required. A paired View and Experience
   may travel in the same archive.
 
-There is no product entry point for a raw `catalog/` directory, catalog
-selection JSON, arbitrary directory, standalone Experience, or View-only
-`.locusplace`. The `catalog/` directory below is internal archive layout, not a
-whole-catalog import feature. For predictable ownership and updates, author one
-Room per archive; include its View and Experience only when they form one
+Author one Room per archive; include its View and Experience when they form one
 atomic bundle.
 
 The two filename extensions are equivalent. `.locusplace` is the branded

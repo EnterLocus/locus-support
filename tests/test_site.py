@@ -137,8 +137,8 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_homepage_keeps_pricing_details_out_of_product_story(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('href="./support/">Get support</a>', homepage)
-        self.assertIn("Bring your own scenery and architecture.", homepage)
+        self.assertIn('href="./support/">Support</a>', homepage)
+        self.assertIn("Import a View or build a Room package.", homepage)
         self.assertNotIn("one custom View and one custom Room for free", homepage)
         self.assertNotIn("Planned for V1", homepage)
         self.assertNotIn(">Explore Locus</a>", homepage)
@@ -146,6 +146,8 @@ class PublicSiteTests(unittest.TestCase):
     def test_pricing_page_is_removed_and_faq_covers_product_boundaries(self):
         self.assertFalse((ROOT / "pricing" / "index.html").exists())
         faq = (ROOT / "faq" / "index.html").read_text()
+        self.assertIn('<header class="page-header faq-header"><h1>FAQ</h1></header>', faq)
+        self.assertNotIn("Useful answers, without the small print.", faq)
         for answer in [
             "Mac Virtual Display",
             "passkey sign-in",
@@ -168,10 +170,17 @@ class PublicSiteTests(unittest.TestCase):
                 self.assertNotIn("/pricing/", text)
         self.assertEqual((ROOT / "index.html").read_text().count('href="./faq/"'), 1)
 
-    def test_homepage_uses_five_real_simulator_captures(self):
+    def test_homepage_uses_two_real_simulator_captures(self):
         parser = PageParser()
         parser.feed((ROOT / "index.html").read_text())
-        self.assertEqual(len(parser.images), 5)
+        self.assertEqual(len(parser.images), 2)
+        self.assertEqual(
+            {image.get("src") for image in parser.images},
+            {
+                "./assets/screenshots/virtual-space-desk.jpg",
+                "./assets/screenshots/place-selector.jpg",
+            },
+        )
         for image in parser.images:
             source = image.get("src", "")
             with self.subTest(source=source):
@@ -186,6 +195,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("clamp(3rem, 5.8vw, 5.4rem)", site_css)
         self.assertIn("line-height: 1", site_css)
         self.assertIn("clamp(2.75rem, 5.2vw, 4.7rem)", docs_css)
+        self.assertIn("clamp(1.2rem, 2.2vw, 1.36rem)", docs_css)
         self.assertIn("max-width: 70ch", docs_css)
         self.assertNotIn("7.9rem", site_css)
         self.assertNotIn("6.5rem", docs_css)
@@ -221,10 +231,11 @@ class PublicSiteTests(unittest.TestCase):
             "Import a Room",
             ".heic",
             "at least one Room",
-            "No catalog import",
         ]:
             self.assertIn(supported, guide)
-        self.assertIn("There is no product entry point for a raw `catalog/`", reference)
+        self.assertNotIn("No catalog import", guide)
+        self.assertNotIn("whole-catalog import", guide)
+        self.assertIn("Author one Room per archive", reference)
         self.assertIn("View-only archive", reference)
 
     def test_schemas_have_one_published_source_of_truth(self):
