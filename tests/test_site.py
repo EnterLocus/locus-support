@@ -8,6 +8,7 @@ import sys
 import tempfile
 import unittest
 import urllib.parse
+import zipfile
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -551,10 +552,12 @@ class PublicSiteTests(unittest.TestCase):
         guide = (ROOT / "build-a-room" / "index.html").read_text()
         for required in [
             "Build an original Locus Room.",
+            "Blender MCP",
             "teleportCatalog",
             "at least one entry seat",
             "Import a Room",
             "current validator reports a missing or empty",
+            "does not prove that the Room is comfortable",
         ]:
             self.assertIn(required, guide)
         for private_detail in [
@@ -579,10 +582,11 @@ class PublicSiteTests(unittest.TestCase):
         for boundary in [
             "This is a sample skill",
             "Room package reference",
+            "Blender MCP",
+            "If Blender MCP is unavailable",
             "validate the finished archive before delivery",
             "try every declared seat on Apple Vision Pro",
-            "skyGainEV",
-            "colorGrade",
+            "does not prove that the Room is comfortable",
         ]:
             self.assertIn(boundary, flat_skill)
         for private_detail in [
@@ -603,6 +607,16 @@ class PublicSiteTests(unittest.TestCase):
         ]:
             self.assertIn(public_link, page.read_text())
 
+        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
+        self.assertLess(
+            guide.index("Try a complete Room"),
+            guide.index("Use the sample Room skill"),
+        )
+        self.assertLess(
+            guide.index("Use the sample Room skill"),
+            guide.index("Room archive layout"),
+        )
+
     def test_demo_room_download_is_pinned_linked_and_valid(self):
         demo = ROOT / "examples" / "demo-room.zip"
         self.assertEqual(demo.stat().st_size, 8_025_797)
@@ -615,6 +629,42 @@ class PublicSiteTests(unittest.TestCase):
             "create-your-own-place/index.html",
         ]:
             self.assertIn("../examples/demo-room.zip", (ROOT / page).read_text())
+
+        with zipfile.ZipFile(demo) as archive:
+            envelope = json.loads(archive.read("locusplace.json"))
+            self.assertEqual(envelope["contents"]["spaceIDs"], ["space.demo"])
+            self.assertEqual(envelope["contents"]["destinationIDs"], [])
+            self.assertEqual(envelope["contents"]["experienceIDs"], [])
+            self.assertTrue(all(
+                name == "locusplace.json"
+                or name.startswith("catalog/spaces/space.demo/")
+                for name in archive.namelist()
+            ))
+
+        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
+        package_page = (ROOT / "package-format" / "index.html").read_text()
+        for page in [guide, package_page]:
+            self.assertIn(
+                "same Room design as the first Room included with Locus",
+                page,
+            )
+            self.assertIn("not an additional Room design", page)
+        self.assertNotIn("destinations/&lt;view-id&gt;", guide)
+        self.assertNotIn("experiences/&lt;experience-id&gt;", guide)
+        self.assertIn("space.my-room", guide)
+        self.assertIn("stable machine-readable Room ID", guide)
+
+        reference = (ROOT / "reference" / "locusplace-format.md").read_text()
+        self.assertIn("A normal Room archive contains one Room", reference)
+        self.assertIn("Advanced combined archive", reference)
+
+        examples = (
+            ROOT / "reference" / "examples" / "locusplace" / "README.md"
+        ).read_text()
+        self.assertIn(
+            "For normal Room authoring, start with `room-only.locusplace`",
+            examples,
+        )
 
         result = subprocess.run(
             [sys.executable, str(ROOT / "tools" / "validate_locusplace.py"), str(demo)],

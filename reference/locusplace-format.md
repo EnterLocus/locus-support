@@ -4,21 +4,20 @@ Status: Prototype v0 import and authoring contract.
 
 A `.zip` or `.locusplace` file is one ordinary ZIP archive used by the current
 **Import a Room** action. It must contain at least one Package-v2 Space (product
-name: Room). It may also contain the Destination (View) and Experience that
-pair with that Room. It is only a secure transport and integrity envelope. It
-does not add a fourth content model, and the viewer never reads provider
-responses or renderer assets directly.
+name: Room). A normal Room archive contains one Room. It is only a secure
+transport and integrity envelope; the `catalog/` directory name is part of that
+file format and does not mean that an author must build a whole catalog.
 
 The current product has exactly two author-facing import paths:
 
 - **Import a View:** one complete 2:1 JPEG, PNG, or HEIC image from Photos,
   Files, or a direct public HTTPS URL. No archive or manifest is selected.
 - **Import a Room:** one `.locusplace` or `.zip` archive from Files or a direct
-  public HTTPS URL. At least one Room is required. A paired View and Experience
-  may travel in the same archive.
+  public HTTPS URL. At least one Room is required. Import its View separately
+  through **Import a View**.
 
-Author one Room per archive; include its View and Experience when they form one
-atomic bundle.
+Author one Room per archive. An advanced archive may include a View and an
+Experience only when the author deliberately needs one atomic bundle.
 
 The two filename extensions are equivalent. `.locusplace` is the branded
 extension and conforms to the public ZIP type; ordinary `.zip` is accepted so
@@ -39,17 +38,18 @@ imported ownership metadata uses
 example.locusplace
 ├── locusplace.json
 └── catalog/
-    ├── spaces/<space-id>/              # at least one is required
-    │   ├── space.json
-    │   ├── provenance.json
-    │   └── ...
-    ├── destinations/<destination-id>/  # optional paired View
-    │   ├── destination.json
-    │   ├── provenance.json
-    │   └── ...
-    └── experiences/<experience-id>/    # optional pairing
-        └── experience.json
+    └── spaces/
+        └── space.example-room/
+            ├── space.json
+            ├── provenance.json
+            ├── teleport-points.json
+            ├── scene.usdz
+            └── thumbnail.jpg           # optional
 ```
+
+`space.example-room` is a stable machine-readable Room ID chosen by the
+author. Use the same ID in `locusplace.json` under `contents.spaceIDs`, as the
+folder name, and in `space.json` under `id`.
 
 Every non-directory member other than the root `locusplace.json` must be
 declared in `files`. Every declared file must exist. The archive may contain
@@ -60,26 +60,32 @@ provenance fields, format versions, collections, and content modes fail closed.
 
 A Room-only archive is accepted by **Import a Room**. A View-only archive is a
 useful validator fixture but is rejected by that product action because it has
-no Room. To make a Room and View appear as an explicit pair, include an
-Experience that references content in the same archive or stable content
-already present in the built-in/imported library.
+no Room.
+
+### Advanced combined archive
+
+When one atomic Room-and-View bundle is intentional, the archive may also add
+`catalog/destinations/<destination-id>/` and
+`catalog/experiences/<experience-id>/`. The Experience references the Room and
+View. These collections are optional and are not needed for normal Room
+authoring.
 
 ## `locusplace.json`
 
 ```json
 {
   "formatVersion": 1,
-  "packageID": "place.example-combined",
+  "packageID": "place.example-room",
   "contentVersion": "1.0.0",
   "minimumAppVersion": "1.0.0",
   "contents": {
-    "destinationIDs": ["destination.example-view"],
+    "destinationIDs": [],
     "spaceIDs": ["space.example-room"],
-    "experienceIDs": ["experience.example-combined"]
+    "experienceIDs": []
   },
   "files": [
     {
-      "path": "catalog/destinations/destination.example-view/destination.json",
+      "path": "catalog/spaces/space.example-room/space.json",
       "byteCount": 214,
       "sha256": "<64 lowercase hex characters>"
     }
@@ -502,8 +508,9 @@ record and refusing to publish unless this validator accepts the result:
 python3 tools/pack_locusplace.py MyEditablePlace MyPlace.zip
 ```
 
-Generate Room-only and combined product examples plus a View-only validator
-fixture into a temporary or ignored directory, then validate them:
+Generate the normal Room-only authoring example plus advanced combined and
+View-only format fixtures into a temporary or ignored directory, then validate
+them:
 
 ```sh
 python3 examples/build_examples.py /tmp/locusplace-examples
