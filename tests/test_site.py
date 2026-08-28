@@ -1,4 +1,5 @@
 import html.parser
+import hashlib
 import json
 import pathlib
 import subprocess
@@ -310,6 +311,28 @@ class PublicSiteTests(unittest.TestCase):
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn("VALID ", result.stdout)
+
+    def test_demo_room_download_is_pinned_linked_and_valid(self):
+        demo = ROOT / "examples" / "demo-room.zip"
+        self.assertEqual(demo.stat().st_size, 8_025_797)
+        self.assertEqual(
+            hashlib.sha256(demo.read_bytes()).hexdigest(),
+            "708ec80ceafde11b537139734c27e97219f26d0e52a568edd4156d9f9715fd13",
+        )
+        for page in [
+            "package-format/index.html",
+            "create-your-own-place/index.html",
+        ]:
+            self.assertIn("../examples/demo-room.zip", (ROOT / page).read_text())
+
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "validate_locusplace.py"), str(demo)],
+            check=False,
+            capture_output=True,
+            text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn("VALID place.demo.room@1.0.0", result.stdout)
 
 
 if __name__ == "__main__":
