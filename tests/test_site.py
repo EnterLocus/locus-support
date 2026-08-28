@@ -165,6 +165,13 @@ class PublicSiteTests(unittest.TestCase):
                 with self.subTest(path=path.relative_to(ROOT), phrase=phrase):
                     self.assertNotIn(phrase, text)
 
+    def test_faq_states_the_passkey_product_boundary_directly(self):
+        faq = (ROOT / "faq" / "index.html").read_text()
+        self.assertIn("Does Locus support passkey sign-in?", faq)
+        self.assertIn("Locus does not support passkey sign-in.", faq)
+        self.assertNotIn("Some websites may not offer passkey sign-in", faq)
+        self.assertNotIn("passes standard passkey requests", faq)
+
     def test_pricing_page_is_removed_and_faq_covers_product_boundaries(self):
         self.assertFalse((ROOT / "pricing" / "index.html").exists())
         faq = (ROOT / "faq" / "index.html").read_text()
