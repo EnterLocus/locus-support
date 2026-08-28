@@ -152,6 +152,10 @@ def room_payload() -> dict[str, bytes]:
                     }
                 ],
                 "collision": {"mode": "embedded"},
+                "teleportCatalog": {
+                    "path": "teleport-points.json",
+                    "houseID": space_id,
+                },
                 "quality": {
                     "status": "unverified",
                     "triangleCount": 12,
@@ -163,6 +167,22 @@ def room_payload() -> dict[str, bytes]:
             }
         ),
         f"{base}/scene.usdz": usdz_bytes(),
+        f"{base}/teleport-points.json": json_bytes(
+            {
+                "houses": {
+                    space_id: [
+                        {
+                            "id": "seat.center",
+                            "title": "Center Seat",
+                            "anchorXZ": [0.5, 0.5],
+                            "sourceFloorOffset": 0,
+                            "eyeHeight": 1.15,
+                            "yawRadians": 0,
+                        }
+                    ]
+                }
+            }
+        ),
         f"{base}/provenance.json": json_bytes(PROVENANCE),
     }
 

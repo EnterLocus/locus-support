@@ -845,6 +845,10 @@ def validate_teleport_catalog(
                         f"{point_context}.{field} must be finite")
 
     require(house_id in houses, f"teleportCatalog has no house named {house_id}")
+    require(
+        bool(houses[house_id]),
+        f"{context}.houses.{house_id} must contain at least one teleport point",
+    )
     point_ids: set[str] = set()
     for index, point in enumerate(houses[house_id]):
         point_context = f"teleportPoints[{index}]"
@@ -1319,16 +1323,17 @@ def validate_payload(
                     f"{base}.collision.path must be a USDZ")
         teleport_catalog = space.get("teleportCatalog")
         teleport_ids: set[str] = set()
-        if teleport_catalog is not None:
-            require(isinstance(teleport_catalog, dict),
-                    f"{base}.teleportCatalog must be an object")
-            catalog_asset = referenced_asset(
-                base, teleport_catalog.get("path"), "teleportCatalog.path")
-            teleport_ids = validate_teleport_catalog(
-                decoded_member(archive, infos[catalog_asset], catalog_asset),
-                teleport_catalog.get("houseID"),
-                f"{base}.teleportCatalog",
-            )
+        require(
+            isinstance(teleport_catalog, dict),
+            f"{base}.teleportCatalog is required for an enterable Room",
+        )
+        catalog_asset = referenced_asset(
+            base, teleport_catalog.get("path"), "teleportCatalog.path")
+        teleport_ids = validate_teleport_catalog(
+            decoded_member(archive, infos[catalog_asset], catalog_asset),
+            teleport_catalog.get("houseID"),
+            f"{base}.teleportCatalog",
+        )
         if "spatialAdaptation" in space:
             validate_spatial_adaptation(
                 space["spatialAdaptation"], teleport_ids,

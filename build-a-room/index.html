@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111816">
+  <title>Build an original Room — Locus</title>
+  <meta name="description" content="Use the sample Locus Room skill to prepare, validate, and import an original Room.">
+  <meta property="og:title" content="Build an original Room — Locus"><meta property="og:description" content="A simple guide to the optional sample skill for creating a Locus Room."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/build-a-room/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/build-a-room/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../faq/">FAQ</a><a aria-current="page" href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a></nav></header>
+  <main id="main" class="page-main">
+    <header class="page-header"><p class="kicker">Sample skill</p><h1>Build an original Locus Room.</h1><p>The sample skill gives a compatible AI assistant a checklist for creating and checking a Room file.</p></header>
+
+    <section class="doc-section"><h2>What this is</h2><p>The skill is an optional example. You can copy it, change it, or use the steps without installing it. Room files are still checked against the current package format and validator.</p><div class="link-grid"><a class="link-card" href="https://github.com/EnterLocus/locus-support/blob/main/.agents/skills/build-original-locus-room/SKILL.md"><strong>View the sample skill on GitHub</strong><span>English SKILL.md in the public Locus support repository.</span></a><a class="link-card" href="../package-format/"><strong>Room package reference</strong><span>Current format, examples, packer, and validator.</span></a></div></section>
+
+    <section class="doc-section"><h2>What to prepare</h2><ul><li>Reference images or drawings that you have permission to use.</li><li>The type and approximate size of Room you want.</li><li>The number and location of seats, desks, or tables.</li><li>Your preferred materials, lighting, and important views.</li><li>Any source files that must be reused.</li></ul></section>
+
+    <section class="doc-section"><h2>What the skill asks the assistant to make</h2><ul><li>An original, human-scale 3D Room.</li><li>A self-contained USDZ file and a Room preview.</li><li>At least one usable entry seat. In the package this is stored in <code>teleportCatalog</code>.</li><li>Source and license information in <code>provenance.json</code>.</li><li>A Room ZIP that passes the public validator.</li></ul></section>
+
+    <section class="doc-section"><h2>Check the Room before sharing it</h2><ol class="step-list"><li>Run the validator on the final ZIP.</li><li>In Locus, choose <em>Import a Room</em> and select that ZIP.</li><li>Pair the Room with a View and enter Virtual Space.</li><li>Try every seat and check its direction, scale, materials, desk clearance, and surrounding space.</li><li>Fix the source Room and rebuild the ZIP if anything is wrong.</li></ol><div class="callout"><strong>A Room needs at least one entry seat.</strong> The current validator reports a missing or empty <code>teleportCatalog</code> before import.</div></section>
+
+    <section class="doc-section"><h2>Need the file format?</h2><p>Use the <a href="../create-your-own-place/">Room authoring guide</a> for package layout and commands. Use the <a href="../package-format/">technical reference</a> for field details and limits.</p></section>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/issues/new/choose">Feedback</a></nav></footer>
+</body>
+</html>
