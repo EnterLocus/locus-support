@@ -176,7 +176,7 @@ numbers), `orientationXYZW` (four finite numbers with non-zero length), and
 | `splat.metricScaleFactor` | no in Package v2; unsupported in public ZIP imports | Positive finite scale in the reserved contract. |
 | `splat.groundPlaneOffset` | no in Package v2; unsupported in public ZIP imports | Finite authored ground offset in the reserved contract. |
 | `splat.placement` | no in Package v2; unsupported in public ZIP imports | Optional shared transform in the reserved contract. |
-| `environment` | no | Optional image-based-lighting and sun defaults below. Omit entirely for a plain SDR View. |
+| `environment` | no | Optional visible-View, Room-lighting, horizon, color, and sunlight defaults below. |
 | `audio.path` | no in Package v2; unsupported in public ZIP imports | Reserved runtime audio file. Public import rejects the field until complete audio byte validation and playback are product-supported. |
 | `audio.loops` | with Package-v2 audio; unsupported in public ZIP imports | Boolean controlling repetition in the reserved contract. |
 | `provenance` | yes for imports | Package-relative provenance JSON. |
@@ -198,47 +198,37 @@ Panorama coordinates are fixed: `u = 0.5` is yaw 0 and initial forward/world
 top image row is the zenith. `initialYawDegrees` rotates the image inside this
 frame and does not redefine it.
 
-Optional environment (lighting only — the visible sky is always the SDR
-panorama):
+Optional View appearance and Room-lighting defaults:
 
 ```json
 {
   "environment": {
-    "imageBasedLight": "hdr/lighting-ibl.exr",
+    "imageBasedLight": "lighting.png",
+    "skyGainEV": 0.5,
     "exposureEV": 0,
     "horizonPitchDegrees": 0,
-    "directSun": {"enabled": false, "illuminanceLux": 0}
+    "colorGrade": {"contrast": 1.15, "saturation": 1.2},
+    "directSun": {"enabled": false, "illuminanceLux": 5000}
   }
 }
 ```
 
 | Field | Meaning |
 |---|---|
-| `imageBasedLight` | Optional scene-linear OpenEXR used only to light Room geometry. It must not be the SDR panorama. A 1024×512 diffuse IBL is recommended. |
-| `exposureEV` | Finite EV gain applied only to IBL. |
-| `horizonPitchDegrees` | Finite authored horizon correction. |
+| `imageBasedLight` | Separate 2:1 JPEG/PNG used only to light Room geometry and reflections. It must not reuse `panorama.path`; 1024×512 is recommended. Locus uses neutral lighting when it is omitted. |
+| `skyGainEV` | Finite EV gain applied only to the visible panorama. |
+| `exposureEV` | Finite EV gain applied only to Room lighting. |
+| `horizonPitchDegrees` | Finite vertical correction for the visible panorama. |
+| `colorGrade.contrast` | Visible-panorama contrast from `0.5` through `2.0`; `1.0` is neutral. |
+| `colorGrade.saturation` | Visible-panorama saturation from `0.0` through `2.0`; `1.0` is neutral. |
 | `directSun.enabled` | Whether a separate directional light is authored. |
 | `directSun.azimuthDegrees`, `elevationDegrees` | Finite direction angles; both required when enabled. |
 | `directSun.illuminanceLux` | Finite non-negative illuminance. |
 
-**Retired fields.** `visibleSkyHDR` and `hdrManifest` were part of an
-earlier HDR-sky pipeline that has been removed from the product. The
-validator now rejects any archive that declares either field, and
-`skyGainEV` has no effect without a visible HDR sky. A previously valid
-archive that used them must drop the fields (and the sky EXR) to import.
-
-Public EXRs use a simple interchange subset: OpenEXR v2, single-part scanline layout, full-resolution half-float
-`R`, `G`, and `B` channels with an optional half-float `A`, using uncompressed,
-ZIPS, or ZIP scanline blocks. ZIP-compressed chunks are decompressed to their
-declared full pixel byte count before ImageIO decode. Tiled, deep, multipart, subsampled,
-integer-channel, float32-channel, or auxiliary-channel EXRs are rejected. The
-chunk offset table, every scanline block, complete file extent, and ImageIO
-decode are checked before installation.
-
-A plain SDR View — the JPEG/PNG panorama with no `environment` at all — is
-the normal case. The only EXR a View may carry is the optional
-`imageBasedLight`; a tone-mapped SDR image renamed to `.exr` is not a
-lighting asset and will fail EXR validation.
+All numeric values must be finite. `colorGrade` must contain both values when
+present. Sun direction is optional while sunlight is off and required while it
+is on. These settings are starting values for the imported View. Changes made
+later with **Edit View** are stored on the device and do not rewrite the ZIP.
 
 ### Room: `space.json`
 
@@ -429,23 +419,23 @@ be reachable from a recognized Package-v2 asset field; unreferenced files are
 rejected even when they appear in `locusplace.json.files`. `.blend`, `.blend1`,
 `.blend2`, `.fbx`, `.obj`, `.mtl`, `.gltf`, and `.glb` files are rejected even
 when declared. Keep those source files outside the ZIP. A Room ships the final
-USDZ; a View ships the final 2:1 panorama and, at most, the optional
-image-based-lighting EXR it actually uses.
+USDZ; a View ships the final 2:1 panorama and, at most, the optional separate
+2:1 JPEG/PNG lighting image it actually uses.
 
 ## Security and resource budgets
 
 Validation examines bytes, not extensions. It rejects traversal, absolute or
 non-canonical paths, backslashes, control characters, case/Unicode collisions,
 symlinks, duplicate entries, encrypted content, undeclared files, hash
-mismatches, unsupported manifests, malformed images, invalid EXR
-headers/channel layouts/chunk tables, malformed USDZ structure, compressed USDZ members, and
+mismatches, unsupported manifests, malformed images, malformed USDZ structure,
+compressed USDZ members, and
 unsupported USDZ asset types. Room budgets are checked against the USD stage
 that the system loader actually parses; the self-reported quality block is
 authoring metadata and cannot reduce those counts.
 
-The byte-level image allowlist is exact: imported panorama and `thumbnail`
-raster fields are JPEG or PNG; `imageBasedLight` is OpenEXR; USDZ textures
-may be JPEG, PNG, or OpenEXR. Public ZIPs reject the
+The byte-level image allowlist is exact: imported panorama, `thumbnail`, and
+`imageBasedLight` raster fields are JPEG or PNG; USDZ textures may be JPEG,
+PNG, or OpenEXR. Public ZIPs reject the
 reserved Package-v2 `sourceImage` field. Other ImageIO-decodable formats are
 rejected rather than accepted implicitly. Outer-package 3D authoring formats
 are also rejected. A USDZ may contain only USD/USDA/USDC, JPEG, PNG, OpenEXR,
@@ -498,10 +488,10 @@ python3 tools/validate_locusplace.py --current-app-version 1.2.0 --json MyPlace.
 
 The Python code uses the standard library, macOS ImageIO through `/usr/bin/sips`,
 and the USD tools `usdchecker` and `usdcat` (installed with Xcode/Command Line
-Tools). ImageIO performs a complete pixel decode after structural JPEG, PNG, or
-EXR validation; the USD tools load, flatten, and measure the actual Room stage.
+Tools). ImageIO performs a complete pixel decode after structural JPEG or PNG
+validation; the USD tools load, flatten, and measure the actual Room stage.
 It exits nonzero on failure and performs archive, integrity, Package-v2,
-provenance, image/EXR, and USDZ checks.
+provenance, image, and USDZ checks.
 The visionOS importer remains authoritative for installation and cross-catalog
 resolution.
 
