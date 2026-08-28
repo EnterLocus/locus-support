@@ -7,7 +7,7 @@ real archives:
 |---|---|---|
 | `view-only.locusplace` | one Destination/View | validator fixture only; the current product UI imports Views as direct images |
 | `room-only.locusplace` | one Space/Room | supported by **Import a Room** |
-| `combined.locusplace` | one View, one Room, one virtual-space Experience | supported by **Import a Room** as an atomic Room bundle |
+| `combined.locusplace` | one View, one Room, one virtual-space Experience | advanced atomic-bundle format fixture; not needed for normal Room authoring |
 
 The builder creates a decoded 16x8 panorama, a separate 2:1 Room-lighting image,
 current View appearance defaults, strict provenance, an uncompressed USDZ with
@@ -25,8 +25,8 @@ python3 scripts/validate_locusplace.py /tmp/locusplace-examples/combined.locuspl
 The output directory must already be absent or empty; the builder never
 overwrites an existing archive.
 
-For Room authoring, unzip `room-only.locusplace` or `combined.locusplace`, edit
-its public files, and repack it as an ordinary ZIP. The packer regenerates
+For normal Room authoring, start with `room-only.locusplace`, edit its public
+files, and repack it as an ordinary ZIP. The packer regenerates
 `files` and `contentHash`, then runs the same validator:
 
 ```sh
@@ -35,8 +35,8 @@ ditto -x -k /tmp/locusplace-examples/room-only.locusplace /tmp/my-editable-room
 python3 scripts/pack_locusplace.py /tmp/my-editable-room /tmp/my-room.zip
 ```
 
-The combined fixture proves **Import a Room** can install the Room together with
-its paired View and Experience.
+The combined fixture exercises the optional atomic Room, View, and Experience
+transport. Import Views separately unless that advanced bundle is intentional.
 Runtime ZIPs exclude Blender/GLB/FBX/OBJ authoring sources and original HDR
 captures; retain those outside the package.
 
