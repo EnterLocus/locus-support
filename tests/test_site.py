@@ -138,10 +138,43 @@ class PublicSiteTests(unittest.TestCase):
     def test_homepage_keeps_pricing_details_out_of_product_story(self):
         homepage = (ROOT / "index.html").read_text()
         self.assertIn('href="./support/">Support</a>', homepage)
-        self.assertIn("Import a View or build a Room package.", homepage)
+        self.assertIn("Bring your own scenery and 3D spaces.", homepage)
         self.assertNotIn("one custom View and one custom Room for free", homepage)
         self.assertNotIn("Planned for V1", homepage)
         self.assertNotIn(">Explore Locus</a>", homepage)
+
+    def test_customer_pages_do_not_publish_internal_development_language(self):
+        customer_pages = [
+            ROOT / "index.html",
+            ROOT / "faq" / "index.html",
+            ROOT / "privacy" / "index.html",
+            ROOT / "support" / "index.html",
+        ]
+        internal_phrases = [
+            "Simulator captures",
+            "Vision Pro testing",
+            "active V1 development",
+            "release candidate",
+            "publisher-controlled release gate",
+            "short build commit",
+            "has not yet been verified on a physical Vision Pro",
+        ]
+        for path in customer_pages:
+            text = path.read_text()
+            for phrase in internal_phrases:
+                with self.subTest(path=path.relative_to(ROOT), phrase=phrase):
+                    self.assertNotIn(phrase, text)
+
+    def test_faq_states_the_passkey_product_boundary_directly(self):
+        faq = (ROOT / "faq" / "index.html").read_text()
+        self.assertIn("Does Locus support passkey sign-in?", faq)
+        self.assertIn(
+            "Locus lets you open web pages inside your workspace, but it is not a "
+            "full web browser and does not support passkey sign-in.",
+            faq,
+        )
+        self.assertNotIn("Some websites may not offer passkey sign-in", faq)
+        self.assertNotIn("passes standard passkey requests", faq)
 
     def test_pricing_page_is_removed_and_faq_covers_product_boundaries(self):
         self.assertFalse((ROOT / "pricing" / "index.html").exists())
@@ -151,7 +184,7 @@ class PublicSiteTests(unittest.TestCase):
         for answer in [
             "Mac Virtual Display",
             "passkey sign-in",
-            "Why does importing more of my own content cost money?",
+            "How can I import more of my own content?",
             "What is the Supporter subscription for?",
             "Blender MCP",
             "What custom files can I import?",

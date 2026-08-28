@@ -23,15 +23,15 @@
       </details>
       <details class="faq-item">
         <summary>What is the difference between Virtual Space and Room Portal?</summary>
-        <div class="faq-answer"><p><strong>Virtual Space</strong> places you inside an authored Room and keeps the real desk available for work. <strong>Room Portal</strong> keeps your real room present and replaces one chosen wall with a View. Room Portal does not turn every wall or the ceiling into a portal.</p></div>
+        <div class="faq-answer"><p><strong>Virtual Space</strong> places you inside a 3D Room while keeping your real desk available for work. <strong>Room Portal</strong> keeps your real room present and opens one chosen wall onto a View.</p></div>
       </details>
       <details class="faq-item">
         <summary>How do I use Locus with Mac Virtual Display?</summary>
         <div class="faq-answer"><p><strong>Open Mac Virtual Display before entering a Locus virtual environment.</strong> If you open Mac Virtual Display after entering the environment, visionOS exits that environment. Connect to your Mac from Control Center first, then enter the Locus place.</p><p>Mac Virtual Display normally does not remain available inside immersive apps. Apple provides a developer setting that can allow it: pair Apple Vision Pro with Xcode, enable <strong>Developer Mode</strong>, restart the headset, then enable <strong>Settings → Developer → Allow Mac Virtual Display</strong>.</p><p>visionOS—not Locus—creates and controls the Mac window. Locus works normally without Developer Mode or Mac Virtual Display. See the <a href="../experimental-mac-virtual-display/">complete Mac Virtual Display guide</a> for requirements and limitations.</p></div>
       </details>
       <details class="faq-item">
-        <summary>Why can passkey sign-in fail in the Locus browser?</summary>
-        <div class="faq-answer"><p>Locus uses Apple WebKit for websites. Standard passkey requests are handed to WebKit and visionOS; Locus never reads or stores your passwords or passkeys. Compatibility can still differ from Safari: some websites only enable passkeys for browsers they recognize, and Apple Passwords or third-party credential-provider handoff has not yet been verified on a physical Vision Pro for every site.</p><p>If a site offers another sign-in method, use that method for now. When reporting a failure, include the website, visionOS version, and the step that failed—never include a credential or recovery code.</p></div>
+        <summary>Does Locus support passkey sign-in?</summary>
+        <div class="faq-answer"><p>No. Locus lets you open web pages inside your workspace, but it is not a full web browser and does not support passkey sign-in. Use a password or another sign-in method offered by the website.</p><p>If you report a sign-in problem, include the website and what happened, but never include a password, passkey, credential, or recovery code.</p></div>
       </details>
       <details class="faq-item">
         <summary>Why does a download open outside Locus?</summary>
@@ -54,12 +54,12 @@
         <div class="faq-answer"><p>Model the architecture in Blender at real-world meter scale with +Y up, self-contained materials, and sensible geometry. Export a USDZ, then describe its seated origin, safe head volume, destination openings, collision behavior, and quality measurements in a Locus Room package. Run the public packer and validator before choosing <strong>Import a Room</strong>.</p><p>You can build it by hand, or ask an AI agent connected to Blender through Blender MCP to create and iterate on the house with you. The agent can speed up modeling, material work, checks, and export. Review the final scale, seating, openings, comfort, and performance, then package it with the same validator.</p><p>Start with the <a href="../create-your-own-place/">Room authoring guide and examples</a>.</p></div>
       </details>
       <details class="faq-item">
-        <summary>Why does importing more of my own content cost money?</summary>
-        <div class="faq-answer"><p>Everyone can use Locus's built-in library, and the included allowance lets you keep one custom View and one custom Room. A larger personal library needs either the one-time <strong>More Imports</strong> unlock or an active <strong>Supporter</strong> subscription.</p><p>The charge supports the ongoing work behind safe package validation, rendering, library management, visionOS compatibility, support, and continued Locus development.</p></div>
+        <summary>How can I import more of my own content?</summary>
+        <div class="faq-answer"><p>Everyone can use Locus's built-in library and keep one custom View and one custom Room. The one-time <strong>More Imports</strong> unlock gives you unlimited imports of your own Views and Rooms permanently. An active <strong>Supporter</strong> subscription gives you unlimited custom imports and access to the Supporter place packs currently available.</p></div>
       </details>
       <details class="faq-item">
         <summary>What is the Supporter subscription for?</summary>
-        <div class="faq-answer"><p>Supporter enables unlimited custom imports while the subscription is active, directly supports continued Locus development, and provides access to Supporter place packs as they are released. There is no promised pack schedule.</p><p>Installed content is not deleted when a subscription ends. New imports above the included allowance and re-downloading a removed Supporter pack require active access. If you only want unlimited imports of your own Views and Rooms, the one-time <strong>More Imports</strong> option is the permanent alternative. Current prices and purchase terms are shown inside Locus by the App Store.</p></div>
+        <div class="faq-answer"><p>Supporter gives you unlimited custom imports while the subscription is active and access to the Supporter place packs currently available.</p><p>Installed content is not deleted when a subscription ends. New imports above the included allowance and re-downloading a removed Supporter pack require active access. If you only want unlimited imports of your own Views and Rooms, choose the one-time <strong>More Imports</strong> option. Prices and purchase terms appear in Locus before you buy.</p></div>
       </details>
     </section>
 
@@ -67,11 +67,11 @@
       <h2 id="privacy-heading">Privacy and support</h2>
       <details class="faq-item">
         <summary>Where do my browsing and imported-place data go?</summary>
-        <div class="faq-answer"><p>Spatial processing and Room placement happen locally on Apple Vision Pro. Imported Place packages are validated and stored in the app's local library. Website cookies and site data may be stored in Locus's WebKit profile on the device, with controls to clear history and website data. Read the <a href="../privacy/">privacy notice</a> for the complete boundary.</p></div>
+        <div class="faq-answer"><p>Locus uses your room information on Apple Vision Pro and does not upload it. Imported Places are stored in Locus on the device. Websites may save cookies and other data in the Locus browser; you can clear your history and website data in Settings. Read the <a href="../privacy/">privacy notice</a> for details.</p></div>
       </details>
       <details class="faq-item">
         <summary>What should I include in a support report?</summary>
-        <div class="faq-answer"><p>Include the Locus version, build number and short commit from <strong>Settings → About Locus</strong>, your visionOS version, and the smallest safe steps that reproduce the problem. Do not put room images, credentials, recovery codes, receipts, order details, account information, notifications, or device identifiers in a public issue. Use <a href="../support/">Support</a> to choose a public or private route.</p></div>
+        <div class="faq-answer"><p>Copy the version details from <strong>Settings → About Locus</strong>, add your visionOS version, and say what you expected, what happened, and the shortest steps that make it happen again. Do not put room images, credentials, recovery codes, receipts, order details, account information, notifications, or device identifiers in a public issue. Use <a href="../support/">Support</a> to choose a public or private route.</p></div>
       </details>
     </section>
   </main>

@@ -28,9 +28,9 @@ a { color: inherit; text-underline-offset: .25em; }
 .brand-mark::before, .brand-mark::after, .brand-mark span { content: ""; position: absolute; border: 1px solid rgba(217, 248, 108, .5); border-radius: 50%; }
 .brand-mark::before { width: 1.3rem; height: 1.3rem; }
 .brand-mark::after { width: .55rem; height: .55rem; background: var(--accent); border: 0; }
-.site-header nav, footer nav, .inline-links { display: flex; align-items: center; gap: 1.5rem; }
-.site-header nav a, footer a, .inline-links a { color: var(--muted); text-decoration: none; font-size: .92rem; }
-.site-header nav a:hover, .site-header nav a:focus-visible, footer a:hover, footer a:focus-visible, .inline-links a:hover, .inline-links a:focus-visible { color: var(--ink); }
+.site-header nav, footer nav { display: flex; align-items: center; gap: 1.5rem; }
+.site-header nav a, footer a { color: var(--muted); text-decoration: none; font-size: .92rem; }
+.site-header nav a:hover, .site-header nav a:focus-visible, footer a:hover, footer a:focus-visible { color: var(--ink); }
 
 main { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
 .hero { min-height: 620px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(460px, 1.1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; padding: 5.5rem 0 7rem; }
@@ -54,20 +54,14 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .selector-shot { padding: .45rem; border: 1px solid var(--line); border-radius: 1.2rem; background: rgba(255,255,255,.03); }
 .product-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; padding: 0 0 8rem; }
 .feature-card { min-height: 560px; padding: 1.2rem; border: 1px solid var(--line); background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); border-radius: 1.4rem; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; }
-.feature-card h2, .split-section h2, .truth-panel h2 { margin: .45rem 0 .7rem; font-size: clamp(1.8rem, 2.8vw, 2.65rem); line-height: 1.08; letter-spacing: -.035em; text-wrap: balance; }
-.feature-card p:not(.kicker), .split-section p, .truth-panel p:not(.kicker) { color: var(--muted); line-height: 1.55; }
+.feature-card h2, .split-section h2 { margin: .45rem 0 .7rem; font-size: clamp(1.8rem, 2.8vw, 2.65rem); line-height: 1.08; letter-spacing: -.035em; text-wrap: balance; }
+.feature-card p:not(.kicker), .split-section p { color: var(--muted); line-height: 1.55; }
 .product-grid.text-only .feature-card { min-height: 260px; justify-content: flex-end; }
 
-.split-section, .truth-panel { border-top: 1px solid var(--line); padding: 7rem 0; }
+.split-section { border-top: 1px solid var(--line); padding: 7rem 0; }
 .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: start; }
 .split-section p { font-size: 1.15rem; margin-top: 0; }
 .text-link { display: inline-block; margin-top: 1rem; color: var(--accent); font-weight: 700; text-decoration: none; }
-.truth-panel { max-width: 820px; }
-.truth-panel h2 { font-size: clamp(2.4rem, 5vw, 5rem); }
-.truth-panel p:not(.kicker) { font-size: 1.12rem; max-width: 690px; }
-.inline-links { margin-top: 2rem; flex-wrap: wrap; }
-.inline-links a { color: var(--accent); text-decoration: underline; }
-
 footer { min-height: 150px; border-top: 1px solid var(--line); color: var(--muted); font-size: .85rem; }
 footer > div { display: flex; flex-direction: column; gap: .35rem; }
 .brand-footer { color: var(--ink); font-weight: 800; font-size: 1rem; }
