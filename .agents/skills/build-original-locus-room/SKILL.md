@@ -53,3 +53,13 @@ clearance, or view problem before delivery.
 
 Report the archive path, content version, validator result, tested seats, and
 any check that remains pending.
+
+## If the package includes a View
+
+Use a complete 2:1 JPEG or PNG panorama. Set its starting direction with
+`panorama.initialYawDegrees`. Optional `environment` metadata can set visible
+brightness with `skyGainEV`, Room lighting with a separate 2:1 JPEG/PNG
+`imageBasedLight` plus `exposureEV`, visible contrast and saturation with
+`colorGrade`, horizon pitch with `horizonPitchDegrees`, and `directSun`. Follow the current package
+reference for numeric ranges and required sunlight fields. Do not reuse the
+visible panorama as the Room lighting image.

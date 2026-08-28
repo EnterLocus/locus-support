@@ -373,6 +373,180 @@ class PublicSiteTests(unittest.TestCase):
                     self.assertEqual(result.returncode, 1)
                     self.assertIn(expected_error, result.stderr)
 
+    def test_view_appearance_metadata_is_documented_and_validated(self):
+        reference = (ROOT / "reference" / "locusplace-format.md").read_text()
+        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
+        faq = (ROOT / "faq" / "index.html").read_text()
+        for term in [
+            "View Brightness",
+            "Contrast",
+            "Color",
+            "Room Lighting",
+            "Add Sunlight",
+            "Sun Position",
+            "Sunlight Strength",
+            "Turn the View",
+        ]:
+            self.assertIn(term, guide)
+        self.assertIn("Edit View", faq)
+        self.assertIn("optional sunlight", faq)
+        for field in [
+            "skyGainEV",
+            "exposureEV",
+            "horizonPitchDegrees",
+            "colorGrade.contrast",
+            "colorGrade.saturation",
+            "directSun.illuminanceLux",
+        ]:
+            self.assertIn(field, reference)
+        self.assertIn("Separate 2:1 JPEG/PNG", reference)
+        self.assertNotIn("lighting-ibl.exr", reference)
+
+        builder = runpy.run_path(str(ROOT / "examples" / "build_examples.py"))
+        destination_id = "destination.example-view"
+        destination_path = (
+            f"catalog/destinations/{destination_id}/destination.json"
+        )
+        with tempfile.TemporaryDirectory() as directory:
+            directory = pathlib.Path(directory)
+            payload = builder["destination_payload"]()
+            destination = json.loads(payload[destination_path])
+            destination["panorama"]["initialYawDegrees"] = 15
+            destination["environment"] = {
+                "imageBasedLight": "lighting.png",
+                "skyGainEV": 0.5,
+                "exposureEV": 0.25,
+                "horizonPitchDegrees": -2,
+                "colorGrade": {"contrast": 1.15, "saturation": 1.2},
+                "directSun": {
+                    "enabled": True,
+                    "azimuthDegrees": 118.35,
+                    "elevationDegrees": 42.85,
+                    "illuminanceLux": 5000,
+                },
+            }
+            payload[destination_path] = builder["json_bytes"](destination)
+            valid = directory / "valid-view.locusplace"
+            builder["build_archive"](
+                valid,
+                package_id="place.example-current-view",
+                destination_ids=[destination_id],
+                space_ids=[],
+                experience_ids=[],
+                payload=payload,
+            )
+            valid_result = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "tools" / "validate_locusplace.py"),
+                    str(valid),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(valid_result.returncode, 0, valid_result.stderr)
+
+            destination["environment"]["colorGrade"]["contrast"] = 2.1
+            payload[destination_path] = builder["json_bytes"](destination)
+            invalid = directory / "invalid-view.locusplace"
+            builder["build_archive"](
+                invalid,
+                package_id="place.example-invalid-view",
+                destination_ids=[destination_id],
+                space_ids=[],
+                experience_ids=[],
+                payload=payload,
+            )
+            invalid_result = subprocess.run(
+                [
+                    sys.executable,
+                    str(ROOT / "tools" / "validate_locusplace.py"),
+                    str(invalid),
+                ],
+                check=False,
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(invalid_result.returncode, 1)
+            self.assertIn(
+                "environment.colorGrade.contrast must be between 0.5 and 2",
+                invalid_result.stderr,
+            )
+
+    def test_view_appearance_metadata_rejects_invalid_numeric_contract(self):
+        builder = runpy.run_path(str(ROOT / "examples" / "build_examples.py"))
+        destination_id = "destination.example-view"
+        destination_path = (
+            f"catalog/destinations/{destination_id}/destination.json"
+        )
+        cases = [
+            (
+                "yaw",
+                lambda value: value["panorama"].__setitem__(
+                    "initialYawDegrees", "east"
+                ),
+                "panorama.initialYawDegrees must be finite",
+            ),
+            (
+                "brightness",
+                lambda value: value["environment"].__setitem__(
+                    "skyGainEV", True
+                ),
+                "environment.skyGainEV must be finite",
+            ),
+            (
+                "saturation",
+                lambda value: value["environment"]["colorGrade"].__setitem__(
+                    "saturation", 2.1
+                ),
+                "environment.colorGrade.saturation must be between 0 and 2",
+            ),
+            (
+                "sun-direction",
+                lambda value: value["environment"].__setitem__(
+                    "directSun", {"enabled": True, "illuminanceLux": 5000}
+                ),
+                "environment.directSun requires azimuthDegrees and elevationDegrees when enabled",
+            ),
+            (
+                "sun-strength",
+                lambda value: value["environment"].__setitem__(
+                    "directSun", {"enabled": False, "illuminanceLux": -1}
+                ),
+                "environment.directSun.illuminanceLux must be finite and non-negative",
+            ),
+        ]
+        with tempfile.TemporaryDirectory() as directory:
+            directory = pathlib.Path(directory)
+            for name, mutate, expected in cases:
+                payload = builder["destination_payload"]()
+                destination = json.loads(payload[destination_path])
+                mutate(destination)
+                payload[destination_path] = builder["json_bytes"](destination)
+                archive = directory / f"invalid-{name}.locusplace"
+                builder["build_archive"](
+                    archive,
+                    package_id=f"place.example-invalid-{name}",
+                    destination_ids=[destination_id],
+                    space_ids=[],
+                    experience_ids=[],
+                    payload=payload,
+                )
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(ROOT / "tools" / "validate_locusplace.py"),
+                        str(archive),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                with self.subTest(case=name):
+                    self.assertEqual(result.returncode, 1)
+                    self.assertIn(expected, result.stderr)
+
     def test_public_room_workflow_is_english_and_omits_private_operations(self):
         guide = (ROOT / "build-a-room" / "index.html").read_text()
         for required in [
@@ -407,6 +581,8 @@ class PublicSiteTests(unittest.TestCase):
             "Room package reference",
             "validate the finished archive before delivery",
             "try every declared seat on Apple Vision Pro",
+            "skyGainEV",
+            "colorGrade",
         ]:
             self.assertIn(boundary, flat_skill)
         for private_detail in [
