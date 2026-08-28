@@ -170,6 +170,17 @@ class PublicSiteTests(unittest.TestCase):
                 self.assertNotIn("/pricing/", text)
         self.assertEqual((ROOT / "index.html").read_text().count('href="./faq/"'), 1)
 
+    def test_mvd_help_puts_connection_before_entering_locus(self):
+        faq = (ROOT / "faq" / "index.html").read_text()
+        guide = (
+            ROOT / "experimental-mac-virtual-display" / "index.html"
+        ).read_text()
+
+        for text in [faq, guide]:
+            self.assertIn("open mac virtual display", text.lower())
+            self.assertIn("then enter the Locus place", text)
+            self.assertIn("visionOS exits that environment", text)
+
     def test_homepage_uses_two_real_simulator_captures(self):
         parser = PageParser()
         parser.feed((ROOT / "index.html").read_text())
