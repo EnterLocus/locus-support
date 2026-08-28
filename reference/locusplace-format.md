@@ -299,8 +299,8 @@ lighting asset and will fail EXR validation.
 | `collision.path` | conditional | Forbidden for `embedded`; for `separate`, a required package-relative self-contained USDZ validated with the same member, texture, and geometry rules as `scene`. Its geometry and scene geometry share the Room budget. Renamed authoring sources are not valid. |
 | `quality.status` | yes | `unverified` or `verified`. |
 | `quality.triangleCount`, `materialCount`, `entityCount`, `maxTextureDimension` | yes | Non-negative author measurements. Zero means unmeasured; actual USD is checked independently. |
-| `teleportCatalog.path` | no | Package-relative teleport JSON. Its 1 MiB JSON budget is enforced by field role even if the filename does not end in `.json`; case or Unicode filesystem aliases do not bypass it. |
-| `teleportCatalog.houseID` | with catalog | ID selecting one `houses` array in that JSON. |
+| `teleportCatalog.path` | yes | Package-relative teleport JSON. Its 1 MiB JSON budget is enforced by field role even if the filename does not end in `.json`; case or Unicode filesystem aliases do not bypass it. |
+| `teleportCatalog.houseID` | yes | ID selecting a non-empty `houses` array in that JSON. |
 | `spatialAdaptation.wallEntities` | no | Unique non-empty USD entity names for walls; this metadata does not hide them. |
 | `spatialAdaptation.roofEntities` | no | Unique non-empty names disjoint from walls. |
 | `spatialAdaptation.deskEntitiesByTeleportID` | no | Map from declared teleport ID to non-empty authored desk entity name. |
@@ -311,7 +311,7 @@ USD, texture, and audio members only. USDZ members must be stored, not
 compressed. The validator loads/flattens the actual stage and counts geometry;
 small or zero `quality` values cannot hide an oversized model.
 
-Optional teleport JSON:
+Required teleport JSON:
 
 ```json
 {
@@ -330,7 +330,7 @@ Optional teleport JSON:
 }
 ```
 
-`anchorXZ` is two finite normalized values in `0...1`; `sourceFloorOffset` is
+The selected house must contain at least one teleport point. `anchorXZ` is two finite normalized values in `0...1`; `sourceFloorOffset` is
 finite and non-negative in authored model units; `eyeHeight` is positive,
 finite, and measured in meters; `yawRadians` is a finite model rotation about
 +Y in the world frame. Point IDs are unique and titles non-empty.

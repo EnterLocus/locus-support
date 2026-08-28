@@ -2,6 +2,7 @@ import html.parser
 import hashlib
 import json
 import pathlib
+import runpy
 import subprocess
 import sys
 import tempfile
@@ -303,6 +304,11 @@ class PublicSiteTests(unittest.TestCase):
                 "room-only.locusplace",
                 "combined.locusplace",
             ]:
+                self.assertEqual(
+                    (built / name).read_bytes(),
+                    (ROOT / "examples" / "generated" / name).read_bytes(),
+                    f"published {name} is stale; regenerate it with build_examples.py",
+                )
                 result = subprocess.run(
                     [sys.executable, str(ROOT / "tools" / "validate_locusplace.py"), str(built / name)],
                     check=False,
@@ -311,6 +317,115 @@ class PublicSiteTests(unittest.TestCase):
                 )
                 self.assertEqual(result.returncode, 0, result.stderr)
                 self.assertIn("VALID ", result.stdout)
+
+    def test_published_validator_rejects_a_room_without_an_enterable_seat(self):
+        builder = runpy.run_path(str(ROOT / "examples" / "build_examples.py"))
+        space_id = "space.example-room"
+        space_path = f"catalog/spaces/{space_id}/space.json"
+        teleport_path = f"catalog/spaces/{space_id}/teleport-points.json"
+
+        with tempfile.TemporaryDirectory() as directory:
+            directory = pathlib.Path(directory)
+            cases = []
+
+            missing = builder["room_payload"]()
+            missing_manifest = json.loads(missing[space_path])
+            del missing_manifest["teleportCatalog"]
+            missing[space_path] = builder["json_bytes"](missing_manifest)
+            del missing[teleport_path]
+            cases.append((
+                "missing",
+                missing,
+                "teleportCatalog is required for an enterable Room",
+            ))
+
+            empty = builder["room_payload"]()
+            empty_catalog = json.loads(empty[teleport_path])
+            empty_catalog["houses"][space_id] = []
+            empty[teleport_path] = builder["json_bytes"](empty_catalog)
+            cases.append((
+                "empty",
+                empty,
+                "must contain at least one teleport point",
+            ))
+
+            for name, payload, expected_error in cases:
+                archive = directory / f"{name}.zip"
+                builder["build_archive"](
+                    archive,
+                    package_id=f"place.example-{name}-teleport",
+                    destination_ids=[],
+                    space_ids=[space_id],
+                    experience_ids=[],
+                    payload=payload,
+                )
+                result = subprocess.run(
+                    [
+                        sys.executable,
+                        str(ROOT / "tools" / "validate_locusplace.py"),
+                        str(archive),
+                    ],
+                    check=False,
+                    capture_output=True,
+                    text=True,
+                )
+                with self.subTest(case=name):
+                    self.assertEqual(result.returncode, 1)
+                    self.assertIn(expected_error, result.stderr)
+
+    def test_public_room_workflow_is_english_and_omits_private_operations(self):
+        guide = (ROOT / "build-a-room" / "index.html").read_text()
+        for required in [
+            "Build an original Locus Room.",
+            "teleportCatalog",
+            "at least one entry seat",
+            "Import a Room",
+            "current validator reports a missing or empty",
+        ]:
+            self.assertIn(required, guide)
+        for private_detail in [
+            "/Users/",
+            "Dropbox",
+            "Locus Dev",
+            "validate_house_asset_bundle.py",
+        ]:
+            self.assertNotIn(private_detail, guide)
+
+    def test_sample_room_skill_is_valid_optional_and_public_safe(self):
+        path = (
+            ROOT / ".agents" / "skills" / "build-original-locus-room"
+            / "SKILL.md"
+        )
+        skill = path.read_text()
+        self.assertTrue(skill.startswith("---\n"))
+        frontmatter = skill.split("---\n", 2)[1]
+        self.assertIn("name: build-original-locus-room", frontmatter)
+        self.assertIn("description:", frontmatter)
+        flat_skill = " ".join(skill.split())
+        for boundary in [
+            "This is a sample skill",
+            "Room package reference",
+            "validate the finished archive before delivery",
+            "try every declared seat on Apple Vision Pro",
+        ]:
+            self.assertIn(boundary, flat_skill)
+        for private_detail in [
+            "/Users/",
+            "Dropbox",
+            "Locus Dev",
+            ".agents/",
+            "validate_house_asset_bundle.py",
+        ]:
+            self.assertNotIn(private_detail, skill)
+        public_link = (
+            "https://github.com/EnterLocus/locus-support/blob/main/"
+            ".agents/skills/build-original-locus-room/SKILL.md"
+        )
+        for page in [
+            ROOT / "build-a-room" / "index.html",
+            ROOT / "create-your-own-place" / "index.html",
+        ]:
+            self.assertIn(public_link, page.read_text())
 
     def test_demo_room_download_is_pinned_linked_and_valid(self):
         demo = ROOT / "examples" / "demo-room.zip"
