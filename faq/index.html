@@ -13,7 +13,7 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="./">FAQ</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a></nav></header>
   <main id="main" class="page-main">
-    <header class="page-header"><p class="kicker">FAQ</p><h1>Useful answers, without the small print.</h1><p>How Locus works with Apple Vision Pro, websites, custom places, and continued development.</p></header>
+    <header class="page-header faq-header"><h1>FAQ</h1></header>
 
     <section class="faq-list" aria-labelledby="using-heading">
       <h2 id="using-heading">Using Locus</h2>
@@ -43,15 +43,15 @@
       <h2 id="custom-heading">Custom Views and Rooms</h2>
       <details class="faq-item">
         <summary>What custom files can I import?</summary>
-        <div class="faq-answer"><p>Import a View as one complete 2:1 equirectangular JPEG, PNG, or HEIC image from Photos, Files, or a direct public HTTPS URL. Import a Room from Files or a direct public HTTPS URL as a <code>.locusplace</code> or ordinary <code>.zip</code> archive containing at least one Room.</p><p>Locus does not directly import a <code>.blend</code>, GLB, OBJ, raw <code>catalog/</code> folder, arbitrary directory, standalone Experience, or View-only <code>.locusplace</code>. See <a href="../create-your-own-place/">Create your own Place</a> for the supported package layout.</p></div>
+        <div class="faq-answer"><p>Import a View as one complete 2:1 equirectangular JPEG, PNG, or HEIC image from Photos, Files, or a direct public HTTPS URL. Import a Room from Files or a direct public HTTPS URL as a <code>.locusplace</code> or ordinary <code>.zip</code> archive containing at least one Room. See the <a href="../create-your-own-place/">authoring guide</a> for the package layout.</p></div>
       </details>
       <details class="faq-item">
         <summary>What does a skybox or View image need?</summary>
-        <div class="faq-answer"><p>Use one complete 360° equirectangular image in JPEG, PNG, or HEIC format. Its displayed width must be exactly twice its height—for example, 12,288 × 6,144, which is recommended but not required. Partial panoramas, cube-face sets, and multi-frame images are not supported.</p><p>Keep the horizon level. Put the direction you want to face first at the horizontal center of the image; the 360° seam belongs at the far left and right edges. Inspect that seam at full size for jumps in architecture, lighting, sky, or texture before importing. Locus normalizes the image and prepares its preview and Room lighting locally.</p></div>
+        <div class="faq-answer"><p>Use one complete 360° equirectangular image in JPEG, PNG, or HEIC format. Its displayed width must be exactly twice its height. A recommended size is 12,288 × 6,144.</p><p>Keep the horizon level. Put the direction you want to face first at the horizontal center of the image; the 360° seam belongs at the far left and right edges. Inspect that seam at full size for jumps in architecture, lighting, sky, or texture before importing. Locus normalizes the image and prepares its preview and Room lighting locally.</p></div>
       </details>
       <details class="faq-item">
         <summary>How can I make my own house or Room?</summary>
-        <div class="faq-answer"><p>Model the architecture in Blender at real-world meter scale with +Y up, self-contained materials, and sensible geometry. Export a USDZ, then describe its seated origin, safe head volume, destination openings, collision behavior, and quality measurements in a Locus Room package. Run the public packer and validator before choosing <strong>Import a Room</strong>.</p><p>You can build it by hand, or ask an AI agent connected to Blender through Blender MCP to create and iterate on the house with you. The agent can speed up modeling, material work, checks, and export, but it does not replace your review of scale, seating, openings, comfort, or performance—and Locus still requires the same validated Room package.</p><p>Start with the <a href="../create-your-own-place/">Room authoring guide and examples</a>.</p></div>
+        <div class="faq-answer"><p>Model the architecture in Blender at real-world meter scale with +Y up, self-contained materials, and sensible geometry. Export a USDZ, then describe its seated origin, safe head volume, destination openings, collision behavior, and quality measurements in a Locus Room package. Run the public packer and validator before choosing <strong>Import a Room</strong>.</p><p>You can build it by hand, or ask an AI agent connected to Blender through Blender MCP to create and iterate on the house with you. The agent can speed up modeling, material work, checks, and export. Review the final scale, seating, openings, comfort, and performance, then package it with the same validator.</p><p>Start with the <a href="../create-your-own-place/">Room authoring guide and examples</a>.</p></div>
       </details>
       <details class="faq-item">
         <summary>Why does importing more of my own content cost money?</summary>
@@ -67,7 +67,7 @@
       <h2 id="privacy-heading">Privacy and support</h2>
       <details class="faq-item">
         <summary>Where do my browsing and imported-place data go?</summary>
-        <div class="faq-answer"><p>Website cookies and site data may be stored in Locus's WebKit profile on your device; Locus provides controls to clear history and website data. Imported Place packages are validated and stored in the app's local library. The current app does not upload room meshes or camera images to Locus servers. Read the <a href="../privacy/">privacy notice</a> for the complete boundary.</p></div>
+        <div class="faq-answer"><p>Spatial processing and Room placement happen locally on Apple Vision Pro. Imported Place packages are validated and stored in the app's local library. Website cookies and site data may be stored in Locus's WebKit profile on the device, with controls to clear history and website data. Read the <a href="../privacy/">privacy notice</a> for the complete boundary.</p></div>
       </details>
       <details class="faq-item">
         <summary>What should I include in a support report?</summary>
@@ -75,6 +75,6 @@
       </details>
     </section>
   </main>
-  <footer><div><span class="brand-footer">Locus</span><span>Focused spatial workspaces for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="./">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/issues/new/choose">Feedback</a></nav></footer>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="./">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/issues/new/choose">Feedback</a></nav></footer>
 </body>
 </html>
