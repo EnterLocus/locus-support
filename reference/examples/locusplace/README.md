@@ -9,8 +9,9 @@ real archives:
 | `room-only.locusplace` | one Space/Room | supported by **Import a Room** |
 | `combined.locusplace` | one View, one Room, one virtual-space Experience | supported by **Import a Room** as an atomic Room bundle |
 
-The builder creates a decoded 16x8 PNG, strict provenance, an uncompressed USDZ
-with a root USDA layer, Package-v2 manifests, per-file SHA-256 records, and the
+The builder creates a decoded 16x8 panorama, a separate 2:1 Room-lighting image,
+current View appearance defaults, strict provenance, an uncompressed USDZ with
+a root USDA layer, Package-v2 manifests, per-file SHA-256 records, and the
 canonical envelope `contentHash`. No network, provider, paid generation, or
 private asset is involved.
 

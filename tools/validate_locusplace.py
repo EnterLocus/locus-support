@@ -83,6 +83,10 @@ def require(condition: bool, message: str) -> None:
         raise ValidationError(message)
 
 
+def is_finite_number(value: Any) -> bool:
+    return type(value) in {int, float} and math.isfinite(value)
+
+
 def object_without_duplicate_keys(pairs):
     value = {}
     for key, item in pairs:
@@ -845,6 +849,10 @@ def validate_teleport_catalog(
                         f"{point_context}.{field} must be finite")
 
     require(house_id in houses, f"teleportCatalog has no house named {house_id}")
+    require(
+        bool(houses[house_id]),
+        f"{context}.houses.{house_id} must contain at least one teleport point",
+    )
     point_ids: set[str] = set()
     for index, point in enumerate(houses[house_id]):
         point_context = f"teleportPoints[{index}]"
@@ -1170,6 +1178,11 @@ def validate_payload(
         height = panorama.get("height")
         require(type(width) is int and type(height) is int and width > 0 and width == 2 * height,
                 f"{base} panorama dimensions must be positive 2:1")
+        initial_yaw = panorama.get("initialYawDegrees")
+        require(
+            initial_yaw is None or is_finite_number(initial_yaw),
+            f"{base}.panorama.initialYawDegrees must be finite",
+        )
         panorama_path = referenced_asset(base, panorama.get("path"), "panorama.path")
         dimensions = archive_image_dimensions(
             archive, infos[panorama_path], panorama_path, allow_exr=False)
@@ -1203,6 +1216,71 @@ def validate_payload(
                 require(
                     retired not in environment,
                     f"unsupported V1 View environment field: {retired}",
+                )
+            for field in (
+                "skyGainEV", "exposureEV", "horizonPitchDegrees"
+            ):
+                value = environment.get(field)
+                require(
+                    value is None or is_finite_number(value),
+                    f"environment.{field} must be finite",
+                )
+            if "colorGrade" in environment:
+                color_grade = environment["colorGrade"]
+                require(
+                    isinstance(color_grade, dict),
+                    "environment.colorGrade must be an object",
+                )
+                exact_keys(
+                    color_grade,
+                    required={"contrast", "saturation"},
+                    context="environment.colorGrade",
+                )
+                for field, lower, upper in (
+                    ("contrast", 0.5, 2.0),
+                    ("saturation", 0.0, 2.0),
+                ):
+                    value = color_grade[field]
+                    require(
+                        is_finite_number(value)
+                        and lower <= value <= upper,
+                        f"environment.colorGrade.{field} must be between "
+                        f"{lower:g} and {upper:g}",
+                    )
+            if "directSun" in environment:
+                direct_sun = environment["directSun"]
+                require(
+                    isinstance(direct_sun, dict),
+                    "environment.directSun must be an object",
+                )
+                exact_keys(
+                    direct_sun,
+                    required={"enabled", "illuminanceLux"},
+                    optional={"azimuthDegrees", "elevationDegrees"},
+                    context="environment.directSun",
+                )
+                require(
+                    type(direct_sun["enabled"]) is bool,
+                    "environment.directSun.enabled must be a boolean",
+                )
+                illuminance = direct_sun["illuminanceLux"]
+                require(
+                    is_finite_number(illuminance) and illuminance >= 0,
+                    "environment.directSun.illuminanceLux must be finite and non-negative",
+                )
+                for field in ("azimuthDegrees", "elevationDegrees"):
+                    value = direct_sun.get(field)
+                    require(
+                        value is None or is_finite_number(value),
+                        f"environment.directSun.{field} must be finite",
+                    )
+                require(
+                    not direct_sun["enabled"]
+                    or (
+                        direct_sun.get("azimuthDegrees") is not None
+                        and direct_sun.get("elevationDegrees") is not None
+                    ),
+                    "environment.directSun requires azimuthDegrees and elevationDegrees when enabled",
                 )
             if "imageBasedLight" in environment:
                 asset = referenced_asset(
@@ -1319,16 +1397,17 @@ def validate_payload(
                     f"{base}.collision.path must be a USDZ")
         teleport_catalog = space.get("teleportCatalog")
         teleport_ids: set[str] = set()
-        if teleport_catalog is not None:
-            require(isinstance(teleport_catalog, dict),
-                    f"{base}.teleportCatalog must be an object")
-            catalog_asset = referenced_asset(
-                base, teleport_catalog.get("path"), "teleportCatalog.path")
-            teleport_ids = validate_teleport_catalog(
-                decoded_member(archive, infos[catalog_asset], catalog_asset),
-                teleport_catalog.get("houseID"),
-                f"{base}.teleportCatalog",
-            )
+        require(
+            isinstance(teleport_catalog, dict),
+            f"{base}.teleportCatalog is required for an enterable Room",
+        )
+        catalog_asset = referenced_asset(
+            base, teleport_catalog.get("path"), "teleportCatalog.path")
+        teleport_ids = validate_teleport_catalog(
+            decoded_member(archive, infos[catalog_asset], catalog_asset),
+            teleport_catalog.get("houseID"),
+            f"{base}.teleportCatalog",
+        )
         if "spatialAdaptation" in space:
             validate_spatial_adaptation(
                 space["spatialAdaptation"], teleport_ids,
