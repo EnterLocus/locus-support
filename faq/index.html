@@ -11,7 +11,7 @@
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="./">FAQ</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a></nav></header>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="./">FAQ</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a></nav></header>
   <main id="main" class="page-main">
     <header class="page-header faq-header"><h1>FAQ</h1></header>
 
@@ -43,11 +43,11 @@
       <h2 id="custom-heading">Custom Views and Rooms</h2>
       <details class="faq-item">
         <summary>What custom files can I import?</summary>
-        <div class="faq-answer"><p>Import a View as one complete 2:1 equirectangular JPEG, PNG, or HEIC image from Photos, Files, or a direct public HTTPS URL. Import a Room from Files or a direct public HTTPS URL as a <code>.locusplace</code> or ordinary <code>.zip</code> archive containing at least one Room. See the <a href="../create-your-own-place/">authoring guide</a> for the package layout.</p></div>
+        <div class="faq-answer"><p>Import a View as one complete 2:1 equirectangular JPEG, PNG, or HEIC image, or as one flat View ZIP. Import a Room as one flat Room ZIP. Files and direct public HTTPS URLs are supported; Photos is also available for View images. See the <a href="../create-your-own-place/">authoring guide</a> for the layouts.</p></div>
       </details>
       <details class="faq-item">
         <summary>What does a skybox or View image need?</summary>
-        <div class="faq-answer"><p>Use one complete 360° equirectangular image in JPEG, PNG, or HEIC format. Its displayed width must be exactly twice its height. A recommended size is 12,288 × 6,144.</p><p>Keep the horizon level. Put the direction you want to face first at the horizontal center of the image; the 360° seam belongs at the far left and right edges. Inspect that seam at full size for jumps in architecture, lighting, sky, or texture before importing. Locus normalizes the image and prepares its preview and Room lighting locally.</p></div>
+        <div class="faq-answer"><p>Use one complete 360° equirectangular image in JPEG, PNG, or HEIC format. Its displayed width must be exactly twice its height. A recommended size is 12,288 × 6,144.</p><p>Keep the horizon level. Put the direction you want to face first at the horizontal center of the image; the 360° seam belongs at the far left and right edges. Inspect that seam at full size for jumps in architecture, lighting, sky, or texture before importing. Locus normalizes the image and prepares its preview and Room lighting locally.</p><p>After importing, choose <strong>Edit View</strong> to adjust direction, brightness, contrast, color, Room lighting, and optional sunlight. These settings are saved for that View.</p></div>
       </details>
       <details class="faq-item">
         <summary>How can I make my own house or Room?</summary>
@@ -75,6 +75,6 @@
       </details>
     </section>
   </main>
-  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="./">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/issues/new/choose">Feedback</a></nav></footer>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="./">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
 </body>
 </html>
