@@ -16,3 +16,8 @@ copies of the packer and validator it uses.
 
 Use the Bug, Feature Request, or Wishlist form to post public feedback. Send
 private or security-sensitive reports to support@enterlocus.com.
+
+## Community
+
+[Community](https://github.com/EnterLocus/locus-support/discussions) — Share
+creations, ask questions, and discover environments made by other Locus users.
