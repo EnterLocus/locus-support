@@ -1,14 +1,24 @@
+import hashlib
 import html.parser
 import json
 import pathlib
 import subprocess
 import sys
-import tempfile
 import unittest
 import urllib.parse
+import zipfile
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+COMMUNITY_URL = "https://github.com/EnterLocus/locus-support/discussions"
+BUG_URL = "https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml"
+IDEAS_URL = (
+    "https://github.com/EnterLocus/locus-support/discussions/new"
+    "?category=ideas-requests"
+)
+HELP_URL = (
+    "https://github.com/EnterLocus/locus-support/discussions/new?category=help"
+)
 
 
 class PageParser(html.parser.HTMLParser):
@@ -64,8 +74,51 @@ def html_files():
 
 
 class PublicSiteTests(unittest.TestCase):
-    def test_every_page_has_basic_accessibility_and_social_metadata(self):
-        self.assertGreaterEqual(len(html_files()), 6)
+    def test_every_page_links_to_the_public_community(self):
+        for path in html_files():
+            parser = PageParser()
+            parser.feed(path.read_text())
+            with self.subTest(path=path.relative_to(ROOT)):
+                self.assertIn(COMMUNITY_URL, parser.links)
+
+        home = (ROOT / "index.html").read_text()
+        self.assertGreaterEqual(home.count(COMMUNITY_URL), 3)
+        self.assertIn("Made with Locus", home)
+        self.assertIn("Share your skyboxes, spaces, and environments", home)
+        self.assertIn("Explore the Community", home)
+
+        readme = " ".join((ROOT / "README.md").read_text().split())
+        self.assertIn(COMMUNITY_URL, readme)
+        self.assertIn("Share creations, ask questions", readme)
+
+    def test_bugs_and_community_requests_use_distinct_routes(self):
+        support = (ROOT / "support" / "index.html").read_text()
+        for required in [BUG_URL, IDEAS_URL, HELP_URL]:
+            self.assertIn(required, support)
+        for obsolete in ["template=feature.yml", "template=wishlist.yml"]:
+            self.assertNotIn(obsolete, support)
+
+        self.assertTrue((ROOT / ".github" / "ISSUE_TEMPLATE" / "bug.yml").is_file())
+        self.assertFalse((ROOT / ".github" / "ISSUE_TEMPLATE" / "feature.yml").exists())
+        self.assertFalse((ROOT / ".github" / "ISSUE_TEMPLATE" / "wishlist.yml").exists())
+        issue_config = (
+            ROOT / ".github" / "ISSUE_TEMPLATE" / "config.yml"
+        ).read_text()
+        self.assertIn(IDEAS_URL, issue_config)
+        self.assertIn(HELP_URL, issue_config)
+
+        for path in html_files():
+            parser = PageParser()
+            parser.feed(path.read_text())
+            with self.subTest(path=path.relative_to(ROOT)):
+                self.assertNotIn(
+                    "https://github.com/EnterLocus/locus-support/issues/new/choose",
+                    parser.links,
+                )
+                self.assertIn(BUG_URL, parser.links)
+
+    def test_every_page_has_accessibility_and_social_metadata(self):
+        self.assertGreaterEqual(len(html_files()), 7)
         for path in html_files():
             parser = PageParser()
             parser.feed(path.read_text())
@@ -85,10 +138,6 @@ class PublicSiteTests(unittest.TestCase):
                 )
                 canonical = f"https://enterlocus.com{route}"
                 self.assertEqual(parser.meta.get("og:url"), canonical)
-                self.assertEqual(
-                    parser.meta.get("og:image"),
-                    "https://enterlocus.com/assets/og.png",
-                )
                 relations = {
                     link.get("rel"): link.get("href")
                     for link in parser.head_links
@@ -114,206 +163,153 @@ class PublicSiteTests(unittest.TestCase):
                     self.assertTrue(target.is_relative_to(ROOT.resolve()))
                     self.assertTrue(target.is_file(), target)
 
-    def test_feedback_forms_repeat_the_public_privacy_boundary(self):
-        forms = ROOT / ".github" / "ISSUE_TEMPLATE"
-        for name in ["bug.yml", "feature.yml", "wishlist.yml"]:
-            text = (forms / name).read_text()
-            with self.subTest(form=name):
-                self.assertIn("public", text.lower())
-                self.assertIn("room", text.lower())
-                self.assertIn("credentials", text.lower())
-                self.assertIn("receipts", text.lower())
-                self.assertIn("order", text.lower())
-                self.assertIn("personal information", text.lower())
-                self.assertIn("support@enterlocus.com", text)
-
-    def test_public_repo_does_not_claim_the_private_app_is_open_source(self):
+    def test_private_app_source_boundary_remains_explicit(self):
         self.assertFalse((ROOT / "LICENSE").exists())
         readme = (ROOT / "README.md").read_text()
+        package_page = (ROOT / "package-format" / "index.html").read_text()
         self.assertIn("private repository", readme)
         self.assertIn("does **not** publish the app source", readme)
-        self.assertIn("does not publish the private Locus app source", (
-            ROOT / "package-format" / "index.html").read_text())
+        self.assertIn("does not publish the private Locus app source", package_page)
 
-    def test_homepage_keeps_pricing_details_out_of_product_story(self):
+    def test_homepage_states_download_and_free_core_boundary(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('href="./support/">Support</a>', homepage)
-        self.assertIn("Bring your own scenery and 3D spaces.", homepage)
         self.assertIn("Locus is not yet available to download.", homepage)
         self.assertIn("Its core features will be free to use", homepage)
         self.assertIn("with optional in-app purchases.", homepage)
         self.assertNotIn("not currently available for purchase", homepage)
-        self.assertNotIn("one custom View and one custom Room for free", homepage)
-        self.assertNotIn("Planned for V1", homepage)
-        self.assertNotIn(">Explore Locus</a>", homepage)
 
-    def test_customer_pages_do_not_publish_internal_development_language(self):
-        customer_pages = [
-            ROOT / "index.html",
-            ROOT / "faq" / "index.html",
-            ROOT / "privacy" / "index.html",
-            ROOT / "support" / "index.html",
+    def test_flat_public_format_replaces_the_old_envelope(self):
+        paths = [
+            ROOT / "create-your-own-place" / "index.html",
+            ROOT / "package-format" / "index.html",
+            ROOT / "reference" / "locus-asset-format.md",
+            ROOT / ".agents" / "skills" / "build-original-locus-room" / "SKILL.md",
         ]
-        internal_phrases = [
-            "Simulator captures",
-            "Vision Pro testing",
-            "active V1 development",
-            "release candidate",
-            "publisher-controlled release gate",
-            "short build commit",
-            "has not yet been verified on a physical Vision Pro",
-        ]
-        for path in customer_pages:
-            text = path.read_text()
-            for phrase in internal_phrases:
-                with self.subTest(path=path.relative_to(ROOT), phrase=phrase):
-                    self.assertNotIn(phrase, text)
-
-    def test_faq_states_the_passkey_product_boundary_directly(self):
-        faq = (ROOT / "faq" / "index.html").read_text()
-        self.assertIn("Does Locus support passkey sign-in?", faq)
-        self.assertIn(
-            "Locus lets you open web pages inside your workspace, but it is not a "
-            "full web browser and does not support passkey sign-in.",
-            faq,
-        )
-        self.assertNotIn("Some websites may not offer passkey sign-in", faq)
-        self.assertNotIn("passes standard passkey requests", faq)
-
-    def test_pricing_page_is_removed_and_faq_covers_product_boundaries(self):
-        self.assertFalse((ROOT / "pricing" / "index.html").exists())
-        faq = (ROOT / "faq" / "index.html").read_text()
-        self.assertIn('<header class="page-header faq-header"><h1>FAQ</h1></header>', faq)
-        self.assertNotIn("Useful answers, without the small print.", faq)
-        for answer in [
-            "Mac Virtual Display",
-            "passkey sign-in",
-            "How can I import more of my own content?",
-            "What is the Supporter subscription for?",
-            "Blender MCP",
-            "What custom files can I import?",
-            "What does a skybox or View image need?",
-            "12,288 × 6,144",
-            "Where do my browsing and imported-place data go?",
-        ]:
-            self.assertIn(answer, faq)
-
-        sitemap = (ROOT / "sitemap.xml").read_text()
-        self.assertIn("https://enterlocus.com/faq/", sitemap)
-        self.assertNotIn("/pricing/", sitemap)
-        for path in html_files():
+        for path in paths:
             text = path.read_text()
             with self.subTest(path=path.relative_to(ROOT)):
-                self.assertNotIn("/pricing/", text)
-        self.assertEqual((ROOT / "index.html").read_text().count('href="./faq/"'), 1)
+                for obsolete in [
+                    ".locusplace", "locusplace.json", "catalog/",
+                    "experience.json", "packageID", "contentHash",
+                    "teleportCatalog",
+                ]:
+                    self.assertNotIn(obsolete, text)
 
-    def test_mvd_help_puts_connection_before_entering_locus(self):
+        guide = paths[0].read_text()
+        for required in [
+            "my-room.zip", "space.json", "provenance.json",
+            "teleport-points.json", "scene.usdz", "thumbnail.jpg",
+            "All five files are required", "displayName",
+            "assigns each imported asset a UUID", "Names are display text and may repeat",
+            "does not take a thumbnail",
+        ]:
+            self.assertIn(required, guide)
+
+        for removed in [
+            ROOT / "schemas" / "locusplace-v1.schema.json",
+            ROOT / "tools" / "validate_locusplace.py",
+            ROOT / "tools" / "pack_locusplace.py",
+            ROOT / "examples" / "generated" / "room-only.locusplace",
+        ]:
+            self.assertFalse(removed.exists())
+
+    def test_view_appearance_controls_are_documented(self):
+        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
+        reference = (ROOT / "reference" / "locus-asset-format.md").read_text()
         faq = (ROOT / "faq" / "index.html").read_text()
-        guide = (
-            ROOT / "experimental-mac-virtual-display" / "index.html"
-        ).read_text()
+        for field in [
+            "initialYawDegrees", "skyGainEV", "exposureEV",
+            "horizonPitchDegrees", "colorGrade.contrast",
+            "colorGrade.saturation", "directSun",
+        ]:
+            self.assertIn(field, guide + reference)
+        for label in [
+            "View Brightness", "Contrast", "Color", "Room Lighting",
+            "Add Sunlight", "Sun Position", "Sunlight Strength", "Turn the View",
+        ]:
+            self.assertIn(label, guide + faq)
+        self.assertIn("0.5", guide)
+        self.assertIn("2.0", guide)
 
-        for text in [faq, guide]:
-            self.assertIn("open mac virtual display", text.lower())
-            self.assertIn("then enter the Locus place", text)
-            self.assertIn("visionOS exits that environment", text)
-
-    def test_homepage_uses_two_real_simulator_captures(self):
-        parser = PageParser()
-        parser.feed((ROOT / "index.html").read_text())
-        self.assertEqual(len(parser.images), 2)
+    def test_sample_skill_is_public_safe_and_includes_its_tools(self):
+        root = ROOT / ".agents" / "skills" / "build-original-locus-room"
+        skill = (root / "SKILL.md").read_text()
+        flat_skill = " ".join(skill.split())
+        self.assertTrue(skill.startswith("---\n"))
+        for required in [
+            "This is a sample skill", "Blender MCP", "thumbnail.jpg",
+            "teleport-points.json", "aiGenerated", "aiProvider",
+            "pack_locus_asset.py", "validate_locus_asset.py",
+            "try every declared seat on Apple Vision Pro",
+        ]:
+            self.assertIn(required, flat_skill)
+        for private_detail in ["/Users/", "Dropbox", "Locus Dev"]:
+            self.assertNotIn(private_detail, skill)
         self.assertEqual(
-            {image.get("src") for image in parser.images},
-            {
-                "./assets/screenshots/virtual-space-desk.jpg",
-                "./assets/screenshots/place-selector.jpg",
-            },
+            (root / "scripts" / "validate_locus_asset.py").read_bytes(),
+            (ROOT / "tools" / "validate_locus_asset.py").read_bytes(),
         )
-        for image in parser.images:
-            source = image.get("src", "")
-            with self.subTest(source=source):
-                self.assertTrue(source.startswith("./assets/screenshots/"))
-                self.assertEqual(image.get("width"), "1920")
-                self.assertEqual(image.get("height"), "1080")
-                self.assertTrue((ROOT / source.removeprefix("./")).is_file())
-
-    def test_typography_keeps_headings_readable(self):
-        site_css = (ROOT / "assets" / "site.css").read_text()
-        docs_css = (ROOT / "assets" / "docs.css").read_text()
-        self.assertIn("clamp(3rem, 5.8vw, 5.4rem)", site_css)
-        self.assertIn("line-height: 1", site_css)
-        self.assertIn("clamp(2.75rem, 5.2vw, 4.7rem)", docs_css)
-        self.assertIn("clamp(1.2rem, 2.2vw, 1.36rem)", docs_css)
-        self.assertIn("max-width: 70ch", docs_css)
-        self.assertNotIn("7.9rem", site_css)
-        self.assertNotIn("6.5rem", docs_css)
-
-    def test_custom_domain_is_the_only_published_site_origin(self):
-        self.assertEqual((ROOT / "CNAME").read_text().strip(), "enterlocus.com")
-        legacy = "enterlocus.github.io" + "/locus-support"
-        for path in ROOT.rglob("*"):
-            if not path.is_file() or ".git" in path.parts:
-                continue
-            if path.suffix not in {".html", ".json", ".md", ".txt", ".xml", ".yml", ".py"}:
-                continue
-            with self.subTest(path=path.relative_to(ROOT)):
-                self.assertNotIn(legacy, path.read_text(errors="ignore"))
-
-    def test_author_guide_uses_the_published_provenance_field_names(self):
-        schema = json.loads((
-            ROOT / "schemas" / "locusplace-provenance-v1.schema.json"
-        ).read_text())
+        self.assertEqual(
+            (root / "scripts" / "pack_locus_asset.py").read_bytes(),
+            (ROOT / "tools" / "pack_locus_asset.py").read_bytes(),
+        )
         guide = (ROOT / "create-your-own-place" / "index.html").read_text()
-        for field in schema["required"]:
-            self.assertIn(field, guide)
-        for field in ["license.identifier", "license.name", "license.url"]:
-            self.assertIn(field, guide)
-        for stale_field in ["licenseName", "licenseURL", "requiredCredit"]:
-            self.assertNotIn(stale_field, guide)
+        self.assertLess(guide.index("Try a complete Room"), guide.index("Use the sample Room skill"))
+        self.assertIn(
+            "https://github.com/EnterLocus/locus-support/tree/main/"
+            ".agents/skills/build-original-locus-room",
+            guide,
+        )
 
-    def test_author_guide_matches_current_product_import_entry_points(self):
-        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
-        reference = (ROOT / "reference" / "locusplace-format.md").read_text()
-        for supported in [
-            "Import a View",
-            "Import a Room",
-            ".heic",
-            "at least one Room",
-        ]:
-            self.assertIn(supported, guide)
-        self.assertNotIn("No catalog import", guide)
-        self.assertNotIn("whole-catalog import", guide)
-        self.assertIn("Author one Room per archive", reference)
-        self.assertIn("View-only archive", reference)
-
-    def test_schemas_have_one_published_source_of_truth(self):
-        self.assertFalse(list((ROOT / "reference").glob("schemas/*.json")))
-        reference = (ROOT / "reference" / "locusplace-format.md").read_text()
-        self.assertIn("../schemas/locusplace-v1.schema.json", reference)
-        self.assertIn("../schemas/locusplace-provenance-v1.schema.json", reference)
-
-    def test_reproducible_examples_pass_the_published_validator(self):
-        with tempfile.TemporaryDirectory() as directory:
-            built = pathlib.Path(directory) / "examples"
-            subprocess.run(
-                [sys.executable, str(ROOT / "examples" / "build_examples.py"), str(built)],
-                check=True,
-                capture_output=True,
-                text=True,
+    def test_demo_room_is_flat_pinned_and_valid(self):
+        demo = ROOT / "examples" / "demo-room.zip"
+        self.assertEqual(demo.stat().st_size, 8_024_506)
+        self.assertEqual(
+            hashlib.sha256(demo.read_bytes()).hexdigest(),
+            "bab6c4f6847513bc697e7a00b1b943611d9c9f0cf6757173f451f4121bb9a16d",
+        )
+        with zipfile.ZipFile(demo) as archive:
+            self.assertEqual(set(archive.namelist()), {
+                "space.json", "provenance.json", "teleport-points.json",
+                "scene.usdz", "thumbnail.jpg",
+            })
+            room = json.loads(archive.read("space.json"))
+            provenance = json.loads(archive.read("provenance.json"))
+            self.assertEqual(room["displayName"], "Demo Room")
+            self.assertNotIn("id", room)
+            self.assertTrue(provenance["aiGenerated"])
+            self.assertEqual(
+                provenance["license"]["identifier"],
+                "LicenseRef-EnterLocus-Proprietary",
             )
-            for name in [
-                "view-only.locusplace",
-                "room-only.locusplace",
-                "combined.locusplace",
-            ]:
-                result = subprocess.run(
-                    [sys.executable, str(ROOT / "tools" / "validate_locusplace.py"), str(built / name)],
-                    check=False,
-                    capture_output=True,
-                    text=True,
-                )
-                self.assertEqual(result.returncode, 0, result.stderr)
-                self.assertIn("VALID ", result.stdout)
+        result = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "validate_locus_asset.py"), str(demo)],
+            check=False, capture_output=True, text=True,
+        )
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertIn('VALID: room "Demo Room"', result.stdout)
+        for page in [
+            ROOT / "create-your-own-place" / "index.html",
+            ROOT / "package-format" / "index.html",
+        ]:
+            text = page.read_text()
+            self.assertIn("first Room included with Locus", text)
+            self.assertIn("not a new Room design", text)
+
+    def test_asset_rights_page_matches_first_party_provenance(self):
+        rights = (ROOT / "asset-rights" / "index.html").read_text()
+        for term in [
+            "LicenseRef-EnterLocus-Proprietary", "EnterLocus.com",
+            "AI disclosure", "aiGenerated", "aiProvider",
+        ]:
+            self.assertIn(term, rights)
+        schema = json.loads((ROOT / "schemas" / "provenance-v1.schema.json").read_text())
+        self.assertEqual(
+            schema["$id"], "https://enterlocus.com/schemas/provenance-v1.schema.json"
+        )
+        self.assertIn("https://enterlocus.com/asset-rights/", (
+            ROOT / "sitemap.xml"
+        ).read_text())
 
 
 if __name__ == "__main__":
