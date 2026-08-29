@@ -171,6 +171,13 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("does **not** publish the app source", readme)
         self.assertIn("does not publish the private Locus app source", package_page)
 
+    def test_homepage_states_download_and_free_core_boundary(self):
+        homepage = (ROOT / "index.html").read_text()
+        self.assertIn("Locus is not yet available to download.", homepage)
+        self.assertIn("Its core features will be free to use", homepage)
+        self.assertIn("with optional in-app purchases.", homepage)
+        self.assertNotIn("not currently available for purchase", homepage)
+
     def test_flat_public_format_replaces_the_old_envelope(self):
         paths = [
             ROOT / "create-your-own-place" / "index.html",
