@@ -10,6 +10,15 @@ import zipfile
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+COMMUNITY_URL = "https://github.com/EnterLocus/locus-support/discussions"
+BUG_URL = "https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml"
+IDEAS_URL = (
+    "https://github.com/EnterLocus/locus-support/discussions/new"
+    "?category=ideas-requests"
+)
+HELP_URL = (
+    "https://github.com/EnterLocus/locus-support/discussions/new?category=help"
+)
 
 
 class PageParser(html.parser.HTMLParser):
@@ -65,6 +74,49 @@ def html_files():
 
 
 class PublicSiteTests(unittest.TestCase):
+    def test_every_page_links_to_the_public_community(self):
+        for path in html_files():
+            parser = PageParser()
+            parser.feed(path.read_text())
+            with self.subTest(path=path.relative_to(ROOT)):
+                self.assertIn(COMMUNITY_URL, parser.links)
+
+        home = (ROOT / "index.html").read_text()
+        self.assertGreaterEqual(home.count(COMMUNITY_URL), 3)
+        self.assertIn("Made with Locus", home)
+        self.assertIn("Share your skyboxes, spaces, and environments", home)
+        self.assertIn("Explore the Community", home)
+
+        readme = " ".join((ROOT / "README.md").read_text().split())
+        self.assertIn(COMMUNITY_URL, readme)
+        self.assertIn("Share creations, ask questions", readme)
+
+    def test_bugs_and_community_requests_use_distinct_routes(self):
+        support = (ROOT / "support" / "index.html").read_text()
+        for required in [BUG_URL, IDEAS_URL, HELP_URL]:
+            self.assertIn(required, support)
+        for obsolete in ["template=feature.yml", "template=wishlist.yml"]:
+            self.assertNotIn(obsolete, support)
+
+        self.assertTrue((ROOT / ".github" / "ISSUE_TEMPLATE" / "bug.yml").is_file())
+        self.assertFalse((ROOT / ".github" / "ISSUE_TEMPLATE" / "feature.yml").exists())
+        self.assertFalse((ROOT / ".github" / "ISSUE_TEMPLATE" / "wishlist.yml").exists())
+        issue_config = (
+            ROOT / ".github" / "ISSUE_TEMPLATE" / "config.yml"
+        ).read_text()
+        self.assertIn(IDEAS_URL, issue_config)
+        self.assertIn(HELP_URL, issue_config)
+
+        for path in html_files():
+            parser = PageParser()
+            parser.feed(path.read_text())
+            with self.subTest(path=path.relative_to(ROOT)):
+                self.assertNotIn(
+                    "https://github.com/EnterLocus/locus-support/issues/new/choose",
+                    parser.links,
+                )
+                self.assertIn(BUG_URL, parser.links)
+
     def test_every_page_has_accessibility_and_social_metadata(self):
         self.assertGreaterEqual(len(html_files()), 7)
         for path in html_files():
