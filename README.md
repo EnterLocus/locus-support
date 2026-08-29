@@ -14,8 +14,9 @@ The repository includes an optional sample Room-authoring skill at
 reference and validator define the accepted files. The sample skill includes
 copies of the packer and validator it uses.
 
-Use the Bug, Feature Request, or Wishlist form to post public feedback. Send
-private or security-sensitive reports to support@enterlocus.com.
+Use the Bug form for reproducible product problems. Bring ideas, feature
+requests, wishlists, and creator questions to GitHub Discussions. Send private
+or security-sensitive reports to support@enterlocus.com.
 
 ## Community
 

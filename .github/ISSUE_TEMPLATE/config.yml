@@ -1,5 +1,11 @@
 blank_issues_enabled: false
 contact_links:
+  - name: Ideas & Requests
+    url: https://github.com/EnterLocus/locus-support/discussions/new?category=ideas-requests
+    about: Suggest a Place, workflow, creator feature, or experience in the community.
+  - name: Community Help
+    url: https://github.com/EnterLocus/locus-support/discussions/new?category=help
+    about: Ask about creating, importing, exporting, sharing, or using community content.
   - name: Private or security report
     url: mailto:support@enterlocus.com?subject=Locus%20private%20or%20security%20report
     about: Email us instead of posting room images, account details, credentials, receipts, or personal information in public.
