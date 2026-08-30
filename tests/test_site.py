@@ -19,6 +19,7 @@ IDEAS_URL = (
 HELP_URL = (
     "https://github.com/EnterLocus/locus-support/discussions/new?category=help"
 )
+APP_STORE_URL = "https://apps.apple.com/app/id6802168265"
 
 
 class PageParser(html.parser.HTMLParser):
@@ -185,10 +186,33 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_homepage_states_download_and_free_core_boundary(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn("Locus is not yet available to download.", homepage)
-        self.assertIn("Its core features will be free to use", homepage)
+        self.assertIn("Available now for Apple Vision Pro.", homepage)
+        self.assertIn("Core features are free to use", homepage)
         self.assertIn("with optional in-app purchases.", homepage)
+        self.assertNotIn("not yet available", homepage)
         self.assertNotIn("not currently available for purchase", homepage)
+
+    def test_homepage_uses_the_official_app_store_download_badge(self):
+        homepage = (ROOT / "index.html").read_text()
+        parser = PageParser()
+        parser.feed(homepage)
+        self.assertIn(APP_STORE_URL, parser.links)
+
+        badges = [
+            image for image in parser.images
+            if image.get("src") == "./assets/download-on-the-app-store.svg"
+        ]
+        self.assertEqual(len(badges), 1)
+        self.assertEqual(badges[0].get("alt"), "Download on the App Store")
+
+        badge_path = ROOT / "assets" / "download-on-the-app-store.svg"
+        self.assertEqual(
+            hashlib.sha256(badge_path.read_bytes()).hexdigest(),
+            "a26fc5b38380272c92e9019a2eb8b45542a66814b3e2b203772db8904b9fb99f",
+        )
+        asset_record = (ROOT / "assets" / "README.md").read_text()
+        self.assertIn("App Store marketing guidelines", asset_record)
+        self.assertIn(APP_STORE_URL, asset_record)
 
     def test_homepage_uses_current_launch_media(self):
         expected = {
@@ -209,9 +233,15 @@ class PublicSiteTests(unittest.TestCase):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
         parser.feed(homepage)
-        homepage_sources = {pathlib.Path(image["src"]).name for image in parser.images}
+        screenshot_images = [
+            image for image in parser.images
+            if image["src"].startswith("./assets/screenshots/")
+        ]
+        homepage_sources = {
+            pathlib.Path(image["src"]).name for image in screenshot_images
+        }
         self.assertEqual(homepage_sources, set(expected))
-        for image in parser.images:
+        for image in screenshot_images:
             self.assertEqual(image.get("width"), "1920")
             self.assertEqual(image.get("height"), "1080")
             self.assertTrue(image.get("alt", "").strip())

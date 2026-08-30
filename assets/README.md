@@ -13,6 +13,14 @@ resized exports of the production `LocusAppIcon` image stack from private Locus
 source commit `5e6a640cf7bf2144296e8bfa6f2f9f96c9d2c824`. They are product identity
 assets, not a grant of permission to reuse the Locus mark.
 
+`download-on-the-app-store.svg` is the unmodified, preferred black English
+badge supplied by Apple through its
+[App Store marketing tools](https://tools.applemediaservices.com/api/badges/download-on-the-app-store/black/en-us?size=250x83),
+downloaded August 30, 2026. It links to the canonical Locus product page at
+`https://apps.apple.com/app/id6802168265` and is used under Apple's
+[App Store marketing guidelines](https://developer.apple.com/app-store/marketing/guidelines/).
+SHA-256: `a26fc5b38380272c92e9019a2eb8b45542a66814b3e2b203772db8904b9fb99f`.
+
 The four JPEG files in `screenshots/` are 1920 x 1080 web exports of the
 3840 x 2160 simulator masters approved as Locus 1.0 launch media. They contain
 only Locus UI and built-in content:
