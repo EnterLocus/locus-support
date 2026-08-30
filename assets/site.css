@@ -1,22 +1,22 @@
 :root {
   color-scheme: dark;
-  --ink: #f3f4ec;
-  --muted: #a9b1a8;
-  --surface: #17201d;
-  --surface-2: #1c2823;
-  --line: rgba(230, 244, 233, 0.14);
-  --accent: #d9f86c;
-  --accent-ink: #14200e;
-  --warm: #e8c89e;
+  --ink: #f3f5f4;
+  --muted: #aeb9c0;
+  --surface: #172127;
+  --surface-2: #1d2a31;
+  --line: rgba(226, 238, 245, 0.14);
+  --accent: #b8dcea;
+  --accent-ink: #101a20;
+  --warm: #efad9a;
   --max: 1160px;
   font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
-  background: #0d1412;
+  background: #0d141a;
   color: var(--ink);
 }
 
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; min-width: 320px; background: radial-gradient(circle at 80% 2%, #263d31 0, transparent 34rem), #0d1412; }
+body { margin: 0; min-width: 320px; background: radial-gradient(circle at 80% 2%, #233843 0, transparent 34rem), #0d141a; }
 a { color: inherit; text-underline-offset: .25em; }
 .skip-link { position: fixed; top: -4rem; left: 1rem; z-index: 20; padding: .8rem 1rem; background: var(--accent); color: var(--accent-ink); border-radius: .5rem; }
 .skip-link:focus { top: 1rem; }
@@ -24,10 +24,9 @@ a { color: inherit; text-underline-offset: .25em; }
 .site-header, footer { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
 .site-header { height: 86px; border-bottom: 1px solid var(--line); }
 .brand { display: inline-flex; align-items: center; gap: .7rem; font-size: 1.1rem; font-weight: 700; text-decoration: none; letter-spacing: -.02em; }
-.brand-mark { position: relative; width: 2rem; height: 2rem; border: 1px solid rgba(217, 248, 108, .7); border-radius: 50%; display: inline-grid; place-items: center; }
-.brand-mark::before, .brand-mark::after, .brand-mark span { content: ""; position: absolute; border: 1px solid rgba(217, 248, 108, .5); border-radius: 50%; }
-.brand-mark::before { width: 1.3rem; height: 1.3rem; }
-.brand-mark::after { width: .55rem; height: .55rem; background: var(--accent); border: 0; }
+.brand-mark { width: 2.25rem; height: 2.25rem; flex: 0 0 auto; border-radius: .55rem; background: url("./app-icon.png") center / cover no-repeat; }
+.brand-mark span { display: none; }
+.brand:focus-visible { outline: 2px solid var(--accent); outline-offset: .35rem; border-radius: .25rem; }
 .site-header nav, footer nav { display: flex; align-items: center; gap: 1.5rem; }
 .site-header nav a, footer a { color: var(--muted); text-decoration: none; font-size: .92rem; }
 .site-header nav a:hover, .site-header nav a:focus-visible, footer a:hover, footer a:focus-visible { color: var(--ink); }
