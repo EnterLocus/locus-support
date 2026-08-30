@@ -1,65 +1,48 @@
 # Capturing product screenshots
 
-The website uses five 16:9 master captures. Five is enough to explain the
-current product without repeating the same state:
+The home page uses four 16:9 web exports from the approved Locus 1.0 launch
+media. Each image answers a different first-time visitor question:
 
-1. `virtual-space-desk-wide` — the wide hero frame inside a Virtual Space, with
-   the desk edge and a browser window visible;
-2. `virtual-space` — a second authored Room composition;
-3. `room-portal` — the deterministic surface chooser;
-4. `room-portal-open` — the deterministic opened-surface state;
-5. `place-library` — installed Place packages.
+1. `virtual-space-desk-wide.jpg` — what working inside a Room feels like;
+2. `place-picker.jpg` — how a visitor combines a Room and a View;
+3. `virtual-space-room-turn.jpg` — that Virtual Space continues beyond the
+   desk; and
+4. `imports-virtual-space.jpg` — where a visitor brings in a View or Room.
 
-These captures can be repeated automatically after a Debug build has been
-installed on a visionOS simulator. Set `SIMULATOR_ID` to an already selected
-simulator, and always use the development bundle identity. Each launch must
-terminate the previous process so the new launch arguments are read.
+The 3840 x 2160 PNG masters remain in the private release media root. This
+public repository contains only 1920 x 1080 JPEG exports. Their master hashes
+and simulator-evidence boundary are recorded in `assets/README.md`.
+
+## Prepare the simulator scene
+
+The reusable scene-preparation workflow lives in the private Locus source at
+`scripts/app-store-capture/`. It builds and installs only the development app,
+starts a clean Virtual Space with no visited website content, and uses a fixed
+simulator head pose. Keep that workflow as the authority rather than copying
+launch commands into this public repository.
+
+Camera framing remains a calibrated manual step: the workflow prepares the
+scene, while the operator pulls back to show the full desk or turns to show the
+rest of the Room. Save accepted frames with `simctl io` at the simulator's
+native 3840 x 2160 resolution.
+
+## Publish web exports
+
+Downsample an approved master without cropping and use a new public filename
+when the image changes so the live site cannot reuse a stale cached image:
 
 ```sh
-xcrun simctl launch --terminate-running-process "$SIMULATOR_ID" \
-  com.enterlocus.locus.development \
-  --auto-scene experience.horizon-atelier-clarens-midday \
-  --experience-mode virtual-space --simulator-head-pose \
-  --safe-head-debug inside --workspace-windows
-sleep 12
-xcrun simctl io "$SIMULATOR_ID" screenshot virtual-space-desk-wide.png
-
-xcrun simctl launch --terminate-running-process "$SIMULATOR_ID" \
-  com.enterlocus.locus.development \
-  --auto-scene experience.atrium-loft-venice-sunset \
-  --experience-mode virtual-space --simulator-head-pose \
-  --safe-head-debug inside
-sleep 12
-xcrun simctl io "$SIMULATOR_ID" screenshot virtual-space.png
-
-xcrun simctl launch --terminate-running-process "$SIMULATOR_ID" \
-  com.enterlocus.locus.development \
-  --auto-scene experience.your-room-clarens-midday \
-  --experience-mode room-portal --safe-head-debug inside \
-  --room-portal-debug chooser
-sleep 10
-xcrun simctl io "$SIMULATOR_ID" screenshot room-portal.png
-
-xcrun simctl launch --terminate-running-process "$SIMULATOR_ID" \
-  com.enterlocus.locus.development \
-  --auto-scene experience.your-room-clarens-midday \
-  --experience-mode room-portal --safe-head-debug inside \
-  --room-portal-debug fade
-sleep 12
-xcrun simctl io "$SIMULATOR_ID" screenshot room-portal-open.png
-
-xcrun simctl launch --terminate-running-process "$SIMULATOR_ID" \
-  com.enterlocus.locus.development --workspace-page library
-sleep 5
-xcrun simctl io "$SIMULATOR_ID" screenshot place-library.png
-
-xcrun simctl terminate "$SIMULATOR_ID" \
-  com.enterlocus.locus.development
+sips --resampleWidth 1920 \
+  --setProperty format jpeg \
+  --setProperty formatOptions 88 \
+  approved-master.png \
+  --out assets/screenshots/new-public-name.jpg
 ```
 
-Allow the requested interface or immersive state to settle before each
-screenshot. Keep the hero master at the simulator's full 16:9 frame; do not
-crop it back to the default-room composition. The deterministic fixtures make
-framing repeatable, but simulator captures never replace physical Apple Vision
-Pro acceptance for tracking, passthrough, occlusion, presence, performance, or
+Update the home page, `assets/README.md`, and the exact asset hashes in
+`tests/test_site.py` together. Run the site tests and inspect both desktop and
+mobile layouts before publishing.
+
+Simulator captures explain composition and UI. They do not prove physical
+Apple Vision Pro tracking, passthrough, occlusion, presence, performance, or
 comfort.
