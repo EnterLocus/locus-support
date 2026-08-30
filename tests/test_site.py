@@ -148,6 +148,18 @@ class PublicSiteTests(unittest.TestCase):
                 for image in parser.images:
                     self.assertIn("alt", image)
 
+    def test_header_brand_uses_the_production_app_icon(self):
+        stylesheet = (ROOT / "assets" / "site.css").read_text()
+        self.assertIn('url("./app-icon.png")', stylesheet)
+        self.assertNotIn(".brand-mark::before", stylesheet)
+        self.assertTrue((ROOT / "assets" / "app-icon.png").is_file())
+
+        for path in html_files():
+            with self.subTest(path=path.relative_to(ROOT)):
+                page = path.read_text()
+                self.assertIn('class="brand"', page)
+                self.assertIn('aria-label="Locus home"', page)
+
     def test_local_links_resolve_inside_the_published_tree(self):
         for path in html_files():
             parser = PageParser()
