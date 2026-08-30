@@ -178,6 +178,50 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("with optional in-app purchases.", homepage)
         self.assertNotIn("not currently available for purchase", homepage)
 
+    def test_homepage_uses_current_launch_media(self):
+        expected = {
+            "imports-virtual-space.jpg":
+                "4195481daae7b2fa03da26a779abe15ccd900f1c98f66f74656050da488113cc",
+            "place-picker.jpg":
+                "fdb4556a77c82b924b001d2212dc7459db787bfb08e8ae22113453623e52d4ee",
+            "virtual-space-desk-wide.jpg":
+                "204fad0f6d3b5a977268cc4365a4e74db32ed8c3695be09ed988a8dc9187726c",
+            "virtual-space-room-turn.jpg":
+                "5e7bc4e4aa2719a0441efc9cc5512fed19016c7a905da92d2eb5f066dee732a3",
+        }
+        screenshot_root = ROOT / "assets" / "screenshots"
+        self.assertEqual(
+            {path.name for path in screenshot_root.glob("*.jpg")},
+            set(expected),
+        )
+        homepage = (ROOT / "index.html").read_text()
+        parser = PageParser()
+        parser.feed(homepage)
+        homepage_sources = {pathlib.Path(image["src"]).name for image in parser.images}
+        self.assertEqual(homepage_sources, set(expected))
+        for image in parser.images:
+            self.assertEqual(image.get("width"), "1920")
+            self.assertEqual(image.get("height"), "1080")
+            self.assertTrue(image.get("alt", "").strip())
+            filename = pathlib.Path(image["src"]).name
+            if filename == "virtual-space-desk-wide.jpg":
+                self.assertEqual(image.get("fetchpriority"), "high")
+            else:
+                self.assertEqual(image.get("loading"), "lazy")
+                self.assertEqual(image.get("decoding"), "async")
+        for filename, digest in expected.items():
+            with self.subTest(filename=filename):
+                self.assertEqual(
+                    hashlib.sha256((screenshot_root / filename).read_bytes()).hexdigest(),
+                    digest,
+                )
+        capture_guide = (ROOT / "docs" / "capturing-product-screenshots.md").read_text()
+        asset_record = (ROOT / "assets" / "README.md").read_text()
+        for filename in expected:
+            self.assertIn(filename, capture_guide)
+            self.assertIn(filename, asset_record)
+        self.assertNotIn("five 16:9 master captures", capture_guide)
+
     def test_flat_public_format_replaces_the_old_envelope(self):
         paths = [
             ROOT / "create-your-own-place" / "index.html",
