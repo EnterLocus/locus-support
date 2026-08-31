@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d141a">
+  <title>Find and use Views from the web — Locus</title>
+  <meta name="description" content="Find a compatible 360° image online, preview it in Locus without using an import, or save it permanently as a View.">
+  <meta property="og:title" content="Find and use Views from the web — Locus">
+  <meta property="og:description" content="What to look for, how Use as View works, and when a web panorama can be previewed or saved in Locus.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://enterlocus.com/online-views/">
+  <meta property="og:image" content="https://enterlocus.com/assets/og.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/online-views/">
+  <link rel="icon" type="image/png" href="../assets/favicon.png">
+  <link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css">
+  <link rel="stylesheet" href="../assets/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../faq/">FAQ</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a></nav></header>
+
+  <main id="main" class="page-main">
+    <header class="page-header">
+      <p class="kicker">Web guide</p>
+      <h1>Find a high-resolution View online.</h1>
+      <p>Only a complete panorama that is at least 4,096 × 2,048 and exactly 2:1 can be used directly from Locus Browser. When an image qualifies, you can apply a session-only preview or save it to your View library without leaving your workspace.</p>
+      <span class="status">4K minimum · Exact 2:1 · JPEG, PNG, or HEIC</span>
+    </header>
+
+    <section class="doc-section">
+      <h2>Know what to look for</h2>
+      <div class="callout warning"><strong>Resolution is required:</strong> the image displayed in the Browser must be at least 4,096 × 2,048. A smaller thumbnail does not qualify even when the original image is large enough.</div>
+      <p>A compatible View is a complete 360° equirectangular panorama. It looks unusually wide and contains the whole sphere in one flat image.</p>
+      <table>
+        <thead><tr><th>Check</th><th>What Locus needs</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Shape</strong></td><td>Exactly twice as wide as it is tall: a 2:1 equirectangular image.</td></tr>
+          <tr><td><strong>Minimum size</strong></td><td>4,096 × 2,048 pixels. Larger images generally look clearer in Apple Vision Pro; 8K or 12K is preferable when available.</td></tr>
+          <tr><td><strong>File type</strong></td><td>An SDR JPEG, PNG, or HEIC image. HDR, EXR, cube maps, video, and interactive 360° viewers are not View images.</td></tr>
+          <tr><td><strong>Web source</strong></td><td>A public HTTPS image that the page lets Locus read. A thumbnail, private file, canvas, or <code>blob:</code> preview may not qualify even when a full-resolution download exists.</td></tr>
+          <tr><td><strong>Rights</strong></td><td>A license or permission that allows your intended use. Being downloadable does not by itself grant permission.</td></tr>
+        </tbody>
+      </table>
+      <div class="callout"><strong>Useful search phrases:</strong> “360 equirectangular panorama JPG,” “2:1 skybox,” or “tonemapped HDRI JPEG.” If an HDRI site offers several formats, choose its ordinary tonemapped JPEG rather than an <code>.hdr</code> or <code>.exr</code> file.</div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Find a full-resolution image</h2>
+      <p>Sites such as <a href="https://commons.wikimedia.org/wiki/Category:Equirectangular_projection">Wikimedia Commons</a> and <a href="https://polyhaven.com/hdris">Poly Haven</a> can help you find equirectangular panoramas. Check the individual file's license, dimensions, and format before using it.</p>
+      <p>Many download pages embed only a small thumbnail or an interactive viewer. That preview will not show <strong>Use as View</strong> if it is below 4K or is rendered as a canvas. Look for <strong>Original file</strong>, <strong>Full resolution</strong>, or a direct JPEG, PNG, or HEIC link. The full image should open by itself in the Browser tab.</p>
+      <div class="callout warning"><strong>Example:</strong> a Wikimedia Commons file page may show a 960 × 480 preview even when its Original file is 5,000 × 2,500. The page preview is too small; the Original file qualifies.</div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Use the image in Locus</h2>
+      <ol class="step-list">
+        <li><strong>Open the page in Locus Browser.</strong> Browse normally until you reach the panorama or its download page.</li>
+        <li><strong>Choose the full-resolution image.</strong> If the qualifying image is embedded directly in a page, select the <strong>Use as View</strong> mark in its corner. Otherwise open the page's Original file or direct image link.</li>
+        <li><strong>Wait for Locus to inspect it.</strong> A qualifying standalone image opens the prompt <strong>Use this 360° image as a View?</strong> with its filename, host, dimensions, and format.</li>
+        <li><strong>Choose Apply Preview or Save as View.</strong> Both use the pixels already displayed by that Browser tab; Locus does not silently fetch a different file after you confirm.</li>
+      </ol>
+    </section>
+
+    <section class="doc-section">
+      <h2>Preview or save?</h2>
+      <div class="link-grid comparison-grid">
+        <div class="link-card static-card">
+          <strong>Apply Preview</strong>
+          <span>Applies the View for this app session only. It does not use an import allowance. Locus keeps the package in temporary storage and removes it automatically.</span>
+        </div>
+        <div class="link-card static-card">
+          <strong>Save as View…</strong>
+          <span>Adds a permanent custom View to your library. The filename is the suggested name, and you can change it before saving. Saving uses an available import and follows your current import entitlement.</span>
+        </div>
+      </div>
+      <p>After saving, use <strong>Edit View</strong> in Locus to adjust its starting direction, brightness, contrast, color, Room lighting, and optional sunlight.</p>
+    </section>
+
+    <section class="doc-section">
+      <h2>If Use as View does not appear</h2>
+      <ul>
+        <li>Open the original image rather than the download page's thumbnail.</li>
+        <li>Confirm that the displayed image is at least 4,096 × 2,048 and exactly 2:1.</li>
+        <li>Choose a JPEG, PNG, or HEIC instead of HDR, EXR, ZIP, video, or a cube map.</li>
+        <li>Interactive WebGL, canvas, <code>blob:</code>, sign-in-only, and cross-site-protected previews may not expose reusable image pixels. Use the site's direct public HTTPS image link when it provides one.</li>
+        <li>If a download button hands the file to another app, return and look for an Original file or full-resolution image link that opens in the current tab.</li>
+      </ul>
+      <p>See the <a href="../faq/">FAQ</a> for short answers about resolution, import allowances, and download behavior.</p>
+    </section>
+  </main>
+
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>

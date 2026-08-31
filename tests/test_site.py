@@ -192,6 +192,40 @@ class PublicSiteTests(unittest.TestCase):
         self.assertNotIn("not yet available", homepage)
         self.assertNotIn("not currently available for purchase", homepage)
 
+    def test_online_view_guide_leads_with_the_direct_use_resolution_gate(self):
+        guide_path = ROOT / "online-views" / "index.html"
+        self.assertTrue(guide_path.is_file())
+        guide = guide_path.read_text()
+        homepage = (ROOT / "index.html").read_text()
+        faq = (ROOT / "faq" / "index.html").read_text()
+
+        for text in [guide, homepage, faq]:
+            self.assertIn("4,096 × 2,048", text)
+            self.assertIn("2:1", text)
+
+        self.assertLess(
+            guide.index("Only a complete panorama"),
+            guide.index("Know what to look for"),
+        )
+        for required in [
+            "Use as View",
+            "Apply Preview",
+            "Save as View…",
+            "does not use an import allowance",
+            "uses an available import",
+            "temporary storage",
+            "Original file",
+            "filename is the suggested name",
+        ]:
+            self.assertIn(required, guide)
+
+        self.assertIn('href="./online-views/"', homepage)
+        self.assertIn('href="../online-views/"', faq)
+        self.assertIn(
+            "https://enterlocus.com/online-views/",
+            (ROOT / "sitemap.xml").read_text(),
+        )
+
     def test_homepage_uses_the_official_app_store_download_badge(self):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()

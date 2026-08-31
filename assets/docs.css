@@ -19,6 +19,8 @@
 .link-card:hover, .link-card:focus-visible { border-color: rgba(184,220,234,.55); background: rgba(184,220,234,.055); }
 .link-card strong { display: block; font-size: 1.1rem; margin-bottom: .4rem; color: var(--ink); }
 .link-card span { color: var(--muted); line-height: 1.45; }
+.static-card { cursor: default; }
+.static-card:hover { border-color: var(--line); background: rgba(255,255,255,.025); }
 .faq-list { padding: 2.5rem 0; border-top: 1px solid var(--line); }
 .faq-list h2 { margin: 0 0 1rem; font-size: clamp(1.65rem, 3vw, 2.6rem); letter-spacing: -.035em; }
 .faq-item { border-bottom: 1px solid var(--line); }
