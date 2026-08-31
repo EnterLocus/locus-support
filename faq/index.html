@@ -4,7 +4,7 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d141a">
   <title>Frequently asked questions — Locus</title>
-  <meta name="description" content="Answers about Locus, Mac Virtual Display, passkeys, custom Views and Rooms, Supporter, imports, downloads, and privacy.">
+  <meta name="description" content="Answers about Locus, online Views, Mac Virtual Display, passkeys, custom Views and Rooms, Supporter, imports, downloads, and privacy.">
   <meta property="og:title" content="Frequently asked questions — Locus"><meta property="og:description" content="Practical answers about using Locus and bringing your own Views and Rooms."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/faq/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
   <link rel="canonical" href="https://enterlocus.com/faq/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
@@ -35,19 +35,31 @@
       </details>
       <details class="faq-item">
         <summary>Why does a download open outside Locus?</summary>
-        <div class="faq-answer"><p>The current Locus browser does not save downloaded files. When a download has a safe public URL, Locus can offer it to the system browser or another app; you may need to sign in or start the download again there. Your current Locus environment and tabs remain available when you return.</p></div>
+        <div class="faq-answer"><p>Locus Browser is not a general file manager. A compatible 4K, 2:1 JPEG, PNG, or HEIC image can be previewed or saved directly as a View. Other downloads are offered to the system browser or another app when they have a safe public URL; you may need to sign in or start the download again there. Your current Locus environment and tabs remain available when you return.</p></div>
       </details>
     </section>
 
     <section class="faq-list" aria-labelledby="custom-heading">
       <h2 id="custom-heading">Custom Views and Rooms</h2>
       <details class="faq-item">
+        <summary>How do I use a skybox or panorama I find online?</summary>
+        <div class="faq-answer"><p><strong>Only images at least 4,096 × 2,048 can be used directly.</strong> Open the site in Locus Browser and look for a complete 360° equirectangular JPEG, PNG, or HEIC image with an exact 2:1 ratio. Select <strong>Use as View</strong> on an eligible embedded image, or open the site's Original file or full-resolution image link. Then choose <strong>Apply Preview</strong> or <strong>Save as View…</strong>. See the <a href="../online-views/">complete online View guide</a> for search terms, examples, licensing, and troubleshooting.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>Why does a 360° image not show Use as View?</summary>
+        <div class="faq-answer"><p>The page may be showing a thumbnail below 4K, a WebGL or canvas viewer, a <code>blob:</code> preview, or an image that the site does not let Locus read. The image may also be the wrong shape or format. Open the public HTTPS Original file or full-resolution JPEG, PNG, or HEIC and confirm that it is at least 4,096 × 2,048 with an exact 2:1 ratio.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary>What is the difference between Apply Preview and Save as View?</summary>
+        <div class="faq-answer"><p><strong>Apply Preview</strong> uses a temporary package for the current app session and does not use an import allowance. <strong>Save as View…</strong> adds the image permanently to your View library, uses an available import, and checks your current import entitlement. The filename is suggested as the saved View name, and you can change it before saving.</p></div>
+      </details>
+      <details class="faq-item">
         <summary>What custom files can I import?</summary>
         <div class="faq-answer"><p>Import a View as one complete 2:1 equirectangular JPEG, PNG, or HEIC image, or as one flat View ZIP. Import a Room as one flat Room ZIP. Files and direct public HTTPS URLs are supported; Photos is also available for View images. See the <a href="../create-your-own-place/">authoring guide</a> for the layouts.</p></div>
       </details>
       <details class="faq-item">
         <summary>What does a skybox or View image need?</summary>
-        <div class="faq-answer"><p>Use one complete 360° equirectangular image in JPEG, PNG, or HEIC format. Its displayed width must be exactly twice its height. A recommended size is 12,288 × 6,144.</p><p>Keep the horizon level. Put the direction you want to face first at the horizontal center of the image; the 360° seam belongs at the far left and right edges. Inspect that seam at full size for jumps in architecture, lighting, sky, or texture before importing. Locus normalizes the image and prepares its preview and Room lighting locally.</p><p>After importing, choose <strong>Edit View</strong> to adjust direction, brightness, contrast, color, Room lighting, and optional sunlight. These settings are saved for that View.</p></div>
+        <div class="faq-answer"><p>Use one complete 360° equirectangular image in JPEG, PNG, or HEIC format. Its displayed width must be exactly twice its height, and it must be at least 4,096 × 2,048. A recommended size is 12,288 × 6,144.</p><p>Keep the horizon level. Put the direction you want to face first at the horizontal center of the image; the 360° seam belongs at the far left and right edges. Inspect that seam at full size for jumps in architecture, lighting, sky, or texture before importing. Locus normalizes the image and prepares its preview and Room lighting locally.</p><p>After importing, choose <strong>Edit View</strong> to adjust direction, brightness, contrast, color, Room lighting, and optional sunlight. These settings are saved for that View.</p></div>
       </details>
       <details class="faq-item">
         <summary>How can I make my own house or Room?</summary>
