@@ -118,10 +118,3 @@ footer > div { display: flex; flex-direction: column; gap: .35rem; }
   .hero-video { display: none; }
   .hero-video-mobile { display: block; }
 }
-
-@media (hover: none) and (pointer: coarse) {
-  @supports (-webkit-touch-callout: none) {
-    .hero-video { display: none; }
-    .hero-video-mobile { display: block; }
-  }
-}
