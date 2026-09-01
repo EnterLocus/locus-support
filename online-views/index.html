@@ -31,6 +31,19 @@
       <span class="status">4K minimum · Exact 2:1 · JPEG, PNG, or HEIC</span>
     </header>
 
+    <section class="doc-section try-view">
+      <div class="try-view-copy">
+        <p class="kicker">Try it first</p>
+        <h2>Open a ready-to-use 4K View.</h2>
+        <p>Open this example in Locus Browser. When the image appears by itself, Locus will offer <strong>Apply Preview</strong> and <strong>Save as View…</strong>.</p>
+        <p><a class="button primary" href="../assets/online-views/autumn-hill-view-4k.jpg" target="_blank" rel="noopener">Open the 4K example</a></p>
+        <p class="small-note"><a href="https://polyhaven.com/a/autumn_hill_view">Autumn Hill View</a> from Poly Haven, available under <a href="https://polyhaven.com/license">CC0</a>. This copy is 4,096 × 2,048.</p>
+      </div>
+      <a class="panorama-preview" href="../assets/online-views/autumn-hill-view-4k.jpg" target="_blank" rel="noopener" aria-label="Open the full 4K Autumn Hill View example">
+        <img src="../assets/online-views/autumn-hill-view-4k.jpg" width="4096" height="2048" alt="A flat 2-to-1 panorama of an autumn hillside and valley under a blue sky">
+      </a>
+    </section>
+
     <section class="doc-section">
       <h2>Know what to look for</h2>
       <div class="callout warning"><strong>Resolution is required:</strong> the image displayed in the Browser must be at least 4,096 × 2,048. A smaller thumbnail does not qualify even when the original image is large enough.</div>
@@ -45,11 +58,26 @@
           <tr><td><strong>Rights</strong></td><td>A license or permission that allows your intended use. Being downloadable does not by itself grant permission.</td></tr>
         </tbody>
       </table>
-      <div class="callout"><strong>Useful search phrases:</strong> “360 equirectangular panorama JPG,” “2:1 skybox,” or “tonemapped HDRI JPEG.” If an HDRI site offers several formats, choose its ordinary tonemapped JPEG rather than an <code>.hdr</code> or <code>.exr</code> file.</div>
+      <div class="callout"><strong>Useful search phrases:</strong> “360 equirectangular panorama JPG,” “2:1 skybox,” or “tonemapped HDRI JPEG.” If a site offers several formats, choose an SDR or tonemapped JPEG rather than an <code>.hdr</code> or <code>.exr</code> file.</div>
     </section>
 
     <section class="doc-section">
-      <h2>Find a full-resolution image</h2>
+      <h2>Download the right file from Poly Haven</h2>
+      <p>Poly Haven's main Download button defaults to HDR or EXR. Those files do not work as Views in the current version of Locus.</p>
+      <ol class="step-list">
+        <li><strong>Open an HDRI asset page.</strong> Confirm that the preview is a complete 2:1 panorama.</li>
+        <li><strong>Open the small menu at the far right of the Download controls.</strong> It appears beside the main Download button.</li>
+        <li><strong>Choose 8K Tonemapped JPG.</strong> Do not choose HDR or EXR. The JPG is an SDR image that Locus can inspect, preview, and save.</li>
+      </ol>
+      <figure class="guide-figure">
+        <img src="../assets/online-views/poly-haven-tonemapped-menu.jpg" width="1600" height="900" loading="lazy" decoding="async" alt="Poly Haven download controls with the far-right menu open and 8K Tonemapped JPG highlighted above Thumbnail and Color Chart">
+        <figcaption>On Poly Haven, open the far-right menu and choose <strong>8K Tonemapped JPG</strong>.</figcaption>
+      </figure>
+      <div class="callout warning"><strong>Current format boundary:</strong> Locus supports SDR JPEG, PNG, and HEIC panorama images. HDR and EXR are not supported.</div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Find a full-resolution image on other sites</h2>
       <p>Sites such as <a href="https://commons.wikimedia.org/wiki/Category:Equirectangular_projection">Wikimedia Commons</a> and <a href="https://polyhaven.com/hdris">Poly Haven</a> can help you find equirectangular panoramas. Check the individual file's license, dimensions, and format before using it.</p>
       <p>Many download pages embed only a small thumbnail or an interactive viewer. That preview will not show <strong>Use as View</strong> if it is below 4K or is rendered as a canvas. Look for <strong>Original file</strong>, <strong>Full resolution</strong>, or a direct JPEG, PNG, or HEIC link. The full image should open by itself in the Browser tab.</p>
       <div class="callout warning"><strong>Example:</strong> a Wikimedia Commons file page may show a 960 × 480 preview even when its Original file is 5,000 × 2,500. The page preview is too small; the Original file qualifies.</div>
@@ -63,6 +91,10 @@
         <li><strong>Wait for Locus to inspect it.</strong> A qualifying standalone image opens the prompt <strong>Use this 360° image as a View?</strong> with its filename, host, dimensions, and format.</li>
         <li><strong>Choose Apply Preview or Save as View.</strong> Both use the pixels already displayed by that Browser tab; Locus does not silently fetch a different file after you confirm.</li>
       </ol>
+      <figure class="guide-figure">
+        <img src="../assets/online-views/locus-browser-view-actions.png" width="1920" height="1080" loading="lazy" decoding="async" alt="Locus Browser displaying a 2-to-1 panorama with the Apply Preview and Save as View buttons still visible below it">
+        <figcaption>A qualifying image keeps both actions available. You can apply it, try another tab or Place, then return and apply or save it later.</figcaption>
+      </figure>
     </section>
 
     <section class="doc-section">

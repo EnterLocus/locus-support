@@ -226,6 +226,58 @@ class PublicSiteTests(unittest.TestCase):
             (ROOT / "sitemap.xml").read_text(),
         )
 
+    def test_online_view_guide_has_a_tryable_example_and_current_instructions(self):
+        guide_path = ROOT / "online-views" / "index.html"
+        guide = guide_path.read_text()
+        parser = PageParser()
+        parser.feed(guide)
+
+        example_href = "../assets/online-views/autumn-hill-view-4k.jpg"
+        self.assertIn(example_href, parser.links)
+        for required in [
+            "Open the 4K example",
+            "far right of the Download controls",
+            "8K Tonemapped JPG",
+            "Do not choose HDR or EXR",
+            "Locus supports SDR JPEG, PNG, and HEIC panorama images",
+            "HDR and EXR are not supported",
+        ]:
+            self.assertIn(required, guide)
+
+        expected = {
+            "autumn-hill-view-4k.jpg":
+                "2bb008620de63b75cfdd7d66a04090a7c9695379a035df3bb9fc9cf6c2a568f6",
+            "locus-browser-view-actions.png":
+                "157047df17a9d8cc3b524f4ba3e989bc6bfae6961b3c1e36611f13da60f754ce",
+            "poly-haven-tonemapped-menu.jpg":
+                "a366481e9e669aa0b56d613d7ae7cdf43e6edba0db74d9cd48d8393b540dfbd5",
+        }
+        asset_root = ROOT / "assets" / "online-views"
+        self.assertEqual(
+            {path.name for path in asset_root.iterdir() if path.is_file()},
+            set(expected) | {"README.md"},
+        )
+        asset_record = (asset_root / "README.md").read_text()
+        for filename, digest in expected.items():
+            with self.subTest(filename=filename):
+                self.assertEqual(
+                    hashlib.sha256((asset_root / filename).read_bytes()).hexdigest(),
+                    digest,
+                )
+                self.assertIn(filename, asset_record)
+                self.assertIn(digest, asset_record)
+
+        guide_images = {
+            pathlib.Path(image["src"]).name: image
+            for image in parser.images
+            if image["src"].startswith("../assets/online-views/")
+        }
+        self.assertEqual(set(guide_images), set(expected))
+        for image in guide_images.values():
+            self.assertTrue(image.get("alt", "").strip())
+            self.assertTrue(image.get("width", "").isdigit())
+            self.assertTrue(image.get("height", "").isdigit())
+
     def test_homepage_uses_the_official_app_store_download_badge(self):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
