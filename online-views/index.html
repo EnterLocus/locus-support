@@ -54,7 +54,7 @@
           <tr><td><strong>Shape</strong></td><td>Exactly twice as wide as it is tall: a 2:1 equirectangular image.</td></tr>
           <tr><td><strong>Minimum size</strong></td><td>4,096 × 2,048 pixels. Larger images generally look clearer in Apple Vision Pro; 8K or 12K is preferable when available.</td></tr>
           <tr><td><strong>File type</strong></td><td>An SDR JPEG, PNG, or HEIC image. HDR, EXR, cube maps, video, and interactive 360° viewers are not View images.</td></tr>
-          <tr><td><strong>Web source</strong></td><td>A public HTTPS image that the page lets Locus read. A thumbnail, private file, canvas, or <code>blob:</code> preview may not qualify even when a full-resolution download exists.</td></tr>
+          <tr><td><strong>Web source</strong></td><td>A public image or a page-owned image download that Locus can read with the page's signed-in session. A thumbnail, canvas-only preview, or cross-site-protected file may not qualify even when a full-resolution download exists.</td></tr>
           <tr><td><strong>Rights</strong></td><td>A license or permission that allows your intended use. Being downloadable does not by itself grant permission.</td></tr>
         </tbody>
       </table>
@@ -74,6 +74,18 @@
         <figcaption>On Poly Haven, open the far-right menu and choose <strong>8K Tonemapped JPG</strong>.</figcaption>
       </figure>
       <div class="callout warning"><strong>Current format boundary:</strong> Locus supports SDR JPEG, PNG, and HEIC panorama images. HDR and EXR are not supported.</div>
+    </section>
+
+    <section class="doc-section">
+      <h2>Download a View from Blockade Labs Skybox AI</h2>
+      <p>Skybox AI can prepare a full-resolution image while you stay signed in. Use its equirectangular export—not a cube map or HDR file—so Locus receives one complete 2:1 image.</p>
+      <ol class="step-list">
+        <li><strong>Open your finished Skybox in Locus Browser.</strong> Sign in if Skybox AI asks, then select <strong>Download</strong> on the finished world.</li>
+        <li><strong>Choose Resolution 8K.</strong> This is comfortably above Locus's 4K minimum.</li>
+        <li><strong>Under Equirectangular, choose Download JPG or Download PNG.</strong> Do not choose Cube Map, HDR, or EXR.</li>
+        <li><strong>Open Export Status and wait for Complete.</strong> Select the download arrow beside the 8K Equirectangular JPG or PNG export. Locus Browser opens the downloaded image and offers <strong>Apply Preview</strong> and <strong>Save as View…</strong>.</li>
+      </ol>
+      <div class="callout"><strong>Already exported?</strong> Open <strong>Export Status</strong> from the top-right download icon and use the completed export's download arrow. You do not need to generate it again.</div>
     </section>
 
     <section class="doc-section">
@@ -106,9 +118,10 @@
         </div>
         <div class="link-card static-card">
           <strong>Save as View…</strong>
-          <span>Adds a permanent custom View to your library. The filename is the suggested name, and you can change it before saving. Saving uses an available import and follows your current import entitlement.</span>
+          <span>Adds a permanent custom View to your library and applies it immediately. The filename is the suggested name, and you can change it before saving. Saving uses an available import and follows your current import entitlement.</span>
         </div>
       </div>
+      <p>If another View is already using your available import, Locus offers <strong>Get More Imports</strong> so you can open Plans &amp; Purchases instead of reaching a dead end.</p>
       <p>After saving, use <strong>Edit View</strong> in Locus to adjust its starting direction, brightness, contrast, color, Room lighting, and optional sunlight.</p>
     </section>
 
@@ -118,7 +131,7 @@
         <li>Open the original image rather than the download page's thumbnail.</li>
         <li>Confirm that the displayed image is at least 4,096 × 2,048 and exactly 2:1.</li>
         <li>Choose a JPEG, PNG, or HEIC instead of HDR, EXR, ZIP, video, or a cube map.</li>
-        <li>Interactive WebGL, canvas, <code>blob:</code>, sign-in-only, and cross-site-protected previews may not expose reusable image pixels. Use the site's direct public HTTPS image link when it provides one.</li>
+        <li>Page-owned image downloads, including same-site <code>blob:</code> downloads, can use the page's current signed-in session. Canvas-only viewers, non-image downloads, and cross-site-protected files may still not expose reusable image pixels.</li>
         <li>If a download button hands the file to another app, return and look for an Original file or full-resolution image link that opens in the current tab.</li>
       </ul>
       <p>See the <a href="../faq/">FAQ</a> for short answers about resolution, import allowances, and download behavior.</p>
