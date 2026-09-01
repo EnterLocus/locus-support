@@ -387,7 +387,21 @@ class PublicSiteTests(unittest.TestCase):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
         parser.feed(homepage)
-        self.assertEqual(parser.videos, [])
+        self.assertEqual(len(parser.videos), 1)
+        hero_video = parser.videos[0]
+        for attribute in ["controls", "autoplay", "muted", "loop", "playsinline"]:
+            self.assertIn(attribute, hero_video)
+        self.assertEqual(hero_video.get("preload"), "metadata")
+        self.assertEqual(hero_video.get("width"), "1920")
+        self.assertEqual(hero_video.get("height"), "1080")
+        self.assertEqual(
+            hero_video.get("src"),
+            "./assets/promo/locus-promo-31s.mp4",
+        )
+        self.assertEqual(
+            hero_video.get("poster"),
+            "./assets/screenshots/virtual-space-desk-wide.jpg",
+        )
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
         self.assertEqual(
@@ -396,6 +410,10 @@ class PublicSiteTests(unittest.TestCase):
         )
         self.assertIn("Watch the video directly.", homepage)
         self.assertNotIn("video transcript", homepage)
+        self.assertNotIn("See Locus in motion", homepage)
+        stylesheet = (ROOT / "assets" / "site.css").read_text()
+        self.assertIn("@media (prefers-reduced-motion: reduce)", stylesheet)
+        self.assertIn(".hero-video-mobile { display: block; }", stylesheet)
 
         # Keep the static MP4 within Apple's maximum-compatibility H.264
         # envelope for iPhone browsers. Chrome on iOS uses the platform media
