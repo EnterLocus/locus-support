@@ -88,6 +88,9 @@ which Poly Haven publishes under CC0. The browser page itself is obscured by
 the native Locus `Save as View` sheet. These are product demonstrations, not
 endorsements by the displayed services.
 
+The physical desk shot demonstrates keyboard passthrough provided by visionOS;
+keyboard passthrough is not a Locus feature.
+
 These website assets are not evidence that an App Preview video was submitted
 or approved in App Store Connect. Device capture supports the visible desk and
 Room Portal demonstrations only; it does not establish broader performance,
