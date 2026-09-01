@@ -226,6 +226,8 @@ class PublicSiteTests(unittest.TestCase):
             "temporary storage",
             "Original file",
             "filename is the suggested name",
+            "applies it immediately",
+            "Get More Imports",
         ]:
             self.assertIn(required, guide)
 
@@ -251,6 +253,13 @@ class PublicSiteTests(unittest.TestCase):
             "Do not choose HDR or EXR",
             "Locus supports SDR JPEG, PNG, and HEIC panorama images",
             "HDR and EXR are not supported",
+            "Blockade Labs Skybox AI",
+            "Resolution 8K",
+            "Equirectangular",
+            "Download JPG",
+            "Download PNG",
+            "Export Status",
+            "same-site <code>blob:</code> downloads",
         ]:
             self.assertIn(required, guide)
 
