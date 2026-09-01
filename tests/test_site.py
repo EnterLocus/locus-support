@@ -389,37 +389,15 @@ class PublicSiteTests(unittest.TestCase):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
         parser.feed(homepage)
-        self.assertEqual(len(parser.videos), 1)
-        video = parser.videos[0]
-        self.assertIn("controls", video)
-        self.assertIn("autoplay", video)
-        self.assertIn("muted", video)
-        self.assertIn("loop", video)
-        self.assertIn("playsinline", video)
-        self.assertIn("webkit-playsinline", video)
-        self.assertEqual(video.get("preload"), "auto")
-        self.assertEqual(video.get("width"), "1920")
-        self.assertEqual(video.get("height"), "1080")
-        self.assertEqual(
-            video.get("poster"),
-            "./assets/promo/locus-promo-poster.jpg",
-        )
-        self.assertEqual(
-            video.get("src"),
-            "./assets/promo/locus-promo-31s.mp4",
-        )
+        self.assertEqual(parser.videos, [])
         self.assertEqual(parser.sources, [])
-        self.assertIn("./assets/promo/locus-promo-31s.mp4", parser.links)
-        self.assertIn(
-            {
-                "kind": "captions",
-                "src": "./assets/promo/locus-promo-en.vtt",
-                "srclang": "en",
-                "label": "English",
-            },
-            parser.tracks,
+        self.assertEqual(parser.tracks, [])
+        self.assertEqual(
+            parser.links.count("./assets/promo/locus-promo-31s.mp4"),
+            2,
         )
-        self.assertIn("Read the 31-second video transcript", homepage)
+        self.assertIn("Watch the video directly.", homepage)
+        self.assertNotIn("video transcript", homepage)
 
         # Keep the static MP4 within Apple's maximum-compatibility H.264
         # envelope for iPhone browsers. Chrome on iOS uses the platform media
