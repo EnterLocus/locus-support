@@ -490,7 +490,7 @@ class PublicSiteTests(unittest.TestCase):
             "teleport-points.json", "scene.usdz", "thumbnail.jpg",
             "All five files are required", "displayName",
             "assigns each imported asset a UUID", "Names are display text and may repeat",
-            "does not take a thumbnail",
+            "does not generate a thumbnail",
         ]:
             self.assertIn(required, guide)
 
@@ -526,13 +526,15 @@ class PublicSiteTests(unittest.TestCase):
         flat_skill = " ".join(skill.split())
         self.assertTrue(skill.startswith("---\n"))
         for required in [
-            "This is a sample skill", "Blender MCP", "thumbnail.jpg",
-            "teleport-points.json", "aiGenerated", "aiProvider",
-            "pack_locus_asset.py", "validate_locus_asset.py",
+            "This is a sample skill", "professional 3D workflow",
+            "thumbnail.jpg", "teleport-points.json", "aiGenerated",
+            "aiProvider", "luminaireGroups", "nearTeleportIDs",
+            "bakedIndirect.entities", "pack_locus_asset.py",
+            "validate_locus_asset.py",
             "try every declared seat on Apple Vision Pro",
         ]:
             self.assertIn(required, flat_skill)
-        for private_detail in ["/Users/", "Dropbox", "Locus Dev"]:
+        for private_detail in ["/Users/", "Dropbox", "Locus Dev", "Blender MCP"]:
             self.assertNotIn(private_detail, skill)
         self.assertEqual(
             (root / "scripts" / "validate_locus_asset.py").read_bytes(),
@@ -543,47 +545,118 @@ class PublicSiteTests(unittest.TestCase):
             (ROOT / "tools" / "pack_locus_asset.py").read_bytes(),
         )
         guide = (ROOT / "create-your-own-place" / "index.html").read_text()
-        self.assertLess(guide.index("Try a complete Room"), guide.index("Use the sample Room skill"))
+        self.assertLess(
+            guide.index("Try three complete Rooms"),
+            guide.index("Bring your own Room"),
+        )
         self.assertIn(
             "https://github.com/EnterLocus/locus-support/tree/main/"
             ".agents/skills/build-original-locus-room",
             guide,
         )
 
-    def test_demo_room_is_flat_pinned_and_valid(self):
-        demo = ROOT / "examples" / "demo-room.zip"
-        self.assertEqual(demo.stat().st_size, 8_024_506)
+    def test_three_demo_rooms_are_flat_pinned_current_and_valid(self):
+        expected = {
+            "atrium-loft-room.zip": {
+                "display_name": "Atrium Loft",
+                "size": 8_178_391,
+                "sha256": "1b45d98a8933182972659e3104e04f25c667e529861f6f8fc1907ca8037df7eb",
+                "seats": 2,
+                "light_groups": 2,
+            },
+            "courtyard-gallery-room.zip": {
+                "display_name": "Courtyard Gallery",
+                "size": 8_518_764,
+                "sha256": "b1e46397e0a40cc06506ffd7bad841a5f7f7c7edbb3d6b9f99548b275f099e2c",
+                "seats": 3,
+                "light_groups": 3,
+            },
+            "horizon-atelier-room.zip": {
+                "display_name": "Horizon Atelier",
+                "size": 8_647_044,
+                "sha256": "1400f844d6ded5e05e3a3aaedc216d9c3a059945d4d95f43676214f22c78a81b",
+                "seats": 3,
+                "light_groups": 5,
+            },
+        }
+        examples = ROOT / "examples"
         self.assertEqual(
-            hashlib.sha256(demo.read_bytes()).hexdigest(),
-            "bab6c4f6847513bc697e7a00b1b943611d9c9f0cf6757173f451f4121bb9a16d",
+            {path.name for path in examples.glob("*.zip")},
+            set(expected) | {"demo-room.zip"},
         )
-        with zipfile.ZipFile(demo) as archive:
-            self.assertEqual(set(archive.namelist()), {
-                "space.json", "provenance.json", "teleport-points.json",
-                "scene.usdz", "thumbnail.jpg",
-            })
-            room = json.loads(archive.read("space.json"))
-            provenance = json.loads(archive.read("provenance.json"))
-            self.assertEqual(room["displayName"], "Demo Room")
-            self.assertNotIn("id", room)
-            self.assertTrue(provenance["aiGenerated"])
-            self.assertEqual(
-                provenance["license"]["identifier"],
-                "LicenseRef-EnterLocus-Proprietary",
-            )
-        result = subprocess.run(
-            [sys.executable, str(ROOT / "tools" / "validate_locus_asset.py"), str(demo)],
-            check=False, capture_output=True, text=True,
+        readme = (examples / "README.md").read_text()
+        for filename, details in expected.items():
+            demo = examples / filename
+            with self.subTest(filename=filename):
+                self.assertEqual(demo.stat().st_size, details["size"])
+                self.assertEqual(
+                    hashlib.sha256(demo.read_bytes()).hexdigest(),
+                    details["sha256"],
+                )
+                self.assertIn(filename, readme)
+                self.assertIn(details["sha256"], readme)
+                with zipfile.ZipFile(demo) as archive:
+                    self.assertEqual(set(archive.namelist()), {
+                        "space.json", "provenance.json", "teleport-points.json",
+                        "scene.usdz", "thumbnail.jpg",
+                    })
+                    room = json.loads(archive.read("space.json"))
+                    teleports = json.loads(archive.read("teleport-points.json"))
+                    provenance = json.loads(archive.read("provenance.json"))
+                    self.assertEqual(room["formatVersion"], 3)
+                    self.assertEqual(room["displayName"], details["display_name"])
+                    self.assertNotIn("id", room)
+                    self.assertEqual(len(teleports["points"]), details["seats"])
+                    self.assertEqual(
+                        len(room["lighting"]["luminaireGroups"]),
+                        details["light_groups"],
+                    )
+                    self.assertEqual(
+                        room["lighting"]["bakedIndirect"]["entities"],
+                        ["Locus_BakedIndirect"],
+                    )
+                    self.assertTrue(provenance["aiGenerated"])
+                    self.assertEqual(
+                        provenance["license"]["identifier"],
+                        "LicenseRef-EnterLocus-Proprietary",
+                    )
+                result = subprocess.run(
+                    [sys.executable, str(ROOT / "tools" / "validate_locus_asset.py"), str(demo)],
+                    check=False, capture_output=True, text=True,
+                )
+                self.assertEqual(result.returncode, 0, result.stderr)
+                self.assertIn(
+                    f'VALID: room "{details["display_name"]}"',
+                    result.stdout,
+                )
+
+        self.assertEqual(
+            (examples / "demo-room.zip").read_bytes(),
+            (examples / "atrium-loft-room.zip").read_bytes(),
         )
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertIn('VALID: room "Demo Room"', result.stdout)
         for page in [
+            ROOT / "build-a-room" / "index.html",
             ROOT / "create-your-own-place" / "index.html",
             ROOT / "package-format" / "index.html",
         ]:
             text = page.read_text()
-            self.assertIn("first Room included with Locus", text)
-            self.assertIn("not a new Room design", text)
+            for filename in expected:
+                self.assertIn(f"../examples/{filename}", text)
+
+    def test_room_guide_is_tool_agnostic_and_documents_runtime_contracts(self):
+        guide = (ROOT / "build-a-room" / "index.html").read_text()
+        for required in [
+            "professional tools you already know", "does not prescribe",
+            "meter-scale", "+Y up", "-Z as forward", "viewOpenings",
+            "anchorXZ", "sourceFloorOffset", "wallEntities", "roofEntities",
+            "deskEntitiesByTeleportID", "luminaireGroups", "nearTeleportIDs",
+            "bakedIndirect.entities", "2^overallEV", "12 authored proxies",
+            "4 active proxies", "1 shadow-casting proxy", "10,000 lumens",
+            "-4…+1 EV", "every seat on Apple Vision Pro",
+        ]:
+            self.assertIn(required, guide)
+        for modeling_instruction in ["Blender MCP", "Create original geometry"]:
+            self.assertNotIn(modeling_instruction, guide)
 
     def test_asset_rights_page_matches_first_party_provenance(self):
         rights = (ROOT / "asset-rights" / "index.html").read_text()
@@ -595,6 +668,13 @@ class PublicSiteTests(unittest.TestCase):
         schema = json.loads((ROOT / "schemas" / "provenance-v1.schema.json").read_text())
         self.assertEqual(
             schema["$id"], "https://enterlocus.com/schemas/provenance-v1.schema.json"
+        )
+        self.assertNotIn("license", schema["required"])
+        self.assertIn("rights", schema["properties"])
+        rights_choice = schema["allOf"][0]["oneOf"]
+        self.assertEqual(
+            {choice["required"][0] for choice in rights_choice},
+            {"license", "rights"},
         )
         self.assertIn("https://enterlocus.com/asset-rights/", (
             ROOT / "sitemap.xml"

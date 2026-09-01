@@ -7,7 +7,6 @@
   "required": [
     "formatVersion",
     "creatorOrAgency",
-    "license",
     "requestedCredit",
     "modificationNotes",
     "aiGenerated"
@@ -47,6 +46,24 @@
         }
       }
     },
+    "rights": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "statement",
+        "url"
+      ],
+      "properties": {
+        "statement": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 1000
+        },
+        "url": {
+          "$ref": "#/$defs/httpsURL"
+        }
+      }
+    },
     "requestedCredit": {
       "type": "string",
       "minLength": 1,
@@ -65,6 +82,30 @@
     }
   },
   "allOf": [
+    {
+      "oneOf": [
+        {
+          "required": [
+            "license"
+          ],
+          "not": {
+            "required": [
+              "rights"
+            ]
+          }
+        },
+        {
+          "required": [
+            "rights"
+          ],
+          "not": {
+            "required": [
+              "license"
+            ]
+          }
+        }
+      ]
+    },
     {
       "if": {
         "properties": {
