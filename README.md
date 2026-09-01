@@ -9,10 +9,11 @@ Making this support repository public does **not** publish the app source or
 grant it an open-source license. No license for this repository is implied;
 rights not expressly granted are reserved.
 
-The repository includes an optional sample Room-authoring skill at
-`.agents/skills/build-original-locus-room/`. The current flat Room/View ZIP
-reference and validator define the accepted files. The sample skill includes
-copies of the packer and validator it uses.
+The repository includes a tool-agnostic Room integration guide and an optional
+sample skill at `.agents/skills/build-original-locus-room/`. The current flat
+Room/View ZIP reference and validator define the accepted files. Three complete
+Room examples show the current public lighting and spatial contracts. The
+sample skill includes copies of the packer and validator it uses.
 
 Use the Bug form for reproducible product problems. Bring ideas, feature
 requests, wishlists, and creator questions to GitHub Discussions. Send private

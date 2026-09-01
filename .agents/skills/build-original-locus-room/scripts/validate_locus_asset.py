@@ -202,10 +202,13 @@ def validate_provenance(path: Path) -> None:
     exact_keys(
         value,
         required={
-            "formatVersion", "creatorOrAgency", "license", "requestedCredit",
+            "formatVersion", "creatorOrAgency", "requestedCredit",
             "modificationNotes", "aiGenerated",
         },
-        optional={"sourcePageURL", "originalAssetURL", "aiProvider"},
+        optional={
+            "sourcePageURL", "originalAssetURL", "license", "rights",
+            "aiProvider",
+        },
         context="provenance.json",
     )
     require(value["formatVersion"] == 1 and type(value["formatVersion"]) is int,
@@ -214,16 +217,33 @@ def validate_provenance(path: Path) -> None:
     require_text(value["requestedCredit"], "requestedCredit", 1_000)
     require_text(value["modificationNotes"], "modificationNotes", 2_000)
     require(type(value["aiGenerated"]) is bool, "aiGenerated must be boolean")
-    license_value = value["license"]
-    require(isinstance(license_value, dict), "license must be an object")
-    exact_keys(
-        license_value,
-        required={"identifier", "name", "url"},
-        context="provenance.json.license",
+    has_license = "license" in value
+    has_rights = "rights" in value
+    require(
+        has_license != has_rights,
+        "provenance.json must contain exactly one of license or rights",
     )
-    require_text(license_value["identifier"], "license.identifier", 100)
-    require_text(license_value["name"], "license.name", 200)
-    require_https(license_value["url"], "license.url")
+    if has_license:
+        license_value = value["license"]
+        require(isinstance(license_value, dict), "license must be an object")
+        exact_keys(
+            license_value,
+            required={"identifier", "name", "url"},
+            context="provenance.json.license",
+        )
+        require_text(license_value["identifier"], "license.identifier", 100)
+        require_text(license_value["name"], "license.name", 200)
+        require_https(license_value["url"], "license.url")
+    else:
+        rights_value = value["rights"]
+        require(isinstance(rights_value, dict), "rights must be an object")
+        exact_keys(
+            rights_value,
+            required={"statement", "url"},
+            context="provenance.json.rights",
+        )
+        require_text(rights_value["statement"], "rights.statement", 1_000)
+        require_https(rights_value["url"], "rights.url")
     for field in ("sourcePageURL", "originalAssetURL"):
         if field in value:
             require_https(value[field], field)
@@ -424,6 +444,202 @@ def validate_spatial_adaptation(value: Any, teleport_ids: set[str]) -> None:
                 f"desk mapping is invalid for teleport {teleport_id}")
 
 
+def validate_light_color(value: Any, context: str) -> None:
+    require(isinstance(value, dict), f"{context} must be an object")
+    exact_keys(
+        value,
+        required={"mode"},
+        optional={"kelvin", "components"},
+        context=context,
+    )
+    if value["mode"] == "temperature":
+        require("components" not in value, f"{context} cannot mix color modes")
+        require(finite(value.get("kelvin")) and 1_000 <= value["kelvin"] <= 12_000,
+                f"{context}.kelvin must be between 1000 and 12000")
+    elif value["mode"] == "srgb":
+        require("kelvin" not in value, f"{context} cannot mix color modes")
+        require_number_list(value.get("components"), 3, f"{context}.components")
+        require(all(0 <= item <= 1 for item in value["components"]),
+                f"{context}.components must be between 0 and 1")
+    else:
+        raise ValidationError(f"{context}.mode is unsupported")
+
+
+def validate_proxy_light(
+    proxy: Any,
+    context: str,
+    room_format_version: int,
+) -> bool:
+    require(isinstance(proxy, dict), f"{context} must be an object")
+    exact_keys(
+        proxy,
+        required={
+            "type", "anchorEntity", "intensityLumens",
+            "attenuationRadiusMeters", "castsShadow",
+        },
+        optional={
+            "colorTemperatureKelvin", "innerAngleDegrees",
+            "outerAngleDegrees",
+        },
+        context=context,
+    )
+    require(proxy["type"] in {"point", "spot"}, f"{context}.type is invalid")
+    require_text(proxy["anchorEntity"], f"{context}.anchorEntity", 200)
+    require(finite(proxy["intensityLumens"])
+            and proxy["intensityLumens"] >= 0
+            and (room_format_version < 3
+                 or proxy["intensityLumens"] <= 10_000),
+            f"{context}.intensityLumens is invalid")
+    require(finite(proxy["attenuationRadiusMeters"])
+            and 0 < proxy["attenuationRadiusMeters"] <= 6,
+            f"{context}.attenuationRadiusMeters is invalid")
+    require(type(proxy["castsShadow"]) is bool,
+            f"{context}.castsShadow must be boolean")
+    if "colorTemperatureKelvin" in proxy:
+        require(finite(proxy["colorTemperatureKelvin"])
+                and 1_000 <= proxy["colorTemperatureKelvin"] <= 12_000,
+                f"{context}.colorTemperatureKelvin is invalid")
+    if proxy["type"] == "point":
+        require(not proxy["castsShadow"],
+                f"{context} point lights cannot cast shadows")
+    else:
+        inner = proxy.get("innerAngleDegrees", 30)
+        outer = proxy.get("outerAngleDegrees", 60)
+        require(finite(inner) and finite(outer)
+                and 0 < inner <= outer <= 175,
+                f"{context} angles are invalid")
+    return proxy["castsShadow"]
+
+
+def validate_lighting(
+    value: Any,
+    teleport_ids: set[str],
+    room_format_version: int,
+) -> None:
+    require(isinstance(value, dict), "space.json.lighting must be an object")
+    exact_keys(
+        value,
+        required={"luminaireGroups"},
+        optional={"bakedIndirect"} if room_format_version >= 3 else set(),
+        context="space.json.lighting",
+    )
+    groups = value["luminaireGroups"]
+    require(isinstance(groups, list) and groups,
+            "lighting.luminaireGroups must not be empty")
+    identifiers: set[str] = set()
+    proxy_count = 0
+    unscoped_proxy_count = 0
+    scoped_proxy_counts = {teleport_id: 0 for teleport_id in teleport_ids}
+    shadowing_count = 0
+    luminaire_entities: set[str] = set()
+    for index, group in enumerate(groups):
+        context = f"lighting.luminaireGroups[{index}]"
+        require(isinstance(group, dict), f"{context} must be an object")
+        exact_keys(
+            group,
+            required={"id", "displayName", "entities", "controls"},
+            optional={
+                "nearTeleportIDs", "authoredColor", "proxy", "proxies",
+            } if room_format_version >= 3 else {
+                "nearTeleportIDs", "authoredColor", "proxy",
+            },
+            context=context,
+        )
+        require(valid_identifier(group["id"]), f"{context}.id is invalid")
+        require(group["id"] not in identifiers, f"duplicate light id {group['id']}")
+        identifiers.add(group["id"])
+        require_text(group["displayName"], f"{context}.displayName", 200)
+        entities = group["entities"]
+        require(isinstance(entities, list) and entities
+                and all(isinstance(item, str) and item.strip() for item in entities),
+                f"{context}.entities must contain names")
+        require(len(entities) == len(set(entities)), f"{context}.entities has duplicates")
+        require(luminaire_entities.isdisjoint(entities),
+                f"{context}.entities belongs to another lighting group")
+        luminaire_entities.update(entities)
+        near: list[str] | None = None
+        if "nearTeleportIDs" in group:
+            near = group["nearTeleportIDs"]
+            require(isinstance(near, list),
+                    f"{context}.nearTeleportIDs is invalid")
+            require(all(isinstance(item, str) and item.strip() for item in near)
+                    and (room_format_version < 3 or bool(near))
+                    and len(near) == len(set(near))
+                    and set(near).issubset(teleport_ids),
+                    f"{context}.nearTeleportIDs is invalid")
+        if "authoredColor" in group:
+            validate_light_color(group["authoredColor"], f"{context}.authoredColor")
+        controls = group["controls"]
+        require(isinstance(controls, dict), f"{context}.controls must be an object")
+        exact_keys(
+            controls,
+            required={"brightnessEVRange", "supportsFullColor"},
+            optional={"temperatureKelvinRange"},
+            context=f"{context}.controls",
+        )
+        brightness = controls["brightnessEVRange"]
+        require_number_list(brightness, 2, f"{context}.controls.brightnessEVRange")
+        brightness_minimum = -4 if room_format_version >= 3 else -8
+        brightness_maximum = 1 if room_format_version >= 3 else 4
+        require(brightness_minimum <= brightness[0]
+                <= brightness[1] <= brightness_maximum,
+                f"{context}.controls.brightnessEVRange is invalid")
+        require(type(controls["supportsFullColor"]) is bool,
+                f"{context}.controls.supportsFullColor must be boolean")
+        if "temperatureKelvinRange" in controls:
+            temperature = controls["temperatureKelvinRange"]
+            require_number_list(temperature, 2, f"{context}.controls.temperatureKelvinRange")
+            require(1_000 <= temperature[0] <= temperature[1] <= 12_000,
+                    f"{context}.controls.temperatureKelvinRange is invalid")
+        require(not ("proxy" in group and "proxies" in group),
+                f"{context} cannot contain both proxy and proxies")
+        if "proxies" in group:
+            require(isinstance(group["proxies"], list) and group["proxies"],
+                    f"{context}.proxies must be a non-empty array")
+            proxy_fields = [
+                (proxy, f"{context}.proxies[{proxy_index}]")
+                for proxy_index, proxy in enumerate(group["proxies"])
+            ]
+        elif "proxy" in group:
+            proxy_fields = [(group["proxy"], f"{context}.proxy")]
+        else:
+            proxy_fields = []
+        proxy_count += len(proxy_fields)
+        if near:
+            for teleport_id in near:
+                scoped_proxy_counts[teleport_id] += len(proxy_fields)
+        else:
+            unscoped_proxy_count += len(proxy_fields)
+        for proxy, proxy_context in proxy_fields:
+            if validate_proxy_light(proxy, proxy_context, room_format_version):
+                shadowing_count += 1
+    require(proxy_count <= 12, "lighting exceeds the twelve-authored-proxy budget")
+    require(unscoped_proxy_count <= 4
+            and all(unscoped_proxy_count + count <= 4
+                    for count in scoped_proxy_counts.values()),
+            "lighting exceeds the four-active-proxy budget")
+    require(shadowing_count <= 1,
+            "lighting exceeds the one-shadow-light budget")
+    if "bakedIndirect" in value:
+        require(room_format_version >= 3,
+                "lighting.bakedIndirect requires space.json formatVersion 3")
+        baked = value["bakedIndirect"]
+        require(isinstance(baked, dict), "lighting.bakedIndirect must be an object")
+        exact_keys(
+            baked,
+            required={"entities"},
+            context="lighting.bakedIndirect",
+        )
+        entities = baked["entities"]
+        require(isinstance(entities, list) and entities
+                and all(isinstance(item, str) and item.strip() for item in entities),
+                "lighting.bakedIndirect.entities must contain names")
+        require(len(entities) == len(set(entities)),
+                "lighting.bakedIndirect.entities has duplicates")
+        require(luminaire_entities.isdisjoint(entities),
+                "lighting.bakedIndirect.entities must not name luminaires")
+
+
 def validate_room(root: Path) -> dict[str, Any]:
     value = decode_json(root / "space.json", "space.json")
     exact_keys(
@@ -432,11 +648,14 @@ def validate_room(root: Path) -> dict[str, Any]:
             "formatVersion", "displayName", "seatedOrigin", "safeHeadVolume",
             "viewOpenings",
         },
-        optional={"caption", "previewCamera", "spatialAdaptation"},
+        optional={"caption", "previewCamera", "spatialAdaptation", "lighting"},
         context="space.json",
     )
-    require(value["formatVersion"] == 1 and type(value["formatVersion"]) is int,
-            "space.json.formatVersion must be 1")
+    require(type(value["formatVersion"]) is int
+            and value["formatVersion"] in {1, 2, 3},
+            "space.json.formatVersion must be 1, 2, or 3")
+    require(value["formatVersion"] >= 2 or "lighting" not in value,
+            "space.json.lighting requires formatVersion 2")
     require_text(value["displayName"], "space.json.displayName", 200)
     if "caption" in value:
         require_text(value["caption"], "space.json.caption", 1_000)
@@ -479,6 +698,9 @@ def validate_room(root: Path) -> dict[str, Any]:
     teleports = validate_teleports(root / "teleport-points.json")
     if "spatialAdaptation" in value:
         validate_spatial_adaptation(value["spatialAdaptation"], teleports)
+    if "lighting" in value:
+        validate_lighting(
+            value["lighting"], teleports, value["formatVersion"])
     validate_provenance(root / "provenance.json")
     validate_image(root / "thumbnail.jpg", equirectangular=False)
     validate_usdz(root / "scene.usdz")
@@ -491,13 +713,17 @@ def validate_environment(value: Any) -> None:
         value,
         required=set(),
         optional={
-            "skyGainEV", "exposureEV", "horizonPitchDegrees", "colorGrade", "directSun"
+            "skyGainEV", "exposureEV", "horizonPitchDegrees", "colorGrade", "directSun",
+            "condition",
         },
         context="view.json.environment",
     )
     for field in ("skyGainEV", "exposureEV", "horizonPitchDegrees"):
         if field in value:
             require(finite(value[field]), f"environment.{field} must be finite")
+    if "condition" in value:
+        require(value["condition"] in {"day", "dusk", "night", "overcast"},
+                "environment.condition is invalid")
     if "colorGrade" in value:
         grade = value["colorGrade"]
         require(isinstance(grade, dict), "environment.colorGrade must be an object")
@@ -534,8 +760,11 @@ def validate_view(root: Path, files: set[str]) -> dict[str, Any]:
         optional={"caption", "environment"},
         context="view.json",
     )
-    require(value["formatVersion"] == 1 and type(value["formatVersion"]) is int,
-            "view.json.formatVersion must be 1")
+    require(type(value["formatVersion"]) is int and value["formatVersion"] in {1, 2},
+            "view.json.formatVersion must be 1 or 2")
+    require(value["formatVersion"] == 2
+            or "condition" not in value.get("environment", {}),
+            "view.json.environment.condition requires formatVersion 2")
     require_text(value["displayName"], "view.json.displayName", 200)
     panorama = value["panorama"]
     require(isinstance(panorama, dict), "view.json.panorama must be an object")
