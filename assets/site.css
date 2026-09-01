@@ -56,6 +56,8 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .section-intro p:not(.kicker) { color: var(--muted); font-size: 1.08rem; line-height: 1.6; }
 .demo-frame { margin-top: 2.4rem; padding: .5rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2rem 6rem rgba(0,0,0,.28); }
 .demo-frame video { display: block; width: 100%; height: auto; border-radius: 1rem; background: #08111c; }
+.video-fallback { margin: .8rem 0 0; color: var(--muted); font-size: .9rem; }
+.video-fallback a { color: var(--accent); font-weight: 700; }
 .video-transcript { max-width: 780px; margin-top: 1.35rem; color: var(--muted); }
 .video-transcript summary { width: fit-content; cursor: pointer; color: var(--accent); font-weight: 700; }
 .video-transcript ol { margin: 1rem 0 0; padding-left: 1.4rem; line-height: 1.65; }
