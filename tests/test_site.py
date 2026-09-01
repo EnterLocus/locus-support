@@ -362,7 +362,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_homepage_uses_authentic_promotional_media(self):
         expected = {
             "locus-promo-31s.mp4":
-                "925c07bade77217b35eeaad27b81b48d0cd379a9bef27e948241999104c9a8ba",
+                "aeb2f37eb4e5e365cde6e4c534f819abc2bca68189861c243d901754444a8e95",
             "locus-promo-poster.jpg":
                 "484899e0aa9ce36ab301ab2d3292a12f95b558e88f4f824a86de88e7724fe49c",
             "still-01-change-view.jpg":
@@ -413,6 +413,17 @@ class PublicSiteTests(unittest.TestCase):
             parser.tracks,
         )
         self.assertIn("Read the 31-second video transcript", homepage)
+
+        # Keep the static MP4 within Apple's maximum-compatibility H.264
+        # envelope for iPhone browsers. Chrome on iOS uses the platform media
+        # stack, so a desktop-playable encode can still fail on a phone when
+        # its declared AVC level is unnecessarily high.
+        movie = (promo_root / "locus-promo-31s.mp4").read_bytes()
+        avcc = movie.index(b"avcC")
+        self.assertEqual(movie[avcc + 4], 1)  # AVCDecoderConfigurationRecord
+        self.assertEqual(movie[avcc + 5], 100)  # High Profile
+        self.assertLessEqual(movie[avcc + 7], 41)  # Level 4.1 or lower
+        self.assertLess(movie.index(b"moov"), movie.index(b"mdat"))
 
         promo_images = [
             image for image in parser.images
