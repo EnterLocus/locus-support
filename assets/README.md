@@ -56,10 +56,6 @@ the web derivative SHA-256 is
 `aeb2f37eb4e5e365cde6e4c534f819abc2bca68189861c243d901754444a8e95`.
 `locus-promo-poster.jpg` is a 1920 x 1080 frame from that web encode, SHA-256
 `484899e0aa9ce36ab301ab2d3292a12f95b558e88f4f824a86de88e7724fe49c`.
-`locus-promo-en.vtt` transcribes the burned-in English copy for visitors who
-use captions; the homepage also provides the same transcript as HTML. Its
-SHA-256 is
-`049254244359e0a13d757d1a072b091ea1a79808c2fec78cce63cfafe500c6a8`.
 
 The six 1920 x 1080 JPEG stills are downsampled web exports of the frozen 3840
 x 2160 PNG layouts. Source and derivative SHA-256 values are:
