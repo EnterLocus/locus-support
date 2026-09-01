@@ -46,8 +46,9 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .button.secondary { background: rgba(255,255,255,.04); }
 .release-note { margin-top: 1.2rem; color: var(--muted); font-size: .86rem; }
 .hero-shot, .selector-shot { margin: 0; }
-.hero-shot { padding: .55rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2.4rem 7rem rgba(0,0,0,.3); transform: rotate(1.25deg); }
-.hero-shot img, .hero-shot video, .selector-shot img { display: block; width: 100%; height: auto; border-radius: 1rem; }
+.hero-shot { padding: .55rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2.4rem 7rem rgba(0,0,0,.3); }
+.hero-shot img, .selector-shot img { display: block; width: 100%; height: auto; border-radius: 1rem; }
+.hero-video { display: block; width: 100%; height: auto; border-radius: 1rem; }
 .hero-video-mobile { position: relative; display: none; overflow: hidden; border-radius: 1rem; background: #08111c; }
 .hero-video-play { position: absolute; left: 50%; top: 50%; display: grid; width: 4.5rem; height: 4.5rem; place-items: center; border: 1px solid rgba(255,255,255,.38); border-radius: 50%; background: rgba(5,13,23,.76); color: white; font-size: 1.65rem; line-height: 1; transform: translate(-50%,-50%); transition: transform .2s ease, background .2s ease; }
 .hero-video-mobile:hover .hero-video-play, .hero-video-mobile:focus-visible .hero-video-play { background: rgba(55,166,255,.9); transform: translate(-50%,-50%) scale(1.06); }
@@ -95,7 +96,6 @@ footer > div { display: flex; flex-direction: column; gap: .35rem; }
   .site-header nav { width: 100%; gap: .9rem; flex-wrap: wrap; justify-content: flex-start; }
   .site-header nav a { font-size: .84rem; }
   .hero { min-height: auto; grid-template-columns: 1fr; gap: 3rem; padding: 4.5rem 0 5.5rem; }
-  .hero-shot { transform: none; }
   h1 { font-size: clamp(2.8rem, 13vw, 4.6rem); }
   .selection-section, .room-showcase, .product-grid, .split-section, .story-grid { grid-template-columns: 1fr; gap: 2rem; }
   .story-section { padding: 5.5rem 0; }
