@@ -15,6 +15,7 @@
 .callout { margin: 1.5rem 0; padding: 1.2rem 1.3rem; border-left: 3px solid var(--accent); background: rgba(184,220,234,.07); border-radius: 0 .8rem .8rem 0; color: #dbe4e8; line-height: 1.55; }
 .callout.warning { border-left-color: var(--warm); background: rgba(239,173,154,.07); }
 .link-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
+.demo-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
 .link-card { display: block; padding: 1.25rem; border: 1px solid var(--line); border-radius: 1rem; background: rgba(255,255,255,.025); text-decoration: none; }
 .link-card:hover, .link-card:focus-visible { border-color: rgba(184,220,234,.55); background: rgba(184,220,234,.055); }
 .link-card strong { display: block; font-size: 1.1rem; margin-bottom: .4rem; color: var(--ink); }
@@ -56,6 +57,7 @@ td { color: var(--muted); }
   .page-header { margin-bottom: 3rem; }
   .page-header h1 { font-size: clamp(2.55rem, 11.5vw, 3.5rem); }
   .link-grid { grid-template-columns: 1fr; }
+  .demo-grid { grid-template-columns: 1fr; }
   .try-view { grid-template-columns: 1fr; }
   table { display: block; overflow-x: auto; }
 }
