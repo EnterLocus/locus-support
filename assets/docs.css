@@ -42,10 +42,20 @@ th, td { padding: .8rem .65rem; border-bottom: 1px solid var(--line); text-align
 th { color: var(--ink); }
 td { color: var(--muted); }
 .small-note { color: var(--muted); font-size: .82rem; }
+.try-view { display: grid; grid-template-columns: minmax(0, .9fr) minmax(280px, 1.4fr); gap: 1.5rem; align-items: center; }
+.try-view .kicker { margin: 0 0 .5rem; color: var(--warm); font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
+.try-view-copy h2 { margin-bottom: .75rem; }
+.try-view-copy p { margin-top: .75rem; }
+.panorama-preview { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface-2); }
+.panorama-preview:hover, .panorama-preview:focus-visible { border-color: rgba(184,220,234,.65); }
+.panorama-preview img, .guide-figure img { display: block; width: 100%; height: auto; }
+.guide-figure { margin: 1.5rem 0; overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: rgba(255,255,255,.025); }
+.guide-figure figcaption { padding: .85rem 1rem; color: var(--muted); font-size: .86rem; line-height: 1.5; }
 @media (max-width: 680px) {
   .page-main { padding-top: 3.5rem; }
   .page-header { margin-bottom: 3rem; }
   .page-header h1 { font-size: clamp(2.55rem, 11.5vw, 3.5rem); }
   .link-grid { grid-template-columns: 1fr; }
+  .try-view { grid-template-columns: 1fr; }
   table { display: block; overflow-x: auto; }
 }
