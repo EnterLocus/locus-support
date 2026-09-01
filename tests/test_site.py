@@ -5,6 +5,7 @@ import pathlib
 import re
 import subprocess
 import sys
+import tempfile
 import unittest
 import urllib.parse
 import zipfile
@@ -539,7 +540,11 @@ class PublicSiteTests(unittest.TestCase):
             "thumbnail.jpg", "teleport-points.json", "aiGenerated",
             "aiProvider", "luminaireGroups", "nearTeleportIDs",
             "bakedIndirect.entities", "pack_locus_asset.py",
-            "validate_locus_asset.py",
+            "validate_locus_asset.py", "scaffold_locus_room.py",
+            "references/room-interface.md", "references/design-language.md",
+            "Do not stop after producing metadata", "SHA-256",
+            "write an opaque USD PreviewSurface",
+            "not the DCC, renderer, exporter",
             "try every declared seat on Apple Vision Pro",
         ]:
             self.assertIn(required, flat_skill)
@@ -563,6 +568,93 @@ class PublicSiteTests(unittest.TestCase):
             ".agents/skills/build-original-locus-room",
             guide,
         )
+        room_guide = (ROOT / "build-a-room" / "index.html").read_text()
+        for required in [
+            "Build with an AI assistant", "create an original Room",
+            "scaffold the five delivery files", "cannot operate a suitable 3D tool",
+            "Offline Room contract", "scaffolder", "delivery checks",
+        ]:
+            self.assertIn(required, room_guide)
+
+    def test_sample_skill_scaffolds_packs_and_validates_a_lit_room(self):
+        root = ROOT / ".agents" / "skills" / "build-original-locus-room"
+        scaffold = root / "scripts" / "scaffold_locus_room.py"
+        packer = root / "scripts" / "pack_locus_asset.py"
+        validator = root / "scripts" / "validate_locus_asset.py"
+        interface = (root / "references" / "room-interface.md").read_text()
+        design = (root / "references" / "design-language.md").read_text()
+        for required in [
+            "One-seat Room v3 example", "Three glazed sides",
+            "emissive fixture bodies", "Exact delivery gates",
+            "valid USDZ may still contain opaque glass",
+            "seatWorldZ - boundsMinZ", "place the visitor under a lamp",
+        ]:
+            self.assertIn(required, interface)
+        for required in [
+            "quiet contemporary pavilion", "three glazed sides",
+            "visibly on whenever its Locus control is enabled",
+        ]:
+            self.assertIn(required, design)
+
+        with tempfile.TemporaryDirectory(prefix="locus-public-skill-test-") as directory:
+            temporary = pathlib.Path(directory)
+            with zipfile.ZipFile(ROOT / "examples" / "atrium-loft-room.zip") as archive:
+                scene = temporary / "source.usdz"
+                thumbnail = temporary / "source.jpg"
+                scene.write_bytes(archive.read("scene.usdz"))
+                thumbnail.write_bytes(archive.read("thumbnail.jpg"))
+
+            room = temporary / "room"
+            archive = temporary / "room.zip"
+            result = subprocess.run([
+                sys.executable, str(scaffold), str(room),
+                "--scene", str(scene),
+                "--thumbnail", str(thumbnail),
+                "--display-name", "Skill Fixture Pavilion",
+                "--caption", "A one-seat packaging fixture.",
+                "--creator", "EnterLocus.com",
+                "--requested-credit", "Locus",
+                "--modification-notes", "Test metadata around an existing public fixture.",
+                "--ai-provider", "OpenAI Codex",
+                "--license-id", "LicenseRef-EnterLocus-Proprietary",
+                "--license-name", "EnterLocus proprietary asset license",
+                "--license-url", "https://enterlocus.com/asset-rights/",
+                "--seat-id", "ground-work-desk",
+                "--seat-title", "Work Seat",
+                "--wall-entity", "Rear_Plaster_Wall",
+                "--roof-entity", "Floating_Roof",
+                "--desk-entity", "Ground_Work_Desk_Top",
+                "--light-id", "ground-work-pendant",
+                "--light-name", "Ground Work Pendant",
+                "--light-body", "Work_Pendant_Glow",
+                "--light-anchor", "Work_Pendant_Glow",
+            ], check=False, capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(
+                {path.name for path in room.iterdir()},
+                {"space.json", "provenance.json", "teleport-points.json",
+                 "scene.usdz", "thumbnail.jpg"},
+            )
+            metadata = json.loads((room / "space.json").read_text())
+            self.assertEqual(metadata["formatVersion"], 2)
+            self.assertEqual(len(metadata["lighting"]["luminaireGroups"]), 1)
+            self.assertNotIn("nearTeleportIDs", metadata["lighting"]["luminaireGroups"][0])
+
+            packed = subprocess.run(
+                [sys.executable, str(packer), str(room), str(archive)],
+                check=False, capture_output=True, text=True,
+            )
+            self.assertEqual(packed.returncode, 0, packed.stderr)
+            checked = subprocess.run(
+                [sys.executable, str(validator), str(archive), "--json"],
+                check=False, capture_output=True, text=True,
+            )
+            self.assertEqual(checked.returncode, 0, checked.stderr)
+            self.assertEqual(json.loads(checked.stdout), {
+                "displayName": "Skill Fixture Pavilion",
+                "kind": "room",
+                "seats": 1,
+            })
 
     def test_three_demo_rooms_are_flat_pinned_current_and_valid(self):
         expected = {
