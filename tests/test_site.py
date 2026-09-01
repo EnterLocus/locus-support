@@ -392,17 +392,24 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(len(parser.videos), 1)
         video = parser.videos[0]
         self.assertIn("controls", video)
+        self.assertIn("autoplay", video)
+        self.assertIn("muted", video)
+        self.assertIn("loop", video)
         self.assertIn("playsinline", video)
-        self.assertNotIn("autoplay", video)
-        self.assertEqual(video.get("preload"), "metadata")
+        self.assertIn("webkit-playsinline", video)
+        self.assertEqual(video.get("preload"), "auto")
+        self.assertEqual(video.get("width"), "1920")
+        self.assertEqual(video.get("height"), "1080")
         self.assertEqual(
             video.get("poster"),
             "./assets/promo/locus-promo-poster.jpg",
         )
-        self.assertIn(
-            {"src": "./assets/promo/locus-promo-31s.mp4", "type": "video/mp4"},
-            parser.sources,
+        self.assertEqual(
+            video.get("src"),
+            "./assets/promo/locus-promo-31s.mp4",
         )
+        self.assertEqual(parser.sources, [])
+        self.assertIn("./assets/promo/locus-promo-31s.mp4", parser.links)
         self.assertIn(
             {
                 "kind": "captions",
