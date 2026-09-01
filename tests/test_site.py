@@ -362,6 +362,8 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_homepage_uses_authentic_promotional_media(self):
         expected = {
+            "locus-promo-31s-v2.mp4":
+                "7fe19092d03a2e43cdf795ee0f6c7f8c1667e33da439324b17f5b4699865117a",
             "locus-promo-31s.mp4":
                 "aeb2f37eb4e5e365cde6e4c534f819abc2bca68189861c243d901754444a8e95",
             "locus-promo-poster.jpg":
@@ -397,7 +399,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(hero_video.get("height"), "1080")
         self.assertEqual(
             hero_video.get("src"),
-            "./assets/promo/locus-promo-31s.mp4",
+            "./assets/promo/locus-promo-31s-v2.mp4",
         )
         self.assertEqual(
             hero_video.get("poster"),
@@ -406,9 +408,10 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
         self.assertEqual(
-            parser.links.count("./assets/promo/locus-promo-31s.mp4"),
+            parser.links.count("./assets/promo/locus-promo-31s-v2.mp4"),
             1,
         )
+        self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
         self.assertNotIn("Watch the video directly.", homepage)
         self.assertNotIn("video transcript", homepage)
         self.assertNotIn("See Locus in motion", homepage)
@@ -430,7 +433,7 @@ class PublicSiteTests(unittest.TestCase):
         # envelope for iPhone browsers. Chrome on iOS uses the platform media
         # stack, so a desktop-playable encode can still fail on a phone when
         # its declared AVC level is unnecessarily high.
-        movie = (promo_root / "locus-promo-31s.mp4").read_bytes()
+        movie = (promo_root / "locus-promo-31s-v2.mp4").read_bytes()
         avcc = movie.index(b"avcC")
         self.assertEqual(movie[avcc + 4], 1)  # AVCDecoderConfigurationRecord
         self.assertEqual(movie[avcc + 5], 100)  # High Profile
