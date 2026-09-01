@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright 2026 EnterLocus.com
+# SPDX-License-Identifier: Apache-2.0
 """Pack and validate one flat public Locus Room or View directory."""
 
 from __future__ import annotations
