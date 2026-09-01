@@ -47,11 +47,13 @@ or physical Apple Vision Pro Developer Capture recordings. No ImageGen,
 generative fill, synthetic reflection, relighting, replacement exterior,
 invented UI, or competitor screenshot appears in these files.
 
-`locus-promo-31s.mp4` is a silent 1920 x 1080, 30 fps H.264 web encode of
-`Locus-Promo-Rough-Cut-v1.mp4`. The source SHA-256 is
+`locus-promo-31s.mp4` is a silent 1920 x 1080, 30 fps H.264 High Profile,
+Level 4.0 web encode of `Locus-Promo-Rough-Cut-v1.mp4`. It uses the `avc1`
+sample entry, 4:2:0 8-bit pixels, a two-second keyframe interval, and a
+fast-start MP4 layout for iPhone browser compatibility. The source SHA-256 is
 `121543db58691469fd02e97d9da684b1654ab76a89d55569c30ec24b2afb9fcd`;
 the web derivative SHA-256 is
-`925c07bade77217b35eeaad27b81b48d0cd379a9bef27e948241999104c9a8ba`.
+`aeb2f37eb4e5e365cde6e4c534f819abc2bca68189861c243d901754444a8e95`.
 `locus-promo-poster.jpg` is a 1920 x 1080 frame from that web encode, SHA-256
 `484899e0aa9ce36ab301ab2d3292a12f95b558e88f4f824a86de88e7724fe49c`.
 `locus-promo-en.vtt` transcribes the burned-in English copy for visitors who
