@@ -192,8 +192,25 @@ class PublicSiteTests(unittest.TestCase):
         readme = (ROOT / "README.md").read_text()
         package_page = (ROOT / "package-format" / "index.html").read_text()
         self.assertIn("private repository", readme)
-        self.assertIn("does **not** publish the app source", readme)
+        self.assertIn("does **not** publish or license the app", readme)
         self.assertIn("does not publish the private Locus app source", package_page)
+
+        license_map = " ".join((ROOT / "LICENSE.md").read_text().split())
+        for scoped_path in [
+            ".agents/skills/build-original-locus-room/**",
+            "tools/**",
+            "schemas/**",
+        ]:
+            self.assertIn(scoped_path, license_map)
+        for reserved in [
+            "website's text and media", "Locus application source",
+            "names, logos, app icons",
+        ]:
+            self.assertIn(reserved, license_map)
+        apache = (ROOT / "LICENSES" / "Apache-2.0.txt").read_text()
+        self.assertIn("Apache License", apache)
+        self.assertIn("Version 2.0, January 2004", apache)
+        self.assertIn("END OF TERMS AND CONDITIONS", apache)
 
     def test_homepage_states_download_and_free_core_boundary(self):
         homepage = (ROOT / "index.html").read_text()
@@ -660,22 +677,22 @@ class PublicSiteTests(unittest.TestCase):
         expected = {
             "atrium-loft-room.zip": {
                 "display_name": "Atrium Loft",
-                "size": 8_178_391,
-                "sha256": "1b45d98a8933182972659e3104e04f25c667e529861f6f8fc1907ca8037df7eb",
+                "size": 8_178_461,
+                "sha256": "8ef1aef6495d2d63febfbf10292f1f6f50cf1bb7bf4912fc27f59fa3e4a712c5",
                 "seats": 2,
                 "light_groups": 2,
             },
             "courtyard-gallery-room.zip": {
                 "display_name": "Courtyard Gallery",
-                "size": 8_518_764,
-                "sha256": "b1e46397e0a40cc06506ffd7bad841a5f7f7c7edbb3d6b9f99548b275f099e2c",
+                "size": 8_518_839,
+                "sha256": "934b699775d9a5e0f95ab5c093259a1cf7c24cd4d623b2eeca5402e338acbf81",
                 "seats": 3,
                 "light_groups": 3,
             },
             "horizon-atelier-room.zip": {
                 "display_name": "Horizon Atelier",
-                "size": 8_647_044,
-                "sha256": "1400f844d6ded5e05e3a3aaedc216d9c3a059945d4d95f43676214f22c78a81b",
+                "size": 8_647_116,
+                "sha256": "c6dcbc61648d5aa52bfa7ad9be6ddbd3679ae66806aa82805c35e96017de6e1e",
                 "seats": 3,
                 "light_groups": 5,
             },
@@ -719,7 +736,23 @@ class PublicSiteTests(unittest.TestCase):
                     self.assertTrue(provenance["aiGenerated"])
                     self.assertEqual(
                         provenance["license"]["identifier"],
-                        "LicenseRef-EnterLocus-Proprietary",
+                        "CC-BY-4.0",
+                    )
+                    self.assertEqual(
+                        provenance["license"]["url"],
+                        "https://creativecommons.org/licenses/by/4.0/",
+                    )
+                    self.assertEqual(
+                        provenance["sourcePageURL"],
+                        "https://enterlocus.com/asset-rights/",
+                    )
+                    self.assertEqual(
+                        provenance["requestedCredit"],
+                        f'{details["display_name"]} by EnterLocus.com',
+                    )
+                    self.assertIn(
+                        "Embedded Poly Haven texture files retain CC0 1.0",
+                        provenance["modificationNotes"],
                     )
                 result = subprocess.run(
                     [sys.executable, str(ROOT / "tools" / "validate_locus_asset.py"), str(demo)],
@@ -762,10 +795,24 @@ class PublicSiteTests(unittest.TestCase):
     def test_asset_rights_page_matches_first_party_provenance(self):
         rights = (ROOT / "asset-rights" / "index.html").read_text()
         for term in [
+            "Apache-2.0", "Apache License 2.0", "CC-BY-4.0",
+            "Creative Commons Attribution 4.0 International",
             "LicenseRef-EnterLocus-Proprietary", "EnterLocus.com",
+            "Laminate Floor 02", "Charlotte Baglioni", "Dario Barresi",
+            "Plywood", "White Plaster 02", "Rob Tuytel", "CC0 1.0",
+            "names, logos, app icons", "private app source",
             "AI disclosure", "aiGenerated", "aiProvider",
         ]:
             self.assertIn(term, rights)
+        for source in [
+            "https://polyhaven.com/a/laminate_floor_02",
+            "https://polyhaven.com/a/plywood",
+            "https://polyhaven.com/a/white_plaster_02",
+            "https://polyhaven.com/license",
+            "https://creativecommons.org/licenses/by/4.0/",
+            "https://www.apache.org/licenses/LICENSE-2.0",
+        ]:
+            self.assertIn(source, rights)
         schema = json.loads((ROOT / "schemas" / "provenance-v1.schema.json").read_text())
         self.assertEqual(
             schema["$id"], "https://enterlocus.com/schemas/provenance-v1.schema.json"

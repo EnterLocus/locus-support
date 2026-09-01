@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright 2026 EnterLocus.com
+# SPDX-License-Identifier: Apache-2.0
 """Create a reviewable flat Locus Room source directory from finished media."""
 
 from __future__ import annotations
