@@ -47,20 +47,17 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .release-note { margin-top: 1.2rem; color: var(--muted); font-size: .86rem; }
 .hero-shot, .selector-shot { margin: 0; }
 .hero-shot { padding: .55rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2.4rem 7rem rgba(0,0,0,.3); transform: rotate(1.25deg); }
-.hero-shot img, .selector-shot img { display: block; width: 100%; height: auto; border-radius: 1rem; }
-.hero-shot figcaption { padding: .65rem .5rem .2rem; color: var(--muted); font-size: .75rem; letter-spacing: .04em; }
+.hero-shot img, .hero-shot video, .selector-shot img { display: block; width: 100%; height: auto; border-radius: 1rem; }
+.hero-video-mobile { position: relative; display: none; overflow: hidden; border-radius: 1rem; background: #08111c; }
+.hero-video-play { position: absolute; left: 50%; top: 50%; display: grid; width: 4.5rem; height: 4.5rem; place-items: center; border: 1px solid rgba(255,255,255,.38); border-radius: 50%; background: rgba(5,13,23,.76); color: white; font-size: 1.65rem; line-height: 1; transform: translate(-50%,-50%); transition: transform .2s ease, background .2s ease; }
+.hero-video-mobile:hover .hero-video-play, .hero-video-mobile:focus-visible .hero-video-play { background: rgba(55,166,255,.9); transform: translate(-50%,-50%) scale(1.06); }
+.hero-shot figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding: .65rem .5rem .2rem; color: var(--muted); font-size: .75rem; letter-spacing: .04em; }
+.hero-shot figcaption a { color: var(--accent); font-weight: 700; }
 
-.demo-section, .story-section { padding: 7rem 0; border-top: 1px solid var(--line); }
+.story-section { padding: 7rem 0; border-top: 1px solid var(--line); }
 .section-intro { max-width: 760px; }
 .section-intro h2 { margin: .45rem 0 .7rem; font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.05; letter-spacing: -.04em; text-wrap: balance; }
 .section-intro p:not(.kicker) { color: var(--muted); font-size: 1.08rem; line-height: 1.6; }
-.demo-frame { margin-top: 2.4rem; padding: .5rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2rem 6rem rgba(0,0,0,.28); }
-.demo-video-link { position: relative; display: block; overflow: hidden; border-radius: 1rem; background: #08111c; }
-.demo-video-link img { display: block; width: 100%; height: auto; }
-.demo-video-play { position: absolute; left: 50%; top: 50%; display: grid; width: 4.5rem; height: 4.5rem; place-items: center; border: 1px solid rgba(255,255,255,.38); border-radius: 50%; background: rgba(5,13,23,.76); color: white; font-size: 1.65rem; line-height: 1; transform: translate(-50%,-50%); transition: transform .2s ease, background .2s ease; }
-.demo-video-link:hover .demo-video-play, .demo-video-link:focus-visible .demo-video-play { background: rgba(55,166,255,.9); transform: translate(-50%,-50%) scale(1.06); }
-.video-fallback { margin: .8rem 0 0; color: var(--muted); font-size: .9rem; }
-.video-fallback a { color: var(--accent); font-weight: 700; }
 
 .story-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin-top: 2.4rem; }
 .story-card { margin: 0; padding: .4rem; border: 1px solid var(--line); border-radius: 1.2rem; background: rgba(255,255,255,.03); overflow: hidden; }
@@ -101,7 +98,7 @@ footer > div { display: flex; flex-direction: column; gap: .35rem; }
   .hero-shot { transform: none; }
   h1 { font-size: clamp(2.8rem, 13vw, 4.6rem); }
   .selection-section, .room-showcase, .product-grid, .split-section, .story-grid { grid-template-columns: 1fr; gap: 2rem; }
-  .demo-section, .story-section { padding: 5.5rem 0; }
+  .story-section { padding: 5.5rem 0; }
   .product-grid.text-only .feature-card { min-height: 220px; }
   .story-card figcaption { display: block; padding: .85rem .65rem .65rem; }
   .story-card figcaption strong { display: block; color: var(--ink); font-size: 1rem; }
@@ -118,4 +115,13 @@ footer > div { display: flex; flex-direction: column; gap: .35rem; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .hero-video { display: none; }
+  .hero-video-mobile { display: block; }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  @supports (-webkit-touch-callout: none) {
+    .hero-video { display: none; }
+    .hero-video-mobile { display: block; }
+  }
 }
