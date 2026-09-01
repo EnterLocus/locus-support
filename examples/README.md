@@ -5,14 +5,18 @@ the public Room metadata contract.
 
 | File | Display name | Format | Seats | SHA-256 |
 | --- | --- | ---: | ---: | --- |
-| `atrium-loft-room.zip` | Atrium Loft | 3 | 2 | `1b45d98a8933182972659e3104e04f25c667e529861f6f8fc1907ca8037df7eb` |
-| `courtyard-gallery-room.zip` | Courtyard Gallery | 3 | 3 | `b1e46397e0a40cc06506ffd7bad841a5f7f7c7edbb3d6b9f99548b275f099e2c` |
-| `horizon-atelier-room.zip` | Horizon Atelier | 3 | 3 | `1400f844d6ded5e05e3a3aaedc216d9c3a059945d4d95f43676214f22c78a81b` |
+| `atrium-loft-room.zip` | Atrium Loft | 3 | 2 | `8ef1aef6495d2d63febfbf10292f1f6f50cf1bb7bf4912fc27f59fa3e4a712c5` |
+| `courtyard-gallery-room.zip` | Courtyard Gallery | 3 | 3 | `934b699775d9a5e0f95ab5c093259a1cf7c24cd4d623b2eeca5402e338acbf81` |
+| `horizon-atelier-room.zip` | Horizon Atelier | 3 | 3 | `c6dcbc61648d5aa52bfa7ad9be6ddbd3679ae66806aa82805c35e96017de6e1e` |
 
 `demo-room.zip` is a byte-for-byte compatibility alias of
 `atrium-loft-room.zip` so existing public links continue to work.
 
 The examples were packed with the public deterministic packer and pass the
-public validator, including `usdchecker --arkit`. Locus-authored example assets
-may be used with the official Locus app under the terms on
-<https://enterlocus.com/asset-rights/>.
+public validator, including `usdchecker --arkit`.
+
+The Locus-authored geometry, arrangement, lighting artwork, and thumbnail in
+each demo are licensed under CC BY 4.0. Credit the relevant work as
+`<Room name> by EnterLocus.com`, link the license, and say if you changed it.
+Embedded Poly Haven texture maps retain CC0 1.0. Exact authors, sources, and
+scope are listed at <https://enterlocus.com/asset-rights/#demo-room-notices>.
