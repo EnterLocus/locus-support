@@ -27,6 +27,9 @@ class PageParser(html.parser.HTMLParser):
         super().__init__()
         self.links = []
         self.images = []
+        self.videos = []
+        self.sources = []
+        self.tracks = []
         self.h1_count = 0
         self.title_depth = 0
         self.title = ""
@@ -48,6 +51,12 @@ class PageParser(html.parser.HTMLParser):
                 self.has_skip_link = True
         elif tag == "img":
             self.images.append(values)
+        elif tag == "video":
+            self.videos.append(values)
+        elif tag == "source":
+            self.sources.append(values)
+        elif tag == "track":
+            self.tracks.append(values)
         elif tag == "h1":
             self.h1_count += 1
         elif tag == "title":
@@ -349,6 +358,84 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(filename, capture_guide)
             self.assertIn(filename, asset_record)
         self.assertNotIn("five 16:9 master captures", capture_guide)
+
+    def test_homepage_uses_authentic_promotional_media(self):
+        expected = {
+            "locus-promo-31s.mp4":
+                "925c07bade77217b35eeaad27b81b48d0cd379a9bef27e948241999104c9a8ba",
+            "locus-promo-poster.jpg":
+                "484899e0aa9ce36ab301ab2d3292a12f95b558e88f4f824a86de88e7724fe49c",
+            "still-01-change-view.jpg":
+                "91955d07b15323bf04819ab0b257820d9a93ee2ffb69a76ce848ff15016f190b",
+            "still-02-desk.jpg":
+                "2f995e767ed0d4b5a89d063df961c66ad2c9f8ad42d8c8e588652db7db49fc73",
+            "still-03-browser.jpg":
+                "42352f05732727e173d696add5f44f938c392f185c2b948fb85da29da3ac0f28",
+            "still-04-walls.jpg":
+                "cf52c51dd6fdbbfeafcbacbaf65f368532b5895a165cf0b30cbb67e0c3c327b6",
+            "still-05-own-view.jpg":
+                "a7772cc62b43eb8ce618c5bed69d06157883d1669b41c3bff6a43a0a8ac82bbe",
+            "still-06-import-room.jpg":
+                "6989b8c373eae26ba82f8578f022d4ff0041e8fe507b750be034c10a1a1900e5",
+            "locus-promo-en.vtt":
+                "049254244359e0a13d757d1a072b091ea1a79808c2fec78cce63cfafe500c6a8",
+        }
+        promo_root = ROOT / "assets" / "promo"
+        self.assertEqual(
+            {path.name for path in promo_root.iterdir() if path.is_file()},
+            set(expected),
+        )
+
+        homepage = (ROOT / "index.html").read_text()
+        parser = PageParser()
+        parser.feed(homepage)
+        self.assertEqual(len(parser.videos), 1)
+        video = parser.videos[0]
+        self.assertIn("controls", video)
+        self.assertIn("playsinline", video)
+        self.assertNotIn("autoplay", video)
+        self.assertEqual(video.get("preload"), "metadata")
+        self.assertEqual(
+            video.get("poster"),
+            "./assets/promo/locus-promo-poster.jpg",
+        )
+        self.assertIn(
+            {"src": "./assets/promo/locus-promo-31s.mp4", "type": "video/mp4"},
+            parser.sources,
+        )
+        self.assertIn(
+            {
+                "kind": "captions",
+                "src": "./assets/promo/locus-promo-en.vtt",
+                "srclang": "en",
+                "label": "English",
+            },
+            parser.tracks,
+        )
+        self.assertIn("Read the 31-second video transcript", homepage)
+
+        promo_images = [
+            image for image in parser.images
+            if image["src"].startswith("./assets/promo/still-")
+        ]
+        self.assertEqual(len(promo_images), 6)
+        for image in promo_images:
+            self.assertEqual(image.get("width"), "1920")
+            self.assertEqual(image.get("height"), "1080")
+            self.assertEqual(image.get("loading"), "lazy")
+            self.assertEqual(image.get("decoding"), "async")
+            self.assertTrue(image.get("alt", "").strip())
+
+        for filename, digest in expected.items():
+            with self.subTest(filename=filename):
+                self.assertEqual(
+                    hashlib.sha256((promo_root / filename).read_bytes()).hexdigest(),
+                    digest,
+                )
+
+        asset_record = (ROOT / "assets" / "README.md").read_text()
+        for filename in expected:
+            self.assertIn(filename, asset_record)
 
     def test_flat_public_format_replaces_the_old_envelope(self):
         paths = [
