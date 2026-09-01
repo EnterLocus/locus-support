@@ -54,6 +54,7 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .hero-video-mobile:hover .hero-video-play, .hero-video-mobile:focus-visible .hero-video-play { background: rgba(55,166,255,.9); transform: translate(-50%,-50%) scale(1.06); }
 .hero-shot figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding: .65rem .5rem .2rem; color: var(--muted); font-size: .75rem; letter-spacing: .04em; }
 .hero-shot figcaption a { color: var(--accent); font-weight: 700; }
+.hero-shot .platform-note { flex-basis: 100%; color: #78858c; font-size: .68rem; letter-spacing: 0; line-height: 1.4; }
 
 .story-section { padding: 7rem 0; border-top: 1px solid var(--line); }
 .section-intro { max-width: 760px; }

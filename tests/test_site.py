@@ -413,6 +413,10 @@ class PublicSiteTests(unittest.TestCase):
         )
         self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
         self.assertNotIn("Watch the video directly.", homepage)
+        self.assertIn(
+            "Keyboard passthrough is provided by visionOS, not Locus.",
+            homepage,
+        )
         self.assertNotIn("video transcript", homepage)
         self.assertNotIn("See Locus in motion", homepage)
         stylesheet = (ROOT / "assets" / "site.css").read_text()
