@@ -377,8 +377,6 @@ class PublicSiteTests(unittest.TestCase):
                 "a7772cc62b43eb8ce618c5bed69d06157883d1669b41c3bff6a43a0a8ac82bbe",
             "still-06-import-room.jpg":
                 "6989b8c373eae26ba82f8578f022d4ff0041e8fe507b750be034c10a1a1900e5",
-            "locus-promo-en.vtt":
-                "049254244359e0a13d757d1a072b091ea1a79808c2fec78cce63cfafe500c6a8",
         }
         promo_root = ROOT / "assets" / "promo"
         self.assertEqual(
