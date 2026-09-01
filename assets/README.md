@@ -41,13 +41,26 @@ occlusion, presence, performance, or comfort on Apple Vision Pro.
 ## Promotional website media
 
 The files in `promo/` are public-site derivatives of the authentic Locus
-promotional package produced on August 31, 2026. The Dropbox source root is
-`Locus Demo/Promo Draft 1`. Product pixels are native Locus Simulator captures
-or physical Apple Vision Pro Developer Capture recordings. No ImageGen,
+promotional packages produced on August 31 and September 1, 2026. The Dropbox
+source roots are `Locus Demo/Promo Draft 1` and `Locus Demo/Promo Draft 2`.
+Product pixels are native Locus Simulator captures or physical Apple Vision
+Pro Developer Capture recordings. No ImageGen,
 generative fill, synthetic reflection, relighting, replacement exterior,
 invented UI, or competitor screenshot appears in these files.
 
-`locus-promo-31s.mp4` is a silent 1920 x 1080, 30 fps H.264 High Profile,
+`locus-promo-31s-v2.mp4` is the active website cut. It moves the complete
+eight-second **Your desk, virtually.** section to the opening, followed by the
+original opening, View change, Browser, open-wall, and end-card sections. No
+shot, title, or product pixel was otherwise changed. It is a silent 31-second,
+1920 x 1080, 30 fps H.264 High Profile Level 4.0 encode with 8-bit 4:2:0 Rec.
+709 pixels, two-second keyframe intervals, and fast-start layout. Its source
+rough-cut SHA-256 is
+`2c46ed54989a0eb8eadbc363e9cc9fe1eb7d28e774b7a25c1d5a5a5daa318dcd`;
+the website derivative SHA-256 is
+`7fe19092d03a2e43cdf795ee0f6c7f8c1667e33da439324b17f5b4699865117a`.
+
+The original `locus-promo-31s.mp4` remains available so previously published
+direct URLs do not break. It is a silent 1920 x 1080, 30 fps H.264 High Profile,
 Level 4.0 web encode of `Locus-Promo-Rough-Cut-v1.mp4`. It uses the `avc1`
 sample entry, 4:2:0 8-bit pixels, a two-second keyframe interval, and a
 fast-start MP4 layout for iPhone browser compatibility. The source SHA-256 is
