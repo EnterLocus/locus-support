@@ -2,6 +2,7 @@ import hashlib
 import html.parser
 import json
 import pathlib
+import re
 import subprocess
 import sys
 import unittest
@@ -414,6 +415,15 @@ class PublicSiteTests(unittest.TestCase):
         stylesheet = (ROOT / "assets" / "site.css").read_text()
         self.assertIn("@media (prefers-reduced-motion: reduce)", stylesheet)
         self.assertIn(".hero-video-mobile { display: block; }", stylesheet)
+        self.assertNotIn(".hero-shot video", stylesheet)
+        self.assertIn(
+            ".hero-video { display: block; width: 100%; height: auto; "
+            "border-radius: 1rem; }",
+            stylesheet,
+        )
+        hero_shot_rule = re.search(r"^\.hero-shot \{([^}]*)\}", stylesheet, re.MULTILINE)
+        self.assertIsNotNone(hero_shot_rule)
+        self.assertNotIn("transform", hero_shot_rule.group(1))
 
         # Keep the static MP4 within Apple's maximum-compatibility H.264
         # envelope for iPhone browsers. Chrome on iOS uses the platform media
