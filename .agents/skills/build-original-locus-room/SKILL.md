@@ -165,3 +165,10 @@ Report the archive path and SHA-256, validator result, import and entry result,
 tested seats and interfaces, screenshot or device evidence, and every check
 that remains pending. Correct the authored source and rebuild instead of
 patching the ZIP by hand.
+
+## License
+
+This skill, its references, and its bundled scripts are licensed under the
+[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). The
+repository's `LICENSE.md` and `LICENSES/Apache-2.0.txt` contain the exact scope
+and terms.

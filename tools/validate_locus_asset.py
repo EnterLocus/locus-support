@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+# Copyright 2026 EnterLocus.com
+# SPDX-License-Identifier: Apache-2.0
 """Validate a public Locus Room or View ZIP without installing it."""
 
 from __future__ import annotations
