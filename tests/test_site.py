@@ -407,13 +407,14 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(parser.tracks, [])
         self.assertEqual(
             parser.links.count("./assets/promo/locus-promo-31s.mp4"),
-            2,
+            1,
         )
-        self.assertIn("Watch the video directly.", homepage)
+        self.assertNotIn("Watch the video directly.", homepage)
         self.assertNotIn("video transcript", homepage)
         self.assertNotIn("See Locus in motion", homepage)
         stylesheet = (ROOT / "assets" / "site.css").read_text()
         self.assertIn("@media (prefers-reduced-motion: reduce)", stylesheet)
+        self.assertNotIn("@media (hover: none) and (pointer: coarse)", stylesheet)
         self.assertIn(".hero-video-mobile { display: block; }", stylesheet)
         self.assertNotIn(".hero-shot video", stylesheet)
         self.assertIn(
