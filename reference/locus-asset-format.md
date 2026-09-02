@@ -3,7 +3,9 @@
 Status: v1 remains supported and immutable; v2 adds visitor-controlled Room
 lighting metadata and a View condition that suggests the light switch's initial
 position; Room v3 adds Room-owned baked indirect light and bounded authoring
-limits. All versions use the same flat ZIP layout.
+limits; experimental Room v4 adds independently controlled USDZ animations
+with saved playback speed and randomized replay intervals. All versions use
+the same flat ZIP layout.
 
 A public archive contains exactly one Room or one View. It is an ordinary
 `.zip` file with all files at the ZIP root. It never contains a Catalog,
@@ -182,6 +184,57 @@ inside `-4...+1 EV`. A Room may declare at most 12 proxies, at most 4 may be
 active at any seat, and at most 1 may cast a shadow. These are hard safety
 bounds, not recommended intensities. `bakedIndirect` and multiple
 `proxies` are v3-only.
+
+### Experimental ambient animations (formatVersion 4)
+
+Room animation playback and its authoring fields are experimental. A Room
+whose USDZ contains independently playable environment animation uses
+`formatVersion: 4` and adds a non-empty `ambientAnimations` array:
+
+```json
+"ambientAnimations": [
+  {
+    "id": "coffee-break",
+    "displayName": "Coffee Break",
+    "entityName": "Ambient_CoffeeActor",
+    "animationName": "default subtree animation",
+    "isEnabledByDefault": true,
+    "defaultSpeed": 1,
+    "speedRange": [0.5, 1.5],
+    "defaultIntervalRangeSeconds": [8, 20],
+    "intervalRangeSeconds": [0, 60]
+  },
+  {
+    "id": "ceiling-fan",
+    "displayName": "Ceiling Fan",
+    "entityName": "Ambient_CeilingFan",
+    "animationName": "default subtree animation",
+    "isEnabledByDefault": true,
+    "defaultSpeed": 1,
+    "speedRange": [0.25, 1.5],
+    "defaultIntervalRangeSeconds": [0, 0],
+    "intervalRangeSeconds": [0, 60]
+  }
+]
+```
+
+`entityName` resolves one subtree in `scene.usdz`; `animationName` resolves one
+animation in that entity's animation library. Each ID is stable and unique.
+Speed is a multiplier inside `0.25...2`. Interval is the pause after a complete
+play: `[0, 0]` means replay immediately and therefore run continuously; any
+other range samples a fresh random delay after every completion. Both interval
+ranges are ordered seconds between 0 and 3,600, and the default endpoints must
+fit inside the adjustable range.
+
+Controls and Quick Settings operate on the same session values. Quick Settings
+can save each animation's switch, speed, and interval as that Room's defaults
+on the current device. Format v1-v3 Rooms cannot declare this field and keep
+their existing behavior unchanged.
+
+Everything in this section related to animation—including metadata, playback,
+controls, speed, and interval behavior—is experimental and may change. Use the
+[Coffee Atrium experimental demo](../experimental-room-animations/) to try the
+current behavior before authoring a Room that depends on it.
 
 ### How desk alignment identifies a desk
 

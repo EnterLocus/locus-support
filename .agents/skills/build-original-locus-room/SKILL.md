@@ -1,6 +1,6 @@
 ---
 name: build-original-locus-room
-description: Build, package, validate, and runtime-check an original 3D Room for Locus using the public Room ZIP, seat, entity, desk, lighting, provenance, and verification contracts. Use when creating a new Room from a brief or adapting an original professional 3D scene for Locus.
+description: Build, package, validate, and runtime-check an original 3D Room for Locus using the public Room ZIP, seat, entity, desk, lighting, optional experimental animation, provenance, and verification contracts. Use when creating a new Room from a brief or adapting an original professional 3D scene for Locus.
 ---
 
 # Build an Original Locus Room
@@ -17,8 +17,8 @@ tool is available, state that limitation before promising a finished Room.
 
 Read these local references before authoring:
 
-- `references/room-interface.md` for the current Room v1-v3 contract and exact
-  delivery gates.
+- `references/room-interface.md` for the current Room v1-v3 contract, optional
+  experimental Room v4 animations, and exact delivery gates.
 - `references/design-language.md` when designing a new Room or judging whether
   it belongs beside the public Locus examples.
 
@@ -103,6 +103,25 @@ proxies at a seat, 1 shadow-casting proxy, 10,000 lumens per proxy, and a
 brightness range within -4...+1 EV. These limits are not modeling or lighting
 recommendations.
 
+## Declare optional experimental animations
+
+Treat all Room animation metadata and playback behavior as experimental. Use
+Room v4 only when the creator knowingly accepts that the field names, controls,
+speed behavior, and replay interval behavior may change.
+
+Each `ambientAnimations` entry connects one stable ID and visitor-facing name
+to one exact entity and animation name in the delivered USDZ. Set bounded speed
+and interval ranges. `[0, 0]` means immediate replay; any other range selects a
+fresh random pause after every completed play. The default interval must fit
+inside the adjustable range.
+
+The bundled scaffolder intentionally remains a stable Room v1-v3 starting
+point. To experiment with Room v4, add `ambientAnimations` only after the USDZ
+contains the named clips, then run the bundled validator against the exact ZIP.
+Try every animation switch, speed, and interval in Locus before delivery. Do
+not describe validator success as proof that the named clip produces the
+intended visible motion.
+
 ## Scaffold, package, and validate
 
 Resolve the directory that contains this `SKILL.md`; do not assume the current
@@ -160,6 +179,10 @@ Before calling physical behavior complete, try every declared seat on Apple
 Vision Pro. Exercise desk mappings, adaptive surfaces, Room Portal behavior,
 tracking, scale, reach, comfort, and lighting from different viewpoints there.
 Simulator evidence must not be reported as physical-device evidence.
+
+For experimental Room v4 content, also check every animation from every seat,
+including off, continuous `0–0`, fixed nonzero, and random interval behavior.
+Check motion scale, comfort, and sustained performance on Apple Vision Pro.
 
 Report the archive path and SHA-256, validator result, import and entry result,
 tested seats and interfaces, screenshot or device evidence, and every check

@@ -563,6 +563,8 @@ class PublicSiteTests(unittest.TestCase):
             "write an opaque USD PreviewSurface",
             "not the DCC, renderer, exporter",
             "try every declared seat on Apple Vision Pro",
+            "Declare optional experimental animations", "ambientAnimations",
+            "[0, 0]", "may change",
         ]:
             self.assertIn(required, flat_skill)
         for private_detail in ["/Users/", "Dropbox", "Locus Dev", "Blender MCP"]:
@@ -700,7 +702,9 @@ class PublicSiteTests(unittest.TestCase):
         examples = ROOT / "examples"
         self.assertEqual(
             {path.name for path in examples.glob("*.zip")},
-            set(expected) | {"demo-room.zip"},
+            set(expected) | {
+                "demo-room.zip", "coffee-atrium-experimental-room.zip",
+            },
         )
         readme = (examples / "README.md").read_text()
         for filename, details in expected.items():
@@ -777,6 +781,97 @@ class PublicSiteTests(unittest.TestCase):
             for filename in expected:
                 self.assertIn(f"../examples/{filename}", text)
 
+    def test_experimental_animation_demo_is_pinned_valid_and_clearly_labeled(self):
+        filename = "coffee-atrium-experimental-room.zip"
+        demo = ROOT / "examples" / filename
+        self.assertEqual(demo.stat().st_size, 8_316_240)
+        self.assertEqual(
+            hashlib.sha256(demo.read_bytes()).hexdigest(),
+            "c83b3be2f5d29737e418f898fb442b8ded61488b4f32b613195dc0ecab27d42d",
+        )
+        with zipfile.ZipFile(demo) as archive:
+            self.assertEqual(set(archive.namelist()), {
+                "space.json", "provenance.json", "teleport-points.json",
+                "scene.usdz", "thumbnail.jpg",
+            })
+            room = json.loads(archive.read("space.json"))
+            provenance = json.loads(archive.read("provenance.json"))
+        self.assertEqual(room["formatVersion"], 4)
+        self.assertEqual(room["displayName"], "Coffee Atrium POC")
+        self.assertEqual(
+            [animation["id"] for animation in room["ambientAnimations"]],
+            ["coffee-break", "ceiling-fan"],
+        )
+        self.assertEqual(
+            room["ambientAnimations"][0]["defaultIntervalRangeSeconds"],
+            [8, 20],
+        )
+        self.assertEqual(
+            room["ambientAnimations"][1]["defaultIntervalRangeSeconds"],
+            [0, 0],
+        )
+        self.assertNotIn("license", provenance)
+        self.assertEqual(
+            provenance["rights"]["url"],
+            "https://enterlocus.com/asset-rights/",
+        )
+        self.assertIn(
+            "No separate reuse or redistribution license is granted",
+            provenance["rights"]["statement"],
+        )
+        self.assertEqual(
+            provenance["sourcePageURL"],
+            "https://enterlocus.com/asset-rights/",
+        )
+        self.assertEqual(
+            provenance["requestedCredit"],
+            "Coffee Atrium POC by EnterLocus.com",
+        )
+        self.assertIn(
+            "Embedded Poly Haven texture files retain CC0 1.0",
+            provenance["modificationNotes"],
+        )
+
+        checked = subprocess.run(
+            [sys.executable, str(ROOT / "tools" / "validate_locus_asset.py"), str(demo)],
+            check=False, capture_output=True, text=True,
+        )
+        self.assertEqual(checked.returncode, 0, checked.stderr)
+        self.assertIn('VALID: room "Coffee Atrium POC"', checked.stdout)
+
+        page = (ROOT / "experimental-room-animations" / "index.html").read_text()
+        for required in [
+            "All animation features shown here are experimental",
+            "experimental speed and interval settings",
+            "Controls → Ambient Animations",
+            "Quick Settings → Room",
+            "0–0", "8–20 seconds", "may change",
+            f"../examples/{filename}",
+            "reserved-rights statement",
+            "Embedded Poly Haven textures retain CC0 1.0",
+        ]:
+            self.assertIn(required, page)
+        for path in [
+            ROOT / "README.md",
+            ROOT / "LICENSE.md",
+            ROOT / "examples" / "README.md",
+            ROOT / "package-format" / "index.html",
+            ROOT / "create-your-own-place" / "index.html",
+            ROOT / "build-a-room" / "index.html",
+            ROOT / "reference" / "locus-asset-format.md",
+            ROOT / ".agents" / "skills" / "build-original-locus-room" / "SKILL.md",
+            ROOT / ".agents" / "skills" / "build-original-locus-room" / "references" / "room-interface.md",
+        ]:
+            with self.subTest(path=path.relative_to(ROOT)):
+                text = path.read_text()
+                self.assertIn("experimental", text.lower())
+
+        sitemap = (ROOT / "sitemap.xml").read_text()
+        self.assertIn(
+            "https://enterlocus.com/experimental-room-animations/",
+            sitemap,
+        )
+
     def test_room_guide_is_tool_agnostic_and_documents_runtime_contracts(self):
         guide = (ROOT / "build-a-room" / "index.html").read_text()
         for required in [
@@ -787,6 +882,8 @@ class PublicSiteTests(unittest.TestCase):
             "bakedIndirect.entities", "2^overallEV", "12 authored proxies",
             "4 active proxies", "1 shadow-casting proxy", "10,000 lumens",
             "-4…+1 EV", "every seat on Apple Vision Pro",
+            "Experimental ambient animations", "ambientAnimations",
+            "0–0", "may change",
         ]:
             self.assertIn(required, guide)
         for modeling_instruction in ["Blender MCP", "Create original geometry"]:
@@ -802,6 +899,8 @@ class PublicSiteTests(unittest.TestCase):
             "Plywood", "White Plaster 02", "Rob Tuytel", "CC0 1.0",
             "names, logos, app icons", "private app source",
             "AI disclosure", "aiGenerated", "aiProvider",
+            "Coffee Atrium experimental demo", "animation artwork",
+            "experimental-animation-demo-notices",
         ]:
             self.assertIn(term, rights)
         for source in [
