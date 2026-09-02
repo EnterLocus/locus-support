@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d141a">
+  <title>Experimental Room animations — Locus</title>
+  <meta name="description" content="Download Coffee Atrium POC and try experimental Room animation playback, controls, speed, and replay intervals in Locus.">
+  <meta property="og:title" content="Experimental Room animations — Locus"><meta property="og:description" content="Try an animated Room with a coffee break and a continuously turning ceiling fan."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/experimental-room-animations/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/experimental-room-animations/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../faq/">FAQ</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a></nav></header>
+  <main id="main" class="page-main">
+    <header class="page-header"><p class="kicker">Experimental demo</p><h1>Try a Room that moves.</h1><p>Coffee Atrium POC puts two independent animations inside one Room: an abstract visitor pauses for coffee while a sculptural ceiling fan turns above.</p><span class="status">Experimental · Room v4 · 8.3 MB</span></header>
+
+    <div class="callout warning"><strong>All animation features shown here are experimental.</strong> This includes the Room animation metadata, playback behavior, Controls and Quick Settings surfaces, speed control, and replay intervals. They may change and should not yet be treated as a stable production authoring contract.</div>
+
+    <section class="doc-section"><h2>Download and try it</h2><p>Save the ZIP to Files, then choose <strong>Import a Room</strong> in Locus. Pair it with any View and enter the Room.</p><p><a class="button primary" href="../examples/coffee-atrium-experimental-room.zip" download>Download Coffee Atrium POC</a></p><ol class="step-list"><li>Open the downloaded ZIP with Locus, or choose <strong>Import a Room</strong> from your Library.</li><li>Enter Coffee Atrium POC and open <strong>Controls → Ambient Animations</strong> to turn each experimental animation on or off.</li><li>Open <strong>Quick Settings → Room</strong> to try experimental speed and interval settings, then save them for this Room.</li></ol><p class="small-note">Turning an animation off stops that movement; the Room remains available. Saved animation settings apply only to this Room on the current device.</p></section>
+
+    <section class="doc-section"><h2>What moves</h2><div class="link-grid"><div class="link-card static-card"><strong>Coffee Break</strong><span>A seated abstract figure performs one coffee gesture, then waits a randomly selected 8–20 seconds before playing again.</span></div><div class="link-card static-card"><strong>Ceiling Fan</strong><span>The suspended fan starts with a 0–0 second interval, so it repeats immediately and turns continuously.</span></div></div></section>
+
+    <section class="doc-section"><h2>How experimental intervals work</h2><p>The interval is the pause after one animation finishes. A minimum and maximum of <code>0–0</code> means immediate replay. Matching nonzero values create a fixed pause. With different values, Locus picks a fresh random pause within the range after every completed play.</p><p>The minimum never crosses above the maximum: raising the minimum also raises the maximum when needed, and lowering the maximum also lowers the minimum. Speed and interval changes are experimental along with the rest of Room animation playback.</p></section>
+
+    <section class="doc-section"><h2>For Room creators</h2><p>This download is a working example of the experimental <code>ambientAnimations</code> field in a flat Room v4 ZIP. The building, animated figure, fan, and their animation clips are packaged together in one self-contained USDZ.</p><div class="link-grid"><a class="link-card" href="../reference/locus-asset-format.md"><strong>Read the experimental format</strong><span>Animation identifiers, entity and clip names, speed ranges, and interval rules.</span></a><a class="link-card" href="../package-format/"><strong>Get the validator</strong><span>Validate Room v4 metadata and the complete ZIP before importing it.</span></a></div></section>
+
+    <section class="doc-section"><h2>Rights and notices</h2><p>The ZIP carries a reserved-rights statement for its Locus-authored geometry, arrangement, lighting, animation artwork, and thumbnail. You may use it with the official Locus app for this demonstration; those parts are not licensed for redistribution or reuse elsewhere. Embedded Poly Haven textures retain CC0 1.0.</p><p><a href="../asset-rights/#experimental-animation-demo-notices">Read the complete rights scope and component notices.</a></p></section>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>

@@ -642,6 +642,58 @@ def validate_lighting(
                 "lighting.bakedIndirect.entities must not name luminaires")
 
 
+def validate_number_range(
+    value: Any,
+    field: str,
+    minimum: float,
+    maximum: float,
+) -> tuple[float, float]:
+    require_number_list(value, 2, field)
+    require(minimum <= value[0] <= value[1] <= maximum,
+            f"{field} is invalid")
+    return value[0], value[1]
+
+
+def validate_ambient_animations(value: Any) -> None:
+    require(isinstance(value, list) and value,
+            "space.json.ambientAnimations must be a non-empty array")
+    identifiers: set[str] = set()
+    for index, animation in enumerate(value):
+        context = f"space.json.ambientAnimations[{index}]"
+        require(isinstance(animation, dict), f"{context} must be an object")
+        exact_keys(
+            animation,
+            required={
+                "id", "displayName", "entityName", "animationName",
+                "isEnabledByDefault", "defaultSpeed", "speedRange",
+                "defaultIntervalRangeSeconds", "intervalRangeSeconds",
+            },
+            context=context,
+        )
+        require(valid_identifier(animation["id"]), f"{context}.id is invalid")
+        require(animation["id"] not in identifiers,
+                f"duplicate ambient animation id {animation['id']}")
+        identifiers.add(animation["id"])
+        for field in ("displayName", "entityName", "animationName"):
+            require_text(animation[field], f"{context}.{field}", 200)
+        require(type(animation["isEnabledByDefault"]) is bool,
+                f"{context}.isEnabledByDefault must be boolean")
+        speed = validate_number_range(
+            animation["speedRange"], f"{context}.speedRange", 0.25, 2)
+        require(finite(animation["defaultSpeed"])
+                and speed[0] <= animation["defaultSpeed"] <= speed[1],
+                f"{context}.defaultSpeed is invalid")
+        default_interval = validate_number_range(
+            animation["defaultIntervalRangeSeconds"],
+            f"{context}.defaultIntervalRangeSeconds", 0, 3_600)
+        interval = validate_number_range(
+            animation["intervalRangeSeconds"],
+            f"{context}.intervalRangeSeconds", 0, 3_600)
+        require(interval[0] <= default_interval[0]
+                and default_interval[1] <= interval[1],
+                f"{context}.defaultIntervalRangeSeconds exceeds its allowed range")
+
+
 def validate_room(root: Path) -> dict[str, Any]:
     value = decode_json(root / "space.json", "space.json")
     exact_keys(
@@ -650,14 +702,19 @@ def validate_room(root: Path) -> dict[str, Any]:
             "formatVersion", "displayName", "seatedOrigin", "safeHeadVolume",
             "viewOpenings",
         },
-        optional={"caption", "previewCamera", "spatialAdaptation", "lighting"},
+        optional={
+            "caption", "previewCamera", "spatialAdaptation", "lighting",
+            "ambientAnimations",
+        },
         context="space.json",
     )
     require(type(value["formatVersion"]) is int
-            and value["formatVersion"] in {1, 2, 3},
-            "space.json.formatVersion must be 1, 2, or 3")
+            and value["formatVersion"] in {1, 2, 3, 4},
+            "space.json.formatVersion must be 1, 2, 3, or 4")
     require(value["formatVersion"] >= 2 or "lighting" not in value,
             "space.json.lighting requires formatVersion 2")
+    require(value["formatVersion"] >= 4 or "ambientAnimations" not in value,
+            "space.json.ambientAnimations requires formatVersion 4")
     require_text(value["displayName"], "space.json.displayName", 200)
     if "caption" in value:
         require_text(value["caption"], "space.json.caption", 1_000)
@@ -703,6 +760,8 @@ def validate_room(root: Path) -> dict[str, Any]:
     if "lighting" in value:
         validate_lighting(
             value["lighting"], teleports, value["formatVersion"])
+    if "ambientAnimations" in value:
+        validate_ambient_animations(value["ambientAnimations"])
     validate_provenance(root / "provenance.json")
     validate_image(root / "thumbnail.jpg", equirectangular=False)
     validate_usdz(root / "scene.usdz")
