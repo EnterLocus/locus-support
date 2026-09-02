@@ -14,6 +14,8 @@ This repository uses scoped licenses rather than one blanket license:
   Apache License 2.0;
 - the Locus-authored parts of the three downloadable demo Rooms are available
   under Creative Commons Attribution 4.0 International;
+- the Coffee Atrium experimental animation demo keeps its Locus-authored parts
+  reserved under the statement published on the Asset rights page;
 - embedded Poly Haven textures retain their CC0 1.0 dedication; and
 - site content, Locus branding, and everything not expressly listed remain
   reserved.
@@ -27,7 +29,13 @@ Room-building skill at `.agents/skills/build-original-locus-room/`. The current
 flat Room/View ZIP reference and validator define the accepted files. Three
 complete Room examples show the current public lighting and spatial contracts.
 The skill bundles an offline Room reference, design language, metadata
-scaffolder, packer, validator, and delivery checks.
+scaffolder, packer, validator, and delivery checks. A separate Coffee Atrium
+download demonstrates experimental Room animation playback.
+
+Experimental Room animation metadata, playback controls, speed, and replay
+intervals are documented at
+<https://enterlocus.com/experimental-room-animations/>. They are not presented
+as a stable production authoring contract.
 
 Use the Bug form for reproducible product problems. Bring ideas, feature
 requests, wishlists, and creator questions to GitHub Discussions. Send private
