@@ -137,6 +137,37 @@ non-empty `proxies` array, never both.
 - `bakedIndirect.entities`: positive-emissive opaque receiver subtrees only;
   exclude glass, water, transmissive surfaces, fixture glow, and local halos.
 
+## Experimental Room v4 animations
+
+Room animation playback is experimental. A Room v4 `space.json` may add a
+non-empty `ambientAnimations` array. Every entry contains exactly:
+
+```json
+{
+  "id": "coffee-break",
+  "displayName": "Coffee Break",
+  "entityName": "Ambient_CoffeeActor",
+  "animationName": "default subtree animation",
+  "isEnabledByDefault": true,
+  "defaultSpeed": 1,
+  "speedRange": [0.5, 1.5],
+  "defaultIntervalRangeSeconds": [8, 20],
+  "intervalRangeSeconds": [0, 60]
+}
+```
+
+The ID is unique and stable. `entityName` and `animationName` must resolve the
+intended clip in the exact delivered USDZ. Speed stays inside `0.25...2` and
+the default sits inside `speedRange`. Interval endpoints are ordered values
+from 0 through 3,600 seconds; the default range fits inside the adjustable
+range. `[0, 0]` means immediate replay, matching nonzero values mean a fixed
+pause, and different endpoints select a new random pause after every play.
+
+Controls exposes one experimental switch per animation. Quick Settings exposes
+experimental switch, speed, and interval values and can save them for that Room
+on the current device. All of these animation fields and behaviors may change;
+Room v1-v3 remains the stable authoring path.
+
 ## Provenance example
 
 Use exactly one of `license` or `rights`. All URLs are HTTPS. If several
@@ -179,3 +210,5 @@ rights URL must publish the statement it accompanies.
 6. Import that exact ZIP through Locus's public flow and enter the Room.
 7. Capture and inspect visual evidence.
 8. Run physical Vision Pro checks for world sensing, scale, reach, and comfort.
+9. For experimental Room v4, exercise every animation switch, speed, continuous
+   and nonzero interval state, motion comfort, and sustained performance.

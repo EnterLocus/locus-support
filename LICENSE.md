@@ -32,6 +32,21 @@ contain Poly Haven texture maps that retain their CC0 1.0 terms. Exact files,
 authors, and source links are published at
 <https://enterlocus.com/asset-rights/#demo-room-notices>.
 
+## Experimental Room animation demo
+
+`examples/coffee-atrium-experimental-room.zip` carries a `rights` statement for
+the Locus-authored geometry, arrangement, lighting artwork, animation artwork,
+and thumbnail. Copyright and other applicable rights remain reserved by
+EnterLocus.com. The archive may be used with the official Locus app for the
+experimental demonstration described at
+<https://enterlocus.com/experimental-room-animations/>. No separate permission
+is granted to redistribute, sublicense, sell, or reuse those Locus-authored
+parts elsewhere.
+
+The six embedded Poly Haven texture maps retain their CC0 1.0 terms. Their
+filenames, works, creators, and source links are listed at
+<https://enterlocus.com/asset-rights/#experimental-animation-demo-notices>.
+
 ## Reserved material
 
 All rights are reserved for every file and asset component not expressly
