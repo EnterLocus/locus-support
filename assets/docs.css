@@ -47,6 +47,8 @@ td { color: var(--muted); }
 .try-view .kicker { margin: 0 0 .5rem; color: var(--warm); font-size: .75rem; font-weight: 800; letter-spacing: .14em; text-transform: uppercase; }
 .try-view-copy h2 { margin-bottom: .75rem; }
 .try-view-copy p { margin-top: .75rem; }
+.skies-card { grid-template-columns: 1fr; }
+.skies-card .try-view-copy p { max-width: 70ch; }
 .panorama-preview { display: block; overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: var(--surface-2); }
 .panorama-preview:hover, .panorama-preview:focus-visible { border-color: rgba(184,220,234,.65); }
 .panorama-preview img, .guide-figure img { display: block; width: 100%; height: auto; }
