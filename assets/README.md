@@ -95,3 +95,31 @@ These website assets are not evidence that an App Preview video was submitted
 or approved in App Store Connect. Device capture supports the visible desk and
 Room Portal demonstrations only; it does not establish broader performance,
 comfort, or unshown people-visibility claims.
+
+## Locus 1.1 What's New video
+
+`locus-1.1-whats-new-33s.mp4` is the owner-approved Locus 1.1 What's New
+master (Draft 7, revision 7, approved September 3, 2026), copied byte for byte
+from the Dropbox launch-media root `Locus Launch Media/v1.1.0/video/`. It is a
+silent 33.6-second, 1920 x 1080, 30 fps H.264 High Profile Level 4.0 encode
+with 8-bit 4:2:0 pixels and a fast-start layout. SHA-256:
+`a8eb882e95cf22df34b75be2737eb5cee53b1596a645572afabee88f23decb6b`.
+
+Every product pixel is a native Locus Simulator capture of the development app
+built from private Locus source commit
+`091372309b1c7642cccbe8477061c55716509daf`, recorded as one continuous take in
+Horizon Atelier with the Autumn Hill View and the Tokyo Skyline at Night View.
+The Tokyo panorama is an EnterLocus-published Locus Skies image (CC BY 4.0).
+Title cards and the end card are rendered overlays; no ImageGen, generative
+fill, invented UI, or competitor material appears in the video.
+
+`locus-1.1-whats-new-poster.jpg` is a 1920 x 1080 JPEG export of the
+17.0-second QA frame of that master (Room Lights on over the Tokyo night View),
+source PNG SHA-256
+`f7c0749b50778e3cd2434f8002b3f7a764f30644b67f581ce08b2de57ad2e763`, website
+SHA-256
+`2d6138f23bab8209ef0b45ebf5675bb07543f52ff877614206c7dc1a18a2d597`.
+
+These files are Simulator evidence of Locus 1.1 layout and behavior. They are
+not physical Apple Vision Pro validation and not evidence that an App Preview
+video was submitted or approved in App Store Connect.
