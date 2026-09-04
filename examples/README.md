@@ -5,15 +5,18 @@ the public Room metadata contract.
 
 | File | Display name | Format | Seats | SHA-256 |
 | --- | --- | ---: | ---: | --- |
-| `atrium-loft-room.zip` | Atrium Loft | 3 | 2 | `8ef1aef6495d2d63febfbf10292f1f6f50cf1bb7bf4912fc27f59fa3e4a712c5` |
-| `courtyard-gallery-room.zip` | Courtyard Gallery | 3 | 3 | `934b699775d9a5e0f95ab5c093259a1cf7c24cd4d623b2eeca5402e338acbf81` |
-| `horizon-atelier-room.zip` | Horizon Atelier | 3 | 3 | `c6dcbc61648d5aa52bfa7ad9be6ddbd3679ae66806aa82805c35e96017de6e1e` |
+| `atrium-loft-room.zip` | Atrium Loft | 3 | 2 | `588c14c5b1226ec677fada112df1346bb105f0cbdb0344db9d1e1be03b3b9ff1` |
+| `courtyard-gallery-room.zip` | Courtyard Gallery | 3 | 3 | `1d4be79f0c69c6d34e285729c02bd1870bf11133497277a1f1d94d7b0dd9f21f` |
+| `horizon-atelier-room.zip` | Horizon Atelier | 3 | 3 | `dd3551316cae67c01a114a6130db37823f03dcebcec703f15a8fedf7dc291fe7` |
 
 `demo-room.zip` is a byte-for-byte compatibility alias of
 `atrium-loft-room.zip` so existing public links continue to work.
 
 The examples were packed with the public deterministic packer and pass the
-public validator, including `usdchecker --arkit`.
+public validator, including `usdchecker --arkit`. They carry the same USDZ
+and thumbnail bytes as the Locus 1.1 runtime publication of each Room
+(Atrium Loft 1.0.10, Courtyard Gallery 1.0.12, Horizon Atelier 1.0.14,
+refreshed September 3, 2026); the public metadata is unchanged.
 
 The Locus-authored geometry, arrangement, lighting artwork, and thumbnail in
 each demo are licensed under CC BY 4.0. Credit the relevant work as

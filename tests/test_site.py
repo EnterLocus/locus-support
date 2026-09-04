@@ -757,22 +757,22 @@ class PublicSiteTests(unittest.TestCase):
         expected = {
             "atrium-loft-room.zip": {
                 "display_name": "Atrium Loft",
-                "size": 8_178_461,
-                "sha256": "8ef1aef6495d2d63febfbf10292f1f6f50cf1bb7bf4912fc27f59fa3e4a712c5",
+                "size": 8_176_551,
+                "sha256": "588c14c5b1226ec677fada112df1346bb105f0cbdb0344db9d1e1be03b3b9ff1",
                 "seats": 2,
                 "light_groups": 2,
             },
             "courtyard-gallery-room.zip": {
                 "display_name": "Courtyard Gallery",
-                "size": 8_518_839,
-                "sha256": "934b699775d9a5e0f95ab5c093259a1cf7c24cd4d623b2eeca5402e338acbf81",
+                "size": 8_510_411,
+                "sha256": "1d4be79f0c69c6d34e285729c02bd1870bf11133497277a1f1d94d7b0dd9f21f",
                 "seats": 3,
                 "light_groups": 3,
             },
             "horizon-atelier-room.zip": {
                 "display_name": "Horizon Atelier",
-                "size": 8_647_116,
-                "sha256": "c6dcbc61648d5aa52bfa7ad9be6ddbd3679ae66806aa82805c35e96017de6e1e",
+                "size": 8_644_903,
+                "sha256": "dd3551316cae67c01a114a6130db37823f03dcebcec703f15a8fedf7dc291fe7",
                 "seats": 3,
                 "light_groups": 5,
             },
