@@ -7,7 +7,7 @@
   <title>Find and use Views from the web — Locus</title>
   <meta name="description" content="Find a compatible 360° image online, preview it in Locus without using an import, or save it permanently as a View.">
   <meta property="og:title" content="Find and use Views from the web — Locus">
-  <meta property="og:description" content="What to look for, how Use as View works, and when a web panorama can be previewed or saved in Locus.">
+  <meta property="og:description" content="What to look for, how the View prompt works, and when a web panorama can be previewed or saved in Locus.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://enterlocus.com/online-views/">
   <meta property="og:image" content="https://enterlocus.com/assets/og.png">
@@ -48,7 +48,7 @@
       <div class="try-view-copy">
         <p class="kicker">Experimental</p>
         <h2>Browse Locus Skies.</h2>
-        <p>A small gallery of free AI-generated 360° skies, 8K and larger, all ready for <strong>Use as View</strong>. Open a sky, then choose <strong>Open full image</strong> so Locus can offer <strong>Apply Preview</strong> and <strong>Save as View…</strong>.</p>
+        <p>A small gallery of free AI-generated 360° skies, 8K and larger, all ready to become Views. Open a sky, then choose <strong>Open full image</strong> so the image fills its own Browser tab and Locus can offer <strong>Apply Preview</strong> and <strong>Save as View…</strong>.</p>
         <p><a class="button primary" href="https://skies.enterlocus.com/" target="_blank" rel="noopener">Open Locus Skies</a></p>
         <p class="small-note">Locus Skies is an experimental playground. Skies are added, replaced, and removed without notice; anything you save stays in your library. Published by EnterLocus under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
       </div>
@@ -64,7 +64,7 @@
           <tr><td><strong>Shape</strong></td><td>Exactly twice as wide as it is tall: a 2:1 equirectangular image.</td></tr>
           <tr><td><strong>Minimum size</strong></td><td>4,096 × 2,048 pixels. Larger images generally look clearer in Apple Vision Pro; 8K or 12K is preferable when available.</td></tr>
           <tr><td><strong>File type</strong></td><td>An SDR JPEG, PNG, or HEIC image. HDR, EXR, cube maps, video, and interactive 360° viewers are not View images.</td></tr>
-          <tr><td><strong>Web source</strong></td><td>A public image or a page-owned image download that Locus can read with the page's signed-in session. A thumbnail, canvas-only preview, or cross-site-protected file may not qualify even when a full-resolution download exists.</td></tr>
+          <tr><td><strong>Web source</strong></td><td>An image that fills its own Browser tab: a public image URL, or an image download the page hands to Locus (including same-site <code>blob:</code> and <code>data:</code> downloads, which can use the page's signed-in session). Images shown inside a page, thumbnails, canvas-only previews, and cross-site-protected files do not qualify even when a full-resolution download exists. One image up to 200 MB.</td></tr>
           <tr><td><strong>Rights</strong></td><td>A license or permission that allows your intended use. Being downloadable does not by itself grant permission.</td></tr>
         </tbody>
       </table>
@@ -101,7 +101,7 @@
     <section class="doc-section">
       <h2>Find a full-resolution image on other sites</h2>
       <p>Sites such as <a href="https://commons.wikimedia.org/wiki/Category:Equirectangular_projection">Wikimedia Commons</a> and <a href="https://polyhaven.com/hdris">Poly Haven</a> can help you find equirectangular panoramas. Check the individual file's license, dimensions, and format before using it.</p>
-      <p>Many download pages embed only a small thumbnail or an interactive viewer. That preview will not show <strong>Use as View</strong> if it is below 4K or is rendered as a canvas. Look for <strong>Original file</strong>, <strong>Full resolution</strong>, or a direct JPEG, PNG, or HEIC link. The full image should open by itself in the Browser tab.</p>
+      <p>Many download pages embed only a small thumbnail or an interactive viewer. Locus never offers images shown inside a page, and a preview below 4K or a canvas viewer would not qualify anyway. Look for <strong>Original file</strong>, <strong>Full resolution</strong>, or a direct JPEG, PNG, or HEIC link. The full image should open by itself in the Browser tab.</p>
       <div class="callout warning"><strong>Example:</strong> a Wikimedia Commons file page may show a 960 × 480 preview even when its Original file is 5,000 × 2,500. The page preview is too small; the Original file qualifies.</div>
     </section>
 
@@ -109,9 +109,9 @@
       <h2>Use the image in Locus</h2>
       <ol class="step-list">
         <li><strong>Open the page in Locus Browser.</strong> Browse normally until you reach the panorama or its download page.</li>
-        <li><strong>Choose the full-resolution image.</strong> If the qualifying image is embedded directly in a page, select the <strong>Use as View</strong> mark in its corner. Otherwise open the page's Original file or direct image link.</li>
-        <li><strong>Wait for Locus to inspect it.</strong> A qualifying standalone image opens the prompt <strong>Use this 360° image as a View?</strong> with its filename, host, dimensions, and format.</li>
-        <li><strong>Choose Apply Preview or Save as View.</strong> Both use the pixels already displayed by that Browser tab; Locus does not silently fetch a different file after you confirm.</li>
+        <li><strong>Open the full-resolution image on its own.</strong> Open the page's Original file or direct image link so the image fills its own Browser tab. Locus does not mark images inside a page; only an image that is the whole tab can become a View.</li>
+        <li><strong>Wait for Locus to download it.</strong> Locus downloads the image once, up to 200 MB, and keeps the original file. A qualifying image then opens the prompt <strong>Use this 360° image as a View?</strong> with its filename, host, dimensions, and format.</li>
+        <li><strong>Choose Apply Preview or Save as View.</strong> Both use the original file that tab downloaded, byte for byte; Locus never re-encodes it or fetches it again. Apply Preview is available once you are inside a Place; outside one it stays disabled and Locus asks you to enter a place first.</li>
       </ol>
       <figure class="guide-figure">
         <img src="../assets/online-views/locus-browser-view-actions.png" width="1920" height="1080" loading="lazy" decoding="async" alt="Locus Browser displaying a 2-to-1 panorama with the Apply Preview and Save as View buttons still visible below it">
@@ -124,7 +124,7 @@
       <div class="link-grid comparison-grid">
         <div class="link-card static-card">
           <strong>Apply Preview</strong>
-          <span>Applies the View for this app session only. It does not use an import allowance. Locus keeps the package in temporary storage and removes it automatically.</span>
+          <span>Applies the View for this app session only, while you are inside a Place. It does not use an import allowance. Locus keeps the package in temporary storage and removes it automatically.</span>
         </div>
         <div class="link-card static-card">
           <strong>Save as View…</strong>
@@ -136,12 +136,13 @@
     </section>
 
     <section class="doc-section">
-      <h2>If Use as View does not appear</h2>
+      <h2>If the View prompt does not appear</h2>
       <ul>
-        <li>Open the original image rather than the download page's thumbnail.</li>
+        <li>Open the original image rather than the download page's thumbnail. Images shown inside a page never trigger the prompt; the image must be the whole tab.</li>
         <li>Confirm that the displayed image is at least 4,096 × 2,048 and exactly 2:1.</li>
         <li>Choose a JPEG, PNG, or HEIC instead of HDR, EXR, ZIP, video, or a cube map.</li>
-        <li>Page-owned image downloads, including same-site <code>blob:</code> downloads, can use the page's current signed-in session. Canvas-only viewers, non-image downloads, and cross-site-protected files may still not expose reusable image pixels.</li>
+        <li>Image downloads the page hands to Locus, including same-site <code>blob:</code> and <code>data:</code> downloads, open in their own preview tab and can use the page's current signed-in session. Canvas-only viewers, non-image downloads, and cross-site-protected files still do not.</li>
+        <li>An image larger than 200 MB opens in the Browser but cannot be applied or saved; look for a smaller export.</li>
         <li>If a download button hands the file to another app, return and look for an Original file or full-resolution image link that opens in the current tab.</li>
       </ul>
       <p>See the <a href="../faq/">FAQ</a> for short answers about resolution, import allowances, and download behavior.</p>
