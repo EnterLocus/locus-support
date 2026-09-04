@@ -236,7 +236,10 @@ class PublicSiteTests(unittest.TestCase):
             guide.index("Know what to look for"),
         )
         for required in [
-            "Use as View",
+            "Use this 360° image as a View?",
+            "fills its own Browser tab",
+            "200 MB",
+            "enter a place first",
             "Apply Preview",
             "Save as View…",
             "does not use an import allowance",
@@ -249,6 +252,13 @@ class PublicSiteTests(unittest.TestCase):
         ]:
             self.assertIn(required, guide)
 
+        # The in-page "Use as View" corner mark was removed in Locus 1.1;
+        # only an image that is the whole tab can become a View, so the public
+        # site must not describe a control that no longer exists.
+        for text in [guide, homepage, faq]:
+            self.assertNotIn("Use as View", text)
+        self.assertIn("Why does a 360° image not show the View prompt?", faq)
+        self.assertIn("Command-N", faq)
         self.assertIn('href="./online-views/"', homepage)
         self.assertIn('href="../online-views/"', faq)
         self.assertIn(
@@ -277,7 +287,7 @@ class PublicSiteTests(unittest.TestCase):
             "Download JPG",
             "Download PNG",
             "Export Status",
-            "same-site <code>blob:</code> downloads",
+            "same-site <code>blob:</code> and <code>data:</code> downloads",
         ]:
             self.assertIn(required, guide)
 
