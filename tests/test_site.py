@@ -389,6 +389,10 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_homepage_uses_authentic_promotional_media(self):
         expected = {
+            "locus-1.1-whats-new-33s.mp4":
+                "a8eb882e95cf22df34b75be2737eb5cee53b1596a645572afabee88f23decb6b",
+            "locus-1.1-whats-new-poster.jpg":
+                "2d6138f23bab8209ef0b45ebf5675bb07543f52ff877614206c7dc1a18a2d597",
             "locus-promo-31s-v2.mp4":
                 "7fe19092d03a2e43cdf795ee0f6c7f8c1667e33da439324b17f5b4699865117a",
             "locus-promo-31s.mp4":
@@ -417,8 +421,9 @@ class PublicSiteTests(unittest.TestCase):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
         parser.feed(homepage)
-        self.assertEqual(len(parser.videos), 1)
-        hero_video = parser.videos[0]
+        self.assertEqual(len(parser.videos), 2)
+        videos_by_class = {video.get("class"): video for video in parser.videos}
+        hero_video = videos_by_class["hero-video"]
         for attribute in ["controls", "autoplay", "muted", "loop", "playsinline"]:
             self.assertIn(attribute, hero_video)
         self.assertEqual(hero_video.get("preload"), "metadata")
@@ -464,12 +469,14 @@ class PublicSiteTests(unittest.TestCase):
         # envelope for iPhone browsers. Chrome on iOS uses the platform media
         # stack, so a desktop-playable encode can still fail on a phone when
         # its declared AVC level is unnecessarily high.
-        movie = (promo_root / "locus-promo-31s-v2.mp4").read_bytes()
-        avcc = movie.index(b"avcC")
-        self.assertEqual(movie[avcc + 4], 1)  # AVCDecoderConfigurationRecord
-        self.assertEqual(movie[avcc + 5], 100)  # High Profile
-        self.assertLessEqual(movie[avcc + 7], 41)  # Level 4.1 or lower
-        self.assertLess(movie.index(b"moov"), movie.index(b"mdat"))
+        for movie_name in ["locus-promo-31s-v2.mp4", "locus-1.1-whats-new-33s.mp4"]:
+            with self.subTest(movie=movie_name):
+                movie = (promo_root / movie_name).read_bytes()
+                avcc = movie.index(b"avcC")
+                self.assertEqual(movie[avcc + 4], 1)  # AVCDecoderConfigurationRecord
+                self.assertEqual(movie[avcc + 5], 100)  # High Profile
+                self.assertLessEqual(movie[avcc + 7], 41)  # Level 4.1 or lower
+                self.assertLess(movie.index(b"moov"), movie.index(b"mdat"))
 
         promo_images = [
             image for image in parser.images
@@ -493,6 +500,77 @@ class PublicSiteTests(unittest.TestCase):
         asset_record = (ROOT / "assets" / "README.md").read_text()
         for filename in expected:
             self.assertIn(filename, asset_record)
+
+    def test_homepage_faq_and_guide_announce_locus_1_1(self):
+        homepage = (ROOT / "index.html").read_text()
+        parser = PageParser()
+        parser.feed(homepage)
+
+        # The 1.1 section leads with the approved What's New master and the
+        # same four highlights the app shows in its own What's New sheet.
+        self.assertIn('id="whats-new"', homepage)
+        self.assertIn('href="#whats-new"', homepage)
+        self.assertIn("New in Locus 1.1", homepage)
+        self.assertIn("More ways to make your workspace yours.", homepage)
+        for highlight in [
+            "Bring panoramas from the web",
+            "Organize every Place",
+            "Shape the light",
+            "Keep favorite sites close",
+        ]:
+            self.assertIn(highlight, homepage)
+
+        videos_by_class = {video.get("class"): video for video in parser.videos}
+        whats_new = videos_by_class["whats-new-video"]
+        for attribute in ["controls", "muted", "playsinline"]:
+            self.assertIn(attribute, whats_new)
+        for attribute in ["autoplay", "loop"]:
+            self.assertNotIn(attribute, whats_new)
+        self.assertEqual(whats_new.get("preload"), "metadata")
+        self.assertEqual(whats_new.get("width"), "1920")
+        self.assertEqual(whats_new.get("height"), "1080")
+        self.assertEqual(
+            whats_new.get("src"), "./assets/promo/locus-1.1-whats-new-33s.mp4")
+        self.assertEqual(
+            whats_new.get("poster"),
+            "./assets/promo/locus-1.1-whats-new-poster.jpg",
+        )
+        self.assertTrue(whats_new.get("aria-label", "").strip())
+        self.assertEqual(
+            parser.links.count("./assets/promo/locus-1.1-whats-new-33s.mp4"), 1)
+        stylesheet = (ROOT / "assets" / "site.css").read_text()
+        self.assertIn(".whats-new-grid", stylesheet)
+
+        faq = (ROOT / "faq" / "index.html").read_text()
+        for question in [
+            "How do I turn on Room Lights?",
+            "How do I rename, favorite, tag, and filter my Places?",
+            "How do Browser Favorites and the Start Page work?",
+        ]:
+            self.assertIn(question, faq)
+        self.assertIn("2,000 K to 6,500 K", faq)
+        self.assertIn("Favorites First", faq)
+        self.assertIn("star", faq)
+
+        # Locus Skies is an experimental gallery, linked only from the web
+        # guide and FAQ, never from the home page or app-facing copy.
+        skies = "https://skies.enterlocus.com/"
+        guide = (ROOT / "online-views" / "index.html").read_text()
+        self.assertIn(skies, guide)
+        self.assertIn(skies, faq)
+        self.assertNotIn(skies, homepage)
+        self.assertLess(
+            guide.index("Only a complete panorama"), guide.index("Browse Locus Skies."))
+        self.assertLess(
+            guide.index("Browse Locus Skies."), guide.index("Know what to look for"))
+        for required in [
+            "Experimental",
+            "Open full image",
+            "experimental playground",
+            "added, replaced, and removed without notice",
+            "CC BY 4.0",
+        ]:
+            self.assertIn(required, guide)
 
     def test_flat_public_format_replaces_the_old_envelope(self):
         paths = [
@@ -679,22 +757,22 @@ class PublicSiteTests(unittest.TestCase):
         expected = {
             "atrium-loft-room.zip": {
                 "display_name": "Atrium Loft",
-                "size": 8_178_461,
-                "sha256": "8ef1aef6495d2d63febfbf10292f1f6f50cf1bb7bf4912fc27f59fa3e4a712c5",
+                "size": 8_176_551,
+                "sha256": "588c14c5b1226ec677fada112df1346bb105f0cbdb0344db9d1e1be03b3b9ff1",
                 "seats": 2,
                 "light_groups": 2,
             },
             "courtyard-gallery-room.zip": {
                 "display_name": "Courtyard Gallery",
-                "size": 8_518_839,
-                "sha256": "934b699775d9a5e0f95ab5c093259a1cf7c24cd4d623b2eeca5402e338acbf81",
+                "size": 8_510_411,
+                "sha256": "1d4be79f0c69c6d34e285729c02bd1870bf11133497277a1f1d94d7b0dd9f21f",
                 "seats": 3,
                 "light_groups": 3,
             },
             "horizon-atelier-room.zip": {
                 "display_name": "Horizon Atelier",
-                "size": 8_647_116,
-                "sha256": "c6dcbc61648d5aa52bfa7ad9be6ddbd3679ae66806aa82805c35e96017de6e1e",
+                "size": 8_644_903,
+                "sha256": "dd3551316cae67c01a114a6130db37823f03dcebcec703f15a8fedf7dc291fe7",
                 "seats": 3,
                 "light_groups": 5,
             },

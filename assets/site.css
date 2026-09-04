@@ -66,6 +66,18 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .story-card img { display: block; width: 100%; height: auto; border-radius: .9rem; }
 .story-card figcaption { display: none; }
 
+.whats-new-section { padding: 6rem 0 7rem; border-top: 1px solid var(--line); }
+.whats-new-video-card { margin: 2.4rem 0 0; padding: .55rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2.4rem 7rem rgba(0,0,0,.3); }
+.whats-new-video { display: block; width: 100%; height: auto; border-radius: 1rem; background: #08111c; }
+.whats-new-video-card figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding: .65rem .5rem .2rem; color: var(--muted); font-size: .75rem; letter-spacing: .04em; }
+.whats-new-video-card figcaption a { color: var(--accent); font-weight: 700; }
+.whats-new-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
+.whats-new-grid li { padding: 1.2rem 1.25rem 1.35rem; border: 1px solid var(--line); border-radius: 1.2rem; background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); }
+.whats-new-grid strong { display: block; margin-bottom: .45rem; font-size: 1.05rem; letter-spacing: -.01em; }
+.whats-new-grid span { display: block; color: var(--muted); font-size: .92rem; line-height: 1.5; }
+.release-note a { color: var(--accent); font-weight: 700; text-decoration: none; }
+.release-note a:hover, .release-note a:focus-visible { text-decoration: underline; }
+
 .selection-section { display: grid; grid-template-columns: .7fr 1.3fr; gap: clamp(2rem, 5vw, 4.5rem); align-items: center; padding: 7rem 0; border-top: 1px solid var(--line); }
 .selection-section h2 { margin: .45rem 0 .7rem; font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.05; letter-spacing: -.04em; text-wrap: balance; }
 .selection-section p:not(.kicker) { color: var(--muted); font-size: 1.08rem; line-height: 1.6; }
@@ -100,6 +112,8 @@ footer > div { display: flex; flex-direction: column; gap: .35rem; }
   h1 { font-size: clamp(2.8rem, 13vw, 4.6rem); }
   .selection-section, .room-showcase, .product-grid, .split-section, .story-grid { grid-template-columns: 1fr; gap: 2rem; }
   .story-section { padding: 5.5rem 0; }
+  .whats-new-section { padding: 5rem 0 5.5rem; }
+  .whats-new-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .product-grid.text-only .feature-card { min-height: 220px; }
   .story-card figcaption { display: block; padding: .85rem .65rem .65rem; }
   .story-card figcaption strong { display: block; color: var(--ink); font-size: 1rem; }
@@ -111,6 +125,7 @@ footer > div { display: flex; flex-direction: column; gap: .35rem; }
   .site-header, footer, main { width: min(calc(100% - 28px), var(--max)); }
   h1 { font-size: clamp(2.65rem, 12vw, 3.35rem); }
   .hero-copy { font-size: 1.05rem; }
+  .whats-new-grid { grid-template-columns: 1fr; }
   .feature-card { min-height: 450px; }
 }
 
