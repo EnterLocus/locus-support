@@ -267,6 +267,18 @@ class PublicSiteTests(unittest.TestCase):
             (ROOT / "sitemap.xml").read_text(),
         )
 
+    def test_faq_explains_the_missing_window_move_bar_workaround(self):
+        faq = (ROOT / "faq" / "index.html").read_text()
+
+        for required in [
+            "Why is the move bar below a window sometimes missing?",
+            "The window remains usable",
+            "still works even when it is not visible",
+            "Look just below the window",
+            "pinch and drag where the bar normally appears",
+        ]:
+            self.assertIn(required, faq)
+
     def test_online_view_guide_has_a_tryable_example_and_current_instructions(self):
         guide_path = ROOT / "online-views" / "index.html"
         guide = guide_path.read_text()
