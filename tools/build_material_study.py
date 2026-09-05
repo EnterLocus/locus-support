@@ -38,7 +38,11 @@ def main():
     rough=texture('roughness-study','rough');grain=texture('grain-study','grain');normal=texture('normal-study','normal')
     def mat(name,color,roughness,alpha=1,coat=0,coat_rough=.2,rough_map=False,coat_map=False,emission=0,grain_map=False):
         m=bpy.data.materials.new(name);m.use_nodes=True;p=m.node_tree.nodes.get('Principled BSDF')
-        p.inputs['Base Color'].default_value=(*color,1);p.inputs['Roughness'].default_value=roughness;p.inputs['Alpha'].default_value=alpha
+        p.inputs['Base Color'].default_value=(*color,1);p.inputs['Roughness'].default_value=roughness
+        # These panes and water are transmissive surfaces, not alpha cutouts.
+        # Blender's PreviewSurface exporter maps transmission to 1-opacity;
+        # setting Alpha alone is overwritten by the default zero transmission.
+        p.inputs['Transmission Weight'].default_value=1-alpha
         p.inputs['Coat Weight'].default_value=coat;p.inputs['Coat Roughness'].default_value=coat_rough
         if emission:p.inputs['Emission Color'].default_value=(*color,1);p.inputs['Emission Strength'].default_value=emission
         for socket,img in [('Roughness',rough if rough_map else None),('Coat Weight',rough if coat_map else None),('Base Color',grain if grain_map else None)]:
