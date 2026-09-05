@@ -124,8 +124,8 @@ scoped clearcoat-roughness correction and public in-app verification steps.
 
 ## Declare optional experimental animations
 
-Treat all Room animation metadata and playback behavior as experimental. Use
-Room v4 only when the creator knowingly accepts that the field names, controls,
+Treat all Room animation metadata and playback behavior as experimental. Add
+animations in Room v4 or v5 only when the creator knowingly accepts that the field names, controls,
 speed behavior, and replay interval behavior may change.
 
 Each `ambientAnimations` entry connects one stable ID and visitor-facing name
