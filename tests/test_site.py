@@ -3,6 +3,7 @@ import html.parser
 import json
 import pathlib
 import re
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -682,6 +683,38 @@ class PublicSiteTests(unittest.TestCase):
             "Offline Room contract", "scaffolder", "delivery checks",
         ]:
             self.assertIn(required, room_guide)
+
+    def test_sample_skill_references_are_portable_and_public_safe(self):
+        source = ROOT / ".agents" / "skills" / "build-original-locus-room"
+        with tempfile.TemporaryDirectory(prefix="locus-skill-offline-") as directory:
+            root = (pathlib.Path(directory) / source.name).resolve()
+            shutil.copytree(source, root)
+            links_checked = 0
+            for path in root.rglob("*.md"):
+                content = path.read_text()
+                with self.subTest(path=path.relative_to(root)):
+                    for private_detail in [
+                        "/Users/", "Dropbox", "Locus Dev", "model-preview/",
+                        "--simulator-head-pose",
+                    ]:
+                        self.assertNotIn(private_detail, content)
+                    self.assertNotRegex(
+                        content, r"github\.com/EnterLocus/locus(?:/|[)#\s]|$)"
+                    )
+                targets = re.findall(r"\[[^\]]+\]\(([^)]+)\)", content)
+                targets += re.findall(
+                    r"`((?:references|scripts)/[^`\s]+|\.\./SKILL\.md)`", content
+                )
+                for target in targets:
+                    parsed = urllib.parse.urlsplit(target)
+                    if parsed.scheme or parsed.netloc or not parsed.path:
+                        continue
+                    resolved = (path.parent / urllib.parse.unquote(parsed.path)).resolve()
+                    with self.subTest(path=path.relative_to(root), target=target):
+                        self.assertTrue(resolved.is_relative_to(root), target)
+                        self.assertTrue(resolved.is_file(), target)
+                    links_checked += 1
+            self.assertGreater(links_checked, 0)
 
     def test_sample_skill_scaffolds_packs_and_validates_a_lit_room(self):
         root = ROOT / ".agents" / "skills" / "build-original-locus-room"

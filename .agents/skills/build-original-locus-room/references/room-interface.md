@@ -129,13 +129,19 @@ non-empty `proxies` array, never both.
 - `nearTeleportIDs`: optional direct-proxy scope; it does not hide or darken
   the emissive fixture body.
 - `authoredColor`: `temperature` plus `kelvin`, or `srgb` plus three components.
-- `brightnessEVRange`: within `[-4, 1]` for Room v3.
+- `brightnessEVRange`: per-light control bounds within `[-4, 1]` for Room v3,
+  not the range of the app's separate Overall Room brightness control.
 - Direct proxies: at most 12 authored, 4 active at any seat, one shadow caster,
   10,000 lumens each, and attenuation radius no greater than 6 meters.
 - Point proxies cannot cast shadows. Spot angles satisfy
   `0 < innerAngleDegrees <= outerAngleDegrees <= 175`.
 - `bakedIndirect.entities`: positive-emissive opaque receiver subtrees only;
   exclude glass, water, transmissive surfaces, fixture glow, and local halos.
+
+For producing the indirect textures and checking glass material fidelity,
+follow [Lighting and glass](lighting-and-glass.md). Its export and appearance
+checks complement these metadata limits; they do not add required ZIP files
+or change the schema.
 
 ## Experimental Room v4 animations
 

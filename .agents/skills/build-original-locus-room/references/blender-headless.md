@@ -75,6 +75,12 @@ visitor-controlled lights using the Room interface. Export the required
 meter-scale, +Y-up USDZ, reopen a clean copy, and check the actual entity names,
 material bindings, texture packaging, axes, and bounds.
 
+For indirect-light atlases and architectural glazing, use
+[Lighting and glass](lighting-and-glass.md). It explains linear float baking,
+UV roles, RGB16 texture encoding, and the difference between base roughness
+and clearcoat roughness. These steps fit this headless workflow and do not
+require an additional service or a separate preview app.
+
 Return to `../SKILL.md` for scaffolding, exact ZIP validation, and the Locus
 import-and-entry checks. Preserve editable sources, scripts, texture sources,
 and review images outside the five-file ZIP. Background rendering cannot
