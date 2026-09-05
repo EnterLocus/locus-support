@@ -29,6 +29,9 @@ Read these local references before authoring:
   it belongs beside the public Locus examples.
 - `references/blender-headless.md` when using the default Blender Python route
   for authoring, rendering, baking, or export.
+- [Lighting and glass](references/lighting-and-glass.md) when authoring indirect
+  bounce or architectural glazing, or checking bright-state surface blotches
+  and a dark/colored center in a reflected sun.
 
 The online [Room ZIP reference](https://enterlocus.com/reference/locus-asset-format.md)
 is canonical when network access is available. The bundled reference is enough
@@ -108,8 +111,15 @@ switches and color controls do not recolor the shared bounce.
 
 Respect the Room-v3 safety contract: no more than 12 authored proxies, 4 active
 proxies at a seat, 1 shadow-casting proxy, 10,000 lumens per proxy, and a
-brightness range within -4...+1 EV. These limits are not modeling or lighting
-recommendations.
+per-light brightness range within -4...+1 EV. These limits are not modeling or
+lighting recommendations. Overall Room brightness is a separate app control;
+do not expand the package's per-light range to enable a Room-wide stress test.
+
+For a baked indirect layer, preserve linear precision and material color,
+separate material UVs from bake UVs, and verify the encoded atlas and emission
+gain in the exact USDZ. Follow the self-contained
+[lighting and glass workflow](references/lighting-and-glass.md), including its
+scoped clearcoat-roughness correction and public in-app verification steps.
 
 ## Declare optional experimental animations
 
