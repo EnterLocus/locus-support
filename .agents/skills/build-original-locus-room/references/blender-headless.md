@@ -75,6 +75,15 @@ visitor-controlled lights using the Room interface. Export the required
 meter-scale, +Y-up USDZ, reopen a clean copy, and check the actual entity names,
 material bindings, texture packaging, axes, and bounds.
 
+Make the editable source portable as well as the USDZ. Keep texture originals
+beside the source, use relative image paths, and pack the required images.
+Blender can retain a separate absolute original path inside each packed image;
+check both the image path and its packed-file paths. Move a copy of the source
+bundle away from the original location, reopen it, unpack and reload its images,
+then export again. Compare geometry, material connections, texture bytes, UVs
+and light directions with the delivered model; record any measured floating-point
+round-trip differences. A packed-image icon alone does not prove relocation works.
+
 For indirect-light atlases and architectural glazing, use
 [Lighting and glass](lighting-and-glass.md). It explains linear float baking,
 UV roles, RGB16 texture encoding, and the difference between base roughness

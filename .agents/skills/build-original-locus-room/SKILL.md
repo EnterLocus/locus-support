@@ -24,7 +24,8 @@ tool is available, state that limitation before promising a finished Room.
 Read these local references before authoring:
 
 - `references/room-interface.md` for the current Room v1-v3 contract, optional
-  experimental Room v4 animations, and exact delivery gates.
+  experimental animations, explicit Room v5 rendering roles and spotlight
+  directions, and exact delivery gates.
 - `references/design-language.md` when designing a new Room or judging whether
   it belongs beside the public Locus examples.
 - `references/blender-headless.md` when using the default Blender Python route
@@ -123,8 +124,8 @@ scoped clearcoat-roughness correction and public in-app verification steps.
 
 ## Declare optional experimental animations
 
-Treat all Room animation metadata and playback behavior as experimental. Use
-Room v4 only when the creator knowingly accepts that the field names, controls,
+Treat all Room animation metadata and playback behavior as experimental. Add
+animations in Room v4 or v5 only when the creator knowingly accepts that the field names, controls,
 speed behavior, and replay interval behavior may change.
 
 Each `ambientAnimations` entry connects one stable ID and visitor-facing name
@@ -133,8 +134,9 @@ and interval ranges. `[0, 0]` means immediate replay; any other range selects a
 fresh random pause after every completed play. The default interval must fit
 inside the adjustable range.
 
-The bundled scaffolder intentionally remains a stable Room v1-v3 starting
-point. To experiment with Room v4, add `ambientAnimations` only after the USDZ
+The bundled scaffolder uses Room v1-v3 for its existing arguments and v5 when
+explicit rendering roles or `--light-direction` are supplied. To experiment
+with animations, add `ambientAnimations` only after the USDZ
 contains the named clips, then run the bundled validator against the exact ZIP.
 Try every animation switch, speed, and interval in Locus before delivery. Do
 not describe validator success as proof that the named clip produces the
@@ -198,7 +200,7 @@ Vision Pro. Exercise desk mappings, adaptive surfaces, Room Portal behavior,
 tracking, scale, reach, comfort, and lighting from different viewpoints there.
 Simulator evidence must not be reported as physical-device evidence.
 
-For experimental Room v4 content, also check every animation from every seat,
+For experimental Room v4 or v5 content, also check every animation from every seat,
 including off, continuous `0–0`, fixed nonzero, and random interval behavior.
 Check motion scale, comfort, and sustained performance on Apple Vision Pro.
 
@@ -213,3 +215,11 @@ This skill, its references, and its bundled scripts are licensed under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). The
 repository's `LICENSE.md` and `LICENSES/Apache-2.0.txt` contain the exact scope
 and terms.
+
+## Keep the source authoritative
+
+Use temporary overrides only to test an appearance. A finished Room must store
+its intended geometry, transforms, PBR values, maps, UVs, and light directions
+in its editable source and matching export. Do not rely on Room IDs, name
+fragments, size thresholds, or runtime material repair. Declare v5 reflection
+and UI fade roles explicitly as described in the offline Room reference.

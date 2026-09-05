@@ -214,7 +214,109 @@ rights URL must publish the statement it accompanies.
 4. Pack with the bundled packer and validate that exact ZIP.
 5. Record its SHA-256.
 6. Import that exact ZIP through Locus's public flow and enter the Room.
-7. Capture and inspect visual evidence.
+7. Capture and inspect visual evidence in a daytime View with Room Lights off
+   and a nighttime View with Room Lights on. Match the seat, view direction and
+   brightness for comparisons. For a revision, compare the original Room/build
+   with the final Room/build, after removing any experimental runtime overrides.
+   Record both model hashes and build identities; an asset-only comparison does
+   not verify removal of a code override.
 8. Run physical Vision Pro checks for world sensing, scale, reach, and comfort.
-9. For experimental Room v4, exercise every animation switch, speed, continuous
+9. For experimental animations in Room v4 or v5, exercise every animation switch, speed, continuous
    and nonzero interval state, motion comfort, and sustained performance.
+
+### Authored rendering and spotlight direction (formatVersion 5)
+
+Room v5 requires a Locus build that supports this format. Use the final exported
+USDZ as the material reference: Locus preserves its supported PBR values and
+texture/UV connections. Object names, mesh dimensions, and imported Room IDs do
+not select material presets. A frosted panel remains frosted, even if its name
+contains `glass`.
+
+| Authored input | Supported behavior |
+| --- | --- |
+| Meshes, metric transforms, normals, UV sets | Loaded from the USDZ; visitor placement applies to the Room root. |
+| USD Preview Surface base color, roughness, metallic, specular, normal, clearcoat, clearcoat roughness, opacity | Retained as exported, including supported connected textures. Export a Preview Surface network; bake procedural nodes to maps. |
+| Emission | Retained. Declared lamp groups may scale emission and apply the visitor's color choice; color changes retain the emission map. Declared baked indirect receivers scale emission only. |
+| Transparent surfaces | Opacity blending; this is not a promise of physical transmission, refraction, caustics, or order-independent layered glass. Inspect intersecting transparent surfaces in Locus. |
+| Reflections | The selected View supplies distant environment lighting. This does not capture the Room interior or provide spatially exact mirrors. |
+| Object animation | The embedded transform clips and optional experimental controls described below. Arbitrary material animation and procedural shader nodes require target-renderer validation and are not part of this contract. |
+
+The optional `rendering` object contains both arrays, even when either is empty:
+
+```json
+"rendering": {
+  "softenedReflectionEntities": ["Panel_927"],
+  "uiFadeEntities": ["Furniture_412"]
+}
+```
+
+Each entry names one unique exported entity and its descendants. Names are
+case-sensitive, nonempty, at most 200 UTF-8 bytes, and unique within each array.
+Do not name both an ancestor and its descendant within the same array. A
+missing, ambiguous, overlapping, or geometry-free binding fails Room loading
+with the affected entity name.
+
+- `softenedReflectionEntities` opts those subtrees into an environment source
+  that retains the View's vertical brightness distribution while averaging
+  its horizontal detail. This can avoid recognizable distant landmarks in
+  glazing; it has no horizontal reflection detail, is not a Room reflection,
+  and never changes material roughness, coatings, or opacity.
+- `uiFadeEntities` permits temporary fading when that subtree blocks the
+  visitor's windows. Declare furniture deliberately and keep structure out
+  unless fading that structure is intended. A fade multiplies existing entity
+  opacity and restores it afterward. Keep animated opacity on a child of a
+  static fade root so two controls do not write the same component.
+
+Omitting `rendering` grants neither opt-in. An empty array also grants nothing.
+Locus does not infer permission from names or a size threshold.
+
+Every v5 `spot` proxy requires `direction`: a finite unit vector in the Room's
+exported +Y-up coordinates. For example, `[0.6, -0.8, 0]` points down and toward
++X; `[0, -1, 0]` points straight down. The anchor supplies position only.
+Rotating or scaling its mesh does not reinterpret this vector. Derive it from
+the authored light's emission axis during export. `point` proxies must omit
+`direction`. The existing lumens, radius, active-light, shadow, and adjustment
+budgets continue to apply.
+
+Rooms v1–v4 remain importable. A legacy spot without `direction` keeps its
+specified downward default; use v5 to declare another direction. Legacy
+packages receive no implicit rendering roles, and their material inputs are
+preserved. If an older clear-glass asset exhibits the known colored center in
+a sun highlight, correct the unused clearcoat roughness in its editable source
+and re-export; Locus does not rewrite connected maps or apply a blanket patch
+to imported materials. The tested uncoated-glass correction is clearcoat
+roughness 0.2, with the intended base roughness and opacity retained. Intentional
+coatings and animated inputs need separate evaluation.
+
+`spatialAdaptation.wallEntities` and `roofEntities` are validated references;
+they do not hide or cut the virtual architecture. Room Portal operates on the
+visitor's tracked real-room surfaces. Only the explicit desk mapping connects
+a virtual tabletop to desk alignment and desk passthrough.
+
+
+### Inspect the delivered model before packaging
+
+The flat ZIP validator checks metadata, archive structure, and USDZ validity.
+The optional `audit_locus_room.py` tool also opens the delivered USD scene and
+checks actual entity identities, overlapping rendering bindings, spotlight
+directions, and the supported shader network. Run it with a Python environment
+containing Pixar USD (`pxr`), such as Blender's bundled Python:
+
+```sh
+python3 audit_locus_room.py /path/to/room/space.json /path/to/room/scene.usdz
+```
+
+The audit reports the exact entity or shader path when a fix is needed. Bake
+unsupported procedural nodes to Preview Surface texture inputs and bake
+displacement into geometry. Material animation is outside this supported
+author contract and requires separate target-renderer evaluation. Run the
+public packer and validator afterward, then import the resulting ZIP and check
+it in Locus; offline checks cannot establish glass compositing, visual quality,
+tracking, or physical comfort.
+
+
+For a reproducible independent v5 example, use the public
+[`build_material_study.py`](https://github.com/EnterLocus/locus-support/blob/main/tools/build_material_study.py)
+Blender builder. It includes contrasting glass, roughness/coat textures,
+transparent water, a directed lamp, and furniture with explicit fade permission.
+Its materials and names do not rely on any built-in Room behavior.
