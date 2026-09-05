@@ -29,7 +29,10 @@ Room-building skill at `.agents/skills/build-original-locus-room/`. The current
 flat Room/View ZIP reference and validator define the accepted files. Three
 complete Room examples show the current public lighting and spatial contracts.
 The skill bundles an offline Room reference, design language, metadata
-scaffolder, packer, validator, and delivery checks. A separate Coffee Atrium
+scaffolder, packer, validator, and delivery checks. For automated authoring from
+a blank brief, it defaults to headless Blender Python with saved render review;
+creators can still use their preferred professional 3D workflow. No open
+Blender window or MCP connection is required for that default route. A separate Coffee Atrium
 download demonstrates experimental Room animation playback.
 
 Experimental Room animation metadata, playback controls, speed, and replay
