@@ -214,9 +214,14 @@ rights URL must publish the statement it accompanies.
 4. Pack with the bundled packer and validate that exact ZIP.
 5. Record its SHA-256.
 6. Import that exact ZIP through Locus's public flow and enter the Room.
-7. Capture and inspect visual evidence.
+7. Capture and inspect visual evidence in a daytime View with Room Lights off
+   and a nighttime View with Room Lights on. Match the seat, view direction and
+   brightness for comparisons. For a revision, compare the original Room/build
+   with the final Room/build, after removing any experimental runtime overrides.
+   Record both model hashes and build identities; an asset-only comparison does
+   not verify removal of a code override.
 8. Run physical Vision Pro checks for world sensing, scale, reach, and comfort.
-9. For experimental Room v4, exercise every animation switch, speed, continuous
+9. For experimental animations in Room v4 or v5, exercise every animation switch, speed, continuous
    and nonzero interval state, motion comfort, and sustained performance.
 
 ### Authored rendering and spotlight direction (formatVersion 5)
