@@ -792,6 +792,24 @@ class PublicSiteTests(unittest.TestCase):
             self.assertEqual(len(metadata["lighting"]["luminaireGroups"]), 1)
             self.assertNotIn("nearTeleportIDs", metadata["lighting"]["luminaireGroups"][0])
 
+            # Re-run the public scaffolder with explicit v5 author roles.
+            command = result.args + [
+                "--light-direction", "0.6", "-0.8", "0",
+                "--softened-reflection-entity", "Panel_927",
+                "--ui-fade-entity", "Furniture_406",
+            ]
+            room = temporary / "room-v5"
+            command[2] = str(room)
+            authored = subprocess.run(command, capture_output=True, text=True)
+            self.assertEqual(authored.returncode, 0, authored.stderr)
+            metadata = json.loads((room / "space.json").read_text())
+            self.assertEqual(metadata["formatVersion"], 5)
+            self.assertEqual(metadata["rendering"], {
+                "softenedReflectionEntities": ["Panel_927"],
+                "uiFadeEntities": ["Furniture_406"],
+            })
+            self.assertEqual(metadata["lighting"]["luminaireGroups"][0]["proxy"]["direction"], [0.6, -0.8, 0])
+
             packed = subprocess.run(
                 [sys.executable, str(packer), str(room), str(archive)],
                 check=False, capture_output=True, text=True,
