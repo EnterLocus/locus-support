@@ -830,22 +830,22 @@ class PublicSiteTests(unittest.TestCase):
         expected = {
             "atrium-loft-room.zip": {
                 "display_name": "Atrium Loft",
-                "size": 8_176_551,
-                "sha256": "588c14c5b1226ec677fada112df1346bb105f0cbdb0344db9d1e1be03b3b9ff1",
+                "size": 10_091_485,
+                "sha256": "9e448784ffe8814729b3eab5407173ed352b6dc1ca8d7451ee725c4fd6b74bf4",
                 "seats": 2,
                 "light_groups": 2,
             },
             "courtyard-gallery-room.zip": {
                 "display_name": "Courtyard Gallery",
-                "size": 8_510_411,
-                "sha256": "1d4be79f0c69c6d34e285729c02bd1870bf11133497277a1f1d94d7b0dd9f21f",
+                "size": 10_670_375,
+                "sha256": "6981d3e796d7844383aead0d842f3eb6cda6b88014cd4e87f9856875c3854fa3",
                 "seats": 3,
                 "light_groups": 3,
             },
             "horizon-atelier-room.zip": {
                 "display_name": "Horizon Atelier",
-                "size": 8_644_903,
-                "sha256": "dd3551316cae67c01a114a6130db37823f03dcebcec703f15a8fedf7dc291fe7",
+                "size": 12_897_149,
+                "sha256": "cda45e58f29762a2e3a9eb44a2a3a1a824c33ec9e70531ef9fa33a7ecfa1bde9",
                 "seats": 3,
                 "light_groups": 5,
             },
@@ -876,7 +876,20 @@ class PublicSiteTests(unittest.TestCase):
                     room = json.loads(archive.read("space.json"))
                     teleports = json.loads(archive.read("teleport-points.json"))
                     provenance = json.loads(archive.read("provenance.json"))
-                    self.assertEqual(room["formatVersion"], 3)
+                    self.assertEqual(room["formatVersion"], 5)
+                    self.assertEqual(set(room["rendering"]), {
+                        "softenedReflectionEntities", "uiFadeEntities",
+                    })
+                    for names in room["rendering"].values():
+                        self.assertTrue(names)
+                        self.assertEqual(len(names), len(set(names)))
+                    for group in room["lighting"]["luminaireGroups"]:
+                        proxies = group.get("proxies", [group["proxy"]] if "proxy" in group else [])
+                        for proxy in proxies:
+                            if proxy["type"] == "spot":
+                                direction = proxy["direction"]
+                                self.assertEqual(len(direction), 3)
+                                self.assertAlmostEqual(sum(v * v for v in direction), 1, places=5)
                     self.assertEqual(room["displayName"], details["display_name"])
                     self.assertNotIn("id", room)
                     self.assertEqual(len(teleports["points"]), details["seats"])
@@ -929,8 +942,14 @@ class PublicSiteTests(unittest.TestCase):
             ROOT / "package-format" / "index.html",
         ]:
             text = page.read_text()
+            self.assertIn("Requires Room v5 support.", text)
+            self.assertIn("cannot be imported by Locus 1.1.0", text)
             for filename in expected:
                 self.assertIn(f"../examples/{filename}", text)
+                self.assertIn(
+                    "https://raw.githubusercontent.com/EnterLocus/locus-support/"
+                    f"4017745d9f3b6001f00d325ad2610da0a4e171cb/examples/{filename}", text,
+                )
 
     def test_experimental_animation_demo_is_pinned_valid_and_clearly_labeled(self):
         filename = "coffee-atrium-experimental-room.zip"
