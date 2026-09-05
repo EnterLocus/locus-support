@@ -24,7 +24,8 @@ tool is available, state that limitation before promising a finished Room.
 Read these local references before authoring:
 
 - `references/room-interface.md` for the current Room v1-v3 contract, optional
-  experimental Room v4 animations, and exact delivery gates.
+  experimental animations, explicit Room v5 rendering roles and spotlight
+  directions, and exact delivery gates.
 - `references/design-language.md` when designing a new Room or judging whether
   it belongs beside the public Locus examples.
 - `references/blender-headless.md` when using the default Blender Python route
@@ -133,8 +134,9 @@ and interval ranges. `[0, 0]` means immediate replay; any other range selects a
 fresh random pause after every completed play. The default interval must fit
 inside the adjustable range.
 
-The bundled scaffolder intentionally remains a stable Room v1-v3 starting
-point. To experiment with Room v4, add `ambientAnimations` only after the USDZ
+The bundled scaffolder uses Room v1-v3 for its existing arguments and v5 when
+explicit rendering roles or `--light-direction` are supplied. To experiment
+with animations, add `ambientAnimations` only after the USDZ
 contains the named clips, then run the bundled validator against the exact ZIP.
 Try every animation switch, speed, and interval in Locus before delivery. Do
 not describe validator success as proof that the named clip produces the
@@ -213,3 +215,11 @@ This skill, its references, and its bundled scripts are licensed under the
 [Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). The
 repository's `LICENSE.md` and `LICENSES/Apache-2.0.txt` contain the exact scope
 and terms.
+
+## Keep the source authoritative
+
+Use temporary overrides only to test an appearance. A finished Room must store
+its intended geometry, transforms, PBR values, maps, UVs, and light directions
+in its editable source and matching export. Do not rely on Room IDs, name
+fragments, size thresholds, or runtime material repair. Declare v5 reflection
+and UI fade roles explicitly as described in the offline Room reference.

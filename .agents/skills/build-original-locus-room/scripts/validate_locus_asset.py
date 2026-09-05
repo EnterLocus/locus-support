@@ -1,6 +1,4 @@
 #!/usr/bin/env python3
-# Copyright 2026 EnterLocus.com
-# SPDX-License-Identifier: Apache-2.0
 """Validate a public Locus Room or View ZIP without installing it."""
 
 from __future__ import annotations
@@ -482,7 +480,7 @@ def validate_proxy_light(
         optional={
             "colorTemperatureKelvin", "innerAngleDegrees",
             "outerAngleDegrees",
-        },
+        } | ({"direction"} if room_format_version >= 5 else set()),
         context=context,
     )
     require(proxy["type"] in {"point", "spot"}, f"{context}.type is invalid")
@@ -501,6 +499,14 @@ def validate_proxy_light(
         require(finite(proxy["colorTemperatureKelvin"])
                 and 1_000 <= proxy["colorTemperatureKelvin"] <= 12_000,
                 f"{context}.colorTemperatureKelvin is invalid")
+    if "direction" in proxy:
+        direction = proxy["direction"]
+        require_number_list(direction, 3, f"{context}.direction")
+        require(abs(sum(component * component for component in direction) - 1) < 0.001,
+                f"{context}.direction must be a unit vector")
+        require(proxy["type"] == "spot", f"{context}.direction requires a spot light")
+    if room_format_version >= 5 and proxy["type"] == "spot":
+        require("direction" in proxy, f"{context}.direction is required")
     if proxy["type"] == "point":
         require(not proxy["castsShadow"],
                 f"{context} point lights cannot cast shadows")
@@ -694,6 +700,17 @@ def validate_ambient_animations(value: Any) -> None:
                 f"{context}.defaultIntervalRangeSeconds exceeds its allowed range")
 
 
+def validate_rendering(value: Any) -> None:
+    context = "space.json.rendering"
+    require(isinstance(value, dict), f"{context} must be an object")
+    exact_keys(value, required={"softenedReflectionEntities", "uiFadeEntities"}, context=context)
+    for field, names in value.items():
+        require(isinstance(names, list), f"{context}.{field} must be an array")
+        for name in names:
+            require_text(name, f"{context}.{field}", 200)
+        require(len(names) == len(set(names)), f"{context}.{field} contains duplicates")
+
+
 def validate_room(root: Path) -> dict[str, Any]:
     value = decode_json(root / "space.json", "space.json")
     exact_keys(
@@ -704,17 +721,20 @@ def validate_room(root: Path) -> dict[str, Any]:
         },
         optional={
             "caption", "previewCamera", "spatialAdaptation", "lighting",
-            "ambientAnimations",
+            "ambientAnimations", "rendering",
         },
         context="space.json",
     )
     require(type(value["formatVersion"]) is int
-            and value["formatVersion"] in {1, 2, 3, 4},
-            "space.json.formatVersion must be 1, 2, 3, or 4")
+            and value["formatVersion"] in {1, 2, 3, 4, 5},
+            "space.json.formatVersion must be 1, 2, 3, 4, or 5")
     require(value["formatVersion"] >= 2 or "lighting" not in value,
             "space.json.lighting requires formatVersion 2")
     require(value["formatVersion"] >= 4 or "ambientAnimations" not in value,
             "space.json.ambientAnimations requires formatVersion 4")
+    if "rendering" in value:
+        require(value["formatVersion"] >= 5, "space.json.rendering requires formatVersion 5")
+        validate_rendering(value["rendering"])
     require_text(value["displayName"], "space.json.displayName", 200)
     if "caption" in value:
         require_text(value["caption"], "space.json.caption", 1_000)
