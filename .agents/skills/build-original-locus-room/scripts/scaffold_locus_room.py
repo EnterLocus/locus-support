@@ -7,6 +7,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import math
 import os
 import shutil
 import sys
@@ -151,6 +152,22 @@ def room_metadata(arguments: argparse.Namespace) -> dict[str, object]:
                 "entities": [arguments.baked_indirect_entity]
             }
         room["lighting"] = lighting
+    wants_v5 = (arguments.light_direction is not None
+                or arguments.softened_reflection_entity is not None
+                or arguments.ui_fade_entity is not None)
+    if wants_v5:
+        room["formatVersion"] = 5
+        room["rendering"] = {
+            "softenedReflectionEntities": arguments.softened_reflection_entity or [],
+            "uiFadeEntities": arguments.ui_fade_entity or [],
+        }
+        if arguments.light_body:
+            direction = arguments.light_direction
+            if direction is None or not all(math.isfinite(v) for v in direction) or abs(sum(v*v for v in direction)-1) >= 0.001:
+                raise ScaffoldError("Room v5 spotlights require --light-direction with a unit vector")
+            room["lighting"]["luminaireGroups"][0]["proxy"]["direction"] = direction
+        elif arguments.light_direction is not None:
+            raise ScaffoldError("--light-direction requires a declared light")
     return room
 
 
@@ -245,6 +262,10 @@ def parser() -> argparse.ArgumentParser:
     value.add_argument("--light-name", default="Primary Pendant")
     value.add_argument("--light-body")
     value.add_argument("--light-anchor")
+    value.add_argument("--light-direction", type=float, nargs=3,
+                       help="Room v5 unit direction in exported +Y-up coordinates")
+    value.add_argument("--softened-reflection-entity", action="append")
+    value.add_argument("--ui-fade-entity", action="append")
     value.add_argument("--light-temperature", type=float, default=2700)
     value.add_argument("--light-lumens", type=float, default=900)
     value.add_argument("--light-radius", type=float, default=3.5)
