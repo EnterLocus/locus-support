@@ -200,7 +200,7 @@ Vision Pro. Exercise desk mappings, adaptive surfaces, Room Portal behavior,
 tracking, scale, reach, comfort, and lighting from different viewpoints there.
 Simulator evidence must not be reported as physical-device evidence.
 
-For experimental Room v4 content, also check every animation from every seat,
+For experimental Room v4 or v5 content, also check every animation from every seat,
 including off, continuous `0–0`, fixed nonzero, and random interval behavior.
 Check motion scale, comfort, and sustained performance on Apple Vision Pro.
 

@@ -96,6 +96,25 @@ contribution, and moving occluders do not rebake it. Point/spot proxies are not
 large area emitters. A clean bright-state result is not proof of physically
 calibrated equivalence to diffuse lighting in a real home.
 
+## Check transmissive materials in the exact USDZ
+
+In the tested Blender 5.2 USD PreviewSurface export, Principled Alpha alone
+could produce opaque glass: the Transmission Weight mapping also writes USD
+opacity. For scalar transmissive glazing in this path, use Alpha 1 and author
+the intended Transmission Weight, then check the exported `inputs:opacity`.
+Transmission 0.9 exported opacity about 0.1 in the supplied Material Study.
+This describes an export mapping, not a required glass appearance or a promise
+of refraction in Locus. Blender's
+[USD material writer](https://raw.githubusercontent.com/blender/blender/main/source/blender/io/usd/intern/usd_writer_material.cc)
+is the upstream implementation reference; recheck with another exporter version.
+
+Preserve linked maps, animation and intentional coatings. Inspect opacity,
+roughness, coat and normal inputs in the delivered file, then import it and
+look through the panes against a View. Correct the editable material or a
+repeatable export step and rebuild; a runtime preset or a manually patched ZIP
+would leave the next source export wrong. USD validity alone does not prove
+that the material is transparent.
+
 ## Distinguish base roughness from clearcoat roughness
 
 In Locus testing with visionOS 26.5, transparent architectural glass with
