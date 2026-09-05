@@ -10,6 +10,12 @@ importable Locus ZIP. Use the creator's preferred professional 3D workflow.
 Concentrate on the Locus interface, deterministic packaging, and honest
 verification; preserve the creator's modeling judgment.
 
+For an automated build from a blank brief without a specified tool, default to
+Blender Python executed through the command line in background mode. No open
+Blender window or MCP connection is required. Save reproducible scripts and
+review renders, inspect the images, and iterate without asking the creator to
+operate the viewport. Honor an explicitly chosen alternative authoring tool.
+
 If the request starts from a blank brief, use an available professional 3D
 authoring tool to create the geometry, materials, lighting geometry, and camera
 views. Do not stop after producing metadata or a package skeleton. If no such
@@ -21,6 +27,8 @@ Read these local references before authoring:
   experimental Room v4 animations, and exact delivery gates.
 - `references/design-language.md` when designing a new Room or judging whether
   it belongs beside the public Locus examples.
+- `references/blender-headless.md` when using the default Blender Python route
+  for authoring, rendering, baking, or export.
 
 The online [Room ZIP reference](https://enterlocus.com/reference/locus-asset-format.md)
 is canonical when network access is available. The bundled reference is enough
