@@ -358,7 +358,7 @@ desk** choice. If no trustworthy plane is found, Locus may move the authored
 edge within reach using a bounded fallback, but it does not claim alignment or
 open passthrough.
 
-`tools/validate_locus_asset.py` checks the mapping shape and USDZ structure;
+`tools/validate_locus_asset.py` checks the mapping shape, USDZ structure, and actual RealityKit entity bindings;
 it does not prove that an entity name resolves to the intended tabletop.
 Therefore import the exact validated ZIP and enter every mapped seat. Simulator
 can exercise package loading, but real-table detection, alignment, passthrough
@@ -470,8 +470,11 @@ python3 tools/validate_locus_asset.py /absolute/path/to/asset.zip
 
 The packer is deterministic, refuses to overwrite an existing ZIP, and only
 publishes a ZIP accepted by the same validator. Room validation uses macOS
-`sips` and Xcode's `usdchecker`. A `VALID` result covers structure, metadata,
-image decoding, model structure, and machine-checkable limits. Import the
+`sips`, Xcode's `usdchecker`, and a small Swift RealityKit checker compiled with
+`xcrun swiftc`. The downloadable Python validator includes its Swift checker; it requires no
+private repository or separately downloaded helper. The same binding rules
+are used by the app before import. A `VALID` result covers structure, metadata,
+image decoding, model structure, and machine-checkable entity bindings. Import the
 exact ZIP and enter every Room seat to check scale, appearance, and comfort.
 
 Do not include `.blend`, GLB, source textures, parent folders, symlinks,
@@ -479,7 +482,19 @@ Catalog files, Experience files, an ID, or an internal package envelope.
 
 ### Inspect the delivered model before packaging
 
-The flat ZIP validator checks metadata, archive structure, and USDZ validity.
+The flat ZIP validator and the app's public Room import preflight both load
+models with authored name references through RealityKit. References in spatial
+adaptation, rendering, lighting (including proxy anchors and baked indirect),
+and ambient animations must resolve to exactly one entity. Rendering groups
+also reject overlapping ancestor/descendant bindings and subtrees without
+renderable geometry, matching runtime rules. A Blender object and its mesh
+must not share a referenced name: use a distinct mesh name such as
+`Table_Cup_Geometry`. Unreferenced duplicate names are allowed.
+
+Import rejects these failures before committing a library entry or consuming
+an import allowance. Transport, schema and resource-budget validation precede
+the native load. This is binding validation, not a substitute for light-material,
+animation-playback or physical-device visual acceptance.
 The optional `audit_locus_room.py` tool also opens the delivered USD scene and
 checks actual entity identities, overlapping rendering bindings, spotlight
 directions, and the supported shader network. Run it with a Python environment
