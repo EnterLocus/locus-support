@@ -382,6 +382,198 @@ def validate_usdz(path: Path) -> None:
     require(checked.returncode == 0, "scene.usdz fails RealityKit USD validation")
 
 
+# Standalone public distribution of the binding contract and resolver used by
+# Locus import. Keep this native source synchronized with the app's
+# RoomEntityBindings.swift, RoomModelBindingValidator.swift and CLI entry point.
+ROOM_BINDING_SWIFT = r"""
+import Foundation
+import RealityKit
+
+/// Resolves an explicit author interface before committing a Room load.
+/// Names are exact identities, never material or size classification rules.
+@MainActor
+enum RoomEntityBindings {
+    enum BindingError: LocalizedError, Equatable {
+        case missing(String)
+        case ambiguous(String)
+        case overlapping(String, String)
+        case noGeometry(String)
+
+        var errorDescription: String? {
+            switch self {
+            case .missing(let name): "Room entity '\(name)' was not found."
+            case .ambiguous(let name): "Room entity '\(name)' is not uniquely named."
+            case .overlapping(let first, let second):
+                "Room bindings '\(first)' and '\(second)' overlap in the model hierarchy."
+            case .noGeometry(let name): "Room entity '\(name)' has no renderable geometry."
+            }
+        }
+    }
+
+    static func entity(named name: String, in root: Entity) throws -> Entity {
+        var matches: [Entity] = []
+        func walk(_ entity: Entity) {
+            if entity.name == name { matches.append(entity) }
+            entity.children.forEach(walk)
+        }
+        walk(root)
+        guard !matches.isEmpty else { throw BindingError.missing(name) }
+        guard matches.count == 1 else { throw BindingError.ambiguous(name) }
+        return matches[0]
+    }
+
+    static func subtrees(named names: [String], in root: Entity) throws -> [Entity] {
+        var uniqueNames = Set<String>()
+        for name in names where !uniqueNames.insert(name).inserted {
+            throw BindingError.ambiguous(name)
+        }
+        let entities = try names.map { try entity(named: $0, in: root) }
+        let ids = Set(entities.map(\.id))
+        for entity in entities {
+            var parent = entity.parent
+            while let ancestor = parent {
+                guard !ids.contains(ancestor.id) else {
+                    throw BindingError.overlapping(ancestor.name, entity.name)
+                }
+                parent = ancestor.parent
+            }
+            guard containsGeometry(entity) else { throw BindingError.noGeometry(entity.name) }
+        }
+        return entities
+    }
+
+    private static func containsGeometry(_ entity: Entity) -> Bool {
+        entity.components[ModelComponent.self] != nil
+            || entity.children.contains(where: containsGeometry)
+    }
+}
+
+import Foundation
+import RealityKit
+
+/// The subset of the author contract that refers to model entities. Both the
+/// public CLI and import preflight decode this, then use the runtime resolver.
+/// Full schema and resource-budget validation must precede this check.
+struct RoomModelBindingContract: Decodable, Sendable {
+    struct Adaptation: Decodable, Sendable {
+        let wallEntities: [String]
+        let roofEntities: [String]
+        let deskEntitiesByTeleportID: [String: String]
+    }
+    struct Rendering: Decodable, Sendable {
+        let softenedReflectionEntities: [String]
+        let uiFadeEntities: [String]
+    }
+    struct Lighting: Decodable, Sendable {
+        struct Proxy: Decodable, Sendable { let anchorEntity: String }
+        struct Group: Decodable, Sendable {
+            let entities: [String]
+            let proxy: Proxy?
+            let proxies: [Proxy]?
+        }
+        struct Indirect: Decodable, Sendable { let entities: [String] }
+        let luminaireGroups: [Group]
+        let bakedIndirect: Indirect?
+    }
+    struct Animation: Decodable, Sendable { let entityName: String }
+    let spatialAdaptation: Adaptation?
+    let rendering: Rendering?
+    let lighting: Lighting?
+    let ambientAnimations: [Animation]?
+
+    var names: [String] {
+        var names: [String] = []
+        if let a = spatialAdaptation {
+            names += a.wallEntities + a.roofEntities
+            names += a.deskEntitiesByTeleportID.sorted { $0.key < $1.key }.map(\.value)
+        }
+        if let r = rendering {
+            names += r.softenedReflectionEntities + r.uiFadeEntities
+        }
+        if let lighting {
+            for group in lighting.luminaireGroups {
+                names += group.entities
+                if let proxy = group.proxy { names.append(proxy.anchorEntity) }
+                names += (group.proxies ?? []).map(\.anchorEntity)
+            }
+            names += lighting.bakedIndirect?.entities ?? []
+        }
+        names += (ambientAnimations ?? []).map(\.entityName)
+        return names
+    }
+}
+
+@MainActor
+enum RoomModelBindingValidator {
+    static func validate(modelURL: URL, contract: RoomModelBindingContract) async throws {
+        // Models without authored name references have nothing to bind. Keep
+        // their existing format/budget checks without an extra GPU load.
+        guard !contract.names.isEmpty else { return }
+        let model = try await Entity(contentsOf: modelURL)
+        try Task.checkCancellation()
+        for name in Set(contract.names).sorted() {
+            _ = try RoomEntityBindings.entity(named: name, in: model)
+        }
+        if let rendering = contract.rendering {
+            _ = try RoomEntityBindings.subtrees(named: rendering.softenedReflectionEntities, in: model)
+            _ = try RoomEntityBindings.subtrees(named: rendering.uiFadeEntities, in: model)
+        }
+    }
+}
+
+import Foundation
+
+/// Compiled with the same binding contract/resolver used by the visionOS app.
+@main
+struct ValidateRoomBindings {
+    static func main() async {
+        do {
+            guard CommandLine.arguments.count == 3 else {
+                throw NSError(domain: "Locus", code: 2, userInfo: [NSLocalizedDescriptionKey:
+                    "Usage: validate-room-bindings scene.usdz space.json"])
+            }
+            let contract = try JSONDecoder().decode(RoomModelBindingContract.self,
+                from: Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[2])))
+            try await RoomModelBindingValidator.validate(
+                modelURL: URL(fileURLWithPath: CommandLine.arguments[1]), contract: contract)
+        } catch {
+            FileHandle.standardError.write(Data((error.localizedDescription + "\n").utf8))
+            exit(2)
+        }
+    }
+}
+"""
+
+# One private executable per Python process; never execute a shared cache entry.
+_binding_tool_directory = None
+
+
+def validate_room_bindings(model: Path, manifest: Path) -> None:
+    global _binding_tool_directory
+    if _binding_tool_directory is None:
+        directory = tempfile.TemporaryDirectory(prefix="locus-binding-validator-")
+        source = Path(directory.name) / "validate-room-bindings.swift"
+        source.write_text(ROOM_BINDING_SWIFT, encoding="utf-8")
+        try:
+            result = subprocess.run(
+                ["xcrun", "swiftc", "-parse-as-library", str(source),
+                 "-o", str(Path(directory.name) / "validate-room-bindings")],
+                capture_output=True, text=True, timeout=180, check=False)
+        except subprocess.TimeoutExpired as error:
+            raise ValidationError("Room binding validator compilation timed out") from error
+        require(result.returncode == 0,
+                "Could not build RealityKit binding validator (Xcode is required): " + result.stderr[-4000:])
+        _binding_tool_directory = directory
+    try:
+        result = subprocess.run(
+            [str(Path(_binding_tool_directory.name) / "validate-room-bindings"), str(model), str(manifest)],
+            capture_output=True, text=True, timeout=120, check=False)
+    except subprocess.TimeoutExpired as error:
+        raise ValidationError("scene.usdz entity binding validation timed out") from error
+    require(result.returncode == 0,
+            "scene.usdz entity bindings failed: " + (result.stderr.strip()[-4000:] or "RealityKit could not load the model"))
+
+
 def validate_teleports(path: Path) -> set[str]:
     value = decode_json(path, "teleport-points.json")
     exact_keys(
@@ -785,6 +977,7 @@ def validate_room(root: Path) -> dict[str, Any]:
     validate_provenance(root / "provenance.json")
     validate_image(root / "thumbnail.jpg", equirectangular=False)
     validate_usdz(root / "scene.usdz")
+    validate_room_bindings(root / "scene.usdz", root / "space.json")
     return {"kind": "room", "displayName": value["displayName"], "seats": len(teleports)}
 
 
