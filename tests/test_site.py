@@ -795,8 +795,8 @@ class PublicSiteTests(unittest.TestCase):
             # Re-run the public scaffolder with explicit v5 author roles.
             command = result.args + [
                 "--light-direction", "0.6", "-0.8", "0",
-                "--softened-reflection-entity", "Panel_927",
-                "--ui-fade-entity", "Furniture_406",
+                "--softened-reflection-entity", "Rear_Plaster_Wall",
+                "--ui-fade-entity", "Ground_Work_Desk_Top",
             ]
             room = temporary / "room-v5"
             command[2] = str(room)
@@ -805,8 +805,8 @@ class PublicSiteTests(unittest.TestCase):
             metadata = json.loads((room / "space.json").read_text())
             self.assertEqual(metadata["formatVersion"], 5)
             self.assertEqual(metadata["rendering"], {
-                "softenedReflectionEntities": ["Panel_927"],
-                "uiFadeEntities": ["Furniture_406"],
+                "softenedReflectionEntities": ["Rear_Plaster_Wall"],
+                "uiFadeEntities": ["Ground_Work_Desk_Top"],
             })
             self.assertEqual(metadata["lighting"]["luminaireGroups"][0]["proxy"]["direction"], [0.6, -0.8, 0])
 
