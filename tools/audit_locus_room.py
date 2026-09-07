@@ -65,11 +65,16 @@ def audit(metadata_path: Path, usdz_path: Path) -> dict:
             resolve(proxy['anchorEntity'])
             if proxy['type'] == 'spot':
                 d = proxy.get('direction')
+                if d is None and metadata.get('formatVersion', 1) < 5:
+                    # Legacy spots use Locus's documented downward default.
+                    continue
                 if not isinstance(d, list) or len(d) != 3 or not all(type(v) in (int,float) and math.isfinite(v) for v in d):
                     raise ValueError('New authored spot requires an explicit direction')
                 if abs(sum(v*v for v in d)-1) >= 0.001:
                     raise ValueError('Spot direction must be a unit vector')
                 report['directedSpots'] += 1
+    for name in metadata.get('lighting', {}).get('bakedIndirect', {}).get('entities', []):
+        resolve(name)
     return report
 
 
