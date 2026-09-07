@@ -17,3 +17,5 @@ jobs:
         with:
           python-version: "3.13"
       - run: python3 -m unittest -v tests/test_site.py
+      - run: python3 -m pip install usd-core
+      - run: python3 -m unittest -v tests/test_room_audit.py

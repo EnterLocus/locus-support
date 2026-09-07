@@ -44,6 +44,8 @@ Use the Bug form for reproducible product problems. Bring ideas, feature
 requests, wishlists, and creator questions to GitHub Discussions. Send private
 or security-sensitive reports to support@enterlocus.com.
 
+A reproducible one-seat walkthrough is available in the [Room integration guide](https://enterlocus.com/build-a-room/#minimal-room). `tools/build_minimal_room.py` creates its geometry, source file, review renders and public metadata from scratch. The [runtime interaction reference](reference/locus-asset-format.md#how-locus-uses-a-room) documents seats, safety, collision and quality bookkeeping, and actual model budgets.
+
 ## Community
 
 [Community](https://github.com/EnterLocus/locus-support/discussions) — Share
