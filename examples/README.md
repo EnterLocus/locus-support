@@ -20,8 +20,9 @@ and thumbnail bytes as the source-authored Room publication
 carries explicit reflection/fade roles and spotlight directions. Horizon keeps
 the softer wood-floor finish; the other Rooms retain their floor designs.
 
-These ZIPs require a Locus build with Room v5 support. Locus 1.1.0 does not
-support v5. The download pages link the previous compatible ZIPs at the frozen
+These ZIPs require a Locus build with Room v5 support. Locus 1.1.0 builds 1–3 do not
+support v5; build 4 and later, including Locus 1.1.1, do. Check the installed
+build in Settings → About Locus. The download pages link the previous compatible ZIPs at the frozen
 [September 3 example revision](https://github.com/EnterLocus/locus-support/tree/4017745d9f3b6001f00d325ad2610da0a4e171cb/examples).
 Public provenance retains the existing CC BY 4.0 and embedded-texture CC0
 terms; scene, thumbnail, seat and rendering metadata bytes match the accepted

@@ -12,6 +12,7 @@ import tempfile
 import unittest
 import urllib.parse
 import zipfile
+import zlib
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
@@ -88,7 +89,32 @@ def html_files():
     return sorted(ROOT.glob("**/*.html"))
 
 
+def solid_png(width, height=1):
+    def chunk(kind, value):
+        return struct.pack(">I", len(value)) + kind + value + struct.pack(
+            ">I", zlib.crc32(kind + value))
+    return (b"\x89PNG\r\n\x1a\n" + chunk(b"IHDR", struct.pack(">IIBBBBB", width, height, 8, 2, 0, 0, 0))
+            + chunk(b"IDAT", zlib.compress((b"\0" + b"\x80" * (width * 3)) * height))
+            + chunk(b"IEND", b""))
+
+
 class PublicSiteTests(unittest.TestCase):
+    def test_view_zip_does_not_inherit_the_direct_image_4k_minimum(self):
+        with tempfile.TemporaryDirectory() as directory:
+            archive = pathlib.Path(directory) / "small-view.zip"
+            with zipfile.ZipFile(ROOT / "examples/demo-room.zip") as source:
+                provenance = source.read("provenance.json")
+            with zipfile.ZipFile(archive, "w") as output:
+                output.writestr("view.json", json.dumps({"formatVersion": 1,
+                    "displayName": "Small View", "panorama": {
+                        "projection": "equirectangular", "width": 2048, "height": 1024}}))
+                output.writestr("provenance.json", provenance)
+                output.writestr("panorama.jpg", solid_png(2048, 1024))
+                output.writestr("thumbnail.jpg", solid_png(256, 128))
+            result = subprocess.run([sys.executable, str(ROOT / "tools/validate_locus_asset.py"),
+                                     str(archive)], capture_output=True, text=True)
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
     def test_every_page_links_to_the_public_community(self):
         for path in html_files():
             parser = PageParser()
@@ -573,7 +599,7 @@ class PublicSiteTests(unittest.TestCase):
             "How do Browser Favorites and the Start Page work?",
         ]:
             self.assertIn(question, faq)
-        self.assertIn("2,000 K to 6,500 K", faq)
+        self.assertIn("ranges come from the Room", faq)
         self.assertIn("Favorites First", faq)
         self.assertIn("star", faq)
 
@@ -945,7 +971,7 @@ class PublicSiteTests(unittest.TestCase):
         ]:
             text = page.read_text()
             self.assertIn("Requires Room v5 support.", text)
-            self.assertIn("cannot be imported by Locus 1.1.0", text)
+            self.assertIn("1.1.0 builds (1–3)", text)
             for filename in expected:
                 self.assertIn(f"../examples/{filename}", text)
                 self.assertIn(
@@ -1102,6 +1128,55 @@ class PublicSiteTests(unittest.TestCase):
 
 
 class PublicRoomBindingTests(unittest.TestCase):
+    def make_room(self, root, layers):
+        with zipfile.ZipFile(ROOT / "examples/atrium-loft-room.zip") as source:
+            files = {name: source.read(name) for name in source.namelist()}
+        manifest = json.loads(files["space.json"])
+        for key in ["spatialAdaptation", "lighting", "ambientAnimations", "rendering"]:
+            manifest.pop(key, None)
+        files["space.json"] = json.dumps(manifest).encode()
+        model = io.BytesIO()
+        with zipfile.ZipFile(model, "w") as output:
+            for name, data in layers.items():
+                info = zipfile.ZipInfo(name)
+                padding = (-(model.tell() + 30 + len(name.encode()) + 4)) % 64
+                info.extra = struct.pack("<HH", 0xFFFF, padding) + bytes(padding)
+                output.writestr(info, data)
+        files["scene.usdz"] = model.getvalue()
+        archive = root / "room.zip"
+        with zipfile.ZipFile(archive, "w") as output:
+            for name, data in files.items():
+                output.writestr(name, data)
+        return archive
+
+    def validate(self, archive):
+        return subprocess.run([sys.executable, str(ROOT / "tools/validate_locus_asset.py"),
+                               str(archive)], capture_output=True, text=True)
+
+    def test_actual_entity_budget_applies_without_author_quality_metadata(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            header = '#usda 1.0\n(defaultPrim = "Root"\n upAxis = "Y"\n metersPerUnit = 1)\n'
+            valid = (header + 'def Xform "Root" {\n def Cube "Box" {\n  double size = 1\n }\n}').encode()
+            result = self.validate(self.make_room(root, {"root.usda": valid}))
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+            excessive = (header + 'def Xform "Root" {\n' + ''.join(
+                f'def Xform "Node_{i}" {{}}\n' for i in range(100_000)) + '}').encode()
+            result = self.validate(self.make_room(root, {"root.usda": excessive}))
+            self.assertEqual(result.returncode, 2, result.stdout + result.stderr)
+            self.assertIn("exceeds model budget", result.stderr)
+
+    def test_embedded_texture_dimension_limit_is_16384(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = pathlib.Path(directory)
+            model = b'#usda 1.0\n(defaultPrim = "Root"\n upAxis = "Y"\n metersPerUnit = 1)\ndef Cube "Root" {\n double size = 1\n}'
+            for width, expected in [(16_384, 0), (16_385, 2)]:
+                with self.subTest(width=width):
+                    result = self.validate(self.make_room(root, {"root.usda": model, "texture.png": solid_png(width)}))
+                    self.assertEqual(result.returncode, expected, result.stdout + result.stderr)
+                    if expected:
+                        self.assertIn("image exceeds dimension or pixel limit", result.stderr)
+
     def test_standalone_validator_rejects_nested_object_mesh_name_collision(self):
         with tempfile.TemporaryDirectory() as directory:
             root = pathlib.Path(directory)
