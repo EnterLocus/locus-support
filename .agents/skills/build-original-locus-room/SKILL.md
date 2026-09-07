@@ -41,7 +41,9 @@ to work offline and prevents an unavailable website from blocking the task.
 ## Establish the deliverable and rights
 
 Write down the intended Room, important views, entry seats, optional desks,
-Room Portal surfaces, and visitor-controlled lights. State any assumption that
+wall/roof references, explicit rendering roles, and visitor-controlled lights.
+Room Portal opens detected real walls; these virtual references do not create
+portals, and the current product does not open the real ceiling. State any assumption that
 changes the Room interface or delivered files.
 
 Before authoring, inventory every model, texture, image, font, and generated

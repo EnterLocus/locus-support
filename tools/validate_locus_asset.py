@@ -28,6 +28,8 @@ COMPRESSION_RATIO = 200
 COMPONENT_BYTES = 128
 IMAGE_DIMENSION = 32_768
 IMAGE_PIXELS = 150_000_000
+MODEL_TEXTURE_DIMENSION = 16_384
+MODEL_TEXTURE_PIXELS = 500_000_000
 MODEL_ENTRIES = 4_096
 MODEL_EXPANDED_BYTES = 1_610_612_736
 IDENTIFIER_CHARS = frozenset(
@@ -271,7 +273,8 @@ def validate_pose(value: Any, field: str) -> None:
     require_number_list(value["orientationXYZW"], 4, f"{field}.orientationXYZW")
 
 
-def validate_image(path: Path, *, equirectangular: bool) -> tuple[int, int]:
+def validate_image(path: Path, *, equirectangular: bool,
+                   maximum_dimension: int = IMAGE_DIMENSION) -> tuple[int, int]:
     sips = shutil.which("sips")
     require(sips is not None, "macOS sips is required to validate images")
     try:
@@ -296,8 +299,8 @@ def validate_image(path: Path, *, equirectangular: bool) -> tuple[int, int]:
     except (KeyError, ValueError) as error:
         raise ValidationError(f"image dimensions unavailable: {path.name}") from error
     require(
-        0 < width <= IMAGE_DIMENSION
-        and 0 < height <= IMAGE_DIMENSION
+        0 < width <= maximum_dimension
+        and 0 < height <= maximum_dimension
         and width * height <= IMAGE_PIXELS,
         f"image exceeds dimension or pixel limit: {path.name}",
     )
@@ -345,6 +348,7 @@ def validate_usdz(path: Path) -> None:
         infos = archive.infolist()
         require(0 < len(infos) <= MODEL_ENTRIES, "scene.usdz has too many entries")
         expanded = 0
+        texture_pixels = 0
         root_layer = False
         seen: set[str] = set()
         for info in infos:
@@ -362,6 +366,17 @@ def validate_usdz(path: Path) -> None:
             require(expanded <= MODEL_EXPANDED_BYTES, "scene.usdz exceeds expanded byte limit")
             extension = PurePosixPath(info.filename).suffix.lower().lstrip(".")
             require(extension in USDZ_EXTENSIONS, f"unsupported USDZ file: {info.filename}")
+            if extension in {"png", "jpg", "jpeg", "exr"}:
+                with tempfile.TemporaryDirectory(prefix="locus-model-texture-") as directory:
+                    texture = Path(directory) / ("texture." + extension)
+                    with archive.open(info) as source, texture.open("wb") as output:
+                        shutil.copyfileobj(source, output)
+                    width, height = validate_image(
+                        texture, equirectangular=False,
+                        maximum_dimension=MODEL_TEXTURE_DIMENSION)
+                texture_pixels += width * height
+                require(texture_pixels <= MODEL_TEXTURE_PIXELS,
+                        "scene.usdz exceeds the total model texture pixel limit")
             if "/" not in info.filename and extension in {"usd", "usda", "usdc"}:
                 root_layer = True
         require(root_layer, "scene.usdz has no root USD layer")
@@ -522,6 +537,43 @@ enum RoomModelBindingValidator {
 }
 
 import Foundation
+import ModelIO
+
+/// Match the app's actual-model budget check; author-declared quality numbers
+/// must never substitute for inspecting the USD composition and topology.
+func validateModelBudget(_ url: URL) throws {
+    func reject() throws -> Never {
+        throw NSError(domain: "Locus", code: 2, userInfo: [NSLocalizedDescriptionKey:
+            "scene.usdz exceeds model budget (5,000,000 triangles, 1,024 materials, 100,000 entities; instances are not supported)"])
+    }
+    let asset = MDLAsset(url: url)
+    guard asset.count > 0, asset.originals.objects.isEmpty else { try reject() }
+    var pending = (0..<asset.count).map { asset.object(at: $0) }
+    var entities = 0
+    var triangles = 0
+    var materials = Set<ObjectIdentifier>()
+    while let object = pending.popLast() {
+        guard object.instance == nil else { try reject() }
+        entities += 1
+        guard entities <= 100_000 else { try reject() }
+        pending.append(contentsOf: object.children.objects)
+        guard let mesh = object as? MDLMesh, let submeshes = mesh.submeshes else { continue }
+        for case let submesh as MDLSubmesh in submeshes {
+            let count: Int
+            switch submesh.geometryType {
+            case .triangles: count = submesh.indexCount / 3
+            case .triangleStrips: count = max(0, submesh.indexCount - 2)
+            case .quads: count = (submesh.indexCount / 4) * 2
+            default: count = submesh.indexCount
+            }
+            let (sum, overflow) = triangles.addingReportingOverflow(count)
+            guard !overflow, sum <= 5_000_000 else { try reject() }
+            triangles = sum
+            if let material = submesh.material { materials.insert(ObjectIdentifier(material)) }
+            guard materials.count <= 1_024 else { try reject() }
+        }
+    }
+}
 
 /// Compiled with the same binding contract/resolver used by the visionOS app.
 @main
@@ -532,6 +584,7 @@ struct ValidateRoomBindings {
                 throw NSError(domain: "Locus", code: 2, userInfo: [NSLocalizedDescriptionKey:
                     "Usage: validate-room-bindings scene.usdz space.json"])
             }
+            try validateModelBudget(URL(fileURLWithPath: CommandLine.arguments[1]))
             let contract = try JSONDecoder().decode(RoomModelBindingContract.self,
                 from: Data(contentsOf: URL(fileURLWithPath: CommandLine.arguments[2])))
             try await RoomModelBindingValidator.validate(

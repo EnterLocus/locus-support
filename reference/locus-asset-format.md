@@ -194,7 +194,7 @@ recommended intensities; functional indoor proxies normally begin around
 700–1,500 lumens with a
 2.5–3.5 m reach. Locus still accepts v2 archives using the older wider numeric
 contract and safely normalizes them during import; locked v2 bytes are never
-rewritten. `bakedIndirect` is v3-only.
+rewritten. `bakedIndirect` requires Room v3 or later.
 
 ### Authored rendering and spotlight direction (formatVersion 5)
 
@@ -262,7 +262,8 @@ coatings and animated inputs need separate evaluation.
 
 `spatialAdaptation.wallEntities` and `roofEntities` are validated references;
 they do not hide or cut the virtual architecture. Room Portal operates on the
-visitor's tracked real-room surfaces. Only the explicit desk mapping connects
+visitor's tracked real walls, independently of this virtual geometry. The current
+product can open multiple walls, but not the real ceiling. Only the explicit desk mapping connects
 a virtual tabletop to desk alignment and desk passthrough.
 
 ### Ambient animations (formatVersion 4)
@@ -365,6 +366,86 @@ can exercise package loading, but real-table detection, alignment, passthrough
 edges, scale, reach, and comfort require the exact delivered build on a physical
 Vision Pro.
 
+## How Locus uses a Room
+
+The authoring interface and the runtime rules are both documented here. Public
+Room ZIPs are converted into Locus's internal Package v2 representation during
+import. That conversion does not make internal fields secret or require a
+creator to maintain two manifests. Author the five-file Room ZIP; Locus supplies
+the internal identity, file paths, and bookkeeping.
+
+| Author input | Runtime behavior and creator responsibility |
+| --- | --- |
+| `scene.usdz` | Locus loads the exported hierarchy, materials and transforms. Its actual visual bounds determine the coordinate frame for normalized seats. Author scale, clearances and appearance in the model. |
+| `teleport-points.json` | Each point is a selectable seat, not a moving character. `anchorXZ` locates it within the delivered model bounds; `sourceFloorOffset` is the floor height above the model's minimum Y (including any foundation or floor-slab thickness), `eyeHeight` locates the eyes above it, and `yawRadians` sets its heading. Switching seats repositions the Room around the visitor. |
+| `seatedOrigin` | Defines the authored floor frame used to carry the safety volume to the active seat. Use an upright frame: a finite normalized quaternion with no pitch or roll. It does not replace the seat catalog or specify a walkable spawn collider. |
+| `safeHeadVolume` | Defines a box that follows the selected seat and its floor frame. Locus uses it with tracking and presence to decide when immersive content can be shown safely. Each half-extent has a runtime minimum of 1 m: an authored box smaller than 2 m on an axis cannot narrow that runtime range. This is not a wall collider or permission to put geometry close to the visitor's head. |
+| `viewOpenings` | Exactly one logical opening connects a Room/View composition. It does not cut holes in the USDZ. Model the real architectural openings yourself. Virtual Space surrounds the Room with the View; this field does not determine which real walls Room Portal opens. |
+| `spatialAdaptation.wallEntities` / `roofEntities` | Exact validated references to virtual architecture. They do not hide those meshes or create real-world portals. Room Portal uses detected real walls and supports opening multiple walls; the current product cannot open the real ceiling. |
+| `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat still loads, but receives neither automatic desk alignment nor desk passthrough. See the desk-mapping contract in this reference. |
+| `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. |
+| `rendering` | Explicitly opts subtrees into softened View reflections or temporary window-obstruction fading. Omitted roles grant neither behavior. These permissions do not change the underlying material design. |
+| `ambientAnimations` | Binds embedded named clips to experimental switch/speed/interval controls. A valid entity name does not prove a clip exists or moves correctly; test playback in Locus. |
+| `thumbnail.jpg` / `previewCamera` | Supply the library image and initial 3D preview framing. Neither determines the immersive seat. |
+
+### Collision and quality: internal fields, not additional author inputs
+
+The importer currently creates this internal metadata for every public Room:
+
+```json
+{
+  "collision": {"mode": "embedded"},
+  "quality": {
+    "status": "unverified",
+    "triangleCount": 0,
+    "materialCount": 0,
+    "entityCount": 0,
+    "maxTextureDimension": 0
+  }
+}
+```
+
+These fields describe the internal package, not extra JSON to paste into the
+public `space.json`. Both the app importer and public validator reject them in
+that public file. Adding them only to the public validator would produce ZIPs
+that the app rejects.
+
+The internal schema also has a `separate` collision mode with a USDZ path. The
+current Virtual Space loader does not use either mode to build a walking,
+physics, or visitor-body collision system. A declared collision mesh does not
+prevent someone moving through virtual furniture. Runtime head safety and real
+desk measurement are separate systems. No separate collision file is accepted
+in a public Room ZIP.
+
+`quality` is bookkeeping, not a quality certificate. Import sets it to
+`unverified` with zero declared counts, then inspects the actual USDZ composition
+and mesh topology against the limits below. Supplying smaller numbers cannot
+bypass that inspection. The public validator performs actual model and texture
+budget checks too; it does not require a creator to estimate those values.
+Keep measured authoring statistics with the editable source when useful.
+
+### Model and texture budgets
+
+| Resource | Maximum |
+| --- | ---: |
+| Room ZIP | 1 GiB |
+| One extracted file, including `scene.usdz` | 768 MiB |
+| All extracted ZIP files | 2 GiB |
+| Entries inside the USDZ | 4,096 |
+| Expanded USDZ members | 1.5 GiB |
+| Actual model triangles | 5,000,000 |
+| Actual model materials | 1,024 |
+| Actual model entities | 100,000 |
+| One model texture dimension | 16,384 pixels |
+| One image's decoded pixels | 150,000,000 |
+| All embedded model texture pixels | 500,000,000 |
+
+ModelIO inspects the loaded composition rather than trusting JSON counts.
+Instance compositions are rejected by the current import budget policy; realize
+instances before export. These are rejection limits, not performance targets.
+A small Room should stay far below them. Appearance, interactive frame rate,
+tracking, reach and comfort still require checking the exact Room in Locus.
+
 ## View ZIP
 
 Four root files are required and one is optional:
@@ -379,7 +460,8 @@ view.zip
 ```
 
 `panorama.jpg` is a complete 2:1 equirectangular JPEG or PNG. Its decoded
-dimensions must match `view.json`. `thumbnail.jpg` is required.
+dimensions must match `view.json`. The 4K minimum for direct image imports
+(including Browser images) is not a View ZIP format restriction. `thumbnail.jpg` is required.
 `lighting.jpg`, when present, is a separate small 2:1 SDR image used for Room
 lighting and reflections.
 
@@ -447,7 +529,8 @@ declares `rights` instead. Exactly one is required:
 
 `sourcePageURL` and `originalAssetURL` are optional HTTPS URLs. When
 `aiGenerated` is `true`, `aiProvider` is required and names the provider or
-tools used. The license describes rights in the asset. An App Store EULA is an
+tools used. When `aiGenerated` is `false`, omit `aiProvider`; supplying it is
+invalid. The license describes rights in the asset. An App Store EULA is an
 app distribution agreement and is not an asset provenance license.
 
 For an all-rights-reserved original, replace `license` with:
@@ -501,7 +584,7 @@ directions, and the supported shader network. Run it with a Python environment
 containing Pixar USD (`pxr`), such as Blender's bundled Python:
 
 ```sh
-python3 audit_locus_room.py /path/to/room/space.json /path/to/room/scene.usdz
+python3 tools/audit_locus_room.py /path/to/room/space.json /path/to/room/scene.usdz
 ```
 
 The audit reports the exact entity or shader path when a fix is needed. Bake
