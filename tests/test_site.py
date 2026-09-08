@@ -390,6 +390,9 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_homepage_uses_current_launch_media(self):
         expected = {
+            "saturn-winter-garden-v111.jpg": "c22f2a95cd80a7b0580b70c4286205381617c23805242edfdccebacf565c9a55",
+            "milky-way-winter-garden-v111.jpg": "5a119ab993deb7945a8bbb1984d971da8c8e080c4017e206c9e23dcb4cf2426a",
+            "floating-islands-winter-garden-v111.jpg": "cc8a547049876800f364d1baaf307dd720d0c5cba6a23bf90283626f12f681bb",
             "imports-virtual-space.jpg":
                 "4195481daae7b2fa03da26a779abe15ccd900f1c98f66f74656050da488113cc",
             "place-picker.jpg":
@@ -414,13 +417,13 @@ class PublicSiteTests(unittest.TestCase):
         homepage_sources = {
             pathlib.Path(image["src"]).name for image in screenshot_images
         }
-        self.assertEqual(homepage_sources, set(expected))
+        self.assertEqual(homepage_sources, {"imports-virtual-space.jpg", "saturn-winter-garden-v111.jpg", "milky-way-winter-garden-v111.jpg", "floating-islands-winter-garden-v111.jpg"})
         for image in screenshot_images:
             self.assertEqual(image.get("width"), "1920")
             self.assertEqual(image.get("height"), "1080")
             self.assertTrue(image.get("alt", "").strip())
             filename = pathlib.Path(image["src"]).name
-            if filename == "virtual-space-desk-wide.jpg":
+            if filename == "floating-islands-winter-garden-v111.jpg":
                 self.assertEqual(image.get("fetchpriority"), "high")
             else:
                 self.assertEqual(image.get("loading"), "lazy")
@@ -440,6 +443,10 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_homepage_uses_authentic_promotional_media(self):
         expected = {
+            "still-01-canyon-v111.jpg": "e9293663a186eaaec5a5289f6584176831383e0d9eaa798b7e5b12e0516b9b5c",
+            "still-03-browser-v111.jpg": "bc68bd8b7f86b4b4badf2ab31c5d69eb2089ca7938c43791852f89360a60148e",
+            "still-06-room-lights-v111.jpg": "eba256f879e02c453ec441fdf013e3096053fe66b8e0a06bed7a911cd96ea344",
+            "locus-1.1.1-promo-30s.mp4": "96f14c7771e288a4f7e7b452971f2740f112e03430e544eb630b97ef9dee14a7",
             "locus-1.1-whats-new-33s.mp4":
                 "a8eb882e95cf22df34b75be2737eb5cee53b1596a645572afabee88f23decb6b",
             "locus-1.1-whats-new-poster.jpg":
@@ -482,16 +489,16 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(hero_video.get("height"), "1080")
         self.assertEqual(
             hero_video.get("src"),
-            "./assets/promo/locus-promo-31s-v2.mp4",
+            "./assets/promo/locus-1.1.1-promo-30s.mp4",
         )
         self.assertEqual(
             hero_video.get("poster"),
-            "./assets/screenshots/virtual-space-desk-wide.jpg",
+            "./assets/screenshots/floating-islands-winter-garden-v111.jpg",
         )
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
         self.assertEqual(
-            parser.links.count("./assets/promo/locus-promo-31s-v2.mp4"),
+            parser.links.count("./assets/promo/locus-1.1.1-promo-30s.mp4"),
             1,
         )
         self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
@@ -520,7 +527,7 @@ class PublicSiteTests(unittest.TestCase):
         # envelope for iPhone browsers. Chrome on iOS uses the platform media
         # stack, so a desktop-playable encode can still fail on a phone when
         # its declared AVC level is unnecessarily high.
-        for movie_name in ["locus-promo-31s-v2.mp4", "locus-1.1-whats-new-33s.mp4"]:
+        for movie_name in ["locus-1.1.1-promo-30s.mp4", "locus-1.1-whats-new-33s.mp4"]:
             with self.subTest(movie=movie_name):
                 movie = (promo_root / movie_name).read_bytes()
                 avcc = movie.index(b"avcC")

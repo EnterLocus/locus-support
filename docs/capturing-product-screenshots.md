@@ -46,3 +46,14 @@ mobile layouts before publishing.
 Simulator captures explain composition and UI. They do not prove physical
 Apple Vision Pro tracking, passthrough, occlusion, presence, performance, or
 comfort.
+
+## September 7, 2026 refresh
+
+The homepage uses the approved Locus 1.1.1 launch screenshots. Original PNGs remain in the versioned launch-media archive; website JPEGs are uncropped 1920 × 1080 exports. Source and derivative hashes are in `assets/README.md`.
+
+- `screenshots/saturn-winter-garden-v111.jpg`
+- `promo/still-01-canyon-v111.jpg`
+- `screenshots/milky-way-winter-garden-v111.jpg`
+- `promo/still-03-browser-v111.jpg`
+- `promo/still-06-room-lights-v111.jpg`
+- `screenshots/floating-islands-winter-garden-v111.jpg`
