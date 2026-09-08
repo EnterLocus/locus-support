@@ -48,7 +48,7 @@ Pro Developer Capture recordings. No ImageGen,
 generative fill, synthetic reflection, relighting, replacement exterior,
 invented UI, or competitor screenshot appears in these files.
 
-`locus-promo-31s-v2.mp4` is the active website cut. It moves the complete
+`locus-promo-31s-v2.mp4` is the previous website cut, retained for existing links. It moves the complete
 eight-second **Your desk, virtually.** section to the opening, followed by the
 original opening, View change, Browser, open-wall, and end-card sections. No
 shot, title, or product pixel was otherwise changed. It is a silent 31-second,
@@ -123,3 +123,19 @@ SHA-256
 These files are Simulator evidence of Locus 1.1 layout and behavior. They are
 not physical Apple Vision Pro validation and not evidence that an App Preview
 video was submitted or approved in App Store Connect.
+
+## Locus 1.1.1 launch media
+
+The active homepage video is `locus-1.1.1-promo-30s.mp4`, copied byte for byte from the approved 1.1.1 1080p promotional master. It is 30 seconds, 1920 × 1080, 30 fps H.264 Level 4.0 with fast-start layout. The 1.1 What’s New video remains its approved original. Previous media URLs remain available.
+
+Six screenshots are 1920 × 1080 Lanczos JPEG web exports of the native 3840 × 2160 PNGs in `Locus Launch Media/v1.1.1/screenshots/`. There is no crop, compositing, or lighting adjustment. Captured in Locus Dev on visionOS Simulator 26.5 from source snapshot `6376a2b6`; these are marketing captures, not physical Vision Pro validation. The video retains its existing physical desk and Room Portal sections.
+
+| Website file | Source SHA-256 | Website SHA-256 |
+| --- | --- | --- |
+| `screenshots/saturn-winter-garden-v111.jpg` | `1eefc1ebd7319decc87714effc469783f39533d1d1c669b8a8b865879c5bfc99` | `c22f2a95cd80a7b0580b70c4286205381617c23805242edfdccebacf565c9a55` |
+| `promo/still-01-canyon-v111.jpg` | `c6bdf118ea9fc65751fd9ee4fb2431ea183c9e80c1934175f139954a786e595f` | `e9293663a186eaaec5a5289f6584176831383e0d9eaa798b7e5b12e0516b9b5c` |
+| `screenshots/milky-way-winter-garden-v111.jpg` | `4d524f68d7f0b64003bec4958dea31cdc8ec0a9359a93073ab5871cfcadc4878` | `5a119ab993deb7945a8bbb1984d971da8c8e080c4017e206c9e23dcb4cf2426a` |
+| `promo/still-03-browser-v111.jpg` | `94ced152f2911f786eea9c3b19f40978387978ccdd04c0204a9799e0e2fc3b30` | `bc68bd8b7f86b4b4badf2ab31c5d69eb2089ca7938c43791852f89360a60148e` |
+| `promo/still-06-room-lights-v111.jpg` | `b1e0e365fba1113f95683becbf42b200d74edde304b544b5cafaa7fa71b3b0ef` | `eba256f879e02c453ec441fdf013e3096053fe66b8e0a06bed7a911cd96ea344` |
+| `screenshots/floating-islands-winter-garden-v111.jpg` | `52859f373754f0177d3f214566309f6575a0b8a7665cbfbf59872a9b517b10c6` | `cc8a547049876800f364d1baaf307dd720d0c5cba6a23bf90283626f12f681bb` |
+| `promo/locus-1.1.1-promo-30s.mp4` | `96f14c7771e288a4f7e7b452971f2740f112e03430e544eb630b97ef9dee14a7` | `96f14c7771e288a4f7e7b452971f2740f112e03430e544eb630b97ef9dee14a7` |
