@@ -1,0 +1,9 @@
+{
+  "name": "locus-support-site",
+  "private": true,
+  "scripts": {
+    "build": "python3 tools/build_site.py && pagefind --site .site",
+    "test:search": "playwright test"
+  },
+  "devDependencies": {"pagefind": "1.5.2", "@playwright/test": "1.58.2"}
+}

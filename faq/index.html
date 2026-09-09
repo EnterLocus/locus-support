@@ -8,37 +8,43 @@
   <meta property="og:title" content="Frequently asked questions — Locus"><meta property="og:description" content="Practical answers about using Locus and bringing your own Views and Rooms."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/faq/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
   <link rel="canonical" href="https://enterlocus.com/faq/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+  <link rel="stylesheet" href="/assets/search.css">
+  <script type="module" src="/assets/search.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
-  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="./">FAQ</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a></nav></header>
-  <main id="main" class="page-main">
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="./">FAQ</a><a href="../create-your-own-place/">Create a Place</a><a href="../support/">Support</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main">
     <header class="page-header faq-header"><h1>FAQ</h1></header>
 
     <section class="faq-list" aria-labelledby="using-heading">
       <h2 id="using-heading">Using Locus</h2>
       <details class="faq-item">
-        <summary>What is the difference between a View and a Room?</summary>
+        <summary><h3 id="what-is-the-difference-between-a-view-and-a-room">What is the difference between a View and a Room?</h3></summary>
         <div class="faq-answer"><p>A <strong>View</strong> is the 360° scenery around a place. A <strong>Room</strong> is its 3D architecture: the floor, walls, windows, desk position, openings, and other geometry you can move within. Locus combines them into an experience.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What is the difference between Virtual Space and Room Portal?</summary>
+        <summary><h3 id="what-is-the-difference-between-virtual-space-and-room-portal">What is the difference between Virtual Space and Room Portal?</h3></summary>
         <div class="faq-answer"><p><strong>Virtual Space</strong> places you inside a 3D Room while keeping your real desk available for work. <strong>Room Portal</strong> keeps your real room present and opens multiple detected walls onto the same View. You can open or close walls individually, or use Open All and Close All. Locus does not currently open the ceiling.</p></div>
       </details>
       <details class="faq-item">
-        <summary>How do I use Locus with Mac Virtual Display?</summary>
+        <summary><h3 id="lying-down">Can I use Locus while lying down?</h3></summary>
+        <div class="faq-answer"><p><strong>Available in Locus Dev TestFlight 1.1.2 (10) and later.</strong></p><p>Yes. In <strong>Settings</strong>, turn on <strong>Viewing position</strong>. A new button will appear in the Virtual Space bar. Tap it to adjust the recline angle up to <strong>90°</strong>, or choose <strong>Reset to upright</strong>.</p><p>This tilts the Room and View together. Move your windows separately to a comfortable position. Real desk alignment is paused while reclined.</p><p>The angle applies to your current session. Turning off Viewing position restores upright and removes the button from the bar.</p></div>
+      </details>
+      <details class="faq-item">
+        <summary><h3 id="how-do-i-use-locus-with-mac-virtual-display">How do I use Locus with Mac Virtual Display?</h3></summary>
         <div class="faq-answer"><p><strong>Open Mac Virtual Display before entering a Locus virtual environment.</strong> If you open Mac Virtual Display after entering the environment, visionOS exits that environment. Connect to your Mac from Control Center first, then enter the Locus place.</p><p>Mac Virtual Display normally does not remain available inside immersive apps. Apple provides a developer setting that can allow it: pair Apple Vision Pro with Xcode, enable <strong>Developer Mode</strong>, restart the headset, then enable <strong>Settings → Developer → Allow Mac Virtual Display</strong>.</p><p>visionOS—not Locus—creates and controls the Mac window. Locus works normally without Developer Mode or Mac Virtual Display. See the <a href="../experimental-mac-virtual-display/">complete Mac Virtual Display guide</a> for requirements and limitations.</p></div>
       </details>
       <details class="faq-item">
-        <summary>Why is the move bar below a window sometimes missing?</summary>
+        <summary><h3 id="why-is-the-move-bar-below-a-window-sometimes-missing">Why is the move bar below a window sometimes missing?</h3></summary>
         <div class="faq-answer"><p>In a Virtual Space, the system move bar below a window may disappear when it is viewed against the surrounding View. The window remains usable, and the move bar still works even when it is not visible.</p><p>Look just below the window, then pinch and drag where the bar normally appears. Moving the window in front of nearby Room furniture can also make the bar easier to see.</p></div>
       </details>
       <details class="faq-item">
-        <summary>Does Locus support passkey sign-in?</summary>
+        <summary><h3 id="does-locus-support-passkey-sign-in">Does Locus support passkey sign-in?</h3></summary>
         <div class="faq-answer"><p>No. Locus lets you open web pages inside your workspace, but it is not a full web browser and does not support passkey sign-in. Use a password or another sign-in method offered by the website.</p><p>If you report a sign-in problem, include the website and what happened, but never include a password, passkey, credential, or recovery code.</p></div>
       </details>
       <details class="faq-item">
-        <summary>Why does a download open outside Locus?</summary>
+        <summary><h3 id="why-does-a-download-open-outside-locus">Why does a download open outside Locus?</h3></summary>
         <div class="faq-answer"><p>Locus Browser is not a general file manager. A compatible 4K, 2:1 JPEG, PNG, or HEIC image can be previewed or saved directly as a View. Other downloads are offered to the system browser or another app when they have a safe public URL; you may need to sign in or start the download again there. Your current Locus environment and tabs remain available when you return.</p></div>
       </details>
     </section>
@@ -46,15 +52,15 @@
     <section class="faq-list" aria-labelledby="new-heading">
       <h2 id="new-heading">New in Locus 1.1</h2>
       <details class="faq-item">
-        <summary>How do I turn on Room Lights?</summary>
+        <summary><h3 id="how-do-i-turn-on-room-lights">How do I turn on Room Lights?</h3></summary>
         <div class="faq-answer"><p>In Virtual Space, open <strong>Controls</strong> and switch on <strong>Room Lights</strong>. The Room's own lamps light up and the space brightens, which matters most with dusk and night Views. Open <strong>Quick Settings</strong> to adjust the controls each light group supports. Available brightness and color-temperature ranges come from the Room; some groups also support full color. Choose <strong>Save for This Room…</strong> to keep your changes for that Room on this device. Until you save, the changes last only for the session.</p><p>Room Lights are available in Rooms that declare their lights, including the built-in Atrium Loft, Courtyard Gallery, and Horizon Atelier. A View can also suggest whether it is a day, dusk, night, or overcast scene so the switch starts in a sensible position.</p></div>
       </details>
       <details class="faq-item">
-        <summary>How do I rename, favorite, tag, and filter my Places?</summary>
+        <summary><h3 id="how-do-i-rename-favorite-tag-and-filter-my-places">How do I rename, favorite, tag, and filter my Places?</h3></summary>
         <div class="faq-answer"><p>Open <strong>Places</strong>. Search Rooms and Views by name, mark any Place as a <strong>Favorite</strong>, and add your own tags. Filter by Favorites, Imported, resolution, or a tag, and sort by Title, Recently Added, or Favorites First. Imported Views can be renamed; built-in Views keep their published names. Renaming, favorites, and tags never change the imported image itself.</p></div>
       </details>
       <details class="faq-item">
-        <summary>How do Browser Favorites and the Start Page work?</summary>
+        <summary><h3 id="how-do-browser-favorites-and-the-start-page-work">How do Browser Favorites and the Start Page work?</h3></summary>
         <div class="faq-answer"><p>By default, a new Locus Browser tab opens on your <strong>Start Page</strong>, which shows your Favorites. Select the <strong>star</strong> in the address bar to add or edit the page you are on, and open <strong>Favorites</strong> from the Browser menu to reorder or remove entries. If you would rather start on one site, set a Home Page under <strong>Settings → Browser Settings</strong>. Favorites and your open tabs are remembered between launches. With a keyboard, <strong>Command-N</strong> opens another Browser window and <strong>Command-Shift-T</strong> reopens the last closed tab. Browser windows open at 1200 × 900; in Browser settings you can keep your last saved size or fix one.</p></div>
       </details>
     </section>
@@ -62,35 +68,35 @@
     <section class="faq-list" aria-labelledby="custom-heading">
       <h2 id="custom-heading">Custom Views and Rooms</h2>
       <details class="faq-item">
-        <summary>How do I use a skybox or panorama I find online?</summary>
+        <summary><h3 id="how-do-i-use-a-skybox-or-panorama-i-find-online">How do I use a skybox or panorama I find online?</h3></summary>
         <div class="faq-answer"><p><strong>Only images at least 4,096 × 2,048 can be used directly.</strong> Open the site in Locus Browser and look for a complete 360° equirectangular JPEG, PNG, or HEIC image with an exact 2:1 ratio. Open the site's Original file or full-resolution image link so the image fills its own Browser tab, then choose <strong>Apply Preview</strong> or <strong>Save as View…</strong>. See the <a href="../online-views/">complete online View guide</a> for search terms, examples, licensing, and troubleshooting. For ready-made examples, browse <a href="https://skies.enterlocus.com/">Locus Skies</a>, an experimental gallery of free AI-generated skies that already meet these requirements.</p></div>
       </details>
       <details class="faq-item">
-        <summary>Why does a 360° image not show the View prompt?</summary>
+        <summary><h3 id="why-does-a-360-image-not-show-the-view-prompt">Why does a 360° image not show the View prompt?</h3></summary>
         <div class="faq-answer"><p>Locus offers the prompt only when the image is the whole Browser tab. Images shown inside a page, thumbnails below 4K, WebGL or canvas viewers, and images the site does not let Locus read never trigger it, and the image may also be the wrong shape or format. Open the Original file or full-resolution JPEG, PNG, or HEIC on its own and confirm that it is at least 4,096 × 2,048 with an exact 2:1 ratio. Images larger than 200 MB open but cannot be applied or saved, and <strong>Apply Preview</strong> is available only while you are inside a Place.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What is the difference between Apply Preview and Save as View?</summary>
+        <summary><h3 id="what-is-the-difference-between-apply-preview-and-save-as-view">What is the difference between Apply Preview and Save as View?</h3></summary>
         <div class="faq-answer"><p><strong>Apply Preview</strong> uses a temporary package for the current app session and does not use an import allowance. <strong>Save as View…</strong> adds the image permanently to your View library, uses an available import, and checks your current import entitlement. The filename is suggested as the saved View name, and you can change it before saving.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What custom files can I import?</summary>
+        <summary><h3 id="what-custom-files-can-i-import">What custom files can I import?</h3></summary>
         <div class="faq-answer"><p>Import a View as one complete 2:1 equirectangular JPEG, PNG, or HEIC image, or as one flat View ZIP. Import a Room as one flat Room ZIP. Files and direct public HTTPS URLs are supported; Photos is also available for View images. See the <a href="../create-your-own-place/">authoring guide</a> for the layouts.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What does a skybox or View image need?</summary>
+        <summary><h3 id="what-does-a-skybox-or-view-image-need">What does a skybox or View image need?</h3></summary>
         <div class="faq-answer"><p>Use one complete 360° equirectangular image in JPEG, PNG, or HEIC format. Its displayed width must be exactly twice its height. Direct image imports, including images opened in Locus Browser, must be at least 4,096 × 2,048. Existing View ZIPs follow the separate ZIP format rules; the 4K image-import minimum does not apply to those packages. A recommended size is 12,288 × 6,144.</p><p>Keep the horizon level. Put the direction you want to face first at the horizontal center of the image; the 360° seam belongs at the far left and right edges. Inspect that seam at full size for jumps in architecture, lighting, sky, or texture before importing. Locus normalizes the image and prepares its preview and Room lighting locally.</p><p>After importing, choose <strong>Edit View</strong> to adjust direction, brightness, contrast, color, Room lighting, and optional sunlight. These settings are saved for that View.</p></div>
       </details>
       <details class="faq-item">
-        <summary>How can I make my own house or Room?</summary>
+        <summary><h3 id="how-can-i-make-my-own-house-or-room">How can I make my own house or Room?</h3></summary>
         <div class="faq-answer"><p>Use your preferred modeling tool and export a self-contained, meter-scale, +Y-up USDZ. Describe its seats, safe head volume, View opening, and optional tabletop, lighting, animation, and rendering controls in a flat Room ZIP. Locus measures the exported model against its resource limits; authors do not need to supply collision or quality JSON fields. The <a href="../reference/locus-asset-format.md#how-locus-uses-a-room">runtime interaction reference</a> explains those internal fields and how Locus uses the Room. Run the public packer and validator before choosing <strong>Import a Room</strong>.</p><p>You can build it by hand, or ask an AI coding agent to run Blender Python in the background, inspect saved renders, and revise the Room. No Blender MCP connection is required. Start with the <a href="../build-a-room/#minimal-room">smallest working Room walkthrough</a>, then check scale, seating, materials, comfort, and performance in Locus.</p><p>Start with the <a href="../create-your-own-place/">Room authoring guide and examples</a>.</p></div>
       </details>
       <details class="faq-item">
-        <summary>How can I import more of my own content?</summary>
+        <summary><h3 id="how-can-i-import-more-of-my-own-content">How can I import more of my own content?</h3></summary>
         <div class="faq-answer"><p>Everyone can use Locus's built-in library and keep one custom View and one custom Room. The one-time <strong>More Imports</strong> unlock gives you unlimited imports of your own Views and Rooms permanently. An active <strong>Supporter</strong> subscription gives you unlimited custom imports and access to the Supporter place packs currently available.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What is the Supporter subscription for?</summary>
+        <summary><h3 id="what-is-the-supporter-subscription-for">What is the Supporter subscription for?</h3></summary>
         <div class="faq-answer"><p>Supporter gives you unlimited custom imports while the subscription is active and access to the Supporter place packs currently available.</p><p>Installed content is not deleted when a subscription ends. New imports above the included allowance and re-downloading a removed Supporter pack require active access. If you only want unlimited imports of your own Views and Rooms, choose the one-time <strong>More Imports</strong> option. Prices and purchase terms appear in Locus before you buy.</p></div>
       </details>
     </section>
@@ -98,11 +104,11 @@
     <section class="faq-list" aria-labelledby="privacy-heading">
       <h2 id="privacy-heading">Privacy and support</h2>
       <details class="faq-item">
-        <summary>Where do my browsing and imported-place data go?</summary>
+        <summary><h3 id="where-do-my-browsing-and-imported-place-data-go">Where do my browsing and imported-place data go?</h3></summary>
         <div class="faq-answer"><p>Locus uses your room information on Apple Vision Pro and does not upload it. Imported Places are stored in Locus on the device. Websites may save cookies and other data in the Locus browser; you can clear your history and website data in Settings. Supporter downloads send Apple-signed purchase information to the Locus Library service for subscription verification with Apple. A derived transaction identifier is used for download rate limiting, not advertising or tracking. Read the <a href="../privacy/">privacy notice</a> for details.</p></div>
       </details>
       <details class="faq-item">
-        <summary>What should I include in a support report?</summary>
+        <summary><h3 id="what-should-i-include-in-a-support-report">What should I include in a support report?</h3></summary>
         <div class="faq-answer"><p>Copy the version details from <strong>Settings → About Locus</strong>, add your visionOS version, and say what you expected, what happened, and the shortest steps that make it happen again. Do not put room images, credentials, recovery codes, receipts, order details, account information, notifications, or device identifiers in a public issue. Use <a href="../support/">Support</a> to choose a public or private route.</p></div>
       </details>
     </section>
