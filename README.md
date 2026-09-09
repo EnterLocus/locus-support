@@ -50,3 +50,20 @@ A reproducible one-seat walkthrough is available in the [Room integration guide]
 
 [Community](https://github.com/EnterLocus/locus-support/discussions) — Share
 creations, ask questions, and discover environments made by other Locus users.
+
+## Static search and local preview
+
+Run `npm ci` and `npm run build`, then
+`python3 -m http.server 4186 --directory .site`. Pagefind generates a same-origin
+search index from each public page's `data-pagefind-body`. GitHub Pages deploys
+`.site/`, including the index. Dependencies and local evidence are excluded.
+
+Search supports Command/Ctrl-K and Escape. FAQ questions have stable heading
+IDs; links to them open the matching answer. Keep existing IDs when editing
+question wording. Add the shared search assets and indexed main element when
+adding a public page.
+
+After building, run `npx playwright install chromium` and `npm run test:search`.
+Browser tests serve the real built site and cover desktop/mobile results, FAQ
+links, keyboard focus, empty queries and unavailable search assets. The full
+Python suite runs on macOS with Xcode and `usd-core` for Room binding tests.
