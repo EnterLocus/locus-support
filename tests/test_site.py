@@ -86,7 +86,9 @@ class PageParser(html.parser.HTMLParser):
 
 
 def html_files():
-    return sorted(ROOT.glob("**/*.html"))
+    return sorted(path for path in ROOT.glob("**/*.html")
+                  if not any(part in {"node_modules", ".site", ".scratch", "test-results", "playwright-report"}
+                             for part in path.relative_to(ROOT).parts))
 
 
 def solid_png(width, height=1):
