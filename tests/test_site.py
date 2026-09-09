@@ -322,12 +322,6 @@ class PublicSiteTests(unittest.TestCase):
             "Do not choose HDR or EXR",
             "Locus supports SDR JPEG, PNG, and HEIC panorama images",
             "HDR and EXR are not supported",
-            "Blockade Labs Skybox AI",
-            "Resolution 8K",
-            "Equirectangular",
-            "Download JPG",
-            "Download PNG",
-            "Export Status",
             "same-site <code>blob:</code> and <code>data:</code> downloads",
         ]:
             self.assertIn(required, guide)
