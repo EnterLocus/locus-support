@@ -20,6 +20,6 @@ class SearchSiteTests(unittest.TestCase):
         self.assertEqual(len(questions), html.count('<summary>'))
         self.assertEqual(len(questions), len(set(questions)))
         self.assertIn('lying-down', questions)
-        for text in ['Locus Dev TestFlight 1.1.2 (10)', 'Viewing position', '90°',
+        for text in ['Locus 1.1.2 or later', 'Viewing position', '90°',
                      'Reset to upright', 'Real desk alignment is paused', 'current session']:
             self.assertIn(text, html)
