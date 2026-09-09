@@ -13,7 +13,7 @@ test('searches FAQ answers and guides, opens answers, and supports keyboard dism
   await answer.click();
   await expect(page).toHaveURL(/\/faq\/#lying-down$/);
   await expect(page.locator('details').filter({ hasText: 'Can I use Locus while lying down?' })).toHaveAttribute('open', '');
-  await expect(page.getByText('Available in Locus Dev TestFlight 1.1.2 (10) and later.')).toBeVisible();
+  await expect(page.getByText('Available in Locus 1.1.2 or later.')).toBeVisible();
   await page.screenshot({ path: '.scratch/faq-desktop.png' });
   await page.keyboard.press('Control+k');
   await search.fill('Original file');
