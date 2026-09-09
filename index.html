@@ -21,6 +21,8 @@
   <link rel="icon" type="image/png" href="./assets/favicon.png">
   <link rel="apple-touch-icon" href="./assets/apple-touch-icon.png">
   <link rel="stylesheet" href="./assets/site.css">
+  <link rel="stylesheet" href="/assets/search.css">
+  <script type="module" src="/assets/search.js"></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -34,10 +36,10 @@
       <a href="./create-your-own-place/">Create a Place</a>
       <a href="./support/">Support</a>
       <a href="https://github.com/EnterLocus/locus-support/discussions">Community</a>
-    </nav>
+    <button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav>
   </header>
 
-  <main id="main">
+  <main data-pagefind-body id="main">
     <section class="hero">
       <div class="hero-content">
         <div class="eyebrow">Apple Vision Pro</div>
