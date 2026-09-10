@@ -1,7 +1,8 @@
 # Capturing product screenshots
 
-The home page uses four 16:9 web exports from the approved Locus 1.0 launch
-media. Each image answers a different first-time visitor question:
+The home page uses four 16:9 web exports. Three remain from the approved Locus
+1.0 launch media; `place-picker.jpg` now follows the current Places layout.
+Each image answers a different first-time visitor question:
 
 1. `virtual-space-desk-wide.jpg` — what working inside a Room feels like;
 2. `place-picker.jpg` — how a visitor combines a Room and a View;
@@ -57,3 +58,24 @@ The homepage uses the approved Locus 1.1.1 launch screenshots. Original PNGs rem
 - `promo/still-03-browser-v111.jpg`
 - `promo/still-06-room-lights-v111.jpg`
 - `screenshots/floating-islands-winter-garden-v111.jpg`
+
+## September 10, 2026 tutorial refresh
+
+The first-place and customization tutorials use three current 1920 x 1080 web
+exports captured from Locus Dev source `d85c48fc` on visionOS Simulator 26.5:
+
+- `screenshots/place-picker.jpg` — current Places, Room cards, View cards, and
+  the Locus bar;
+- `screenshots/snowbound-before.jpg` — Snowbound Forest Paths at its published
+  direction with Add Sunlight off; and
+- `screenshots/snowbound-turn-view-sunlight.jpg` — the same seat and View after
+  Turn view +35° and Add Sunlight at the default 5,000 lux.
+
+The Locus bar close-up is a responsive CSS crop of
+`screenshots/snowbound-before.jpg`, not a separately edited bitmap. The icon
+key below it is accessible HTML and inline SVG so labels remain readable at
+desktop and mobile sizes.
+
+The private source used a DEBUG-only launch fixture to stage the same session
+values as Quick Settings. That fixture was removed after capture. Source and
+web hashes are recorded in `assets/README.md`.

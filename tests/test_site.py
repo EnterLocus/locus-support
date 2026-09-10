@@ -258,7 +258,8 @@ class PublicSiteTests(unittest.TestCase):
             "first-place": [
                 "Choose a View and Room", "Virtual Space", "Room Portal",
                 "Know the Locus bar", "New Browser", "Why did the virtual desk turn transparent?",
-                "Return to Places from Browser", "Customize your Place",
+                "Virtual Space buttons, left to right", "Return to Places from Browser",
+                "Customize your Place",
             ],
             "online-views": ["Apply Preview", "Save as View…", "4,096 × 2,048"],
             "recline": ["Expand Viewing position", "Recline angle", "Reset to upright"],
@@ -266,6 +267,7 @@ class PublicSiteTests(unittest.TestCase):
             "tune-your-place": [
                 "Customize your Place", "Controls and Quick Settings",
                 "Sky brightness", "Ambient light", "Turn view",
+                "Snowbound Forest Paths", "Add Sunlight", "Turn view +35°",
                 "Save for This View…", "Save for This Room…", "Organize Places", "Edit View",
             ],
             "make-a-view": ["Import a View", "View ZIP", "initialYawDegrees"],
@@ -450,7 +452,11 @@ class PublicSiteTests(unittest.TestCase):
             "imports-virtual-space.jpg":
                 "4195481daae7b2fa03da26a779abe15ccd900f1c98f66f74656050da488113cc",
             "place-picker.jpg":
-                "fdb4556a77c82b924b001d2212dc7459db787bfb08e8ae22113453623e52d4ee",
+                "15049a2e73ec0dd65c2963425919cd45c00b5791d246c5f0ac9b8b1338534dc0",
+            "snowbound-before.jpg":
+                "e71574054fecc85d6c5b6b4fbaafb17fa762ea46c0d5d622653537a6895c56e1",
+            "snowbound-turn-view-sunlight.jpg":
+                "02a377f22ebf8ee221adf271736db5f062a050f75a38bf49023f779cc0bec28b",
             "virtual-space-desk-wide.jpg":
                 "204fad0f6d3b5a977268cc4365a4e74db32ed8c3695be09ed988a8dc9187726c",
             "virtual-space-room-turn.jpg":
