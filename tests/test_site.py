@@ -255,11 +255,19 @@ class PublicSiteTests(unittest.TestCase):
         hub = (ROOT / "tutorials" / "index.html").read_text()
         sitemap = (ROOT / "sitemap.xml").read_text()
         tutorials = {
-            "first-place": ["Choose a View and Room", "Virtual Space", "Room Portal"],
+            "first-place": [
+                "Choose a View and Room", "Virtual Space", "Room Portal",
+                "Know the Locus bar", "New Browser", "Why did the virtual desk turn transparent?",
+                "Return to Places from Browser", "Customize your Place",
+            ],
             "online-views": ["Apply Preview", "Save as View…", "4,096 × 2,048"],
             "recline": ["Expand Viewing position", "Recline angle", "Reset to upright"],
             "experimental-mac-virtual-display": ["Open Mac Virtual Display first", "Allow Mac Virtual Display"],
-            "tune-your-place": ["Room Lights", "Organize Places", "Edit View"],
+            "tune-your-place": [
+                "Customize your Place", "Controls and Quick Settings",
+                "Sky brightness", "Ambient light", "Turn view",
+                "Save for This View…", "Save for This Room…", "Organize Places", "Edit View",
+            ],
             "make-a-view": ["Import a View", "View ZIP", "initialYawDegrees"],
             "make-a-room": ["smallest working Room", "five files", "Apple Vision Pro"],
             "github-pages-skyboxes": ["GitHub Pages", "image itself", "Save as View…"],
@@ -283,6 +291,12 @@ class PublicSiteTests(unittest.TestCase):
             "experimental-room-animations",
         ]:
             self.assertIn(f'href="../{existing_guide}/"', hub)
+
+        self.assertGreater(
+            hub.index('href="../recline/"'),
+            hub.index('id="make-heading"'),
+            "the lying-down guide is a special setup, not part of the primary start path",
+        )
 
         github_pages = (ROOT / "github-pages-skyboxes" / "index.html").read_text()
         for required in ["25 MiB", "100 MiB", "Git LFS does not work", "public"]:
