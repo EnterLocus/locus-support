@@ -30,6 +30,7 @@ a { color: inherit; text-underline-offset: .25em; }
 .site-header nav, footer nav { display: flex; align-items: center; gap: 1.5rem; }
 .site-header nav a, footer a { color: var(--muted); text-decoration: none; font-size: .92rem; }
 .site-header nav a:hover, .site-header nav a:focus-visible, footer a:hover, footer a:focus-visible { color: var(--ink); }
+.site-header nav a[aria-current="page"] { color: var(--ink); }
 
 main { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; }
 .hero { min-height: 620px; display: grid; grid-template-columns: minmax(0, .9fr) minmax(460px, 1.1fr); gap: clamp(2rem, 5vw, 4.5rem); align-items: center; padding: 5.5rem 0 7rem; }
