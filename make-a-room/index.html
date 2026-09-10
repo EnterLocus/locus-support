@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d141a">
+  <title>Make your own Room — Locus Tutorial</title>
+  <meta name="description" content="Build a basic Locus Room with Blender and the public tools, then add production seats, surfaces, materials, lights, and rendering controls.">
+  <meta property="og:title" content="Make your own Room — Locus Tutorial"><meta property="og:description" content="Start with the smallest working Room, then follow the advanced authoring path."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/make-a-room/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/make-a-room/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+  <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main tutorial-page">
+    <header class="page-header"><p class="kicker">Basics to advanced · 30+ minutes</p><h1>Make your own Room.</h1><p>A Room is a self-contained 3D space with at least one place to sit. Build and review it in your preferred 3D tool, then connect the finished USDZ to Locus with four small companion files.</p></header>
+
+    <nav class="tutorial-toc" aria-label="On this page"><strong>Choose your path</strong><a href="#basic">Basic: build the sample</a><a href="#five-files">Understand the five files</a><a href="#advanced">Advanced: author your own</a></nav>
+
+    <section class="doc-section" id="basic"><p class="lesson-label">Basic</p><h2>Build the smallest working Room</h2><p>The public minimal Room builder starts from an empty Blender scene. It creates one desk, one calibrated seat, two walls, a roof, a controlled pendant light, a thumbnail, and seated review images.</p><div class="callout"><strong>You need:</strong> macOS, Blender 5.2, Python 3, and a local copy of the public <a href="https://github.com/EnterLocus/locus-support">Locus support repository</a>. The builder runs Blender in the background; no Blender MCP connection is required.</div><ol class="step-list"><li><strong>Run the minimal Room builder.</strong> Choose a new output folder. The builder refuses to overwrite an existing one.</li><li><strong>Inspect every image in review/.</strong> Check the desk height, eye position, clearance, direction, materials, and light from the actual seat.</li><li><strong>Pack and validate the Room.</strong> The public tools create one flat ZIP and check its files, metadata, model, and limits.</li><li><strong>Import the exact ZIP.</strong> In Locus, choose <strong>Library → Import Your Own → Import a Room → Files</strong>.</li><li><strong>Try the seat on Apple Vision Pro.</strong> Pair the Room with a View, enter Virtual Space, sit at Reading Desk, and test Room Lights.</li></ol><pre><code>blender --background --factory-startup --python-exit-code 1 \
+  --python tools/build_minimal_room.py -- \
+  --output /absolute/path/to/minimal-reading-room
+
+python3 tools/pack_locus_asset.py \
+  /absolute/path/to/minimal-reading-room/room \
+  /absolute/path/to/minimal-reading-room.zip
+
+python3 tools/validate_locus_asset.py \
+  /absolute/path/to/minimal-reading-room.zip</code></pre><p>Use the absolute path to Blender if the <code>blender</code> command is not available in Terminal.</p></section>
+
+    <section class="doc-section" id="five-files"><p class="lesson-label">The contract</p><h2>Understand the five files</h2><pre><code>my-room.zip
+├── space.json
+├── provenance.json
+├── teleport-points.json
+├── scene.usdz
+└── thumbnail.jpg</code></pre><ul class="check-list"><li><strong>scene.usdz</strong> contains the self-contained, meter-scale, +Y-up Room.</li><li><strong>space.json</strong> names the Room and connects optional openings, surfaces, lights, rendering roles, and animations.</li><li><strong>teleport-points.json</strong> gives Locus at least one usable eye position and facing direction.</li><li><strong>provenance.json</strong> records creator, rights, requested credit, changes, and AI use truthfully.</li><li><strong>thumbnail.jpg</strong> shows the Room in Places. Locus does not create it for you.</li></ul><div class="callout warning"><strong>Keep the ZIP flat.</strong> Put all five files at its root. Do not include a parent folder, Blender file, source textures, GLB, caches, or review images.</div></section>
+
+    <section class="doc-section" id="advanced"><p class="lesson-label">Advanced</p><h2>Turn your architecture into a production Room</h2><ol class="step-list"><li><strong>Design around use.</strong> Give every official seat a usable table or counter surface, comfortable clearance, and a deliberate sightline.</li><li><strong>Work in meters and export +Y up.</strong> Locus uses world -Z as forward. Keep every metadata-referenced entity name stable and unique.</li><li><strong>Declare openings and seats.</strong> Model windows and openings in the geometry; metadata describes how the finished Room connects to the selected View.</li><li><strong>Add only the controls the Room needs.</strong> Optional metadata can map tabletops, visitor-controlled lights, softened View reflections, UI fade permissions, and experimental ambient animations.</li><li><strong>Fix source problems in the source.</strong> Correct geometry, UVs, materials, textures, scale, and light direction in the editable asset, then export again.</li><li><strong>Validate and test every declared seat.</strong> A valid ZIP can still feel too large, cramped, blocked, or uncomfortable. Final placement and comfort checks require Apple Vision Pro.</li></ol><div class="link-grid"><a class="link-card" href="../build-a-room/"><strong>Advanced Room integration guide</strong><span>Seats, openings, surfaces, lighting, rendering controls, animation, validation, and device checks.</span></a><a class="link-card" href="https://github.com/EnterLocus/locus-support/tree/main/.agents/skills/build-original-locus-room"><strong>Optional AI Room-building skill</strong><span>Give a coding agent the contract, design language, Blender workflow, and delivery checks.</span></a><a class="link-card" href="../create-your-own-place/"><strong>Room and View ZIP reference</strong><span>Supported imports, examples, provenance, and packaging.</span></a><a class="link-card" href="../reference/locus-asset-format.md"><strong>Complete format reference</strong><span>Exact fields, coordinates, defaults, limits, and migrations.</span></a></div></section>
+
+    <nav class="tutorial-pagination" aria-label="Tutorial navigation"><a href="../make-a-view/"><span>Previous</span><strong>Make your own View</strong></a><a href="../tutorials/"><span>All tutorials</span><strong>Back to the tutorial hub</strong></a></nav>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>
