@@ -21,12 +21,13 @@ downloaded August 30, 2026. It links to the canonical Locus product page at
 [App Store marketing guidelines](https://developer.apple.com/app-store/marketing/guidelines/).
 SHA-256: `a26fc5b38380272c92e9019a2eb8b45542a66814b3e2b203772db8904b9fb99f`.
 
-The four JPEG files in `screenshots/` are 1920 x 1080 web exports of the
-3840 x 2160 simulator masters approved as Locus 1.0 launch media. They contain
-only Locus UI and built-in content:
+The original four JPEG files in `screenshots/` are 1920 x 1080 web exports of
+3840 x 2160 Simulator masters. Three remain from the approved Locus 1.0 launch
+media; `place-picker.jpg` was refreshed on September 10, 2026 for the current
+Places layout. They contain only Locus UI and built-in content:
 
 - `place-picker.jpg` from master SHA-256
-  `909e0a31bd2b1d1c4a70e9b4df27388d46c56b1595ddaea62c668bcff7d22b1a`;
+  `8b34e3f9840fc111e14f70c9130c16ca4f9c8c5e41d14354d47c46c6c90a5c78`;
 - `virtual-space-desk-wide.jpg` from master SHA-256
   `dcebf5db181f1b66e64ad2d1056d3f38a7dd9791314b1bcacf75a249e17ea5cb`;
 - `virtual-space-room-turn.jpg` from master SHA-256
@@ -37,6 +38,30 @@ only Locus UI and built-in content:
 These images are visual records of app layout and deterministic simulator
 states. They are not evidence for physical room tracking, passthrough,
 occlusion, presence, performance, or comfort on Apple Vision Pro.
+
+## September 10, 2026 tutorial UI refresh
+
+The current tutorial screenshots were captured at 3840 x 2160 in Locus Dev on
+visionOS Simulator 26.5 from private Locus source commit `d85c48fc`. The app
+loaded the published `space.atrium-loft` and
+`destination.snowbound-forest-paths` packages. Website files are uncropped
+1920 x 1080 JPEG exports made with `sips` at quality 90; there is no
+compositing, generative fill, or image relighting.
+
+The after frame uses the same runtime settings as Quick Settings: a +35° View
+direction offset and Add Sunlight enabled at the product's default 5,000 lux.
+A DEBUG-only launch fixture staged those session values so the two captures do
+not depend on unreliable Simulator pointer input. It did not alter the
+panorama, Room, or production UI and is not part of this public repository.
+
+| Website file | Source PNG SHA-256 | Website SHA-256 |
+| --- | --- | --- |
+| `screenshots/place-picker.jpg` | `8b34e3f9840fc111e14f70c9130c16ca4f9c8c5e41d14354d47c46c6c90a5c78` | `15049a2e73ec0dd65c2963425919cd45c00b5791d246c5f0ac9b8b1338534dc0` |
+| `screenshots/snowbound-before.jpg` | `d6b987a1b3fd0aecb2824aacd8332ca78e68aaf6bbb8104cb7a76927ae6b85c1` | `e71574054fecc85d6c5b6b4fbaafb17fa762ea46c0d5d622653537a6895c56e1` |
+| `screenshots/snowbound-turn-view-sunlight.jpg` | `bb6efc69c3cdcdd3fde1bca90d53666b644f72af493dc968f78f075f4ae24192` | `02a377f22ebf8ee221adf271736db5f062a050f75a38bf49023f779cc0bec28b` |
+
+These are Simulator illustrations of current layout and settings behavior, not
+physical Apple Vision Pro validation of placement, lighting, or comfort.
 
 ## Promotional website media
 
