@@ -35,19 +35,19 @@ each demo are licensed under CC BY 4.0. Credit the relevant work as
 Embedded Poly Haven texture maps retain CC0 1.0. Exact authors, sources, and
 scope are listed at <https://enterlocus.com/asset-rights/#demo-room-notices>.
 
-## Experimental animation demo
+## Animated free Room sample
 
 | File | Display name | Format | Seats | SHA-256 |
 | --- | --- | ---: | ---: | --- |
-| `coffee-atrium-experimental-room.zip` | Coffee Atrium POC | 4 | 2 | `c83b3be2f5d29737e418f898fb442b8ded61488b4f32b613195dc0ecab27d42d` |
+| `cloud-fan-pavilion.locusplace` | Cloud Fan Pavilion | Locus Place 1 | 1 | `db170fb09c6cd71a76e850524da1395c7f47b2490fa0c90933fb6f10b2683f2b` |
 
-This Room demonstrates experimental USDZ animation playback: a seated coffee
-gesture with an 8–20 second random replay interval and a continuously turning
-ceiling fan. All animation metadata, playback controls, speed, and interval
-behavior in this demo are experimental and may change.
+This free Library Room demonstrates experimental USDZ animation playback. Its
+broad-leaf Plant Breeze repeats immediately with a 0–0 second interval and can
+run from half speed to one-and-a-half speed. Animation metadata, playback
+controls, speed, and interval behavior are experimental and may change.
 
-The ZIP carries a reserved-rights statement for its Locus-authored parts. It
-may be used with the official Locus app for this demonstration but is not
+The Locus Place carries a reserved-rights statement for its Locus-authored
+parts. It may be used with the official Locus app but is not
 licensed for redistribution or reuse elsewhere. Embedded Poly Haven textures
 remain CC0 1.0. See the
 [complete rights and component notices](https://enterlocus.com/asset-rights/#experimental-animation-demo-notices).

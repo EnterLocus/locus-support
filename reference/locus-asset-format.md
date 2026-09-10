@@ -274,24 +274,13 @@ A Room whose USDZ contains independently playable environment animation uses
 ```json
 "ambientAnimations": [
   {
-    "id": "coffee-break",
-    "displayName": "Coffee Break",
-    "entityName": "Ambient_CoffeeActor",
+    "id": "plant-breeze",
+    "displayName": "Plant Breeze",
+    "entityName": "Ambient_CloudFan_Breeze",
     "animationName": "default subtree animation",
     "isEnabledByDefault": true,
     "defaultSpeed": 1,
     "speedRange": [0.5, 1.5],
-    "defaultIntervalRangeSeconds": [8, 20],
-    "intervalRangeSeconds": [0, 60]
-  },
-  {
-    "id": "ceiling-fan",
-    "displayName": "Ceiling Fan",
-    "entityName": "Ambient_CeilingFan",
-    "animationName": "default subtree animation",
-    "isEnabledByDefault": true,
-    "defaultSpeed": 1,
-    "speedRange": [0.25, 1.5],
     "defaultIntervalRangeSeconds": [0, 0],
     "intervalRangeSeconds": [0, 60]
   }
