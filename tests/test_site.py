@@ -251,6 +251,50 @@ class PublicSiteTests(unittest.TestCase):
         self.assertNotIn("not yet available", homepage)
         self.assertNotIn("not currently available for purchase", homepage)
 
+    def test_tutorial_hub_covers_the_core_learning_paths(self):
+        hub = (ROOT / "tutorials" / "index.html").read_text()
+        sitemap = (ROOT / "sitemap.xml").read_text()
+        tutorials = {
+            "first-place": ["Choose a View and Room", "Virtual Space", "Room Portal"],
+            "online-views": ["Apply Preview", "Save as View…", "4,096 × 2,048"],
+            "recline": ["Expand Viewing position", "Recline angle", "Reset to upright"],
+            "experimental-mac-virtual-display": ["Open Mac Virtual Display first", "Allow Mac Virtual Display"],
+            "tune-your-place": ["Room Lights", "Organize Places", "Edit View"],
+            "make-a-view": ["Import a View", "View ZIP", "initialYawDegrees"],
+            "make-a-room": ["smallest working Room", "five files", "Apple Vision Pro"],
+            "github-pages-skyboxes": ["GitHub Pages", "image itself", "Save as View…"],
+        }
+
+        for slug, required_phrases in tutorials.items():
+            with self.subTest(slug=slug):
+                page = ROOT / slug / "index.html"
+                self.assertTrue(page.is_file())
+                self.assertIn(f'href="../{slug}/"', hub)
+                self.assertIn(f"https://enterlocus.com/{slug}/", sitemap)
+                text = page.read_text()
+                for phrase in required_phrases:
+                    self.assertIn(phrase, text)
+
+        for existing_guide in [
+            "create-your-own-place",
+            "build-a-room",
+            "package-format",
+            "asset-rights",
+            "experimental-room-animations",
+        ]:
+            self.assertIn(f'href="../{existing_guide}/"', hub)
+
+        github_pages = (ROOT / "github-pages-skyboxes" / "index.html").read_text()
+        for required in ["25 MiB", "100 MiB", "Git LFS does not work", "public"]:
+            self.assertIn(required, github_pages)
+        faq = (ROOT / "faq" / "index.html").read_text()
+        self.assertIn('href="../recline/"', faq)
+        self.assertIn('href="../github-pages-skyboxes/"', faq)
+        self.assertIn('href="../make-a-view/"', faq)
+        self.assertIn('href="../make-a-room/"', faq)
+        self.assertNotIn("A new button will appear", faq)
+        self.assertNotIn("Turning off Viewing position", faq)
+
     def test_online_view_guide_leads_with_the_direct_use_resolution_gate(self):
         guide_path = ROOT / "online-views" / "index.html"
         self.assertTrue(guide_path.is_file())

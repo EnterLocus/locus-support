@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d141a">
+  <title>Publish a skybox site with GitHub Pages — Locus Tutorial</title>
+  <meta name="description" content="Publish compatible panorama images on a free github.io site, then open, preview, and save them from Locus Browser.">
+  <meta property="og:title" content="Publish a skybox site with GitHub Pages — Locus Tutorial"><meta property="og:description" content="Make a simple public shelf for your panoramas and open each full image in Locus Browser."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/github-pages-skyboxes/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/github-pages-skyboxes/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+  <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main tutorial-page">
+    <header class="page-header"><p class="kicker">Intermediate · 15 minutes</p><h1>Publish your own skybox shelf.</h1><p>GitHub Pages can turn a repository into a simple public website at github.io. Put compatible panoramas there, link to each full image, then open the site in Locus Browser whenever you want to preview or save one.</p></header>
+
+    <div class="callout warning"><strong>Your site and images will be public.</strong> Do not upload private room photos, personal information, location details, or an image you do not have permission to publish.</div>
+
+    <section class="doc-section"><h2>Before you begin</h2><ul class="check-list"><li>A GitHub account.</li><li>One or more SDR JPEG, PNG, or HEIC panoramas.</li><li>Each panorama must be exactly 2:1 and at least 4,096 × 2,048 pixels for direct use in Locus Browser.</li><li>A clear filename with no spaces is easiest, such as <code>aurora-lake.jpg</code>.</li></ul><p>GitHub's web uploader accepts files up to 25 MiB. Larger files can be added with GitHub Desktop or Git, but regular GitHub repositories block files above 100 MiB, and Git LFS does not work with GitHub Pages. See <a href="https://docs.github.com/en/repositories/working-with-files/managing-large-files/about-large-files-on-github">GitHub's current file limits</a>.</p></section>
+
+    <section class="doc-section"><p class="lesson-label">1 · Create</p><h2>Make the repository</h2><ol class="step-list"><li><strong>Create a new repository on GitHub.</strong> A name such as <code>my-locus-skies</code> is easy to recognize.</li><li><strong>Choose Public</strong> if you use GitHub Free, then add a README.</li><li><strong>Upload your panorama files.</strong> Use <strong>Add file → Upload files</strong>. Commit the upload to the <code>main</code> branch.</li></ol><p>A project site will use an address like <code>https://YOUR-NAME.github.io/my-locus-skies/</code>. If you instead name the repository <code>YOUR-NAME.github.io</code>, it becomes your one account-level site at <code>https://YOUR-NAME.github.io/</code>. GitHub explains both choices in <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages">What is GitHub Pages?</a></p></section>
+
+    <section class="doc-section"><p class="lesson-label">2 · Add a page</p><h2>Link to the full images</h2><p>Choose <strong>Add file → Create new file</strong>, name it <code>index.html</code>, and paste this starter. Replace the filenames and titles with your own, then commit the file.</p><pre><code>&lt;!doctype html&gt;
+&lt;html lang="en"&gt;
+&lt;meta charset="utf-8"&gt;
+&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;
+&lt;title&gt;My Locus Skies&lt;/title&gt;
+&lt;style&gt;
+  body { max-width: 44rem; margin: 4rem auto; padding: 0 1rem;
+         font: 18px/1.6 system-ui; color: #eef6f8; background: #0d141a; }
+  a { display: block; margin: 1rem 0; padding: 1rem;
+      color: #b8dcea; border: 1px solid #33434c; border-radius: 12px; }
+&lt;/style&gt;
+&lt;h1&gt;My Locus Skies&lt;/h1&gt;
+&lt;p&gt;Open a full image in Locus Browser to preview or save it as a View.&lt;/p&gt;
+&lt;a href="aurora-lake.jpg"&gt;Open Aurora Lake&lt;/a&gt;
+&lt;a href="desert-sunrise.jpg"&gt;Open Desert Sunrise&lt;/a&gt;
+&lt;/html&gt;</code></pre><div class="callout"><strong>The link must open the image itself.</strong> Locus offers View actions only when the complete panorama fills its own Browser tab. An image embedded inside the webpage is not enough.</div></section>
+
+    <section class="doc-section"><p class="lesson-label">3 · Publish</p><h2>Turn on GitHub Pages</h2><ol class="step-list"><li><strong>Open the repository's Settings.</strong></li><li><strong>Choose Pages.</strong></li><li><strong>Under Build and deployment, publish from a branch.</strong> Choose <code>main</code> and the repository root, then save.</li><li><strong>Wait for GitHub to show the site address.</strong> Open it and test every panorama link.</li></ol><p>GitHub Pages sites are public on the internet. GitHub's <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site">site creation guide</a> and <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site">publishing-source guide</a> show the current controls.</p></section>
+
+    <section class="doc-section"><p class="lesson-label">4 · Use in Locus</p><h2>Preview or save any compatible sky</h2><ol class="step-list"><li><strong>Open your github.io site in Locus Browser.</strong></li><li><strong>Choose one of your Open links.</strong> The full panorama should fill the tab.</li><li><strong>Choose Apply Preview</strong> to try it in the current Place for this app session without using an import.</li><li><strong>Choose Save as View…</strong> to add it permanently to Places and apply it immediately.</li></ol><p>If the prompt does not appear, confirm that the page shows only the image, the file is JPEG, PNG, or HEIC, and its displayed dimensions are at least 4,096 × 2,048 with an exact 2:1 ratio. The <a href="../online-views/#view-prompt-help">online View guide</a> has the complete checklist.</p></section>
+
+    <section class="doc-section"><p class="lesson-label">Advanced</p><h2>Keep the shelf useful</h2><ul><li>Add a short rights or credit line beside every sky.</li><li>Use smaller thumbnail files on the index page if you want previews; keep each full-resolution image behind its own link.</li><li>Choose <strong>Enforce HTTPS</strong> in Pages settings so Locus always receives a secure public URL.</li><li>If you add a custom domain, configure it in GitHub before changing DNS and verify the domain to reduce takeover risk. Follow <a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site">GitHub's custom-domain guide</a>.</li><li>Stay within <a href="https://docs.github.com/en/pages/getting-started-with-github-pages/github-pages-limits">GitHub Pages limits</a>; a large public panorama collection may need dedicated object storage instead.</li></ul></section>
+
+    <nav class="tutorial-pagination" aria-label="Tutorial navigation"><a href="../online-views/"><span>Related</span><strong>Apply panoramas from the web</strong></a><a href="../tutorials/"><span>All tutorials</span><strong>Back to Tutorials</strong></a></nav>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>
