@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d141a">
+  <title>Make your own View — Locus Tutorial</title>
+  <meta name="description" content="Make a Locus View from a 2:1 panorama, then improve its seam, direction, appearance, lighting, and optional View ZIP.">
+  <meta property="og:title" content="Make your own View — Locus Tutorial"><meta property="og:description" content="Start with one panorama, then refine how it looks and lights a Room in Locus."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/make-a-view/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/make-a-view/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+  <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main tutorial-page">
+    <header class="page-header"><p class="kicker">Basics to advanced · 15 minutes</p><h1>Make your own View.</h1><p>Start with one complete panorama. Locus can turn it into the scenery around any Room, then save your direction and appearance adjustments with that View.</p></header>
+
+    <nav class="tutorial-toc" aria-label="On this page"><strong>Choose your path</strong><a href="#basic">Basic: import an image</a><a href="#prepare">Prepare a better panorama</a><a href="#advanced">Advanced: package a View</a></nav>
+
+    <section class="doc-section" id="basic"><p class="lesson-label">Basic</p><h2>Import one panorama</h2><div class="callout"><strong>Your image must be complete and 2:1.</strong> Use a JPEG, PNG, or HEIC that is at least 4,096 × 2,048 pixels. A recommended size is 12,288 × 6,144.</div><ol class="step-list"><li><strong>Open Library, then Import Your Own.</strong></li><li><strong>Choose Import a View.</strong> Pick Photos, Files, or URL.</li><li><strong>Select the panorama.</strong> For URL, paste a direct public HTTPS image link rather than a webpage.</li><li><strong>Wait while Locus prepares it.</strong> Locus creates the images it needs for preview and Room lighting on your device.</li><li><strong>Open it in Places.</strong> Pair the new View with any Room, then choose Enter.</li></ol><p>If the panorama is already online, the faster route is <a href="../online-views/">Apply a panorama from Locus Browser</a>. You can try it without using an import first.</p></section>
+
+    <section class="doc-section" id="prepare"><p class="lesson-label">Better results</p><h2>Prepare the image before importing</h2><ul class="check-list"><li><strong>Level the horizon.</strong> A tilted horizon will feel like the whole world is leaning.</li><li><strong>Put the first view in the center.</strong> The direction you want to face first belongs at the horizontal center of the image.</li><li><strong>Inspect the seam at full size.</strong> The left and right edges meet behind you. Look for jumps in walls, railings, water, clouds, lighting, and texture.</li><li><strong>Keep it SDR.</strong> Locus accepts JPEG, PNG, and HEIC images. HDR, EXR, cube maps, video, and interactive viewers are not View images.</li><li><strong>Keep the original.</strong> Make adjustments on a copy so you can return to the source later.</li></ul><figure class="guide-figure"><img src="../assets/online-views/autumn-hill-view-4k.jpg" width="4096" height="2048" loading="lazy" decoding="async" alt="A flat two-to-one equirectangular panorama of an autumn hillside"><figcaption>A View image looks unusually wide because it stores the full 360° sphere in one flat 2:1 image.</figcaption></figure></section>
+
+    <section class="doc-section"><p class="lesson-label">In Locus</p><h2>Fine-tune the View</h2><p>In <strong>Places</strong>, open the menu for your View and choose <strong>Edit View</strong>. Adjust <strong>Turn the View</strong> first, then View Brightness, Contrast, Color, Room Lighting, and optional Sunlight. These settings are saved for this View.</p><div class="callout"><strong>Separate what you see from how the Room is lit.</strong> View Brightness changes the panorama. Room Lighting changes how strongly that View lights the 3D Room.</div></section>
+
+    <section class="doc-section" id="advanced"><p class="lesson-label">Advanced</p><h2>Package a reusable View</h2><p>A View ZIP lets you ship the panorama with a thumbnail, provenance, starting direction, appearance, Room-lighting image, and optional sunlight. Keep every file at the ZIP root:</p><pre><code>my-view.zip
+├── view.json
+├── provenance.json
+├── panorama.jpg
+├── thumbnail.jpg
+└── lighting.jpg       # optional</code></pre><ol class="step-list"><li><strong>Create the panorama and thumbnail.</strong> Keep the panorama complete and exactly 2:1.</li><li><strong>Describe the View in view.json.</strong> Set its display name, dimensions, <code>panorama.initialYawDegrees</code>, appearance, and optional sun.</li><li><strong>Record provenance.</strong> State who made it, what rights apply, what changed, and whether AI was used.</li><li><strong>Pack and validate the flat ZIP.</strong> Use the public tools before sharing or importing it.</li></ol><div class="link-grid"><a class="link-card" href="../create-your-own-place/#view-zip-layout"><strong>View ZIP guide</strong><span>See the supported files and appearance fields.</span></a><a class="link-card" href="../package-format/"><strong>Format and tools</strong><span>Download the packer and validator.</span></a></div></section>
+
+    <nav class="tutorial-pagination" aria-label="Tutorial navigation"><a href="../tutorials/"><span>All tutorials</span><strong>Back to the tutorial hub</strong></a><a href="../make-a-room/"><span>Next</span><strong>Make your own Room</strong></a></nav>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://github.com/EnterLocus/locus-support/discussions">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>
