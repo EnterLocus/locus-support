@@ -14,7 +14,7 @@ This repository uses scoped licenses rather than one blanket license:
   Apache License 2.0;
 - the Locus-authored parts of the three downloadable demo Rooms are available
   under Creative Commons Attribution 4.0 International;
-- the Coffee Atrium experimental animation demo keeps its Locus-authored parts
+- the Cloud Fan Pavilion animation sample keeps its Locus-authored parts
   reserved under the statement published on the Asset rights page;
 - embedded Poly Haven textures retain their CC0 1.0 dedication; and
 - site content, Locus branding, and everything not expressly listed remain
@@ -32,7 +32,7 @@ The skill bundles an offline Room reference, design language, metadata
 scaffolder, packer, validator, and delivery checks. For automated authoring from
 a blank brief, it defaults to headless Blender Python with saved render review;
 creators can still use their preferred professional 3D workflow. No open
-Blender window or MCP connection is required for that default route. A separate Coffee Atrium
+Blender window or MCP connection is required for that default route. The free Cloud Fan Pavilion
 download demonstrates experimental Room animation playback.
 
 Experimental Room animation metadata, playback controls, speed, and replay
