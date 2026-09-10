@@ -884,9 +884,7 @@ class PublicSiteTests(unittest.TestCase):
         examples = ROOT / "examples"
         self.assertEqual(
             {path.name for path in examples.glob("*.zip")},
-            set(expected) | {
-                "demo-room.zip", "coffee-atrium-experimental-room.zip",
-            },
+            set(expected) | {"demo-room.zip"},
         )
         readme = (examples / "README.md").read_text()
         for filename, details in expected.items():
@@ -982,63 +980,70 @@ class PublicSiteTests(unittest.TestCase):
                     f"4017745d9f3b6001f00d325ad2610da0a4e171cb/examples/{filename}", text,
                 )
 
-    def test_experimental_animation_demo_is_pinned_valid_and_clearly_labeled(self):
-        filename = "coffee-atrium-experimental-room.zip"
+    def test_free_animation_sample_is_pinned_complete_and_clearly_labeled(self):
+        filename = "cloud-fan-pavilion.locusplace"
         demo = ROOT / "examples" / filename
-        self.assertEqual(demo.stat().st_size, 8_316_240)
+        self.assertEqual(demo.stat().st_size, 22_181_369)
         self.assertEqual(
             hashlib.sha256(demo.read_bytes()).hexdigest(),
-            "c83b3be2f5d29737e418f898fb442b8ded61488b4f32b613195dc0ecab27d42d",
+            "db170fb09c6cd71a76e850524da1395c7f47b2490fa0c90933fb6f10b2683f2b",
         )
         with zipfile.ZipFile(demo) as archive:
             self.assertEqual(set(archive.namelist()), {
-                "space.json", "provenance.json", "teleport-points.json",
-                "scene.usdz", "thumbnail.jpg",
+                "locusplace.json",
+                "catalog/spaces/space.cloud-fan-pavilion/provenance.json",
+                "catalog/spaces/space.cloud-fan-pavilion/scene.usdz",
+                "catalog/spaces/space.cloud-fan-pavilion/space.json",
+                "catalog/spaces/space.cloud-fan-pavilion/teleport-points.json",
+                "catalog/spaces/space.cloud-fan-pavilion/thumbnail.jpg",
             })
-            room = json.loads(archive.read("space.json"))
-            provenance = json.loads(archive.read("provenance.json"))
-        self.assertEqual(room["formatVersion"], 4)
-        self.assertEqual(room["displayName"], "Coffee Atrium POC")
+            package = json.loads(archive.read("locusplace.json"))
+            root = "catalog/spaces/space.cloud-fan-pavilion/"
+            room = json.loads(archive.read(root + "space.json"))
+            provenance = json.loads(archive.read(root + "provenance.json"))
+            for entry in package["files"]:
+                payload = archive.read(entry["path"])
+                self.assertEqual(len(payload), entry["byteCount"])
+                self.assertEqual(
+                    hashlib.sha256(payload).hexdigest(), entry["sha256"]
+                )
+        self.assertEqual(package["formatVersion"], 1)
+        self.assertEqual(package["packageID"], "space.cloud-fan-pavilion")
+        self.assertEqual(package["contentVersion"], "1.0.1")
+        self.assertEqual(package["minimumAppVersion"], "1.1.1")
+        self.assertEqual(package["contents"]["spaceIDs"], ["space.cloud-fan-pavilion"])
+        self.assertEqual(room["formatVersion"], 2)
+        self.assertEqual(room["title"], "Cloud Fan Pavilion")
         self.assertEqual(
             [animation["id"] for animation in room["ambientAnimations"]],
-            ["coffee-break", "ceiling-fan"],
+            ["plant-breeze"],
         )
         self.assertEqual(
             room["ambientAnimations"][0]["defaultIntervalRangeSeconds"],
-            [8, 20],
-        )
-        self.assertEqual(
-            room["ambientAnimations"][1]["defaultIntervalRangeSeconds"],
             [0, 0],
         )
+        self.assertEqual(room["ambientAnimations"][0]["speedRange"], [0.5, 1.5])
         self.assertNotIn("license", provenance)
         self.assertEqual(
             provenance["rights"]["url"],
             "https://enterlocus.com/asset-rights/",
         )
         self.assertIn(
-            "No separate reuse or redistribution license is granted",
+            "All rights reserved for original components",
             provenance["rights"]["statement"],
         )
         self.assertEqual(
             provenance["sourcePageURL"],
-            "https://enterlocus.com/asset-rights/",
+            "https://polyhaven.com/",
         )
         self.assertEqual(
             provenance["requestedCredit"],
-            "Coffee Atrium POC by EnterLocus.com",
+            "Locus; Poly Haven texture artists Rob Tuytel, Charlotte Baglioni and Dario Barresi",
         )
         self.assertIn(
-            "Embedded Poly Haven texture files retain CC0 1.0",
+            "Poly Haven plywood, laminate_floor_02 and white_plaster_02 CC0 textures",
             provenance["modificationNotes"],
         )
-
-        checked = subprocess.run(
-            [sys.executable, str(ROOT / "tools" / "validate_locus_asset.py"), str(demo)],
-            check=False, capture_output=True, text=True,
-        )
-        self.assertEqual(checked.returncode, 0, checked.stderr)
-        self.assertIn('VALID: room "Coffee Atrium POC"', checked.stdout)
 
         page = (ROOT / "experimental-room-animations" / "index.html").read_text()
         for required in [
@@ -1046,7 +1051,8 @@ class PublicSiteTests(unittest.TestCase):
             "experimental speed and interval settings",
             "Controls → Ambient Animations",
             "Quick Settings → Room",
-            "0–0", "8–20 seconds", "may change",
+            "Cloud Fan Pavilion", "Plant Breeze", "0–0", "may change",
+            "Requires Locus 1.1.1 or later",
             f"../examples/{filename}",
             "reserved-rights statement",
             "Embedded Poly Haven textures retain CC0 1.0",
@@ -1100,7 +1106,7 @@ class PublicSiteTests(unittest.TestCase):
             "Plywood", "White Plaster 02", "Rob Tuytel", "CC0 1.0",
             "names, logos, app icons", "private app source",
             "AI disclosure", "aiGenerated", "aiProvider",
-            "Coffee Atrium experimental demo", "animation artwork",
+            "Cloud Fan Pavilion animation sample", "animation artwork",
             "experimental-animation-demo-notices",
         ]:
             self.assertIn(term, rights)
