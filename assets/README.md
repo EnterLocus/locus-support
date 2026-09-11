@@ -67,7 +67,9 @@ physical Apple Vision Pro validation of placement, lighting, or comfort.
 
 The files in `promo/` are public-site derivatives of the authentic Locus
 promotional packages produced on August 31 and September 1, 2026. The Dropbox
-source roots are `Locus Demo/Promo Draft 1` and `Locus Demo/Promo Draft 2`.
+source roots are `Locus Demo/Promo Draft 1` and `Locus Demo/Promo Draft 2`
+(moved on 2026-09-11 to `Locus Launch Media/v1.0.0/working/Promo Draft 1` and
+`…/Promo Draft 2`).
 Product pixels are native Locus Simulator captures or physical Apple Vision
 Pro Developer Capture recordings. No ImageGen,
 generative fill, synthetic reflection, relighting, replacement exterior,
@@ -164,3 +166,54 @@ Six screenshots are 1920 × 1080 Lanczos JPEG web exports of the native 3840 × 
 | `promo/still-06-room-lights-v111.jpg` | `b1e0e365fba1113f95683becbf42b200d74edde304b544b5cafaa7fa71b3b0ef` | `eba256f879e02c453ec441fdf013e3096053fe66b8e0a06bed7a911cd96ea344` |
 | `screenshots/floating-islands-winter-garden-v111.jpg` | `52859f373754f0177d3f214566309f6575a0b8a7665cbfbf59872a9b517b10c6` | `cc8a547049876800f364d1baaf307dd720d0c5cba6a23bf90283626f12f681bb` |
 | `promo/locus-1.1.1-promo-30s.mp4` | `96f14c7771e288a4f7e7b452971f2740f112e03430e544eb630b97ef9dee14a7` | `96f14c7771e288a4f7e7b452971f2740f112e03430e544eb630b97ef9dee14a7` |
+
+## Locus 1.1.3 launch media
+
+The active homepage video is now `locus-1.1.3-promo-24s.mp4`, copied byte for
+byte from `Locus Launch Media/v1.1.3/video/Locus-1.1.3-Promo-1080p-24s.mp4`
+in Dropbox. (The original working folder for this cut,
+`promo-video-2026-09-11`, moved to
+`Locus Launch Media/v1.1.3/working/promo-video-2026-09-11/` and now holds only
+source material, not the delivered file.) It is 24.000 seconds, 1920 × 1080,
+30 fps H.264 High Profile Level
+4.0, AAC-LC 192 kb/s stereo, with fast-start layout. It carries the app's own
+ambient sound; the hero video still autoplays muted with `controls` shown, so
+sound stays opt-in for anyone who unmutes it.
+
+Every product pixel is a native 3840 × 2160 visionOS Simulator 26.5 capture of
+Locus Dev built from private Locus source commit `12b75d8`, recorded with a
+capture-only DEBUG camera-sweep patch that is not part of the product code.
+The edit shows three animated Views, each inside one full loop cycle, followed
+by the retained Locus end card from the 1.1.1 master: Floating Above a Seaside
+Cliff 1.2.0 in Winter Garden, Emerald Grotto 1.5.0 in Courtyard Gallery (View
+brightness raised +1.0 EV through the app's own brightness setting, not a
+capture-time override), and Hidden Oasis in a Desert Canyon 1.5.0 in Atrium
+Loft. Emerald Grotto and Hidden Oasis are Dev-only animated View candidates at
+the time of writing; they are not yet in the shipping catalog.
+
+The audio track is the app's own ambient mix, captured live from the Simulator
+for each View — ocean waves and seabirds for the seaside cliff, the grotto
+waterfall and forest birds for Emerald Grotto, and the canyon waterfall and
+birds for Hidden Oasis — normalised in the edit. There is no music, narration,
+generative fill, invented UI, or competitor material.
+
+`locus-1.1.3-promo-poster.jpg` is a 1920 × 1080 JPEG export of the
+8.80-second frame of the companion 4K App Preview master
+(`Locus Launch Media/v1.1.3/media-release/app-preview/01-Locus-1.1.3-App-Preview-4K-24s.mp4`,
+same capture session), showing the
+Winter Garden sunset with the garden table and plant in the foreground and no
+caption on screen. Source PNG SHA-256
+`4942cd182dce1fa3c65be0f9dd7f231f8cd43a2dde5c370b648ac5f670bfaa0c`, website
+SHA-256
+`4131719643adafa062d50174d6ba88247b739e14a2fdfbb14e984f4de6413794`.
+
+| Website file | Source SHA-256 | Website SHA-256 |
+| --- | --- | --- |
+| `promo/locus-1.1.3-promo-24s.mp4` | `df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb` | `df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb` |
+| `promo/locus-1.1.3-promo-poster.jpg` | `4942cd182dce1fa3c65be0f9dd7f231f8cd43a2dde5c370b648ac5f670bfaa0c` | `4131719643adafa062d50174d6ba88247b739e14a2fdfbb14e984f4de6413794` |
+
+The 1.1.1 promo and all earlier promotional media URLs remain available;
+nothing in `promo/` or `screenshots/` was removed. These files are Simulator
+evidence of Locus 1.1.3 layout and behavior. They are not physical Apple
+Vision Pro validation and not evidence that an App Preview video was
+submitted or approved in App Store Connect.
