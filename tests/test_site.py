@@ -26,6 +26,9 @@ HELP_URL = (
     "https://github.com/EnterLocus/locus-support/discussions/new?category=help"
 )
 APP_STORE_URL = "https://apps.apple.com/app/id6802168265"
+# See assets/README.md "Locus 1.1.3 launch media" for provenance.
+PROMO_1_1_3_MP4_SHA256 = "df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb"
+PROMO_1_1_3_POSTER_SHA256 = "4131719643adafa062d50174d6ba88247b739e14a2fdfbb14e984f4de6413794"
 
 
 class PageParser(html.parser.HTMLParser):
@@ -477,17 +480,17 @@ class PublicSiteTests(unittest.TestCase):
         homepage_sources = {
             pathlib.Path(image["src"]).name for image in screenshot_images
         }
-        self.assertEqual(homepage_sources, {"imports-virtual-space.jpg", "saturn-winter-garden-v111.jpg", "milky-way-winter-garden-v111.jpg", "floating-islands-winter-garden-v111.jpg"})
+        # floating-islands-winter-garden-v111.jpg is no longer used on the
+        # homepage (the hero now uses the Locus 1.1.3 promo poster instead),
+        # but the file stays in the repo per the asset-retention convention
+        # and is still recorded below.
+        self.assertEqual(homepage_sources, {"imports-virtual-space.jpg", "saturn-winter-garden-v111.jpg", "milky-way-winter-garden-v111.jpg"})
         for image in screenshot_images:
             self.assertEqual(image.get("width"), "1920")
             self.assertEqual(image.get("height"), "1080")
             self.assertTrue(image.get("alt", "").strip())
-            filename = pathlib.Path(image["src"]).name
-            if filename == "floating-islands-winter-garden-v111.jpg":
-                self.assertEqual(image.get("fetchpriority"), "high")
-            else:
-                self.assertEqual(image.get("loading"), "lazy")
-                self.assertEqual(image.get("decoding"), "async")
+            self.assertEqual(image.get("loading"), "lazy")
+            self.assertEqual(image.get("decoding"), "async")
         for filename, digest in expected.items():
             with self.subTest(filename=filename):
                 self.assertEqual(
@@ -507,6 +510,8 @@ class PublicSiteTests(unittest.TestCase):
             "still-03-browser-v111.jpg": "bc68bd8b7f86b4b4badf2ab31c5d69eb2089ca7938c43791852f89360a60148e",
             "still-06-room-lights-v111.jpg": "eba256f879e02c453ec441fdf013e3096053fe66b8e0a06bed7a911cd96ea344",
             "locus-1.1.1-promo-30s.mp4": "96f14c7771e288a4f7e7b452971f2740f112e03430e544eb630b97ef9dee14a7",
+            "locus-1.1.3-promo-24s.mp4": PROMO_1_1_3_MP4_SHA256,
+            "locus-1.1.3-promo-poster.jpg": PROMO_1_1_3_POSTER_SHA256,
             "locus-1.1-whats-new-33s.mp4":
                 "a8eb882e95cf22df34b75be2737eb5cee53b1596a645572afabee88f23decb6b",
             "locus-1.1-whats-new-poster.jpg":
@@ -549,22 +554,31 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(hero_video.get("height"), "1080")
         self.assertEqual(
             hero_video.get("src"),
-            "./assets/promo/locus-1.1.1-promo-30s.mp4",
+            "./assets/promo/locus-1.1.3-promo-24s.mp4",
         )
         self.assertEqual(
             hero_video.get("poster"),
-            "./assets/screenshots/floating-islands-winter-garden-v111.jpg",
+            "./assets/promo/locus-1.1.3-promo-poster.jpg",
         )
+        self.assertEqual(hero_video.get("aria-label"), "Locus 1.1.3 promotional video")
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
         self.assertEqual(
-            parser.links.count("./assets/promo/locus-1.1.1-promo-30s.mp4"),
+            parser.links.count("./assets/promo/locus-1.1.3-promo-24s.mp4"),
             1,
         )
+        self.assertNotIn("./assets/promo/locus-1.1.1-promo-30s.mp4", homepage)
         self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
         self.assertNotIn("Watch the video directly.", homepage)
         self.assertIn(
             "Keyboard passthrough is provided by visionOS, not Locus.",
+            homepage,
+        )
+        self.assertIn("Animated Views with living water and sound", homepage)
+        self.assertIn(
+            "Not every View moves. Animated Views are marked in the Library "
+            "and add living water and ambient sound; the rest are still "
+            "panoramas.",
             homepage,
         )
         self.assertNotIn("video transcript", homepage)
@@ -587,7 +601,11 @@ class PublicSiteTests(unittest.TestCase):
         # envelope for iPhone browsers. Chrome on iOS uses the platform media
         # stack, so a desktop-playable encode can still fail on a phone when
         # its declared AVC level is unnecessarily high.
-        for movie_name in ["locus-1.1.1-promo-30s.mp4", "locus-1.1-whats-new-33s.mp4"]:
+        for movie_name in [
+            "locus-1.1.1-promo-30s.mp4",
+            "locus-1.1-whats-new-33s.mp4",
+            "locus-1.1.3-promo-24s.mp4",
+        ]:
             with self.subTest(movie=movie_name):
                 movie = (promo_root / movie_name).read_bytes()
                 avcc = movie.index(b"avcC")
