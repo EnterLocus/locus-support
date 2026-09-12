@@ -58,7 +58,6 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .hero-shot .platform-note { flex-basis: 100%; color: #78858c; font-size: .68rem; letter-spacing: 0; line-height: 1.4; }
 
 .story-section { padding: 7rem 0; border-top: 1px solid var(--line); }
-.story-card .platform-note { display: block; margin-top: .35rem; color: #78858c; font-size: .68rem; letter-spacing: 0; line-height: 1.4; }
 .section-intro { max-width: 760px; }
 .section-intro h2 { margin: .45rem 0 .7rem; font-size: clamp(2rem, 4vw, 3.7rem); line-height: 1.05; letter-spacing: -.04em; text-wrap: balance; }
 .section-intro p:not(.kicker) { color: var(--muted); font-size: 1.08rem; line-height: 1.6; }
@@ -75,6 +74,7 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .whats-new-video { display: block; width: 100%; height: auto; border-radius: 1rem; background: #08111c; }
 .whats-new-video-card figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding: .65rem .5rem .2rem; color: var(--muted); font-size: .75rem; letter-spacing: .04em; }
 .whats-new-video-card figcaption a { color: var(--accent); font-weight: 700; }
+.whats-new-video-card .platform-note { flex-basis: 100%; color: #78858c; font-size: .68rem; letter-spacing: 0; line-height: 1.4; }
 .whats-new-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; margin: 1.6rem 0 0; padding: 0; list-style: none; }
 .whats-new-grid li { padding: 1.2rem 1.25rem 1.35rem; border: 1px solid var(--line); border-radius: 1.2rem; background: linear-gradient(145deg, rgba(255,255,255,.04), rgba(255,255,255,.015)); }
 .whats-new-grid strong { display: block; margin-bottom: .45rem; font-size: 1.05rem; letter-spacing: -.01em; }
