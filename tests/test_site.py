@@ -632,6 +632,35 @@ class PublicSiteTests(unittest.TestCase):
         for filename in expected:
             self.assertIn(filename, asset_record)
 
+    def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
+        archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-1-3/"'), archive.index('href="./1-1/"'))
+        self.assertLess(archive.index('href="./1-1/"'), archive.index('href="./1-0/"'))
+
+        releases = {
+            "1-1-3": (
+                "Bring your Views to life.",
+                "locus-1.1.3-promo-24s.mp4",
+                "Animated Views are clearly marked",
+            ),
+            "1-1": (
+                "More ways to make your workspace yours.",
+                "locus-1.1-whats-new-33s.mp4",
+                "Bring a 360° View straight from the web.",
+            ),
+            "1-0": (
+                "A spatial workspace with a sense of place.",
+                "locus-promo-31s-v2.mp4",
+                "Enter a Virtual Space.",
+            ),
+        }
+        for release, required in releases.items():
+            page = (ROOT / "whats-new" / release / "index.html").read_text()
+            with self.subTest(release=release):
+                self.assertIn('data-pagefind-body', page)
+                for text in required:
+                    self.assertIn(text, page)
+
     def test_homepage_faq_and_guide_announce_locus_1_1(self):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
@@ -642,9 +671,9 @@ class PublicSiteTests(unittest.TestCase):
         # is no longer embedded) and the same four highlights the app shows
         # in its own What's New sheet.
         self.assertIn('id="whats-new"', homepage)
-        self.assertIn('href="#whats-new"', homepage)
-        self.assertIn("New in Locus 1.1", homepage)
-        self.assertIn("More ways to make your workspace yours.", homepage)
+        self.assertIn('href="./whats-new/"', homepage)
+        self.assertIn("New in Locus 1.1.3", homepage)
+        self.assertIn("Bring your Views to life.", homepage)
         for highlight in [
             "Bring panoramas from the web",
             "Organize every Place",

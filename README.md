@@ -63,6 +63,18 @@ IDs; links to them open the matching answer. Keep existing IDs when editing
 question wording. Add the shared search assets and indexed main element when
 adding a public page.
 
+## What’s New articles
+
+`whats-new/` is the public release-story archive. Keep its cards in descending
+version order, with the newest release first. Add an article when a release has
+a major customer-visible feature worth explaining; routine fixes do not need a
+standalone story.
+
+Each new article should focus on that release's leading feature, use verified
+product media when available, link into the previous/newer release sequence,
+and be added to the archive and site regression test. Refresh the homepage
+What’s New section when the article represents the current leading release.
+
 After building, run `npx playwright install chromium` and `npm run test:search`.
 Browser tests serve the real built site and cover desktop/mobile results, FAQ
 links, keyboard focus, empty queries and unavailable search assets. The full
