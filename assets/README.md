@@ -147,6 +147,10 @@ source PNG SHA-256
 SHA-256
 `2d6138f23bab8209ef0b45ebf5675bb07543f52ff877614206c7dc1a18a2d597`.
 
+Since September 11, 2026 the homepage's "New in Locus 1.1" section embeds
+the Locus 1.1.3 promo instead (see "Locus 1.1.3 launch media" below). This
+master and its poster stay published at their original URLs.
+
 These files are Simulator evidence of Locus 1.1 layout and behavior. They are
 not physical Apple Vision Pro validation and not evidence that an App Preview
 video was submitted or approved in App Store Connect.
@@ -169,16 +173,18 @@ Six screenshots are 1920 × 1080 Lanczos JPEG web exports of the native 3840 × 
 
 ## Locus 1.1.3 launch media
 
-The active homepage video is now `locus-1.1.3-promo-24s.mp4`, copied byte for
-byte from `Locus Launch Media/v1.1.3/video/Locus-1.1.3-Promo-1080p-24s.mp4`
+`locus-1.1.3-promo-24s.mp4` is the video embedded in the homepage's
+"New in Locus 1.1" section (the hero keeps the 1.1.1 promo above). It is
+copied byte for byte from
+`Locus Launch Media/v1.1.3/video/Locus-1.1.3-Promo-1080p-24s.mp4`
 in Dropbox. (The original working folder for this cut,
 `promo-video-2026-09-11`, moved to
 `Locus Launch Media/v1.1.3/working/promo-video-2026-09-11/` and now holds only
 source material, not the delivered file.) It is 24.000 seconds, 1920 × 1080,
 30 fps H.264 High Profile Level
 4.0, AAC-LC 192 kb/s stereo, with fast-start layout. It carries the app's own
-ambient sound; the hero video still autoplays muted with `controls` shown, so
-sound stays opt-in for anyone who unmutes it.
+ambient sound; the What's New card embeds it muted with `controls` shown and
+no autoplay, so sound stays opt-in for anyone who unmutes it.
 
 Every product pixel is a native 3840 × 2160 visionOS Simulator 26.5 capture of
 Locus Dev built from private Locus source commit `12b75d8`, recorded with a
@@ -212,8 +218,8 @@ SHA-256
 | `promo/locus-1.1.3-promo-24s.mp4` | `df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb` | `df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb` |
 | `promo/locus-1.1.3-promo-poster.jpg` | `4942cd182dce1fa3c65be0f9dd7f231f8cd43a2dde5c370b648ac5f670bfaa0c` | `4131719643adafa062d50174d6ba88247b739e14a2fdfbb14e984f4de6413794` |
 
-The 1.1.1 promo and all earlier promotional media URLs remain available;
-nothing in `promo/` or `screenshots/` was removed. These files are Simulator
+The 1.1 What's New video, the 1.1.1 promo, and all earlier promotional media
+URLs remain available; nothing in `promo/` or `screenshots/` was removed. These files are Simulator
 evidence of Locus 1.1.3 layout and behavior. They are not physical Apple
 Vision Pro validation and not evidence that an App Preview video was
 submitted or approved in App Store Connect.

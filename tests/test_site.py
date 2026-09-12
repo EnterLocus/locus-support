@@ -480,17 +480,17 @@ class PublicSiteTests(unittest.TestCase):
         homepage_sources = {
             pathlib.Path(image["src"]).name for image in screenshot_images
         }
-        # floating-islands-winter-garden-v111.jpg is no longer used on the
-        # homepage (the hero now uses the Locus 1.1.3 promo poster instead),
-        # but the file stays in the repo per the asset-retention convention
-        # and is still recorded below.
-        self.assertEqual(homepage_sources, {"imports-virtual-space.jpg", "saturn-winter-garden-v111.jpg", "milky-way-winter-garden-v111.jpg"})
+        self.assertEqual(homepage_sources, {"imports-virtual-space.jpg", "saturn-winter-garden-v111.jpg", "milky-way-winter-garden-v111.jpg", "floating-islands-winter-garden-v111.jpg"})
         for image in screenshot_images:
             self.assertEqual(image.get("width"), "1920")
             self.assertEqual(image.get("height"), "1080")
             self.assertTrue(image.get("alt", "").strip())
-            self.assertEqual(image.get("loading"), "lazy")
-            self.assertEqual(image.get("decoding"), "async")
+            filename = pathlib.Path(image["src"]).name
+            if filename == "floating-islands-winter-garden-v111.jpg":
+                self.assertEqual(image.get("fetchpriority"), "high")
+            else:
+                self.assertEqual(image.get("loading"), "lazy")
+                self.assertEqual(image.get("decoding"), "async")
         for filename, digest in expected.items():
             with self.subTest(filename=filename):
                 self.assertEqual(
@@ -552,34 +552,29 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(hero_video.get("preload"), "metadata")
         self.assertEqual(hero_video.get("width"), "1920")
         self.assertEqual(hero_video.get("height"), "1080")
+        # The hero keeps the approved 1.1.1 promo; the 1.1.3 promo lives in
+        # the What's New section (see the Locus 1.1 test below).
         self.assertEqual(
             hero_video.get("src"),
-            "./assets/promo/locus-1.1.3-promo-24s.mp4",
+            "./assets/promo/locus-1.1.1-promo-30s.mp4",
         )
         self.assertEqual(
             hero_video.get("poster"),
-            "./assets/promo/locus-1.1.3-promo-poster.jpg",
+            "./assets/screenshots/floating-islands-winter-garden-v111.jpg",
         )
-        self.assertEqual(hero_video.get("aria-label"), "Locus 1.1.3 promotional video")
+        self.assertEqual(hero_video.get("aria-label"), "Locus promotional video")
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
         self.assertEqual(
-            parser.links.count("./assets/promo/locus-1.1.3-promo-24s.mp4"),
+            parser.links.count("./assets/promo/locus-1.1.1-promo-30s.mp4"),
             1,
         )
-        self.assertNotIn("./assets/promo/locus-1.1.1-promo-30s.mp4", homepage)
         self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
         self.assertNotIn("Watch the video directly.", homepage)
-        self.assertIn(
-            "Keyboard passthrough is provided by visionOS, not Locus.",
-            homepage,
-        )
-        self.assertIn("Animated Views with living water and sound", homepage)
-        self.assertIn(
-            "Not every View moves. Animated Views are marked in the Library "
-            "and add living water and ambient sound; the rest are still "
-            "panoramas.",
-            homepage,
+        self.assertIn("Your desk, new Views, and room to focus", homepage)
+        self.assertEqual(
+            homepage.count("Keyboard passthrough is provided by visionOS, not Locus."),
+            1,
         )
         self.assertNotIn("video transcript", homepage)
         self.assertNotIn("See Locus in motion", homepage)
@@ -642,8 +637,10 @@ class PublicSiteTests(unittest.TestCase):
         parser = PageParser()
         parser.feed(homepage)
 
-        # The 1.1 section leads with the approved What's New master and the
-        # same four highlights the app shows in its own What's New sheet.
+        # The 1.1 section leads with the Locus 1.1.3 animated-Views promo
+        # (the 1.1 What's New master stays published at its original URL but
+        # is no longer embedded) and the same four highlights the app shows
+        # in its own What's New sheet.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="#whats-new"', homepage)
         self.assertIn("New in Locus 1.1", homepage)
@@ -666,16 +663,27 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(whats_new.get("width"), "1920")
         self.assertEqual(whats_new.get("height"), "1080")
         self.assertEqual(
-            whats_new.get("src"), "./assets/promo/locus-1.1-whats-new-33s.mp4")
+            whats_new.get("src"), "./assets/promo/locus-1.1.3-promo-24s.mp4")
         self.assertEqual(
             whats_new.get("poster"),
-            "./assets/promo/locus-1.1-whats-new-poster.jpg",
+            "./assets/promo/locus-1.1.3-promo-poster.jpg",
         )
-        self.assertTrue(whats_new.get("aria-label", "").strip())
         self.assertEqual(
-            parser.links.count("./assets/promo/locus-1.1-whats-new-33s.mp4"), 1)
+            whats_new.get("aria-label"), "Locus 1.1.3 promotional video")
+        self.assertEqual(
+            parser.links.count("./assets/promo/locus-1.1.3-promo-24s.mp4"), 1)
+        self.assertNotIn("./assets/promo/locus-1.1-whats-new-33s.mp4", homepage)
+        self.assertNotIn("./assets/promo/locus-1.1-whats-new-poster.jpg", homepage)
+        self.assertIn("Animated Views with living water and sound", homepage)
+        self.assertIn(
+            "Not every View moves. Animated Views are marked in the Library "
+            "and add living water and ambient sound; the rest are still "
+            "panoramas.",
+            homepage,
+        )
         stylesheet = (ROOT / "assets" / "site.css").read_text()
         self.assertIn(".whats-new-grid", stylesheet)
+        self.assertIn(".whats-new-video-card .platform-note", stylesheet)
 
         faq = (ROOT / "faq" / "index.html").read_text()
         for question in [
