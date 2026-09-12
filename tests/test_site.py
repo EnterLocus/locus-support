@@ -644,7 +644,14 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="#whats-new"', homepage)
         self.assertIn("New in Locus 1.1", homepage)
-        self.assertIn("More ways to make your workspace yours.", homepage)
+        self.assertIn("Bring your Views to life.", homepage)
+        self.assertIn(
+            "Animated Views bring moving water and ambient sound into your "
+            "workspace. Locus 1.1 also makes it easier to bring in panoramas "
+            "from the web, organize Places, shape Room lighting, and keep "
+            "favorite sites close.",
+            homepage,
+        )
         for highlight in [
             "Bring panoramas from the web",
             "Organize every Place",
