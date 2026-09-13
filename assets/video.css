@@ -1,4 +1,4 @@
-/* Local posters load immediately; YouTube connects only when a visitor plays. */
+/* Local posters load immediately; YouTube loads when a film enters the viewport. */
 .youtube-video { position: relative; width: 100%; aspect-ratio: 16 / 9; min-height: 200px; overflow: hidden; border-radius: 1rem; background: #08111c; }
 .youtube-video-cover { position: absolute; inset: 0; display: block; color: white; }
 .youtube-video-cover img { width: 100%; height: 100%; object-fit: cover; }
