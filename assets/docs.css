@@ -124,7 +124,6 @@ td { color: var(--muted); }
 .release-article .page-header h1 { max-width: 850px; }
 .release-back { display: inline-block; margin-bottom: 2.5rem; color: var(--accent); font-weight: 700; text-decoration: none; }
 .release-hero { overflow: hidden; margin: 0 0 4rem; padding: .45rem; border: 1px solid var(--line); border-radius: 1.25rem; background: rgba(255,255,255,.03); }
-.release-hero video { display: block; width: 100%; height: auto; border-radius: .95rem; background: #08111c; }
 .release-hero figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .35rem 1rem; padding: .75rem .55rem .25rem; color: var(--muted); font-size: .78rem; line-height: 1.45; }
 .release-hero figcaption a { color: var(--accent); font-weight: 700; }
 .release-lead { color: #d3dce0 !important; font-size: 1.2rem !important; }

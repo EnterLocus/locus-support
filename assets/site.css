@@ -49,10 +49,6 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .hero-shot, .selector-shot { margin: 0; }
 .hero-shot { padding: .55rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2.4rem 7rem rgba(0,0,0,.3); }
 .hero-shot img, .selector-shot img { display: block; width: 100%; height: auto; border-radius: 1rem; }
-.hero-video { display: block; width: 100%; height: auto; border-radius: 1rem; }
-.hero-video-mobile { position: relative; display: none; overflow: hidden; border-radius: 1rem; background: #08111c; }
-.hero-video-play { position: absolute; left: 50%; top: 50%; display: grid; width: 4.5rem; height: 4.5rem; place-items: center; border: 1px solid rgba(255,255,255,.38); border-radius: 50%; background: rgba(5,13,23,.76); color: white; font-size: 1.65rem; line-height: 1; transform: translate(-50%,-50%); transition: transform .2s ease, background .2s ease; }
-.hero-video-mobile:hover .hero-video-play, .hero-video-mobile:focus-visible .hero-video-play { background: rgba(55,166,255,.9); transform: translate(-50%,-50%) scale(1.06); }
 .hero-shot figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding: .65rem .5rem .2rem; color: var(--muted); font-size: .75rem; letter-spacing: .04em; }
 .hero-shot figcaption a { color: var(--accent); font-weight: 700; }
 .hero-shot .platform-note { flex-basis: 100%; color: #78858c; font-size: .68rem; letter-spacing: 0; line-height: 1.4; }
@@ -71,7 +67,6 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 
 .whats-new-section { padding: 6rem 0 7rem; border-top: 1px solid var(--line); }
 .whats-new-video-card { margin: 2.4rem 0 0; padding: .55rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2.4rem 7rem rgba(0,0,0,.3); }
-.whats-new-video { display: block; width: 100%; height: auto; border-radius: 1rem; background: #08111c; }
 .whats-new-video-card figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding: .65rem .5rem .2rem; color: var(--muted); font-size: .75rem; letter-spacing: .04em; }
 .whats-new-video-card figcaption a { color: var(--accent); font-weight: 700; }
 .whats-new-video-card .platform-note { flex-basis: 100%; color: #78858c; font-size: .68rem; letter-spacing: 0; line-height: 1.4; }
@@ -120,6 +115,7 @@ footer > div { display: flex; flex-direction: column; gap: .35rem; }
   .whats-new-section { padding: 5rem 0 5.5rem; }
   .whats-new-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .product-grid.text-only .feature-card { min-height: 220px; }
+  footer nav { flex-wrap: wrap; }
   footer { align-items: flex-start; padding: 2rem 0; gap: 2rem; flex-direction: column; }
 }
 
@@ -133,6 +129,4 @@ footer > div { display: flex; flex-direction: column; gap: .35rem; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .hero-video { display: none; }
-  .hero-video-mobile { display: block; }
 }
