@@ -226,7 +226,7 @@ submitted or approved in App Store Connect.
 
 ## YouTube delivery — September 13, 2026
 
-Website films now use local posters and click-to-load YouTube privacy-enhanced embeds.
+Website films now use local posters and YouTube privacy-enhanced embeds that load when 25% visible, autoplay muted, and loop. Native controls and direct Watch on YouTube links remain available when autoplay is blocked.
 All four videos are Unlisted in EnterLocus (`UCuVsVMtpw1NejBaWBXFId4g`) with embedding enabled.
 The main film and Animated Views upload use the approved 4K originals; archive films use the previously published 1080p files.
 Existing MP4 files remain available at their old direct URLs for compatibility, but HTML pages no longer request them. New promotional videos should be uploaded to YouTube; keep originals in the versioned Dropbox launch-media archive.
