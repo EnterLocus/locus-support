@@ -8,6 +8,10 @@ playback speed and randomized replay intervals; Room v5 adds explicit rendering
 roles and spotlight directions. All versions use the same flat
 ZIP layout.
 
+Locus 1.1.4 adds an optional `sound.json` sidecar: a Room or a View may carry
+its own audio, independently of everything above. An older Locus refuses the
+extra files rather than installing a place with its sound silently missing.
+
 A public archive contains exactly one Room or one View. It is an ordinary
 `.zip` file with all files at the ZIP root. It never contains a Catalog,
 Experience, package envelope, or author-chosen asset ID.
@@ -26,7 +30,9 @@ room.zip
 |-- provenance.json
 |-- teleport-points.json
 |-- scene.usdz
-`-- thumbnail.jpg
+|-- thumbnail.jpg
+|-- sound.json         optional, Locus 1.1.4
+`-- forest-air.m4a     one or more, only with sound.json
 ```
 
 `space.json` contains the Room metadata. It does not name files or contain an
@@ -445,7 +451,9 @@ view.zip
 |-- provenance.json
 |-- panorama.jpg
 |-- thumbnail.jpg
-`-- lighting.jpg       optional
+|-- lighting.jpg       optional
+|-- sound.json         optional, Locus 1.1.4
+`-- waterfall.m4a      one or more, only with sound.json
 ```
 
 `panorama.jpg` is a complete 2:1 equirectangular JPEG or PNG. Its decoded
@@ -492,6 +500,134 @@ initially turn a composed Room's lights on; `day`, `overcast`, and an omitted
 condition initially leave them off. It never maps to a Room brightness. The
 visitor can override the switch, and a lamp that is on uses its Room-authored
 intensity plus saved Room EV offsets.
+
+## Sound
+
+A Room or a View may carry its own audio. It is independent of everything else
+in the package: a still picture with sound is not an animated View, gets no new
+mark in the Library, and a Room's sound has nothing to do with its lighting or
+animations. Locus 1.1.4 is required — an older build rejects the ZIP rather
+than installing it without the audio.
+
+Put `sound.json` and the audio files at the ZIP root. Every audio file must be
+named by a source and every named file must be present; audio without
+`sound.json`, or a file no source names, is rejected rather than ignored, so a
+renamed clip is caught at import instead of going silently missing.
+
+```json
+{
+  "version": 1,
+  "backgroundPriority": 20,
+  "sources": [
+    {
+      "id": "forest-air",
+      "title": "Forest air",
+      "path": "forest-air.m4a",
+      "role": "background",
+      "gain": 0.6
+    }
+  ]
+}
+```
+
+| Field | Required | Meaning and validation |
+|---|---:|---|
+| `version` | yes | `1` for plain loops, `2` for placement and randomized playback. |
+| `backgroundPriority` | yes | Integer `0` through `100`. See arbitration below. |
+| `sources` | yes | One through eight sources. |
+| `sources[].id` | yes | Up to 100 characters of letters, digits, dot, dash, or underscore; distinct within the file. |
+| `sources[].title` | yes | Up to 100 characters, shown beside the source's own control. |
+| `sources[].role` | yes | `background` or `effect`. |
+| `sources[].gain` | yes | `0` through `1`. The gains of all sources may total at most `1`. |
+| `sources[].path` | version 1 | One package-relative `.m4a`, `.mp3`, or `.wav` file at the ZIP root. |
+| `sources[].clips` | version 2 | One through eight distinct audio files, replacing `path`. |
+| `sources[].placement` | version 2 | Where the source is, described below. |
+| `sources[].playback` | version 2 | How it plays, described below. |
+
+Each audio file must be larger than zero and at most 128 MiB. When Locus
+prepares it for playback it also requires at most 48 kHz, at most two channels,
+and at most 600 seconds for a loop; a positioned source must be mono, and a
+randomized clip must be at most 30 seconds with at most 60 seconds of clips per
+source. A file that passes validation but breaks one of those playback rules
+loses that source, not the whole place.
+
+**Backgrounds arbitrate; effects do not.** A View and a Room each declare a
+`backgroundPriority`, and only an enabled, prepared background with a nonzero
+volume claims it. The strictly higher priority silences the other owner's
+backgrounds; equal priorities mix. Effects always keep their own master
+control. In Room Portal only the View's audio plays. Every control is
+session-only: Locus does not rewrite the ZIP, and nothing here is saved.
+
+### Placement and randomized playback (`version: 2`)
+
+Version 1 keeps its exact meaning forever. Version 2 replaces a source's `path`
+with `clips` and adds `placement` and `playback`. `role` is unrelated to
+placement: a positioned waterfall is still a `background`.
+
+`placement` is one of four shapes. `frame` must be the package's own — `view`
+in a View ZIP, `room` in a Room ZIP — and `rolloff` is optional everywhere
+except `ambient`, finite `0` through `4`, where `0` removes distance
+attenuation entirely and `1` is the default.
+
+| `type` | Shape |
+|---|---|
+| `ambient` | `{"type": "ambient"}` and nothing else: no position, no distance attenuation, no change as the listener turns. |
+| `point` | One fixed `point`. |
+| `points` | Two through sixteen distinct candidate `points`, for randomized playback only. |
+| `region` | A direction-and-distance range to draw a fresh position from, `frame: "view"` only. |
+
+A View-frame point is `{"azimuthDegrees": 25, "elevationDegrees": 20,
+"distanceMeters": 15}`: azimuth `-180` through `180`, elevation `-90` through
+`90`, distance `0.1` through `100` metres. Azimuth `0` is the View's forward
+direction and increases the same way `initialYawDegrees` does. A Room-frame
+point is `{"positionMeters": [1, 2, -3]}` in the Room model's own coordinates,
+each component finite and within 100 metres.
+
+A `region` adds `azimuthCenterDegrees` (`-180` through `180`),
+`azimuthSpanDegrees` (`0` through `360`, seam-crossing allowed),
+`elevationRangeDegrees` and `distanceRangeMeters`, each an ordered pair inside
+the same limits as a point.
+
+**Distance is an authored acoustic proxy.** It is not depth measured from the
+panorama and not the radius of the sky. Choose what sounds right.
+
+`playback` is either a loop or a randomized phrase:
+
+```json
+{
+  "id": "bird-calls",
+  "title": "Bird calls",
+  "clips": ["call-a.m4a", "call-b.m4a", "call-c.m4a"],
+  "role": "background",
+  "gain": 0.2,
+  "placement": {
+    "type": "points",
+    "frame": "view",
+    "points": [
+      {"azimuthDegrees": -40, "elevationDegrees": 22, "distanceMeters": 12},
+      {"azimuthDegrees": 15, "elevationDegrees": 28, "distanceMeters": 18}
+    ],
+    "rolloff": 0.2
+  },
+  "playback": {
+    "type": "random",
+    "intervalSeconds": [8, 25],
+    "maxConcurrent": 1,
+    "avoidImmediateRepeat": true
+  }
+}
+```
+
+| `playback.type` | Rules |
+|---|---|
+| `loop` | Exactly one clip, and `ambient` or `point` placement. Optional `fadeInSeconds` and `fadeOutSeconds`, each `0` through `5`, default `0`. |
+| `random` | `intervalSeconds` is an ordered pair within `0.25` through `600`. `maxConcurrent` must be `1` in this version. `avoidImmediateRepeat` defaults to `false` and, when true, avoids repeating the previous clip and position while alternatives exist. No fades. |
+
+A randomized source waits a sampled interval before its first phrase and again
+after each phrase finishes. It chooses a clip and a position once per phrase and
+holds that position for the whole phrase — a call never moves while it sounds.
+Muting, leaving, switching places, or losing the foreground cancels what is
+pending; nothing accumulates while you are away.
 
 ## Provenance
 
