@@ -89,8 +89,12 @@ class PageParser(html.parser.HTMLParser):
 
 
 def html_files():
+    # ".claude" holds agent worktrees: copies of this repository that are not
+    # part of the published site and whose pages fail these checks while they
+    # are still being written.
     return sorted(path for path in ROOT.glob("**/*.html")
-                  if not any(part in {"node_modules", ".site", ".scratch", "test-results", "playwright-report"}
+                  if not any(part in {"node_modules", ".site", ".scratch", ".claude",
+                                      "test-results", "playwright-report"}
                              for part in path.relative_to(ROOT).parts))
 
 
