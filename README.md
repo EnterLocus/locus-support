@@ -40,16 +40,19 @@ intervals are documented at
 <https://enterlocus.com/experimental-room-animations/>. They are not presented
 as a stable production authoring contract.
 
-Use the Bug form for reproducible product problems. Bring ideas, feature
-requests, wishlists, and creator questions to GitHub Discussions. Send private
-or security-sensitive reports to support@enterlocus.com.
+Use the Bug form for reproducible product problems. Ask questions and share
+what you made on [r/EnterLocus](https://www.reddit.com/r/EnterLocus/). Bring
+structured feature requests to GitHub Discussions. Send private or
+security-sensitive reports to support@enterlocus.com.
 
 A reproducible one-seat walkthrough is available in the [Room integration guide](https://enterlocus.com/build-a-room/#minimal-room). `tools/build_minimal_room.py` creates its geometry, source file, review renders and public metadata from scratch. The [runtime interaction reference](reference/locus-asset-format.md#how-locus-uses-a-room) documents seats, safety, collision and quality bookkeeping, and actual model budgets.
 
 ## Community
 
-[Community](https://github.com/EnterLocus/locus-support/discussions) — Share
-creations, ask questions, and discover environments made by other Locus users.
+[Community](https://www.reddit.com/r/EnterLocus/) — Share creations, ask
+questions, and discover environments made by other Locus users on Reddit.
+Structured feature proposals and technical discussion stay on
+[GitHub Discussions](https://github.com/EnterLocus/locus-support/discussions).
 
 ## Static search and local preview
 

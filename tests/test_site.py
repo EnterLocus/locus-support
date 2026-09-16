@@ -16,14 +16,12 @@ import zlib
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-COMMUNITY_URL = "https://github.com/EnterLocus/locus-support/discussions"
+COMMUNITY_URL = "https://www.reddit.com/r/EnterLocus/"
+DISCUSSIONS_URL = "https://github.com/EnterLocus/locus-support/discussions"
 BUG_URL = "https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml"
 IDEAS_URL = (
     "https://github.com/EnterLocus/locus-support/discussions/new"
     "?category=ideas-requests"
-)
-HELP_URL = (
-    "https://github.com/EnterLocus/locus-support/discussions/new?category=help"
 )
 APP_STORE_URL = "https://apps.apple.com/app/id6802168265"
 # See assets/README.md "Locus 1.1.3 launch media" for provenance.
@@ -135,12 +133,14 @@ class PublicSiteTests(unittest.TestCase):
 
         readme = " ".join((ROOT / "README.md").read_text().split())
         self.assertIn(COMMUNITY_URL, readme)
+        self.assertIn(DISCUSSIONS_URL, readme)
         self.assertIn("Share creations, ask questions", readme)
 
     def test_bugs_and_community_requests_use_distinct_routes(self):
         support = (ROOT / "support" / "index.html").read_text()
-        for required in [BUG_URL, IDEAS_URL, HELP_URL]:
+        for required in [BUG_URL, IDEAS_URL, COMMUNITY_URL]:
             self.assertIn(required, support)
+        self.assertNotIn("discussions/new?category=help", support)
         for obsolete in ["template=feature.yml", "template=wishlist.yml"]:
             self.assertNotIn(obsolete, support)
 
@@ -151,7 +151,7 @@ class PublicSiteTests(unittest.TestCase):
             ROOT / ".github" / "ISSUE_TEMPLATE" / "config.yml"
         ).read_text()
         self.assertIn(IDEAS_URL, issue_config)
-        self.assertIn(HELP_URL, issue_config)
+        self.assertIn(COMMUNITY_URL, issue_config)
 
         for path in html_files():
             parser = PageParser()
