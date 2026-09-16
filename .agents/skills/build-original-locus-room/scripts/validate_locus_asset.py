@@ -49,6 +49,12 @@ VIEW_REQUIRED_FILES = {
     "thumbnail.jpg",
 }
 VIEW_OPTIONAL_FILES = {"lighting.jpg"}
+SOUND_FILE = "sound.json"
+SOUND_EXTENSIONS = {"m4a", "mp3", "wav"}
+SOUND_BYTES = 134_217_728
+SOUND_SOURCES = 8
+SOUND_CLIPS = 8
+SOUND_POINTS = 16
 USDZ_EXTENSIONS = {
     "usd", "usda", "usdc", "png", "jpg", "jpeg", "exr", "m4a", "wav", "mp3"
 }
@@ -1118,26 +1124,341 @@ def validate_view(root: Path, files: set[str]) -> dict[str, Any]:
     return {"kind": "view", "displayName": value["displayName"], "seats": 0}
 
 
+def extension_of(name: str) -> str:
+    return name.rsplit(".", 1)[-1].lower() if "." in name else ""
+
+
+def sound_asset_paths(source: dict[str, Any]) -> list[Any]:
+    clips = source.get("clips")
+    if clips is not None:
+        return clips if isinstance(clips, list) else [clips]
+    path = source.get("path")
+    return [] if path is None else [path]
+
+
+def validate_sound_point(point: Any, *, frame: str, context: str) -> None:
+    require(isinstance(point, dict), f"{context} must be an object")
+    if frame == "room":
+        exact_keys(point, required={"positionMeters"}, context=context)
+        position = point["positionMeters"]
+        require(
+            isinstance(position, list) and len(position) == 3
+            and all(finite(value) and abs(value) <= 100 for value in position),
+            f"{context}.positionMeters must be three finite metres within 100",
+        )
+        return
+    exact_keys(
+        point,
+        required={"azimuthDegrees", "elevationDegrees", "distanceMeters"},
+        context=context,
+    )
+    require(
+        finite(point["azimuthDegrees"]) and -180 <= point["azimuthDegrees"] <= 180,
+        f"{context}.azimuthDegrees must be between -180 and 180",
+    )
+    require(
+        finite(point["elevationDegrees"]) and -90 <= point["elevationDegrees"] <= 90,
+        f"{context}.elevationDegrees must be between -90 and 90",
+    )
+    require(
+        finite(point["distanceMeters"]) and 0.1 <= point["distanceMeters"] <= 100,
+        f"{context}.distanceMeters must be between 0.1 and 100",
+    )
+
+
+def validate_sound_placement(
+    placement: Any, *, owner: str, context: str
+) -> str:
+    require(isinstance(placement, dict), f"{context} must be an object")
+    kind = placement.get("type")
+    require(
+        kind in {"ambient", "point", "points", "region"},
+        f"{context}.type must be ambient, point, points, or region",
+    )
+    if kind == "ambient":
+        exact_keys(placement, required={"type"}, context=context)
+        return kind
+    frame = placement.get("frame")
+    require(
+        frame in {"view", "room"},
+        f"{context}.frame must be view or room",
+    )
+    # The shipping importer refuses a View that positions sound in Room
+    # coordinates, and the other way round: a package may only use its own
+    # frame.
+    require(
+        frame == owner,
+        f"{context}.frame must be {owner} in a {owner} ZIP",
+    )
+    if "rolloff" in placement:
+        require(
+            finite(placement["rolloff"]) and 0 <= placement["rolloff"] <= 4,
+            f"{context}.rolloff must be between 0 and 4",
+        )
+    if kind == "point":
+        exact_keys(
+            placement,
+            required={"type", "frame", "point"},
+            optional={"rolloff"},
+            context=context,
+        )
+        validate_sound_point(
+            placement["point"], frame=frame, context=f"{context}.point")
+        return kind
+    if kind == "points":
+        exact_keys(
+            placement,
+            required={"type", "frame", "points"},
+            optional={"rolloff"},
+            context=context,
+        )
+        points = placement["points"]
+        require(
+            isinstance(points, list) and 2 <= len(points) <= SOUND_POINTS,
+            f"{context}.points must hold 2 through {SOUND_POINTS} points",
+        )
+        for index, point in enumerate(points):
+            validate_sound_point(
+                point, frame=frame, context=f"{context}.points[{index}]")
+        seen = [json.dumps(point, sort_keys=True) for point in points]
+        require(len(set(seen)) == len(seen), f"{context}.points must be distinct")
+        return kind
+    exact_keys(
+        placement,
+        required={
+            "type", "frame", "azimuthCenterDegrees", "azimuthSpanDegrees",
+            "elevationRangeDegrees", "distanceRangeMeters",
+        },
+        optional={"rolloff"},
+        context=context,
+    )
+    require(frame == "view", f"{context} region placement requires frame view")
+    require(
+        finite(placement["azimuthCenterDegrees"])
+        and -180 <= placement["azimuthCenterDegrees"] <= 180,
+        f"{context}.azimuthCenterDegrees must be between -180 and 180",
+    )
+    require(
+        finite(placement["azimuthSpanDegrees"])
+        and 0 <= placement["azimuthSpanDegrees"] <= 360,
+        f"{context}.azimuthSpanDegrees must be between 0 and 360",
+    )
+    for field, lower, upper in (
+        ("elevationRangeDegrees", -90, 90),
+        ("distanceRangeMeters", 0.1, 100),
+    ):
+        values = placement[field]
+        require(
+            isinstance(values, list) and len(values) == 2
+            and all(finite(value) and lower <= value <= upper for value in values)
+            and values[0] <= values[1],
+            f"{context}.{field} must be an ordered pair within "
+            f"{lower:g} through {upper:g}",
+        )
+    return kind
+
+
+def validate_sound_playback(
+    playback: Any, *, placement_kind: str, clips: int, context: str
+) -> None:
+    require(isinstance(playback, dict), f"{context} must be an object")
+    kind = playback.get("type")
+    require(kind in {"loop", "random"}, f"{context}.type must be loop or random")
+    if kind == "loop":
+        exact_keys(
+            playback,
+            required={"type"},
+            optional={"fadeInSeconds", "fadeOutSeconds"},
+            context=context,
+        )
+        for field in ("fadeInSeconds", "fadeOutSeconds"):
+            if field in playback:
+                require(
+                    finite(playback[field]) and 0 <= playback[field] <= 5,
+                    f"{context}.{field} must be between 0 and 5 seconds",
+                )
+        require(clips == 1, f"{context} loop playback takes exactly one clip")
+        require(
+            placement_kind in {"ambient", "point"},
+            f"{context} loop playback requires ambient or point placement",
+        )
+        return
+    exact_keys(
+        playback,
+        required={"type", "intervalSeconds", "maxConcurrent"},
+        optional={"avoidImmediateRepeat"},
+        context=context,
+    )
+    interval = playback["intervalSeconds"]
+    require(
+        isinstance(interval, list) and len(interval) == 2
+        and all(finite(value) and 0.25 <= value <= 600 for value in interval)
+        and interval[0] <= interval[1],
+        f"{context}.intervalSeconds must be an ordered pair within 0.25 "
+        "through 600 seconds",
+    )
+    require(
+        playback["maxConcurrent"] == 1,
+        f"{context}.maxConcurrent must be 1 in this version",
+    )
+    if "avoidImmediateRepeat" in playback:
+        require(
+            type(playback["avoidImmediateRepeat"]) is bool,
+            f"{context}.avoidImmediateRepeat must be a boolean",
+        )
+
+
+def validate_sound_sidecar(root: Path, files: set[str], *, owner: str) -> None:
+    """Validate the optional sound sidecar, first readable by Locus 1.1.4.
+
+    Audio never travels alone: the importer rejects an audio file no source
+    names, and rejects audio with no sound.json at all, so an author who
+    renames a clip learns it here rather than after the import fails.
+    """
+    audio_files = {name for name in files if extension_of(name) in SOUND_EXTENSIONS}
+    if SOUND_FILE not in files:
+        require(
+            not audio_files,
+            f"audio file {sorted(audio_files)[0] if audio_files else ''} "
+            f"requires {SOUND_FILE}",
+        )
+        return
+
+    value = decode_json(root / SOUND_FILE, SOUND_FILE)
+    exact_keys(
+        value,
+        required={"version", "backgroundPriority", "sources"},
+        context=SOUND_FILE,
+    )
+    version = value["version"]
+    require(
+        type(version) is int and version in {1, 2},
+        f"{SOUND_FILE}.version must be 1 or 2",
+    )
+    priority = value["backgroundPriority"]
+    require(
+        type(priority) is int and 0 <= priority <= 100,
+        f"{SOUND_FILE}.backgroundPriority must be between 0 and 100",
+    )
+    sources = value["sources"]
+    require(
+        isinstance(sources, list) and 1 <= len(sources) <= SOUND_SOURCES,
+        f"{SOUND_FILE}.sources must hold 1 through {SOUND_SOURCES} sources",
+    )
+
+    identifiers: list[str] = []
+    referenced: set[str] = set()
+    total_gain = 0.0
+    for index, source in enumerate(sources):
+        context = f"{SOUND_FILE}.sources[{index}]"
+        require(isinstance(source, dict), f"{context} must be an object")
+        if version == 1:
+            exact_keys(
+                source,
+                required={"id", "title", "path", "role", "gain"},
+                context=context,
+            )
+        else:
+            exact_keys(
+                source,
+                required={"id", "title", "clips", "role", "gain", "placement",
+                          "playback"},
+                context=context,
+            )
+        identifier = source["id"]
+        require_text(identifier, f"{context}.id", 100)
+        require(
+            set(identifier) <= IDENTIFIER_CHARS,
+            f"{context}.id may use only letters, digits, dot, dash, underscore",
+        )
+        identifiers.append(identifier)
+        require_text(source["title"], f"{context}.title", 100)
+        require(
+            source["role"] in {"background", "effect"},
+            f"{context}.role must be background or effect",
+        )
+        gain = source["gain"]
+        require(
+            finite(gain) and 0 <= gain <= 1,
+            f"{context}.gain must be between 0 and 1",
+        )
+        total_gain += gain
+
+        paths = sound_asset_paths(source)
+        require(
+            1 <= len(paths) <= SOUND_CLIPS and len(set(map(str, paths))) == len(paths),
+            f"{context} must name 1 through {SOUND_CLIPS} distinct audio files",
+        )
+        for path in paths:
+            require(
+                isinstance(path, str) and path in files,
+                f"{context} names missing audio file {path!r}",
+            )
+            require(
+                extension_of(path) in SOUND_EXTENSIONS,
+                f"{context} audio must be .m4a, .mp3, or .wav: {path}",
+            )
+            size = (root / path).stat().st_size
+            require(
+                0 < size <= SOUND_BYTES,
+                f"{path} must be larger than zero and at most 128 MiB",
+            )
+            referenced.add(path)
+
+        if version == 2:
+            placement_kind = validate_sound_placement(
+                source["placement"], owner=owner, context=f"{context}.placement")
+            validate_sound_playback(
+                source["playback"],
+                placement_kind=placement_kind,
+                clips=len(paths),
+                context=f"{context}.playback",
+            )
+
+    require(
+        len(set(identifiers)) == len(identifiers),
+        f"{SOUND_FILE}.sources must use distinct ids",
+    )
+    require(
+        total_gain <= 1 + 1e-6,
+        f"{SOUND_FILE} authored gain may total at most 1",
+    )
+    unreferenced = sorted(audio_files - referenced)
+    require(
+        not unreferenced,
+        f"{unreferenced[0] if unreferenced else ''} is not named by any "
+        f"{SOUND_FILE} source",
+    )
+
+
 def validate(path: Path) -> dict[str, Any]:
     with tempfile.TemporaryDirectory(prefix="locus-asset-") as directory:
         root = Path(directory)
         files = extract_archive(path, root)
+        sound_files = {
+            name for name in files
+            if name == SOUND_FILE or extension_of(name) in SOUND_EXTENSIONS
+        }
         if "space.json" in files and "view.json" not in files:
             missing = ROOM_FILES - files
-            extra = files - ROOM_FILES
+            extra = files - ROOM_FILES - sound_files
             if missing:
                 raise ValidationError(f"Room ZIP is missing {sorted(missing)[0]}")
             if extra:
                 raise ValidationError(f"Room ZIP contains unsupported file {sorted(extra)[0]}")
-            return validate_room(root)
+            summary = validate_room(root)
+            validate_sound_sidecar(root, files, owner="room")
+            return summary
         if "view.json" in files and "space.json" not in files:
             missing = VIEW_REQUIRED_FILES - files
-            extra = files - VIEW_REQUIRED_FILES - VIEW_OPTIONAL_FILES
+            extra = files - VIEW_REQUIRED_FILES - VIEW_OPTIONAL_FILES - sound_files
             if missing:
                 raise ValidationError(f"View ZIP is missing {sorted(missing)[0]}")
             if extra:
                 raise ValidationError(f"View ZIP contains unsupported file {sorted(extra)[0]}")
-            return validate_view(root, files)
+            summary = validate_view(root, files)
+            validate_sound_sidecar(root, files, owner="view")
+            return summary
         raise ValidationError("ZIP must contain either space.json or view.json, but not both")
 
 
