@@ -87,8 +87,12 @@ class PageParser(html.parser.HTMLParser):
 
 
 def html_files():
+    # ".claude" holds agent worktrees: copies of this repository that are not
+    # part of the published site and whose pages fail these checks while they
+    # are still being written.
     return sorted(path for path in ROOT.glob("**/*.html")
-                  if not any(part in {"node_modules", ".site", ".scratch", "test-results", "playwright-report"}
+                  if not any(part in {"node_modules", ".site", ".scratch", ".claude",
+                                      "test-results", "playwright-report"}
                              for part in path.relative_to(ROOT).parts))
 
 
@@ -117,6 +121,78 @@ class PublicSiteTests(unittest.TestCase):
             result = subprocess.run([sys.executable, str(ROOT / "tools/validate_locus_asset.py"),
                                      str(archive)], capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+    def test_sound_sidecar_is_documented_and_validated(self):
+        reference = (ROOT / "reference" / "locus-asset-format.md").read_text()
+        for term in [
+            "sound.json",
+            "backgroundPriority",
+            "avoidImmediateRepeat",
+            "intervalSeconds",
+            "azimuthCenterDegrees",
+            "positionMeters",
+            "128 MiB",
+        ]:
+            self.assertIn(term, reference)
+
+        with zipfile.ZipFile(ROOT / "examples/demo-room.zip") as source:
+            provenance = source.read("provenance.json")
+
+        def build(path, sound, audio=("waterfall.m4a",)):
+            with zipfile.ZipFile(path, "w") as output:
+                output.writestr("view.json", json.dumps({
+                    "formatVersion": 1, "displayName": "Sound View",
+                    "panorama": {"projection": "equirectangular",
+                                 "width": 2048, "height": 1024}}))
+                output.writestr("provenance.json", provenance)
+                output.writestr("panorama.jpg", solid_png(2048, 1024))
+                output.writestr("thumbnail.jpg", solid_png(256, 128))
+                if sound is not None:
+                    output.writestr("sound.json", json.dumps(sound))
+                for name in audio:
+                    output.writestr(name, b"\x00" * 2048)
+
+        def validate(path):
+            return subprocess.run(
+                [sys.executable, str(ROOT / "tools/validate_locus_asset.py"),
+                 str(path)], capture_output=True, text=True)
+
+        sound = {"version": 2, "backgroundPriority": 20, "sources": [{
+            "id": "falls", "title": "Waterfall", "clips": ["waterfall.m4a"],
+            "role": "background", "gain": 0.5,
+            "placement": {"type": "point", "frame": "view", "rolloff": 0.2,
+                          "point": {"azimuthDegrees": 25,
+                                    "elevationDegrees": 10,
+                                    "distanceMeters": 15}},
+            "playback": {"type": "loop", "fadeInSeconds": 1}}]}
+
+        with tempfile.TemporaryDirectory() as directory:
+            directory = pathlib.Path(directory)
+            build(directory / "valid.zip", sound)
+            result = validate(directory / "valid.zip")
+            self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+
+            # A View may not position sound in Room coordinates.
+            wrong_frame = json.loads(json.dumps(sound))
+            wrong_frame["sources"][0]["placement"]["frame"] = "room"
+            wrong_frame["sources"][0]["placement"]["point"] = {
+                "positionMeters": [1, 2, -3]}
+            build(directory / "frame.zip", wrong_frame)
+            result = validate(directory / "frame.zip")
+            self.assertEqual(result.returncode, 2)
+            self.assertIn("must be view in a view ZIP", result.stderr)
+
+            # Audio never travels alone, in either direction.
+            build(directory / "stray.zip", sound,
+                  audio=("waterfall.m4a", "unused.wav"))
+            result = validate(directory / "stray.zip")
+            self.assertEqual(result.returncode, 2)
+            self.assertIn("unused.wav is not named", result.stderr)
+
+            build(directory / "orphan.zip", None)
+            result = validate(directory / "orphan.zip")
+            self.assertEqual(result.returncode, 2)
+            self.assertIn("requires sound.json", result.stderr)
 
     def test_every_page_links_to_the_public_community(self):
         for path in html_files():
@@ -608,10 +684,17 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-1-4/"'), archive.index('href="./1-1-3/"'))
+        self.assertEqual(archive.count("· Latest"), 1)
         self.assertLess(archive.index('href="./1-1-3/"'), archive.index('href="./1-1/"'))
         self.assertLess(archive.index('href="./1-1/"'), archive.index('href="./1-0/"'))
 
         releases = {
+            "1-1-4": (
+                "Your place comes back, and now it has a sound.",
+                "Turn the <strong>Digital Crown</strong>",
+                "windows stay in front.",
+            ),
             "1-1-3": (
                 "Bring your Views to life.",
                 "https://www.youtube.com/watch?v=XfSBNZlIKw4",
