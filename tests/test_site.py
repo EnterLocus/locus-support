@@ -730,6 +730,13 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
         self.assertIn("New in Locus 1.1.3", homepage)
+        # 1.1.4 is a smaller update: it gets a link above the 1.1.3 story
+        # rather than replacing it.
+        self.assertIn('href="./whats-new/1-1-4/"', homepage)
+        self.assertLess(
+            homepage.index('href="./whats-new/1-1-4/"'),
+            homepage.index("New in Locus 1.1.3"),
+        )
         self.assertIn("Bring your Views to life.", homepage)
         for highlight in [
             "Bring panoramas from the web",

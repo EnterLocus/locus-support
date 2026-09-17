@@ -66,6 +66,11 @@ h1 { max-width: 920px; margin: 1.25rem 0; font-size: clamp(3rem, 5.8vw, 5.4rem);
 .story-card figcaption span { display: block; margin-top: .2rem; color: var(--muted); font-size: .86rem; line-height: 1.45; }
 
 .whats-new-section { padding: 6rem 0 7rem; border-top: 1px solid var(--line); }
+.whats-new-latest { display: flex; flex-wrap: wrap; align-items: baseline; gap: .35rem 1.1rem; margin: 0 0 3rem; padding: 1rem 1.25rem; border: 1px solid var(--line); border-radius: 1.1rem; background: linear-gradient(145deg, rgba(255,255,255,.045), rgba(255,255,255,.015)); color: inherit; text-decoration: none; }
+.whats-new-latest .kicker { margin: 0; }
+.whats-new-latest-copy { flex: 1 1 22rem; color: var(--muted); font-size: .95rem; line-height: 1.5; }
+.whats-new-latest-link { color: var(--accent); font-weight: 700; white-space: nowrap; }
+.whats-new-latest:hover .whats-new-latest-link, .whats-new-latest:focus-visible .whats-new-latest-link { text-decoration: underline; }
 .whats-new-video-card { margin: 2.4rem 0 0; padding: .55rem; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.035); box-shadow: 0 2.4rem 7rem rgba(0,0,0,.3); }
 .whats-new-video-card figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .4rem 1rem; padding: .65rem .5rem .2rem; color: var(--muted); font-size: .75rem; letter-spacing: .04em; }
 .whats-new-video-card figcaption a { color: var(--accent); font-weight: 700; }
