@@ -32,14 +32,18 @@
 ├── provenance.json
 ├── teleport-points.json
 ├── scene.usdz
-└── thumbnail.jpg</code></pre><p>All five files are required and must be at the ZIP root. <code>space.json</code> contains <code>displayName</code>; it does not contain an asset ID. Do not add a parent folder, editable source, GLB, source textures, or any other file. Locus does not generate a thumbnail when one is missing.</p></section>
+├── thumbnail.jpg
+├── sound.json         # optional, Locus 1.1.4
+└── forest-air.m4a     # one or more, only with sound.json</code></pre><p>All five files are required and must be at the ZIP root. <code>space.json</code> contains <code>displayName</code>; it does not contain an asset ID. Do not add a parent folder, editable source, GLB, source textures, or any other file. Locus does not generate a thumbnail when one is missing. A Room may also carry its own sound: add <code>sound.json</code> and its audio files at the root, described in the <a href="../reference/locus-asset-format.md">format reference</a>. Every audio file must be named by a source in <code>sound.json</code>, and audio without it is rejected.</p></section>
 
     <section class="doc-section" id="view-zip-layout"><h2>View ZIP layout</h2><pre><code>my-view.zip
 ├── view.json
 ├── provenance.json
 ├── panorama.jpg
 ├── thumbnail.jpg
-└── lighting.jpg       # optional</code></pre><p>The panorama must be a complete 2:1 equirectangular image. A packaged View can set starting direction, brightness, contrast, saturation, Room lighting, horizon pitch, and optional sunlight in <code>view.json</code>. A user can change these later with <strong>Edit View</strong>.</p></section>
+├── lighting.jpg       # optional
+├── sound.json         # optional, Locus 1.1.4
+└── waterfall.m4a      # one or more, only with sound.json</code></pre><p>The panorama must be a complete 2:1 equirectangular image. A packaged View can set starting direction, brightness, contrast, saturation, Room lighting, horizon pitch, and optional sunlight in <code>view.json</code>. A user can change these later with <strong>Edit View</strong>. A View may also carry its own sound on the same terms as a Room, described in the <a href="../reference/locus-asset-format.md">format reference</a>.</p></section>
 
     <section class="doc-section"><h2>Adjust a View in Locus</h2><p><strong>Edit View</strong> provides <strong>View Brightness</strong>, <strong>Contrast</strong>, <strong>Color</strong>, <strong>Room Lighting</strong>, <strong>Add Sunlight</strong>, <strong>Sun Position</strong>, <strong>Sunlight Strength</strong>, and <strong>Turn the View</strong>. The settings are saved for that View.</p></section>
 
