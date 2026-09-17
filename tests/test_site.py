@@ -4,6 +4,7 @@ import hashlib
 import html.parser
 import json
 import pathlib
+import posixpath
 import re
 import shutil
 import subprocess
@@ -94,6 +95,50 @@ def html_files():
                   if not any(part in {"node_modules", ".site", ".scratch", ".claude",
                                       "test-results", "playwright-report"}
                              for part in path.relative_to(ROOT).parts))
+
+
+PRIMARY_NAV_RE = re.compile(
+    r'<nav aria-label="Primary navigation">(.*?)</nav>', re.DOTALL)
+FOOTER_NAV_RE = re.compile(
+    r'<nav aria-label="Footer navigation">(.*?)</nav>', re.DOTALL)
+NAV_LINK_RE = re.compile(r'<a\s+([^>]*?)>([^<]*)</a>')
+
+WHATS_NEW_LABEL = "What’s New"
+
+# Every internal nav destination, keyed by its link text, resolved against
+# the linking page's own directory.
+NAV_TARGETS = {
+    WHATS_NEW_LABEL: "whats-new",
+    "Tutorials": "tutorials",
+    "FAQ": "faq",
+    "Support": "support",
+    "Privacy": "privacy",
+}
+
+EXPECTED_PRIMARY_NAV_LABELS = [WHATS_NEW_LABEL, "Tutorials", "FAQ", "Support", "Community"]
+EXPECTED_FOOTER_NAV_LABELS = [
+    WHATS_NEW_LABEL, "Tutorials", "FAQ", "Support", "Privacy", "Community", "Report a Bug",
+]
+
+
+def parse_nav_links(nav_html):
+    links = []
+    for attrs, text in NAV_LINK_RE.findall(nav_html):
+        href_match = re.search(r'href="([^"]*)"', attrs)
+        links.append({
+            "text": text,
+            "href": href_match.group(1) if href_match else None,
+            "current": 'aria-current="page"' in attrs,
+        })
+    return links
+
+
+def resolve_nav_href(page_rel_dir, href):
+    # page_rel_dir is the page's own directory, relative to ROOT, as a POSIX
+    # string ("" for the site root). Mirrors how a browser would resolve the
+    # relative href against the page's own URL.
+    base = page_rel_dir if page_rel_dir not in ("", ".") else "."
+    return posixpath.normpath(posixpath.join(base, href))
 
 
 def solid_png(width, height=1):
@@ -211,6 +256,65 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn(COMMUNITY_URL, readme)
         self.assertIn(DISCUSSIONS_URL, readme)
         self.assertIn("Share creations, ask questions", readme)
+
+    def test_primary_nav_is_unified_across_pages(self):
+        # Every page's header nav must carry the same five destinations, in
+        # the same order, with internal hrefs that actually resolve to their
+        # target section from that page's own directory. What's New must be
+        # marked current on (and only on) pages under whats-new/.
+        for path in html_files():
+            rel = path.relative_to(ROOT)
+            rel_dir = rel.parent.as_posix()
+            under_whats_new = "whats-new" in rel.parts[:-1]
+            text = path.read_text()
+
+            with self.subTest(page=str(rel)):
+                match = PRIMARY_NAV_RE.search(text)
+                self.assertIsNotNone(match, "missing primary navigation")
+                links = parse_nav_links(match.group(1))
+                self.assertEqual(
+                    [link["text"] for link in links], EXPECTED_PRIMARY_NAV_LABELS)
+
+                for link in links:
+                    target = NAV_TARGETS.get(link["text"])
+                    if target is not None:
+                        self.assertEqual(
+                            resolve_nav_href(rel_dir, link["href"]), target,
+                            f'{link["text"]} href {link["href"]!r} does not resolve '
+                            f'to {target}/ from {rel_dir or "."}')
+                    elif link["text"] == "Community":
+                        self.assertEqual(link["href"], COMMUNITY_URL)
+
+                    if link["text"] == WHATS_NEW_LABEL:
+                        self.assertEqual(link["current"], under_whats_new)
+
+    def test_footer_nav_is_unified_across_pages(self):
+        # Every page's footer nav must carry the same seven destinations, in
+        # the same order, with internal hrefs that resolve correctly and the
+        # same external Community/Report a Bug URLs everywhere.
+        for path in html_files():
+            rel = path.relative_to(ROOT)
+            rel_dir = rel.parent.as_posix()
+            text = path.read_text()
+
+            with self.subTest(page=str(rel)):
+                match = FOOTER_NAV_RE.search(text)
+                self.assertIsNotNone(match, "missing footer navigation")
+                links = parse_nav_links(match.group(1))
+                self.assertEqual(
+                    [link["text"] for link in links], EXPECTED_FOOTER_NAV_LABELS)
+
+                for link in links:
+                    target = NAV_TARGETS.get(link["text"])
+                    if target is not None:
+                        self.assertEqual(
+                            resolve_nav_href(rel_dir, link["href"]), target,
+                            f'{link["text"]} href {link["href"]!r} does not resolve '
+                            f'to {target}/ from {rel_dir or "."}')
+                    elif link["text"] == "Community":
+                        self.assertEqual(link["href"], COMMUNITY_URL)
+                    elif link["text"] == "Report a Bug":
+                        self.assertEqual(link["href"], BUG_URL)
 
     def test_bugs_and_community_requests_use_distinct_routes(self):
         support = (ROOT / "support" / "index.html").read_text()
