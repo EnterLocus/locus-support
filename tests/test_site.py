@@ -684,10 +684,17 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-1-4/"'), archive.index('href="./1-1-3/"'))
+        self.assertEqual(archive.count("· Latest"), 1)
         self.assertLess(archive.index('href="./1-1-3/"'), archive.index('href="./1-1/"'))
         self.assertLess(archive.index('href="./1-1/"'), archive.index('href="./1-0/"'))
 
         releases = {
+            "1-1-4": (
+                "Your place comes back, and now it has a sound.",
+                "Turn the <strong>Digital Crown</strong>",
+                "windows stay in front.",
+            ),
             "1-1-3": (
                 "Bring your Views to life.",
                 "https://www.youtube.com/watch?v=XfSBNZlIKw4",
