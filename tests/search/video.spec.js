@@ -57,3 +57,20 @@ test('without JavaScript, posters remain direct YouTube links', async ({ browser
   await expect(page.locator('iframe')).toHaveCount(0);
   await context.close();
 });
+
+test('the homepage hero film stays inside the page on small phones', async ({ page }) => {
+  await page.route('https://www.youtube-nocookie.com/**', route => route.abort());
+  // The 200px floor the player needs turns into a 356px minimum width through
+  // the 16:9 ratio; the hero grid must not let that widen the page.
+  for (const width of [320, 360, 375, 390]) {
+    await page.setViewportSize({ width, height: 800 });
+    await page.goto('/');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `no sideways scroll at ${width}px`).toBeTruthy();
+    const main = await page.locator('main').boundingBox();
+    const card = await page.locator('.hero-video-card').boundingBox();
+    expect(card.x + card.width, `hero card ends with the page column at ${width}px`).toBeLessThanOrEqual(main.x + main.width + 0.5);
+    const video = await page.locator('.hero-video-card .youtube-video').boundingBox();
+    expect(video.width).toBeGreaterThanOrEqual(200);
+    expect(video.height).toBeGreaterThanOrEqual(200);
+  }
+});
