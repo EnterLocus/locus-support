@@ -16,14 +16,12 @@ import zlib
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
-COMMUNITY_URL = "https://github.com/EnterLocus/locus-support/discussions"
+COMMUNITY_URL = "https://www.reddit.com/r/EnterLocus/"
+DISCUSSIONS_URL = "https://github.com/EnterLocus/locus-support/discussions"
 BUG_URL = "https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml"
 IDEAS_URL = (
     "https://github.com/EnterLocus/locus-support/discussions/new"
     "?category=ideas-requests"
-)
-HELP_URL = (
-    "https://github.com/EnterLocus/locus-support/discussions/new?category=help"
 )
 APP_STORE_URL = "https://apps.apple.com/app/id6802168265"
 # See assets/README.md "Locus 1.1.3 launch media" for provenance.
@@ -211,12 +209,14 @@ class PublicSiteTests(unittest.TestCase):
 
         readme = " ".join((ROOT / "README.md").read_text().split())
         self.assertIn(COMMUNITY_URL, readme)
+        self.assertIn(DISCUSSIONS_URL, readme)
         self.assertIn("Share creations, ask questions", readme)
 
     def test_bugs_and_community_requests_use_distinct_routes(self):
         support = (ROOT / "support" / "index.html").read_text()
-        for required in [BUG_URL, IDEAS_URL, HELP_URL]:
+        for required in [BUG_URL, IDEAS_URL, COMMUNITY_URL]:
             self.assertIn(required, support)
+        self.assertNotIn("discussions/new?category=help", support)
         for obsolete in ["template=feature.yml", "template=wishlist.yml"]:
             self.assertNotIn(obsolete, support)
 
@@ -227,7 +227,7 @@ class PublicSiteTests(unittest.TestCase):
             ROOT / ".github" / "ISSUE_TEMPLATE" / "config.yml"
         ).read_text()
         self.assertIn(IDEAS_URL, issue_config)
-        self.assertIn(HELP_URL, issue_config)
+        self.assertIn(COMMUNITY_URL, issue_config)
 
         for path in html_files():
             parser = PageParser()
@@ -620,31 +620,12 @@ class PublicSiteTests(unittest.TestCase):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
         parser.feed(homepage)
-        self.assertEqual(len(parser.videos), 2)
-        videos_by_class = {video.get("class"): video for video in parser.videos}
-        hero_video = videos_by_class["hero-video"]
-        for attribute in ["controls", "autoplay", "muted", "loop", "playsinline"]:
-            self.assertIn(attribute, hero_video)
-        self.assertEqual(hero_video.get("preload"), "metadata")
-        self.assertEqual(hero_video.get("width"), "1920")
-        self.assertEqual(hero_video.get("height"), "1080")
-        # The hero keeps the approved 1.1.1 promo; the 1.1.3 promo lives in
-        # the What's New section (see the Locus 1.1 test below).
-        self.assertEqual(
-            hero_video.get("src"),
-            "./assets/promo/locus-1.1.1-promo-30s.mp4",
-        )
-        self.assertEqual(
-            hero_video.get("poster"),
-            "./assets/screenshots/floating-islands-winter-garden-v111.jpg",
-        )
-        self.assertEqual(hero_video.get("aria-label"), "Locus promotional video")
+        self.assertEqual(parser.videos, [])
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
-        self.assertEqual(
-            parser.links.count("./assets/promo/locus-1.1.1-promo-30s.mp4"),
-            1,
-        )
+        self.assertIn('data-youtube-id="q7mVdPEqJ2o"', homepage)
+        self.assertIn('aria-label="Play Locus promotional video"', homepage)
+        self.assertIn("https://www.youtube.com/watch?v=q7mVdPEqJ2o", parser.links)
         self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
         self.assertNotIn("Watch the video directly.", homepage)
         self.assertIn("Your desk, new Views, and room to focus", homepage)
@@ -657,13 +638,6 @@ class PublicSiteTests(unittest.TestCase):
         stylesheet = (ROOT / "assets" / "site.css").read_text()
         self.assertIn("@media (prefers-reduced-motion: reduce)", stylesheet)
         self.assertNotIn("@media (hover: none) and (pointer: coarse)", stylesheet)
-        self.assertIn(".hero-video-mobile { display: block; }", stylesheet)
-        self.assertNotIn(".hero-shot video", stylesheet)
-        self.assertIn(
-            ".hero-video { display: block; width: 100%; height: auto; "
-            "border-radius: 1rem; }",
-            stylesheet,
-        )
         hero_shot_rule = re.search(r"^\.hero-shot \{([^}]*)\}", stylesheet, re.MULTILINE)
         self.assertIsNotNone(hero_shot_rule)
         self.assertNotIn("transform", hero_shot_rule.group(1))
@@ -708,6 +682,35 @@ class PublicSiteTests(unittest.TestCase):
         for filename in expected:
             self.assertIn(filename, asset_record)
 
+    def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
+        archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-1-3/"'), archive.index('href="./1-1/"'))
+        self.assertLess(archive.index('href="./1-1/"'), archive.index('href="./1-0/"'))
+
+        releases = {
+            "1-1-3": (
+                "Bring your Views to life.",
+                "https://www.youtube.com/watch?v=XfSBNZlIKw4",
+                "Animated Views are clearly marked",
+            ),
+            "1-1": (
+                "More ways to make your workspace yours.",
+                "https://www.youtube.com/watch?v=77sy7ONjdCU",
+                "Bring a 360° View straight from the web.",
+            ),
+            "1-0": (
+                "A spatial workspace with a sense of place.",
+                "https://www.youtube.com/watch?v=zg7WsyTJT4Q",
+                "Enter a Virtual Space.",
+            ),
+        }
+        for release, required in releases.items():
+            page = (ROOT / "whats-new" / release / "index.html").read_text()
+            with self.subTest(release=release):
+                self.assertIn('data-pagefind-body', page)
+                for text in required:
+                    self.assertIn(text, page)
+
     def test_homepage_faq_and_guide_announce_locus_1_1(self):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
@@ -718,9 +721,9 @@ class PublicSiteTests(unittest.TestCase):
         # is no longer embedded) and the same four highlights the app shows
         # in its own What's New sheet.
         self.assertIn('id="whats-new"', homepage)
-        self.assertIn('href="#whats-new"', homepage)
-        self.assertIn("New in Locus 1.1", homepage)
-        self.assertIn("More ways to make your workspace yours.", homepage)
+        self.assertIn('href="./whats-new/"', homepage)
+        self.assertIn("New in Locus 1.1.3", homepage)
+        self.assertIn("Bring your Views to life.", homepage)
         for highlight in [
             "Bring panoramas from the web",
             "Organize every Place",
@@ -729,25 +732,10 @@ class PublicSiteTests(unittest.TestCase):
         ]:
             self.assertIn(highlight, homepage)
 
-        videos_by_class = {video.get("class"): video for video in parser.videos}
-        whats_new = videos_by_class["whats-new-video"]
-        for attribute in ["controls", "muted", "playsinline"]:
-            self.assertIn(attribute, whats_new)
-        for attribute in ["autoplay", "loop"]:
-            self.assertNotIn(attribute, whats_new)
-        self.assertEqual(whats_new.get("preload"), "metadata")
-        self.assertEqual(whats_new.get("width"), "1920")
-        self.assertEqual(whats_new.get("height"), "1080")
-        self.assertEqual(
-            whats_new.get("src"), "./assets/promo/locus-1.1.3-promo-24s.mp4")
-        self.assertEqual(
-            whats_new.get("poster"),
-            "./assets/promo/locus-1.1.3-promo-poster.jpg",
-        )
-        self.assertEqual(
-            whats_new.get("aria-label"), "Locus 1.1.3 promotional video")
-        self.assertEqual(
-            parser.links.count("./assets/promo/locus-1.1.3-promo-24s.mp4"), 1)
+        self.assertEqual(parser.videos, [])
+        self.assertIn('data-youtube-id="XfSBNZlIKw4"', homepage)
+        self.assertIn("https://www.youtube.com/watch?v=XfSBNZlIKw4", parser.links)
+        self.assertIn('./assets/promo/locus-1.1.3-promo-poster.jpg', homepage)
         self.assertNotIn("./assets/promo/locus-1.1-whats-new-33s.mp4", homepage)
         self.assertNotIn("./assets/promo/locus-1.1-whats-new-poster.jpg", homepage)
         self.assertIn("Animated Views with living water and sound", homepage)
