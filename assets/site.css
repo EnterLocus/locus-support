@@ -122,7 +122,8 @@ footer nav a { white-space: nowrap; }
   .site-header { height: auto; min-height: 76px; align-items: flex-start; padding: 1rem 0; gap: 1rem; flex-direction: column; }
   .site-header nav { width: 100%; gap: .9rem; flex-wrap: wrap; justify-content: flex-start; }
   .site-header nav a { font-size: .84rem; }
-  .hero { min-height: auto; grid-template-columns: 1fr; gap: 3rem; padding: 4.5rem 0 5.5rem; }
+  /* minmax(0, …), not 1fr: a bare 1fr lets the film's 200px height floor widen the column to 375px through its 16:9 ratio. */
+  .hero { min-height: auto; grid-template-columns: minmax(0, 1fr); gap: 3rem; padding: 4.5rem 0 5.5rem; }
   h1 { font-size: clamp(2.8rem, 13vw, 4.6rem); }
   .selection-section, .room-showcase, .product-grid, .split-section, .story-grid { grid-template-columns: 1fr; gap: 2rem; }
   .story-section { padding: 5.5rem 0; }
