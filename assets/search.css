@@ -23,5 +23,6 @@
 .search-help button { color: var(--accent); padding: 0; background: none; border: 0; font: inherit; text-decoration: underline; text-underline-offset: .2em; cursor: pointer; }
 .faq-item summary h3 { display: inline; font: inherit; margin: 0; scroll-margin-top: 2rem; }
 body:has(.search-dialog[open]) { overflow: hidden; }
-@media (max-width: 760px) { .search-trigger { font-size: .84rem; padding: .4rem .65rem; } }
+/* Five links fill a phone-width row, so Search sits beside the brand instead of wrapping alone beneath them. */
+@media (max-width: 760px) { .site-header { position: relative; } .search-trigger { position: absolute; top: calc(1rem + 1px); right: 0; font-size: .84rem; padding: .4rem .65rem; } }
 @media (max-width: 480px) { .search-dialog { padding: 1.1rem; margin-top: 16px; max-height: calc(100dvh - 32px); } }

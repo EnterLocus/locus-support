@@ -69,14 +69,24 @@ adding a public page.
 ## What’s New articles
 
 `whats-new/` is the public release-story archive. Keep its cards in descending
-version order, with the newest release first. Add an article when a release has
-a major customer-visible feature worth explaining; routine fixes do not need a
-standalone story.
+version order, with the newest release first. Every public release gets an
+article; size it to the release, so a small one is a few short sections rather
+than a missing page.
 
 Each new article should focus on that release's leading feature, use verified
 product media when available, link into the previous/newer release sequence,
-and be added to the archive and site regression test. Refresh the homepage
-What’s New section when the article represents the current leading release.
+and be added to the archive and site regression test.
+
+The homepage What’s New section always names the latest release. By default,
+point the one-line `whats-new-latest` strip above the leading block at the new
+article and leave the block alone, as 1.1.4 did beneath the 1.1.3 story.
+Replace the leading block itself (headline, film, grid) only when the owner
+decides the release takes over the homepage, and drop the strip then.
+
+Every page carries its own copy of the header and footer navigation. The site
+test pins one shared set of links and their order, so copy both from an existing
+page when adding one, and change the expected lists in `tests/test_site.py`
+together with every page when the navigation itself changes.
 
 After building, run `npx playwright install chromium` and `npm run test:search`.
 Browser tests serve the real built site and cover desktop/mobile results, FAQ
