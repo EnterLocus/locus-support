@@ -480,6 +480,7 @@ struct RoomModelBindingContract: Decodable, Sendable {
         let wallEntities: [String]
         let roofEntities: [String]
         let deskEntitiesByTeleportID: [String: String]
+        let deskGroupEntitiesByTeleportID: [String: String]?
     }
     struct Rendering: Decodable, Sendable {
         let softenedReflectionEntities: [String]
@@ -507,6 +508,8 @@ struct RoomModelBindingContract: Decodable, Sendable {
         if let a = spatialAdaptation {
             names += a.wallEntities + a.roofEntities
             names += a.deskEntitiesByTeleportID.sorted { $0.key < $1.key }.map(\.value)
+            names += (a.deskGroupEntitiesByTeleportID ?? [:])
+                .sorted { $0.key < $1.key }.map(\.value)
         }
         if let r = rendering {
             names += r.softenedReflectionEntities + r.uiFadeEntities
@@ -677,6 +680,7 @@ def validate_spatial_adaptation(value: Any, teleport_ids: set[str]) -> None:
     exact_keys(
         value,
         required={"wallEntities", "roofEntities", "deskEntitiesByTeleportID"},
+        optional={"deskGroupEntitiesByTeleportID"},
         context="space.json.spatialAdaptation",
     )
     walls = value["wallEntities"]
@@ -693,6 +697,20 @@ def validate_spatial_adaptation(value: Any, teleport_ids: set[str]) -> None:
     for teleport_id, entity in desks.items():
         require(teleport_id in teleport_ids and isinstance(entity, str) and entity.strip(),
                 f"desk mapping is invalid for teleport {teleport_id}")
+    # A lounge seat (sofa, daybed, bench) deliberately has no entry here at
+    # all; that is a first-class shape, not something this validator flags.
+    if "deskGroupEntitiesByTeleportID" in value:
+        groups = value["deskGroupEntitiesByTeleportID"]
+        require(isinstance(groups, dict), "deskGroupEntitiesByTeleportID must be an object")
+        for teleport_id, entity in groups.items():
+            require(
+                teleport_id in teleport_ids
+                and teleport_id in desks
+                and isinstance(entity, str)
+                and entity.strip(),
+                f"desk group mapping is invalid for teleport {teleport_id}: "
+                "it must also have a deskEntitiesByTeleportID entry",
+            )
 
 
 def validate_light_color(value: Any, context: str) -> None:

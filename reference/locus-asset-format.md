@@ -72,6 +72,9 @@ ID:
     "roofEntities": ["Roof"],
     "deskEntitiesByTeleportID": {
       "seat.window": "Window_Desk_Top"
+    },
+    "deskGroupEntitiesByTeleportID": {
+      "seat.window": "Window_Desk_Group"
     }
   }
 }
@@ -99,6 +102,13 @@ are right-handed meters with +Y up and -Z forward. Quaternions are
   ]
 }
 ```
+
+A teleport point's `id` or `title` naming Left or Right names that side from
+the seated visitor's own perspective, not an outside observer's — the `right`
+seat of such a pair sits to the sitter's right hand. This is authoring
+guidance, not a schema field: it only affects how you choose `anchorXZ` and
+`yawRadians` for the two points, so their relative positions actually match a
+sitter's left and right.
 
 `scene.usdz` is a self-contained, meter-scale, +Y-up USDZ. Its ZIP members are
 stored without compression and it must pass `usdchecker --arkit`.
@@ -315,9 +325,10 @@ ID to the exact exported entity name in
 `seat.window` must also be the `id` of a point in `teleport-points.json`, and
 `scene.usdz` must contain an entity named exactly `Window_Desk_Top`. A shared
 table may be mapped from several seat IDs. If a seat has no mapping, it remains
-usable as a teleport but receives no automatic desk alignment or desk
-passthrough. There is currently no in-app surface picker that creates this
-mapping after import.
+usable as a teleport, but it is a first-class **lounge seat**: it never
+measures or aligns a real desk and never offers desk passthrough. See
+[Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). There is
+currently no in-app surface picker that creates a desk mapping after import.
 
 Make the mapped entity the tabletop itself or a tightly bounded tabletop slab,
 not the complete desk-and-chair hierarchy. Locus uses that entity's recursive
@@ -361,6 +372,61 @@ can exercise package loading, but real-table detection, alignment, passthrough
 edges, scale, reach, and comfort require the exact delivered build on a physical
 Vision Pro.
 
+### Lounge seats and hideable desks
+
+A sofa, daybed, bench, or other lounge seat may deliberately omit its entry in
+`deskEntitiesByTeleportID`. From Locus 1.1.5 this is a first-class authoring
+choice, not a gap to fill later: the seat enters directly at its authored
+floor and eye height, never triggers real-desk measurement or alignment, and
+never offers desk passthrough. Locus's in-app seat list shows no desk icon for
+it (a seat that does have a desk mapping shows one). Do not point such a
+seat's mapping at a nearby coffee table or side table just to give it a desk
+icon — an intentionally unmapped lounge seat is correct as-is.
+
+The optional `spatialAdaptation.deskGroupEntitiesByTeleportID` is unrelated to
+lounge seats: it applies only to desk-backed seats that already have a
+`deskEntitiesByTeleportID` mapping, and lets an author offer a **Hide Desk**
+control for one. Its value names one authored entity per teleport ID — the
+single root whose whole subtree is that seat's physical desk (top, legs, and
+anything resting on it):
+
+```json
+"deskGroupEntitiesByTeleportID": {
+  "seat.window": "Window_Desk_Group"
+}
+```
+
+Rules Locus enforces:
+
+- a key here must also have a `deskEntitiesByTeleportID` entry for the same
+  teleport ID;
+- the value must be non-blank, trimmed text;
+- the named entity must resolve to exactly one entity in `scene.usdz`; and
+- the seat's `deskEntitiesByTeleportID` surface entity must be a **descendant**
+  of the named group entity — group and surface must name two different
+  entities in the same subtree, not two unrelated names.
+
+A Room that fails any of these at load time fails to load; there is no partial
+fallback that silently drops the desk group and keeps the Room usable.
+
+Hiding disables the whole named subtree — never a material, opacity, or
+per-entity visibility trick, and never the alignment surface's own enabled
+state, which stays untouched because only an ancestor above it is disabled.
+Desk measuring, re-measuring, alignment, and the passthrough cutout all keep
+working while the desk is hidden, because they read the same surface entity
+named in `deskEntitiesByTeleportID`, unaffected by an ancestor's visibility. A
+`lighting` luminaire group whose entities are *all* nested under a hidden desk
+group's root also stops contributing its light while hidden; a group with only
+some entities under that root is left alone entirely.
+
+Only a seat with a `deskGroupEntitiesByTeleportID` entry offers Hide Desk.
+Readers older than 1.1.5 simply do not decode this field: they still measure
+and align the desk exactly as before, and never offer a way to hide it. In the
+1.1.5 app, once a visitor turns Hide Desk on (from the Quick Controls tile or
+the Quick Settings header) it stays in effect for the rest of that immersive
+visit, across seats, Rooms, and Views, and Settings can default every new
+visit to starting with desks hidden.
+
 ## How Locus uses a Room
 
 The authoring interface and the runtime rules are both documented here. Public
@@ -377,7 +443,8 @@ the internal identity, file paths, and bookkeeping.
 | `safeHeadVolume` | Defines a box that follows the selected seat and its floor frame. Locus uses it with tracking and presence to decide when immersive content can be shown safely. Each half-extent has a runtime minimum of 1 m: an authored box smaller than 2 m on an axis cannot narrow that runtime range. This is not a wall collider or permission to put geometry close to the visitor's head. |
 | `viewOpenings` | Exactly one logical opening connects a Room/View composition. It does not cut holes in the USDZ. Model the real architectural openings yourself. Virtual Space surrounds the Room with the View; this field does not determine which real walls Room Portal opens. |
 | `spatialAdaptation.wallEntities` / `roofEntities` | Exact validated references to virtual architecture. They do not hide those meshes or create real-world portals. Room Portal uses detected real walls and supports opening multiple walls; the current product cannot open the real ceiling. |
-| `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat still loads, but receives neither automatic desk alignment nor desk passthrough. See the desk-mapping contract in this reference. |
+| `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat is a first-class lounge seat: it still loads, at its authored floor and eye height, but never measures, aligns, or offers passthrough for a desk. See [Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). |
+| `deskGroupEntitiesByTeleportID` | Optional, 1.1.5+. For a subset of desk-backed seats, names the one entity whose whole subtree is that seat's hideable desk, enabling a visitor **Hide Desk** control. A key must already have a `deskEntitiesByTeleportID` entry; the named entity must resolve uniquely and be an ancestor of that entry's surface entity, or the Room fails to load. Readers before 1.1.5 ignore this field and offer no Hide Desk. See [Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). |
 | `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. |
 | `rendering` | Explicitly opts subtrees into softened View reflections or temporary window-obstruction fading. Omitted roles grant neither behavior. These permissions do not change the underlying material design. |
 | `ambientAnimations` | Binds embedded named clips to experimental switch/speed/interval controls. A valid entity name does not prove a clip exists or moves correctly; test playback in Locus. |
