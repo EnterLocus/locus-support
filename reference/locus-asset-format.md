@@ -422,7 +422,7 @@ some entities under that root is left alone entirely.
 Only a seat with a `deskGroupEntitiesByTeleportID` entry offers Hide Desk.
 Readers older than 1.1.5 simply do not decode this field: they still measure
 and align the desk exactly as before, and never offer a way to hide it. In the
-1.1.5 app, once a visitor turns Hide Desk on (from the Quick Controls tile or
+1.1.5 app, once a visitor turns Hide Desk on (from the Controls tile in the toolbar or
 the Quick Settings header) it stays in effect for the rest of that immersive
 visit, across seats, Rooms, and Views, and Settings can default every new
 visit to starting with desks hidden.
