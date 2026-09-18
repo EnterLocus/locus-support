@@ -46,7 +46,8 @@ match the actual authored scene.
   "spatialAdaptation": {
     "wallEntities": ["Rear_Wall"],
     "roofEntities": ["Roof"],
-    "deskEntitiesByTeleportID": {"seat.primary": "Table_Top"}
+    "deskEntitiesByTeleportID": {"seat.primary": "Table_Top"},
+    "deskGroupEntitiesByTeleportID": {"seat.primary": "Table_Group"}
   },
   "lighting": {
     "luminaireGroups": [{
@@ -114,7 +115,20 @@ valid value can still place the visitor under a lamp or facing backward.
 a group. When `spatialAdaptation` exists, all three fields exist; empty arrays
 or an empty desk map are allowed. The desk value names the tabletop subtree
 itself. Do not map a parent containing legs, chairs, lamps, or props because
-Locus derives the surface from recursive visual bounds.
+Locus derives the surface from recursive visual bounds. A seat omitted from
+`deskEntitiesByTeleportID` is a first-class lounge seat (sofa, daybed, bench):
+it loads at its authored floor and eye height and never gets desk measurement,
+alignment, or passthrough. Do not map a nearby coffee table just to give it a
+desk.
+
+`deskGroupEntitiesByTeleportID` is a separate, independently optional map
+(1.1.5+): for a subset of desk-backed seats, it names the one entity whose
+whole subtree is that seat's hideable desk, so Locus can offer a visitor
+**Hide Desk** control. A key must already have a `deskEntitiesByTeleportID`
+entry for the same teleport ID, its value must be non-blank, the named entity
+must resolve to exactly one entity in the USDZ, and the seat's desk surface
+entity must be a descendant of it — otherwise the Room fails to load. Readers
+before 1.1.5 ignore the field entirely and offer no Hide Desk.
 
 World-sensing desk alignment, passthrough, Room Portal behavior, and physical
 comfort require Apple Vision Pro. A simulator can verify that the Room imports,
@@ -341,7 +355,8 @@ the internal identity, file paths, and bookkeeping.
 | `safeHeadVolume` | Defines a box that follows the selected seat and its floor frame. Locus uses it with tracking and presence to decide when immersive content can be shown safely. Each half-extent has a runtime minimum of 1 m: an authored box smaller than 2 m on an axis cannot narrow that runtime range. This is not a wall collider or permission to put geometry close to the visitor's head. |
 | `viewOpenings` | Exactly one logical opening connects a Room/View composition. It does not cut holes in the USDZ. Model the real architectural openings yourself. Virtual Space surrounds the Room with the View; this field does not determine which real walls Room Portal opens. |
 | `spatialAdaptation.wallEntities` / `roofEntities` | Exact validated references to virtual architecture. They do not hide those meshes or create real-world portals. Room Portal uses detected real walls and supports opening multiple walls; the current product cannot open the real ceiling. |
-| `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat still loads, but receives neither automatic desk alignment nor desk passthrough. See the desk-mapping contract in this reference. |
+| `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat is a first-class lounge seat: it still loads, at its authored floor and eye height, but never measures, aligns, or offers passthrough for a desk. See the desk-mapping contract in this reference. |
+| `deskGroupEntitiesByTeleportID` | Optional, 1.1.5+. For a subset of desk-backed seats, names the one entity whose whole subtree is that seat's hideable desk, enabling a visitor Hide Desk control. A key must already have a `deskEntitiesByTeleportID` entry; the named entity must resolve uniquely and be an ancestor of that entry's surface entity, or the Room fails to load. Readers before 1.1.5 ignore this field. |
 | `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. |
 | `rendering` | Explicitly opts subtrees into softened View reflections or temporary window-obstruction fading. Omitted roles grant neither behavior. These permissions do not change the underlying material design. |
 | `ambientAnimations` | Binds embedded named clips to experimental switch/speed/interval controls. A valid entity name does not prove a clip exists or moves correctly; test playback in Locus. |

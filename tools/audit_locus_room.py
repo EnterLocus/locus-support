@@ -42,7 +42,8 @@ def audit(metadata_path: Path, usdz_path: Path) -> dict:
                 raise ValueError(f'{prim.GetPath()}: bake displacement into mesh geometry before delivery')
     adaptation = metadata.get('spatialAdaptation', {})
     for name in [*adaptation.get('wallEntities', []), *adaptation.get('roofEntities', []),
-                 *adaptation.get('deskEntitiesByTeleportID', {}).values()]:
+                 *adaptation.get('deskEntitiesByTeleportID', {}).values(),
+                 *adaptation.get('deskGroupEntitiesByTeleportID', {}).values()]:
         resolve(name)
     for animation in metadata.get('ambientAnimations', []):
         resolve(animation['entityName'])
