@@ -692,6 +692,8 @@ class PublicSiteTests(unittest.TestCase):
             "locus-1.1.1-promo-30s.mp4": "96f14c7771e288a4f7e7b452971f2740f112e03430e544eb630b97ef9dee14a7",
             "locus-1.1.3-promo-24s.mp4": PROMO_1_1_3_MP4_SHA256,
             "locus-1.1.3-promo-poster.jpg": PROMO_1_1_3_POSTER_SHA256,
+            "locus-1.1.5-poster.jpg":
+                "233c6f7852e21344a300734ad9b42b2363ead99a08c25bd53b6379587beb83e6",
             "locus-1.1-whats-new-33s.mp4":
                 "a8eb882e95cf22df34b75be2737eb5cee53b1596a645572afabee88f23decb6b",
             "locus-1.1-whats-new-poster.jpg":
@@ -788,12 +790,19 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-1-5/"'), archive.index('href="./1-1-4/"'))
         self.assertLess(archive.index('href="./1-1-4/"'), archive.index('href="./1-1-3/"'))
         self.assertEqual(archive.count("· Latest"), 1)
         self.assertLess(archive.index('href="./1-1-3/"'), archive.index('href="./1-1/"'))
         self.assertLess(archive.index('href="./1-1/"'), archive.index('href="./1-0/"'))
 
         releases = {
+            "1-1-5": (
+                "Sit where you like.",
+                "https://www.youtube.com/watch?v=RPbFXq5-KVE",
+                "Hide the desk.",
+                "#lounge-seats-and-hideable-desks",
+            ),
             "1-1-4": (
                 "Your place comes back, and now it has a sound.",
                 "Turn the <strong>Digital Crown</strong>",
@@ -834,11 +843,12 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
         self.assertIn("New in Locus 1.1.3", homepage)
-        # 1.1.4 is a smaller update: it gets a link above the 1.1.3 story
-        # rather than replacing it.
-        self.assertIn('href="./whats-new/1-1-4/"', homepage)
+        # 1.1.4 and 1.1.5 are smaller updates: the latest one gets a link
+        # above the 1.1.3 story rather than replacing it.
+        self.assertIn('href="./whats-new/1-1-5/"', homepage)
+        self.assertNotIn('href="./whats-new/1-1-4/"', homepage)
         self.assertLess(
-            homepage.index('href="./whats-new/1-1-4/"'),
+            homepage.index('href="./whats-new/1-1-5/"'),
             homepage.index("New in Locus 1.1.3"),
         )
         self.assertIn("Bring your Views to life.", homepage)

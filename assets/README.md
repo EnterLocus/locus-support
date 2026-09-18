@@ -218,6 +218,19 @@ SHA-256
 | `promo/locus-1.1.3-promo-24s.mp4` | `df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb` | `df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb` |
 | `promo/locus-1.1.3-promo-poster.jpg` | `4942cd182dce1fa3c65be0f9dd7f231f8cd43a2dde5c370b648ac5f670bfaa0c` | `4131719643adafa062d50174d6ba88247b739e14a2fdfbb14e984f4de6413794` |
 
+`locus-1.1.5-poster.jpg` is the poster for the Locus 1.1.5 release film and the
+What's New card: a 1920 × 1080 JPEG export (Lanczos downscale) of the native
+3840 × 2160 visionOS Simulator capture of Winter Garden Breeze from its Sofa
+Center seat with Sunlit Cloud Walkway and no UI on screen, taken from the 1.1.5
+release candidate (`Locus Launch Media/v1.1.5/working/screenshots-2026-09-18/extras/winter-garden-sofa-center-no-ui.png`).
+Source PNG SHA-256 `f1b3055d68c4461fb96b19987d5ac4f981845cbe7f561cf86fdd8a13d2639ac4`, website SHA-256 `233c6f7852e21344a300734ad9b42b2363ead99a08c25bd53b6379587beb83e6`.
+The film itself is the owner's Apple Vision Pro recordings, published on YouTube
+(see the YouTube delivery table).
+
+| Website file | Source SHA-256 | Website SHA-256 |
+| --- | --- | --- |
+| `promo/locus-1.1.5-poster.jpg` | `f1b3055d68c4461fb96b19987d5ac4f981845cbe7f561cf86fdd8a13d2639ac4` | `233c6f7852e21344a300734ad9b42b2363ead99a08c25bd53b6379587beb83e6` |
+
 The 1.1 What's New video, the 1.1.1 promo, and all earlier promotional media
 URLs remain available; nothing in `promo/` or `screenshots/` was removed. These files are Simulator
 evidence of Locus 1.1.3 layout and behavior. They are not physical Apple
@@ -236,4 +249,5 @@ Existing MP4 files remain available at their old direct URLs for compatibility, 
 | Main film | https://www.youtube.com/watch?v=q7mVdPEqJ2o | `062985a8a3969ad4ab5a1e353d829b4cee835ccc92a47e7ebb10f078e46728e6` |
 | Animated Views 1.1.3 | https://www.youtube.com/watch?v=XfSBNZlIKw4 | `651c9da2cc48a816291d7bbb51d3e95d1765ddba3860af0f3b0263ae560f8c10` |
 | What’s New 1.1 | https://www.youtube.com/watch?v=77sy7ONjdCU | `a8eb882e95cf22df34b75be2737eb5cee53b1596a645572afabee88f23decb6b` |
+| Locus 1.1.5 release film (public) | https://www.youtube.com/watch?v=RPbFXq5-KVE | `191ab82da1417cfe7b651efd8fcc0af40c98c3ae09d2fdef06f8005486c1dfc9` |
 | Introduction 1.0 | https://www.youtube.com/watch?v=zg7WsyTJT4Q | `7fe19092d03a2e43cdf795ee0f6c7f8c1667e33da439324b17f5b4699865117a` |
