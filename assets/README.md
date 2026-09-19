@@ -226,6 +226,15 @@ submitted or approved in App Store Connect.
 
 ## YouTube delivery — September 13, 2026
 
+The homepage hero film since 2026-09-18 is the 1.1.1 main film with its still
+"Find your kind of focus" cliff replaced by the 1.1.3 living-water shots and
+their captured ambience (Winter Garden + Floating Coastal Cliff, Courtyard
+Gallery + Emerald Grotto), 38.3 s, 4K, uploaded byte-for-byte from
+`Locus Launch Media/v1.1.5/working/hero-film-2026-09-18/Locus-Hero-Film-4K-38s-draft1.mp4`
+(SHA-256 `fa9d4bd6f1e51c0a2bfd16cb12999cdcf486a034aece81b214c2545194b7365b`); the edit recipe is `edit/assemble.zsh` beside it. The
+desk and walls sections are Apple Vision Pro recordings; the middle is
+visionOS Simulator capture.
+
 Website films now use local posters and YouTube privacy-enhanced embeds that load when 25% visible, autoplay muted, and loop. Native controls and direct Watch on YouTube links remain available when autoplay is blocked.
 All four videos are Unlisted in EnterLocus (`UCuVsVMtpw1NejBaWBXFId4g`) with embedding enabled.
 The main film and Animated Views upload use the approved 4K originals; archive films use the previously published 1080p files.
@@ -233,7 +242,8 @@ Existing MP4 files remain available at their old direct URLs for compatibility, 
 
 | Film | YouTube watch URL | Uploaded source SHA-256 |
 | --- | --- | --- |
-| Main film | https://www.youtube.com/watch?v=q7mVdPEqJ2o | `062985a8a3969ad4ab5a1e353d829b4cee835ccc92a47e7ebb10f078e46728e6` |
-| Animated Views 1.1.3 | https://www.youtube.com/watch?v=XfSBNZlIKw4 | `651c9da2cc48a816291d7bbb51d3e95d1765ddba3860af0f3b0263ae560f8c10` |
+| Main film (homepage hero since 2026-09-18, public) | https://www.youtube.com/watch?v=bJln-6GMXlQ | `fa9d4bd6f1e51c0a2bfd16cb12999cdcf486a034aece81b214c2545194b7365b` |
+| Main film until 2026-09-18 (retired from the site) | https://www.youtube.com/watch?v=q7mVdPEqJ2o | `062985a8a3969ad4ab5a1e353d829b4cee835ccc92a47e7ebb10f078e46728e6` |
+| Animated Views 1.1.3 (1.1.3 article only; retired from the homepage 2026-09-18) | https://www.youtube.com/watch?v=XfSBNZlIKw4 | `651c9da2cc48a816291d7bbb51d3e95d1765ddba3860af0f3b0263ae560f8c10` |
 | What’s New 1.1 | https://www.youtube.com/watch?v=77sy7ONjdCU | `a8eb882e95cf22df34b75be2737eb5cee53b1596a645572afabee88f23decb6b` |
 | Introduction 1.0 | https://www.youtube.com/watch?v=zg7WsyTJT4Q | `7fe19092d03a2e43cdf795ee0f6c7f8c1667e33da439324b17f5b4699865117a` |
