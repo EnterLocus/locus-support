@@ -729,12 +729,13 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(parser.videos, [])
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
-        self.assertIn('data-youtube-id="q7mVdPEqJ2o"', homepage)
+        self.assertIn('data-youtube-id="bJln-6GMXlQ"', homepage)
+        self.assertNotIn("q7mVdPEqJ2o", homepage)
         self.assertIn('aria-label="Play Locus promotional video"', homepage)
-        self.assertIn("https://www.youtube.com/watch?v=q7mVdPEqJ2o", parser.links)
+        self.assertIn("https://www.youtube.com/watch?v=bJln-6GMXlQ", parser.links)
         self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
         self.assertNotIn("Watch the video directly.", homepage)
-        self.assertIn("Your desk, new Views, and room to focus", homepage)
+        self.assertIn("Your desk, Views that move, and room to focus", homepage)
         self.assertEqual(
             homepage.count("Keyboard passthrough is provided by visionOS, not Locus."),
             1,
