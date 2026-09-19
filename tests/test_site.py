@@ -836,43 +836,32 @@ class PublicSiteTests(unittest.TestCase):
         parser = PageParser()
         parser.feed(homepage)
 
-        # The 1.1 section leads with the Locus 1.1.3 animated-Views promo
-        # (the 1.1 What's New master stays published at its original URL but
-        # is no longer embedded) and the same four highlights the app shows
-        # in its own What's New sheet.
+        # The homepage's What's New section tells only the latest release's
+        # story (owner, 2026-09-18: show 1.1.5 alone; the 1.1.3 block and the
+        # 1.1.4 strip are gone). Older releases stay in the archive.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
-        self.assertIn("New in Locus 1.1.3", homepage)
-        # 1.1.4 and 1.1.5 are smaller updates: the latest one gets a link
-        # above the 1.1.3 story rather than replacing it.
+        self.assertIn("New in Locus 1.1.5", homepage)
+        self.assertIn("Sit where you like.", homepage)
         self.assertIn('href="./whats-new/1-1-5/"', homepage)
-        self.assertNotIn('href="./whats-new/1-1-4/"', homepage)
-        self.assertLess(
-            homepage.index('href="./whats-new/1-1-5/"'),
-            homepage.index("New in Locus 1.1.3"),
-        )
-        self.assertIn("Bring your Views to life.", homepage)
+        for stale in ["New in Locus 1.1.3", 'href="./whats-new/1-1-4/"',
+                      'href="./whats-new/1-1-3/"', "whats-new-latest",
+                      'data-youtube-id="XfSBNZlIKw4"']:
+            self.assertNotIn(stale, homepage)
         for highlight in [
-            "Bring panoramas from the web",
-            "Organize every Place",
-            "Shape the light",
-            "Keep favorite sites close",
+            "Sofa and lounge seats",
+            "Hide the desk",
+            "Your own seat position",
+            "Windows always in front",
         ]:
             self.assertIn(highlight, homepage)
 
         self.assertEqual(parser.videos, [])
-        self.assertIn('data-youtube-id="XfSBNZlIKw4"', homepage)
-        self.assertIn("https://www.youtube.com/watch?v=XfSBNZlIKw4", parser.links)
-        self.assertIn('./assets/promo/locus-1.1.3-promo-poster.jpg', homepage)
+        self.assertIn('data-youtube-id="RPbFXq5-KVE"', homepage)
+        self.assertIn("https://www.youtube.com/watch?v=RPbFXq5-KVE", parser.links)
+        self.assertIn('./assets/promo/locus-1.1.5-poster.jpg', homepage)
         self.assertNotIn("./assets/promo/locus-1.1-whats-new-33s.mp4", homepage)
         self.assertNotIn("./assets/promo/locus-1.1-whats-new-poster.jpg", homepage)
-        self.assertIn("Animated Views with living water and sound", homepage)
-        self.assertIn(
-            "Not every View moves. Animated Views are marked in the Library "
-            "and add living water and ambient sound; the rest are still "
-            "panoramas.",
-            homepage,
-        )
         stylesheet = (ROOT / "assets" / "site.css").read_text()
         self.assertIn(".whats-new-grid", stylesheet)
         self.assertIn(".whats-new-video-card .platform-note", stylesheet)
