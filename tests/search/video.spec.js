@@ -15,10 +15,10 @@ test('visible videos autoplay muted without stealing focus and retain blocked-pr
   await card.scrollIntoViewIfNeeded();
   const iframe = card.locator('iframe');
   await expect(iframe).toHaveCount(1);
-  await expect(iframe).toHaveAttribute('src', /embed\/q7mVdPEqJ2o\?autoplay=1&mute=1&playsinline=1/);
+  await expect(iframe).toHaveAttribute('src', /embed\/bJln-6GMXlQ\?autoplay=1&mute=1&playsinline=1/);
   await expect(iframe).toHaveAttribute('title', 'Locus promotional video');
   await expect(iframe).not.toBeFocused();
-  await expect(page.getByRole('link', { name: 'Watch on YouTube', exact: true }).first()).toHaveAttribute('href', 'https://www.youtube.com/watch?v=q7mVdPEqJ2o');
+  await expect(page.getByRole('link', { name: 'Watch on YouTube', exact: true }).first()).toHaveAttribute('href', 'https://www.youtube.com/watch?v=bJln-6GMXlQ');
   // The second film is still below the viewport and has not connected.
   await expect(page.getByRole('link', { name: 'Play Locus 1.1.3 promotional video', exact: true })).toHaveCount(1);
 });
@@ -53,7 +53,7 @@ test('without JavaScript, posters remain direct YouTube links', async ({ browser
   const context = await browser.newContext({ javaScriptEnabled: false });
   const page = await context.newPage();
   await page.goto('http://127.0.0.1:4186/');
-  await expect(page.getByRole('link', { name: 'Play Locus promotional video', exact: true })).toHaveAttribute('href', 'https://www.youtube.com/watch?v=q7mVdPEqJ2o');
+  await expect(page.getByRole('link', { name: 'Play Locus promotional video', exact: true })).toHaveAttribute('href', 'https://www.youtube.com/watch?v=bJln-6GMXlQ');
   await expect(page.locator('iframe')).toHaveCount(0);
   await context.close();
 });
