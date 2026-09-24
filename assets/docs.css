@@ -55,7 +55,7 @@ td { color: var(--muted); }
 .guide-figure { margin: 1.5rem 0; overflow: hidden; border: 1px solid var(--line); border-radius: 1rem; background: rgba(255,255,255,.025); }
 .guide-figure figcaption { padding: .85rem 1rem; color: var(--muted); font-size: .86rem; line-height: 1.5; }
 .bar-guide { margin: 1.5rem 0 2rem; overflow: hidden; border: 1px solid var(--line); border-radius: 1.15rem; background: rgba(255,255,255,.025); }
-.bar-closeup { min-height: clamp(180px, 30vw, 250px); background-image: url("./screenshots/snowbound-before.jpg"); background-position: center 82%; background-size: 270% auto; }
+.bar-closeup { min-height: clamp(180px, 30vw, 250px); background-image: url("./screenshots/bar-closeup-v120.jpg"); background-position: center; background-size: cover; }
 .bar-guide figcaption { padding: .9rem 1rem; color: var(--muted); font-size: .86rem; line-height: 1.5; }
 .bar-icon-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 1.1rem 0 1.8rem; }
 .bar-icon-card { position: relative; display: grid; grid-template-columns: 36px 1fr; gap: .8rem; align-items: center; min-height: 76px; padding: .85rem .9rem .85rem 2.4rem; border: 1px solid var(--line); border-radius: .9rem; background: rgba(255,255,255,.025); }
@@ -144,7 +144,7 @@ td { color: var(--muted); }
   .tutorial-feature-grid, .tutorial-card-grid, .tutorial-card-grid.tutorial-card-grid-three, .tutorial-next, .tutorial-pagination { grid-template-columns: 1fr; }
   .tutorial-feature-copy { min-height: 0; }
   .tutorial-section-heading { grid-template-columns: 1fr; }
-  .bar-closeup { background-size: 320% auto; }
+  .bar-closeup { background-size: cover; }
   .bar-icon-grid, .before-after { grid-template-columns: 1fr; }
   .release-card, .release-card-latest { grid-template-columns: 1fr; }
   .release-card-latest .release-card-copy { order: initial; }
