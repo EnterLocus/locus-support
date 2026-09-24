@@ -270,8 +270,10 @@ page that showed the old interface now uses new captures from Locus Dev (built
 from the 1.2.0 development source) on the visionOS 26.5 Simulator. The 3840 × 2160
 PNG masters are in `Locus Launch Media/v1.2.0/screenshots/website/`. Full frames
 were downsampled to 1920 × 1080 once; the crops are native-pixel windows so panel
-text stays readable. `still-02-seat-v120.jpg` is one frame of the native 4K café
-seat take in `Locus Launch Media/v1.2.0/working/films-2026-09-24/raw/G3-cafe-seat.mov`.
+text stays readable. `still-02-seat-v120.jpg` and `lamp-cafe-v120.jpg` are single
+frames of the native 4K café takes for the 1.2 release film (Seats open with per-seat markers, and one
+lamp switched on in a dark Room); their 3840 × 2160 frame grabs are in the same
+website master folder.
 The older files stay published at their existing URLs.
 
 | Website file | Source master | Export | Source SHA-256 | Website SHA-256 |
@@ -289,7 +291,8 @@ The older files stay published at their existing URLs.
 | `screenshots/milky-way-winter-garden-v120.jpg` | `milky-way-winter-garden-v120.png` | full frame | `ea3927f02c2ec4618c566f0a96013068b05b8aacbf04e7c67cdd7395c4f836a7` | `874810a5bfbd5f290a68220d6d797daa6a70fbd8054d6fd10581a4252b1ebb2f` |
 | `screenshots/floating-islands-winter-garden-v120.jpg` | `floating-islands-winter-garden-v120.png` | full frame | `d5185cb0362c323afc2d80b405d9a5b7bbeeb58cc9d1a285f852cbf890ea1991` | `e5129809db6f055ae36b78a8a6e0a1583e3edcfad4334496f014eb000305118c` |
 | `promo/still-01-canyon-v120.jpg` | `canyon-oasis-winter-garden-v120.png` | full frame | `cb383dd54dabc6ddf012cce0996635f55b6a2423cf80776c5b4b71150bf7b174` | `8972e7f83568ccd17ce7aab7d25b4c4dbf491dc9745c09eb231ee23712d959be` |
-| `promo/still-02-seat-v120.jpg` | `G3-cafe-seat.mov @ 20 s` | full frame from the 1.2.0 café seat take | `—` | `bcc4360ea3f57a672b876b76968f570cf233ef62906097216d389b53d53ff728` |
+| `promo/still-02-seat-v120.jpg` | `cafe-seats-open-v120.png` | full frame (Seats open, markers shown) | `df95467a7ab5855101256ab96b538ef86c06e32fe3bbc560fb4c63bc8d63c826` | `7b9efcde352f6dc2702efed88b22a6035d7e553108d604e2cc2604712facbde6` |
+| `promo/lamp-cafe-v120.jpg` | `cafe-lamp-on-v120.png` | full frame (one lamp switched on) | `5e7e03b8d28d2507882adeb61d6db8b3b21adc4f29b2dc6f9c4c0518f73d7cc1` | `98bf448a83053f683d33f946dad5ab27531eea9672ffc4e335d44bf603d39a29` |
 | `promo/still-03-browser-v120.jpg` | `browser-winter-garden-v120.png` | full frame | `ec86d3d378da87ef9c1bf94b5321a6d7258c84265b06035edfe6858683a0725c` | `c208dc8bf49d1e6b1b3f8b7e44c1356f73132d2f7dbe5eacc3569b7a012afe6f` |
 | `promo/still-05-own-view-v120.jpg` | `save-as-view-v120.png` | 1920 × 1080 crop | `fd1182b4f71aad32101652cb38f0f11df2df5d871797fc75df02fc67eaf7da38` | `23963b9530b15a3ead9c6542299704286b0c46b29a2d4417e9d554f0487c7324` |
 | `promo/still-06-room-lights-v120.jpg` | `room-lights-aurora-v120.png` | 1920 × 1080 crop | `fce29fb408651603b4e66728787f847a33725cd4bed4f449441898a17fa9c299` | `1c6ef83c93f87a27743e814681b735195e9d9e4821d7ae90fb450f2dc1fbb9c0` |
