@@ -5,8 +5,8 @@ lighting metadata and a View condition that suggests the light switch's initial
 position; Room v3 adds Room-owned baked indirect light and bounded authoring
 limits; Room v4 adds independently controlled USDZ animations with saved
 playback speed and randomized replay intervals; Room v5 adds explicit rendering
-roles and spotlight directions. All versions use the same flat
-ZIP layout.
+roles and spotlight directions; Room v6 adds authored seat groups. All
+versions use the same flat ZIP layout.
 
 Locus 1.1.4 adds an optional `sound.json` sidecar: a Room or a View may carry
 its own audio, independently of everything above. An older Locus refuses the
@@ -427,6 +427,50 @@ the Quick Settings header) it stays in effect for the rest of that immersive
 visit, across seats, Rooms, and Views, and Settings can default every new
 visit to starting with desks hidden.
 
+### Seat groups (formatVersion 6)
+
+A Room that declares `seatGroups` uses `formatVersion: 6`, which requires
+Locus 1.2.0 or later; an older build refuses to import a grouped Room rather
+than silently dropping the groups. The field belongs in `space.json`, beside
+the existing Room metadata — `teleport-points.json` continues to own the
+concrete teleport coordinates and IDs:
+
+```json
+"seatGroups": [
+  {
+    "id": "window-tables",
+    "title": "Window Tables",
+    "seatIDs": [
+      "window-cafe-south",
+      "window-banquette-south",
+      "window-cafe-center",
+      "window-banquette-center"
+    ]
+  },
+  {
+    "id": "coffee-bar",
+    "title": "Coffee Bar",
+    "seatIDs": [
+      "coffee-bar-stool",
+      "coffee-bar-stool-center",
+      "coffee-bar-stool-south"
+    ]
+  }
+]
+```
+
+Each group `id` is stable and unique, `title` is nonempty, and `seatIDs` is a
+nonempty ordered list of existing authored teleport IDs. A seat cannot appear
+in more than one group. Grouping only organizes the two-level navigation
+picker: a client that sees groups presents **seating area → concrete seat**,
+then keeps every ungrouped authored seat discoverable as a direct row. It
+never changes a seat's identity, placement, desk alignment, Hide Desk
+contract, or eye height. A seat intentionally left out of every group remains
+a direct row, so a lone seat does not need a singleton group of its own; a
+Room that omits `seatGroups` keeps the legacy flat seat list. A visitor's own
+personal/custom seats are separate persisted additions and do not inherit
+authored grouping.
+
 ## How Locus uses a Room
 
 The authoring interface and the runtime rules are both documented here. Public
@@ -445,6 +489,7 @@ the internal identity, file paths, and bookkeeping.
 | `spatialAdaptation.wallEntities` / `roofEntities` | Exact validated references to virtual architecture. They do not hide those meshes or create real-world portals. Room Portal uses detected real walls and supports opening multiple walls; the current product cannot open the real ceiling. |
 | `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat is a first-class lounge seat: it still loads, at its authored floor and eye height, but never measures, aligns, or offers passthrough for a desk. See [Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). |
 | `deskGroupEntitiesByTeleportID` | Optional, 1.1.5+. For a subset of desk-backed seats, names the one entity whose whole subtree is that seat's hideable desk, enabling a visitor **Hide Desk** control. A key must already have a `deskEntitiesByTeleportID` entry; the named entity must resolve uniquely and be an ancestor of that entry's surface entity, or the Room fails to load. Readers before 1.1.5 ignore this field and offer no Hide Desk. See [Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). |
+| `seatGroups` | Optional, 1.2.0+, requires `formatVersion: 6`. Presents several teleport IDs as one seating area in the two-level Seats picker; every listed ID must be an authored teleport, and a teleport cannot belong to more than one group. It never changes a seat's identity, placement, desk mapping, Hide Desk contract, or eye height. Readers before 1.2.0 refuse to import a grouped Room. See [Seat groups](#seat-groups-formatversion-6). |
 | `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. |
 | `rendering` | Explicitly opts subtrees into softened View reflections or temporary window-obstruction fading. Omitted roles grant neither behavior. These permissions do not change the underlying material design. |
 | `ambientAnimations` | Binds embedded named clips to experimental switch/speed/interval controls. A valid entity name does not prove a clip exists or moves correctly; test playback in Locus. |

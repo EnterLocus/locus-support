@@ -25,7 +25,7 @@ Read these local references before authoring:
 
 - `references/room-interface.md` for the current Room v1-v3 contract, optional
   experimental animations, explicit Room v5 rendering roles and spotlight
-  directions, and exact delivery gates.
+  directions, Room v6 seat groups, and exact delivery gates.
 - `references/design-language.md` when designing a new Room or judging whether
   it belongs beside the public Locus examples.
 - `references/blender-headless.md` when using the default Blender Python route
@@ -75,6 +75,8 @@ matching standard or project license object.
   after any exporter axis or root-transform conversion; do not copy DCC world
   coordinates into the normalized field.
 - Keep teleport IDs stable across revisions.
+- Group seats only when at least two teleports genuinely share one table,
+  sofa, or bar; a single seat stays a direct row and needs no group.
 - Map an optional desk seat to the tabletop entity itself, not a hierarchy
   containing legs, chairs, lamps, computers, or props.
 - Name optional wall and roof entities explicitly for spatial adaptation.
