@@ -300,3 +300,20 @@ The older files stay published at their existing URLs.
 
 These are Simulator captures. They verify interface state only, not Apple Vision
 Pro rendering, brightness, seat placement, tracking, or comfort.
+
+## YouTube delivery — September 24, 2026 (Locus 1.2)
+
+Both films are Simulator captures of Locus 1.2, uploaded byte for byte from the
+4K masters in `Locus Launch Media/v1.2.0/video/` to EnterLocus
+(`UCuVsVMtpw1NejBaWBXFId4g`, verified with `channels.list(mine=true)`),
+**Unlisted** with embedding enabled until 1.2.0 is released.
+
+| Film | Video ID | Source SHA-256 | Local poster | Poster SHA-256 |
+| --- | --- | --- | --- | --- |
+| 1.2 release film, 29.6 s (homepage What's New, `whats-new/1-2/`) | `nO2B7MP0uzI` | `0b3af8bc7a0a268de9af5fa45f16ee42bc08b2820630a08a3f43c1148c757c5b` | `promo/locus-1.2-poster.jpg` (frame at 14.0 s) | `8b47852af2e4ae698b8dacb014648323ad64c979ecd7224c7632368075e594cc` |
+| Homepage hero film, 37 s | `NJuKWTs2BRw` | `fb697854e036ac1e7fecf864aba9c894ee7873e60dc81eaa0b80dbcddfa51092` | `promo/locus-1.2-hero-poster.jpg` (frame at 18.6 s) | `f7765e855f0384ddeced37d27a5678508bb1fbebab41b78582feba35dabb04f2` |
+
+After upload both reported `processed` / `succeeded`, `unlisted`, embeddable, with no
+rejection or failure reason; the watch and embed URLs returned 200 and oEmbed resolved the
+title and channel. The previous hero film `bJln-6GMXlQ` stays on YouTube; the 1.1.5
+article keeps `RPbFXq5-KVE`.

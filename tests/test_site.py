@@ -687,7 +687,7 @@ class PublicSiteTests(unittest.TestCase):
         homepage_sources = {
             pathlib.Path(image["src"]).name for image in screenshot_images
         }
-        self.assertEqual(homepage_sources, {"imports-v120.jpg", "saturn-winter-garden-v120.jpg", "milky-way-winter-garden-v120.jpg", "floating-islands-winter-garden-v120.jpg"})
+        self.assertEqual(homepage_sources, {"imports-v120.jpg", "saturn-winter-garden-v120.jpg", "milky-way-winter-garden-v120.jpg"})
         for image in screenshot_images:
             self.assertEqual(image.get("width"), "1920")
             self.assertEqual(image.get("height"), "1080")
@@ -755,6 +755,10 @@ class PublicSiteTests(unittest.TestCase):
                 "1c6ef83c93f87a27743e814681b735195e9d9e4821d7ae90fb450f2dc1fbb9c0",
             "lamp-cafe-v120.jpg":
                 "98bf448a83053f683d33f946dad5ab27531eea9672ffc4e335d44bf603d39a29",
+            "locus-1.2-poster.jpg":
+                "8b47852af2e4ae698b8dacb014648323ad64c979ecd7224c7632368075e594cc",
+            "locus-1.2-hero-poster.jpg":
+                "f7765e855f0384ddeced37d27a5678508bb1fbebab41b78582feba35dabb04f2",
             "locus-1.2-places-v120.jpg":
                 "4204e3b47ccc8247955304dd9122781c8908d4bc0f9a3a32d30d0383f16c194f",
         }
@@ -770,17 +774,16 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(parser.videos, [])
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
-        self.assertIn('data-youtube-id="bJln-6GMXlQ"', homepage)
+        self.assertIn('data-youtube-id="NJuKWTs2BRw"', homepage)
         self.assertNotIn("q7mVdPEqJ2o", homepage)
         self.assertIn('aria-label="Play Locus promotional video"', homepage)
-        self.assertIn("https://www.youtube.com/watch?v=bJln-6GMXlQ", parser.links)
+        self.assertIn("https://www.youtube.com/watch?v=NJuKWTs2BRw", parser.links)
         self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
         self.assertNotIn("Watch the video directly.", homepage)
-        self.assertIn("Your desk, Views that move, and room to focus", homepage)
-        self.assertEqual(
-            homepage.count("Keyboard passthrough is provided by visionOS, not Locus."),
-            1,
-        )
+        self.assertIn("Choose a place, sit where you like, and watch the View move", homepage)
+        # The 1.2 hero film has no Apple Vision Pro desk section, so the
+        # keyboard-passthrough note that belonged to it is gone.
+        self.assertNotIn("Keyboard passthrough is provided by visionOS, not Locus.", homepage)
         self.assertNotIn("video transcript", homepage)
         self.assertNotIn("See Locus in motion", homepage)
         stylesheet = (ROOT / "assets" / "site.css").read_text()
@@ -842,6 +845,7 @@ class PublicSiteTests(unittest.TestCase):
         releases = {
             "1-2": (
                 "One place to choose, and a seat that’s yours.",
+                "https://www.youtube.com/watch?v=nO2B7MP0uzI",
                 "Everything in Places.",
                 "Seats of your own.",
                 "Look at a lamp, and turn it on.",
@@ -906,7 +910,9 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(highlight, homepage)
 
         self.assertEqual(parser.videos, [])
-        self.assertIn('./assets/promo/locus-1.2-places-v120.jpg', homepage)
+        self.assertIn('data-youtube-id="nO2B7MP0uzI"', homepage)
+        self.assertIn("https://www.youtube.com/watch?v=nO2B7MP0uzI", parser.links)
+        self.assertIn('./assets/promo/locus-1.2-poster.jpg', homepage)
         self.assertNotIn("./assets/promo/locus-1.1-whats-new-33s.mp4", homepage)
         self.assertNotIn("./assets/promo/locus-1.1-whats-new-poster.jpg", homepage)
         stylesheet = (ROOT / "assets" / "site.css").read_text()
