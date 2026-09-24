@@ -440,19 +440,20 @@ class PublicSiteTests(unittest.TestCase):
         tutorials = {
             "first-place": [
                 "Choose a View and Room", "Virtual Space", "Room Portal",
-                "Know the Locus bar", "New Browser", "Why did the virtual desk turn transparent?",
-                "Virtual Space buttons, left to right", "Immersion", "Hide Desk",
+                "Know the Locus bar", "Open Browser", "Why did the virtual desk turn transparent?",
+                "Virtual Space buttons, left to right", "Windows &amp; Crown", "Hide desk",
+                "Customize Bar", "Add Seat", "Help &amp; About",
                 "Return to Places from Browser",
                 "Customize your Place",
             ],
             "online-views": ["Apply Preview", "Save as View…", "4,096 × 2,048"],
-            "recline": ["Expand Viewing position", "Recline angle", "Reset to upright"],
-            "experimental-mac-virtual-display": ["Open Mac Virtual Display first", "Allow Mac Virtual Display", "Immersion"],
+            "recline": ["Viewing position", "Recline angle", "Reset to upright"],
+            "experimental-mac-virtual-display": ["Open Mac Virtual Display first", "Allow Mac Virtual Display", "Windows &amp; Crown"],
             "tune-your-place": [
-                "Customize your Place", "Controls and Quick Settings",
+                "Customize your Place", "Quick Controls", "Light &amp; Picture",
                 "Sky brightness", "Ambient light", "Turn view",
                 "Snowbound Forest Paths", "Add Sunlight", "Turn view +35°",
-                "Hide Desk", "Customize the Seat", "Save for This Seat…",
+                "Hide desk", "Customize the Seat", "Move Seat", "Add Seat",
                 "Save for This View…", "Save for This Room…", "Organize Places", "Edit View",
             ],
             "make-a-view": ["Import a View", "View ZIP", "initialYawDegrees"],
@@ -576,8 +577,8 @@ class PublicSiteTests(unittest.TestCase):
         expected = {
             "autumn-hill-view-4k.jpg":
                 "2bb008620de63b75cfdd7d66a04090a7c9695379a035df3bb9fc9cf6c2a568f6",
-            "locus-browser-view-actions.png":
-                "157047df17a9d8cc3b524f4ba3e989bc6bfae6961b3c1e36611f13da60f754ce",
+            "locus-browser-view-actions-v120.png":
+                "895742ab0ee6aece4fe3d8e0d4732c637190ef45e42ee1151cb07cc1d75048fb",
             "poly-haven-tonemapped-menu.jpg":
                 "a366481e9e669aa0b56d613d7ae7cdf43e6edba0db74d9cd48d8393b540dfbd5",
         }
@@ -646,6 +647,30 @@ class PublicSiteTests(unittest.TestCase):
                 "204fad0f6d3b5a977268cc4365a4e74db32ed8c3695be09ed988a8dc9187726c",
             "virtual-space-room-turn.jpg":
                 "5e7bc4e4aa2719a0441efc9cc5512fed19016c7a905da92d2eb5f066dee732a3",
+            "place-picker-v120.jpg":
+                "147c0a03f6b6d7fff5ffbae05e0a4349e78d700554bcb5b6bd0ee23efa77ed6f",
+            "snowbound-before-v120.jpg":
+                "27e2214310d44fec27f97ba1185b033fcd3b547e960b234f1f49e06301d219e5",
+            "snowbound-turn-view-sunlight-v120.jpg":
+                "b06e40116351bcbafdcd1065e77b041a0a544da38643089f186d3ff3412010cf",
+            "bar-closeup-v120.jpg":
+                "37e6645f41270e7fe9b82af0a8d0ea98904b76374a504fe0ef85c076a839ab47",
+            "current-place-v120.jpg":
+                "f003867d2b4af48ef61483404c2b193ec8a4747b8e80c92c72ba3be6ad146e8f",
+            "light-and-picture-v120.jpg":
+                "dd9529aa26ad5772c8f895f3fb4b9bcea124020c832050f2fa149afcffe60893",
+            "seats-picker-v120.jpg":
+                "2eed65a814ea1a5470feb14636dcd5bd2ed995ff4143a69054956a2b71529748",
+            "personal-seat-v120.jpg":
+                "9d60f796296d1b640257fa29ca99a57aac99c7626bd4e321c676f5011f5ee589",
+            "imports-v120.jpg":
+                "dff9ceedae45c027e75d582f106d0d78f95a70f23f01fa78f0561b57e1bba46f",
+            "saturn-winter-garden-v120.jpg":
+                "44ffa9ad8d225a4aa874bec41c1a81f729331d40f7f30a8e3db39baaf9ae56fa",
+            "milky-way-winter-garden-v120.jpg":
+                "874810a5bfbd5f290a68220d6d797daa6a70fbd8054d6fd10581a4252b1ebb2f",
+            "floating-islands-winter-garden-v120.jpg":
+                "e5129809db6f055ae36b78a8a6e0a1583e3edcfad4334496f014eb000305118c",
         }
         screenshot_root = ROOT / "assets" / "screenshots"
         self.assertEqual(
@@ -662,13 +687,13 @@ class PublicSiteTests(unittest.TestCase):
         homepage_sources = {
             pathlib.Path(image["src"]).name for image in screenshot_images
         }
-        self.assertEqual(homepage_sources, {"imports-virtual-space.jpg", "saturn-winter-garden-v111.jpg", "milky-way-winter-garden-v111.jpg", "floating-islands-winter-garden-v111.jpg"})
+        self.assertEqual(homepage_sources, {"imports-v120.jpg", "saturn-winter-garden-v120.jpg", "milky-way-winter-garden-v120.jpg", "floating-islands-winter-garden-v120.jpg"})
         for image in screenshot_images:
             self.assertEqual(image.get("width"), "1920")
             self.assertEqual(image.get("height"), "1080")
             self.assertTrue(image.get("alt", "").strip())
             filename = pathlib.Path(image["src"]).name
-            if filename == "floating-islands-winter-garden-v111.jpg":
+            if filename == "floating-islands-winter-garden-v120.jpg":
                 self.assertEqual(image.get("fetchpriority"), "high")
             else:
                 self.assertEqual(image.get("loading"), "lazy")
@@ -718,6 +743,18 @@ class PublicSiteTests(unittest.TestCase):
                 "a7772cc62b43eb8ce618c5bed69d06157883d1669b41c3bff6a43a0a8ac82bbe",
             "still-06-import-room.jpg":
                 "6989b8c373eae26ba82f8578f022d4ff0041e8fe507b750be034c10a1a1900e5",
+            "still-01-canyon-v120.jpg":
+                "8972e7f83568ccd17ce7aab7d25b4c4dbf491dc9745c09eb231ee23712d959be",
+            "still-02-seat-v120.jpg":
+                "bcc4360ea3f57a672b876b76968f570cf233ef62906097216d389b53d53ff728",
+            "still-03-browser-v120.jpg":
+                "c208dc8bf49d1e6b1b3f8b7e44c1356f73132d2f7dbe5eacc3569b7a012afe6f",
+            "still-05-own-view-v120.jpg":
+                "23963b9530b15a3ead9c6542299704286b0c46b29a2d4417e9d554f0487c7324",
+            "still-06-room-lights-v120.jpg":
+                "1c6ef83c93f87a27743e814681b735195e9d9e4821d7ae90fb450f2dc1fbb9c0",
+            "locus-1.2-places-v120.jpg":
+                "4204e3b47ccc8247955304dd9122781c8908d4bc0f9a3a32d30d0383f16c194f",
         }
         promo_root = ROOT / "assets" / "promo"
         self.assertEqual(
@@ -793,6 +830,7 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-2/"'), archive.index('href="./1-1-5/"'))
         self.assertLess(archive.index('href="./1-1-5/"'), archive.index('href="./1-1-4/"'))
         self.assertLess(archive.index('href="./1-1-4/"'), archive.index('href="./1-1-3/"'))
         self.assertEqual(archive.count("· Latest"), 1)
@@ -800,6 +838,12 @@ class PublicSiteTests(unittest.TestCase):
         self.assertLess(archive.index('href="./1-1/"'), archive.index('href="./1-0/"'))
 
         releases = {
+            "1-2": (
+                "One place to choose, and a seat that’s yours.",
+                "Everything in Places.",
+                "Seats of your own.",
+                "Take the Guided Tour",
+            ),
             "1-1-5": (
                 "Sit where you like.",
                 "https://www.youtube.com/watch?v=RPbFXq5-KVE",
@@ -840,29 +884,26 @@ class PublicSiteTests(unittest.TestCase):
         parser.feed(homepage)
 
         # The homepage's What's New section tells only the latest release's
-        # story (owner, 2026-09-18: show 1.1.5 alone; the 1.1.3 block and the
-        # 1.1.4 strip are gone). Older releases stay in the archive.
+        # story. Older releases stay in the archive.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
-        self.assertIn("New in Locus 1.1.5", homepage)
-        self.assertIn("Sit where you like.", homepage)
-        self.assertIn('href="./whats-new/1-1-5/"', homepage)
-        for stale in ["New in Locus 1.1.3", 'href="./whats-new/1-1-4/"',
-                      'href="./whats-new/1-1-3/"', "whats-new-latest",
-                      'data-youtube-id="XfSBNZlIKw4"']:
+        self.assertIn("New in Locus 1.2", homepage)
+        self.assertIn("One place to choose, and a seat that’s yours.", homepage)
+        self.assertIn('href="./whats-new/1-2/"', homepage)
+        for stale in ["New in Locus 1.1.5", 'href="./whats-new/1-1-5/"',
+                      'href="./whats-new/1-1-4/"', "whats-new-latest",
+                      'data-youtube-id="RPbFXq5-KVE"']:
             self.assertNotIn(stale, homepage)
         for highlight in [
-            "Sofa and lounge seats",
-            "Hide the desk",
-            "Your own seat position",
-            "Windows always in front",
+            "Everything in Places",
+            "Seats you can see",
+            "Seats of your own",
+            "A simpler bar",
         ]:
             self.assertIn(highlight, homepage)
 
         self.assertEqual(parser.videos, [])
-        self.assertIn('data-youtube-id="RPbFXq5-KVE"', homepage)
-        self.assertIn("https://www.youtube.com/watch?v=RPbFXq5-KVE", parser.links)
-        self.assertIn('./assets/promo/locus-1.1.5-poster.jpg', homepage)
+        self.assertIn('./assets/promo/locus-1.2-places-v120.jpg', homepage)
         self.assertNotIn("./assets/promo/locus-1.1-whats-new-33s.mp4", homepage)
         self.assertNotIn("./assets/promo/locus-1.1-whats-new-poster.jpg", homepage)
         stylesheet = (ROOT / "assets" / "site.css").read_text()
@@ -1323,8 +1364,8 @@ class PublicSiteTests(unittest.TestCase):
         for required in [
             "All animation features shown here are experimental",
             "experimental speed and interval settings",
-            "Controls → Ambient Animations",
-            "Quick Settings → Room",
+            "Room motion",
+            "Motion → Room",
             "Cloud Fan Pavilion", "Plant Breeze", "0–0", "may change",
             "Requires Locus 1.1.1 or later",
             f"../examples/{filename}",
