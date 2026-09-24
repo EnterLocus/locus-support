@@ -746,13 +746,15 @@ class PublicSiteTests(unittest.TestCase):
             "still-01-canyon-v120.jpg":
                 "8972e7f83568ccd17ce7aab7d25b4c4dbf491dc9745c09eb231ee23712d959be",
             "still-02-seat-v120.jpg":
-                "bcc4360ea3f57a672b876b76968f570cf233ef62906097216d389b53d53ff728",
+                "7b9efcde352f6dc2702efed88b22a6035d7e553108d604e2cc2604712facbde6",
             "still-03-browser-v120.jpg":
                 "c208dc8bf49d1e6b1b3f8b7e44c1356f73132d2f7dbe5eacc3569b7a012afe6f",
             "still-05-own-view-v120.jpg":
                 "23963b9530b15a3ead9c6542299704286b0c46b29a2d4417e9d554f0487c7324",
             "still-06-room-lights-v120.jpg":
                 "1c6ef83c93f87a27743e814681b735195e9d9e4821d7ae90fb450f2dc1fbb9c0",
+            "lamp-cafe-v120.jpg":
+                "98bf448a83053f683d33f946dad5ab27531eea9672ffc4e335d44bf603d39a29",
             "locus-1.2-places-v120.jpg":
                 "4204e3b47ccc8247955304dd9122781c8908d4bc0f9a3a32d30d0383f16c194f",
         }
@@ -842,6 +844,7 @@ class PublicSiteTests(unittest.TestCase):
                 "One place to choose, and a seat that’s yours.",
                 "Everything in Places.",
                 "Seats of your own.",
+                "Look at a lamp, and turn it on.",
                 "Take the Guided Tour",
             ),
             "1-1-5": (
@@ -896,8 +899,8 @@ class PublicSiteTests(unittest.TestCase):
             self.assertNotIn(stale, homepage)
         for highlight in [
             "Everything in Places",
-            "Seats you can see",
-            "Seats of your own",
+            "Look, and sit there",
+            "Lamps you can switch",
             "A simpler bar",
         ]:
             self.assertIn(highlight, homepage)
