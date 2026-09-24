@@ -261,3 +261,39 @@ Existing MP4 files remain available at their old direct URLs for compatibility, 
 | What’s New 1.1 | https://www.youtube.com/watch?v=77sy7ONjdCU | `a8eb882e95cf22df34b75be2737eb5cee53b1596a645572afabee88f23decb6b` |
 | Locus 1.1.5 release film (public) | https://www.youtube.com/watch?v=RPbFXq5-KVE | `191ab82da1417cfe7b651efd8fcc0af40c98c3ae09d2fdef06f8005486c1dfc9` |
 | Introduction 1.0 | https://www.youtube.com/watch?v=zg7WsyTJT4Q | `7fe19092d03a2e43cdf795ee0f6c7f8c1667e33da439324b17f5b4699865117a` |
+
+## Locus 1.2.0 UI refresh — September 24, 2026
+
+Locus 1.2.0 replaced Library, Controls, Quick Settings, Teleport, and the 1.1 bar
+with unified Places, Current Place settings, Seats, and a five-button bar. Every
+page that showed the old interface now uses new captures from Locus Dev (built
+from the 1.2.0 development source) on the visionOS 26.5 Simulator. The 3840 × 2160
+PNG masters are in `Locus Launch Media/v1.2.0/screenshots/website/`. Full frames
+were downsampled to 1920 × 1080 once; the crops are native-pixel windows so panel
+text stays readable. `still-02-seat-v120.jpg` is one frame of the native 4K café
+seat take in `Locus Launch Media/v1.2.0/working/films-2026-09-24/raw/G3-cafe-seat.mov`.
+The older files stay published at their existing URLs.
+
+| Website file | Source master | Export | Source SHA-256 | Website SHA-256 |
+| --- | --- | --- | --- | --- |
+| `screenshots/place-picker-v120.jpg` | `place-picker-v120.png` | full frame | `59f2f11d19b6e7be997a57bad1ec206f3892e414bfc8eedac97eed35e726423a` | `147c0a03f6b6d7fff5ffbae05e0a4349e78d700554bcb5b6bd0ee23efa77ed6f` |
+| `screenshots/snowbound-before-v120.jpg` | `snowbound-before-v120.png` | full frame | `19e423793a245d40c84c906a1b2648a84c37534b8048134886ffff1d3fb96e61` | `27e2214310d44fec27f97ba1185b033fcd3b547e960b234f1f49e06301d219e5` |
+| `screenshots/snowbound-turn-view-sunlight-v120.jpg` | `snowbound-turn-view-sunlight-v120.png` | full frame | `3ad5d1cc4f73ecb4545c032eababd080a9f001f1f00466a802cc2797157604b9` | `b06e40116351bcbafdcd1065e77b041a0a544da38643089f186d3ff3412010cf` |
+| `screenshots/bar-closeup-v120.jpg` | `snowbound-before-v120.png` | 900 × 340 crop around the bar | `19e423793a245d40c84c906a1b2648a84c37534b8048134886ffff1d3fb96e61` | `37e6645f41270e7fe9b82af0a8d0ea98904b76374a504fe0ef85c076a839ab47` |
+| `screenshots/current-place-v120.jpg` | `current-place-v120.png` | 1920 × 1080 crop | `5565e7f0cd8e710285cb17b09d8043e5ad46e52dadb05e3d168978e498b91711` | `f003867d2b4af48ef61483404c2b193ec8a4747b8e80c92c72ba3be6ad146e8f` |
+| `screenshots/light-and-picture-v120.jpg` | `light-and-picture-view-v120.png` | 1920 × 1080 crop | `e8293d75731c8909cad107b596178b0ac71c544402130b72e484e1a5faf57144` | `dd9529aa26ad5772c8f895f3fb4b9bcea124020c832050f2fa149afcffe60893` |
+| `screenshots/seats-picker-v120.jpg` | `seats-picker-v120.png` | 1920 × 1080 crop | `1884e03b7d333616f4d8b765eff5eb6a07b42b0da36c203b5ef94d47361568bd` | `2eed65a814ea1a5470feb14636dcd5bd2ed995ff4143a69054956a2b71529748` |
+| `screenshots/personal-seat-v120.jpg` | `personal-seat-move-turn-v120.png` | 1920 × 1080 crop | `c979da671068755490facea70074279cbf926dd9aed981a1e1dd08c9f2b02e91` | `9d60f796296d1b640257fa29ca99a57aac99c7626bd4e321c676f5011f5ee589` |
+| `screenshots/imports-v120.jpg` | `imports-v120.png` | full frame | `8a0d0fed0e01035af1c7d7f6bd2c3c390c6b07a13d77886502e34f463bbb37bf` | `dff9ceedae45c027e75d582f106d0d78f95a70f23f01fa78f0561b57e1bba46f` |
+| `screenshots/saturn-winter-garden-v120.jpg` | `saturn-winter-garden-v120.png` | full frame | `4c9acde7263c832c349a124a89a299d56a4e12369e17b085d5dd2ad642d08201` | `44ffa9ad8d225a4aa874bec41c1a81f729331d40f7f30a8e3db39baaf9ae56fa` |
+| `screenshots/milky-way-winter-garden-v120.jpg` | `milky-way-winter-garden-v120.png` | full frame | `ea3927f02c2ec4618c566f0a96013068b05b8aacbf04e7c67cdd7395c4f836a7` | `874810a5bfbd5f290a68220d6d797daa6a70fbd8054d6fd10581a4252b1ebb2f` |
+| `screenshots/floating-islands-winter-garden-v120.jpg` | `floating-islands-winter-garden-v120.png` | full frame | `d5185cb0362c323afc2d80b405d9a5b7bbeeb58cc9d1a285f852cbf890ea1991` | `e5129809db6f055ae36b78a8a6e0a1583e3edcfad4334496f014eb000305118c` |
+| `promo/still-01-canyon-v120.jpg` | `canyon-oasis-winter-garden-v120.png` | full frame | `cb383dd54dabc6ddf012cce0996635f55b6a2423cf80776c5b4b71150bf7b174` | `8972e7f83568ccd17ce7aab7d25b4c4dbf491dc9745c09eb231ee23712d959be` |
+| `promo/still-02-seat-v120.jpg` | `G3-cafe-seat.mov @ 20 s` | full frame from the 1.2.0 café seat take | `—` | `bcc4360ea3f57a672b876b76968f570cf233ef62906097216d389b53d53ff728` |
+| `promo/still-03-browser-v120.jpg` | `browser-winter-garden-v120.png` | full frame | `ec86d3d378da87ef9c1bf94b5321a6d7258c84265b06035edfe6858683a0725c` | `c208dc8bf49d1e6b1b3f8b7e44c1356f73132d2f7dbe5eacc3569b7a012afe6f` |
+| `promo/still-05-own-view-v120.jpg` | `save-as-view-v120.png` | 1920 × 1080 crop | `fd1182b4f71aad32101652cb38f0f11df2df5d871797fc75df02fc67eaf7da38` | `23963b9530b15a3ead9c6542299704286b0c46b29a2d4417e9d554f0487c7324` |
+| `promo/still-06-room-lights-v120.jpg` | `room-lights-aurora-v120.png` | 1920 × 1080 crop | `fce29fb408651603b4e66728787f847a33725cd4bed4f449441898a17fa9c299` | `1c6ef83c93f87a27743e814681b735195e9d9e4821d7ae90fb450f2dc1fbb9c0` |
+| `promo/locus-1.2-places-v120.jpg` | `places-views-rooftop-garden-v120.png` | full frame | `88f4c343f22987dfafda7f8984d47b6613d7f411a1edf5a388b641515182aa03` | `4204e3b47ccc8247955304dd9122781c8908d4bc0f9a3a32d30d0383f16c194f` |
+
+These are Simulator captures. They verify interface state only, not Apple Vision
+Pro rendering, brightness, seat placement, tracking, or comfort.

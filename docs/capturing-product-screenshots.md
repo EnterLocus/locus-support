@@ -1,14 +1,23 @@
 # Capturing product screenshots
 
-The home page uses four 16:9 web exports. Three remain from the approved Locus
-1.0 launch media; `place-picker.jpg` now follows the current Places layout.
-Each image answers a different first-time visitor question:
+The home page uses four 16:9 web screenshots, all recaptured for the Locus 1.2.0
+interface on September 24, 2026:
 
-1. `virtual-space-desk-wide.jpg` — what working inside a Room feels like;
-2. `place-picker.jpg` — how a visitor combines a Room and a View;
-3. `virtual-space-room-turn.jpg` — that Virtual Space continues beyond the
+1. `floating-islands-winter-garden-v120.jpg` — the hero poster: a Room with a
+   memorable View;
+2. `saturn-winter-garden-v120.jpg` — how a visitor combines a Room and a View;
+3. `milky-way-winter-garden-v120.jpg` — that Virtual Space continues beyond the
    desk; and
-4. `imports-virtual-space.jpg` — where a visitor brings in a View or Room.
+4. `imports-v120.jpg` — where a visitor brings in a View or Room (Places →
+   Import).
+
+The tutorials use `place-picker-v120.jpg`, the `snowbound-before-v120.jpg` and
+`snowbound-turn-view-sunlight-v120.jpg` pair, `bar-closeup-v120.jpg`, and
+native-pixel crops `current-place-v120.jpg`, `light-and-picture-v120.jpg`,
+`seats-picker-v120.jpg`, and `personal-seat-v120.jpg`. Earlier exports (`place-picker.jpg`,
+`snowbound-before.jpg`, `snowbound-turn-view-sunlight.jpg`,
+`imports-virtual-space.jpg`, the `*-v111.jpg` stills, `virtual-space-desk-wide.jpg`,
+and `virtual-space-room-turn.jpg`) stay published for older pages and links.
 
 The 3840 x 2160 PNG masters remain in the private release media root. This
 public repository contains only 1920 x 1080 JPEG exports. Their master hashes
