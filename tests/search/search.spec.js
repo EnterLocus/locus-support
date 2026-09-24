@@ -33,7 +33,7 @@ test('mobile layout, no results, clearing and direct FAQ links', async ({ page }
   await expect(page.locator('.search-results a')).not.toHaveCount(0);
   await page.screenshot({ path: '.scratch/search-mobile.png' });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
-  await page.getByRole('searchbox').fill('quasar pineapple');
+  await page.getByRole('searchbox').fill('quasar kumquat');
   await expect(page.getByRole('status')).toHaveText('No results. Try another word, or browse the FAQ.');
   await page.screenshot({ path: '.scratch/search-empty-mobile.png' });
   await page.getByRole('searchbox').fill('');

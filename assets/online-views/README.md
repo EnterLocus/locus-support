@@ -14,12 +14,13 @@ from the Autumn Hill View page on August 31, 2026. It shows the current
 far-right download menu and its `8K Tonemapped JPG` action. SHA-256:
 `a366481e9e669aa0b56d613d7ae7cdf43e6edba0db74d9cd48d8393b540dfbd5`.
 
-`locus-browser-view-actions.png` is a 1920 x 1080 web export of a Locus
-Simulator screenshot captured on August 31, 2026. It shows a qualifying
-Poly Haven image in Locus Browser after Apply Preview, with Apply Preview and
-Save as View still available. The visible Room is built-in Locus content and
-the panorama is a CC0 Poly Haven asset. SHA-256:
-`157047df17a9d8cc3b524f4ba3e989bc6bfae6961b3c1e36611f13da60f754ce`.
+`locus-browser-view-actions-v120.png` is a 1920 x 1080 native-pixel crop of a
+3840 x 2160 Locus 1.2.0 Simulator screenshot captured on September 24, 2026. It
+shows Poly Haven's `hochsal_forest` 8K Tonemapped JPG (CC0) opened from
+dl.polyhaven.org in Locus Browser inside Atrium Loft, with the prompt
+`Use this 360° image as a View?`, Apply Preview, and Save as View. The 4K master
+is kept in the Locus launch-media archive. SHA-256:
+`895742ab0ee6aece4fe3d8e0d4732c637190ef45e42ee1151cb07cc1d75048fb`.
 
 The Locus screenshot verifies interface state only. It is not evidence for
 physical room tracking, rendering, presence, performance, or comfort on Apple

@@ -184,7 +184,8 @@ from 0 through 3,600 seconds; the default range fits inside the adjustable
 range. `[0, 0]` means immediate replay, matching nonzero values mean a fixed
 pause, and different endpoints select a new random pause after every play.
 
-Controls exposes one experimental switch per animation. Quick Settings exposes
+The Room motion tile in Quick Controls turns all of a Room's animations on or
+off. Settings › Current Place › Motion › Room exposes each animation's
 experimental switch, speed, and interval values and can save them for that Room
 on the current device. All of these animation fields and behaviors may change;
 Room v1-v3 remains the stable authoring path.

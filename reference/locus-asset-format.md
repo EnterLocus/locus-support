@@ -311,9 +311,9 @@ other range samples a fresh random delay after every completion. Both interval
 ranges are ordered seconds between 0 and 3,600, and the default endpoints must
 fit inside the adjustable range.
 
-Controls and Quick Settings operate on the same session values. Quick Settings
-can save each animation's switch, speed, and interval as that Room's defaults
-on the current device. Format v1-v3 Rooms cannot declare this field and keep
+The Room motion tile in Quick Controls and Settings › Current Place › Motion
+operate on the same session values. Motion can save each animation's switch,
+speed, and interval as that Room's defaults on the current device. Format v1-v3 Rooms cannot declare this field and keep
 their existing behavior unchanged.
 
 ### How desk alignment identifies a desk
@@ -422,8 +422,8 @@ some entities under that root is left alone entirely.
 Only a seat with a `deskGroupEntitiesByTeleportID` entry offers Hide Desk.
 Readers older than 1.1.5 simply do not decode this field: they still measure
 and align the desk exactly as before, and never offer a way to hide it. In the
-1.1.5 app, once a visitor turns Hide Desk on (from the Controls tile in the toolbar or
-the Quick Settings header) it stays in effect for the rest of that immersive
+1.1.5 app and later, once a visitor turns Hide Desk on (from the Hide desk tile in
+Quick Controls) it stays in effect for the rest of that immersive
 visit, across seats, Rooms, and Views, and Settings can default every new
 visit to starting with desks hidden.
 
@@ -617,7 +617,7 @@ intensity plus saved Room EV offsets.
 
 A Room or a View may carry its own audio. It is independent of everything else
 in the package: a still picture with sound is not an animated View, gets no new
-mark in the Library, and a Room's sound has nothing to do with its lighting or
+mark in Places, and a Room's sound has nothing to do with its lighting or
 animations. Locus 1.1.4 is required — an older build rejects the ZIP rather
 than installing it without the audio.
 
