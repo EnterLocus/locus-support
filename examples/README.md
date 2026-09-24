@@ -22,7 +22,7 @@ the softer wood-floor finish; the other Rooms retain their floor designs.
 
 These ZIPs require a Locus build with Room v5 support. Locus 1.1.0 builds 1–3 do not
 support v5; build 4 and later, including Locus 1.1.1, do. Check the installed
-build in Settings → About Locus. The download pages link the previous compatible ZIPs at the frozen
+build in Settings → Help & About → About Locus. The download pages link the previous compatible ZIPs at the frozen
 [September 3 example revision](https://github.com/EnterLocus/locus-support/tree/4017745d9f3b6001f00d325ad2610da0a4e171cb/examples).
 These public ZIPs are the September 5, 2026 desk-seat packages. They do **not** include the Locus 1.1.5 sofa/lounge seats or `deskGroupEntitiesByTeleportID` Hide Desk roots, or the Locus 1.2.0 `seatGroups` groupings, that ship in the App Store built-ins and Library Room revisions. Keep them as the stable Room v5 study set; author lounge seats, hideable desks, and seat groups with the format reference on enterlocus.com.
 
@@ -43,7 +43,7 @@ scope are listed at <https://enterlocus.com/asset-rights/#demo-room-notices>.
 | --- | --- | ---: | ---: | --- |
 | `cloud-fan-pavilion.locusplace` | Cloud Fan Pavilion | Locus Place 1 | 1 | `db170fb09c6cd71a76e850524da1395c7f47b2490fa0c90933fb6f10b2683f2b` |
 
-This free Library Room demonstrates experimental USDZ animation playback. Its
+This free Room in Locus Places demonstrates experimental USDZ animation playback. Its
 broad-leaf Plant Breeze repeats immediately with a 0–0 second interval and can
 run from half speed to one-and-a-half speed. Animation metadata, playback
 controls, speed, and interval behavior are experimental and may change.
