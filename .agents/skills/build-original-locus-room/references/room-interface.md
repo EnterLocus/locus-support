@@ -189,6 +189,37 @@ experimental switch, speed, and interval values and can save them for that Room
 on the current device. All of these animation fields and behaviors may change;
 Room v1-v3 remains the stable authoring path.
 
+## Seat groups (formatVersion 6)
+
+Author a seat group when several teleport points share one physical piece of
+furniture and belong together in the Seats picker — both sides of a café
+table, stools along one bar, or a banquette with more than one cushion. A
+group needs at least two seats; a single seat is already a direct row in the
+picker, so it does not need a group of its own.
+
+A Room that declares `seatGroups` uses `formatVersion: 6`, which requires
+Locus 1.2.0 or later — an older build refuses to import a grouped Room. The
+field lives in `space.json`:
+
+```json
+"seatGroups": [
+  {
+    "id": "window-tables",
+    "title": "Window Tables",
+    "seatIDs": ["window-cafe-south", "window-banquette-south"]
+  }
+]
+```
+
+Each `id` is stable and unique, `title` is nonempty visitor-facing text, and
+`seatIDs` is a nonempty ordered list of teleport IDs that already exist in
+`teleport-points.json`. A teleport can belong to at most one group. A client
+that sees groups presents seating area → concrete seat: it collapses a
+group's seats into one entry, then keeps every ungrouped seat as its own
+direct row. Grouping is presentation only — it never touches a seat's
+`anchorXZ`, `yawRadians`, desk mapping, Hide Desk contract, or eye height, and
+a Room that omits `seatGroups` keeps the flat seat list exactly as before.
+
 ## Provenance example
 
 Use exactly one of `license` or `rights`. All URLs are HTTPS. If several
@@ -357,6 +388,7 @@ the internal identity, file paths, and bookkeeping.
 | `spatialAdaptation.wallEntities` / `roofEntities` | Exact validated references to virtual architecture. They do not hide those meshes or create real-world portals. Room Portal uses detected real walls and supports opening multiple walls; the current product cannot open the real ceiling. |
 | `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat is a first-class lounge seat: it still loads, at its authored floor and eye height, but never measures, aligns, or offers passthrough for a desk. See the desk-mapping contract in this reference. |
 | `deskGroupEntitiesByTeleportID` | Optional, 1.1.5+. For a subset of desk-backed seats, names the one entity whose whole subtree is that seat's hideable desk, enabling a visitor Hide Desk control. A key must already have a `deskEntitiesByTeleportID` entry; the named entity must resolve uniquely and be an ancestor of that entry's surface entity, or the Room fails to load. Readers before 1.1.5 ignore this field. |
+| `seatGroups` | Optional, 1.2.0+, requires `formatVersion: 6`. Collapses several teleport IDs into one seating-area entry in the Seats picker. Every listed ID must be an authored teleport, and a teleport can belong to at most one group. It never changes a seat's identity, placement, desk mapping, Hide Desk contract, or eye height. Readers before 1.2.0 refuse to import a grouped Room. |
 | `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. |
 | `rendering` | Explicitly opts subtrees into softened View reflections or temporary window-obstruction fading. Omitted roles grant neither behavior. These permissions do not change the underlying material design. |
 | `ambientAnimations` | Binds embedded named clips to experimental switch/speed/interval controls. A valid entity name does not prove a clip exists or moves correctly; test playback in Locus. |

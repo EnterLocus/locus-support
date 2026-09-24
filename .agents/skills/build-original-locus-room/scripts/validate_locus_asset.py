@@ -980,6 +980,36 @@ def validate_rendering(value: Any) -> None:
         require(len(names) == len(set(names)), f"{context}.{field} contains duplicates")
 
 
+def validate_seat_groups(value: Any, teleport_ids: set[str]) -> None:
+    require(isinstance(value, list) and value,
+            "space.json.seatGroups must be a non-empty array")
+    group_ids: set[str] = set()
+    grouped_seat_ids: set[str] = set()
+    for index, group in enumerate(value):
+        context = f"space.json.seatGroups[{index}]"
+        require(isinstance(group, dict), f"{context} must be an object")
+        exact_keys(
+            group,
+            required={"id", "title", "seatIDs"},
+            context=context,
+        )
+        require(valid_identifier(group["id"]), f"{context}.id is invalid")
+        require(group["id"] not in group_ids,
+                f"{context}.id is duplicated")
+        group_ids.add(group["id"])
+        require_text(group["title"], f"{context}.title", 200)
+        seat_ids = group["seatIDs"]
+        require(isinstance(seat_ids, list) and seat_ids,
+                f"{context}.seatIDs must be a non-empty array")
+        for seat_index, seat_id in enumerate(seat_ids):
+            seat_context = f"{context}.seatIDs[{seat_index}]"
+            require(valid_identifier(seat_id) and seat_id in teleport_ids,
+                    f"{seat_context} is not an authored seat")
+            require(seat_id not in grouped_seat_ids,
+                    f"{seat_context} is already grouped")
+            grouped_seat_ids.add(seat_id)
+
+
 def validate_room(root: Path) -> dict[str, Any]:
     value = decode_json(root / "space.json", "space.json")
     exact_keys(
@@ -990,13 +1020,13 @@ def validate_room(root: Path) -> dict[str, Any]:
         },
         optional={
             "caption", "previewCamera", "spatialAdaptation", "lighting",
-            "ambientAnimations", "rendering",
+            "ambientAnimations", "rendering", "seatGroups",
         },
         context="space.json",
     )
     require(type(value["formatVersion"]) is int
-            and value["formatVersion"] in {1, 2, 3, 4, 5},
-            "space.json.formatVersion must be 1, 2, 3, 4, or 5")
+            and value["formatVersion"] in {1, 2, 3, 4, 5, 6},
+            "space.json.formatVersion must be 1, 2, 3, 4, 5, or 6")
     require(value["formatVersion"] >= 2 or "lighting" not in value,
             "space.json.lighting requires formatVersion 2")
     require(value["formatVersion"] >= 4 or "ambientAnimations" not in value,
@@ -1004,6 +1034,8 @@ def validate_room(root: Path) -> dict[str, Any]:
     if "rendering" in value:
         require(value["formatVersion"] >= 5, "space.json.rendering requires formatVersion 5")
         validate_rendering(value["rendering"])
+    require(value["formatVersion"] >= 6 or "seatGroups" not in value,
+            "space.json.seatGroups requires formatVersion 6")
     require_text(value["displayName"], "space.json.displayName", 200)
     if "caption" in value:
         require_text(value["caption"], "space.json.caption", 1_000)
@@ -1044,6 +1076,8 @@ def validate_room(root: Path) -> dict[str, Any]:
     require(finite(opening["heightMeters"]) and opening["heightMeters"] > 0,
             "viewOpenings[0].heightMeters must be positive")
     teleports = validate_teleports(root / "teleport-points.json")
+    if "seatGroups" in value:
+        validate_seat_groups(value["seatGroups"], teleports)
     if "spatialAdaptation" in value:
         validate_spatial_adaptation(value["spatialAdaptation"], teleports)
     if "lighting" in value:
