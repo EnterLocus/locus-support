@@ -25,9 +25,12 @@ See [LICENSE.md](LICENSE.md) for exact paths and
 third-party notices.
 
 The repository includes a tool-agnostic Room integration guide and an optional
-Room-building skill at `.agents/skills/build-original-locus-room/`. The current
-flat Room/View ZIP reference and validator define the accepted files. Three
-complete Room examples show the current public lighting and spatial contracts.
+Room-building skill at `.agents/skills/build-original-locus-room/`. Complete
+Package v2 is the canonical feature-complete import format in Locus 1.2.1 and
+later. The current public packer, validator, skill, and three Room examples use
+the legacy/simple flat ZIP compatibility format; they do not yet author or
+validate complete Package v2 archives. The examples show the current public
+lighting and spatial contracts.
 The skill bundles an offline Room reference, design language, metadata
 scaffolder, packer, validator, and delivery checks. For automated authoring from
 a blank brief, it defaults to headless Blender Python with saved render review;
