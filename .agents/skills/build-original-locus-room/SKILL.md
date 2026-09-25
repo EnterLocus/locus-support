@@ -146,12 +146,27 @@ Try every animation switch, speed, and interval in Locus before delivery. Do
 not describe validator success as proof that the named clip produces the
 intended visible motion.
 
-## Scaffold, package, and validate
+## Choose the delivery format
+
+Complete Package v2 is the canonical feature-complete import format in Locus
+1.2.1 and later. Its ZIP root contains `locusplace.json` and `catalog/`, with
+the Room below `catalog/spaces/<space-id>/`. It preserves authored stable IDs,
+updates by `packageID` and newer `contentVersion`, and can carry supported
+Experiences and other Package v2 features.
+
+The bundled scaffolder, packer, and validator currently produce only the
+legacy/simple flat Room compatibility format. A flat import receives a new
+UUID every time. Do not claim these scripts validate a complete Package v2
+archive. If stable identity, in-place updates, bundled Experiences, or complete
+Package v2 delivery is required, use a compatible Package v2 authoring and
+validation pipeline and follow the canonical public reference.
+
+## Scaffold, package, and validate a compatibility ZIP
 
 Resolve the directory that contains this `SKILL.md`; do not assume the current
 working directory is the skill directory. The bundled scaffolder creates the
-metadata and copies a finished USDZ and thumbnail into a new flat source
-directory. Run its `--help` first, then provide explicit provenance and Room
+metadata and copies a finished USDZ and thumbnail into a new flat
+compatibility source directory. Run its `--help` first, then provide explicit provenance and Room
 arguments. For example:
 
 ```sh
@@ -174,9 +189,11 @@ room/
 `-- thumbnail.jpg
 ```
 
-Do not add an ID, parent folder, editable source, GLB, loose texture, cache, or
-any other file. Put the user-visible name in `space.json` as `displayName`;
-Locus assigns a UUID at import and allows duplicate display names.
+For this compatibility format, do not add an ID, parent folder, editable
+source, GLB, loose texture, cache, or any other file. Put the user-visible name
+in `space.json` as `displayName`; Locus assigns a new UUID at each import and
+allows duplicate display names. These restrictions do not describe the
+canonical complete Package v2 layout.
 
 Pack and validate by absolute path so the commands work from any directory:
 

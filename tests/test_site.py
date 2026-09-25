@@ -950,40 +950,54 @@ class PublicSiteTests(unittest.TestCase):
         ]:
             self.assertIn(required, guide)
 
-    def test_flat_public_format_replaces_the_old_envelope(self):
-        paths = [
-            ROOT / "create-your-own-place" / "index.html",
-            ROOT / "package-format" / "index.html",
-            ROOT / "reference" / "locus-asset-format.md",
-            ROOT / ".agents" / "skills" / "build-original-locus-room" / "SKILL.md",
-        ]
-        for path in paths:
-            text = path.read_text()
-            with self.subTest(path=path.relative_to(ROOT)):
-                for obsolete in [
-                    ".locusplace", "locusplace.json", "catalog/",
-                    "experience.json", "packageID", "contentHash",
-                    "teleportCatalog",
-                ]:
-                    self.assertNotIn(obsolete, text)
+    def test_complete_package_v2_is_canonical_public_import(self):
+        reference = " ".join((ROOT / "reference" / "locus-asset-format.md").read_text().split())
+        for required in [
+            "Complete Package v2 — canonical import format",
+            "Locus 1.2.1 and later", "public HTTPS URL", ".zip", ".locusplace",
+            "locusplace.json", "catalog/destinations/", "catalog/spaces/",
+            "catalog/experiences/", "packageID", "contentVersion",
+            "minimumAppVersion", "contentHash", "stable IDs", "idempotent",
+            "View media and masks", "View and Room sound", "Room animations",
+            "video surfaces", "seat groups", "provenance", "supported Experiences",
+            "file-inventory agreement", "hashes", "safe canonical paths",
+            "resource limits", "capabilities", "fall back",
+        ]:
+            self.assertIn(required, reference)
 
-        guide = paths[0].read_text()
+        pages = [
+            ROOT / "package-format" / "index.html",
+            ROOT / "create-your-own-place" / "index.html",
+            ROOT / "make-a-view" / "index.html",
+            ROOT / "make-a-room" / "index.html",
+            ROOT / "build-a-room" / "index.html",
+            ROOT / "faq" / "index.html",
+            ROOT / "tutorials" / "index.html",
+            ROOT / "experimental-room-animations" / "index.html",
+        ]
+        for path in pages:
+            page = path.read_text()
+            with self.subTest(path=path.relative_to(ROOT)):
+                self.assertIn("Package v2", page)
+                self.assertIn("compatib", page.lower())
+
+        skill = " ".join((ROOT / ".agents" / "skills" / "build-original-locus-room" / "SKILL.md").read_text().split())
+        for required in [
+            "canonical feature-complete import format",
+            "catalog/spaces/<space-id>/", "stable IDs", "new UUID",
+            "only the legacy/simple flat Room compatibility format",
+            "Do not claim these scripts validate a complete Package v2 archive",
+        ]:
+            self.assertIn(required, skill)
+
+        guide = (ROOT / "create-your-own-place" / "index.html").read_text()
         for required in [
             "my-room.zip", "space.json", "provenance.json",
             "teleport-points.json", "scene.usdz", "thumbnail.jpg",
-            "All five files are required", "displayName",
-            "assigns each imported asset a UUID", "Names are display text and may repeat",
+            "all five files are required", "displayName", "new UUID",
             "does not generate a thumbnail",
         ]:
             self.assertIn(required, guide)
-
-        for removed in [
-            ROOT / "schemas" / "locusplace-v1.schema.json",
-            ROOT / "tools" / "validate_locusplace.py",
-            ROOT / "tools" / "pack_locusplace.py",
-            ROOT / "examples" / "generated" / "room-only.locusplace",
-        ]:
-            self.assertFalse(removed.exists())
 
     def test_view_appearance_controls_are_documented(self):
         guide = (ROOT / "create-your-own-place" / "index.html").read_text()

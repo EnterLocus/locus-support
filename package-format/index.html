@@ -4,8 +4,8 @@
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d141a">
   <title>Room and View ZIP reference — Locus</title>
-  <meta name="description" content="Technical reference, packer, validator, stable Room examples, and an experimental animated Room demo for flat Locus ZIPs.">
-  <meta property="og:title" content="Room and View ZIP reference — Locus"><meta property="og:description" content="Flat ZIP layouts, validation tools, stable Room examples, and an experimental Room animation demo."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/package-format/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <meta name="description" content="Complete Package v2 import reference, legacy/simple compatibility tools, stable Room examples, and an experimental animated Room demo.">
+  <meta property="og:title" content="Room and View ZIP reference — Locus"><meta property="og:description" content="Complete Package v2 structure, compatibility ZIP tools, stable Room examples, and an experimental Room animation demo."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/package-format/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
   <link rel="canonical" href="https://enterlocus.com/package-format/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
   <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
   <link rel="stylesheet" href="/assets/search.css">
@@ -15,16 +15,22 @@
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../whats-new/">What’s New</a><a aria-current="page" href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
   <main data-pagefind-body id="main" class="page-main">
-    <header class="page-header"><p class="kicker">Technical reference</p><h1>Locus Room and View ZIP format</h1><p>One ZIP contains one Room or one View. Files stay at the ZIP root, and Locus assigns the asset UUID at import.</p></header>
-    <div class="callout"><strong>No authored IDs.</strong> Display names may repeat. Only the files listed below are accepted.</div>
-    <section class="doc-section"><h2>Reference and tools</h2><div class="link-grid"><a class="link-card" href="../reference/locus-asset-format.md"><strong>Room and View ZIP reference</strong><span>Layouts, JSON fields, coordinates, appearance controls, provenance, and checks.</span></a><a class="link-card" href="../tools/validate_locus_asset.py"><strong>Validator</strong><span>Checks the exact Room or View ZIP before import.</span></a><a class="link-card" href="../tools/pack_locus_asset.py"><strong>Packer</strong><span>Creates a deterministic ZIP and validates it.</span></a><a class="link-card" href="../schemas/provenance-v1.schema.json"><strong>Provenance schema</strong><span>Creator, rights, credit, changes, and AI disclosure.</span></a></div></section>
-    <section class="doc-section"><h2>Room files</h2><pre><code>room.zip
+    <header class="page-header"><p class="kicker">Technical reference</p><h1>Locus Package v2, Room, and View ZIP formats</h1><p>Complete Package v2 is the canonical feature-complete import format. Legacy/simple flat Room and View ZIPs remain supported for compatibility.</p></header>
+    <div class="callout"><strong>Locus 1.2.1 and later.</strong> Import complete Package v2 from Files or a direct public HTTPS URL through either the View or Room entrypoint. Locus accepts the same ZIP bytes with a <code>.zip</code> or <code>.locusplace</code> filename.</div>
+    <section class="doc-section" id="complete-package-v2"><h2>Complete Package v2</h2><pre><code>complete-place.zip
+├── locusplace.json
+└── catalog/
+    ├── destinations/&lt;destination-id&gt;/destination.json
+    ├── spaces/&lt;space-id&gt;/space.json
+    └── experiences/&lt;experience-id&gt;/experience.json   # optional</code></pre><p>Keep <code>locusplace.json</code> and <code>catalog/</code> directly at the ZIP root, with no outer wrapper folder. The nested <code>catalog/destinations/</code>, <code>catalog/spaces/</code>, and optional <code>catalog/experiences/</code> paths are required structure. A View import must include a requested View; a Room import must include a requested Room. Supported Experiences may be bundled with that content.</p><p>The envelope preserves stable content IDs and declares <code>packageID</code>, <code>contentVersion</code>, <code>minimumAppVersion</code>, the content inventory, every file's byte count and SHA-256, and <code>contentHash</code>. Reimporting unchanged content is idempotent; changed content under the same package ID needs a newer content version and the same declared content IDs.</p><p>Supported complete packages preserve View media and masks, View and Room sound, Room animations, video surfaces and seat groups, provenance, and supported Experiences. Locus verifies safe paths, the exact file inventory, hashes, resource limits, required capabilities, and minimum app version. A malformed archive containing <code>locusplace.json</code> is rejected and never falls back to the flat compatibility importer.</p></section>
+    <section class="doc-section"><h2>Reference and compatibility tools</h2><div class="link-grid"><a class="link-card" href="../reference/locus-asset-format.md"><strong>Complete and compatibility format reference</strong><span>Package v2 structure, identity and updates, legacy/simple layouts, JSON fields, limits, and checks.</span></a><a class="link-card" href="../tools/validate_locus_asset.py"><strong>Flat compatibility validator</strong><span>Checks a legacy/simple Room or View ZIP; it does not validate complete Package v2.</span></a><a class="link-card" href="../tools/pack_locus_asset.py"><strong>Flat compatibility packer</strong><span>Creates a deterministic legacy/simple ZIP and validates it.</span></a><a class="link-card" href="../schemas/provenance-v1.schema.json"><strong>Provenance schema</strong><span>Creator, rights, credit, changes, and AI disclosure.</span></a></div></section>
+    <section class="doc-section"><h2>Legacy/simple Room files</h2><pre><code>room.zip
 ├── space.json
 ├── provenance.json
 ├── teleport-points.json
 ├── scene.usdz
-└── thumbnail.jpg</code></pre><p>Every file is required. A Room must contain at least one usable entry seat. The thumbnail is supplied by the author; Locus does not capture one during import.</p></section>
-    <section class="doc-section"><h2>View files</h2><pre><code>view.zip
+└── thumbnail.jpg</code></pre><p>This flat compatibility format receives a new UUID on every import. Every file is required. A Room must contain at least one usable entry seat. The thumbnail is supplied by the author; Locus does not capture one during import.</p></section>
+    <section class="doc-section"><h2>Legacy/simple View files</h2><pre><code>view.zip
 ├── view.json
 ├── provenance.json
 ├── panorama.jpg
