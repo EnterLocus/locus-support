@@ -1,26 +1,78 @@
-# Public Locus Room and View ZIP format
+# Public Locus Package v2 and compatibility ZIP formats
 
-Status: v1 remains supported and immutable; v2 adds visitor-controlled Room
-lighting metadata and a View condition that suggests the light switch's initial
-position; Room v3 adds Room-owned baked indirect light and bounded authoring
-limits; Room v4 adds independently controlled USDZ animations with saved
-playback speed and randomized replay intervals; Room v5 adds explicit rendering
-roles and spotlight directions; Room v6 adds authored seat groups. All
-versions use the same flat ZIP layout.
+## Complete Package v2 — canonical import format
+
+Locus 1.2.1 and later accepts a complete Package v2 ZIP from Files or a direct
+public HTTPS URL through both **Import a View** and **Import a Room**. Use an
+ordinary `.zip` filename for normal public delivery. Locus accepts the same ZIP
+bytes with a `.zip` or `.locusplace` filename.
+
+The ZIP root directly contains `locusplace.json` and `catalog/`; do not wrap
+them in another directory:
+
+```text
+complete-place.zip
+|-- locusplace.json
+`-- catalog/
+    |-- destinations/<destination-id>/destination.json
+    |-- spaces/<space-id>/space.json
+    `-- experiences/<experience-id>/experience.json   optional
+```
+
+Each declared View, Room, or Experience keeps its other assets beside its
+manifest under the same content-ID directory. These `catalog/destinations/`,
+`catalog/spaces/`, and optional `catalog/experiences/` paths are required
+Package v2 structure, not forbidden nested files. Import a Package v2 ZIP from
+the View entrypoint when it contains a requested View, or from the Room
+entrypoint when it contains a requested Room. A package may bundle supported
+Experiences that compose its requested content.
+
+Complete Package v2 preserves its authored stable IDs. `locusplace.json`
+declares the stable `packageID`, `contentVersion`, `minimumAppVersion`, content
+IDs, every payload file with its byte count and lowercase SHA-256, and the
+overall `contentHash`. Reimporting the same package and content is idempotent.
+Changed bytes for the same `packageID` require a strictly newer
+`contentVersion`, and an update cannot replace the package's declared set of
+View, Room, or Experience IDs.
+
+Supported complete packages preserve View media and masks, View and Room
+sound, Room animations, video surfaces and seat groups, provenance, and
+supported Experiences. They must pass manifest and file-inventory agreement,
+hashes, safe canonical paths, archive and decoded-resource limits, declared
+capabilities, and `minimumAppVersion`. If `locusplace.json` is present but the
+complete package is malformed, Locus rejects it; it does not reinterpret or
+fall back to the flat compatibility format.
+
+## Legacy/simple flat ZIP compatibility
+
+The flat format documented below remains accepted for simple imports and for
+the existing public examples and tools. It contains exactly one Room or one
+View, has no authored package or content identity, and receives a new UUID on
+every import. Use complete Package v2 when stable identity, in-place updates,
+bundled Experiences, or the feature-complete content model matters.
+
+In this compatibility format, v1 remains supported and immutable; v2 adds
+visitor-controlled Room lighting metadata and a View condition that suggests
+the light switch's initial position; Room v3 adds Room-owned baked indirect
+light and bounded authoring limits; Room v4 adds independently controlled USDZ
+animations with saved playback speed and randomized replay intervals; Room v5
+adds explicit rendering roles and spotlight directions; Room v6 adds authored
+seat groups. All of those compatibility versions use the same flat ZIP layout.
 
 Locus 1.1.4 adds an optional `sound.json` sidecar: a Room or a View may carry
 its own audio, independently of everything above. An older Locus refuses the
 extra files rather than installing a place with its sound silently missing.
 
-A public archive contains exactly one Room or one View. It is an ordinary
-`.zip` file with all files at the ZIP root. It never contains a Catalog,
-Experience, package envelope, or author-chosen asset ID.
+A flat compatibility archive contains exactly one Room or one View. It is an
+ordinary `.zip` file with all files at the ZIP root. Unlike complete Package
+v2, it does not contain `locusplace.json`, a `catalog/` tree, an Experience, or
+an author-chosen asset ID.
 
 Locus assigns a new UUID when it imports an asset. `displayName` is
 user-visible copy, may repeat, and is not an identity. Importing the same ZIP
 twice creates two assets with different UUIDs and the same display name.
 
-## Room ZIP
+## Flat compatibility Room ZIP
 
 The five files are all required:
 
@@ -553,7 +605,7 @@ instances before export. These are rejection limits, not performance targets.
 A small Room should stay far below them. Appearance, interactive frame rate,
 tracking, reach and comfort still require checking the exact Room in Locus.
 
-## View ZIP
+## Flat compatibility View ZIP
 
 Four root files are required and one is optional:
 
@@ -779,7 +831,7 @@ For an all-rights-reserved original, replace `license` with:
 }
 ```
 
-## Pack and validate
+## Pack and validate a flat compatibility ZIP
 
 Keep only regular root files in the source directory, then run:
 
@@ -788,8 +840,10 @@ python3 tools/pack_locus_asset.py /absolute/path/to/asset /absolute/path/to/asse
 python3 tools/validate_locus_asset.py /absolute/path/to/asset.zip
 ```
 
+These current public Python tools build and validate only the legacy/simple
+flat compatibility format; they do not build or validate complete Package v2.
 The packer is deterministic, refuses to overwrite an existing ZIP, and only
-publishes a ZIP accepted by the same validator. Room validation uses macOS
+publishes a flat ZIP accepted by the same validator. Room validation uses macOS
 `sips`, Xcode's `usdchecker`, and a small Swift RealityKit checker compiled with
 `xcrun swiftc`. The downloadable Python validator includes its Swift checker; it requires no
 private repository or separately downloaded helper. The same binding rules
@@ -797,13 +851,15 @@ are used by the app before import. A `VALID` result covers structure, metadata,
 image decoding, model structure, and machine-checkable entity bindings. Import the
 exact ZIP and enter every Room seat to check scale, appearance, and comfort.
 
-Do not include `.blend`, GLB, source textures, parent folders, symlinks,
-Catalog files, Experience files, an ID, or an internal package envelope.
+In a flat compatibility ZIP, do not include `.blend`, GLB, source textures,
+parent folders, symlinks, `catalog/`, Experience files, an ID, or
+`locusplace.json`. Those last three belong only to the canonical complete
+Package v2 layout described above.
 
 ### Inspect the delivered model before packaging
 
-The flat ZIP validator and the app's public Room import preflight both load
-models with authored name references through RealityKit. References in spatial
+The flat compatibility ZIP validator and the app's public Room import preflight
+both load models with authored name references through RealityKit. References in spatial
 adaptation, rendering, lighting (including proxy anchors and baked indirect),
 and ambient animations must resolve to exactly one entity. Rendering groups
 also reject overlapping ancestor/descendant bindings and subtrees without
@@ -848,4 +904,5 @@ python3 tools/pack_locus_asset.py /path/to/material-study/room /path/to/material
 ```
 
 Use a Python environment with Pixar USD for the audit. Keep `MaterialStudy.blend`
-and the generated textures with the editable source; import only the flat ZIP.
+and the generated textures with the editable source; this workflow imports the
+result as a flat compatibility ZIP.
