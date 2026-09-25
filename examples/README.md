@@ -1,6 +1,7 @@
 # Public Locus Room examples
 
-These are complete flat Room ZIPs for direct import into Locus and for studying
+These are legacy/simple flat Room compatibility ZIPs for direct import into
+Locus and for studying
 the public Room metadata contract.
 
 | File | Display name | Format | Seats | SHA-256 |

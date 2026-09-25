@@ -7,12 +7,17 @@ Use this bundled reference when authoring offline. The public reference at
 
 - Use right-handed meters, +Y up, and world -Z forward.
 - Quaternions are `[x, y, z, w]`.
-- A Room ZIP is flat and contains exactly `space.json`, `provenance.json`,
-  `teleport-points.json`, `scene.usdz`, and `thumbnail.jpg`.
+- Complete Package v2 is the canonical feature-complete import format in Locus
+  1.2.1 and later. Its ZIP root directly contains `locusplace.json` and
+  `catalog/`; a Room lives below `catalog/spaces/<space-id>/` and keeps its
+  authored stable identity.
+- The bundled sample tools produce a legacy/simple flat compatibility Room ZIP
+  containing exactly `space.json`, `provenance.json`, `teleport-points.json`,
+  `scene.usdz`, and `thumbnail.jpg`. Each flat import receives a new UUID.
 - The USDZ is self-contained, stores its members without compression, and must
   pass `usdchecker --arkit`.
 - `thumbnail.jpg` must contain decodable JPEG or PNG image data.
-- `displayName` is user-facing text, not identity. Locus assigns an import UUID.
+- In a flat compatibility ZIP, `displayName` is user-facing text, not identity.
 
 ## One-seat Room v3 example
 
@@ -344,8 +349,8 @@ a virtual tabletop to desk alignment and desk passthrough.
 
 ### Inspect the delivered model before packaging
 
-The flat ZIP validator checks metadata, archive structure, USDZ validity,
-resource budgets, and actual RealityKit entity bindings before import.
+The flat compatibility ZIP validator checks metadata, archive structure, USDZ
+validity, resource budgets, and actual RealityKit entity bindings before import.
 The optional `audit_locus_room.py` tool also opens the delivered USD scene and
 checks actual entity identities, overlapping rendering bindings, spotlight
 directions, and the supported shader network. Run it with a Python environment
