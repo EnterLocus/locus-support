@@ -24,14 +24,14 @@
 
     <section class="doc-section"><p class="lesson-label">In Locus</p><h2>Fine-tune the View</h2><p>In <strong>Places</strong>, open the menu for your View and choose <strong>Edit View</strong>. Adjust <strong>Turn the View</strong> first, then View Brightness, Contrast, Color, Room Lighting, and optional Sunlight. These settings are saved for this View.</p><div class="callout"><strong>Separate what you see from how the Room is lit.</strong> View Brightness changes the panorama. Room Lighting changes how strongly that View lights the 3D Room.</div></section>
 
-    <section class="doc-section" id="advanced"><p class="lesson-label">Advanced</p><h2>Package a reusable View</h2><p>For stable identity, in-place updates, media and masks, sound, provenance, and optional bundled Experiences, use a complete Package v2 ZIP in Locus 1.2.1 or later:</p><pre><code>my-view.zip
+    <section class="doc-section" id="advanced"><p class="lesson-label">Advanced</p><h2>Package a reusable View</h2><p>For stable identity, in-place updates, media and masks, an optional <code>sourceImage</code>, View-owned USDZ <code>midground</code> scenery and water, sound, provenance, and optional bundled Experiences, use a complete Package v2 ZIP in Locus 1.2.1 or later:</p><pre><code>my-view.zip
 ├── locusplace.json
 └── catalog/
     └── destinations/&lt;destination-id&gt;/
         ├── destination.json
         ├── panorama.jpg
         ├── thumbnail.jpg
-        └── provenance.json</code></pre><p>Keep <code>locusplace.json</code> and <code>catalog/</code> directly at the ZIP root. Import the ZIP from Files or a direct public HTTPS URL. Locus checks stable IDs, versions, file hashes and inventory, safe paths, resource limits, capabilities, and minimum app version.</p><p>The current public packer and validator instead create a legacy/simple flat View ZIP. That compatibility format still supports a panorama, thumbnail, provenance, <code>panorama.initialYawDegrees</code>, appearance, Room-lighting image, optional sunlight, and sound, but every import receives a new UUID:</p><pre><code>my-view.zip
+        └── provenance.json</code></pre><p>Keep <code>locusplace.json</code> and <code>catalog/</code> directly at the ZIP root. Import the ZIP from Files or a direct public HTTPS URL. Locus checks stable IDs, versions, file hashes and inventory, safe paths, resource limits, capabilities, and minimum app version.</p><div class="callout"><strong>Internal and external Views use one pure-data contract.</strong> If the installed Locus binary can render a supported Room or View field, a complete public package can declare it under the same validation and version rules. Packages cannot carry scripts, plugins, dynamic libraries, or executable extensions. See the <a href="../reference/locus-asset-format.md#complete-view-source-and-midground-data-locus-121">complete View source and midground reference</a>.</div><p>The current public packer and validator instead create a legacy/simple flat View ZIP. That compatibility format still supports a panorama, thumbnail, provenance, <code>panorama.initialYawDegrees</code>, appearance, Room-lighting image, optional sunlight, and sound, but every import receives a new UUID:</p><pre><code>my-view.zip
 ├── view.json
 ├── provenance.json
 ├── panorama.jpg

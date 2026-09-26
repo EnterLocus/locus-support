@@ -43,6 +43,91 @@ capabilities, and `minimumAppVersion`. If `locusplace.json` is present but the
 complete package is malformed, Locus rejects it; it does not reinterpret or
 fall back to the flat compatibility format.
 
+### One pure-data capability contract
+
+Package v2 describes data, never executable code. Its JSON may select typed
+images, audio, video, USD/USDZ scenes, and renderer parameters implemented by
+the installed Locus binary. A package cannot carry scripts, plugins, dynamic
+libraries, or executable extensions. Safe paths, hashes, exact inventory and
+reference closure, structural decoding, resource budgets, and
+`minimumAppVersion` are enforced before an import is committed.
+
+Within the same Locus binary, a runtime-consumed Room or View field that passes
+that common validation has the same content meaning whether it is bundled with
+the app, downloaded from the Locus Library, or installed from a complete public
+Package v2 ZIP. Source may still control entitlement, whether custom import is
+allowed, update authority, storage and removal policy, and UI labels. It does
+not unlock a different content schema or renderer feature set.
+
+This is also the compatibility rule for future Room and View capabilities: add
+the typed field, its referenced assets and type/budget/structure rules, the
+runtime consumer, and an app-version floor to the common Package v2 contract.
+Do not add the field to a separate public-import allowlist. A reserved or
+retired field with no runtime consumer can still be rejected because that Locus
+binary cannot use it—not because the ZIP came from outside the app.
+
+### Complete View source and midground data (Locus 1.2.1)
+
+A complete `destination.json` may include `sourceImage` and `midground` in
+addition to its panorama, thumbnail, environment, media, sound, and provenance
+data. `sourceImage` is an optional package-relative JPEG or PNG kept with the
+View as its source/audit image. It is decoded and counted against the same image
+budgets as other packaged images; it is not an executable authoring file.
+
+`midground` adds View-owned 3D scenery and/or renderer-owned water between a
+Room and the panorama. It is supported in both Virtual Space and Room Portal,
+and has the same contract for bundled, Library, and complete imported packages.
+Any package that declares `midground` must set
+`minimumAppVersion` to `1.2.1` or later.
+
+```json
+{
+  "sourceImage": "original.jpg",
+  "midground": {
+    "path": "midground.usdz",
+    "transform": {
+      "translationMeters": [0, 0, 0],
+      "orientationXYZW": [0, 0, 0, 1],
+      "scale": [1, 1, 1]
+    },
+    "terrainEntities": ["Terrain"],
+    "water": {
+      "levelMeters": -1.2,
+      "mask": "water-mask.png",
+      "normalMap": "water-normal.png"
+    }
+  }
+}
+```
+
+A `midground` object must contain `path`, `water`, or both:
+
+- `path` is a package-relative USDZ. It is placed at the Room floor under the
+  Room's first seat and may use `transform` to correct authoring coordinates.
+  The USDZ must pass the same archive-member allowlist, structural inspection,
+  model, and texture budgets as other imported runtime models.
+- `terrainEntities` is an optional, unique, non-empty list of model-unit names
+  and is valid only with `path`. Locus lowers those ground units under the
+  Room footprint and hides intersecting non-ground units so scenery does not
+  clip through the Room.
+- `water.levelMeters` is required and must be finite from `-20` through `0`.
+  `water.mask` is a package-relative grayscale 2:1 PNG in the panorama's
+  equirectangular coordinates. `water.normalMap` is a package-relative RGB or
+  RGBA PNG. The optional numeric surface controls are range-checked before
+  import.
+- `water.waves` may name a PNG normal atlas plus `frames` (`2...512`),
+  `columns` (`1...64`), `loopSeconds` (`1...120`), and `tileMeters`
+  (`0.5...50`). The atlas dimensions must fit the declared square frames.
+- `water.shore` may name a top-down `bedAlbedo` JPEG/PNG, 8-bit grayscale
+  `bedHeight` PNG, RGB/RGBA `detail` PNG, and optional 8-bit RGB `field` PNG,
+  together with their bounded extent, height range, clarity, swash, foam,
+  caustics, and beach-slope parameters.
+
+The currently reserved or retired Destination fields `depthLayers`, `splat`,
+and legacy `audio` remain unsupported in complete public imports because this
+binary has no active runtime consumer for them. Use `sound`, not `audio`, for
+current View audio.
+
 ## Legacy/simple flat ZIP compatibility
 
 The flat format documented below remains accepted for simple imports and for

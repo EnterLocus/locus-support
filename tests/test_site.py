@@ -962,8 +962,27 @@ class PublicSiteTests(unittest.TestCase):
             "video surfaces", "seat groups", "provenance", "supported Experiences",
             "file-inventory agreement", "hashes", "safe canonical paths",
             "resource limits", "capabilities", "fall back",
+            "One pure-data capability contract", "sourceImage", "midground",
+            "bundled with the app", "Locus Library", "complete public Package v2 ZIP",
+            "scripts", "plugins", "dynamic libraries", "executable extensions",
+            "future Room and View capabilities", "separate public-import allowlist",
+            "minimumAppVersion` to `1.2.1", "terrainEntities",
+            "water.waves", "water.shore", "depthLayers", "splat",
+            "Use `sound`, not `audio`",
         ]:
             self.assertIn(required, reference)
+
+        for path in [
+            ROOT / "package-format" / "index.html",
+            ROOT / "create-your-own-place" / "index.html",
+            ROOT / "make-a-view" / "index.html",
+        ]:
+            page = " ".join(path.read_text().split())
+            with self.subTest(data_parity_page=path.relative_to(ROOT)):
+                self.assertIn("pure-data", page)
+                self.assertIn("midground", page)
+                self.assertIn("scripts", page)
+                self.assertIn("executable extensions", page)
 
         pages = [
             ROOT / "package-format" / "index.html",
