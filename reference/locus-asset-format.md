@@ -110,6 +110,16 @@ A `midground` object must contain `path`, `water`, or both:
   and is valid only with `path`. Locus lowers those ground units under the
   Room footprint and hides intersecting non-ground units so scenery does not
   clip through the Room.
+- `windSway` is optional and valid only with `path`. It authors a rigid tilt,
+  about each matched prop's own origin, for midground props (never a unit
+  named in `terrainEntities`) so a plant appears to bend from its grounded
+  base. `entities` is a non-empty, unique list of name *prefixes*: every
+  midground unit whose own name starts with one of them sways. `amplitudeDegrees`
+  (peak tilt from rest) is finite within `0...15`. `periodSeconds` (seconds
+  per full sway cycle) is finite within `0.5...30`. The optional
+  `directionDegrees` (azimuth the wind comes from, same convention as
+  `water.waveDirectionDegrees`) is finite within `-360...360` and defaults to
+  `0`; plants tilt downwind.
 - `water.levelMeters` is required and must be finite from `-20` through `0`.
   `water.mask` is a package-relative grayscale 2:1 PNG in the panorama's
   equirectangular coordinates. `water.normalMap` is a package-relative RGB or
@@ -119,9 +129,30 @@ A `midground` object must contain `path`, `water`, or both:
   `columns` (`1...64`), `loopSeconds` (`1...120`), and `tileMeters`
   (`0.5...50`). The atlas dimensions must fit the declared square frames.
 - `water.shore` may name a top-down `bedAlbedo` JPEG/PNG, 8-bit grayscale
-  `bedHeight` PNG, RGB/RGBA `detail` PNG, and optional 8-bit RGB `field` PNG,
-  together with their bounded extent, height range, clarity, swash, foam,
-  caustics, and beach-slope parameters.
+  `bedHeight` PNG, RGB/RGBA `detail` PNG, optional 8-bit RGB `field` PNG, and
+  optional 8-bit grayscale `sunVisibility` PNG, together with their bounded
+  extent, height range, clarity, swash, foam, caustics, and beach-slope
+  parameters. `sunVisibility` marks where the shore's own terrain, rocks, or
+  trees shadow the bed — `255` is fully sunlit, lower values are shadowed —
+  so caustics and the direct-sun share of the bed's lighting fade out where
+  it is low; omitting it means fully sunlit everywhere. It shares
+  `bedHeight`'s extent and orientation by authoring convention, but Locus
+  checks only that it is an 8-bit grayscale PNG, not that its pixel
+  dimensions match `bedHeight`.
+- `water.surf` adds real-time shallow-water surf breaking on top of `shore`,
+  and is valid only when `water.shore` is also present. `preset` is one of
+  `calm-lake`, `lake-swell`, or `ocean-surf`. Optional `strength` (amplitude
+  multiplier on incident waves) is `0...2`; optional `tideMeters` is
+  `-0.5...0.5`. `originMeters` is a required `[x, z]` landward center point
+  of the solver domain, each component finite within `±200` meters, in the
+  same View-local frame as `shore.extentMeters`. `shoreNormalDegrees` is the
+  required offshore direction, finite within `-360...360`, using the same
+  formula as `waveDirectionDegrees`. `crossShoreMeters` and
+  `alongShoreMeters` are both required and finite within `2...100` meters.
+  Optional `cellMeters` defaults to `0.25` and must be finite within
+  `0.05...1.0`; the resulting solver grid (`crossShoreMeters` and
+  `alongShoreMeters`, each divided by `cellMeters` and rounded up) must be at
+  least 4 and at most 256 cells on each axis.
 
 The currently reserved or retired Destination fields `depthLayers`, `splat`,
 and legacy `audio` remain unsupported in complete public imports because this
@@ -142,7 +173,10 @@ the light switch's initial position; Room v3 adds Room-owned baked indirect
 light and bounded authoring limits; Room v4 adds independently controlled USDZ
 animations with saved playback speed and randomized replay intervals; Room v5
 adds explicit rendering roles and spotlight directions; Room v6 adds authored
-seat groups. All of those compatibility versions use the same flat ZIP layout.
+seat groups; Room v7 adds looping video surfaces; Room v8 adds illuminated
+surfaces and an explicit view-forward yaw; Room v9 adds particle effects;
+Room v10 adds per-lamp baked light layers. All of those compatibility
+versions use the same flat ZIP layout.
 
 Locus 1.1.4 adds an optional `sound.json` sidecar: a Room or a View may carry
 its own audio, independently of everything above. An older Locus refuses the
@@ -608,6 +642,165 @@ Room that omits `seatGroups` keeps the legacy flat seat list. A visitor's own
 personal/custom seats are separate persisted additions and do not inherit
 authored grouping.
 
+### Room video surfaces (formatVersion 7)
+
+A Room whose `scene.usdz` contains a named mesh-bearing entity for looping
+video uses `formatVersion: 7` and adds `videoSurfaces` — the first author is
+a fireplace's fire on a quad in the firebox:
+
+```json
+"videoSurfaces": [
+  {
+    "id": "fireplace-fire",
+    "displayName": "Fireplace Fire",
+    "entityName": "Fireplace_Fire_Video",
+    "video": "fireplace-fire.mp4",
+    "luminaireGroupID": "fireplace"
+  }
+]
+```
+
+A Room may declare at most 2 surfaces. `id` is lowercase letters, digits, and
+hyphens only, 1–64 bytes, and unique among the Room's surfaces.
+`displayName` and `entityName` are nonempty and at most 200 UTF-8 bytes.
+`video` is a bare root `.mp4` filename (no path separators); the set of
+`video` values across all surfaces must exactly match the `.mp4` files
+present in the ZIP, so an unreferenced or missing video file fails import.
+`entityName` must resolve to a mesh-bearing subtree of `scene.usdz`, checked
+the same way as every other authored entity reference. The optional
+`luminaireGroupID` must name one of this Room's `lighting.luminaireGroups`
+entries; while that group is lit (its master switch on and not
+force-disabled) the surface plays its video, and otherwise it shows its
+restored authored material — the tied group does not need to contain the
+surface's own entity. `videoSurfaces` requires Locus 1.2.1 or later; an
+older build refuses to import a Room that declares it.
+
+### Room illuminated surfaces and view-forward yaw (formatVersion 8)
+
+A `lighting.luminaireGroups` entry may add `illuminatedEntities`, and a Room
+may add a top-level `viewForwardYawRadians`; either one requires
+`formatVersion: 8`.
+
+`illuminatedEntities` names surfaces an author's own baked emissive texture
+washes with that group's light — a wall lit by a hidden cove fixture, say —
+as distinct from `entities`, which names the fixture subtree itself:
+
+```json
+"lighting": {
+  "luminaireGroups": [
+    {
+      "id": "cove-light",
+      "displayName": "Cove Light",
+      "entities": ["Cove_Fixture_Glow"],
+      "illuminatedEntities": ["Living_Room_Wall"],
+      "controls": {"brightnessEVRange": [-4, 1], "supportsFullColor": false},
+      "proxy": {
+        "type": "point", "anchorEntity": "Cove_Fixture_Glow",
+        "intensityLumens": 500, "attenuationRadiusMeters": 3,
+        "castsShadow": false
+      }
+    }
+  ]
+}
+```
+
+When present, `illuminatedEntities` is non-empty, and none of its names may
+repeat a name already used by that same group's `entities`, by another
+group's `entities` or `illuminatedEntities`, or by `bakedIndirect.entities`;
+none of it may be an ancestor or descendant of those same protected entities
+either. An illuminated surface's material follows the group's master switch,
+overall Room EV, and per-light enable/EV/color exactly like an `entities`
+member's, but it is never a switch target itself (no hover or pinch), is
+never hidden by `nearTeleportIDs` (which only ever scopes the direct proxy),
+and is not considered by Hide Desk's "every entity under the hidden desk
+root" rule.
+
+`viewForwardYawRadians` is the model-space yaw — the same convention as a
+teleport point's `yawRadians` — that faces the selected View's
+straight-ahead direction, letting an author decouple the View's orientation
+from wherever the first authored teleport point happens to face:
+
+```json
+{
+  "formatVersion": 8,
+  "viewForwardYawRadians": 1.5707963267948966
+}
+```
+
+When present it must be finite and within `-π...π`. It changes only the
+sky/IBL/sun orientation basis; seat placement, desk alignment, and every
+other teleport behavior are computed exactly as before, from the active
+teleport's own `yawRadians`. Omitting it keeps the pre-v8 default: the first
+teleport point's facing. Both `illuminatedEntities` and
+`viewForwardYawRadians` require Locus 1.2.1 or later.
+
+### Room particle effects (formatVersion 9)
+
+A Room whose `scene.usdz` contains a transform-only anchor for a
+continuously running effect uses `formatVersion: 9` and adds
+`particleEffects` — the first use is a fireplace's fire:
+
+```json
+"particleEffects": [
+  {
+    "id": "fireplace-fire",
+    "displayName": "Fireplace Fire",
+    "preset": "fire",
+    "anchorEntity": "Fireplace_Fire_Emitter",
+    "sizeMeters": [0.62, 0.04, 0.22]
+  }
+]
+```
+
+A Room may declare at most 4 effects. `id` follows the same
+lowercase-letters/digits/hyphens rule as `videoSurfaces.id`; `displayName`
+is nonempty and at most 200 UTF-8 bytes. `preset` is a closed enum —
+currently only `"fire"` — and the app owns the entire resulting look (color,
+particle count, timing); the author's only contract is placement
+(`anchorEntity`) and size (`sizeMeters`: exactly 3 finite values, each
+within `(0, 3]` meters, in the anchor's local Y-up space as width, height,
+depth, centered on the anchor origin — flames rise along the anchor's local
++Y). `anchorEntity` resolves like a lighting proxy's `anchorEntity`: it does
+not need renderable geometry, since the expected authoring shape is a
+transform-only Xform exported from a Blender empty. An effect runs for the
+Room's entire lifetime; it is never tied to a `lighting.luminaireGroups`
+switch and carries no audio. `particleEffects` requires Locus 1.2.1 or
+later.
+
+### Room baked light layers (formatVersion 10)
+
+A Room whose `lighting.bakedIndirect` wants per-lamp control over the shared
+indirect atlas uses `formatVersion: 10` and adds `bakedIndirect.layers`: one
+root PNG per declared luminaire group, holding only that group's own
+contribution (direct plus bounce, material color included) to the shared
+atlas at its authored brightness/color.
+
+```json
+"lighting": {
+  "luminaireGroups": ["... v2 group objects ..."],
+  "bakedIndirect": {
+    "entities": ["Locus_BakedIndirect"],
+    "layers": [
+      {"luminaireGroupID": "desk-pendant", "image": "desk-pendant-indirect.png"}
+    ]
+  }
+}
+```
+
+`layers` is non-empty and at most 12 entries. Each entry pairs a
+`luminaireGroupID` — naming one of this Room's declared luminaire groups, at
+most once across the array — with a bare root `.png` `image` filename (no
+path separators). The set of `image` values across the array must exactly
+match the `.png` files present in the ZIP, so an unreferenced or missing
+image fails import. Every referenced image must be an 8- or 16-bit RGB or
+RGBA PNG at most 4096×4096, and every layer image in the same Room must
+share identical pixel dimensions. Locus composites these layers in linear
+light at load and whenever the visitor's lighting changes, and falls back to
+plain format-v3 whole-atlas EV scaling if the shared atlas texture is
+missing or a layer's dimensions do not match it. `bakedIndirect.layers`
+requires Locus 1.2.1 or later; format v3's `bakedIndirect.entities` keeps
+working unchanged without it.
+
 ## How Locus uses a Room
 
 The authoring interface and the runtime rules are both documented here. Public
@@ -627,9 +820,12 @@ the internal identity, file paths, and bookkeeping.
 | `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat is a first-class lounge seat: it still loads, at its authored floor and eye height, but never measures, aligns, or offers passthrough for a desk. See [Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). |
 | `deskGroupEntitiesByTeleportID` | Optional, 1.1.5+. For a subset of desk-backed seats, names the one entity whose whole subtree is that seat's hideable desk, enabling a visitor **Hide Desk** control. A key must already have a `deskEntitiesByTeleportID` entry; the named entity must resolve uniquely and be an ancestor of that entry's surface entity, or the Room fails to load. Readers before 1.1.5 ignore this field and offer no Hide Desk. See [Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). |
 | `seatGroups` | Optional, 1.2.0+, requires `formatVersion: 6`. Presents several teleport IDs as one seating area in the two-level Seats picker; every listed ID must be an authored teleport, and a teleport cannot belong to more than one group. It never changes a seat's identity, placement, desk mapping, Hide Desk contract, or eye height. Readers before 1.2.0 refuse to import a grouped Room. See [Seat groups](#seat-groups-formatversion-6). |
-| `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. |
+| `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. A group's optional `illuminatedEntities` (1.2.1+, `formatVersion: 8`) and `bakedIndirect.layers` (1.2.1+, `formatVersion: 10`) extend this without changing the base v2/v3 contract. See [Room illuminated surfaces and view-forward yaw](#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8) and [Room baked light layers](#room-baked-light-layers-formatversion-10). |
 | `rendering` | Explicitly opts subtrees into softened View reflections or temporary window-obstruction fading. Omitted roles grant neither behavior. These permissions do not change the underlying material design. |
 | `ambientAnimations` | Binds embedded named clips to experimental switch/speed/interval controls. A valid entity name does not prove a clip exists or moves correctly; test playback in Locus. |
+| `videoSurfaces` | Optional, 1.2.1+, requires `formatVersion: 7`. Names a mesh-bearing entity that plays a looping video, optionally tied to a luminaire group's switch. At most 2 per Room. See [Room video surfaces](#room-video-surfaces-formatversion-7). |
+| `particleEffects` | Optional, 1.2.1+, requires `formatVersion: 9`. Anchors a continuously running app-owned particle preset (currently only `fire`) to a named entity; the author controls placement and size only. At most 4 per Room. See [Room particle effects](#room-particle-effects-formatversion-9). |
+| `viewForwardYawRadians` | Optional, 1.2.1+, requires `formatVersion: 8`. Names the model-space yaw that faces the selected View's straight-ahead direction, in place of the first teleport point's facing. Never changes seat placement or desk alignment. See [Room illuminated surfaces and view-forward yaw](#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8). |
 | `thumbnail.jpg` / `previewCamera` | Supply the library image and initial 3D preview framing. Neither determines the immersive seat. |
 
 ### Collision and quality: internal fields, not additional author inputs

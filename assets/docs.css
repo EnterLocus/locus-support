@@ -119,6 +119,8 @@ td { color: var(--muted); }
 .release-card-copy > span:last-child { max-width: 46ch; margin-top: 1rem; color: var(--muted); font-size: 1rem; line-height: 1.6; }
 .release-card-latest { grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); }
 .release-card-latest .release-card-copy { order: -1; }
+.release-card-text { grid-template-columns: 1fr; }
+.release-card-text .release-card-copy { order: initial; }
 .release-article { max-width: 900px; }
 .release-article .page-header { margin-bottom: 2.5rem; }
 .release-article .page-header h1 { max-width: 850px; }
