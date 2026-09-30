@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#0d141a">
+  <title>Locus 1.2.3: a steadier desk, and Places that behave</title>
+  <meta name="description" content="Locus 1.2.3 fixes a desk-alignment problem on visionOS 27, an occasional failure to place you in a Room after moving, and Places layout glitches, and makes Rooms and Views load faster.">
+  <meta property="og:title" content="Locus 1.2.3: a steadier desk, and Places that behave"><meta property="og:description" content="Desk alignment on visionOS 27, a more reliable entry after you move, Places layout fixes, and faster loads."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/whats-new/1-2-3/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/whats-new/1-2-3/"><link rel="icon" type="image/png" href="../../assets/favicon.png"><link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png"><link rel="stylesheet" href="../../assets/site.css"><link rel="stylesheet" href="../../assets/docs.css"><link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a aria-current="page" href="../">What’s New</a><a href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main release-article">
+    <a class="release-back" href="../">← All updates</a>
+    <header class="page-header"><p class="kicker">Locus 1.2.3</p><h1>A steadier desk, and Places that behave.</h1><p class="release-lead">A small update: desk alignment on visionOS 27, a more reliable entry into a Room after you move, Places layout fixes, and faster loading for Rooms and Views.</p></header>
+
+    <section class="doc-section"><h2>Your desk stays aligned on visionOS 27.</h2><p>On visionOS 27, the virtual desk could drift away from your physical keyboard and desk edges as you moved your head. Desk measurement now uses the rendered plane coordinates, so the desk stays where you put it.</p></section>
+
+    <section class="doc-section"><h2>You stay in the Room after you move.</h2><p>After walking or shifting, Locus could occasionally fail to place you in the Room and drop you into passthrough instead. It now keeps waiting for a solid entry pose, so you land in the Room more reliably.</p></section>
+
+    <section class="doc-section"><h2>Places keeps its layout.</h2><p>Card order stays stable when you reopen Places, the grid waits for the first Library snapshot before showing, and changing a tab or filter starts you back at the top. Cards scroll cleanly without resting past their content, and the grid margins stay put when you change Rooms.</p></section>
+
+    <section class="doc-section"><h2>Rooms and Views keep getting faster.</h2><p>More of the load path runs off the arrival path, Places thumbnails decode off the main thread, and the sun’s shadow attaches only while the sun is on. Rooms and Views should open a little quicker and feel steadier once you’re in them.</p></section>
+
+    <nav class="tutorial-pagination release-pagination" aria-label="Release navigation"><a href="../1-2-2/"><span>Previous release</span><strong>Locus 1.2.2</strong></a><a href="../"><span>All updates</span><strong>What’s New in Locus</strong></a></nav>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../">What’s New</a><a href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="../../privacy/">Privacy</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>

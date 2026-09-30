@@ -835,6 +835,7 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-2-3/"'), archive.index('href="./1-2-2/"'))
         self.assertLess(archive.index('href="./1-2-2/"'), archive.index('href="./1-2-1/"'))
         self.assertLess(archive.index('href="./1-2-1/"'), archive.index('href="./1-2/"'))
         self.assertLess(archive.index('href="./1-2/"'), archive.index('href="./1-1-5/"'))
@@ -845,6 +846,12 @@ class PublicSiteTests(unittest.TestCase):
         self.assertLess(archive.index('href="./1-1/"'), archive.index('href="./1-0/"'))
 
         releases = {
+            "1-2-3": (
+                "A steadier desk, and Places that behave.",
+                "desk stays aligned",
+                "stay in the Room",
+                "Places keeps its layout",
+            ),
             "1-2-2": (
                 "A steadier, faster load.",
                 "turning the Room off",
@@ -917,13 +924,13 @@ class PublicSiteTests(unittest.TestCase):
                       'data-youtube-id="RPbFXq5-KVE"']:
             self.assertNotIn(stale, homepage)
 
-        # 1.2.2 (like 1.2.1) is a smaller update than 1.2, whose film and story still make
+        # 1.2.3 (like 1.2.2) is a smaller update than 1.2, whose film and story still make
         # the better first impression, so it gets a single "Latest update"
         # strip above the section instead of taking it over (the same
         # pattern 1.1.4 used beneath 1.1.3).
         self.assertIn('class="whats-new-latest"', homepage)
-        self.assertIn('href="./whats-new/1-2-2/"', homepage)
-        self.assertIn("Latest update · Locus 1.2.2", homepage)
+        self.assertIn('href="./whats-new/1-2-3/"', homepage)
+        self.assertIn("Latest update · Locus 1.2.3", homepage)
         for highlight in [
             "Everything in Places",
             "Look, and sit there",
