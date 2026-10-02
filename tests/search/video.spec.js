@@ -18,7 +18,7 @@ test('visible videos autoplay muted without stealing focus and retain blocked-pr
   const iframe = card.locator('iframe');
   await expect(iframe).toHaveCount(1);
   await expect(iframe).toHaveAttribute('src', /embed\/NJuKWTs2BRw\?autoplay=1&mute=1&playsinline=1/);
-  await expect(iframe).toHaveAttribute('title', 'Locus promotional video');
+  await expect(iframe).toHaveAttribute('title', 'Play Locus promotional video');
   await expect(iframe).not.toBeFocused();
   await expect(page.getByRole('link', { name: 'Watch on YouTube', exact: true }).first()).toHaveAttribute('href', 'https://www.youtube.com/watch?v=NJuKWTs2BRw');
   // The second film is still below the viewport and has not connected.

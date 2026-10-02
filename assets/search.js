@@ -13,22 +13,45 @@ function revealAnchor() {
 window.addEventListener('hashchange', revealAnchor);
 revealAnchor();
 
+const strings = window.LocusLocalization?.strings || {};
+function t(source, substitutions = {}) {
+  return (strings[source] || source).replace(/\{([^{}]+)\}/g, (_whole, name) => substitutions[name] ?? `{${name}}`);
+}
+const locale = window.LocusLocalization?.locale || document.documentElement.lang || 'en';
+const localePrefix = locale === 'en' ? '' : `/${locale}`;
+function localeUrl(path) { return `${localePrefix}${path}`; }
+
 const trigger = document.querySelector('.search-trigger');
 if (trigger) {
   const dialog = document.createElement('dialog');
   dialog.className = 'search-dialog';
   dialog.setAttribute('aria-labelledby', 'search-title');
   dialog.innerHTML = `
-    <div class="search-top"><h2 id="search-title">Search Locus</h2><button class="search-close" type="button" aria-label="Close search">✕</button></div>
-    <label class="search-label" for="site-search">Search the website</label>
+    <div class="search-top"><h2 id="search-title"></h2><button class="search-close" type="button">✕</button></div>
+    <label class="search-label" for="site-search"></label>
     <input id="site-search" type="search" placeholder="Search questions, guides, and more…" autocomplete="off" spellcheck="false" autofocus>
-    <p class="search-status" role="status" aria-live="polite">Find answers across FAQ and guides.</p>
-    <ul class="search-results" aria-label="Search results"></ul>
-    <div class="search-help">Try <button type="button" data-query="lying down">lying down</button>, <button type="button" data-query="Room Lights">Room Lights</button>, or <button type="button" data-query="imports">imports</button>.</div>`;
+    <p class="search-status" role="status" aria-live="polite"></p>
+    <ul class="search-results"></ul>
+    <div class="search-help"></div>`;
   document.body.append(dialog);
   const input = dialog.querySelector('input');
   const status = dialog.querySelector('.search-status');
   const results = dialog.querySelector('.search-results');
+  dialog.querySelector('#search-title').textContent = t('Search Locus');
+  const closeButton = dialog.querySelector('.search-close');
+  closeButton.setAttribute('aria-label', t('Close search'));
+  const label = dialog.querySelector('.search-label'); label.textContent = t('Search the website');
+  input.placeholder = t('Search questions, guides, and more…');
+  results.setAttribute('aria-label', t('Search results'));
+  status.textContent = t('Find answers across FAQ and guides.');
+  const hints = { first: t('lying down'), second: t('Room Lights'), third: t('imports') };
+  const help = dialog.querySelector('.search-help');
+  for (const piece of t('Try {first}, {second}, or {third}.').split(/(\{(?:first|second|third)\})/)) {
+    const name = piece.slice(1, -1);
+    if (!hints[name]) { help.append(piece); continue; }
+    const button = document.createElement('button');
+    button.type = 'button'; button.dataset.query = hints[name]; button.textContent = hints[name]; help.append(button);
+  }
   let engine, timer, generation = 0;
   function loadEngine() {
     if (!engine) engine = import('/pagefind/pagefind.js').catch(error => { engine = null; throw error; });
@@ -69,8 +92,8 @@ if (trigger) {
     const own = ++generation;
     const query = input.value.trim();
     results.replaceChildren();
-    if (!query) { status.textContent = 'Find answers across FAQ and guides.'; return; }
-    status.textContent = 'Searching…';
+    if (!query) { status.textContent = t('Find answers across FAQ and guides.'); return; }
+    status.textContent = t('Searching…');
     try {
       const pagefind = await loadEngine();
       const response = await pagefind.search(query);
@@ -100,12 +123,12 @@ if (trigger) {
         }
       }
       const count = results.children.length;
-      status.textContent = count ? `${count} ${count === 1 ? 'result' : 'results'}` : 'No results. Try another word, or browse the FAQ.';
+      status.textContent = count ? t(count === 1 ? '{count} result' : '{count} results', { count: new Intl.NumberFormat(locale).format(count) }) : t('No results. Try another word, or browse the FAQ.');
     } catch {
       if (own !== generation) return;
-      status.textContent = 'Search is unavailable right now. Try again, or browse the FAQ.';
+      status.textContent = t('Search is unavailable right now. Try again, or browse the FAQ.');
       const item = document.createElement('li'); const link = document.createElement('a');
-      link.href = '/faq/'; link.textContent = 'Browse the FAQ'; item.append(link); results.append(item);
+      link.href = localeUrl('/faq/'); link.textContent = t('Browse the FAQ'); item.append(link); results.append(item);
     }
   }
   input.addEventListener('input', () => { generation++; clearTimeout(timer); timer = setTimeout(search, 120); });

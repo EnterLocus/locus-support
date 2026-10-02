@@ -22,12 +22,13 @@ a { color: inherit; text-underline-offset: .25em; }
 .skip-link:focus { top: 1rem; }
 
 .site-header, footer { width: min(calc(100% - 40px), var(--max)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
-.site-header { height: 86px; border-bottom: 1px solid var(--line); }
+.site-header { min-height: 86px; padding: .75rem 0; border-bottom: 1px solid var(--line); }
 .brand { display: inline-flex; align-items: center; gap: .7rem; font-size: 1.1rem; font-weight: 700; text-decoration: none; letter-spacing: -.02em; }
 .brand-mark { width: 2.25rem; height: 2.25rem; flex: 0 0 auto; border-radius: .55rem; background: url("./app-icon.png") center / cover no-repeat; }
 .brand-mark span { display: none; }
 .brand:focus-visible { outline: 2px solid var(--accent); outline-offset: .35rem; border-radius: .25rem; }
-.site-header nav, footer nav { display: flex; align-items: center; gap: 1.5rem; }
+.site-header nav, footer nav { display: flex; align-items: center; gap: .75rem 1.5rem; flex-wrap: wrap; }
+.site-header nav { justify-content: flex-end; }
 .site-header nav a, footer a { color: var(--muted); text-decoration: none; font-size: .92rem; }
 .site-header nav a:hover, .site-header nav a:focus-visible, footer a:hover, footer a:focus-visible { color: var(--ink); }
 .site-header nav a[aria-current="page"] { color: var(--ink); }
