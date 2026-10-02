@@ -1,0 +1,5 @@
+.language-picker { display: inline-flex; align-items: center; color: var(--muted); }
+.language-picker select { max-width: 8.3rem; padding: .42rem .55rem; border: 1px solid var(--line); border-radius: .55rem; background: var(--surface); color: var(--ink); font: inherit; font-size: .84rem; }
+.language-picker select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 760px) { .language-picker { margin-left: auto; } }
