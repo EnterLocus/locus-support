@@ -118,14 +118,17 @@ def _translate_document(source: str, relative: Path, locale: str, catalog: dict[
     document = document.replace('</head>',
                                 f'<link rel="canonical" href="{page_url(relative, locale)}">{alternates}</head>', 1)
     picker = (
-        '<label class="language-picker"><span class="visually-hidden">'
-        f'{_translated_value("Language", catalog)}</span><select data-language-select '
-        f'aria-label="{_translated_value("Language", catalog)}">'
-        f'<option value="system">{_translated_value("System", catalog)}</option>'
+        '<label class="language-picker"><select data-language-select '
+        f'aria-label="{_translated_value("Language", catalog)}" '
+        f'title="{_translated_value("Language", catalog)}">'
+        f'<option value="system">{_translated_value("Follow system", catalog)}</option>'
         '<option value="en">English</option><option value="zh-Hans">简体中文</option>'
         '<option value="zh-Hant">繁體中文</option><option value="ja">日本語</option>'
         '<option value="ko">한국어</option><option value="de">Deutsch</option>'
-        '<option value="fr">Français</option><option value="es">Español</option></select></label>'
+        '<option value="fr">Français</option><option value="es">Español</option></select>'
+        '<svg class="language-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">'
+        '<circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/>'
+        '<path d="M3 12h18"/></svg></label>'
     )
     document = re.sub(r'(<header\b[^>]*class=("|\')[^"\']*site-header[^"\']*\2.*?<nav\b[^>]*>.*?)(</nav>)',
                       lambda match: match.group(1) + picker + match.group(3), document,
