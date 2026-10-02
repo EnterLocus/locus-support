@@ -43,7 +43,7 @@ class SiteLocalizationTests(unittest.TestCase):
     def test_generator_preserves_source_and_localizes_public_links_and_seo(self):
         root = self.build_fixture({
             'Welcome': 'Bienvenue', 'A description': 'Une description', 'Hello': 'Bonjour',
-            'world': 'monde', 'A picture': 'Une image', 'Language': 'Langue', 'System': 'Système',
+            'world': 'monde', 'A picture': 'Une image', 'Language': 'Langue', 'Follow system': 'Suivre la langue du système',
         })
         original = (root / 'index.html').read_bytes()
         build_site.build()
@@ -62,6 +62,9 @@ class SiteLocalizationTests(unittest.TestCase):
         self.assertIn('hreflang="x-default" href="https://enterlocus.com/"', generated)
         self.assertIn('href="https://enterlocus.com/fr/"', generated)
         self.assertIn('aria-label="Langue"', generated)
+        self.assertIn('title="Langue"', generated)
+        self.assertIn('<option value="system">Suivre la langue du système</option>', generated)
+        self.assertIn('class="language-icon"', generated)
         self.assertIn('https://enterlocus.com/fr/', (root / '.site/sitemap.xml').read_text())
 
     def test_blank_catalog_values_fall_back_and_extraction_skips_opaque_text(self):

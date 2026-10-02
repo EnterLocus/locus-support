@@ -15,7 +15,7 @@ ATTRIBUTE_NAMES = {"alt", "aria-label", "title", "placeholder"}
 
 # These strings originate in dynamically created UI rather than source HTML.
 RUNTIME_SOURCE_STRINGS = (
-    "Language", "System", "Search", "Search Locus", "Close search", "Search results",
+    "Language", "Follow system", "Search", "Search Locus", "Close search", "Search results",
     "Search the website", "Search questions, guides, and more…",
     "Find answers across FAQ and guides.", "Searching…", "{count} result",
     "{count} results", "No results. Try another word, or browse the FAQ.",

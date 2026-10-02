@@ -19,11 +19,11 @@ test('English persists, unsupported System remains English, and denied storage l
   await context.addInitScript(() => Object.defineProperty(navigator, 'languages', { value: ['pt-BR'] }));
   const page = await context.newPage();
   await page.goto('/');
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);
   await page.locator('[data-language-select]').selectOption('fr');
   await expect(page).toHaveURL(/\/fr\/$/);
   await page.locator('[data-language-select]').selectOption('en');
-  await expect(page).toHaveURL(/\/$/);
+  await expect(page).toHaveURL(/^https?:\/\/[^/]+\/$/);
   await page.reload();
   await expect(page.locator('[data-language-select]')).toHaveValue('en');
   await context.close();
