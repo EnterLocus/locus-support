@@ -43,3 +43,19 @@ The existing 39 Python contracts passed again, and the build indexed 224 pages i
 - archived-controls-chinese.png: `69a0254ae50be4ed5b71c2f8c6e5db59a5093ca2112c913c7edae2e588f8a1e8`
 
 - website-translations-review.png: `36d17ce1411e2eb9b62f9337803fe5051c8c694cd10b3e57ab5d69b3c5843d1a`
+
+## Globe language entry
+
+The closed language entry now shows a centered globe in a 44px hit area instead of the selected preference. Its localized native tooltip and accessible name identify Language; the native menu retains the current selection marker and the translated Follow system option. The transparent select remains the interactive element. Its closed content is constrained to the icon bounds so WebKit cannot create horizontal overflow.
+
+- 39 existing Python contracts passed, with the four directly affected generator contracts rerun after the final markup change.
+- Five focused language behavior tests passed in Chromium and the same five passed in WebKit. The English-persistence check now waits for the root URL before reloading; a slash-only suffix previously also matched the French URL.
+- All eight homepage languages at 1440px and 390px fit in both engines; the narrow German FAQ regression also fits. Final desktop/mobile header screenshots were inspected and shown.
+- Actual macOS Chrome native menu opening, selected-language marker, and arrow-key / Return selection to Spanish were verified after the final sizing fix. Browser-managed native menu sizing remains platform behavior; no iPhone or Vision Pro browser acceptance is claimed.
+- The comparison report was refreshed with Follow system and checked in Chromium for all seven translated values.
+
+- globe-picker-header-desktop.png: `d75552fbeb6905d05051eb23321bbcd78e983d97959127577b6b05ea563cd4ca`
+
+- globe-picker-header-mobile.png: `a1d3decf5e6cff024ce734a7c72ef9b1d5c233ccd392896ac71b6d56bf33c341`
+
+- globe-picker-webkit-de-faq-final.png: `ea7a625e57af23523b541bb7c92ba9624b56c607fbbc71172267c8647036ead3`
