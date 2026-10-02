@@ -33,3 +33,13 @@ The original/translation comparison is outside Git: `.scratch/website-translatio
 ## Delivery and recovery
 
 Merge is separate from publication. Confirm the Pages workflow deployment succeeds, then read back all eight language URLs and a representative localized tutorial/search asset over HTTPS. Recovery is a revert of the localization PR and a successful Pages redeploy; the original English sources and shared media remain available.
+
+## Archived control-copy follow-up
+
+The comparison-report visual review found five source paragraphs whose drafts treated named controls as showroom furniture, attached the immersion setting to the physical keyboard, or reversed the default-off condition. All seven translated catalogs now use the App control labels and retain the intended off-until-enabled and standing-up-is-insufficient behavior. English sources are unchanged.
+
+The existing 39 Python contracts passed again, and the build indexed 224 pages in eight languages. The Chinese 1.1.5 article and corrected searchable comparison report were inspected in Chromium; all seven report selections showed 1,735 source rows with zero missing translations, and filtering worked. Prior browser behavior checks remain applicable because this follow-up changes five catalog values per language only.
+
+- archived-controls-chinese.png: `69a0254ae50be4ed5b71c2f8c6e5db59a5093ca2112c913c7edae2e588f8a1e8`
+
+- website-translations-review.png: `36d17ce1411e2eb9b62f9337803fe5051c8c694cd10b3e57ab5d69b3c5843d1a`
