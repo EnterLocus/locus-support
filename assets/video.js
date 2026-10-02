@@ -6,7 +6,7 @@ function loadVideo(link, focus = false) {
   if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return;
   const iframe = document.createElement('iframe');
   iframe.src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&mute=1&playsinline=1&rel=0&loop=1&playlist=${id}`;
-  iframe.title = link.getAttribute('aria-label').replace(/^Play /, '');
+  iframe.title = link.getAttribute('aria-label');
   iframe.allow = 'autoplay; encrypted-media; picture-in-picture; fullscreen';
   iframe.allowFullscreen = true;
   iframe.referrerPolicy = 'strict-origin-when-cross-origin';

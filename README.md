@@ -60,7 +60,7 @@ Structured feature proposals and technical discussion stay on
 ## Static search and local preview
 
 Run `npm ci` and `npm run build`, then
-`python3 -m http.server 4186 --directory .site`. Pagefind generates a same-origin
+`python3 tools/serve_site.py`. Pagefind generates a same-origin
 search index from each public page's `data-pagefind-body`. GitHub Pages deploys
 `.site/`, including the index. Dependencies and local evidence are excluded.
 
@@ -68,6 +68,44 @@ Search supports Command/Ctrl-K and Escape. FAQ questions have stable heading
 IDs; links to them open the matching answer. Keep existing IDs when editing
 question wording. Add the shared search assets and indexed main element when
 adding a public page.
+
+## Localized static pages
+
+English remains at its existing URLs. The build generates the same public pages
+under `/zh-Hans/`, `/zh-Hant/`, `/ja/`, `/ko/`, `/de/`, `/fr/`, and `/es/`, while
+assets, downloads, schemas, and source files remain at their one root URL. Each
+generated page adds its canonical URL and all language alternates; the staged
+sitemap includes the translated routes too.
+
+Catalogs live in `localization/<tag>.json` and have this shape:
+
+```json
+{
+  "language": "fr",
+  "strings": {
+    "Search Locus": "Rechercher dans Locus"
+  }
+}
+```
+
+Keys are exact decoded, trimmed English text or user-facing attribute values.
+Missing keys deliberately fall back to English. Keep `{count}` and other
+interpolation tokens unchanged in translations. `tools.localization.extract_sources(ROOT)`
+returns deterministic `strings` and per-page `pages` references for catalog
+authoring. It excludes code, preformatted text, scripts, and styles. Translate
+prose around inline filenames and technical literals; do not skip a sentence
+because it contains a path or slash. Preserve those literals, named interpolation
+tokens and their multiplicity while allowing grammatical token reordering.
+Machine drafts require contextual review, especially feature/resource names,
+spatial directions, units, privacy promises and version thresholds. Keep App
+feature names aligned with the reviewed native catalog. Fetch current main
+before extracting copy that another agent may have edited.
+
+The native Language selector stores a chosen language when browser storage is
+available. System follows the first browser language, with Chinese script and
+region handling; a localized URL always wins when opened directly. Pagefind
+uses each generated document's `html lang`, so search results stay in the
+current language without a second index or duplicated assets.
 
 ## What’s New articles
 
