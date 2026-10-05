@@ -18,7 +18,7 @@ Each name is a launcher in this folder — run it directly, e.g. `./inspect_usdz
 
 - A Mac with Apple silicon and Xcode 27's command-line tools installed.
 - The Python tools (`rescale_usdz`, `train`) run on Xcode's own `/usr/bin/python3` (3.9) and need
-  nothing installed. There are no Python USD bindings on this Mac, so USD facts come from Xcode's
+  nothing installed. A stock Mac has no Python USD bindings, so USD facts come from Xcode's
   `/usr/bin/usdcat`.
 - The Swift tools (`inspect_usdz`, `reconstruct`) compile on first use with `xcrun swiftc -O` into
   `.build/` (git-ignored; no binaries are committed). To build ahead of time:
@@ -106,6 +106,5 @@ The first run compiles the two Swift tools (a few seconds).
   multiplies it back in, using the layer's authored value (USD's 0.01 fallback is flagged).
 - Texture variance is computed on a downscaled copy and only for textures that feed diffuse / base
   colour (normal, roughness and similar data maps are listed with role `data` and not judged).
-- `train` was exercised against a fake `createml`; the `--csv-fd` / `--summary-fd` redirections
-  follow the example in `xcrun createml objecttracker --help`, but the CSV and summary contents of
-  a real run can vary by Xcode version.
+- `train` has completed real standard training runs with Xcode 27; its tests use a fake
+  `createml`. The CSV and summary contents of a real run can vary by Xcode version.
