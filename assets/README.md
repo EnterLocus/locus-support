@@ -317,3 +317,23 @@ After upload both reported `processed` / `succeeded`, `unlisted`, embeddable, wi
 rejection or failure reason; the watch and embed URLs returned 200 and oEmbed resolved the
 title and channel. The previous hero film `bJln-6GMXlQ` stays on YouTube; the 1.1.5
 article keeps `RPbFXq5-KVE`.
+
+## Real Objects tutorial poster — October 5, 2026
+
+`promo/real-objects-cup-poster.jpg` illustrates the experimental Real Objects
+tutorial (`experimental-real-objects/`). It is a single frame, at 4.4 seconds,
+of the owner's physical Apple Vision Pro recording
+`Locus Launch Media/v1.3.0/demo/cup-tracking-seethrough.mp4` (3840 × 2160,
+Locus Dev with a scanned Ikea mug imported as a Real Object, Desk &
+Surroundings). The frame was cropped to its 3072 × 1728 region at (768, 432),
+converted from full-range to video-range Rec. 709, and downscaled once to
+1920 × 1080 (Lanczos) as a JPEG. There is no compositing, retouching,
+generative fill, or relighting; the mug is the real mug seen through visionOS
+passthrough.
+
+It shows one device moment. It is not evidence of tracking reliability,
+latency, or comfort beyond what is visible in the frame.
+
+| Website file | Source SHA-256 | Website SHA-256 |
+| --- | --- | --- |
+| `promo/real-objects-cup-poster.jpg` | `00636b66e2792c903ba39e6cd6327b59cd9b1287864104f41f3a46cc0ac4bb1f` | `c128b412f8813115b6206ea93753bbbd06096ac6947075700be79a70c3fda6be` |
