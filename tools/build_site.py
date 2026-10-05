@@ -18,7 +18,7 @@ ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / '.site'
 EXCLUDED = {'.git', '.github', '.claude', '.scratch', '.site', 'node_modules', '__pycache__',
             'test-results', 'playwright-report', 'tests', 'package.json', 'package-lock.json',
-            'playwright.config.js', 'localization'}
+            'playwright.config.js', 'localization', '.build', 'bin'}
 SITE = 'https://enterlocus.com'
 
 

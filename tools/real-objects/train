@@ -1,0 +1,5 @@
+#!/bin/bash
+# Copyright 2026 EnterLocus.com
+# SPDX-License-Identifier: Apache-2.0
+# Launcher for train.py using Xcode's system Python 3.9.
+exec /usr/bin/python3 "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/train.py" "$@"
