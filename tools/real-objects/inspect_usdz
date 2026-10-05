@@ -1,0 +1,11 @@
+#!/bin/bash
+# Copyright 2026 EnterLocus.com
+# SPDX-License-Identifier: Apache-2.0
+# Launcher: builds swift/inspect_usdz.swift on first use (or when the source changed), then runs it.
+set -euo pipefail
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+bin="${ROS_BIN_DIR:-$here/.build}/inspect_usdz"
+if [ ! -x "$bin" ] || [ "$here/swift/inspect_usdz.swift" -nt "$bin" ]; then
+  "$here/build.sh" inspect_usdz >&2
+fi
+exec "$bin" "$@"
