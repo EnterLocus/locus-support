@@ -337,3 +337,14 @@ latency, or comfort beyond what is visible in the frame.
 | Website file | Source SHA-256 | Website SHA-256 |
 | --- | --- | --- |
 | `promo/real-objects-cup-poster.jpg` | `00636b66e2792c903ba39e6cd6327b59cd9b1287864104f41f3a46cc0ac4bb1f` | `c128b412f8813115b6206ea93753bbbd06096ac6947075700be79a70c3fda6be` |
+
+The tutorial embeds the owner's Real Objects demo from YouTube
+(`bahHCqyB9M4`, EnterLocus channel), with this poster as its local cover. The
+uploaded file is `Locus Launch Media/v1.3.0/demo/cup-tracking-demo.mp4`: the
+see-through recording followed by `cup-tracking-crown.mp4` with a 0.3-second
+crossfade, 19.9 s, 3840 × 2160, 30 fps H.264 converted to video-range Rec. 709,
+with the recordings' own quiet room sound.
+
+| Film | YouTube watch URL | Uploaded source SHA-256 |
+| --- | --- | --- |
+| Real Objects demo (`experimental-real-objects/`) | https://www.youtube.com/watch?v=bahHCqyB9M4 | `cf9d747800323c7af9f3b96e814510c22aa4d0b9b85875808423b9eb63a360a9` |
