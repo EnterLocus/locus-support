@@ -449,7 +449,7 @@ class PublicSiteTests(unittest.TestCase):
             "online-views": ["Apply Preview", "Save as View…", "4,096 × 2,048"],
             "recline": ["Viewing position", "Recline angle", "Reset to upright"],
             "experimental-mac-virtual-display": ["Open Mac Virtual Display first", "Allow Mac Virtual Display", "Windows &amp; Crown"],
-            "experimental-real-objects": ["Object Capture", "Create ML", "Import a Real Object", "iCloud Drive", "Reveal Real Objects", "Windows &amp; Crown"],
+            "experimental-real-objects": ["Object Capture", "Create ML", "Import a Real Object", "iCloud Drive", "Reveal Real Objects", "Windows &amp; Crown", "tools/real-objects"],
             "tune-your-place": [
                 "Customize your Place", "Quick Controls", "Light &amp; Picture",
                 "Sky brightness", "Ambient light", "Turn view",

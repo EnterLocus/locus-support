@@ -1,0 +1,13 @@
+#!/bin/bash
+# Copyright 2026 EnterLocus.com
+# SPDX-License-Identifier: Apache-2.0
+# Launcher: builds swift/reconstruct.swift (and inspect_usdz, which it calls to report the size)
+# on first use or when the source changed, then runs it.
+set -euo pipefail
+here="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+bin_dir="${ROS_BIN_DIR:-$here/.build}"
+bin="$bin_dir/reconstruct"
+if [ ! -x "$bin" ] || [ "$here/swift/reconstruct.swift" -nt "$bin" ] || [ ! -x "$bin_dir/inspect_usdz" ]; then
+  "$here/build.sh" inspect_usdz reconstruct >&2
+fi
+exec "$bin" "$@"

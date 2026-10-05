@@ -1764,14 +1764,12 @@
     "Choose the viewing angles.": "選擇觀察角度。",
     "Circle it slowly at a low, a middle, and a high height. If the app offers to flip the object, capture the bottom too.": "以低、中、高三個高度緩慢地環繞拍攝。如果應用程式提示翻轉物體，也要拍攝底部。",
     "Create a new project with the Object Tracking template.": "使用 Object Tracking 範本建立一個新專案。",
-    "Enter a Virtual Space and put the object on your desk": "進入一個虛擬空間，把物體放在桌面上",
     "Experimental · About 6 hours, mostly waiting": "實驗性功能 · 大約 6 小時，大部分是等待",
     "Experimental · Free · Requires Locus 1.3 or later": "實驗性功能 · 免費 · 需要 Locus 1.3 或更高版本",
     "Explore object tracking": "探索物體追蹤",
     "If Locus doesn’t find your object": "如果 Locus 找不到你的物體",
     "Import it on Apple Vision Pro": "在 Apple Vision Pro 上匯入",
     "In Desk & Surroundings,": "在「桌面與周圍環境」中，",
-    "In Locus, open Settings → Workspace and turn on Real Objects": "在 Locus 中，打開「設定 → 工作區」，啟用真實物品",
     "In Windows & Crown,": "在「視窗與旋鈕」中，",
     "It becomes active right away. Up to 10 Real Objects can be active.": "它會立即生效。最多可以同時啟用 10 個真實物品。",
     "It must be rigid and keep its shape. A visible pattern or print helps a lot.": "它必須是堅硬且能保持形狀的。帶有明顯圖案或印花會很有幫助。",
@@ -1815,8 +1813,13 @@
     "for example in a folder named Locus, so your Mac can open it.": "例如儲存在一個名為 Locus 的檔案夾中，這樣你的 Mac 就能打開它。",
     "iCloud Drive": "iCloud Drive",
     "turned on for your iPhone, Mac, and Apple Vision Pro, to move files between them.": "在你的 iPhone、Mac 和 Apple Vision Pro 上都開啟，以便在它們之間傳輸檔案。",
-    "under Experimental. Real Objects then appears in the Settings sidebar.": "在「實驗性功能」下。之後「真實物品」就會出現在設定側邊欄中。",
     "visionOS shows no passthrough, so Locus draws your object’s 3D model where the real one is.": "visionOS 不會顯示透視畫面，因此 Locus 會在真實物體所在的位置繪製它的 3D 模型。",
-    "where you can see it. Give Locus a moment to find it.": "能看到它的位置。給 Locus 一點時間去找到它。"
+    "In Locus, open Settings → Workspace and turn on Real Objects under Experimental.": "在 Locus 中，打開「設定 → 工作區」，在「實驗性功能」下啟用真實物品。",
+    "Real Objects then appears in the Settings sidebar.": "之後「真實物品」就會出現在設定側邊欄中。",
+    "Enter a Virtual Space and put the object on your desk where you can see it.": "進入一個虛擬空間，把物體放在桌面上你能看到的位置。",
+    "Give Locus a moment to find it.": "給 Locus 一點時間去找到它。",
+    "Prefer the command line?": "更喜歡用命令列？",
+    "The same steps are scriptable with our free Mac tools — check a model’s real size, correct its scale, rebuild a detailed model from your iPhone photos, and run Create ML training unattended with resume. Find them in the": "同樣的步驟也可以用我們免費的 Mac 工具來腳本化執行——檢查模型的真實尺寸、校正它的比例、從你的 iPhone 照片重建更精細的模型，並在無人值守的情況下執行 Create ML 訓練，還支援斷點續訓。詳見",
+    "Real Objects tools on GitHub": "GitHub 上的真實物品工具"
   }
 }
