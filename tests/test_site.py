@@ -449,6 +449,7 @@ class PublicSiteTests(unittest.TestCase):
             "online-views": ["Apply Preview", "Save as View…", "4,096 × 2,048"],
             "recline": ["Viewing position", "Recline angle", "Reset to upright"],
             "experimental-mac-virtual-display": ["Open Mac Virtual Display first", "Allow Mac Virtual Display", "Windows &amp; Crown"],
+            "experimental-real-objects": ["Object Capture", "Create ML", "Import a Real Object", "iCloud Drive", "Reveal Real Objects", "Windows &amp; Crown"],
             "tune-your-place": [
                 "Customize your Place", "Quick Controls", "Light &amp; Picture",
                 "Sky brightness", "Ambient light", "Turn view",
@@ -761,6 +762,8 @@ class PublicSiteTests(unittest.TestCase):
                 "f7765e855f0384ddeced37d27a5678508bb1fbebab41b78582feba35dabb04f2",
             "locus-1.2-places-v120.jpg":
                 "4204e3b47ccc8247955304dd9122781c8908d4bc0f9a3a32d30d0383f16c194f",
+            "real-objects-cup-poster.jpg":
+                "c128b412f8813115b6206ea93753bbbd06096ac6947075700be79a70c3fda6be",
         }
         promo_root = ROOT / "assets" / "promo"
         self.assertEqual(
