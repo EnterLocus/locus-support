@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const releases = [
+  ['/whats-new/1-3-0/', 'bahHCqyB9M4'],
   ['/whats-new/1-2/', 'nO2B7MP0uzI'],
   ['/whats-new/1-1-5/', 'RPbFXq5-KVE'],
   ['/whats-new/1-1-3/', 'XfSBNZlIKw4'],
@@ -22,7 +23,7 @@ test('visible videos autoplay muted without stealing focus and retain blocked-pr
   await expect(iframe).not.toBeFocused();
   await expect(page.getByRole('link', { name: 'Watch on YouTube', exact: true }).first()).toHaveAttribute('href', 'https://www.youtube.com/watch?v=NJuKWTs2BRw');
   // The second film is still below the viewport and has not connected.
-  await expect(page.getByRole('link', { name: 'Play the Locus 1.2 release film', exact: true })).toHaveCount(1);
+  await expect(page.getByRole('link', { name: 'Play the Real Objects cup demo', exact: true })).toHaveCount(1);
 });
 
 test('mobile release films autoplay muted when scrolled into view and fit the viewport', async ({ page }) => {
@@ -60,7 +61,7 @@ test('without JavaScript, posters remain direct YouTube links', async ({ browser
   await context.close();
 });
 
-test('the homepage hero film stays inside the page on small phones', async ({ page }) => {
+test('the homepage films stay inside the page on small phones', async ({ page }) => {
   await page.route('https://www.youtube-nocookie.com/**', route => route.abort());
   // The 200px floor the player needs turns into a 356px minimum width through
   // the 16:9 ratio; the hero grid must not let that widen the page.
@@ -71,6 +72,8 @@ test('the homepage hero film stays inside the page on small phones', async ({ pa
     const main = await page.locator('main').boundingBox();
     const card = await page.locator('.hero-video-card').boundingBox();
     expect(card.x + card.width, `hero card ends with the page column at ${width}px`).toBeLessThanOrEqual(main.x + main.width + 0.5);
+    const featureCard = await page.locator('.whats-new-feature .whats-new-video-card').boundingBox();
+    expect(featureCard.x + featureCard.width, `Real Objects film ends with the page column at ${width}px`).toBeLessThanOrEqual(main.x + main.width + 0.5);
     const video = await page.locator('.hero-video-card .youtube-video').boundingBox();
     expect(video.width).toBeGreaterThanOrEqual(200);
     expect(video.height).toBeGreaterThanOrEqual(200);
