@@ -159,6 +159,327 @@ and legacy `audio` remain unsupported in complete public imports because this
 binary has no active runtime consumer for them. Use `sound`, not `audio`, for
 current View audio.
 
+### Locus 1.3.0 View effects and orbital profiles
+
+The fields in this section belong in a complete Package v2
+`catalog/destinations/<destination-id>/destination.json`. They are accepted
+from a complete imported ZIP only; a flat `view.json` ZIP does not grow these
+fields. Set the enclosing package's `minimumAppVersion` to `1.3.0` and, when
+publishing through the Library, declare the capability named below. An older
+reader rejects an unsupported package instead of silently dropping an effect.
+
+All paths are package-relative and every referenced file must appear in
+`locusplace.json`'s file inventory with its exact byte count and SHA-256.
+Omit an optional key to use its documented default; JSON `null` and unknown
+keys are invalid.
+
+#### Water
+
+`water` is available on a View and on its Room as separate, authored effects.
+It requires `locus.view.water.v1` or `locus.room.water.v1`, respectively. A
+water object contains one to four uniquely named regions. The View-only
+`blend` block lets a region meet the panorama and the paired Room; a Room
+region must not contain it. A complete package may have at most one region
+whose `surface.motion` is `"ocean"` across its View and Room.
+
+```json
+"water": {
+  "preset": "clear-lake",
+  "regions": [{
+    "id": "lake",
+    "pose": {"translationMeters": [0, -0.35, 0],
+             "orientationXYZW": [0, 0, 0, 1]},
+    "shape": "disc",
+    "sizeMeters": [153.6, 153.6],
+    "surface": {"motion": "ocean", "waveHeightMeters": 0.06,
+                "waveLengthMeters": 26, "waveSpeed": 0.8,
+                "directionDegrees": 0},
+    "optics": {"color": [0.03, 0.18, 0.24], "reflectionBlur": 1.5,
+               "sunGlint": 1},
+    "bed": {"albedo": "water/bed.png", "depthMeters": 1.8,
+            "reliefMeters": 0.4, "extentMeters": [-30, -30, 30, 30],
+            "caustics": 0.6,
+            "shoreline": {"foam": 0.8, "swashMeters": 0.04,
+                          "swashPeriodSeconds": 3}},
+    "blend": {"panoramaMask": "water/mask.png", "horizonSkirt": true,
+              "roomKeepOut": true}
+  }]
+}
+```
+
+`shape` is `"rectangle"` (the default) or `"disc"`; `sizeMeters` has two
+finite values in `(0, 1000]` and a disc uses its first value as diameter.
+`pose` is in the View or Room floor frame. A surface is `"still"` or
+`"ocean"` (the default); legacy `"lake"` and `"stream"` remain readable
+aliases, but are not new authoring choices. `waveHeightMeters` is `0...20`,
+`waveLengthMeters` is bounded by the region's sampling floor through 1000 m,
+`waveSpeed` is `-100...100`, and `directionDegrees` is `-360...360`.
+
+`bed.albedo` is an 8-bit, non-interlaced RGBA PNG no larger than 4096 pixels
+on either side. Its RGB is the bed colour and alpha is height relief.
+`depthMeters` is `-50...50`, `reliefMeters` is `0...50`, and a `bed` has
+either `tileMeters` (`0.1...1000`) or ordered `extentMeters` coordinates in
+`-1000...1000`. Optional normal maps, bed textures, panorama masks, and sun
+visibility masks are 8-bit PNGs with a 4096-pixel edge limit; a panorama mask
+is grayscale and 2:1. All water textures, including their required mipmaps and
+renderer-owned buffers, share a 64 MiB resident budget. A bed may also add
+`shoreline` foam (`0...4`), swash (`0...0.5` m), and period (`0.5...60` s).
+
+`glow` is a water sub-block, not a separate profile. It can add bounded bed
+emission, particles, sparkle, and surface flashes. It uses the same water
+capability, has no image asset, and is disabled by `strength: 0`. A View
+region can additionally supply a four-number `glow.mover`
+`[centreX, centreZ, radiusMeters, angularRadiansPerSecond]`; its centre is
+within `-1000...1000`, radius is `0.1...25`, speed is `0...1`, and it also
+requires `locus.view.water.glow-disturbance.v1`.
+
+`midground.water` remains a compatibility reader for previously authored
+lakes. Do not mix its old field table with the root `water` interface; new
+packages should author one explicit `water` region and retain any
+`midground.path` USDZ only for visible terrain and props.
+
+#### Animated painted clouds and a timed sun
+
+A View may animate clouds already painted in its panorama with `clouds` and
+the `locus.view.clouds.v1` capability. This is a masked repair of the authored
+photograph, not generated weather and not a cloud profile for Rooms. The mask
+is an 8-bit grayscale, 2:1 PNG and the fill is an 8-bit RGB, 2:1 PNG. They
+must have identical dimensions and neither may be wider than 4096 pixels.
+
+```json
+"clouds": {
+  "mask": "clouds/mask.png",
+  "fill": "clouds/fill.png",
+  "windMetersPerSecond": 4,
+  "windTowardDegrees": 25,
+  "horizonDegrees": 0
+}
+```
+
+Clouds can coexist with procedural `sky`, water, or a midground USDZ, but not
+with video `media`. The cloud mask should cover sky pixels only: black retains
+the panorama foreground while white permits the fill to move. Turning Motion
+off or using Reduce Motion restores the unchanged photograph. `horizonDegrees`
+is `-10...10`; optional altitude is `200...12000` m, sea depth is
+`0...5000` m, wind is `0...30` m/s toward `-360...360` degrees, cycle time is
+`5...120` seconds, evolution is `0...5`, and breathing is `0...0.15`.
+
+`environment.sunPath` gives a deliberately sun-free View a 24-hour lighting
+path and requires `locus.view.sun-path.v1`. It cannot coexist with
+`environment.directSun`, a celestial profile, or a static water
+`bed.sunVisibility` bake. Both the panorama and IBL must be free of a painted
+sun or sun-centred glare, and `provenanceDetail` must include a truthful
+`sun-free-sky` component record.
+
+```json
+"environment": {
+  "sunPath": {
+    "sunFreeSky": true,
+    "startHour": 9,
+    "dayDurationSeconds": 3600,
+    "maxElevationDegrees": 60,
+    "peakIlluminanceLux": 60000,
+    "disc": {"skyMask": "sun/mask.png", "intensity": 1}
+  }
+}
+```
+
+`startHour` is `0...24`, `dayDurationSeconds` is `60...86400`, maximum
+elevation is `10...85` degrees, peak illuminance is `0...120000` lux, and
+night illuminance is `0...1000` lux. The optional disc needs an 8-bit
+grayscale 2:1 PNG no wider than 4096 pixels; its angular size is
+`0.1...5` degrees and intensity is `0...20`. Motion off, Reduce Motion, and
+the Sun Position override stop the cycle at a deterministic state.
+
+#### Fireflies and point lights
+
+`fireflies` requires `locus.view.fireflies.v1`. It has one to four volumes,
+no asset paths, and cannot coexist with a celestial profile. Their combined
+count may not exceed 400.
+
+```json
+"fireflies": [{
+  "id": "shore", "centerMeters": [0, 1.4, -5],
+  "sizeMeters": [8, 3, 6], "count": 120,
+  "color": [0.75, 1, 0.35], "sizeMillimeters": 6,
+  "driftMetersPerSecond": 0.15,
+  "blink": {"periodSeconds": 2.5, "duty": 0.35, "jitter": 0.5}
+}]
+```
+
+Centers are within `-100...100` m, each size is `0.1...100` m, count is
+`1...400`, particle size is `1...20` mm, and drift is `0...0.5` m/s. Blink
+period is `1.5...20` seconds, duty is `0.05...0.8`, and jitter is `0...1`.
+These are View-floor coordinates; sky pitch does not change them.
+
+`pointLights` remains a complete-package View sidecar requiring
+`locus.view.point-lights.v1` and `minimumAppVersion: "1.2.5"` or later. It
+names one strict JSON table with 1–64 groups and 1–4000 total rows:
+
+```json
+"pointLights": {"table": "point-lights.json"}
+```
+
+Each row is `[u, v, angularSizeDegrees, intensity]`: `u` is `[0,1)`, `v` is
+`0...1`, angular size is `0.001...0.5` degrees, and intensity is `0...4`.
+Use either a `blink` group (period `1...20` seconds, phase, minimum, and
+softness) or a `twinkle` group (amplitude `0...0.3`, speed `0.05...2`). The
+sidecar uses the same equirectangular seam convention as the panorama.
+
+#### Procedural sky, celestial bodies, and near orbit
+
+The existing `sky` profile remains the procedural-sky contract: a 2:1
+grayscale `sky.mask` selects pixels the renderer replaces, while `stars`,
+`moon`, and `aurora` add only the declared sky layers. It requires
+`minimumAppVersion: "1.2.4"` and the relevant Library capability. Its mask
+remains an ordinary package asset, so it belongs in the envelope inventory.
+A celestial body may now share a stars-only procedural sky at 1.3.0 through
+`locus.view.celestial-sky.v1`: `sky.stars` is required, while `sky.moon` and
+`sky.aurora` must be absent. That composition excludes media, water,
+fireflies, and clouds.
+
+A starting night-sky declaration is:
+
+```json
+"sky": {
+  "mask": "sky/mask.png", "defaultMode": "free",
+  "stars": {"seed": 19, "twinkle": 1,
+            "milkyWay": {"style": "realistic", "brightness": 1}},
+  "moon": {"azimuthDegrees": 150, "elevationDegrees": 25,
+           "illumination": 0.5},
+  "aurora": {"northAzimuthDegrees": 0, "palette": "classic", "intensity": 1}
+}
+```
+
+Declare `locus.view.sky.stars.v1` for authored stars and
+`locus.view.sky.aurora.v1` for aurora. The Moon adds no separate capability.
+An explicit `defaultMode: "free"` also needs
+`locus.view.sky.default-mode.v1`; `"real"` and omission do not. Free uses the
+authored arrangement; Real uses the visitor's place and clock. A saved visitor
+mode takes precedence. At least one of `stars`, `moon`, or `aurora` is required.
+Empty objects use their defaults. Moon and aurora imply a default starry sky
+when `stars` is absent. Keep painted stars out of the foreground; grey mask
+edges blend the live sky with the photograph.
+
+Stars accept a seed integer `0...2147483647`, twinkle `0...1.5`, brightness
+`0.25...2`, limiting magnitude `4.5...7`, bright-star size `0...2`, colour
+saturation `0...1.5`, and azimuth `-180...180` degrees. Milky Way style is
+`realistic` or `vivid`, brightness `0...2`, and free placement uses centre
+azimuth `-180...180`, centre elevation `-90...90`, and tilt `-180...180`.
+The shared Galactic map is bundled by Locus; an ordinary package needs no
+extra map asset. At 1.3.0 an author may supply `stars.milkyWay.diffuseMap`,
+requiring `locus.view.sky.milky-way-map.v1`: an 8-bit RGB/RGBA 2:1 PNG,
+64–8192 pixels wide, Galactic longitude zero at image centre, longitude
+increasing left, north at top. Include its truthful source credit and rights.
+
+For an authored Moon, position, phase, brightness and size are optional. The
+visitor can override them in Motion; in Real mode the Moon instead follows
+the visitor's location and clock. Its azimuth is `-180...180` degrees,
+elevation `0...85`, illumination and maximum illumination `0...1`, brightness
+`0...2`, and size scale `1...3`. Aurora palette is `classic`, `storm`, or
+`low-latitude`, intensity is `0...2`, and north azimuth is `-180...180`.
+Its optional `substorms` object has `periodSeconds` exactly zero or
+`120...3600`, `firstOnsetSeconds` `0...3600`, `strength` `0...1.5`, and
+`raySpeedup` `0...2`. Optional `arcs` contains 1–4 objects; each may set
+elevation `2...178` degrees, brightness `0...2`, thickness `0.8...12` km,
+ray speed `0...8` km/s, ray width `2...40` km, ray contrast `0...15`, and
+waviness `0...2`. Elevation runs from the northern horizon through the zenith
+to the southern horizon, so 145 degrees is about 35 degrees above the south.
+Retain a complete baked panorama as the still fallback.
+
+`celestial` is one far-field body. Version 1 uses an angular diameter; version
+2 offers either an angular diameter (with optional distance) or explicit
+`distanceMeters` plus `radiusMeters`. Both formats require a complete static
+panorama fallback, because Motion off and Reduce Motion show that fallback.
+Use the [celestial v1 schema](../schemas/view-celestial-v1.schema.json) or
+[celestial v2 schema](../schemas/view-celestial-v2.schema.json) for exact
+required keys and machine-readable ranges.
+
+```json
+"celestial": {
+  "version": 2, "backgroundPanorama": "space/stars.jpg",
+  "dayTexture": "earth/day.jpg", "cloudTexture": "earth/clouds.png",
+  "yawDegrees": 25,
+  "elevationDegrees": 12, "distanceMeters": 500,
+  "radiusMeters": 100, "rotationPeriodSeconds": 1200,
+  "cloudHeightRatio": 0.006, "cloudDriftRatio": 1.08,
+  "cloudShadowStrength": 0.7, "cloudEvolution": 0.5,
+  "cloudEvolutionPeriodSeconds": 900,
+  "sunDisc": {"skyMask": "space/sun-mask.png"}
+}
+```
+
+For v2, distance is `400...800` m, radius is `1...400` m, radius must be no
+more than half the distance, and distance plus radius must be at most 1100 m.
+The cloud shell is optional: height is `0...0.03` of body
+radius, with zero keeping flat compositing, drift is `0.5...2`, shadow strength and evolution are `0...1`, and
+the evolution period is `60...3600` seconds. The presence of any cloud-shell
+key or `sunDisc` requires the 1.3.0 floor. `sunDisc.skyMask` is a grayscale
+2:1 PNG no wider than 8192 pixels. Regenerate the complete static panorama
+after changing body, cloud-shell, or disc parameters.
+
+`nearOrbit` is an alternative whole-sphere View profile, not an effect that
+mixes with water, celestial, procedural sky, media, fireflies, clouds, point
+lights, midground, or `sunPath`. Version 1 is available through
+`locus.view.near-orbit.v1`; version 2 adds body radius, cloud drift, optional
+surface tiles, and `locus.view.near-orbit.v2`. Both need a fallback panorama
+that is exactly `panorama.path`, plus the profile's required fallback proof.
+Use the [near-orbit v1 schema](../schemas/view-near-orbit-v1.schema.json) or
+[near-orbit v2 schema](../schemas/view-near-orbit-v2.schema.json).
+
+```json
+"nearOrbit": {
+  "version": 2, "bodyRadiusKilometers": 6371,
+  "latitudeDegrees": 32, "longitudeDegrees": -121.5,
+  "altitudeKilometers": 400, "bearingDegrees": 0,
+  "pitchFromNadirDegrees": 55, "sunLatitudeDegrees": 30,
+  "sunLongitudeDegrees": -70, "rotationPeriodSeconds": 3600,
+  "cloudDriftRatio": 1.02, "cloudHeightKilometers": 8,
+  "atmosphereHeightKilometers": 20, "dayTexture": "earth/day.jpg",
+  "nightTexture": "earth/night.jpg", "cloudTexture": "earth/clouds.png",
+  "fallbackPanorama": "panorama.jpg", "skyMask": "space/mask.png",
+  "galaxyTexture": "space/galaxy.png", "starCatalog": "space/stars.json"
+}
+```
+
+Version 2's body radius is `1000...100000` km, altitude `200...1000` km,
+cloud drift `0.5...2`, and every full-sphere colour texture is 2:1 and no
+wider than 8192 pixels. Optional tiles have 1–360 columns, 1–180 rows, no
+more than 1024 total tiles, and a 16–4096-pixel square size. Version 1 keeps
+its fixed 1024-square regional texture and its 4096-wide full-sphere texture
+limit. A horizontal `locus-star-catalog` v1 is required in either profile,
+with 1–20000 stars and a 1 MiB limit.
+
+#### GPU texture sidecars
+
+`gpuTextures` is the 1.3.0 View fast path (`locus.view.gpu-texture.v2`). It
+does not replace editable source images: the JPEG or PNG remains the source of
+truth for import, export, and fallback. Do not combine it with the earlier
+single `gpuTexture` field.
+
+```json
+"gpuTextures": [{
+  "source": "earth/day.jpg", "path": "earth/day.ktx",
+  "format": "astc-6x6-srgb", "width": 8192, "height": 4096,
+  "mipmapLevels": 14,
+  "sourceSHA256": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+}]
+```
+
+Every entry has a unique source path and a KTX1 sidecar. Its dimensions and
+mip count must match both the actual source and KTX header; `sourceSHA256` is
+the lowercase SHA-256 of that source's raw packaged bytes. Use
+`astc-6x6-srgb` for colour images and `astc-6x6-linear` only for a cloud
+texture. Eligible sources are `panorama.path`, celestial background/day/night/
+cloud textures, and near-orbit v2 day/night/cloud/fallback/galaxy textures and
+declared tiles. Other masks, cloud fills and arbitrary images do not gain
+sidecar support by being listed here. Full-sphere sources are 2:1 and bake
+with repeating edges; near-orbit
+tiles are square and bake with clamped edges. The renderer prefers a valid
+sidecar, then falls back to its JPEG/PNG unchanged if the sidecar cannot load.
+For near-orbit v2, every eligible global texture and every tile needs a
+matching sidecar entry.
+
 ## Legacy/simple flat ZIP compatibility
 
 The flat format documented below remains accepted for simple imports and for
