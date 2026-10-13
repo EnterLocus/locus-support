@@ -348,3 +348,17 @@ with the recordings' own quiet room sound.
 | Film | YouTube watch URL | Uploaded source SHA-256 |
 | --- | --- | --- |
 | Real Objects demo (`experimental-real-objects/`) | https://www.youtube.com/watch?v=bahHCqyB9M4 | `cf9d747800323c7af9f3b96e814510c22aa4d0b9b85875808423b9eb63a360a9` |
+
+## Locus 1.3 homepage View gallery — October 13, 2026
+
+The homepage 1.3.0 leading update block and 1.3.0 article use five approved Store screenshots, from `Locus Launch Media/v1.3.0/screenshots/store-review-r3-20261012/`. They preserve the full 16:9 capture, downscaled once to 1280 × 720 JPEG with Lanczos and FFmpeg quality 2; no crop, retouching, compositing, relighting or generative editing. These are native Simulator captures from the release media’s documented capture-only Debug build, not physical Vision Pro evidence. The original 4K PNGs and camera/source records remain in Dropbox.
+
+The Earth capture uses Orbital Lounge, lights on, the illuminated face of Earth. Clouds use Sunlit Cloud Walkway. Individual Library revisions may arrive separately from the app release; the gallery illustrates supported authored capabilities.
+
+| Website file | Original screenshot | Source SHA-256 | Website SHA-256 |
+| --- | --- | --- | --- |
+| `assets/promo/locus-1.3/night-sky.jpg` | `01-night-sky-r3.png` | `4703709572d0e5c8890f2eded2867014c7c38de3f3a9a92dd33a7dcf1be297d1` | `5cfa9e8c58c6affa10d9d11f42fe83203726cd7747b571d0fd15c0863e77ca45` |
+| `assets/promo/locus-1.3/earth-orbit.jpg` | `02-earth-r3.png` | `228dce88cba140f3f7bb6491693fc1c99f90074b489fc5f8145d00f7d2184c2f` | `ec37a533ec9119a6ac71324f59e7456518f4573a99ccac2a6ddb361b00e9cf5b` |
+| `assets/promo/locus-1.3/aurora.jpg` | `03-aurora-r3.png` | `424e8d35f68b19a1f2e8f5cc2eddd6fea3eb698bca2e4239557eda68c4c11b0b` | `2f168ecb33b7be426caa07de21b6b3a2d16cd56657fddbce4393cfd4ad72b9f8` |
+| `assets/promo/locus-1.3/lake-water.jpg` | `04-lake-water-r3.png` | `1f28e906969376807474a802ca19629546569b66a8c0b409d35dc1b261f2f394` | `45be3faf61e59308635e8a1318507a4fb2f39135171338dc30dc26bde5d20dd7` |
+| `assets/promo/locus-1.3/sunlit-clouds.jpg` | `05-cloud-sea-r3.png` | `b78a524cb19b5418b07ba24223fb7d02de786156d804d8032951da8a0aeb53e0` | `b9c11e3e0be083fb62f12665cbf1271e4a61cf414316ef9c8bb6a9e519cc317a` |
