@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://enterlocus.com/schemas/view-celestial-v2.schema.json",
+  "title": "Package v2 Destination celestial profile v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "backgroundPanorama",
+    "dayTexture",
+    "elevationDegrees",
+    "rotationPeriodSeconds",
+    "version",
+    "yawDegrees"
+  ],
+  "properties": {
+    "version": {
+      "const": 2
+    },
+    "backgroundPanorama": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.(?:[jJ][pP][eE]?[gG]|[pP][nN][gG])$"
+    },
+    "dayTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.(?:[jJ][pP][eE]?[gG]|[pP][nN][gG])$"
+    },
+    "nightTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.(?:[jJ][pP][eE]?[gG]|[pP][nN][gG])$"
+    },
+    "cloudTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.(?:[jJ][pP][eE]?[gG]|[pP][nN][gG])$"
+    },
+    "yawDegrees": {
+      "type": "number",
+      "minimum": -360,
+      "maximum": 360
+    },
+    "elevationDegrees": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "angularDiameterDegrees": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 60
+    },
+    "rotationPeriodSeconds": {
+      "type": "number",
+      "minimum": 120,
+      "maximum": 86400
+    },
+    "axialTiltDegrees": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "initialRotationDegrees": {
+      "type": "number",
+      "minimum": -360,
+      "maximum": 360
+    },
+    "sunAzimuthDegrees": {
+      "type": "number",
+      "minimum": -360,
+      "maximum": 360
+    },
+    "sunElevationDegrees": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "nightGain": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "atmosphereStrength": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "atmosphereColor": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number",
+        "minimum": 0,
+        "maximum": 1
+      }
+    },
+    "distanceMeters": {
+      "type": "number",
+      "minimum": 400,
+      "maximum": 800
+    },
+    "radiusMeters": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 400
+    },
+    "cloudHeightRatio": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 0.03
+    },
+    "cloudDriftRatio": {
+      "type": "number",
+      "minimum": 0.5,
+      "maximum": 2
+    },
+    "cloudShadowStrength": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "cloudEvolution": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "cloudEvolutionPeriodSeconds": {
+      "type": "number",
+      "minimum": 60,
+      "maximum": 3600
+    },
+    "sunDisc": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "skyMask"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": true
+        },
+        "skyMask": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.(?:[pP][nN][gG])$"
+        },
+        "angularSizeDegrees": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 5,
+          "default": 0.53
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 20,
+          "default": 1
+        },
+        "color": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1
+          }
+        }
+      }
+    }
+  },
+  "oneOf": [
+    {
+      "required": [
+        "angularDiameterDegrees"
+      ],
+      "not": {
+        "required": [
+          "radiusMeters"
+        ]
+      }
+    },
+    {
+      "required": [
+        "distanceMeters",
+        "radiusMeters"
+      ],
+      "not": {
+        "required": [
+          "angularDiameterDegrees"
+        ]
+      }
+    }
+  ],
+  "description": "Additionally require radius <= distance/2 and distance+radius <=1100m, enforced by Swift/Python semantic validation. Any of cloudHeightRatio, cloudDriftRatio, cloudShadowStrength, cloudEvolution or cloudEvolutionPeriodSeconds raises the package's required minimumAppVersion to 1.3.0; omitted/zero cloudHeightRatio keeps the prior flat cloud compositing unchanged."
+}

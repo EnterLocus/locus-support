@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://enterlocus.com/schemas/view-near-orbit-v2.schema.json",
+  "title": "Package v2 Destination nearOrbit v2",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "version",
+    "bodyRadiusKilometers",
+    "latitudeDegrees",
+    "longitudeDegrees",
+    "altitudeKilometers",
+    "bearingDegrees",
+    "pitchFromNadirDegrees",
+    "sunLatitudeDegrees",
+    "sunLongitudeDegrees",
+    "rotationPeriodSeconds",
+    "cloudDriftRatio",
+    "cloudHeightKilometers",
+    "atmosphereHeightKilometers",
+    "dayTexture",
+    "nightTexture",
+    "cloudTexture",
+    "fallbackPanorama",
+    "skyMask",
+    "galaxyTexture",
+    "starCatalog"
+  ],
+  "properties": {
+    "version": {
+      "type": "integer",
+      "const": 2
+    },
+    "bodyRadiusKilometers": {
+      "type": "number",
+      "minimum": 1000,
+      "maximum": 100000
+    },
+    "latitudeDegrees": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "longitudeDegrees": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "altitudeKilometers": {
+      "type": "number",
+      "minimum": 200,
+      "maximum": 1000
+    },
+    "bearingDegrees": {
+      "type": "number",
+      "minimum": -360,
+      "maximum": 360
+    },
+    "pitchFromNadirDegrees": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 180
+    },
+    "sunLatitudeDegrees": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "sunLongitudeDegrees": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "rotationPeriodSeconds": {
+      "type": "number",
+      "minimum": 3600,
+      "maximum": 86400
+    },
+    "cloudDriftRatio": {
+      "type": "number",
+      "minimum": 0.5,
+      "maximum": 2
+    },
+    "cloudHeightKilometers": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 20
+    },
+    "atmosphereHeightKilometers": {
+      "type": "number",
+      "minimum": 20,
+      "maximum": 100
+    },
+    "dayTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.(?:[jJ][pP][gG]|[pP][nN][gG])$",
+      "description": "2:1, at most 8192 pixels wide."
+    },
+    "nightTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.(?:[jJ][pP][gG]|[pP][nN][gG])$",
+      "description": "2:1, at most 8192 pixels wide."
+    },
+    "cloudTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.(?:[jJ][pP][gG]|[pP][nN][gG])$",
+      "description": "2:1, at most 8192 pixels wide."
+    },
+    "fallbackPanorama": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.(?:[jJ][pP][gG]|[pP][nN][gG])$",
+      "description": "2:1, at most 8192 pixels wide. Must equal destination.panorama.path."
+    },
+    "skyMask": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.(?:[jJ][pP][gG]|[pP][nN][gG])$",
+      "description": "2:1, at most 8192 pixels wide."
+    },
+    "galaxyTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.(?:[jJ][pP][gG]|[pP][nN][gG])$",
+      "description": "2:1, at most 8192 pixels wide."
+    },
+    "starCatalog": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.[jJ][sS][oO][nN]$",
+      "description": "Required horizontal locus-star-catalog v1, 1..20000 stars, <=1MiB."
+    },
+    "tiles": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "columns",
+        "rows",
+        "latitudeSouthDegrees",
+        "tileSize"
+      ],
+      "properties": {
+        "manifest": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.[jJ][sS][oO][nN]$",
+          "description": "Package-relative tile manifest JSON."
+        },
+        "columns": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 360,
+          "description": "360 / columns must be exact."
+        },
+        "rows": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 180,
+          "description": "rows * columns <= 1024; the band must not pass the north pole."
+        },
+        "latitudeSouthDegrees": {
+          "type": "number",
+          "minimum": -90,
+          "exclusiveMaximum": 90
+        },
+        "tileSize": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 4096
+        }
+      },
+      "description": "Optional tile grid. Row 0 is the northernmost row."
+    }
+  }
+}
