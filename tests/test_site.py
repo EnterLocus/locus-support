@@ -930,7 +930,22 @@ class PublicSiteTests(unittest.TestCase):
         self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
         # The current public release is reflected in both archive and homepage.
         self.assertIn("Locus 1.3.0 · Latest", archive)
-        self.assertIn("Latest update · Locus 1.3.0", (ROOT / "index.html").read_text())
+        self.assertIn("New in Locus 1.3.0", (ROOT / "index.html").read_text())
+
+    def test_locus_130_gallery_is_shared_by_homepage_and_release_article(self):
+        expected = {"night-sky.jpg", "earth-orbit.jpg", "aurora.jpg", "lake-water.jpg", "sunlit-clouds.jpg"}
+        for page in [ROOT / "index.html", ROOT / "whats-new/1-3-0/index.html"]:
+            parser = PageParser()
+            parser.feed(page.read_text())
+            images = [image for image in parser.images if "assets/promo/locus-1.3/" in image["src"]]
+            self.assertEqual({pathlib.Path(image["src"]).name for image in images}, expected)
+            for image in images:
+                self.assertEqual((image["width"], image["height"]), ("1280", "720"))
+                self.assertTrue(image["alt"].strip())
+                self.assertEqual(image["loading"], "lazy")
+                target = (page.parent / image["src"]).resolve()
+                self.assertTrue(target.is_file(), target)
+                self.assertLess(target.stat().st_size, 400_000)
 
     def test_homepage_faq_and_guide_announce_locus_1_1(self):
         homepage = (ROOT / "index.html").read_text()
@@ -941,36 +956,29 @@ class PublicSiteTests(unittest.TestCase):
         # story. Older releases stay in the archive.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
-        self.assertIn("New in Locus 1.2", homepage)
-        self.assertIn("One place to choose, and a seat that’s yours.", homepage)
-        self.assertIn('href="./whats-new/1-2/"', homepage)
-        for stale in ["New in Locus 1.1.5", 'href="./whats-new/1-1-5/"',
-                      'href="./whats-new/1-1-4/"',
-                      'data-youtube-id="RPbFXq5-KVE"']:
-            self.assertNotIn(stale, homepage)
-
-        # The owner requested complete 1.3.0 notes. Its latest-update strip
-        # points to the new article while the established 1.2 film stays.
-        self.assertIn('class="whats-new-latest"', homepage)
+        self.assertIn("New in Locus 1.3.0", homepage)
+        self.assertIn("Your objects, and a more living View.", homepage)
         self.assertIn('href="./whats-new/1-3-0/"', homepage)
-        self.assertIn("Latest update · Locus 1.3.0", homepage)
-        for highlight in [
-            "Everything in Places",
-            "Look, and sit there",
-            "Lamps you can switch",
-            "A simpler bar",
-        ]:
+        for stale in ["New in Locus 1.2", 'href="./whats-new/1-2/"',
+                      'data-youtube-id="nO2B7MP0uzI"', 'class="whats-new-latest"']:
+            self.assertNotIn(stale, homepage)
+        for highlight in ["Bring your own mug.", "More life around you",
+                          "Your atmosphere, your controls", "The same capabilities in your ZIP",
+                          "Find Places in your language"]:
             self.assertIn(highlight, homepage)
-
+        self.assertIn('href="./experimental-real-objects/"', homepage)
+        self.assertIn('href="./reference/locus-asset-format/"', homepage)
+        self.assertIn("Free · Experimental", homepage)
+        self.assertIn("non-affiliate KIRI Engine", homepage)
+        self.assertIn("tilting can lose tracking", homepage)
+        self.assertIn("Individual new Library revisions may arrive separately", homepage)
         self.assertEqual(parser.videos, [])
-        self.assertIn('data-youtube-id="nO2B7MP0uzI"', homepage)
-        self.assertIn("https://www.youtube.com/watch?v=nO2B7MP0uzI", parser.links)
-        self.assertIn('./assets/promo/locus-1.2-poster.jpg', homepage)
-        self.assertNotIn("./assets/promo/locus-1.1-whats-new-33s.mp4", homepage)
-        self.assertNotIn("./assets/promo/locus-1.1-whats-new-poster.jpg", homepage)
+        self.assertIn('data-youtube-id="bahHCqyB9M4"', homepage)
+        self.assertIn("https://www.youtube.com/watch?v=bahHCqyB9M4", parser.links)
+        self.assertIn('./assets/promo/real-objects-cup-poster.jpg', homepage)
         stylesheet = (ROOT / "assets" / "site.css").read_text()
+        self.assertIn(".whats-new-feature", stylesheet)
         self.assertIn(".whats-new-grid", stylesheet)
-        self.assertIn(".whats-new-video-card .platform-note", stylesheet)
 
         faq = (ROOT / "faq" / "index.html").read_text()
         for question in [
