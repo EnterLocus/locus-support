@@ -910,6 +910,28 @@ class PublicSiteTests(unittest.TestCase):
                 for text in required:
                     self.assertIn(text, page)
 
+    def test_released_1_3_article_and_modeling_entry(self):
+        article = (ROOT / "whats-new/1-3-0/index.html").read_text()
+        parser = PageParser()
+        parser.feed(article)
+        self.assertEqual(parser.h1_count, 1)
+        self.assertNotIn("In App Review", article)
+        self.assertIn("Available now for Apple Vision Pro", article)
+        self.assertIn("New Library content may arrive separately", article)
+        for href in ["../../experimental-real-objects/", "../../package-format/",
+                     "../../reference/locus-asset-format/"]:
+            self.assertIn(href, parser.links)
+        for phrase in ["enabled by default", "keeps your choice", "non-affiliate",
+                       "Current Place → Motion", "Complete Locus Package v2",
+                       "Simplified Chinese", "Traditional Chinese", "Japanese",
+                       "Korean", "German", "French", "Spanish", "visionOS 27"]:
+            self.assertIn(phrase, article)
+        archive = (ROOT / "whats-new/index.html").read_text()
+        self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
+        # The current public release is reflected in both archive and homepage.
+        self.assertIn("Locus 1.3.0 · Latest", archive)
+        self.assertIn("Latest update · Locus 1.3.0", (ROOT / "index.html").read_text())
+
     def test_homepage_faq_and_guide_announce_locus_1_1(self):
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
@@ -927,13 +949,11 @@ class PublicSiteTests(unittest.TestCase):
                       'data-youtube-id="RPbFXq5-KVE"']:
             self.assertNotIn(stale, homepage)
 
-        # 1.2.3 (like 1.2.1 and 1.2.2) is a smaller update than 1.2, whose film and story still make
-        # the better first impression, so it gets a single "Latest update"
-        # strip above the section instead of taking it over (the same
-        # pattern 1.1.4 used beneath 1.1.3).
+        # The owner requested complete 1.3.0 notes. Its latest-update strip
+        # points to the new article while the established 1.2 film stays.
         self.assertIn('class="whats-new-latest"', homepage)
-        self.assertIn('href="./whats-new/1-2-3/"', homepage)
-        self.assertIn("Latest update · Locus 1.2.3", homepage)
+        self.assertIn('href="./whats-new/1-3-0/"', homepage)
+        self.assertIn("Latest update · Locus 1.3.0", homepage)
         for highlight in [
             "Everything in Places",
             "Look, and sit there",

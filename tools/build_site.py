@@ -7,6 +7,7 @@ from pathlib import Path
 import posixpath
 import re
 import shutil
+import subprocess
 from urllib.parse import urlsplit, urlunsplit
 import xml.etree.ElementTree as ET
 
@@ -20,6 +21,7 @@ EXCLUDED = {'.git', '.github', '.claude', '.scratch', '.site', 'node_modules', '
             'test-results', 'playwright-report', 'tests', 'package.json', 'package-lock.json',
             'playwright.config.js', 'localization', '.build', 'bin'}
 SITE = 'https://enterlocus.com'
+MARKDOWN_REFERENCE = Path('reference/locus-asset-format/index.html')
 
 
 def page_url(relative: Path, locale: str = 'en') -> str:
@@ -145,6 +147,11 @@ def _build_sitemap() -> None:
     root = source.getroot()
     namespace = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
     existing = [node.find(f'{namespace}loc').text for node in root.findall(f'{namespace}url')]
+    reference_url = page_url(MARKDOWN_REFERENCE)
+    if reference_url not in existing:
+        url = ET.SubElement(root, f'{namespace}url')
+        ET.SubElement(url, f'{namespace}loc').text = reference_url
+        existing.append(reference_url)
     for loc in existing:
         relative = Path(urlsplit(loc).path.lstrip('/') or '.') / 'index.html'
         for locale in TRANSLATED_LOCALES:
@@ -152,6 +159,20 @@ def _build_sitemap() -> None:
             ET.SubElement(url, f'{namespace}loc').text = page_url(relative, locale)
     ET.register_namespace('', 'http://www.sitemaps.org/schemas/sitemap/0.9')
     source.write(OUTPUT / 'sitemap.xml', encoding='utf-8', xml_declaration=True)
+
+
+def _render_markdown_reference() -> str:
+    """Render the Markdown-owned format reference into the staged site."""
+    source = ROOT / 'reference/locus-asset-format.md'
+    renderer = ROOT / 'tools/render_markdown_page.mjs'
+    if not source.is_file() or not renderer.is_file():
+        return ''
+    target = OUTPUT / MARKDOWN_REFERENCE
+    subprocess.run([
+        'node', str(renderer), str(source), str(target),
+        'reference', 'reference/locus-asset-format',
+    ], check=True)
+    return target.read_text(encoding='utf-8')
 
 
 def build() -> None:
@@ -167,6 +188,13 @@ def build() -> None:
             target = _output_path(relative, locale)
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(_translate_document(source, relative, locale, catalogs[locale]), encoding='utf-8')
+    reference_source = _render_markdown_reference()
+    if reference_source:
+        for locale in LOCALES:
+            target = _output_path(MARKDOWN_REFERENCE, locale)
+            target.parent.mkdir(parents=True, exist_ok=True)
+            target.write_text(_translate_document(reference_source, MARKDOWN_REFERENCE, locale,
+                                                  catalogs[locale]), encoding='utf-8')
     _build_sitemap()
 
 
