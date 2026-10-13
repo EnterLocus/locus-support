@@ -1,0 +1,1515 @@
+<!doctype html>
+<!-- Generated from reference/locus-asset-format.md by tools/render_markdown_page.mjs. Do not edit directly. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d141a">
+  <title>Public Locus Package v2 and compatibility ZIP formats — Locus</title>
+  <meta name="description" content="The complete Locus Package v2 and legacy compatibility ZIP authoring reference.">
+  <meta property="og:title" content="Locus Package v2 and compatibility ZIP formats"><meta property="og:description" content="Exact Package v2 structure, capabilities, fields, limits, and compatibility formats."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/reference/locus-asset-format/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/reference/locus-asset-format/"><link rel="icon" type="image/png" href="../../assets/favicon.png"><link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../assets/site.css"><link rel="stylesheet" href="../../assets/docs.css"><link rel="stylesheet" href="../../assets/reference.css">
+  <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
+<h2 id="complete-package-v2--canonical-import-format" tabindex="-1">Complete Package v2 — canonical import format</h2>
+<p>Locus 1.2.1 and later accepts a complete Package v2 ZIP from Files or a direct
+public HTTPS URL through both <strong>Import a View</strong> and <strong>Import a Room</strong>. Use an
+ordinary <code>.zip</code> filename for normal public delivery. Locus accepts the same ZIP
+bytes with a <code>.zip</code> or <code>.locusplace</code> filename.</p>
+<p>The ZIP root directly contains <code>locusplace.json</code> and <code>catalog/</code>; do not wrap
+them in another directory:</p>
+<pre><code class="language-text">complete-place.zip
+|-- locusplace.json
+`-- catalog/
+    |-- destinations/&lt;destination-id&gt;/destination.json
+    |-- spaces/&lt;space-id&gt;/space.json
+    `-- experiences/&lt;experience-id&gt;/experience.json   optional
+</code></pre>
+<p>Each declared View, Room, or Experience keeps its other assets beside its
+manifest under the same content-ID directory. These <code>catalog/destinations/</code>,
+<code>catalog/spaces/</code>, and optional <code>catalog/experiences/</code> paths are required
+Package v2 structure, not forbidden nested files. Import a Package v2 ZIP from
+the View entrypoint when it contains a requested View, or from the Room
+entrypoint when it contains a requested Room. A package may bundle supported
+Experiences that compose its requested content.</p>
+<p>Complete Package v2 preserves its authored stable IDs. <code>locusplace.json</code>
+declares the stable <code>packageID</code>, <code>contentVersion</code>, <code>minimumAppVersion</code>, content
+IDs, every payload file with its byte count and lowercase SHA-256, and the
+overall <code>contentHash</code>. Reimporting the same package and content is idempotent.
+Changed bytes for the same <code>packageID</code> require a strictly newer
+<code>contentVersion</code>, and an update cannot replace the package’s declared set of
+View, Room, or Experience IDs.</p>
+<p>Supported complete packages preserve View media and masks, View and Room
+sound, Room animations, video surfaces and seat groups, provenance, and
+supported Experiences. They must pass manifest and file-inventory agreement,
+hashes, safe canonical paths, archive and decoded-resource limits, declared
+capabilities, and <code>minimumAppVersion</code>. If <code>locusplace.json</code> is present but the
+complete package is malformed, Locus rejects it; it does not reinterpret or
+fall back to the flat compatibility format.</p>
+<h3 id="one-pure-data-capability-contract" tabindex="-1">One pure-data capability contract</h3>
+<p>Package v2 describes data, never executable code. Its JSON may select typed
+images, audio, video, USD/USDZ scenes, and renderer parameters implemented by
+the installed Locus binary. A package cannot carry scripts, plugins, dynamic
+libraries, or executable extensions. Safe paths, hashes, exact inventory and
+reference closure, structural decoding, resource budgets, and
+<code>minimumAppVersion</code> are enforced before an import is committed.</p>
+<p>Within the same Locus binary, a runtime-consumed Room or View field that passes
+that common validation has the same content meaning whether it is bundled with
+the app, downloaded from the Locus Library, or installed from a complete public
+Package v2 ZIP. Source may still control entitlement, whether custom import is
+allowed, update authority, storage and removal policy, and UI labels. It does
+not unlock a different content schema or renderer feature set.</p>
+<p>This is also the compatibility rule for future Room and View capabilities: add
+the typed field, its referenced assets and type/budget/structure rules, the
+runtime consumer, and an app-version floor to the common Package v2 contract.
+Do not add the field to a separate public-import allowlist. A reserved or
+retired field with no runtime consumer can still be rejected because that Locus
+binary cannot use it—not because the ZIP came from outside the app.</p>
+<h3 id="complete-view-source-and-midground-data-locus-121" tabindex="-1">Complete View source and midground data (Locus 1.2.1)</h3>
+<p>A complete <code>destination.json</code> may include <code>sourceImage</code> and <code>midground</code> in
+addition to its panorama, thumbnail, environment, media, sound, and provenance
+data. <code>sourceImage</code> is an optional package-relative JPEG or PNG kept with the
+View as its source/audit image. It is decoded and counted against the same image
+budgets as other packaged images; it is not an executable authoring file.</p>
+<p><code>midground</code> adds View-owned 3D scenery and/or renderer-owned water between a
+Room and the panorama. It is supported in both Virtual Space and Room Portal,
+and has the same contract for bundled, Library, and complete imported packages.
+Any package that declares <code>midground</code> must set
+<code>minimumAppVersion</code> to <code>1.2.1</code> or later.</p>
+<pre><code class="language-json">{
+  &quot;sourceImage&quot;: &quot;original.jpg&quot;,
+  &quot;midground&quot;: {
+    &quot;path&quot;: &quot;midground.usdz&quot;,
+    &quot;transform&quot;: {
+      &quot;translationMeters&quot;: [0, 0, 0],
+      &quot;orientationXYZW&quot;: [0, 0, 0, 1],
+      &quot;scale&quot;: [1, 1, 1]
+    },
+    &quot;terrainEntities&quot;: [&quot;Terrain&quot;],
+    &quot;water&quot;: {
+      &quot;levelMeters&quot;: -1.2,
+      &quot;mask&quot;: &quot;water-mask.png&quot;,
+      &quot;normalMap&quot;: &quot;water-normal.png&quot;
+    }
+  }
+}
+</code></pre>
+<p>A <code>midground</code> object must contain <code>path</code>, <code>water</code>, or both:</p>
+<ul>
+<li><code>path</code> is a package-relative USDZ. It is placed at the Room floor under the
+Room’s first seat and may use <code>transform</code> to correct authoring coordinates.
+The USDZ must pass the same archive-member allowlist, structural inspection,
+model, and texture budgets as other imported runtime models.</li>
+<li><code>terrainEntities</code> is an optional, unique, non-empty list of model-unit names
+and is valid only with <code>path</code>. Locus lowers those ground units under the
+Room footprint and hides intersecting non-ground units so scenery does not
+clip through the Room.</li>
+<li><code>windSway</code> is optional and valid only with <code>path</code>. It authors a rigid tilt,
+about each matched prop’s own origin, for midground props (never a unit
+named in <code>terrainEntities</code>) so a plant appears to bend from its grounded
+base. <code>entities</code> is a non-empty, unique list of name <em>prefixes</em>: every
+midground unit whose own name starts with one of them sways. <code>amplitudeDegrees</code>
+(peak tilt from rest) is finite within <code>0...15</code>. <code>periodSeconds</code> (seconds
+per full sway cycle) is finite within <code>0.5...30</code>. The optional
+<code>directionDegrees</code> (azimuth the wind comes from, same convention as
+<code>water.waveDirectionDegrees</code>) is finite within <code>-360...360</code> and defaults to
+<code>0</code>; plants tilt downwind.</li>
+<li><code>water.levelMeters</code> is required and must be finite from <code>-20</code> through <code>0</code>.
+<code>water.mask</code> is a package-relative grayscale 2:1 PNG in the panorama’s
+equirectangular coordinates. <code>water.normalMap</code> is a package-relative RGB or
+RGBA PNG. The optional numeric surface controls are range-checked before
+import.</li>
+<li><code>water.waves</code> may name a PNG normal atlas plus <code>frames</code> (<code>2...512</code>),
+<code>columns</code> (<code>1...64</code>), <code>loopSeconds</code> (<code>1...120</code>), and <code>tileMeters</code>
+(<code>0.5...50</code>). The atlas dimensions must fit the declared square frames.</li>
+<li><code>water.shore</code> may name a top-down <code>bedAlbedo</code> JPEG/PNG, 8-bit grayscale
+<code>bedHeight</code> PNG, RGB/RGBA <code>detail</code> PNG, optional 8-bit RGB <code>field</code> PNG, and
+optional 8-bit grayscale <code>sunVisibility</code> PNG, together with their bounded
+extent, height range, clarity, swash, foam, caustics, and beach-slope
+parameters. <code>sunVisibility</code> marks where the shore’s own terrain, rocks, or
+trees shadow the bed — <code>255</code> is fully sunlit, lower values are shadowed —
+so caustics and the direct-sun share of the bed’s lighting fade out where
+it is low; omitting it means fully sunlit everywhere. It shares
+<code>bedHeight</code>’s extent and orientation by authoring convention, but Locus
+checks only that it is an 8-bit grayscale PNG, not that its pixel
+dimensions match <code>bedHeight</code>.</li>
+<li><code>water.surf</code> adds real-time shallow-water surf breaking on top of <code>shore</code>,
+and is valid only when <code>water.shore</code> is also present. <code>preset</code> is one of
+<code>calm-lake</code>, <code>lake-swell</code>, or <code>ocean-surf</code>. Optional <code>strength</code> (amplitude
+multiplier on incident waves) is <code>0...2</code>; optional <code>tideMeters</code> is
+<code>-0.5...0.5</code>. <code>originMeters</code> is a required <code>[x, z]</code> landward center point
+of the solver domain, each component finite within <code>±200</code> meters, in the
+same View-local frame as <code>shore.extentMeters</code>. <code>shoreNormalDegrees</code> is the
+required offshore direction, finite within <code>-360...360</code>, using the same
+formula as <code>waveDirectionDegrees</code>. <code>crossShoreMeters</code> and
+<code>alongShoreMeters</code> are both required and finite within <code>2...100</code> meters.
+Optional <code>cellMeters</code> defaults to <code>0.25</code> and must be finite within
+<code>0.05...1.0</code>; the resulting solver grid (<code>crossShoreMeters</code> and
+<code>alongShoreMeters</code>, each divided by <code>cellMeters</code> and rounded up) must be at
+least 4 and at most 256 cells on each axis.</li>
+</ul>
+<p>The currently reserved or retired Destination fields <code>depthLayers</code>, <code>splat</code>,
+and legacy <code>audio</code> remain unsupported in complete public imports because this
+binary has no active runtime consumer for them. Use <code>sound</code>, not <code>audio</code>, for
+current View audio.</p>
+<h3 id="locus-130-view-effects-and-orbital-profiles" tabindex="-1">Locus 1.3.0 View effects and orbital profiles</h3>
+<p>The fields in this section belong in a complete Package v2
+<code>catalog/destinations/&lt;destination-id&gt;/destination.json</code>. They are accepted
+from a complete imported ZIP only; a flat <code>view.json</code> ZIP does not grow these
+fields. Set the enclosing package’s <code>minimumAppVersion</code> to <code>1.3.0</code> and, when
+publishing through the Library, declare the capability named below. An older
+reader rejects an unsupported package instead of silently dropping an effect.</p>
+<p>All paths are package-relative and every referenced file must appear in
+<code>locusplace.json</code>’s file inventory with its exact byte count and SHA-256.
+Omit an optional key to use its documented default; JSON <code>null</code> and unknown
+keys are invalid.</p>
+<h4 id="water" tabindex="-1">Water</h4>
+<p><code>water</code> is available on a View and on its Room as separate, authored effects.
+It requires <code>locus.view.water.v1</code> or <code>locus.room.water.v1</code>, respectively. A
+water object contains one to four uniquely named regions. The View-only
+<code>blend</code> block lets a region meet the panorama and the paired Room; a Room
+region must not contain it. A complete package may have at most one region
+whose <code>surface.motion</code> is <code>&quot;ocean&quot;</code> across its View and Room.</p>
+<pre><code class="language-json">&quot;water&quot;: {
+  &quot;preset&quot;: &quot;clear-lake&quot;,
+  &quot;regions&quot;: [{
+    &quot;id&quot;: &quot;lake&quot;,
+    &quot;pose&quot;: {&quot;translationMeters&quot;: [0, -0.35, 0],
+             &quot;orientationXYZW&quot;: [0, 0, 0, 1]},
+    &quot;shape&quot;: &quot;disc&quot;,
+    &quot;sizeMeters&quot;: [153.6, 153.6],
+    &quot;surface&quot;: {&quot;motion&quot;: &quot;ocean&quot;, &quot;waveHeightMeters&quot;: 0.06,
+                &quot;waveLengthMeters&quot;: 26, &quot;waveSpeed&quot;: 0.8,
+                &quot;directionDegrees&quot;: 0},
+    &quot;optics&quot;: {&quot;color&quot;: [0.03, 0.18, 0.24], &quot;reflectionBlur&quot;: 1.5,
+               &quot;sunGlint&quot;: 1},
+    &quot;bed&quot;: {&quot;albedo&quot;: &quot;water/bed.png&quot;, &quot;depthMeters&quot;: 1.8,
+            &quot;reliefMeters&quot;: 0.4, &quot;extentMeters&quot;: [-30, -30, 30, 30],
+            &quot;caustics&quot;: 0.6,
+            &quot;shoreline&quot;: {&quot;foam&quot;: 0.8, &quot;swashMeters&quot;: 0.04,
+                          &quot;swashPeriodSeconds&quot;: 3}},
+    &quot;blend&quot;: {&quot;panoramaMask&quot;: &quot;water/mask.png&quot;, &quot;horizonSkirt&quot;: true,
+              &quot;roomKeepOut&quot;: true}
+  }]
+}
+</code></pre>
+<p><code>shape</code> is <code>&quot;rectangle&quot;</code> (the default) or <code>&quot;disc&quot;</code>; <code>sizeMeters</code> has two
+finite values in <code>(0, 1000]</code> and a disc uses its first value as diameter.
+<code>pose</code> is in the View or Room floor frame. A surface is <code>&quot;still&quot;</code> or
+<code>&quot;ocean&quot;</code> (the default); legacy <code>&quot;lake&quot;</code> and <code>&quot;stream&quot;</code> remain readable
+aliases, but are not new authoring choices. <code>waveHeightMeters</code> is <code>0...20</code>,
+<code>waveLengthMeters</code> is bounded by the region’s sampling floor through 1000 m,
+<code>waveSpeed</code> is <code>-100...100</code>, and <code>directionDegrees</code> is <code>-360...360</code>.</p>
+<p><code>bed.albedo</code> is an 8-bit, non-interlaced RGBA PNG no larger than 4096 pixels
+on either side. Its RGB is the bed colour and alpha is height relief.
+<code>depthMeters</code> is <code>-50...50</code>, <code>reliefMeters</code> is <code>0...50</code>, and a <code>bed</code> has
+either <code>tileMeters</code> (<code>0.1...1000</code>) or ordered <code>extentMeters</code> coordinates in
+<code>-1000...1000</code>. Optional normal maps, bed textures, panorama masks, and sun
+visibility masks are 8-bit PNGs with a 4096-pixel edge limit; a panorama mask
+is grayscale and 2:1. All water textures, including their required mipmaps and
+renderer-owned buffers, share a 64 MiB resident budget. A bed may also add
+<code>shoreline</code> foam (<code>0...4</code>), swash (<code>0...0.5</code> m), and period (<code>0.5...60</code> s).</p>
+<p><code>glow</code> is a water sub-block, not a separate profile. It can add bounded bed
+emission, particles, sparkle, and surface flashes. It uses the same water
+capability, has no image asset, and is disabled by <code>strength: 0</code>. A View
+region can additionally supply a four-number <code>glow.mover</code>
+<code>[centreX, centreZ, radiusMeters, angularRadiansPerSecond]</code>; its centre is
+within <code>-1000...1000</code>, radius is <code>0.1...25</code>, speed is <code>0...1</code>, and it also
+requires <code>locus.view.water.glow-disturbance.v1</code>.</p>
+<p><code>midground.water</code> remains a compatibility reader for previously authored
+lakes. Do not mix its old field table with the root <code>water</code> interface; new
+packages should author one explicit <code>water</code> region and retain any
+<code>midground.path</code> USDZ only for visible terrain and props.</p>
+<h4 id="animated-painted-clouds-and-a-timed-sun" tabindex="-1">Animated painted clouds and a timed sun</h4>
+<p>A View may animate clouds already painted in its panorama with <code>clouds</code> and
+the <code>locus.view.clouds.v1</code> capability. This is a masked repair of the authored
+photograph, not generated weather and not a cloud profile for Rooms. The mask
+is an 8-bit grayscale, 2:1 PNG and the fill is an 8-bit RGB, 2:1 PNG. They
+must have identical dimensions and neither may be wider than 4096 pixels.</p>
+<pre><code class="language-json">&quot;clouds&quot;: {
+  &quot;mask&quot;: &quot;clouds/mask.png&quot;,
+  &quot;fill&quot;: &quot;clouds/fill.png&quot;,
+  &quot;windMetersPerSecond&quot;: 4,
+  &quot;windTowardDegrees&quot;: 25,
+  &quot;horizonDegrees&quot;: 0
+}
+</code></pre>
+<p>Clouds can coexist with procedural <code>sky</code>, water, or a midground USDZ, but not
+with video <code>media</code>. The cloud mask should cover sky pixels only: black retains
+the panorama foreground while white permits the fill to move. Turning Motion
+off or using Reduce Motion restores the unchanged photograph. <code>horizonDegrees</code>
+is <code>-10...10</code>; optional altitude is <code>200...12000</code> m, sea depth is
+<code>0...5000</code> m, wind is <code>0...30</code> m/s toward <code>-360...360</code> degrees, cycle time is
+<code>5...120</code> seconds, evolution is <code>0...5</code>, and breathing is <code>0...0.15</code>.</p>
+<p><code>environment.sunPath</code> gives a deliberately sun-free View a 24-hour lighting
+path and requires <code>locus.view.sun-path.v1</code>. It cannot coexist with
+<code>environment.directSun</code>, a celestial profile, or a static water
+<code>bed.sunVisibility</code> bake. Both the panorama and IBL must be free of a painted
+sun or sun-centred glare, and <code>provenanceDetail</code> must include a truthful
+<code>sun-free-sky</code> component record.</p>
+<pre><code class="language-json">&quot;environment&quot;: {
+  &quot;sunPath&quot;: {
+    &quot;sunFreeSky&quot;: true,
+    &quot;startHour&quot;: 9,
+    &quot;dayDurationSeconds&quot;: 3600,
+    &quot;maxElevationDegrees&quot;: 60,
+    &quot;peakIlluminanceLux&quot;: 60000,
+    &quot;disc&quot;: {&quot;skyMask&quot;: &quot;sun/mask.png&quot;, &quot;intensity&quot;: 1}
+  }
+}
+</code></pre>
+<p><code>startHour</code> is <code>0...24</code>, <code>dayDurationSeconds</code> is <code>60...86400</code>, maximum
+elevation is <code>10...85</code> degrees, peak illuminance is <code>0...120000</code> lux, and
+night illuminance is <code>0...1000</code> lux. The optional disc needs an 8-bit
+grayscale 2:1 PNG no wider than 4096 pixels; its angular size is
+<code>0.1...5</code> degrees and intensity is <code>0...20</code>. Motion off, Reduce Motion, and
+the Sun Position override stop the cycle at a deterministic state.</p>
+<h4 id="fireflies-and-point-lights" tabindex="-1">Fireflies and point lights</h4>
+<p><code>fireflies</code> requires <code>locus.view.fireflies.v1</code>. It has one to four volumes,
+no asset paths, and cannot coexist with a celestial profile. Their combined
+count may not exceed 400.</p>
+<pre><code class="language-json">&quot;fireflies&quot;: [{
+  &quot;id&quot;: &quot;shore&quot;, &quot;centerMeters&quot;: [0, 1.4, -5],
+  &quot;sizeMeters&quot;: [8, 3, 6], &quot;count&quot;: 120,
+  &quot;color&quot;: [0.75, 1, 0.35], &quot;sizeMillimeters&quot;: 6,
+  &quot;driftMetersPerSecond&quot;: 0.15,
+  &quot;blink&quot;: {&quot;periodSeconds&quot;: 2.5, &quot;duty&quot;: 0.35, &quot;jitter&quot;: 0.5}
+}]
+</code></pre>
+<p>Centers are within <code>-100...100</code> m, each size is <code>0.1...100</code> m, count is
+<code>1...400</code>, particle size is <code>1...20</code> mm, and drift is <code>0...0.5</code> m/s. Blink
+period is <code>1.5...20</code> seconds, duty is <code>0.05...0.8</code>, and jitter is <code>0...1</code>.
+These are View-floor coordinates; sky pitch does not change them.</p>
+<p><code>pointLights</code> remains a complete-package View sidecar requiring
+<code>locus.view.point-lights.v1</code> and <code>minimumAppVersion: &quot;1.2.5&quot;</code> or later. It
+names one strict JSON table with 1–64 groups and 1–4000 total rows:</p>
+<pre><code class="language-json">&quot;pointLights&quot;: {&quot;table&quot;: &quot;point-lights.json&quot;}
+</code></pre>
+<p>Each row is <code>[u, v, angularSizeDegrees, intensity]</code>: <code>u</code> is <code>[0,1)</code>, <code>v</code> is
+<code>0...1</code>, angular size is <code>0.001...0.5</code> degrees, and intensity is <code>0...4</code>.
+Use either a <code>blink</code> group (period <code>1...20</code> seconds, phase, minimum, and
+softness) or a <code>twinkle</code> group (amplitude <code>0...0.3</code>, speed <code>0.05...2</code>). The
+sidecar uses the same equirectangular seam convention as the panorama.</p>
+<h4 id="procedural-sky-celestial-bodies-and-near-orbit" tabindex="-1">Procedural sky, celestial bodies, and near orbit</h4>
+<p>The existing <code>sky</code> profile remains the procedural-sky contract: a 2:1
+grayscale <code>sky.mask</code> selects pixels the renderer replaces, while <code>stars</code>,
+<code>moon</code>, and <code>aurora</code> add only the declared sky layers. It requires
+<code>minimumAppVersion: &quot;1.2.4&quot;</code> and the relevant Library capability. Its mask
+remains an ordinary package asset, so it belongs in the envelope inventory.
+A celestial body may now share a stars-only procedural sky at 1.3.0 through
+<code>locus.view.celestial-sky.v1</code>: <code>sky.stars</code> is required, while <code>sky.moon</code> and
+<code>sky.aurora</code> must be absent. That composition excludes media, water,
+fireflies, and clouds.</p>
+<p>A starting night-sky declaration is:</p>
+<pre><code class="language-json">&quot;sky&quot;: {
+  &quot;mask&quot;: &quot;sky/mask.png&quot;, &quot;defaultMode&quot;: &quot;free&quot;,
+  &quot;stars&quot;: {&quot;seed&quot;: 19, &quot;twinkle&quot;: 1,
+            &quot;milkyWay&quot;: {&quot;style&quot;: &quot;realistic&quot;, &quot;brightness&quot;: 1}},
+  &quot;moon&quot;: {&quot;azimuthDegrees&quot;: 150, &quot;elevationDegrees&quot;: 25,
+           &quot;illumination&quot;: 0.5},
+  &quot;aurora&quot;: {&quot;northAzimuthDegrees&quot;: 0, &quot;palette&quot;: &quot;classic&quot;, &quot;intensity&quot;: 1}
+}
+</code></pre>
+<p>Declare <code>locus.view.sky.stars.v1</code> for authored stars and
+<code>locus.view.sky.aurora.v1</code> for aurora. The Moon adds no separate capability.
+An explicit <code>defaultMode: &quot;free&quot;</code> also needs
+<code>locus.view.sky.default-mode.v1</code>; <code>&quot;real&quot;</code> and omission do not. Free uses the
+authored arrangement; Real uses the visitor’s place and clock. A saved visitor
+mode takes precedence. At least one of <code>stars</code>, <code>moon</code>, or <code>aurora</code> is required.
+Empty objects use their defaults. Moon and aurora imply a default starry sky
+when <code>stars</code> is absent. Keep painted stars out of the foreground; grey mask
+edges blend the live sky with the photograph.</p>
+<p>Stars accept a seed integer <code>0...2147483647</code>, twinkle <code>0...1.5</code>, brightness
+<code>0.25...2</code>, limiting magnitude <code>4.5...7</code>, bright-star size <code>0...2</code>, colour
+saturation <code>0...1.5</code>, and azimuth <code>-180...180</code> degrees. Milky Way style is
+<code>realistic</code> or <code>vivid</code>, brightness <code>0...2</code>, and free placement uses centre
+azimuth <code>-180...180</code>, centre elevation <code>-90...90</code>, and tilt <code>-180...180</code>.
+The shared Galactic map is bundled by Locus; an ordinary package needs no
+extra map asset. At 1.3.0 an author may supply <code>stars.milkyWay.diffuseMap</code>,
+requiring <code>locus.view.sky.milky-way-map.v1</code>: an 8-bit RGB/RGBA 2:1 PNG,
+64–8192 pixels wide, Galactic longitude zero at image centre, longitude
+increasing left, north at top. Include its truthful source credit and rights.</p>
+<p>For an authored Moon, position, phase, brightness and size are optional. The
+visitor can override them in Motion; in Real mode the Moon instead follows
+the visitor’s location and clock. Its azimuth is <code>-180...180</code> degrees,
+elevation <code>0...85</code>, illumination and maximum illumination <code>0...1</code>, brightness
+<code>0...2</code>, and size scale <code>1...3</code>. Aurora palette is <code>classic</code>, <code>storm</code>, or
+<code>low-latitude</code>, intensity is <code>0...2</code>, and north azimuth is <code>-180...180</code>.
+Its optional <code>substorms</code> object has <code>periodSeconds</code> exactly zero or
+<code>120...3600</code>, <code>firstOnsetSeconds</code> <code>0...3600</code>, <code>strength</code> <code>0...1.5</code>, and
+<code>raySpeedup</code> <code>0...2</code>. Optional <code>arcs</code> contains 1–4 objects; each may set
+elevation <code>2...178</code> degrees, brightness <code>0...2</code>, thickness <code>0.8...12</code> km,
+ray speed <code>0...8</code> km/s, ray width <code>2...40</code> km, ray contrast <code>0...15</code>, and
+waviness <code>0...2</code>. Elevation runs from the northern horizon through the zenith
+to the southern horizon, so 145 degrees is about 35 degrees above the south.
+Retain a complete baked panorama as the still fallback.</p>
+<p><code>celestial</code> is one far-field body. Version 1 uses an angular diameter; version
+2 offers either an angular diameter (with optional distance) or explicit
+<code>distanceMeters</code> plus <code>radiusMeters</code>. Both formats require a complete static
+panorama fallback, because Motion off and Reduce Motion show that fallback.
+Use the <a href="../../schemas/view-celestial-v1.schema.json">celestial v1 schema</a> or
+<a href="../../schemas/view-celestial-v2.schema.json">celestial v2 schema</a> for exact
+required keys and machine-readable ranges.</p>
+<pre><code class="language-json">&quot;celestial&quot;: {
+  &quot;version&quot;: 2, &quot;backgroundPanorama&quot;: &quot;space/stars.jpg&quot;,
+  &quot;dayTexture&quot;: &quot;earth/day.jpg&quot;, &quot;cloudTexture&quot;: &quot;earth/clouds.png&quot;,
+  &quot;yawDegrees&quot;: 25,
+  &quot;elevationDegrees&quot;: 12, &quot;distanceMeters&quot;: 500,
+  &quot;radiusMeters&quot;: 100, &quot;rotationPeriodSeconds&quot;: 1200,
+  &quot;cloudHeightRatio&quot;: 0.006, &quot;cloudDriftRatio&quot;: 1.08,
+  &quot;cloudShadowStrength&quot;: 0.7, &quot;cloudEvolution&quot;: 0.5,
+  &quot;cloudEvolutionPeriodSeconds&quot;: 900,
+  &quot;sunDisc&quot;: {&quot;skyMask&quot;: &quot;space/sun-mask.png&quot;}
+}
+</code></pre>
+<p>For v2, distance is <code>400...800</code> m, radius is <code>1...400</code> m, radius must be no
+more than half the distance, and distance plus radius must be at most 1100 m.
+The cloud shell is optional: height is <code>0...0.03</code> of body
+radius, with zero keeping flat compositing, drift is <code>0.5...2</code>, shadow strength and evolution are <code>0...1</code>, and
+the evolution period is <code>60...3600</code> seconds. The presence of any cloud-shell
+key or <code>sunDisc</code> requires the 1.3.0 floor. <code>sunDisc.skyMask</code> is a grayscale
+2:1 PNG no wider than 8192 pixels. Regenerate the complete static panorama
+after changing body, cloud-shell, or disc parameters.</p>
+<p><code>nearOrbit</code> is an alternative whole-sphere View profile, not an effect that
+mixes with water, celestial, procedural sky, media, fireflies, clouds, point
+lights, midground, or <code>sunPath</code>. Version 1 is available through
+<code>locus.view.near-orbit.v1</code>; version 2 adds body radius, cloud drift, optional
+surface tiles, and <code>locus.view.near-orbit.v2</code>. Both need a fallback panorama
+that is exactly <code>panorama.path</code>, plus the profile’s required fallback proof.
+Use the <a href="../../schemas/view-near-orbit-v1.schema.json">near-orbit v1 schema</a> or
+<a href="../../schemas/view-near-orbit-v2.schema.json">near-orbit v2 schema</a>.</p>
+<pre><code class="language-json">&quot;nearOrbit&quot;: {
+  &quot;version&quot;: 2, &quot;bodyRadiusKilometers&quot;: 6371,
+  &quot;latitudeDegrees&quot;: 32, &quot;longitudeDegrees&quot;: -121.5,
+  &quot;altitudeKilometers&quot;: 400, &quot;bearingDegrees&quot;: 0,
+  &quot;pitchFromNadirDegrees&quot;: 55, &quot;sunLatitudeDegrees&quot;: 30,
+  &quot;sunLongitudeDegrees&quot;: -70, &quot;rotationPeriodSeconds&quot;: 3600,
+  &quot;cloudDriftRatio&quot;: 1.02, &quot;cloudHeightKilometers&quot;: 8,
+  &quot;atmosphereHeightKilometers&quot;: 20, &quot;dayTexture&quot;: &quot;earth/day.jpg&quot;,
+  &quot;nightTexture&quot;: &quot;earth/night.jpg&quot;, &quot;cloudTexture&quot;: &quot;earth/clouds.png&quot;,
+  &quot;fallbackPanorama&quot;: &quot;panorama.jpg&quot;, &quot;skyMask&quot;: &quot;space/mask.png&quot;,
+  &quot;galaxyTexture&quot;: &quot;space/galaxy.png&quot;, &quot;starCatalog&quot;: &quot;space/stars.json&quot;
+}
+</code></pre>
+<p>Version 2’s body radius is <code>1000...100000</code> km, altitude <code>200...1000</code> km,
+cloud drift <code>0.5...2</code>, and every full-sphere colour texture is 2:1 and no
+wider than 8192 pixels. Optional tiles have 1–360 columns, 1–180 rows, no
+more than 1024 total tiles, and a 16–4096-pixel square size. Version 1 keeps
+its fixed 1024-square regional texture and its 4096-wide full-sphere texture
+limit. A horizontal <code>locus-star-catalog</code> v1 is required in either profile,
+with 1–20000 stars and a 1 MiB limit.</p>
+<h4 id="gpu-texture-sidecars" tabindex="-1">GPU texture sidecars</h4>
+<p><code>gpuTextures</code> is the 1.3.0 View fast path (<code>locus.view.gpu-texture.v2</code>). It
+does not replace editable source images: the JPEG or PNG remains the source of
+truth for import, export, and fallback. Do not combine it with the earlier
+single <code>gpuTexture</code> field.</p>
+<pre><code class="language-json">&quot;gpuTextures&quot;: [{
+  &quot;source&quot;: &quot;earth/day.jpg&quot;, &quot;path&quot;: &quot;earth/day.ktx&quot;,
+  &quot;format&quot;: &quot;astc-6x6-srgb&quot;, &quot;width&quot;: 8192, &quot;height&quot;: 4096,
+  &quot;mipmapLevels&quot;: 14,
+  &quot;sourceSHA256&quot;: &quot;0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef&quot;
+}]
+</code></pre>
+<p>Every entry has a unique source path and a KTX1 sidecar. Its dimensions and
+mip count must match both the actual source and KTX header; <code>sourceSHA256</code> is
+the lowercase SHA-256 of that source’s raw packaged bytes. Use
+<code>astc-6x6-srgb</code> for colour images and <code>astc-6x6-linear</code> only for a cloud
+texture. Eligible sources are <code>panorama.path</code>, celestial background/day/night/
+cloud textures, and near-orbit v2 day/night/cloud/fallback/galaxy textures and
+declared tiles. Other masks, cloud fills and arbitrary images do not gain
+sidecar support by being listed here. Full-sphere sources are 2:1 and bake
+with repeating edges; near-orbit
+tiles are square and bake with clamped edges. The renderer prefers a valid
+sidecar, then falls back to its JPEG/PNG unchanged if the sidecar cannot load.
+For near-orbit v2, every eligible global texture and every tile needs a
+matching sidecar entry.</p>
+<h2 id="legacysimple-flat-zip-compatibility" tabindex="-1">Legacy/simple flat ZIP compatibility</h2>
+<p>The flat format documented below remains accepted for simple imports and for
+the existing public examples and tools. It contains exactly one Room or one
+View, has no authored package or content identity, and receives a new UUID on
+every import. Use complete Package v2 when stable identity, in-place updates,
+bundled Experiences, or the feature-complete content model matters.</p>
+<p>In this compatibility format, v1 remains supported and immutable; v2 adds
+visitor-controlled Room lighting metadata and a View condition that suggests
+the light switch’s initial position; Room v3 adds Room-owned baked indirect
+light and bounded authoring limits; Room v4 adds independently controlled USDZ
+animations with saved playback speed and randomized replay intervals; Room v5
+adds explicit rendering roles and spotlight directions; Room v6 adds authored
+seat groups; Room v7 adds looping video surfaces; Room v8 adds illuminated
+surfaces and an explicit view-forward yaw; Room v9 adds particle effects;
+Room v10 adds per-lamp baked light layers. All of those compatibility
+versions use the same flat ZIP layout.</p>
+<p>Locus 1.1.4 adds an optional <code>sound.json</code> sidecar: a Room or a View may carry
+its own audio, independently of everything above. An older Locus refuses the
+extra files rather than installing a place with its sound silently missing.</p>
+<p>A flat compatibility archive contains exactly one Room or one View. It is an
+ordinary <code>.zip</code> file with all files at the ZIP root. Unlike complete Package
+v2, it does not contain <code>locusplace.json</code>, a <code>catalog/</code> tree, an Experience, or
+an author-chosen asset ID.</p>
+<p>Locus assigns a new UUID when it imports an asset. <code>displayName</code> is
+user-visible copy, may repeat, and is not an identity. Importing the same ZIP
+twice creates two assets with different UUIDs and the same display name.</p>
+<h2 id="flat-compatibility-room-zip" tabindex="-1">Flat compatibility Room ZIP</h2>
+<p>The five files are all required:</p>
+<pre><code class="language-text">room.zip
+|-- space.json
+|-- provenance.json
+|-- teleport-points.json
+|-- scene.usdz
+|-- thumbnail.jpg
+|-- sound.json         optional, Locus 1.1.4
+`-- forest-air.m4a     one or more, only with sound.json
+</code></pre>
+<p><code>space.json</code> contains the Room metadata. It does not name files or contain an
+ID:</p>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 1,
+  &quot;displayName&quot;: &quot;My Room&quot;,
+  &quot;caption&quot;: &quot;A quiet two-seat room.&quot;,
+  &quot;previewCamera&quot;: {
+    &quot;yawDegrees&quot;: 0,
+    &quot;pitchDegrees&quot;: -8,
+    &quot;zoom&quot;: 0.8
+  },
+  &quot;seatedOrigin&quot;: {
+    &quot;translationMeters&quot;: [0, 0, 0],
+    &quot;orientationXYZW&quot;: [0, 0, 0, 1]
+  },
+  &quot;safeHeadVolume&quot;: {
+    &quot;centerMeters&quot;: [0, 1.25, 0],
+    &quot;sizeMeters&quot;: [1.2, 1, 1.2]
+  },
+  &quot;viewOpenings&quot;: [
+    {
+      &quot;id&quot;: &quot;surroundings&quot;,
+      &quot;transform&quot;: {
+        &quot;translationMeters&quot;: [0, 1.25, -2],
+        &quot;orientationXYZW&quot;: [0, 0, 0, 1]
+      },
+      &quot;widthMeters&quot;: 4,
+      &quot;heightMeters&quot;: 2.5
+    }
+  ],
+  &quot;spatialAdaptation&quot;: {
+    &quot;wallEntities&quot;: [&quot;Rear_Wall&quot;],
+    &quot;roofEntities&quot;: [&quot;Roof&quot;],
+    &quot;deskEntitiesByTeleportID&quot;: {
+      &quot;seat.window&quot;: &quot;Window_Desk_Top&quot;
+    },
+    &quot;deskGroupEntitiesByTeleportID&quot;: {
+      &quot;seat.window&quot;: &quot;Window_Desk_Group&quot;
+    }
+  }
+}
+</code></pre>
+<p><code>caption</code>, <code>previewCamera</code>, and <code>spatialAdaptation</code> are optional. Every Room
+must have exactly one View opening and at least one teleport point. Coordinates
+are right-handed meters with +Y up and -Z forward. Quaternions are
+<code>[x, y, z, w]</code>. <code>anchorXZ</code> values are normalized into the Room bounds.</p>
+<p><code>teleport-points.json</code> has this shape:</p>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 1,
+  &quot;points&quot;: [
+    {
+      &quot;id&quot;: &quot;seat.window&quot;,
+      &quot;title&quot;: &quot;Window Desk&quot;,
+      &quot;anchorXZ&quot;: [0.45, 0.55],
+      &quot;sourceFloorOffset&quot;: 0,
+      &quot;eyeHeight&quot;: 1.15,
+      &quot;yawRadians&quot;: 3.1415927
+    }
+  ]
+}
+</code></pre>
+<p>A teleport point’s <code>id</code> or <code>title</code> naming Left or Right names that side from
+the seated visitor’s own perspective, not an outside observer’s — the <code>right</code>
+seat of such a pair sits to the sitter’s right hand. This is authoring
+guidance, not a schema field: it only affects how you choose <code>anchorXZ</code> and
+<code>yawRadians</code> for the two points, so their relative positions actually match a
+sitter’s left and right.</p>
+<p><code>scene.usdz</code> is a self-contained, meter-scale, +Y-up USDZ. Its ZIP members are
+stored without compression and it must pass <code>usdchecker --arkit</code>.
+<code>thumbnail.jpg</code> is required and must decode as JPEG or PNG image data. Locus
+does not capture a missing thumbnail during import.</p>
+<h3 id="room-lighting-formatversion-2" tabindex="-1">Room lighting (formatVersion 2)</h3>
+<p>A Room without lighting keeps <code>formatVersion: 1</code> and omits <code>lighting</code>; Locus
+shows no light switch or Room lighting settings and builds no runtime rig. A
+Room that declares lamps uses <code>formatVersion: 2</code> and adds:</p>
+<pre><code class="language-json">&quot;lighting&quot;: {
+  &quot;luminaireGroups&quot;: [
+    {
+      &quot;id&quot;: &quot;desk-pendant&quot;,
+      &quot;displayName&quot;: &quot;Desk Pendant&quot;,
+      &quot;entities&quot;: [&quot;Desk_Pendant_Glow&quot;],
+      &quot;nearTeleportIDs&quot;: [&quot;seat.window&quot;],
+      &quot;authoredColor&quot;: {&quot;mode&quot;: &quot;temperature&quot;, &quot;kelvin&quot;: 2700},
+      &quot;controls&quot;: {
+        &quot;brightnessEVRange&quot;: [-4, 1],
+        &quot;temperatureKelvinRange&quot;: [2000, 6500],
+        &quot;supportsFullColor&quot;: false
+      },
+      &quot;proxy&quot;: {
+        &quot;type&quot;: &quot;spot&quot;,
+        &quot;anchorEntity&quot;: &quot;Desk_Pendant_Anchor&quot;,
+        &quot;intensityLumens&quot;: 900,
+        &quot;attenuationRadiusMeters&quot;: 3.5,
+        &quot;colorTemperatureKelvin&quot;: 2700,
+        &quot;innerAngleDegrees&quot;: 30,
+        &quot;outerAngleDegrees&quot;: 65,
+        &quot;castsShadow&quot;: false
+      }
+    }
+  ]
+}
+</code></pre>
+<p>Each group is one independently controlled logical lamp/circuit. Keep <code>id</code>
+stable across Room revisions; split separately controllable physical lamps into
+separate groups. Every entity and anchor must resolve in the delivered USDZ.
+<code>authoredColor</code> is either <code>temperature</code> plus <code>kelvin</code>, or <code>srgb</code> plus three
+components. Full color and color temperature are per-light capabilities, never
+Room-wide controls. New public Rooms do not author condition-to-intensity
+tables.</p>
+<p><code>nearTeleportIDs</code> is optional. When present, it must be a non-empty unique list
+of authored teleport IDs and only the group’s bounded direct proxy is active at
+those seats. An enabled fixture’s emissive body remains visible from every
+seat. Omitting the field makes the direct proxy available throughout the Room.</p>
+<h3 id="room-indirect-lighting-formatversion-3" tabindex="-1">Room indirect lighting (formatVersion 3)</h3>
+<p>A newly authored Room that simulates artificial diffuse bounce uses
+<code>formatVersion: 3</code>. It keeps the v2 <code>luminaireGroups</code> and adds one or more
+opaque receiver subtrees:</p>
+<pre><code class="language-json">&quot;lighting&quot;: {
+  &quot;luminaireGroups&quot;: [&quot;... v2 group objects ...&quot;],
+  &quot;bakedIndirect&quot;: {
+    &quot;entities&quot;: [&quot;Locus_BakedIndirect&quot;]
+  }
+}
+</code></pre>
+<p>Format v3 may replace a group’s legacy <code>proxy</code> object with a non-empty
+<code>proxies</code> array when one logical switch drives multiple physical emitters. For
+example, a paired dining pendant remains one control but authors one downward
+spot per shade. Do not write both spellings in the same group.</p>
+<p>Every named subtree must resolve exactly once in <code>scene.usdz</code> and contain
+positive-emissive PBR materials. The subtree is an authored low-frequency
+indirect layer: include broad opaque floors and walls;
+exclude glass, water, luminaire glow meshes, and other transparent or
+transmissive materials. Also exclude a ceiling, tabletop, or other receiver
+when the combined atlas would paint a recognizable fixture-specific halo that
+cannot follow that fixture’s individual switch; bounded proxies own those local
+pools. A dedicated second UV atlas is recommended so indirect
+light does not replace the receivers’ base PBR texture coordinates. The exact
+delivered atlas must be denoised or deterministically low-pass filtered at its
+final authored emission strength; visible fireflies or high-frequency speckle
+are invalid for this deliberately low-frequency layer. Each Room owns that
+baseline strength, while the app owns only the documented EV multiplier.</p>
+<p>The Room Lights master switch controls the indirect layer. Overall Room EV uses
+the app-owned <code>-4...+4 EV</code> range and scales it by <code>2^overallEV</code>;
+individual-light enable, EV, temperature, and color do not recolor or
+double-count the shared bounce. This lets the overall control simulate changing
+room response while direct lamp controls remain local. Overall and per-light EV
+are combined and clamped to <code>-4...+4 EV</code> before rendering.</p>
+<p>For v3, every proxy is at most 10,000 lumens and every authored per-light
+brightness range stays inside <code>-4...+1 EV</code>. These are hard package bounds, not
+recommended intensities; functional indoor proxies normally begin around
+700–1,500 lumens with a
+2.5–3.5 m reach. Locus still accepts v2 archives using the older wider numeric
+contract and safely normalizes them during import; locked v2 bytes are never
+rewritten. <code>bakedIndirect</code> requires Room v3 or later.</p>
+<h3 id="authored-rendering-and-spotlight-direction-formatversion-5" tabindex="-1">Authored rendering and spotlight direction (formatVersion 5)</h3>
+<p>Room v5 requires a Locus build that supports this format. Use the final exported
+USDZ as the material reference: Locus preserves its supported PBR values and
+texture/UV connections. Object names, mesh dimensions, and imported Room IDs do
+not select material presets. A frosted panel remains frosted, even if its name
+contains <code>glass</code>.</p>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Authored input</th>
+<th>Supported behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meshes, metric transforms, normals, UV sets</td>
+<td>Loaded from the USDZ; visitor placement applies to the Room root.</td>
+</tr>
+<tr>
+<td>USD Preview Surface base color, roughness, metallic, specular, normal, clearcoat, clearcoat roughness, opacity</td>
+<td>Retained as exported, including supported connected textures. Export a Preview Surface network; bake procedural nodes to maps.</td>
+</tr>
+<tr>
+<td>Emission</td>
+<td>Retained. Declared lamp groups may scale emission and apply the visitor’s color choice; color changes retain the emission map. Declared baked indirect receivers scale emission only.</td>
+</tr>
+<tr>
+<td>Transparent surfaces</td>
+<td>Opacity blending; this is not a promise of physical transmission, refraction, caustics, or order-independent layered glass. Inspect intersecting transparent surfaces in Locus.</td>
+</tr>
+<tr>
+<td>Reflections</td>
+<td>The selected View supplies distant environment lighting. This does not capture the Room interior or provide spatially exact mirrors.</td>
+</tr>
+<tr>
+<td>Object animation</td>
+<td>The embedded transform clips and optional experimental controls described below. Arbitrary material animation and procedural shader nodes require target-renderer validation and are not part of this contract.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The optional <code>rendering</code> object contains both arrays, even when either is empty:</p>
+<pre><code class="language-json">&quot;rendering&quot;: {
+  &quot;softenedReflectionEntities&quot;: [&quot;Panel_927&quot;],
+  &quot;uiFadeEntities&quot;: [&quot;Furniture_412&quot;]
+}
+</code></pre>
+<p>Each entry names one unique exported entity and its descendants. Names are
+case-sensitive, nonempty, at most 200 UTF-8 bytes, and unique within each array.
+Do not name both an ancestor and its descendant within the same array. A
+missing, ambiguous, overlapping, or geometry-free binding fails Room loading
+with the affected entity name.</p>
+<ul>
+<li><code>softenedReflectionEntities</code> opts those subtrees into an environment source
+that retains the View’s vertical brightness distribution while averaging
+its horizontal detail. This can avoid recognizable distant landmarks in
+glazing; it has no horizontal reflection detail, is not a Room reflection,
+and never changes material roughness, coatings, or opacity.</li>
+<li><code>uiFadeEntities</code> permits temporary fading when that subtree blocks the
+visitor’s windows. Declare furniture deliberately and keep structure out
+unless fading that structure is intended. A fade multiplies existing entity
+opacity and restores it afterward. Keep animated opacity on a child of a
+static fade root so two controls do not write the same component.</li>
+</ul>
+<p>Omitting <code>rendering</code> grants neither opt-in. An empty array also grants nothing.
+Locus does not infer permission from names or a size threshold.</p>
+<p>Every v5 <code>spot</code> proxy requires <code>direction</code>: a finite unit vector in the Room’s
+exported +Y-up coordinates. For example, <code>[0.6, -0.8, 0]</code> points down and toward
++X; <code>[0, -1, 0]</code> points straight down. The anchor supplies position only.
+Rotating or scaling its mesh does not reinterpret this vector. Derive it from
+the authored light’s emission axis during export. <code>point</code> proxies must omit
+<code>direction</code>. The existing lumens, radius, active-light, shadow, and adjustment
+budgets continue to apply.</p>
+<p>Rooms v1–v4 remain importable. A legacy spot without <code>direction</code> keeps its
+specified downward default; use v5 to declare another direction. Legacy
+packages receive no implicit rendering roles, and their material inputs are
+preserved. If an older clear-glass asset exhibits the known colored center in
+a sun highlight, correct the unused clearcoat roughness in its editable source
+and re-export; Locus does not rewrite connected maps or apply a blanket patch
+to imported materials. The tested uncoated-glass correction is clearcoat
+roughness 0.2, with the intended base roughness and opacity retained. Intentional
+coatings and animated inputs need separate evaluation.</p>
+<p><code>spatialAdaptation.wallEntities</code> and <code>roofEntities</code> are validated references;
+they do not hide or cut the virtual architecture. Room Portal operates on the
+visitor’s tracked real walls, independently of this virtual geometry. The current
+product can open multiple walls, but not the real ceiling. Only the explicit desk mapping connects
+a virtual tabletop to desk alignment and desk passthrough.</p>
+<h3 id="ambient-animations-formatversion-4" tabindex="-1">Ambient animations (formatVersion 4)</h3>
+<p>A Room whose USDZ contains independently playable environment animation uses
+<code>formatVersion: 4</code> and adds a non-empty <code>ambientAnimations</code> array:</p>
+<pre><code class="language-json">&quot;ambientAnimations&quot;: [
+  {
+    &quot;id&quot;: &quot;plant-breeze&quot;,
+    &quot;displayName&quot;: &quot;Plant Breeze&quot;,
+    &quot;entityName&quot;: &quot;Ambient_CloudFan_Breeze&quot;,
+    &quot;animationName&quot;: &quot;default subtree animation&quot;,
+    &quot;isEnabledByDefault&quot;: true,
+    &quot;defaultSpeed&quot;: 1,
+    &quot;speedRange&quot;: [0.5, 1.5],
+    &quot;defaultIntervalRangeSeconds&quot;: [0, 0],
+    &quot;intervalRangeSeconds&quot;: [0, 60]
+  }
+]
+</code></pre>
+<p><code>entityName</code> resolves one subtree in <code>scene.usdz</code>; <code>animationName</code> resolves one
+animation in that entity’s animation library. Each ID is stable and unique.
+Speed is a multiplier inside <code>0.25...2</code>. Interval is the pause after a complete
+play: <code>[0, 0]</code> means replay immediately and therefore run continuously; any
+other range samples a fresh random delay after every completion. Both interval
+ranges are ordered seconds between 0 and 3,600, and the default endpoints must
+fit inside the adjustable range.</p>
+<p>The Room motion tile in Quick Controls and Settings › Current Place › Motion
+operate on the same session values. Motion can save each animation’s switch,
+speed, and interval as that Room’s defaults on the current device. Format v1-v3 Rooms cannot declare this field and keep
+their existing behavior unchanged.</p>
+<h3 id="how-desk-alignment-identifies-a-desk" tabindex="-1">How desk alignment identifies a desk</h3>
+<p>Locus does not inspect USDZ geometry and guess which object looks like a desk.
+A Room author identifies the virtual tabletop explicitly by mapping a teleport
+ID to the exact exported entity name in
+<code>spatialAdaptation.deskEntitiesByTeleportID</code>. For the example above,
+<code>seat.window</code> must also be the <code>id</code> of a point in <code>teleport-points.json</code>, and
+<code>scene.usdz</code> must contain an entity named exactly <code>Window_Desk_Top</code>. A shared
+table may be mapped from several seat IDs. If a seat has no mapping, it remains
+usable as a teleport, but it is a first-class <strong>lounge seat</strong>: it never
+measures or aligns a real desk and never offers desk passthrough. See
+<a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a>. There is
+currently no in-app surface picker that creates a desk mapping after import.</p>
+<p>Make the mapped entity the tabletop itself or a tightly bounded tabletop slab,
+not the complete desk-and-chair hierarchy. Locus uses that entity’s recursive
+visual bounds in its own frame to derive the surface height, oriented width and
+depth, and yaw. Keep legs, chairs, lamps, computers, plants, and loose props
+outside the mapped entity’s descendants; otherwise they can raise the measured
+“top” or enlarge the footprint. Use a stable, unique semantic name such as
+<code>Window_Desk_Top</code>, keep the surface level and non-degenerate, and verify the
+meter-scale, +Y-up result in the exported USDZ. Blender may remain Z-up while
+authoring, but the exported entity must have one vertical axis and two
+horizontal axes without tilt or shear.</p>
+<p>Calibrate the seat and table together. Put the chair at a clear near edge rather
+than diagonally off a corner, face it toward the tabletop and intended view,
+keep the nearest reach zone clear, and use a realistic tabletop height—about
+0.72–0.76 m is a practical starting range. Do not rely on runtime correction to
+repair a badly placed asset: Locus refuses horizontal Room movement over 0.75 m
+or vertical movement over 0.35 m.</p>
+<p>The visitor’s real desk is a separate measurement. On a physical Vision Pro,
+Locus requests world sensing and filters horizontal ARKit planes, rejecting
+floors and windows and preferring nearby, table-sized surfaces in front of the
+visitor. The current basic table candidate is 0.2–1.0 m below the tracked head,
+within 2.5 m, at least 0.09 m², at least 0.35 m on its short side, and no more
+than 5:1 in aspect ratio; an unclassified surface must satisfy stricter mesh,
+area, shape, and reach checks. A final match also rejects a physical near edge
+farther than 1.25 m. These are real-room filters, not a way to discover the
+virtual tabletop inside <code>scene.usdz</code>.</p>
+<p>After a successful measurement, Locus turns the Room about the visitor to match
+desk-edge direction, moves it along that edge normal to match reach, and matches
+the tabletop height. Desk passthrough remains the visitor’s separate <strong>Show
+desk</strong> choice. If no trustworthy plane is found, Locus may move the authored
+edge within reach using a bounded fallback, but it does not claim alignment or
+open passthrough.</p>
+<p><code>tools/validate_locus_asset.py</code> checks the mapping shape, USDZ structure, and actual RealityKit entity bindings;
+it does not prove that an entity name resolves to the intended tabletop.
+Therefore import the exact validated ZIP and enter every mapped seat. Simulator
+can exercise package loading, but real-table detection, alignment, passthrough
+edges, scale, reach, and comfort require the exact delivered build on a physical
+Vision Pro.</p>
+<h3 id="lounge-seats-and-hideable-desks" tabindex="-1">Lounge seats and hideable desks</h3>
+<p>A sofa, daybed, bench, or other lounge seat may deliberately omit its entry in
+<code>deskEntitiesByTeleportID</code>. From Locus 1.1.5 this is a first-class authoring
+choice, not a gap to fill later: the seat enters directly at its authored
+floor and eye height, never triggers real-desk measurement or alignment, and
+never offers desk passthrough. Locus’s in-app seat list shows no desk icon for
+it (a seat that does have a desk mapping shows one). Do not point such a
+seat’s mapping at a nearby coffee table or side table just to give it a desk
+icon — an intentionally unmapped lounge seat is correct as-is.</p>
+<p>The optional <code>spatialAdaptation.deskGroupEntitiesByTeleportID</code> is unrelated to
+lounge seats: it applies only to desk-backed seats that already have a
+<code>deskEntitiesByTeleportID</code> mapping, and lets an author offer a <strong>Hide Desk</strong>
+control for one. Its value names one authored entity per teleport ID — the
+single root whose whole subtree is that seat’s physical desk (top, legs, and
+anything resting on it):</p>
+<pre><code class="language-json">&quot;deskGroupEntitiesByTeleportID&quot;: {
+  &quot;seat.window&quot;: &quot;Window_Desk_Group&quot;
+}
+</code></pre>
+<p>Rules Locus enforces:</p>
+<ul>
+<li>a key here must also have a <code>deskEntitiesByTeleportID</code> entry for the same
+teleport ID;</li>
+<li>the value must be non-blank, trimmed text;</li>
+<li>the named entity must resolve to exactly one entity in <code>scene.usdz</code>; and</li>
+<li>the seat’s <code>deskEntitiesByTeleportID</code> surface entity must be a <strong>descendant</strong>
+of the named group entity — group and surface must name two different
+entities in the same subtree, not two unrelated names.</li>
+</ul>
+<p>A Room that fails any of these at load time fails to load; there is no partial
+fallback that silently drops the desk group and keeps the Room usable.</p>
+<p>Hiding disables the whole named subtree — never a material, opacity, or
+per-entity visibility trick, and never the alignment surface’s own enabled
+state, which stays untouched because only an ancestor above it is disabled.
+Desk measuring, re-measuring, alignment, and the passthrough cutout all keep
+working while the desk is hidden, because they read the same surface entity
+named in <code>deskEntitiesByTeleportID</code>, unaffected by an ancestor’s visibility. A
+<code>lighting</code> luminaire group whose entities are <em>all</em> nested under a hidden desk
+group’s root also stops contributing its light while hidden; a group with only
+some entities under that root is left alone entirely.</p>
+<p>Only a seat with a <code>deskGroupEntitiesByTeleportID</code> entry offers Hide Desk.
+Readers older than 1.1.5 simply do not decode this field: they still measure
+and align the desk exactly as before, and never offer a way to hide it. In the
+1.1.5 app and later, once a visitor turns Hide Desk on (from the Hide desk tile in
+Quick Controls) it stays in effect for the rest of that immersive
+visit, across seats, Rooms, and Views, and Settings can default every new
+visit to starting with desks hidden.</p>
+<h3 id="seat-groups-formatversion-6" tabindex="-1">Seat groups (formatVersion 6)</h3>
+<p>A Room that declares <code>seatGroups</code> uses <code>formatVersion: 6</code>, which requires
+Locus 1.2.0 or later; an older build refuses to import a grouped Room rather
+than silently dropping the groups. The field belongs in <code>space.json</code>, beside
+the existing Room metadata — <code>teleport-points.json</code> continues to own the
+concrete teleport coordinates and IDs:</p>
+<pre><code class="language-json">&quot;seatGroups&quot;: [
+  {
+    &quot;id&quot;: &quot;window-tables&quot;,
+    &quot;title&quot;: &quot;Window Tables&quot;,
+    &quot;seatIDs&quot;: [
+      &quot;window-cafe-south&quot;,
+      &quot;window-banquette-south&quot;,
+      &quot;window-cafe-center&quot;,
+      &quot;window-banquette-center&quot;
+    ]
+  },
+  {
+    &quot;id&quot;: &quot;coffee-bar&quot;,
+    &quot;title&quot;: &quot;Coffee Bar&quot;,
+    &quot;seatIDs&quot;: [
+      &quot;coffee-bar-stool&quot;,
+      &quot;coffee-bar-stool-center&quot;,
+      &quot;coffee-bar-stool-south&quot;
+    ]
+  }
+]
+</code></pre>
+<p>Each group <code>id</code> is stable and unique, <code>title</code> is nonempty, and <code>seatIDs</code> is a
+nonempty ordered list of existing authored teleport IDs. A seat cannot appear
+in more than one group. Grouping only organizes the two-level navigation
+picker: a client that sees groups presents <strong>seating area → concrete seat</strong>,
+then keeps every ungrouped authored seat discoverable as a direct row. It
+never changes a seat’s identity, placement, desk alignment, Hide Desk
+contract, or eye height. A seat intentionally left out of every group remains
+a direct row, so a lone seat does not need a singleton group of its own; a
+Room that omits <code>seatGroups</code> keeps the legacy flat seat list. A visitor’s own
+personal/custom seats are separate persisted additions and do not inherit
+authored grouping.</p>
+<h3 id="room-video-surfaces-formatversion-7" tabindex="-1">Room video surfaces (formatVersion 7)</h3>
+<p>A Room whose <code>scene.usdz</code> contains a named mesh-bearing entity for looping
+video uses <code>formatVersion: 7</code> and adds <code>videoSurfaces</code> — the first author is
+a fireplace’s fire on a quad in the firebox:</p>
+<pre><code class="language-json">&quot;videoSurfaces&quot;: [
+  {
+    &quot;id&quot;: &quot;fireplace-fire&quot;,
+    &quot;displayName&quot;: &quot;Fireplace Fire&quot;,
+    &quot;entityName&quot;: &quot;Fireplace_Fire_Video&quot;,
+    &quot;video&quot;: &quot;fireplace-fire.mp4&quot;,
+    &quot;luminaireGroupID&quot;: &quot;fireplace&quot;
+  }
+]
+</code></pre>
+<p>A Room may declare at most 2 surfaces. <code>id</code> is lowercase letters, digits, and
+hyphens only, 1–64 bytes, and unique among the Room’s surfaces.
+<code>displayName</code> and <code>entityName</code> are nonempty and at most 200 UTF-8 bytes.
+<code>video</code> is a bare root <code>.mp4</code> filename (no path separators); the set of
+<code>video</code> values across all surfaces must exactly match the <code>.mp4</code> files
+present in the ZIP, so an unreferenced or missing video file fails import.
+<code>entityName</code> must resolve to a mesh-bearing subtree of <code>scene.usdz</code>, checked
+the same way as every other authored entity reference. The optional
+<code>luminaireGroupID</code> must name one of this Room’s <code>lighting.luminaireGroups</code>
+entries; while that group is lit (its master switch on and not
+force-disabled) the surface plays its video, and otherwise it shows its
+restored authored material — the tied group does not need to contain the
+surface’s own entity. <code>videoSurfaces</code> requires Locus 1.2.1 or later; an
+older build refuses to import a Room that declares it.</p>
+<h3 id="room-illuminated-surfaces-and-view-forward-yaw-formatversion-8" tabindex="-1">Room illuminated surfaces and view-forward yaw (formatVersion 8)</h3>
+<p>A <code>lighting.luminaireGroups</code> entry may add <code>illuminatedEntities</code>, and a Room
+may add a top-level <code>viewForwardYawRadians</code>; either one requires
+<code>formatVersion: 8</code>.</p>
+<p><code>illuminatedEntities</code> names surfaces an author’s own baked emissive texture
+washes with that group’s light — a wall lit by a hidden cove fixture, say —
+as distinct from <code>entities</code>, which names the fixture subtree itself:</p>
+<pre><code class="language-json">&quot;lighting&quot;: {
+  &quot;luminaireGroups&quot;: [
+    {
+      &quot;id&quot;: &quot;cove-light&quot;,
+      &quot;displayName&quot;: &quot;Cove Light&quot;,
+      &quot;entities&quot;: [&quot;Cove_Fixture_Glow&quot;],
+      &quot;illuminatedEntities&quot;: [&quot;Living_Room_Wall&quot;],
+      &quot;controls&quot;: {&quot;brightnessEVRange&quot;: [-4, 1], &quot;supportsFullColor&quot;: false},
+      &quot;proxy&quot;: {
+        &quot;type&quot;: &quot;point&quot;, &quot;anchorEntity&quot;: &quot;Cove_Fixture_Glow&quot;,
+        &quot;intensityLumens&quot;: 500, &quot;attenuationRadiusMeters&quot;: 3,
+        &quot;castsShadow&quot;: false
+      }
+    }
+  ]
+}
+</code></pre>
+<p>When present, <code>illuminatedEntities</code> is non-empty, and none of its names may
+repeat a name already used by that same group’s <code>entities</code>, by another
+group’s <code>entities</code> or <code>illuminatedEntities</code>, or by <code>bakedIndirect.entities</code>;
+none of it may be an ancestor or descendant of those same protected entities
+either. An illuminated surface’s material follows the group’s master switch,
+overall Room EV, and per-light enable/EV/color exactly like an <code>entities</code>
+member’s, but it is never a switch target itself (no hover or pinch), is
+never hidden by <code>nearTeleportIDs</code> (which only ever scopes the direct proxy),
+and is not considered by Hide Desk’s “every entity under the hidden desk
+root” rule.</p>
+<p><code>viewForwardYawRadians</code> is the model-space yaw — the same convention as a
+teleport point’s <code>yawRadians</code> — that faces the selected View’s
+straight-ahead direction, letting an author decouple the View’s orientation
+from wherever the first authored teleport point happens to face:</p>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 8,
+  &quot;viewForwardYawRadians&quot;: 1.5707963267948966
+}
+</code></pre>
+<p>When present it must be finite and within <code>-π...π</code>. It changes only the
+sky/IBL/sun orientation basis; seat placement, desk alignment, and every
+other teleport behavior are computed exactly as before, from the active
+teleport’s own <code>yawRadians</code>. Omitting it keeps the pre-v8 default: the first
+teleport point’s facing. Both <code>illuminatedEntities</code> and
+<code>viewForwardYawRadians</code> require Locus 1.2.1 or later.</p>
+<h3 id="room-particle-effects-formatversion-9" tabindex="-1">Room particle effects (formatVersion 9)</h3>
+<p>A Room whose <code>scene.usdz</code> contains a transform-only anchor for a
+continuously running effect uses <code>formatVersion: 9</code> and adds
+<code>particleEffects</code> — the first use is a fireplace’s fire:</p>
+<pre><code class="language-json">&quot;particleEffects&quot;: [
+  {
+    &quot;id&quot;: &quot;fireplace-fire&quot;,
+    &quot;displayName&quot;: &quot;Fireplace Fire&quot;,
+    &quot;preset&quot;: &quot;fire&quot;,
+    &quot;anchorEntity&quot;: &quot;Fireplace_Fire_Emitter&quot;,
+    &quot;sizeMeters&quot;: [0.62, 0.04, 0.22]
+  }
+]
+</code></pre>
+<p>A Room may declare at most 4 effects. <code>id</code> follows the same
+lowercase-letters/digits/hyphens rule as <code>videoSurfaces.id</code>; <code>displayName</code>
+is nonempty and at most 200 UTF-8 bytes. <code>preset</code> is a closed enum —
+currently only <code>&quot;fire&quot;</code> — and the app owns the entire resulting look (color,
+particle count, timing); the author’s only contract is placement
+(<code>anchorEntity</code>) and size (<code>sizeMeters</code>: exactly 3 finite values, each
+within <code>(0, 3]</code> meters, in the anchor’s local Y-up space as width, height,
+depth, centered on the anchor origin — flames rise along the anchor’s local
++Y). <code>anchorEntity</code> resolves like a lighting proxy’s <code>anchorEntity</code>: it does
+not need renderable geometry, since the expected authoring shape is a
+transform-only Xform exported from a Blender empty. An effect runs for the
+Room’s entire lifetime; it is never tied to a <code>lighting.luminaireGroups</code>
+switch and carries no audio. <code>particleEffects</code> requires Locus 1.2.1 or
+later.</p>
+<h3 id="room-baked-light-layers-formatversion-10" tabindex="-1">Room baked light layers (formatVersion 10)</h3>
+<p>A Room whose <code>lighting.bakedIndirect</code> wants per-lamp control over the shared
+indirect atlas uses <code>formatVersion: 10</code> and adds <code>bakedIndirect.layers</code>: one
+root PNG per declared luminaire group, holding only that group’s own
+contribution (direct plus bounce, material color included) to the shared
+atlas at its authored brightness/color.</p>
+<pre><code class="language-json">&quot;lighting&quot;: {
+  &quot;luminaireGroups&quot;: [&quot;... v2 group objects ...&quot;],
+  &quot;bakedIndirect&quot;: {
+    &quot;entities&quot;: [&quot;Locus_BakedIndirect&quot;],
+    &quot;layers&quot;: [
+      {&quot;luminaireGroupID&quot;: &quot;desk-pendant&quot;, &quot;image&quot;: &quot;desk-pendant-indirect.png&quot;}
+    ]
+  }
+}
+</code></pre>
+<p><code>layers</code> is non-empty and at most 12 entries. Each entry pairs a
+<code>luminaireGroupID</code> — naming one of this Room’s declared luminaire groups, at
+most once across the array — with a bare root <code>.png</code> <code>image</code> filename (no
+path separators). The set of <code>image</code> values across the array must exactly
+match the <code>.png</code> files present in the ZIP, so an unreferenced or missing
+image fails import. Every referenced image must be an 8- or 16-bit RGB or
+RGBA PNG at most 4096×4096, and every layer image in the same Room must
+share identical pixel dimensions. Locus composites these layers in linear
+light at load and whenever the visitor’s lighting changes, and falls back to
+plain format-v3 whole-atlas EV scaling if the shared atlas texture is
+missing or a layer’s dimensions do not match it. <code>bakedIndirect.layers</code>
+requires Locus 1.2.1 or later; format v3’s <code>bakedIndirect.entities</code> keeps
+working unchanged without it.</p>
+<h2 id="how-locus-uses-a-room" tabindex="-1">How Locus uses a Room</h2>
+<p>The authoring interface and the runtime rules are both documented here. Public
+Room ZIPs are converted into Locus’s internal Package v2 representation during
+import. That conversion does not make internal fields secret or require a
+creator to maintain two manifests. Author the five-file Room ZIP; Locus supplies
+the internal identity, file paths, and bookkeeping.</p>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Author input</th>
+<th>Runtime behavior and creator responsibility</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scene.usdz</code></td>
+<td>Locus loads the exported hierarchy, materials and transforms. Its actual visual bounds determine the coordinate frame for normalized seats. Author scale, clearances and appearance in the model.</td>
+</tr>
+<tr>
+<td><code>teleport-points.json</code></td>
+<td>Each point is a selectable seat, not a moving character. <code>anchorXZ</code> locates it within the delivered model bounds; <code>sourceFloorOffset</code> is the floor height above the model’s minimum Y (including any foundation or floor-slab thickness), <code>eyeHeight</code> locates the eyes above it, and <code>yawRadians</code> sets its heading. Switching seats repositions the Room around the visitor.</td>
+</tr>
+<tr>
+<td><code>seatedOrigin</code></td>
+<td>Defines the authored floor frame used to carry the safety volume to the active seat. Use an upright frame: a finite normalized quaternion with no pitch or roll. It does not replace the seat catalog or specify a walkable spawn collider.</td>
+</tr>
+<tr>
+<td><code>safeHeadVolume</code></td>
+<td>Defines a box that follows the selected seat and its floor frame. Locus uses it with tracking and presence to decide when immersive content can be shown safely. Each half-extent has a runtime minimum of 1 m: an authored box smaller than 2 m on an axis cannot narrow that runtime range. This is not a wall collider or permission to put geometry close to the visitor’s head.</td>
+</tr>
+<tr>
+<td><code>viewOpenings</code></td>
+<td>Exactly one logical opening connects a Room/View composition. It does not cut holes in the USDZ. Model the real architectural openings yourself. Virtual Space surrounds the Room with the View; this field does not determine which real walls Room Portal opens.</td>
+</tr>
+<tr>
+<td><code>spatialAdaptation.wallEntities</code> / <code>roofEntities</code></td>
+<td>Exact validated references to virtual architecture. They do not hide those meshes or create real-world portals. Room Portal uses detected real walls and supports opening multiple walls; the current product cannot open the real ceiling.</td>
+</tr>
+<tr>
+<td><code>deskEntitiesByTeleportID</code></td>
+<td>Names the tabletop used for that seat’s alignment and optional desk passthrough. Without a mapping the seat is a first-class lounge seat: it still loads, at its authored floor and eye height, but never measures, aligns, or offers passthrough for a desk. See <a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a>.</td>
+</tr>
+<tr>
+<td><code>deskGroupEntitiesByTeleportID</code></td>
+<td>Optional, 1.1.5+. For a subset of desk-backed seats, names the one entity whose whole subtree is that seat’s hideable desk, enabling a visitor <strong>Hide Desk</strong> control. A key must already have a <code>deskEntitiesByTeleportID</code> entry; the named entity must resolve uniquely and be an ancestor of that entry’s surface entity, or the Room fails to load. Readers before 1.1.5 ignore this field and offer no Hide Desk. See <a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a>.</td>
+</tr>
+<tr>
+<td><code>seatGroups</code></td>
+<td>Optional, 1.2.0+, requires <code>formatVersion: 6</code>. Presents several teleport IDs as one seating area in the two-level Seats picker; every listed ID must be an authored teleport, and a teleport cannot belong to more than one group. It never changes a seat’s identity, placement, desk mapping, Hide Desk contract, or eye height. Readers before 1.2.0 refuse to import a grouped Room. See <a href="#seat-groups-formatversion-6">Seat groups</a>.</td>
+</tr>
+<tr>
+<td><code>lighting</code></td>
+<td>Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. A group’s optional <code>illuminatedEntities</code> (1.2.1+, <code>formatVersion: 8</code>) and <code>bakedIndirect.layers</code> (1.2.1+, <code>formatVersion: 10</code>) extend this without changing the base v2/v3 contract. See <a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw</a> and <a href="#room-baked-light-layers-formatversion-10">Room baked light layers</a>.</td>
+</tr>
+<tr>
+<td><code>rendering</code></td>
+<td>Explicitly opts subtrees into softened View reflections or temporary window-obstruction fading. Omitted roles grant neither behavior. These permissions do not change the underlying material design.</td>
+</tr>
+<tr>
+<td><code>ambientAnimations</code></td>
+<td>Binds embedded named clips to experimental switch/speed/interval controls. A valid entity name does not prove a clip exists or moves correctly; test playback in Locus.</td>
+</tr>
+<tr>
+<td><code>videoSurfaces</code></td>
+<td>Optional, 1.2.1+, requires <code>formatVersion: 7</code>. Names a mesh-bearing entity that plays a looping video, optionally tied to a luminaire group’s switch. At most 2 per Room. See <a href="#room-video-surfaces-formatversion-7">Room video surfaces</a>.</td>
+</tr>
+<tr>
+<td><code>particleEffects</code></td>
+<td>Optional, 1.2.1+, requires <code>formatVersion: 9</code>. Anchors a continuously running app-owned particle preset (currently only <code>fire</code>) to a named entity; the author controls placement and size only. At most 4 per Room. See <a href="#room-particle-effects-formatversion-9">Room particle effects</a>.</td>
+</tr>
+<tr>
+<td><code>viewForwardYawRadians</code></td>
+<td>Optional, 1.2.1+, requires <code>formatVersion: 8</code>. Names the model-space yaw that faces the selected View’s straight-ahead direction, in place of the first teleport point’s facing. Never changes seat placement or desk alignment. See <a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw</a>.</td>
+</tr>
+<tr>
+<td><code>thumbnail.jpg</code> / <code>previewCamera</code></td>
+<td>Supply the library image and initial 3D preview framing. Neither determines the immersive seat.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 id="collision-and-quality-internal-fields-not-additional-author-inputs" tabindex="-1">Collision and quality: internal fields, not additional author inputs</h3>
+<p>The importer currently creates this internal metadata for every public Room:</p>
+<pre><code class="language-json">{
+  &quot;collision&quot;: {&quot;mode&quot;: &quot;embedded&quot;},
+  &quot;quality&quot;: {
+    &quot;status&quot;: &quot;unverified&quot;,
+    &quot;triangleCount&quot;: 0,
+    &quot;materialCount&quot;: 0,
+    &quot;entityCount&quot;: 0,
+    &quot;maxTextureDimension&quot;: 0
+  }
+}
+</code></pre>
+<p>These fields describe the internal package, not extra JSON to paste into the
+public <code>space.json</code>. Both the app importer and public validator reject them in
+that public file. Adding them only to the public validator would produce ZIPs
+that the app rejects.</p>
+<p>The internal schema also has a <code>separate</code> collision mode with a USDZ path. The
+current Virtual Space loader does not use either mode to build a walking,
+physics, or visitor-body collision system. A declared collision mesh does not
+prevent someone moving through virtual furniture. Runtime head safety and real
+desk measurement are separate systems. No separate collision file is accepted
+in a public Room ZIP.</p>
+<p><code>quality</code> is bookkeeping, not a quality certificate. Import sets it to
+<code>unverified</code> with zero declared counts, then inspects the actual USDZ composition
+and mesh topology against the limits below. Supplying smaller numbers cannot
+bypass that inspection. The public validator performs actual model and texture
+budget checks too; it does not require a creator to estimate those values.
+Keep measured authoring statistics with the editable source when useful.</p>
+<h3 id="model-and-texture-budgets" tabindex="-1">Model and texture budgets</h3>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Resource</th>
+<th style="text-align:right">Maximum</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Room ZIP</td>
+<td style="text-align:right">1 GiB</td>
+</tr>
+<tr>
+<td>One extracted file, including <code>scene.usdz</code></td>
+<td style="text-align:right">768 MiB</td>
+</tr>
+<tr>
+<td>All extracted ZIP files</td>
+<td style="text-align:right">2 GiB</td>
+</tr>
+<tr>
+<td>Entries inside the USDZ</td>
+<td style="text-align:right">4,096</td>
+</tr>
+<tr>
+<td>Expanded USDZ members</td>
+<td style="text-align:right">1.5 GiB</td>
+</tr>
+<tr>
+<td>Actual model triangles</td>
+<td style="text-align:right">5,000,000</td>
+</tr>
+<tr>
+<td>Actual model materials</td>
+<td style="text-align:right">1,024</td>
+</tr>
+<tr>
+<td>Actual model entities</td>
+<td style="text-align:right">100,000</td>
+</tr>
+<tr>
+<td>One model texture dimension</td>
+<td style="text-align:right">16,384 pixels</td>
+</tr>
+<tr>
+<td>One image’s decoded pixels</td>
+<td style="text-align:right">150,000,000</td>
+</tr>
+<tr>
+<td>All embedded model texture pixels</td>
+<td style="text-align:right">500,000,000</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>ModelIO inspects the loaded composition rather than trusting JSON counts.
+Instance compositions are rejected by the current import budget policy; realize
+instances before export. These are rejection limits, not performance targets.
+A small Room should stay far below them. Appearance, interactive frame rate,
+tracking, reach and comfort still require checking the exact Room in Locus.</p>
+<h2 id="flat-compatibility-view-zip" tabindex="-1">Flat compatibility View ZIP</h2>
+<p>Four root files are required and one is optional:</p>
+<pre><code class="language-text">view.zip
+|-- view.json
+|-- provenance.json
+|-- panorama.jpg
+|-- thumbnail.jpg
+|-- lighting.jpg       optional
+|-- sound.json         optional, Locus 1.1.4
+`-- waterfall.m4a      one or more, only with sound.json
+</code></pre>
+<p><code>panorama.jpg</code> is a complete 2:1 equirectangular JPEG or PNG. Its decoded
+dimensions must match <code>view.json</code>. The 4K minimum for direct image imports
+(including Browser images) is not a View ZIP format restriction. <code>thumbnail.jpg</code> is required.
+<code>lighting.jpg</code>, when present, is a separate small 2:1 SDR image used for Room
+lighting and reflections.</p>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 2,
+  &quot;displayName&quot;: &quot;My View&quot;,
+  &quot;caption&quot;: &quot;A complete panoramic View.&quot;,
+  &quot;panorama&quot;: {
+    &quot;projection&quot;: &quot;equirectangular&quot;,
+    &quot;width&quot;: 12288,
+    &quot;height&quot;: 6144,
+    &quot;initialYawDegrees&quot;: 0
+  },
+  &quot;environment&quot;: {
+    &quot;skyGainEV&quot;: 0.5,
+    &quot;exposureEV&quot;: 0,
+    &quot;horizonPitchDegrees&quot;: 0,
+    &quot;condition&quot;: &quot;night&quot;,
+    &quot;colorGrade&quot;: {
+      &quot;contrast&quot;: 1.1,
+      &quot;saturation&quot;: 1.2
+    },
+    &quot;directSun&quot;: {
+      &quot;enabled&quot;: false,
+      &quot;illuminanceLux&quot;: 5000
+    }
+  }
+}
+</code></pre>
+<p><code>caption</code> and <code>environment</code> are optional. <code>initialYawDegrees</code> is optional.
+<code>contrast</code> accepts <code>0.5...2</code>; <code>saturation</code> accepts <code>0...2</code>. An enabled sun also
+requires finite <code>azimuthDegrees</code> and <code>elevationDegrees</code>. These are starting
+values; a user may later change them with Edit View in Locus.</p>
+<p><code>environment.condition</code> is available in <code>formatVersion: 2</code>: <code>dusk</code> and <code>night</code>
+initially turn a composed Room’s lights on; <code>day</code>, <code>overcast</code>, and an omitted
+condition initially leave them off. It never maps to a Room brightness. The
+visitor can override the switch, and a lamp that is on uses its Room-authored
+intensity plus saved Room EV offsets.</p>
+<h2 id="sound" tabindex="-1">Sound</h2>
+<p>A Room or a View may carry its own audio. It is independent of everything else
+in the package: a still picture with sound is not an animated View, gets no new
+mark in Places, and a Room’s sound has nothing to do with its lighting or
+animations. Locus 1.1.4 is required — an older build rejects the ZIP rather
+than installing it without the audio.</p>
+<p>Put <code>sound.json</code> and the audio files at the ZIP root. Every audio file must be
+named by a source and every named file must be present; audio without
+<code>sound.json</code>, or a file no source names, is rejected rather than ignored, so a
+renamed clip is caught at import instead of going silently missing.</p>
+<pre><code class="language-json">{
+  &quot;version&quot;: 1,
+  &quot;backgroundPriority&quot;: 20,
+  &quot;sources&quot;: [
+    {
+      &quot;id&quot;: &quot;forest-air&quot;,
+      &quot;title&quot;: &quot;Forest air&quot;,
+      &quot;path&quot;: &quot;forest-air.m4a&quot;,
+      &quot;role&quot;: &quot;background&quot;,
+      &quot;gain&quot;: 0.6
+    }
+  ]
+}
+</code></pre>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align:right">Required</th>
+<th>Meaning and validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>version</code></td>
+<td style="text-align:right">yes</td>
+<td><code>1</code> for plain loops, <code>2</code> for placement and randomized playback.</td>
+</tr>
+<tr>
+<td><code>backgroundPriority</code></td>
+<td style="text-align:right">yes</td>
+<td>Integer <code>0</code> through <code>100</code>. See arbitration below.</td>
+</tr>
+<tr>
+<td><code>sources</code></td>
+<td style="text-align:right">yes</td>
+<td>One through eight sources.</td>
+</tr>
+<tr>
+<td><code>sources[].id</code></td>
+<td style="text-align:right">yes</td>
+<td>Up to 100 characters of letters, digits, dot, dash, or underscore; distinct within the file.</td>
+</tr>
+<tr>
+<td><code>sources[].title</code></td>
+<td style="text-align:right">yes</td>
+<td>Up to 100 characters, shown beside the source’s own control.</td>
+</tr>
+<tr>
+<td><code>sources[].role</code></td>
+<td style="text-align:right">yes</td>
+<td><code>background</code> or <code>effect</code>.</td>
+</tr>
+<tr>
+<td><code>sources[].gain</code></td>
+<td style="text-align:right">yes</td>
+<td><code>0</code> through <code>1</code>. The gains of all sources may total at most <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>sources[].path</code></td>
+<td style="text-align:right">version 1</td>
+<td>One package-relative <code>.m4a</code>, <code>.mp3</code>, or <code>.wav</code> file at the ZIP root.</td>
+</tr>
+<tr>
+<td><code>sources[].clips</code></td>
+<td style="text-align:right">version 2</td>
+<td>One through eight distinct audio files, replacing <code>path</code>.</td>
+</tr>
+<tr>
+<td><code>sources[].placement</code></td>
+<td style="text-align:right">version 2</td>
+<td>Where the source is, described below.</td>
+</tr>
+<tr>
+<td><code>sources[].playback</code></td>
+<td style="text-align:right">version 2</td>
+<td>How it plays, described below.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Each audio file must be larger than zero and at most 128 MiB. When Locus
+prepares it for playback it also requires at most 48 kHz, at most two channels,
+and at most 600 seconds for a loop; a positioned source must be mono, and a
+randomized clip must be at most 30 seconds with at most 60 seconds of clips per
+source. A file that passes validation but breaks one of those playback rules
+loses that source, not the whole place.</p>
+<p><strong>Backgrounds arbitrate; effects do not.</strong> A View and a Room each declare a
+<code>backgroundPriority</code>, and only an enabled, prepared background with a nonzero
+volume claims it. The strictly higher priority silences the other owner’s
+backgrounds; equal priorities mix. Effects always keep their own master
+control. In Room Portal only the View’s audio plays. Every control is
+session-only: Locus does not rewrite the ZIP, and nothing here is saved.</p>
+<h3 id="placement-and-randomized-playback-version-2" tabindex="-1">Placement and randomized playback (<code>version: 2</code>)</h3>
+<p>Version 1 keeps its exact meaning forever. Version 2 replaces a source’s <code>path</code>
+with <code>clips</code> and adds <code>placement</code> and <code>playback</code>. <code>role</code> is unrelated to
+placement: a positioned waterfall is still a <code>background</code>.</p>
+<p><code>placement</code> is one of four shapes. <code>frame</code> must be the package’s own — <code>view</code>
+in a View ZIP, <code>room</code> in a Room ZIP — and <code>rolloff</code> is optional everywhere
+except <code>ambient</code>, finite <code>0</code> through <code>4</code>, where <code>0</code> removes distance
+attenuation entirely and <code>1</code> is the default.</p>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th><code>type</code></th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ambient</code></td>
+<td><code>{&quot;type&quot;: &quot;ambient&quot;}</code> and nothing else: no position, no distance attenuation, no change as the listener turns.</td>
+</tr>
+<tr>
+<td><code>point</code></td>
+<td>One fixed <code>point</code>.</td>
+</tr>
+<tr>
+<td><code>points</code></td>
+<td>Two through sixteen distinct candidate <code>points</code>, for randomized playback only.</td>
+</tr>
+<tr>
+<td><code>region</code></td>
+<td>A direction-and-distance range to draw a fresh position from, <code>frame: &quot;view&quot;</code> only.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A View-frame point is <code>{&quot;azimuthDegrees&quot;: 25, &quot;elevationDegrees&quot;: 20, &quot;distanceMeters&quot;: 15}</code>: azimuth <code>-180</code> through <code>180</code>, elevation <code>-90</code> through
+<code>90</code>, distance <code>0.1</code> through <code>100</code> metres. Azimuth <code>0</code> is the View’s forward
+direction and increases the same way <code>initialYawDegrees</code> does. A Room-frame
+point is <code>{&quot;positionMeters&quot;: [1, 2, -3]}</code> in the Room model’s own coordinates,
+each component finite and within 100 metres.</p>
+<p>A <code>region</code> adds <code>azimuthCenterDegrees</code> (<code>-180</code> through <code>180</code>),
+<code>azimuthSpanDegrees</code> (<code>0</code> through <code>360</code>, seam-crossing allowed),
+<code>elevationRangeDegrees</code> and <code>distanceRangeMeters</code>, each an ordered pair inside
+the same limits as a point.</p>
+<p><strong>Distance is an authored acoustic proxy.</strong> It is not depth measured from the
+panorama and not the radius of the sky. Choose what sounds right.</p>
+<p><code>playback</code> is either a loop or a randomized phrase:</p>
+<pre><code class="language-json">{
+  &quot;id&quot;: &quot;bird-calls&quot;,
+  &quot;title&quot;: &quot;Bird calls&quot;,
+  &quot;clips&quot;: [&quot;call-a.m4a&quot;, &quot;call-b.m4a&quot;, &quot;call-c.m4a&quot;],
+  &quot;role&quot;: &quot;background&quot;,
+  &quot;gain&quot;: 0.2,
+  &quot;placement&quot;: {
+    &quot;type&quot;: &quot;points&quot;,
+    &quot;frame&quot;: &quot;view&quot;,
+    &quot;points&quot;: [
+      {&quot;azimuthDegrees&quot;: -40, &quot;elevationDegrees&quot;: 22, &quot;distanceMeters&quot;: 12},
+      {&quot;azimuthDegrees&quot;: 15, &quot;elevationDegrees&quot;: 28, &quot;distanceMeters&quot;: 18}
+    ],
+    &quot;rolloff&quot;: 0.2
+  },
+  &quot;playback&quot;: {
+    &quot;type&quot;: &quot;random&quot;,
+    &quot;intervalSeconds&quot;: [8, 25],
+    &quot;maxConcurrent&quot;: 1,
+    &quot;avoidImmediateRepeat&quot;: true
+  }
+}
+</code></pre>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th><code>playback.type</code></th>
+<th>Rules</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>loop</code></td>
+<td>Exactly one clip, and <code>ambient</code> or <code>point</code> placement. Optional <code>fadeInSeconds</code> and <code>fadeOutSeconds</code>, each <code>0</code> through <code>5</code>, default <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>random</code></td>
+<td><code>intervalSeconds</code> is an ordered pair within <code>0.25</code> through <code>600</code>. <code>maxConcurrent</code> must be <code>1</code> in this version. <code>avoidImmediateRepeat</code> defaults to <code>false</code> and, when true, avoids repeating the previous clip and position while alternatives exist. No fades.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>A randomized source waits a sampled interval before its first phrase and again
+after each phrase finishes. It chooses a clip and a position once per phrase and
+holds that position for the whole phrase — a call never moves while it sounds.
+Muting, leaving, switching places, or losing the foreground cancels what is
+pending; nothing accumulates while you are away.</p>
+<h2 id="provenance" tabindex="-1">Provenance</h2>
+<p>Every Room and View uses the same required <code>provenance.json</code> shape. Third-party
+content declares <code>license</code>; Locus-owned content that grants no reuse license
+declares <code>rights</code> instead. Exactly one is required:</p>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 1,
+  &quot;creatorOrAgency&quot;: &quot;Example Studio&quot;,
+  &quot;sourcePageURL&quot;: &quot;https://example.com/source&quot;,
+  &quot;originalAssetURL&quot;: &quot;https://example.com/asset&quot;,
+  &quot;license&quot;: {
+    &quot;identifier&quot;: &quot;CC0-1.0&quot;,
+    &quot;name&quot;: &quot;CC0 1.0 Universal&quot;,
+    &quot;url&quot;: &quot;https://creativecommons.org/publicdomain/zero/1.0/&quot;
+  },
+  &quot;requestedCredit&quot;: &quot;Example Studio&quot;,
+  &quot;modificationNotes&quot;: &quot;Prepared as a Locus Room.&quot;,
+  &quot;aiGenerated&quot;: false
+}
+</code></pre>
+<p><code>sourcePageURL</code> and <code>originalAssetURL</code> are optional HTTPS URLs. When
+<code>aiGenerated</code> is <code>true</code>, <code>aiProvider</code> is required and names the provider or
+tools used. When <code>aiGenerated</code> is <code>false</code>, omit <code>aiProvider</code>; supplying it is
+invalid. The license describes rights in the asset. An App Store EULA is an
+app distribution agreement and is not an asset provenance license.</p>
+<p>For an all-rights-reserved original, replace <code>license</code> with:</p>
+<pre><code class="language-json">&quot;rights&quot;: {
+  &quot;statement&quot;: &quot;All rights reserved. No separate reuse license is granted.&quot;,
+  &quot;url&quot;: &quot;https://enterlocus.com/asset-rights/&quot;
+}
+</code></pre>
+<h2 id="pack-and-validate-a-flat-compatibility-zip" tabindex="-1">Pack and validate a flat compatibility ZIP</h2>
+<p>Keep only regular root files in the source directory, then run:</p>
+<pre><code class="language-sh">python3 tools/pack_locus_asset.py /absolute/path/to/asset /absolute/path/to/asset.zip
+python3 tools/validate_locus_asset.py /absolute/path/to/asset.zip
+</code></pre>
+<p>These current public Python tools build and validate only the legacy/simple
+flat compatibility format; they do not build or validate complete Package v2.
+The packer is deterministic, refuses to overwrite an existing ZIP, and only
+publishes a flat ZIP accepted by the same validator. Room validation uses macOS
+<code>sips</code>, Xcode’s <code>usdchecker</code>, and a small Swift RealityKit checker compiled with
+<code>xcrun swiftc</code>. The downloadable Python validator includes its Swift checker; it requires no
+private repository or separately downloaded helper. The same binding rules
+are used by the app before import. A <code>VALID</code> result covers structure, metadata,
+image decoding, model structure, and machine-checkable entity bindings. Import the
+exact ZIP and enter every Room seat to check scale, appearance, and comfort.</p>
+<p>In a flat compatibility ZIP, do not include <code>.blend</code>, GLB, source textures,
+parent folders, symlinks, <code>catalog/</code>, Experience files, an ID, or
+<code>locusplace.json</code>. Those last three belong only to the canonical complete
+Package v2 layout described above.</p>
+<h3 id="inspect-the-delivered-model-before-packaging" tabindex="-1">Inspect the delivered model before packaging</h3>
+<p>The flat compatibility ZIP validator and the app’s public Room import preflight
+both load models with authored name references through RealityKit. References in spatial
+adaptation, rendering, lighting (including proxy anchors and baked indirect),
+and ambient animations must resolve to exactly one entity. Rendering groups
+also reject overlapping ancestor/descendant bindings and subtrees without
+renderable geometry, matching runtime rules. A Blender object and its mesh
+must not share a referenced name: use a distinct mesh name such as
+<code>Table_Cup_Geometry</code>. Unreferenced duplicate names are allowed.</p>
+<p>Import rejects these failures before committing a library entry or consuming
+an import allowance. Transport, schema and resource-budget validation precede
+the native load. This is binding validation, not a substitute for light-material,
+animation-playback or physical-device visual acceptance.
+The optional <code>audit_locus_room.py</code> tool also opens the delivered USD scene and
+checks actual entity identities, overlapping rendering bindings, spotlight
+directions, and the supported shader network. Run it with a Python environment
+containing Pixar USD (<code>pxr</code>), such as Blender’s bundled Python:</p>
+<pre><code class="language-sh">python3 tools/audit_locus_room.py /path/to/room/space.json /path/to/room/scene.usdz
+</code></pre>
+<p>The audit reports the exact entity or shader path when a fix is needed. Bake
+unsupported procedural nodes to Preview Surface texture inputs and bake
+displacement into geometry. Material animation is outside this supported
+author contract and requires separate target-renderer evaluation. Run the
+public packer and validator afterward, then import the resulting ZIP and check
+it in Locus; offline checks cannot establish glass compositing, visual quality,
+tracking, or physical comfort.</p>
+<h3 id="build-an-independent-material-example" tabindex="-1">Build an independent material example</h3>
+<p><code>tools/build_material_study.py</code> creates an editable Blender Room with matte and
+textured glossy floors, three glass finishes, a transparent water surface,
+roughness and coat maps, a wall-facing spotlight, and explicitly declared
+furniture. It uses arbitrary object names and receives a fresh identity on
+normal import. It requires a Locus build supporting Room v5.</p>
+<pre><code class="language-sh">blender --background --factory-startup --python-exit-code 1 --python tools/build_material_study.py -- --output /path/to/material-study
+python3 tools/audit_locus_room.py /path/to/material-study/room/space.json /path/to/material-study/room/scene.usdz
+python3 tools/pack_locus_asset.py /path/to/material-study/room /path/to/material-study.zip
+</code></pre>
+<p>Use a Python environment with Pixar USD for the audit. Keep <code>MaterialStudy.blend</code>
+and the generated textures with the editable source; this workflow imports the
+result as a flat compatibility ZIP.</p>
+</article></main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../../whats-new/">What’s New</a><a href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="../../privacy/">Privacy</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>
