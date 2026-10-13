@@ -449,7 +449,7 @@ class PublicSiteTests(unittest.TestCase):
             "online-views": ["Apply Preview", "Save as View…", "4,096 × 2,048"],
             "recline": ["Viewing position", "Recline angle", "Reset to upright"],
             "experimental-mac-virtual-display": ["Open Mac Virtual Display first", "Allow Mac Virtual Display", "Windows &amp; Crown"],
-            "experimental-real-objects": ["Object Capture", "Create ML", "Import a Real Object", "iCloud Drive", "Reveal Real Objects", "Windows &amp; Crown", "tools/real-objects"],
+            "experimental-real-objects": ["Object Capture", "KIRI Engine", "non-affiliate recommendation", "Create ML", "Import a Real Object", "iCloud Drive", "Reveal Real Objects", "Windows &amp; Crown", "tools/real-objects"],
             "tune-your-place": [
                 "Customize your Place", "Quick Controls", "Light &amp; Picture",
                 "Sky brightness", "Ambient light", "Turn view",
@@ -1485,6 +1485,42 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(required, guide)
         for modeling_instruction in ["Blender MCP", "Create original geometry"]:
             self.assertNotIn(modeling_instruction, guide)
+
+    def test_locus_130_complete_package_profiles_are_public(self):
+        reference = (ROOT / "reference" / "locus-asset-format.md").read_text()
+        for term in [
+            "Locus 1.3.0 View effects and orbital profiles",
+            "locus.view.water.v1", "locus.room.water.v1",
+            "locus.view.clouds.v1", "locus.view.sun-path.v1",
+            "locus.view.fireflies.v1", "locus.view.celestial-sky.v1",
+            "locus.view.near-orbit.v2", "locus.view.gpu-texture.v2",
+            "locus.view.sky.milky-way-map.v1", "sky.moon",
+            "flat `view.json` ZIP does not grow these", "gpuTextures",
+        ]:
+            self.assertIn(term, reference)
+
+        for name in [
+            "view-celestial-v1.schema.json", "view-celestial-v2.schema.json",
+            "view-near-orbit-v1.schema.json", "view-near-orbit-v2.schema.json",
+        ]:
+            schema = json.loads((ROOT / "schemas" / name).read_text())
+            self.assertEqual(schema["$schema"], "https://json-schema.org/draft/2020-12/schema")
+            self.assertEqual(schema["$id"], f"https://enterlocus.com/schemas/{name}")
+
+        for name in ["view-celestial-v1.schema.json", "view-celestial-v2.schema.json"]:
+            schema = json.loads((ROOT / "schemas" / name).read_text())
+            for field in [
+                "cloudHeightRatio", "cloudDriftRatio", "cloudShadowStrength",
+                "cloudEvolution", "cloudEvolutionPeriodSeconds",
+            ]:
+                self.assertIn(field, schema["properties"])
+
+        landing = (ROOT / "package-format" / "index.html").read_text()
+        for path in [
+            "schemas/view-celestial-v2.schema.json",
+            "schemas/view-near-orbit-v2.schema.json",
+        ]:
+            self.assertIn(path, landing)
 
     def test_asset_rights_page_matches_first_party_provenance(self):
         rights = (ROOT / "asset-rights" / "index.html").read_text()
