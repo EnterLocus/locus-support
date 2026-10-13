@@ -5,5 +5,10 @@
     "build": "python3 tools/build_site.py && pagefind --site .site",
     "test:search": "playwright test"
   },
-  "devDependencies": {"pagefind": "1.5.2", "@playwright/test": "1.58.2"}
+  "devDependencies": {
+    "@playwright/test": "1.58.2",
+    "markdown-it": "14.1.0",
+    "markdown-it-anchor": "9.2.0",
+    "pagefind": "1.5.2"
+  }
 }

@@ -48,7 +48,7 @@ what you made on [r/EnterLocus](https://www.reddit.com/r/EnterLocus/). Bring
 structured feature requests to GitHub Discussions. Send private or
 security-sensitive reports to support@enterlocus.com.
 
-A reproducible one-seat walkthrough is available in the [Room integration guide](https://enterlocus.com/build-a-room/#minimal-room). `tools/build_minimal_room.py` creates its geometry, source file, review renders and public metadata from scratch. The [runtime interaction reference](reference/locus-asset-format.md#how-locus-uses-a-room) documents seats, safety, collision and quality bookkeeping, and actual model budgets.
+A reproducible one-seat walkthrough is available in the [Room integration guide](https://enterlocus.com/build-a-room/#minimal-room). `tools/build_minimal_room.py` creates its geometry, source file, review renders and public metadata from scratch. The [runtime interaction reference](https://enterlocus.com/reference/locus-asset-format/#how-locus-uses-a-room) documents seats, safety, collision and quality bookkeeping, and actual model budgets. The [Markdown source](reference/locus-asset-format.md) remains available for download and AI-assisted authoring.
 
 ## Community
 
