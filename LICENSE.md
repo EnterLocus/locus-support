@@ -50,7 +50,8 @@ retain their CC0 1.0 terms. Their works, creators, and source links are listed a
 ## Solar System Scope planetary textures
 
 The Solar System Scope / INOVE images identified in
-`destination.jupiter-from-space` and `destination.neptune-from-space` retain
+`destination.mars-from-space`, `destination.jupiter-from-space` and
+`destination.neptune-from-space` retain
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), together with
 EnterLocus adaptations of those planet-image contributions. This covers
 `celestial/day.jpg` and the planet-image contributions to `panorama.jpg`,
@@ -62,6 +63,22 @@ star data, branding, and unrelated material are excluded. Credit, source links,
 modifications, and exact component scope are recorded at
 <https://enterlocus.com/asset-rights/#solar-system-scope> and in each package’s
 `provenance.json`.
+
+## NASA Moon imagery
+
+`destination.moon-from-space` identifies its NASA CGI Moon Kit source from
+NASA's Scientific Visualization Studio, with Ernie Wright (USRA) and the LRO
+LROC/LOLA teams credited in the package. This source is separate from the
+CC BY 4.0 textures above. Its status and use are described by the
+[NASA Images and Media Usage Guidelines](https://www.nasa.gov/nasa-brand-center/images-and-media/),
+including third-party and endorsement provisions. The reserved-material terms
+here do not claim ownership of, or add restrictions to, NASA source imagery.
+No NASA endorsement or rights to NASA logos or identifiers are granted.
+
+The source, conversion, composition changes and separate star-field provenance
+are documented at <https://enterlocus.com/asset-rights/#nasa-moon> and in the
+package's `provenance.json`. App code, Room assets, branding and unrelated
+material retain their separate rights.
 
 ## Reserved material
 
