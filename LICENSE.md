@@ -47,6 +47,22 @@ The embedded Poly Haven plywood, laminate floor, and white plaster texture maps
 retain their CC0 1.0 terms. Their works, creators, and source links are listed at
 <https://enterlocus.com/asset-rights/#experimental-animation-demo-notices>.
 
+## Solar System Scope planetary textures
+
+The Solar System Scope / INOVE images identified in
+`destination.jupiter-from-space` and `destination.neptune-from-space` retain
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), together with
+EnterLocus adaptations of those planet-image contributions. This covers
+`celestial/day.jpg` and the planet-image contributions to `panorama.jpg`,
+`lighting.jpg`, and `thumbnail.jpg` in the identified View packages.
+
+The reserved-material rules in this repository and Locus application terms
+do not restrict rights granted by that license. App code, Room assets, shared
+star data, branding, and unrelated material are excluded. Credit, source links,
+modifications, and exact component scope are recorded at
+<https://enterlocus.com/asset-rights/#solar-system-scope> and in each package’s
+`provenance.json`.
+
 ## Reserved material
 
 All rights are reserved for every file and asset component not expressly
