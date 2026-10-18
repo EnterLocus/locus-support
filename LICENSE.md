@@ -80,6 +80,18 @@ are documented at <https://enterlocus.com/asset-rights/#nasa-moon> and in the
 package's `provenance.json`. App code, Room assets, branding and unrelated
 material retain their separate rights.
 
+## ESA/Webb imagery in the black hole View tutorial
+
+The images under `assets/tutorials/black-hole/` contain ESA/Webb images
+(Tarantula Nebula weic2212a, Southern Ring Nebula weic2207b, Crab Nebula
+weic2326a and Cosmic Cliffs in Carina weic2205a), credited "NASA, ESA, CSA, and
+STScI" and licensed under
+[CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). Those image
+contributions keep that license; the reserved-material terms here do not claim
+ownership of, or add restrictions to, them. The Locus interface, Room, branding
+and other Locus-authored parts of these images remain reserved. Sources and
+changes are recorded in `assets/README.md`.
+
 ## Reserved material
 
 All rights are reserved for every file and asset component not expressly
