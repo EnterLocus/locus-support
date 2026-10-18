@@ -1,0 +1,76 @@
+{
+  "destinationID": "destination.my-black-hole-ring",
+  "contentVersion": "1.0.0",
+  "title": "My Black Hole: Ring",
+  "caption": "A black hole bends the light of its glowing disc into a ring as distant nebulae drift behind it.",
+  "blackHole": {
+    "yawDegrees": 0,
+    "elevationDegrees": 12,
+    "observerRadius": 30,
+    "disc": {
+      "inner": 6,
+      "spin": 1,
+      "iscoPeriodSeconds": 10,
+      "regenerationSeconds": 12,
+      "profileExponent": 3,
+      "peakTemperatureKelvin": 5200,
+      "textureLogSpan": 0.5,
+      "contrast": 0.75,
+      "outer": 16
+    },
+    "doppler": 0,
+    "glow": 0.3,
+    "drift": {
+      "degreesPerSecond": 0.3,
+      "axis": "up"
+    },
+    "flares": {
+      "intervalSeconds": 5,
+      "lifeSeconds": 8,
+      "brightness": 5,
+      "radiusRange": [
+        1.5,
+        2.6
+      ],
+      "width": 0.7,
+      "arcLength": 2.5
+    }
+  },
+  "bake": {
+    "lensWidth": 4096,
+    "discMapWidth": 4096,
+    "supersample": 3,
+    "glowWidth": 2048,
+    "glowSigmasDegrees": [
+      0.3,
+      1.1,
+      3.3
+    ],
+    "exposureScale": 0.5,
+    "texture": {
+      "width": 4096,
+      "height": 2048,
+      "azimuthCells": 9,
+      "radialCells": 17,
+      "octaves": 6,
+      "gain": 0.55,
+      "style": "ridged"
+    },
+    "inclinationDegrees": 85,
+    "rollDegrees": 6,
+    "thumbnailHfovDegrees": 76
+  },
+  "provenance": {
+    "formatVersion": 1,
+    "creatorOrAgency": "Your Name; NASA, ESA, CSA, and STScI",
+    "requestedCredit": "Tarantula Nebula and Southern Ring Nebula: NASA, ESA, CSA, and STScI (CC BY 4.0). Black hole rendering: Your Name.",
+    "modificationNotes": "A non-spinning black hole computed by Schwarzschild ray tracing with the Locus black-hole tools. Disc turbulence, temperatures, exposure, flares, glow, time compression and the slow drift of the sky are artistic. Two Webb images sit on a procedural starfield, dimmed about three stops and added as light above their own black level: the Tarantula Nebula (weic2212a) behind the hole and the Southern Ring Nebula (weic2207b) opposite it. This is a composition, not a view from any real place.",
+    "aiGenerated": false,
+    "sourcePageURL": "https://esawebb.org/images/weic2212a/",
+    "originalAssetURL": "https://cdn.esawebb.org/archives/images/large/weic2212a.jpg",
+    "rights": {
+      "statement": "ESA/Webb images under Creative Commons Attribution 4.0 International, credited as required; black hole, disc, lensing and starfield computed with the Locus black-hole tools.",
+      "url": "https://esawebb.org/copyright/"
+    }
+  }
+}
