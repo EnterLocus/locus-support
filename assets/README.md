@@ -362,3 +362,49 @@ The Earth capture uses Orbital Lounge, lights on, the illuminated face of Earth.
 | `assets/promo/locus-1.3/aurora.jpg` | `03-aurora-r3.png` | `424e8d35f68b19a1f2e8f5cc2eddd6fea3eb698bca2e4239557eda68c4c11b0b` | `2f168ecb33b7be426caa07de21b6b3a2d16cd56657fddbce4393cfd4ad72b9f8` |
 | `assets/promo/locus-1.3/lake-water.jpg` | `04-lake-water-r3.png` | `1f28e906969376807474a802ca19629546569b66a8c0b409d35dc1b261f2f394` | `45be3faf61e59308635e8a1318507a4fb2f39135171338dc30dc26bde5d20dd7` |
 | `assets/promo/locus-1.3/sunlit-clouds.jpg` | `05-cloud-sea-r3.png` | `b78a524cb19b5418b07ba24223fb7d02de786156d804d8032951da8a0aeb53e0` | `b9c11e3e0be083fb62f12665cbf1271e4a61cf414316ef9c8bb6a9e519cc317a` |
+
+## Black hole View tutorial — October 18, 2026
+
+`tutorials/black-hole/` illustrates `make-a-black-hole-view/`. All files are
+JPEG exports (quality 86, Lanczos resampling in Pillow) with no retouching,
+compositing, relighting or generative editing beyond what is described here.
+
+- `ring-in-locus.jpg`, `edit-view-motion.jpg` and `edit-view-advanced.jpg`
+  are native 3840 × 2160 Simulator captures of Locus Dev on visionOS Simulator,
+  recorded on October 17, 2026 during development of the black-hole Views, with
+  Event Horizon: Ring imported from a file and paired with Atrium Loft. The
+  first is downscaled once to 1920 × 1080. The Edit View captures are cropped,
+  without scaling, to the 820 × 585 slider region of the Edit View panel: at
+  (1510, 965) for the Motion group and (1510, 945) for the Advanced group. Their slider values
+  (for example Sky Drift 0.75 °/s) are from that development build and differ
+  from the published View's defaults. The skies contain ESA/Webb imagery
+  (Tarantula Nebula weic2212a and Cosmic Cliffs in Carina weic2205a, NASA, ESA,
+  CSA, and STScI, CC BY 4.0). They are not evidence of device rendering,
+  brightness, motion or comfort on Apple Vision Pro.
+- `outpaint-before.jpg` is the ESA/Webb Crab Nebula image
+  [weic2326a](https://esawebb.org/images/weic2326a/) (NASA, ESA, CSA, and
+  STScI, CC BY 4.0) downscaled to 1000 pixels wide. `outpaint-after.jpg` is the
+  same photo after a margin was outpainted by Bria Expand on fal.ai (the
+  photographed area is kept; only the surrounding fade into black space is
+  AI-generated), downscaled to 1000 × 1000 and centre-cropped to 1000 × 871 to
+  match the photo beside it.
+- `composed-sky.jpg`, `baked-panorama.jpg` and `preview-still.jpg` were made
+  with `tools/black_hole/` exactly as the tutorial describes, from ESA/Webb
+  weic2212a and weic2207b (NASA, ESA, CSA, and STScI, CC BY 4.0) and the example
+  recipe: `compose_sky.py` with
+  `weic2212a.jpg,0,12,110,0.55,0.1,fade` and `weic2207b.jpg,180,-12,50,0.5,0.2,add`,
+  then `bake_view.py --stills 0,5,10`. They are the sky, `panorama.jpg` and the
+  5-second still, downscaled to 1600 pixels wide. `composed-sky.jpg` is also
+  brightened with a 0.6 gamma so the dark sky is visible on the page, as its
+  caption says.
+
+| Website file | Source SHA-256 | Website SHA-256 |
+| --- | --- | --- |
+| `tutorials/black-hole/ring-in-locus.jpg` | `20d0725120624085b23a625ad73a638ea00b191b6246e5211d115d26af90b2b9` | `f76a980f5c06f5ef6e649041d78fe7bebff20790987529017c0f8ba4ed9b0012` |
+| `tutorials/black-hole/edit-view-motion.jpg` | `cdca942cea0f82f70fd72bf529f3df6c972b757544e84c024647dd69de174e79` | `13955a0b91730a50d3b4d11c1765b292b2c46e50ba4f60a451cf60c13b181599` |
+| `tutorials/black-hole/edit-view-advanced.jpg` | `2440ddbed40201bc473542a72e41178315ccc2feb6d6200eeadb05f00f160144` | `6f7661d7c71e59ed565dae9da7e3e552db73b5631a4fbe6250f9dded788fe23a` |
+| `tutorials/black-hole/outpaint-before.jpg` | `40b9ad0c8ece2c1948e274c9e5a38bcf60c5018fb95ab1d92fd918bc8aa1aa05` | `cbe1c5eb7be6f621227aa07c0ce0a0a72c89fac0589e089857d3313f5030d7ac` |
+| `tutorials/black-hole/outpaint-after.jpg` | `a6b2e019327cf45c8fc5be2469fc332cd58db35b7933683b56f527073b20c338` | `0eff72f55c49ef95942ac14f7062376125ade8449fd041fb4153098dd47afb4b` |
+| `tutorials/black-hole/composed-sky.jpg` | weic2212a `c4b11e8494ee968d6daf3dfaced564bf347ba327e135f5fd2a06673597877ecf`, weic2207b `3b6356f483e3e90c6da9fae8f408e41ed9e0a00baa301a047e5fe55cb423ce80` | `6b9f7668dfa81e8b4635acc3e972507993502109355aedb44eef6978d41e6c8c` |
+| `tutorials/black-hole/baked-panorama.jpg` | as above | `ee81a6a44527c7f5fa26f349526569a9af1772dd578cfd81eb31d31a7e1377a3` |
+| `tutorials/black-hole/preview-still.jpg` | as above | `d6174c4896e8216b9f2c4cf64dcd516f008c06a4675a10335bde5d18bb47af50` |
