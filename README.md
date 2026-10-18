@@ -50,6 +50,12 @@ security-sensitive reports to support@enterlocus.com.
 
 A reproducible one-seat walkthrough is available in the [Room integration guide](https://enterlocus.com/build-a-room/#minimal-room). `tools/build_minimal_room.py` creates its geometry, source file, review renders and public metadata from scratch. The [runtime interaction reference](https://enterlocus.com/reference/locus-asset-format/#how-locus-uses-a-room) documents seats, safety, collision and quality bookkeeping, and actual model budgets. The [Markdown source](reference/locus-asset-format.md) remains available for download and AI-assisted authoring.
 
+`tools/black_hole/` holds the Python 3.9+ tools (NumPy and Pillow) behind the
+[black hole View tutorial](https://enterlocus.com/make-a-black-hole-view/): a
+sky composer, a Schwarzschild lens and baker, and a complete Package v2 packer
+and validator for `locus.view.black-hole.v1` Views, which need Locus 1.3.4 or
+later. See its [README](tools/black_hole/README.md).
+
 ## Community
 
 [Community](https://www.reddit.com/r/EnterLocus/) — Share creations, ask

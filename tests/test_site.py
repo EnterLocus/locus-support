@@ -458,6 +458,11 @@ class PublicSiteTests(unittest.TestCase):
                 "Save for This View…", "Save for This Room…", "Organize Places", "Edit View",
             ],
             "make-a-view": ["Import a View", "View ZIP", "initialYawDegrees"],
+            "make-a-black-hole-view": [
+                "Locus 1.3.4 or later", "Import a View", "Edit View", "Sky Drift", "Disc Flow Speed",
+                "Disc Brightness", "Doppler Beaming", "Turbulence Detail", "Disc Glow", "Flares",
+                "tools/black_hole", "NASA, ESA, CSA, and STScI", "aiGenerated", "Reduce Motion",
+            ],
             "make-a-room": ["smallest working Room", "five files", "Apple Vision Pro"],
             "github-pages-skyboxes": ["GitHub Pages", "image itself", "Save as View…"],
         }
@@ -497,6 +502,32 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('href="../make-a-room/"', faq)
         self.assertNotIn("A new button will appear", faq)
         self.assertNotIn("Turning off Viewing position", faq)
+
+    def test_black_hole_tutorial_and_tools_are_public_safe(self):
+        tools = ROOT / "tools" / "black_hole"
+        for name in ["README.md", "compose_sky.py", "bake_view.py", "pack_view.py", "validate_view.py",
+                     "outpaint_fal.py", "black_hole_lens.py", "black_hole_profile.py", "imaging.py",
+                     "view-black-hole-v1.schema.json", "recipes/ring.view.json",
+                     "tests/test_lens.py", "tests/test_view_tools.py"]:
+            self.assertTrue((tools / name).is_file(), name)
+        for path in sorted(tools.rglob("*.py")):
+            with self.subTest(path=path.relative_to(ROOT)):
+                head = path.read_text().splitlines()[:4]
+                self.assertIn("# SPDX-License-Identifier: Apache-2.0", head)
+        page = (ROOT / "make-a-black-hole-view" / "index.html").read_text()
+        sources = [page] + [path.read_text() for path in sorted(tools.rglob("*"))
+                            if path.is_file() and path.suffix in {".py", ".md", ".json"}]
+        for text in sources:
+            for private in ["#1406", "Dropbox", "TestFlight", "Dev Library", "pack_locusplace",
+                            "validate_locusplace", "package-spec-v2", "FAL_API_KEY"]:
+                self.assertNotIn(private, text)
+        outpaint = (tools / "outpaint_fal.py").read_text()
+        self.assertIn('os.environ.get("FAL_KEY")', outpaint)
+        self.assertIn("--confirm-paid", outpaint)
+        for required in ["optional and paid", "aiGenerated", "aiProvider", "--confirm-paid"]:
+            self.assertIn(required, page)
+        self.assertIn("Needs Locus 1.3.4 or later", page)
+        self.assertIn('href="../make-a-black-hole-view/"', (ROOT / "tutorials" / "index.html").read_text())
 
     def test_online_view_guide_leads_with_the_direct_use_resolution_gate(self):
         guide_path = ROOT / "online-views" / "index.html"
