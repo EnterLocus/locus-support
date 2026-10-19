@@ -869,6 +869,7 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-4-0/"'), archive.index('href="./1-3-1/"'))
         self.assertLess(archive.index('href="./1-3-1/"'), archive.index('href="./1-3-0/"'))
         self.assertLess(archive.index('href="./1-2-3/"'), archive.index('href="./1-2-2/"'))
         self.assertLess(archive.index('href="./1-2-2/"'), archive.index('href="./1-2-1/"'))
@@ -881,6 +882,16 @@ class PublicSiteTests(unittest.TestCase):
         self.assertLess(archive.index('href="./1-1/"'), archive.index('href="./1-0/"'))
 
         releases = {
+            "1-4-0": (
+                "Head into space.",
+                "A tour of the solar system.",
+                "Event Horizon",
+                "../../make-a-black-hole-view/",
+                "Places, grouped into series.",
+                "Move left / right",
+                "requires visionOS 27",
+                "../1-3-1/",
+            ),
             "1-3-1": (
                 "Smoother Places, clearer Real Objects.",
                 "Places is smoother to browse.",
@@ -888,6 +899,7 @@ class PublicSiteTests(unittest.TestCase):
                 "Edit Quick Controls",
                 "Customize Bar",
                 "../1-3-0/",
+                "../1-4-0/",
             ),
             "1-2-3": (
                 "A steady keyboard on your desk.",
@@ -968,8 +980,8 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(phrase, article)
         archive = (ROOT / "whats-new/index.html").read_text()
         self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
-        # 1.3.1 is the current public release; 1.3.0 still leads the homepage story.
-        self.assertIn("Locus 1.3.1 · Latest", archive)
+        # 1.4 is the current public release; 1.3.0 still leads the homepage story.
+        self.assertIn("Locus 1.4 · Latest", archive)
         self.assertIn('href="../1-3-1/"', article)
         self.assertIn("New in Locus 1.3.0", (ROOT / "index.html").read_text())
 
@@ -1003,11 +1015,11 @@ class PublicSiteTests(unittest.TestCase):
         for stale in ["New in Locus 1.2", 'href="./whats-new/1-2/"',
                       'data-youtube-id="nO2B7MP0uzI"']:
             self.assertNotIn(stale, homepage)
-        # 1.3.1 is a smaller update than 1.3.0, so it gets a single "Latest
-        # update" strip above the 1.3.0 story (the pattern 1.2.1–1.2.3 used).
+        # The newest release gets a single "Latest update" strip above the
+        # 1.3.0 story until the homepage gets 1.4 media (the 1.2.1–1.2.3 pattern).
         self.assertIn('class="whats-new-latest"', homepage)
-        self.assertIn('href="./whats-new/1-3-1/"', homepage)
-        self.assertIn("Latest update · Locus 1.3.1", homepage)
+        self.assertIn('href="./whats-new/1-4-0/"', homepage)
+        self.assertIn("Latest update · Locus 1.4", homepage)
         for highlight in ["Bring your own mug.", "More life around you",
                           "Your atmosphere, your controls", "The same capabilities in your ZIP",
                           "Find Places in your language"]:
