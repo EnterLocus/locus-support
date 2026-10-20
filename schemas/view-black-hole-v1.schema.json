@@ -1,0 +1,228 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://enterlocus.com/schemas/view-black-hole-v1.schema.json",
+  "title": "Locus View blackHole v1",
+  "description": "Destination `blackHole` profile (capability locus.view.black-hole.v1, minimum Locus 1.3.4). Cross-field rules (disc.outer >= disc.inner + 1, image shapes, exclusivity with other dynamic View profiles) are enforced by validate_view.py and by Locus at import.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "disc",
+    "discMap",
+    "discMapMaxAngleDegrees",
+    "discTexture",
+    "doppler",
+    "drift",
+    "elevationDegrees",
+    "glow",
+    "lensTable",
+    "observerRadius",
+    "skyTexture",
+    "version",
+    "yawDegrees"
+  ],
+  "properties": {
+    "version": {
+      "const": 1
+    },
+    "skyTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.(?:[jJ][pP][eE]?[gG]|[pP][nN][gG])$"
+    },
+    "lensTable": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.[pP][nN][gG]$"
+    },
+    "discMap": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.[pP][nN][gG]$"
+    },
+    "discTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.[pP][nN][gG]$"
+    },
+    "glowTexture": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 512,
+      "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.[pP][nN][gG]$"
+    },
+    "yawDegrees": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "elevationDegrees": {
+      "type": "number",
+      "minimum": -60,
+      "maximum": 60
+    },
+    "observerRadius": {
+      "type": "number",
+      "minimum": 8,
+      "maximum": 200
+    },
+    "discMapMaxAngleDegrees": {
+      "type": "number",
+      "minimum": 1,
+      "maximum": 179
+    },
+    "doppler": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "glow": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 2
+    },
+    "disc": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "contrast",
+        "exposure",
+        "inner",
+        "iscoPeriodSeconds",
+        "outer",
+        "peakTemperatureKelvin",
+        "profileExponent",
+        "regenerationSeconds",
+        "spin",
+        "textureLogSpan"
+      ],
+      "properties": {
+        "inner": {
+          "type": "number",
+          "minimum": 2.5,
+          "maximum": 20
+        },
+        "iscoPeriodSeconds": {
+          "type": "number",
+          "minimum": 2,
+          "maximum": 600
+        },
+        "regenerationSeconds": {
+          "type": "number",
+          "minimum": 2,
+          "maximum": 120
+        },
+        "profileExponent": {
+          "type": "number",
+          "minimum": 1.5,
+          "maximum": 4
+        },
+        "peakTemperatureKelvin": {
+          "type": "number",
+          "minimum": 1500,
+          "maximum": 40000
+        },
+        "exposure": {
+          "type": "number",
+          "minimum": 0.01,
+          "maximum": 100
+        },
+        "textureLogSpan": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 5
+        },
+        "contrast": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 3
+        },
+        "outer": {
+          "type": "number",
+          "minimum": 3.5,
+          "maximum": 200
+        },
+        "spin": {
+          "enum": [
+            1,
+            -1
+          ]
+        }
+      }
+    },
+    "drift": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "axis",
+        "degreesPerSecond"
+      ],
+      "properties": {
+        "degreesPerSecond": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "axis": {
+          "enum": [
+            "up",
+            "right",
+            "view"
+          ]
+        }
+      }
+    },
+    "flares": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "arcLength",
+        "brightness",
+        "intervalSeconds",
+        "lifeSeconds",
+        "radiusRange",
+        "width"
+      ],
+      "properties": {
+        "intervalSeconds": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 600
+        },
+        "lifeSeconds": {
+          "type": "number",
+          "minimum": 0.5,
+          "maximum": 600
+        },
+        "brightness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 20
+        },
+        "arcLength": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 100
+        },
+        "radiusRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": {
+            "type": "number",
+            "minimum": 1.0,
+            "maximum": 4.0
+          }
+        }
+      }
+    }
+  }
+}

@@ -408,3 +408,33 @@ compositing, relighting or generative editing beyond what is described here.
 | `tutorials/black-hole/composed-sky.jpg` | weic2212a `c4b11e8494ee968d6daf3dfaced564bf347ba327e135f5fd2a06673597877ecf`, weic2207b `3b6356f483e3e90c6da9fae8f408e41ed9e0a00baa301a047e5fe55cb423ce80` | `6b9f7668dfa81e8b4635acc3e972507993502109355aedb44eef6978d41e6c8c` |
 | `tutorials/black-hole/baked-panorama.jpg` | as above | `ee81a6a44527c7f5fa26f349526569a9af1772dd578cfd81eb31d31a7e1377a3` |
 | `tutorials/black-hole/preview-still.jpg` | as above | `d6174c4896e8216b9f2c4cf64dcd516f008c06a4675a10335bde5d18bb47af50` |
+
+## Locus 1.4 film — October 20, 2026
+
+The homepage 1.4.0 leading update block and the 1.4.0 article embed the
+Locus 1.4 "Desk in space" film from YouTube (`VIDEO_ID_TBD`, EnterLocus
+channel `UCuVsVMtpw1NejBaWBXFId4g`, Public, embeddable). It replaces the Real
+Objects cup demo as the homepage's featured update film; that demo stays on
+the 1.3.0 article and the Real Objects tutorial.
+
+The uploaded file is `Locus Launch Media/v1.4.0/social/video-2026-10-19/locus-1.4-desk-in-space-4k.mp4`:
+the owner-approved social edit (63.5 s, music only, no on-screen text)
+rendered at the takes' native 3840 × 2160 from the same edit recipe as the
+1080p master, 30 fps H.264 High, BT.709, with an audio track bit-identical to
+the 1080p master. Every shot is a native visionOS Simulator capture with a
+scripted camera turn, not Apple Vision Pro footage. Event Horizon: Ring is shown
+with its Sky Drift set to 0.4° per second through its own Motion setting; the
+View's default is 0.2° per second.
+
+`promo/locus-1.4-desk-in-space-poster.jpg` is the film's frame at 2.5 s
+(Orbital Lounge with Low Orbit Earth), downscaled once to 1920 × 1080 with
+Lanczos and exported as a JPEG. There is no crop, retouching, compositing,
+relighting or generative editing.
+
+| Film | YouTube watch URL | Uploaded source SHA-256 |
+| --- | --- | --- |
+| Locus 1.4 "Desk in space" (homepage, `whats-new/1-4-0/`) | https://www.youtube.com/watch?v=VIDEO_ID_TBD | `211eb88cfcafec91ccdd2887fb8d8f110b0f31f549affc1650b2cab54b69150b` |
+
+| Website file | Source | Website SHA-256 |
+| --- | --- | --- |
+| `promo/locus-1.4-desk-in-space-poster.jpg` | frame at 2.5 s of the uploaded film | `92b1ac4f46f894d661b8f7261f40686b343bd424f96693cca8d8de648a65d077` |

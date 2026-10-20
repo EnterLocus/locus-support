@@ -28,6 +28,9 @@ APP_STORE_URL = "https://apps.apple.com/app/id6802168265"
 # See assets/README.md "Locus 1.1.3 launch media" for provenance.
 PROMO_1_1_3_MP4_SHA256 = "df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb"
 PROMO_1_1_3_POSTER_SHA256 = "4131719643adafa062d50174d6ba88247b739e14a2fdfbb14e984f4de6413794"
+# The Locus 1.4 "Desk in space" film on the EnterLocus YouTube channel.
+LOCUS_1_4_FILM_ID = "VIDEO_ID_TBD"
+LOCUS_1_4_POSTER_SHA256 = "92b1ac4f46f894d661b8f7261f40686b343bd424f96693cca8d8de648a65d077"
 
 
 class PageParser(html.parser.HTMLParser):
@@ -795,6 +798,7 @@ class PublicSiteTests(unittest.TestCase):
                 "4204e3b47ccc8247955304dd9122781c8908d4bc0f9a3a32d30d0383f16c194f",
             "real-objects-cup-poster.jpg":
                 "c128b412f8813115b6206ea93753bbbd06096ac6947075700be79a70c3fda6be",
+            "locus-1.4-desk-in-space-poster.jpg": LOCUS_1_4_POSTER_SHA256,
         }
         promo_root = ROOT / "assets" / "promo"
         self.assertEqual(
@@ -869,6 +873,8 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-4-0/"'), archive.index('href="./1-3-0/"'))
+        self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
         self.assertLess(archive.index('href="./1-2-3/"'), archive.index('href="./1-2-2/"'))
         self.assertLess(archive.index('href="./1-2-2/"'), archive.index('href="./1-2-1/"'))
         self.assertLess(archive.index('href="./1-2-1/"'), archive.index('href="./1-2/"'))
@@ -959,13 +965,70 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(phrase, article)
         archive = (ROOT / "whats-new/index.html").read_text()
         self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
-        # The current public release is reflected in both archive and homepage.
-        self.assertIn("Locus 1.3.0 · Latest", archive)
-        self.assertIn("New in Locus 1.3.0", (ROOT / "index.html").read_text())
+        self.assertNotIn("Locus 1.3.0 · Latest", archive)
+        self.assertIn('../1-4-0/', parser.links)
 
-    def test_locus_130_gallery_is_shared_by_homepage_and_release_article(self):
+    def test_released_1_4_article_archive_and_homepage(self):
+        article = (ROOT / "whats-new/1-4-0/index.html").read_text()
+        parser = PageParser()
+        parser.feed(article)
+        self.assertEqual(parser.h1_count, 1)
+        self.assertIn("Move your desk to outer space.", article)
+        self.assertIn("Available now for Apple Vision Pro", article)
+        self.assertIn("visionOS 27", article)
+        for phrase in ["the Moon, Mars, Jupiter, Saturn and Neptune", "Into Space",
+                       "Event Horizon: Ring", "Event Horizon: Disc", "series",
+                       "<strong>New</strong>", "Current Place → Motion",
+                       "visionOS Simulator capture", "Sky Drift is set faster than its default",
+                       "Supporter Places"]:
+            self.assertIn(phrase, article.replace("The Moon", "the Moon"))
+        # Free and Supporter access follows the live Production catalog at release.
+        self.assertIn("Event Horizon: Ring is free.", article)
+        self.assertIn("Earth from Space and Low Orbit Earth are free.", article)
+        self.assertNotIn("Browser", article)
+        for href in ["../1-3-0/", "../../make-a-black-hole-view/",
+                     "../../reference/locus-asset-format/#locus-14-view-additions",
+                     "../../schemas/view-black-hole-v1.schema.json", APP_STORE_URL,
+                     f"https://www.youtube.com/watch?v={LOCUS_1_4_FILM_ID}"]:
+            self.assertIn(href, parser.links)
+        self.assertIn(f'data-youtube-id="{LOCUS_1_4_FILM_ID}"', article)
+        self.assertEqual(parser.videos, [])
+
+        archive = (ROOT / "whats-new/index.html").read_text()
+        self.assertIn("Locus 1.4.0 · Latest", archive)
+        self.assertEqual(archive.count("· Latest"), 1)
+        self.assertLess(archive.index('href="./1-4-0/"'), archive.index('href="./1-3-0/"'))
+        self.assertIn("https://enterlocus.com/whats-new/1-4-0/", (ROOT / "sitemap.xml").read_text())
+
+        reference = (ROOT / "reference" / "locus-asset-format.md").read_text()
+        for term in ["### Locus 1.4 View additions", "#### Black hole Views",
+                     "`locus.view.black-hole.v1`", "#### Celestial advection: gas-giant flow",
+                     "#### Oblate bodies and rings", "#### Near-orbit surface data",
+                     "`locus.view.near-orbit.surface.v1`", "#### Water contact calibration",
+                     "`.locusmesh`", "wavelengthMeters", "drawnDiameterDegrees",
+                     "`oceanGlint`"]:
+            self.assertIn(term, reference)
+        black_hole = json.loads((ROOT / "schemas/view-black-hole-v1.schema.json").read_text())
+        self.assertEqual(black_hole["$id"], "https://enterlocus.com/schemas/view-black-hole-v1.schema.json")
+        tool_copy = json.loads((ROOT / "tools/black_hole/view-black-hole-v1.schema.json").read_text())
+        black_hole.pop("$id")
+        tool_copy.pop("$id")
+        self.assertEqual(black_hole, tool_copy)
+        for name in ["view-celestial-v1.schema.json", "view-celestial-v2.schema.json"]:
+            schema = json.loads((ROOT / "schemas" / name).read_text())
+            for field in ["advection", "polarRadiusRatio", "rings"]:
+                self.assertIn(field, schema["properties"])
+            self.assertNotIn("oceanGlint", json.dumps(schema))
+        near_orbit = json.loads((ROOT / "schemas/view-near-orbit-v2.schema.json").read_text())
+        self.assertIn("surface", near_orbit["properties"])
+        self.assertNotIn("oceanGlint", json.dumps(near_orbit))
+        self.assertIn("schemas/view-black-hole-v1.schema.json",
+                      (ROOT / "package-format" / "index.html").read_text())
+
+    def test_locus_130_gallery_stays_with_its_release_article(self):
         expected = {"night-sky.jpg", "earth-orbit.jpg", "aurora.jpg", "lake-water.jpg", "sunlit-clouds.jpg"}
-        for page in [ROOT / "index.html", ROOT / "whats-new/1-3-0/index.html"]:
+        self.assertNotIn("assets/promo/locus-1.3/", (ROOT / "index.html").read_text())
+        for page in [ROOT / "whats-new/1-3-0/index.html"]:
             parser = PageParser()
             parser.feed(page.read_text())
             images = [image for image in parser.images if "assets/promo/locus-1.3/" in image["src"]]
@@ -987,26 +1050,26 @@ class PublicSiteTests(unittest.TestCase):
         # story. Older releases stay in the archive.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
-        self.assertIn("New in Locus 1.3.0", homepage)
-        self.assertIn("Your objects, and a more living View.", homepage)
-        self.assertIn('href="./whats-new/1-3-0/"', homepage)
-        for stale in ["New in Locus 1.2", 'href="./whats-new/1-2/"',
-                      'data-youtube-id="nO2B7MP0uzI"', 'class="whats-new-latest"']:
-            self.assertNotIn(stale, homepage)
-        for highlight in ["Bring your own mug.", "More life around you",
-                          "Your atmosphere, your controls", "The same capabilities in your ZIP",
-                          "Find Places in your language"]:
+        self.assertIn("New in Locus 1.4.0", homepage)
+        self.assertIn("Move your desk to outer space.", homepage)
+        self.assertIn('href="./whats-new/1-4-0/"', homepage)
+        # 1.4 takes over the leading block, so the one-line latest strip would
+        # repeat it, and the 1.3 cup film is replaced by the 1.4 film.
+        for stale in ["New in Locus 1.3", 'href="./whats-new/1-3-0/"', "New in Locus 1.2",
+                      'href="./whats-new/1-2/"', 'data-youtube-id="nO2B7MP0uzI"',
+                      'data-youtube-id="bahHCqyB9M4"', "real-objects-cup-poster.jpg",
+                      'class="whats-new-latest"', "Browser"]:
+            self.assertNotIn(stale, homepage[homepage.index('id="whats-new"'):homepage.index('class="selection-section"')])
+        for highlight in ["Sit at the edge of a black hole.", "Head into space",
+                          "Places, in series", "Make your own", "visionOS 27",
+                          "<strong>Free:</strong> Event Horizon: Ring, Earth from Space and Low Orbit Earth.",
+                          "visionOS Simulator capture"]:
             self.assertIn(highlight, homepage)
-        self.assertIn('href="./experimental-real-objects/"', homepage)
-        self.assertIn('href="./reference/locus-asset-format/"', homepage)
-        self.assertIn("Free · Experimental", homepage)
-        self.assertIn("non-affiliate KIRI Engine", homepage)
-        self.assertIn("tilting can lose tracking", homepage)
-        self.assertIn("Individual new Library revisions may arrive separately", homepage)
+        self.assertIn('href="./make-a-black-hole-view/"', homepage)
         self.assertEqual(parser.videos, [])
-        self.assertIn('data-youtube-id="bahHCqyB9M4"', homepage)
-        self.assertIn("https://www.youtube.com/watch?v=bahHCqyB9M4", parser.links)
-        self.assertIn('./assets/promo/real-objects-cup-poster.jpg', homepage)
+        self.assertIn(f'data-youtube-id="{LOCUS_1_4_FILM_ID}"', homepage)
+        self.assertIn(f"https://www.youtube.com/watch?v={LOCUS_1_4_FILM_ID}", parser.links)
+        self.assertIn('./assets/promo/locus-1.4-desk-in-space-poster.jpg', homepage)
         stylesheet = (ROOT / "assets" / "site.css").read_text()
         self.assertIn(".whats-new-feature", stylesheet)
         self.assertIn(".whats-new-grid", stylesheet)

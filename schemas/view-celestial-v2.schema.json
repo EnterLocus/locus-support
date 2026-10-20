@@ -154,7 +154,7 @@
         },
         "angularSizeDegrees": {
           "type": "number",
-          "minimum": 0.1,
+          "minimum": 0.001,
           "maximum": 5,
           "default": 0.53
         },
@@ -173,6 +173,107 @@
             "minimum": 0,
             "maximum": 1
           }
+        }
+      }
+    },
+    "advection": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Day texture advected along a baked steady flow (minimum App 1.3.2). Excludes nightTexture, cloudTexture and cloud-shell fields. See https://enterlocus.com/reference/locus-asset-format/#celestial-advection-gas-giant-flow.",
+      "required": [
+        "version",
+        "flowTexture",
+        "ageKeyframes",
+        "maxAgeRotations",
+        "displacementRangeDegrees",
+        "regenerationRotations",
+        "crossfade"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "flowTexture": {
+          "type": "string",
+          "pattern": "\\.[Pp][Nn][Gg]$",
+          "description": "16-bit RGB PNG: ageKeyframes+1 stacked 2:1 tiles, 64-1024 wide."
+        },
+        "ageKeyframes": {
+          "type": "integer",
+          "minimum": 2,
+          "maximum": 16
+        },
+        "maxAgeRotations": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 4,
+          "description": "Age of the last tile; at least (0.5 + crossfade) * regenerationRotations."
+        },
+        "displacementRangeDegrees": {
+          "type": "number",
+          "minimum": 1,
+          "maximum": 90
+        },
+        "regenerationRotations": {
+          "type": "number",
+          "minimum": 0.1,
+          "maximum": 4
+        },
+        "crossfade": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 0.45
+        }
+      }
+    },
+    "polarRadiusRatio": {
+      "type": "number",
+      "minimum": 0.85,
+      "maximum": 1,
+      "description": "Polar over equatorial radius of an oblate spheroid about the local spin axis (minimum App 1.3.4); omitted means 1. Size fields keep describing the equatorial radius. See https://enterlocus.com/reference/locus-asset-format/#oblate-bodies-and-rings."
+    },
+    "rings": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "One flat annulus in the body's equatorial plane (minimum App 1.3.4). Radii are multiples of the equatorial radius; also require innerRadiusRatio + 0.05 <= outerRadiusRatio. See https://enterlocus.com/reference/locus-asset-format/#oblate-bodies-and-rings.",
+      "required": [
+        "version",
+        "profileTexture",
+        "innerRadiusRatio",
+        "outerRadiusRatio"
+      ],
+      "properties": {
+        "version": {
+          "const": 1
+        },
+        "profileTexture": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^(?!/)(?!.*(?:^|/)\\.\\.(?:/|$)).+\\.[pP][nN][gG]$",
+          "description": "8-bit RGBA PNG (colour type 6), exactly 1 pixel tall and 64-8192 wide: sRGB colour and straight normal-incidence opacity from the inner (left) to the outer (right) radius."
+        },
+        "innerRadiusRatio": {
+          "type": "number",
+          "minimum": 1.05,
+          "maximum": 3.95
+        },
+        "outerRadiusRatio": {
+          "type": "number",
+          "minimum": 1.1,
+          "maximum": 4
+        },
+        "brightness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 4,
+          "description": "Ring radiance multiplier; default 1."
+        },
+        "unlitBrightness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2,
+          "description": "Unlit-face radiance multiplier for the particles' unknown phase function; default 1."
         }
       }
     }
@@ -200,5 +301,5 @@
       }
     }
   ],
-  "description": "Additionally require radius <= distance/2 and distance+radius <=1100m, enforced by Swift/Python semantic validation. Any of cloudHeightRatio, cloudDriftRatio, cloudShadowStrength, cloudEvolution or cloudEvolutionPeriodSeconds raises the package's required minimumAppVersion to 1.3.0; omitted/zero cloudHeightRatio keeps the prior flat cloud compositing unchanged."
+  "description": "Additionally require radius <= distance/2 and distance+radius <=1100m, enforced by Swift/Python semantic validation. Any of cloudHeightRatio, cloudDriftRatio, cloudShadowStrength, cloudEvolution or cloudEvolutionPeriodSeconds raises the package's required minimumAppVersion to 1.3.0; omitted/zero cloudHeightRatio keeps the prior flat cloud compositing unchanged. polarRadiusRatio or rings raises minimumAppVersion to 1.3.4; polarRadiusRatio excludes the cloud-shell fields, rings excludes nightTexture, cloudTexture, the cloud-shell fields and advection, and the ring's outer edge must stay within 200-1100m of the View origin (Swift/Python semantic validation)."
 }
