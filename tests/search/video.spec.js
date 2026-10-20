@@ -1,6 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const releases = [
+  ['/whats-new/1-4-0/', 'VIDEO_ID_TBD'],
   ['/whats-new/1-3-0/', 'bahHCqyB9M4'],
   ['/whats-new/1-2/', 'nO2B7MP0uzI'],
   ['/whats-new/1-1-5/', 'RPbFXq5-KVE'],
@@ -23,7 +24,7 @@ test('visible videos autoplay muted without stealing focus and retain blocked-pr
   await expect(iframe).not.toBeFocused();
   await expect(page.getByRole('link', { name: 'Watch on YouTube', exact: true }).first()).toHaveAttribute('href', 'https://www.youtube.com/watch?v=NJuKWTs2BRw');
   // The second film is still below the viewport and has not connected.
-  await expect(page.getByRole('link', { name: 'Play the Real Objects cup demo', exact: true })).toHaveCount(1);
+  await expect(page.getByRole('link', { name: 'Play the Locus 1.4 film', exact: true })).toHaveCount(1);
 });
 
 test('mobile release films autoplay muted when scrolled into view and fit the viewport', async ({ page }) => {
