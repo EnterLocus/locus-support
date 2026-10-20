@@ -412,29 +412,25 @@ compositing, relighting or generative editing beyond what is described here.
 ## Locus 1.4 film — October 20, 2026
 
 The homepage 1.4.0 leading update block and the 1.4.0 article embed the
-Locus 1.4 "Desk in space" film from YouTube (`VIDEO_ID_TBD`, EnterLocus
-channel `UCuVsVMtpw1NejBaWBXFId4g`, Public, embeddable). It replaces the Real
-Objects cup demo as the homepage's featured update film; that demo stays on
-the 1.3.0 article and the Real Objects tutorial.
+Locus 1.4 film from YouTube (`ZSZR2hGGOCk`, EnterLocus channel
+`UCuVsVMtpw1NejBaWBXFId4g`, Public, embeddable). It replaces the Real Objects
+cup demo as the homepage's featured update film; that demo stays on the 1.3.0
+article and the Real Objects tutorial.
 
-The uploaded file is `Locus Launch Media/v1.4.0/social/video-2026-10-19/locus-1.4-desk-in-space-4k.mp4`:
-the owner-approved social edit (63.5 s, music only, no on-screen text)
-rendered at the takes' native 3840 × 2160 from the same edit recipe as the
-1080p master, 30 fps H.264 High, BT.709, with an audio track bit-identical to
-the 1080p master. Every shot is a native visionOS Simulator capture with a
-scripted camera turn, not Apple Vision Pro footage. Event Horizon: Ring is shown
-with its Sky Drift set to 0.4° per second through its own Motion setting; the
-View's default is 0.2° per second.
+The uploaded file is the owner's own Apple Vision Pro recording,
+`Locus Launch Media/v1.4.0/social/video-2026-10-19/locus-social-20261020-v1-4k.mp4`
+(55.3 s, 3840 × 2160, 30 fps H.264, AAC), uploaded byte for byte: a black hole,
+Saturn, Jupiter and Earth from orbit, then night Views with the Moon, the Milky
+Way and the aurora.
 
-`promo/locus-1.4-desk-in-space-poster.jpg` is the film's frame at 2.5 s
-(Orbital Lounge with Low Orbit Earth), downscaled once to 1920 × 1080 with
-Lanczos and exported as a JPEG. There is no crop, retouching, compositing,
+`promo/locus-1.4-film-poster.jpg` is the film's frame at 2 s, scaled once to
+1920 × 1080 and exported as a JPEG. There is no crop, retouching, compositing,
 relighting or generative editing.
 
 | Film | YouTube watch URL | Uploaded source SHA-256 |
 | --- | --- | --- |
-| Locus 1.4 "Desk in space" (homepage, `whats-new/1-4-0/`) | https://www.youtube.com/watch?v=VIDEO_ID_TBD | `211eb88cfcafec91ccdd2887fb8d8f110b0f31f549affc1650b2cab54b69150b` |
+| Locus 1.4 (homepage, `whats-new/1-4-0/`) | https://www.youtube.com/watch?v=ZSZR2hGGOCk | `618ab7d0542c1c782d176f79f989bc602b6028b1bdc016a581babadef0dc3a05` |
 
 | Website file | Source | Website SHA-256 |
 | --- | --- | --- |
-| `promo/locus-1.4-desk-in-space-poster.jpg` | frame at 2.5 s of the uploaded film | `92b1ac4f46f894d661b8f7261f40686b343bd424f96693cca8d8de648a65d077` |
+| `promo/locus-1.4-film-poster.jpg` | frame at 2 s of the uploaded film | `f17d08e362e8ba7c54e875f22f6f63549da7d3a7e16855047633dd73c1d67faa` |

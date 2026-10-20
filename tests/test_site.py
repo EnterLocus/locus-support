@@ -28,9 +28,9 @@ APP_STORE_URL = "https://apps.apple.com/app/id6802168265"
 # See assets/README.md "Locus 1.1.3 launch media" for provenance.
 PROMO_1_1_3_MP4_SHA256 = "df39fede8e8c44ac18050df033e88908b88c22d1badbcda912aa7c730e58e9cb"
 PROMO_1_1_3_POSTER_SHA256 = "4131719643adafa062d50174d6ba88247b739e14a2fdfbb14e984f4de6413794"
-# The Locus 1.4 "Desk in space" film on the EnterLocus YouTube channel.
-LOCUS_1_4_FILM_ID = "VIDEO_ID_TBD"
-LOCUS_1_4_POSTER_SHA256 = "92b1ac4f46f894d661b8f7261f40686b343bd424f96693cca8d8de648a65d077"
+# The Locus 1.4 film on the EnterLocus YouTube channel.
+LOCUS_1_4_FILM_ID = "ZSZR2hGGOCk"
+LOCUS_1_4_POSTER_SHA256 = "f17d08e362e8ba7c54e875f22f6f63549da7d3a7e16855047633dd73c1d67faa"
 
 
 class PageParser(html.parser.HTMLParser):
@@ -798,7 +798,7 @@ class PublicSiteTests(unittest.TestCase):
                 "4204e3b47ccc8247955304dd9122781c8908d4bc0f9a3a32d30d0383f16c194f",
             "real-objects-cup-poster.jpg":
                 "c128b412f8813115b6206ea93753bbbd06096ac6947075700be79a70c3fda6be",
-            "locus-1.4-desk-in-space-poster.jpg": LOCUS_1_4_POSTER_SHA256,
+            "locus-1.4-film-poster.jpg": LOCUS_1_4_POSTER_SHA256,
         }
         promo_root = ROOT / "assets" / "promo"
         self.assertEqual(
@@ -979,7 +979,7 @@ class PublicSiteTests(unittest.TestCase):
         for phrase in ["the Moon, Mars, Jupiter, Saturn and Neptune", "Into Space",
                        "Event Horizon: Ring", "Event Horizon: Disc", "series",
                        "<strong>New</strong>", "Current Place → Motion",
-                       "visionOS Simulator capture", "Sky Drift is set faster than its default",
+                       "Recorded on Apple Vision Pro",
                        "Supporter Places"]:
             self.assertIn(phrase, article.replace("The Moon", "the Moon"))
         # Free and Supporter access follows the live Production catalog at release.
@@ -1063,13 +1063,13 @@ class PublicSiteTests(unittest.TestCase):
         for highlight in ["Sit at the edge of a black hole.", "Head into space",
                           "Places, in series", "Make your own", "visionOS 27",
                           "<strong>Free:</strong> Event Horizon: Ring, Earth from Space and Low Orbit Earth.",
-                          "visionOS Simulator capture"]:
+                          "Recorded on Apple Vision Pro"]:
             self.assertIn(highlight, homepage)
         self.assertIn('href="./make-a-black-hole-view/"', homepage)
         self.assertEqual(parser.videos, [])
         self.assertIn(f'data-youtube-id="{LOCUS_1_4_FILM_ID}"', homepage)
         self.assertIn(f"https://www.youtube.com/watch?v={LOCUS_1_4_FILM_ID}", parser.links)
-        self.assertIn('./assets/promo/locus-1.4-desk-in-space-poster.jpg', homepage)
+        self.assertIn('./assets/promo/locus-1.4-film-poster.jpg', homepage)
         stylesheet = (ROOT / "assets" / "site.css").read_text()
         self.assertIn(".whats-new-feature", stylesheet)
         self.assertIn(".whats-new-grid", stylesheet)

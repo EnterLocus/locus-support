@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 
 const releases = [
-  ['/whats-new/1-4-0/', 'VIDEO_ID_TBD'],
+  ['/whats-new/1-4-0/', 'ZSZR2hGGOCk'],
   ['/whats-new/1-3-0/', 'bahHCqyB9M4'],
   ['/whats-new/1-2/', 'nO2B7MP0uzI'],
   ['/whats-new/1-1-5/', 'RPbFXq5-KVE'],
