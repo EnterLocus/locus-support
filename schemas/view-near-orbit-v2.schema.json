@@ -182,6 +182,35 @@
         }
       },
       "description": "Optional tile grid. Row 0 is the northernmost row."
+    },
+    "surface": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "manifest",
+        "tileSize"
+      ],
+      "properties": {
+        "manifest": {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 512,
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?(/|$)).+\\.[jJ][sS][oO][nN]$",
+          "description": "Package-relative surface manifest JSON (encoding slope-east-north-water-v1); differs from tiles.manifest."
+        },
+        "tileSize": {
+          "type": "integer",
+          "minimum": 16,
+          "maximum": 4096,
+          "description": "Square size of every surface tile (8-bit RGB PNG)."
+        }
+      },
+      "description": "Optional per-tile terrain slopes and water cover on the tiles grid. Requires tiles, materialRevision 7 (6 is reserved), minimumAppVersion 1.3.2 and capability locus.view.near-orbit.surface.v1."
     }
+  },
+  "dependentRequired": {
+    "surface": [
+      "tiles"
+    ]
   }
 }
