@@ -119,7 +119,8 @@ A `midground` object must contain `path`, `water`, or both:
   per full sway cycle) is finite within `0.5...30`. The optional
   `directionDegrees` (azimuth the wind comes from, same convention as
   `water.waveDirectionDegrees`) is finite within `-360...360` and defaults to
-  `0`; plants tilt downwind.
+  `0`; plants tilt downwind. Locus 1.4 adds an optional traveling-wind
+  `wavelengthMeters`; see [Smaller additions](#smaller-additions).
 - `water.levelMeters` is required and must be finite from `-20` through `0`.
   `water.mask` is a package-relative grayscale 2:1 PNG in the panorama's
   equirectangular coordinates. `water.normalMap` is a package-relative RGB or
@@ -376,7 +377,8 @@ For an authored Moon, position, phase, brightness and size are optional. The
 visitor can override them in Motion; in Real mode the Moon instead follows
 the visitor's location and clock. Its azimuth is `-180...180` degrees,
 elevation `0...85`, illumination and maximum illumination `0...1`, brightness
-`0...2`, and size scale `1...3`. Aurora palette is `classic`, `storm`, or
+`0...2`, and size scale `1...3`. Locus 1.4 can instead fix the drawn size with
+`drawnDiameterDegrees`; see [Smaller additions](#smaller-additions). Aurora palette is `classic`, `storm`, or
 `low-latitude`, intensity is `0...2`, and north azimuth is `-180...180`.
 Its optional `substorms` object has `periodSeconds` exactly zero or
 `120...3600`, `firstOnsetSeconds` `0...3600`, `strength` `0...1.5`, and
@@ -479,6 +481,230 @@ tiles are square and bake with clamped edges. The renderer prefers a valid
 sidecar, then falls back to its JPEG/PNG unchanged if the sidecar cannot load.
 For near-orbit v2, every eligible global texture and every tile needs a
 matching sidecar entry.
+
+### Locus 1.4 View additions
+
+Locus 1.4.0 is the first public release that reads the fields in this section.
+Like the 1.3.0 fields above, they belong in a complete Package v2
+`destination.json`; a flat `view.json` ZIP does not grow them. Each subsection
+names the `minimumAppVersion` the field needs. These floors were set during
+1.4 development, so any of them is satisfied by `1.4.0`, and declaring
+`"1.4.0"` is always correct. Except where noted, Locus rejects an import whose
+declared version is lower than a field's floor. The capability names are for Library publication;
+a complete imported ZIP declares its version, not capability tokens.
+
+#### Black hole Views
+
+`blackHole` is a whole-sphere View profile: a far-field, non-spinning
+(Schwarzschild) black hole with a thin accretion disc, lensing an authored sky.
+It needs `minimumAppVersion` `1.3.4` (Library capability
+`locus.view.black-hole.v1`). The observer and the hole are fixed, so every
+geometric quantity is baked offline into the lens table and disc map; Locus
+only animates the disc's gas, a slow drift of the unlensed sky, short flares and
+a glow, and never traces a ray. Like `nearOrbit`, it excludes `celestial`,
+`nearOrbit`, `sky`, `media`, `midground`, `water`, `fireflies`, `clouds`,
+`pointLights` and `environment.sunPath`.
+
+```json
+"blackHole": {
+  "version": 1,
+  "skyTexture": "black-hole/sky.jpg",
+  "lensTable": "black-hole/lens.png",
+  "discMap": "black-hole/disc-map.png",
+  "discTexture": "black-hole/disc-texture.png",
+  "glowTexture": "black-hole/glow.png",
+  "yawDegrees": 0, "elevationDegrees": 12,
+  "observerRadius": 30, "discMapMaxAngleDegrees": 30,
+  "disc": {"inner": 6, "outer": 16, "spin": 1,
+           "iscoPeriodSeconds": 10, "regenerationSeconds": 12,
+           "profileExponent": 3, "peakTemperatureKelvin": 5200,
+           "exposure": 1.1, "textureLogSpan": 0.6, "contrast": 0.75},
+  "doppler": 0, "glow": 0.3,
+  "drift": {"degreesPerSecond": 0.75, "axis": "up"},
+  "flares": {"intervalSeconds": 5, "lifeSeconds": 8, "brightness": 4,
+             "radiusRange": [1.1, 2.2], "width": 0.7, "arcLength": 2.5}
+}
+```
+
+`glowTexture` and `flares` are optional; everything else is required, and
+unknown keys and nulls are rejected at every level. The complete `panorama`
+is still required: it is the View at time zero, the first live frame, and the
+exact image shown when Motion is off or Reduce Motion is on. In Current Place →
+Motion, visitors can change Sky Drift (0–2 °/s), flow speed, Doppler, glow,
+flares, detail and brightness for each View; the authored values are the
+defaults.
+
+The [black hole View tutorial](https://enterlocus.com/make-a-black-hole-view/) walks through the
+whole bake with open tools: a sky composer, the lens and disc baker, and a
+Package v2 packer and validator. Use the
+[black hole v1 schema](../schemas/view-black-hole-v1.schema.json) for exact keys
+and ranges, and the tools' README for the lens-table, disc-map and texture
+encodings.
+
+#### Celestial advection: gas-giant flow
+
+Celestial v1 and v2 may add `advection`, which carries the body's day texture
+along an authored steady flow so cloud bands drift and shear and vortices turn,
+without the texture streaking out. It needs `minimumAppVersion` `1.3.2`; there
+is no separate capability.
+
+```json
+"advection": {
+  "version": 1, "flowTexture": "celestial/advection.png",
+  "ageKeyframes": 8, "maxAgeRotations": 0.84,
+  "displacementRangeDegrees": 13, "regenerationRotations": 1.2,
+  "crossfade": 0.2
+}
+```
+
+All seven fields are required. `flowTexture` is one non-interlaced 16-bit RGB
+PNG, 64–1024 pixels wide (even), holding `ageKeyframes + 1` (2–16) stacked 2:1
+tiles, north up, tile 0 at the top. Tile `j` gives, for every surface point,
+where its colour came from after age `j × maxAgeRotations / ageKeyframes`
+rotations: red and green are the longitude and latitude displacement,
+encoded as `32768 + 32767 × degrees / displacementRangeDegrees` (range
+`1...90`). Tile 0 is age zero; its blue channel holds the per-pixel
+regeneration phase (0–65535 for one cycle). `regenerationRotations` is
+`0.1...4`, `crossfade` is `0.05...0.45`, and `maxAgeRotations` (`0.05...4`)
+must reach `(0.5 + crossfade) × regenerationRotations`. The flow texture is raw
+data: it is not a GPU-texture sidecar source, and it counts toward the image
+budget. `advection` excludes `nightTexture`, `cloudTexture` and every
+cloud-shell field. The complete panorama, rendered without flow, remains the
+Motion-off fallback.
+
+#### Oblate bodies and rings
+
+Celestial v1 and v2 may add `polarRadiusRatio` and `rings` to draw a ringed
+giant planet as real three-dimensional geometry rather than a halo around a
+sphere. Either field needs `minimumAppVersion` `1.3.4`; there is no separate
+capability.
+
+```json
+"polarRadiusRatio": 0.902,
+"rings": {
+  "version": 1, "profileTexture": "celestial/rings.png",
+  "innerRadiusRatio": 1.239, "outerRadiusRatio": 2.27,
+  "brightness": 1, "unlitBrightness": 0.6
+}
+```
+
+`polarRadiusRatio` (`0.85...1`, default 1) is the polar radius over the
+equatorial radius; the existing size fields keep describing the equatorial
+radius, and the texture keeps its longitude/latitude layout. It excludes the
+cloud-shell fields. `rings` is one flat annulus in the body's equatorial plane
+that shares the body's position, axial tilt and size, and does not spin with
+it. `version`, `profileTexture`, `innerRadiusRatio` and `outerRadiusRatio` are
+required. Radii are multiples of the equatorial radius, with
+`1.05 <= inner`, `inner + 0.05 <= outer <= 4`. The whole ring must stay
+between 200 m and 1100 m away: with `R` the outer radius in metres,
+`distance - R >= 200` and `distance + R <= 1100`. `profileTexture` is an
+8-bit RGBA PNG (colour type 6), 64–8192 pixels wide and exactly 1 pixel tall:
+left is the inner edge, RGB is the sRGB ring colour and straight alpha is the
+opacity seen face-on, from which Locus derives the ring's transparency and the
+shadows between ring and planet. `brightness` is `0...4` and
+`unlitBrightness`, the unlit face, is `0...2`; both default to 1. `rings`
+excludes `nightTexture`, `cloudTexture`, the cloud-shell fields and
+`advection`. Bake the ring and both shadows into the complete panorama, which
+is shown with Motion off.
+
+#### Near-orbit surface data
+
+A near-orbit v2 profile with `tiles` may add per-tile surface data on the same
+grid: terrain slopes for relief shading and water cover for sun glint. It
+needs `minimumAppVersion` `1.3.2` (Library capability
+`locus.view.near-orbit.surface.v1`).
+
+```json
+"surface": {"manifest": "surface/surface.json", "tileSize": 1024}
+```
+
+`manifest` is a package-relative `.json` path different from `tiles.manifest`;
+`tileSize` is an integer `16...4096`. The surface manifest has the tile
+manifest's shape plus `"encoding": "slope-east-north-water-v1"`, with the
+same `columns`, `rows` and `latitudeSouthDegrees` as `tiles`, and every
+`(row, column)` exactly once with its `sha256` and `byteCount`. Each surface
+tile is a lossless `tileSize` square 8-bit RGB PNG (no alpha) covering the same
+area as the day tile with the same `(row, column)`: red is
+`0.5 + 0.5 × slopeEast`, green `0.5 + 0.5 × slopeNorth` (each clamped to
+`-1...1`), and blue is water cover (`0` land, `1` open water), so
+`(128, 128, 0)` is flat land. Every surface tile needs a `gpuTextures` sidecar
+entry in `astc-6x6-linear`, square and converted with clamped edges like the
+day tiles. A profile with `surface` uses fallback-proof material revision `7`:
+the token suffix is `near-orbit-material-7`, followed by the surface manifest's
+SHA-256 after the tile manifest's.
+
+#### Water contact calibration
+
+A View water region may add `contactCalibration` (`layered-proxy-v1`) so that
+photographed rocks and shores meet the rendered water. It supplies real
+dry-land geometry near the visitor and an authored background for the area that
+geometry uncovers. It needs `minimumAppVersion` `1.3.2` (Library capability
+`locus.view.water.contact-calibration.v1`).
+
+```json
+"contactCalibration": {
+  "model": "layered-proxy-v1",
+  "referenceEyeHeightMeters": 1.5,
+  "referenceSkyCenterMeters": [0, 0.2, 0],
+  "referenceYawDegrees": 0, "referencePitchDegrees": 0,
+  "sourcePanorama": "contact-source.png",
+  "sourcePanoramaSHA256": "<64 lowercase hex characters>",
+  "sourceMaskSHA256": "<64 lowercase hex characters>",
+  "landMesh": "contact-land.locusmesh",
+  "landTexture": "contact-land.png",
+  "removalMask": "contact-removal.png",
+  "waterCoverage": "contact-coverage.png",
+  "reflectionPanorama": "contact-reflection.png"
+}
+```
+
+The View's `panorama.path` becomes the authored far background, and
+`sourcePanorama` is the original photograph at the same size. The two must be
+identical wherever the removal mask is zero, and `sourcePanoramaSHA256` and
+`sourceMaskSHA256` bind the source and the region's original
+`blend.panoramaMask`. The removal and coverage masks are 8-bit grayscale 2:1
+PNGs of equal size; the removal mask contains both 0 and 255, and the
+coverage mask covers the original water mask and the removed area. An optional
+`sourceProjection` records a latitude correction already baked into the source
+(`latitude-mobius-v1` with one horizon elevation, or
+`latitude-mobius-profile-v1` with 3–64 horizon samples); it is not a runtime
+transform.
+
+`landMesh` is a `.locusmesh` file: UTF-8 JSON of at most 32 MiB with exactly
+`formatVersion` (1), `positionsMeters`, `sourceUV`, `textureUV`, `indices` and
+`contacts`. It has 3–250,000 vertices within ±1000 m at or above the water
+plane, nondegenerate triangles facing the reference eye, and contact records
+(`vertex`, `distanceMeters`, `kind` of `rock` or `shore`) that lie on the
+water plane at their declared range, from 0.5 m to inside the water disc.
+`landTexture` is the land's colour atlas, and `reflectionPanorama` is a 2:1
+radiance-direction texture for reflections.
+
+The contract currently accepts only a pure photographic View with one
+identity-rotation, floor-relative disc region, `blend.horizonSkirt` on, no
+`glow`, and zero authored and composed pitch; anything else is rejected at
+import. Contact ranges and the hidden background are authored approximations
+for one reference eye position, not surveyed terrain.
+
+#### Smaller additions
+
+- `midground.windSway.wavelengthMeters` (`1...200`; declare
+  `minimumAppVersion` `1.3.4`, Library capability
+  `locus.view.midground.wind-sway.wave.v1`) turns per-plant sway into one gust
+  wave rolling downwind at `wavelengthMeters / periodSeconds` metres per second,
+  and plants lean downwind on average. Author each plant clump as its own unit
+  with its origin at its root. Import does not check this floor; earlier
+  versions of Locus ignore the field and sway each plant on its own.
+- `sky.moon.drawnDiameterDegrees` (`0.5172...24`) fixes the Moon's drawn
+  angular diameter instead of the natural size times `sizeScale`. It changes
+  only the drawn disc and the stars it hides, not moonlight or sky glow. Earlier
+  versions of Locus ignore it.
+- `celestial.sunDisc.angularSizeDegrees` now accepts values down to `0.001`.
+- `oceanGlint`, an experimental block in two Library revisions that never
+  shipped publicly, is not part of the public format; Locus rejects it.
+
+Two-eye depth, shimmer, performance and comfort for these effects still need
+review on Apple Vision Pro for each new View; Simulator captures do not
+establish them.
 
 ## Legacy/simple flat ZIP compatibility
 

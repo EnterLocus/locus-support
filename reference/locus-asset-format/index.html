@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
-  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-3"><a href="#locus-14-view-additions">Locus 1.4 View additions</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
 <h2 id="complete-package-v2--canonical-import-format" tabindex="-1">Complete Package v2 — canonical import format</h2>
 <p>Locus 1.2.1 and later accepts a complete Package v2 ZIP from Files or a direct
 public HTTPS URL through both <strong>Import a View</strong> and <strong>Import a Room</strong>. Use an
@@ -117,7 +117,8 @@ midground unit whose own name starts with one of them sways. <code>amplitudeDegr
 per full sway cycle) is finite within <code>0.5...30</code>. The optional
 <code>directionDegrees</code> (azimuth the wind comes from, same convention as
 <code>water.waveDirectionDegrees</code>) is finite within <code>-360...360</code> and defaults to
-<code>0</code>; plants tilt downwind.</li>
+<code>0</code>; plants tilt downwind. Locus 1.4 adds an optional traveling-wind
+<code>wavelengthMeters</code>; see <a href="#smaller-additions">Smaller additions</a>.</li>
 <li><code>water.levelMeters</code> is required and must be finite from <code>-20</code> through <code>0</code>.
 <code>water.mask</code> is a package-relative grayscale 2:1 PNG in the panorama’s
 equirectangular coordinates. <code>water.normalMap</code> is a package-relative RGB or
@@ -337,7 +338,8 @@ increasing left, north at top. Include its truthful source credit and rights.</p
 visitor can override them in Motion; in Real mode the Moon instead follows
 the visitor’s location and clock. Its azimuth is <code>-180...180</code> degrees,
 elevation <code>0...85</code>, illumination and maximum illumination <code>0...1</code>, brightness
-<code>0...2</code>, and size scale <code>1...3</code>. Aurora palette is <code>classic</code>, <code>storm</code>, or
+<code>0...2</code>, and size scale <code>1...3</code>. Locus 1.4 can instead fix the drawn size with
+<code>drawnDiameterDegrees</code>; see <a href="#smaller-additions">Smaller additions</a>. Aurora palette is <code>classic</code>, <code>storm</code>, or
 <code>low-latitude</code>, intensity is <code>0...2</code>, and north azimuth is <code>-180...180</code>.
 Its optional <code>substorms</code> object has <code>periodSeconds</code> exactly zero or
 <code>120...3600</code>, <code>firstOnsetSeconds</code> <code>0...3600</code>, <code>strength</code> <code>0...1.5</code>, and
@@ -427,6 +429,199 @@ tiles are square and bake with clamped edges. The renderer prefers a valid
 sidecar, then falls back to its JPEG/PNG unchanged if the sidecar cannot load.
 For near-orbit v2, every eligible global texture and every tile needs a
 matching sidecar entry.</p>
+<h3 id="locus-14-view-additions" tabindex="-1">Locus 1.4 View additions</h3>
+<p>Locus 1.4.0 is the first public release that reads the fields in this section.
+Like the 1.3.0 fields above, they belong in a complete Package v2
+<code>destination.json</code>; a flat <code>view.json</code> ZIP does not grow them. Each subsection
+names the <code>minimumAppVersion</code> the field needs. These floors were set during
+1.4 development, so any of them is satisfied by <code>1.4.0</code>, and declaring
+<code>&quot;1.4.0&quot;</code> is always correct. Except where noted, Locus rejects an import whose
+declared version is lower than a field’s floor. The capability names are for Library publication;
+a complete imported ZIP declares its version, not capability tokens.</p>
+<h4 id="black-hole-views" tabindex="-1">Black hole Views</h4>
+<p><code>blackHole</code> is a whole-sphere View profile: a far-field, non-spinning
+(Schwarzschild) black hole with a thin accretion disc, lensing an authored sky.
+It needs <code>minimumAppVersion</code> <code>1.3.4</code> (Library capability
+<code>locus.view.black-hole.v1</code>). The observer and the hole are fixed, so every
+geometric quantity is baked offline into the lens table and disc map; Locus
+only animates the disc’s gas, a slow drift of the unlensed sky, short flares and
+a glow, and never traces a ray. Like <code>nearOrbit</code>, it excludes <code>celestial</code>,
+<code>nearOrbit</code>, <code>sky</code>, <code>media</code>, <code>midground</code>, <code>water</code>, <code>fireflies</code>, <code>clouds</code>,
+<code>pointLights</code> and <code>environment.sunPath</code>.</p>
+<pre><code class="language-json">&quot;blackHole&quot;: {
+  &quot;version&quot;: 1,
+  &quot;skyTexture&quot;: &quot;black-hole/sky.jpg&quot;,
+  &quot;lensTable&quot;: &quot;black-hole/lens.png&quot;,
+  &quot;discMap&quot;: &quot;black-hole/disc-map.png&quot;,
+  &quot;discTexture&quot;: &quot;black-hole/disc-texture.png&quot;,
+  &quot;glowTexture&quot;: &quot;black-hole/glow.png&quot;,
+  &quot;yawDegrees&quot;: 0, &quot;elevationDegrees&quot;: 12,
+  &quot;observerRadius&quot;: 30, &quot;discMapMaxAngleDegrees&quot;: 30,
+  &quot;disc&quot;: {&quot;inner&quot;: 6, &quot;outer&quot;: 16, &quot;spin&quot;: 1,
+           &quot;iscoPeriodSeconds&quot;: 10, &quot;regenerationSeconds&quot;: 12,
+           &quot;profileExponent&quot;: 3, &quot;peakTemperatureKelvin&quot;: 5200,
+           &quot;exposure&quot;: 1.1, &quot;textureLogSpan&quot;: 0.6, &quot;contrast&quot;: 0.75},
+  &quot;doppler&quot;: 0, &quot;glow&quot;: 0.3,
+  &quot;drift&quot;: {&quot;degreesPerSecond&quot;: 0.75, &quot;axis&quot;: &quot;up&quot;},
+  &quot;flares&quot;: {&quot;intervalSeconds&quot;: 5, &quot;lifeSeconds&quot;: 8, &quot;brightness&quot;: 4,
+             &quot;radiusRange&quot;: [1.1, 2.2], &quot;width&quot;: 0.7, &quot;arcLength&quot;: 2.5}
+}
+</code></pre>
+<p><code>glowTexture</code> and <code>flares</code> are optional; everything else is required, and
+unknown keys and nulls are rejected at every level. The complete <code>panorama</code>
+is still required: it is the View at time zero, the first live frame, and the
+exact image shown when Motion is off or Reduce Motion is on. In Current Place →
+Motion, visitors can change Sky Drift (0–2 °/s), flow speed, Doppler, glow,
+flares, detail and brightness for each View; the authored values are the
+defaults.</p>
+<p>The <a href="https://enterlocus.com/make-a-black-hole-view/">black hole View tutorial</a> walks through the
+whole bake with open tools: a sky composer, the lens and disc baker, and a
+Package v2 packer and validator. Use the
+<a href="../../schemas/view-black-hole-v1.schema.json">black hole v1 schema</a> for exact keys
+and ranges, and the tools’ README for the lens-table, disc-map and texture
+encodings.</p>
+<h4 id="celestial-advection-gas-giant-flow" tabindex="-1">Celestial advection: gas-giant flow</h4>
+<p>Celestial v1 and v2 may add <code>advection</code>, which carries the body’s day texture
+along an authored steady flow so cloud bands drift and shear and vortices turn,
+without the texture streaking out. It needs <code>minimumAppVersion</code> <code>1.3.2</code>; there
+is no separate capability.</p>
+<pre><code class="language-json">&quot;advection&quot;: {
+  &quot;version&quot;: 1, &quot;flowTexture&quot;: &quot;celestial/advection.png&quot;,
+  &quot;ageKeyframes&quot;: 8, &quot;maxAgeRotations&quot;: 0.84,
+  &quot;displacementRangeDegrees&quot;: 13, &quot;regenerationRotations&quot;: 1.2,
+  &quot;crossfade&quot;: 0.2
+}
+</code></pre>
+<p>All seven fields are required. <code>flowTexture</code> is one non-interlaced 16-bit RGB
+PNG, 64–1024 pixels wide (even), holding <code>ageKeyframes + 1</code> (2–16) stacked 2:1
+tiles, north up, tile 0 at the top. Tile <code>j</code> gives, for every surface point,
+where its colour came from after age <code>j × maxAgeRotations / ageKeyframes</code>
+rotations: red and green are the longitude and latitude displacement,
+encoded as <code>32768 + 32767 × degrees / displacementRangeDegrees</code> (range
+<code>1...90</code>). Tile 0 is age zero; its blue channel holds the per-pixel
+regeneration phase (0–65535 for one cycle). <code>regenerationRotations</code> is
+<code>0.1...4</code>, <code>crossfade</code> is <code>0.05...0.45</code>, and <code>maxAgeRotations</code> (<code>0.05...4</code>)
+must reach <code>(0.5 + crossfade) × regenerationRotations</code>. The flow texture is raw
+data: it is not a GPU-texture sidecar source, and it counts toward the image
+budget. <code>advection</code> excludes <code>nightTexture</code>, <code>cloudTexture</code> and every
+cloud-shell field. The complete panorama, rendered without flow, remains the
+Motion-off fallback.</p>
+<h4 id="oblate-bodies-and-rings" tabindex="-1">Oblate bodies and rings</h4>
+<p>Celestial v1 and v2 may add <code>polarRadiusRatio</code> and <code>rings</code> to draw a ringed
+giant planet as real three-dimensional geometry rather than a halo around a
+sphere. Either field needs <code>minimumAppVersion</code> <code>1.3.4</code>; there is no separate
+capability.</p>
+<pre><code class="language-json">&quot;polarRadiusRatio&quot;: 0.902,
+&quot;rings&quot;: {
+  &quot;version&quot;: 1, &quot;profileTexture&quot;: &quot;celestial/rings.png&quot;,
+  &quot;innerRadiusRatio&quot;: 1.239, &quot;outerRadiusRatio&quot;: 2.27,
+  &quot;brightness&quot;: 1, &quot;unlitBrightness&quot;: 0.6
+}
+</code></pre>
+<p><code>polarRadiusRatio</code> (<code>0.85...1</code>, default 1) is the polar radius over the
+equatorial radius; the existing size fields keep describing the equatorial
+radius, and the texture keeps its longitude/latitude layout. It excludes the
+cloud-shell fields. <code>rings</code> is one flat annulus in the body’s equatorial plane
+that shares the body’s position, axial tilt and size, and does not spin with
+it. <code>version</code>, <code>profileTexture</code>, <code>innerRadiusRatio</code> and <code>outerRadiusRatio</code> are
+required. Radii are multiples of the equatorial radius, with
+<code>1.05 &lt;= inner</code>, <code>inner + 0.05 &lt;= outer &lt;= 4</code>. The whole ring must stay
+between 200 m and 1100 m away: with <code>R</code> the outer radius in metres,
+<code>distance - R &gt;= 200</code> and <code>distance + R &lt;= 1100</code>. <code>profileTexture</code> is an
+8-bit RGBA PNG (colour type 6), 64–8192 pixels wide and exactly 1 pixel tall:
+left is the inner edge, RGB is the sRGB ring colour and straight alpha is the
+opacity seen face-on, from which Locus derives the ring’s transparency and the
+shadows between ring and planet. <code>brightness</code> is <code>0...4</code> and
+<code>unlitBrightness</code>, the unlit face, is <code>0...2</code>; both default to 1. <code>rings</code>
+excludes <code>nightTexture</code>, <code>cloudTexture</code>, the cloud-shell fields and
+<code>advection</code>. Bake the ring and both shadows into the complete panorama, which
+is shown with Motion off.</p>
+<h4 id="near-orbit-surface-data" tabindex="-1">Near-orbit surface data</h4>
+<p>A near-orbit v2 profile with <code>tiles</code> may add per-tile surface data on the same
+grid: terrain slopes for relief shading and water cover for sun glint. It
+needs <code>minimumAppVersion</code> <code>1.3.2</code> (Library capability
+<code>locus.view.near-orbit.surface.v1</code>).</p>
+<pre><code class="language-json">&quot;surface&quot;: {&quot;manifest&quot;: &quot;surface/surface.json&quot;, &quot;tileSize&quot;: 1024}
+</code></pre>
+<p><code>manifest</code> is a package-relative <code>.json</code> path different from <code>tiles.manifest</code>;
+<code>tileSize</code> is an integer <code>16...4096</code>. The surface manifest has the tile
+manifest’s shape plus <code>&quot;encoding&quot;: &quot;slope-east-north-water-v1&quot;</code>, with the
+same <code>columns</code>, <code>rows</code> and <code>latitudeSouthDegrees</code> as <code>tiles</code>, and every
+<code>(row, column)</code> exactly once with its <code>sha256</code> and <code>byteCount</code>. Each surface
+tile is a lossless <code>tileSize</code> square 8-bit RGB PNG (no alpha) covering the same
+area as the day tile with the same <code>(row, column)</code>: red is
+<code>0.5 + 0.5 × slopeEast</code>, green <code>0.5 + 0.5 × slopeNorth</code> (each clamped to
+<code>-1...1</code>), and blue is water cover (<code>0</code> land, <code>1</code> open water), so
+<code>(128, 128, 0)</code> is flat land. Every surface tile needs a <code>gpuTextures</code> sidecar
+entry in <code>astc-6x6-linear</code>, square and converted with clamped edges like the
+day tiles. A profile with <code>surface</code> uses fallback-proof material revision <code>7</code>:
+the token suffix is <code>near-orbit-material-7</code>, followed by the surface manifest’s
+SHA-256 after the tile manifest’s.</p>
+<h4 id="water-contact-calibration" tabindex="-1">Water contact calibration</h4>
+<p>A View water region may add <code>contactCalibration</code> (<code>layered-proxy-v1</code>) so that
+photographed rocks and shores meet the rendered water. It supplies real
+dry-land geometry near the visitor and an authored background for the area that
+geometry uncovers. It needs <code>minimumAppVersion</code> <code>1.3.2</code> (Library capability
+<code>locus.view.water.contact-calibration.v1</code>).</p>
+<pre><code class="language-json">&quot;contactCalibration&quot;: {
+  &quot;model&quot;: &quot;layered-proxy-v1&quot;,
+  &quot;referenceEyeHeightMeters&quot;: 1.5,
+  &quot;referenceSkyCenterMeters&quot;: [0, 0.2, 0],
+  &quot;referenceYawDegrees&quot;: 0, &quot;referencePitchDegrees&quot;: 0,
+  &quot;sourcePanorama&quot;: &quot;contact-source.png&quot;,
+  &quot;sourcePanoramaSHA256&quot;: &quot;&lt;64 lowercase hex characters&gt;&quot;,
+  &quot;sourceMaskSHA256&quot;: &quot;&lt;64 lowercase hex characters&gt;&quot;,
+  &quot;landMesh&quot;: &quot;contact-land.locusmesh&quot;,
+  &quot;landTexture&quot;: &quot;contact-land.png&quot;,
+  &quot;removalMask&quot;: &quot;contact-removal.png&quot;,
+  &quot;waterCoverage&quot;: &quot;contact-coverage.png&quot;,
+  &quot;reflectionPanorama&quot;: &quot;contact-reflection.png&quot;
+}
+</code></pre>
+<p>The View’s <code>panorama.path</code> becomes the authored far background, and
+<code>sourcePanorama</code> is the original photograph at the same size. The two must be
+identical wherever the removal mask is zero, and <code>sourcePanoramaSHA256</code> and
+<code>sourceMaskSHA256</code> bind the source and the region’s original
+<code>blend.panoramaMask</code>. The removal and coverage masks are 8-bit grayscale 2:1
+PNGs of equal size; the removal mask contains both 0 and 255, and the
+coverage mask covers the original water mask and the removed area. An optional
+<code>sourceProjection</code> records a latitude correction already baked into the source
+(<code>latitude-mobius-v1</code> with one horizon elevation, or
+<code>latitude-mobius-profile-v1</code> with 3–64 horizon samples); it is not a runtime
+transform.</p>
+<p><code>landMesh</code> is a <code>.locusmesh</code> file: UTF-8 JSON of at most 32 MiB with exactly
+<code>formatVersion</code> (1), <code>positionsMeters</code>, <code>sourceUV</code>, <code>textureUV</code>, <code>indices</code> and
+<code>contacts</code>. It has 3–250,000 vertices within ±1000 m at or above the water
+plane, nondegenerate triangles facing the reference eye, and contact records
+(<code>vertex</code>, <code>distanceMeters</code>, <code>kind</code> of <code>rock</code> or <code>shore</code>) that lie on the
+water plane at their declared range, from 0.5 m to inside the water disc.
+<code>landTexture</code> is the land’s colour atlas, and <code>reflectionPanorama</code> is a 2:1
+radiance-direction texture for reflections.</p>
+<p>The contract currently accepts only a pure photographic View with one
+identity-rotation, floor-relative disc region, <code>blend.horizonSkirt</code> on, no
+<code>glow</code>, and zero authored and composed pitch; anything else is rejected at
+import. Contact ranges and the hidden background are authored approximations
+for one reference eye position, not surveyed terrain.</p>
+<h4 id="smaller-additions" tabindex="-1">Smaller additions</h4>
+<ul>
+<li><code>midground.windSway.wavelengthMeters</code> (<code>1...200</code>; declare
+<code>minimumAppVersion</code> <code>1.3.4</code>, Library capability
+<code>locus.view.midground.wind-sway.wave.v1</code>) turns per-plant sway into one gust
+wave rolling downwind at <code>wavelengthMeters / periodSeconds</code> metres per second,
+and plants lean downwind on average. Author each plant clump as its own unit
+with its origin at its root. Import does not check this floor; earlier
+versions of Locus ignore the field and sway each plant on its own.</li>
+<li><code>sky.moon.drawnDiameterDegrees</code> (<code>0.5172...24</code>) fixes the Moon’s drawn
+angular diameter instead of the natural size times <code>sizeScale</code>. It changes
+only the drawn disc and the stars it hides, not moonlight or sky glow. Earlier
+versions of Locus ignore it.</li>
+<li><code>celestial.sunDisc.angularSizeDegrees</code> now accepts values down to <code>0.001</code>.</li>
+<li><code>oceanGlint</code>, an experimental block in two Library revisions that never
+shipped publicly, is not part of the public format; Locus rejects it.</li>
+</ul>
+<p>Two-eye depth, shimmer, performance and comfort for these effects still need
+review on Apple Vision Pro for each new View; Simulator captures do not
+establish them.</p>
 <h2 id="legacysimple-flat-zip-compatibility" tabindex="-1">Legacy/simple flat ZIP compatibility</h2>
 <p>The flat format documented below remains accepted for simple imports and for
 the existing public examples and tools. It contains exactly one Room or one

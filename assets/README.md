@@ -408,3 +408,29 @@ compositing, relighting or generative editing beyond what is described here.
 | `tutorials/black-hole/composed-sky.jpg` | weic2212a `c4b11e8494ee968d6daf3dfaced564bf347ba327e135f5fd2a06673597877ecf`, weic2207b `3b6356f483e3e90c6da9fae8f408e41ed9e0a00baa301a047e5fe55cb423ce80` | `6b9f7668dfa81e8b4635acc3e972507993502109355aedb44eef6978d41e6c8c` |
 | `tutorials/black-hole/baked-panorama.jpg` | as above | `ee81a6a44527c7f5fa26f349526569a9af1772dd578cfd81eb31d31a7e1377a3` |
 | `tutorials/black-hole/preview-still.jpg` | as above | `d6174c4896e8216b9f2c4cf64dcd516f008c06a4675a10335bde5d18bb47af50` |
+
+## Locus 1.4 film — October 20, 2026
+
+The homepage 1.4.0 leading update block and the 1.4.0 article embed the
+Locus 1.4 film from YouTube (`ZSZR2hGGOCk`, EnterLocus channel
+`UCuVsVMtpw1NejBaWBXFId4g`, Public, embeddable). It replaces the Real Objects
+cup demo as the homepage's featured update film; that demo stays on the 1.3.0
+article and the Real Objects tutorial.
+
+The uploaded file is the owner's own Apple Vision Pro recording,
+`Locus Launch Media/v1.4.0/social/video-2026-10-19/locus-social-20261020-v1-4k.mp4`
+(55.3 s, 3840 × 2160, 30 fps H.264, AAC), uploaded byte for byte: a black hole,
+Saturn, Jupiter and Earth from orbit, then night Views with the Moon, the Milky
+Way and the aurora.
+
+`promo/locus-1.4-film-poster.jpg` is the film's frame at 2 s, scaled once to
+1920 × 1080 and exported as a JPEG. There is no crop, retouching, compositing,
+relighting or generative editing.
+
+| Film | YouTube watch URL | Uploaded source SHA-256 |
+| --- | --- | --- |
+| Locus 1.4 (homepage, `whats-new/1-4-0/`) | https://www.youtube.com/watch?v=ZSZR2hGGOCk | `618ab7d0542c1c782d176f79f989bc602b6028b1bdc016a581babadef0dc3a05` |
+
+| Website file | Source | Website SHA-256 |
+| --- | --- | --- |
+| `promo/locus-1.4-film-poster.jpg` | frame at 2 s of the uploaded film | `f17d08e362e8ba7c54e875f22f6f63549da7d3a7e16855047633dd73c1d67faa` |
