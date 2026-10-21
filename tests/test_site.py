@@ -873,6 +873,7 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-4-1/"'), archive.index('href="./1-4-0/"'))
         self.assertLess(archive.index('href="./1-4-0/"'), archive.index('href="./1-3-0/"'))
         self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
         self.assertLess(archive.index('href="./1-2-3/"'), archive.index('href="./1-2-2/"'))
@@ -995,7 +996,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(parser.videos, [])
 
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.4.0 · Latest", archive)
+        self.assertNotIn("Locus 1.4.0 · Latest", archive)
         self.assertEqual(archive.count("· Latest"), 1)
         self.assertLess(archive.index('href="./1-4-0/"'), archive.index('href="./1-3-0/"'))
         self.assertIn("https://enterlocus.com/whats-new/1-4-0/", (ROOT / "sitemap.xml").read_text())
@@ -1025,6 +1026,40 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("schemas/view-black-hole-v1.schema.json",
                       (ROOT / "package-format" / "index.html").read_text())
 
+    def test_released_1_4_1_article_archive_and_latest_strip(self):
+        article = (ROOT / "whats-new/1-4-1/index.html").read_text()
+        parser = PageParser()
+        parser.feed(article)
+        self.assertEqual(parser.h1_count, 1)
+        for phrase in ["Choose music for your Room.", "Music Quick Control",
+                       "clearer series pages", "catalog refresh controls",
+                       "sunlight and shadows", "Real Objects updates",
+                       "Available now for Apple Vision Pro", "visionOS 27",
+                       'role: "music"', "Room Portal does not play music"]:
+            self.assertIn(phrase, article)
+        for href in [APP_STORE_URL, "../1-4-0/", "../",
+                     "../../reference/locus-asset-format/#room-music-locus-141"]:
+            self.assertIn(href, parser.links)
+        self.assertEqual(parser.videos, [])
+        self.assertIn('../1-4-1/', (ROOT / "whats-new/1-4-0/index.html").read_text())
+        archive = (ROOT / "whats-new/index.html").read_text()
+        self.assertIn("Locus 1.4.1 · Latest", archive)
+        self.assertEqual(archive.count("· Latest"), 1)
+        self.assertLess(archive.index('href="./1-4-1/"'), archive.index('href="./1-4-0/"'))
+        homepage = (ROOT / "index.html").read_text()
+        self.assertEqual(homepage.count('class="whats-new-latest"'), 1)
+        self.assertIn("Latest update · Locus 1.4.1", homepage)
+        self.assertIn('href="./whats-new/1-4-1/"', homepage)
+        self.assertLess(homepage.index('class="whats-new-latest"'),
+                        homepage.index("New in Locus 1.4.0"))
+        self.assertIn("https://enterlocus.com/whats-new/1-4-1/", (ROOT / "sitemap.xml").read_text())
+        reference = (ROOT / "reference/locus-asset-format.md").read_text()
+        for phrase in ["### Room music (Locus 1.4.1)", "Each Room's sound definition",
+                       "minimumAppVersion", "exactly one clip", "Backgrounds mix",
+                       "does not normalize track loudness"]:
+            self.assertIn(phrase, reference)
+        self.assertIn("#room-music-locus-141", (ROOT / "package-format/index.html").read_text())
+
     def test_locus_130_gallery_stays_with_its_release_article(self):
         expected = {"night-sky.jpg", "earth-orbit.jpg", "aurora.jpg", "lake-water.jpg", "sunlit-clouds.jpg"}
         self.assertNotIn("assets/promo/locus-1.3/", (ROOT / "index.html").read_text())
@@ -1046,19 +1081,18 @@ class PublicSiteTests(unittest.TestCase):
         parser = PageParser()
         parser.feed(homepage)
 
-        # The homepage's What's New section tells only the latest release's
-        # story. Older releases stay in the archive.
+        # The latest strip names 1.4.1 while the approved 1.4.0 leading story
+        # and film stay in place.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
         self.assertIn("New in Locus 1.4.0", homepage)
         self.assertIn("Move your desk to outer space.", homepage)
         self.assertIn('href="./whats-new/1-4-0/"', homepage)
-        # 1.4 takes over the leading block, so the one-line latest strip would
-        # repeat it, and the 1.3 cup film is replaced by the 1.4 film.
+        # The 1.4 film remains the leading story beneath the latest strip.
         for stale in ["New in Locus 1.3", 'href="./whats-new/1-3-0/"', "New in Locus 1.2",
                       'href="./whats-new/1-2/"', 'data-youtube-id="nO2B7MP0uzI"',
                       'data-youtube-id="bahHCqyB9M4"', "real-objects-cup-poster.jpg",
-                      'class="whats-new-latest"', "Browser"]:
+                      "Browser"]:
             self.assertNotIn(stale, homepage[homepage.index('id="whats-new"'):homepage.index('class="selection-section"')])
         for highlight in ["Sit at the edge of a black hole.", "Head into space",
                           "Places, in series", "Make your own", "visionOS 27",

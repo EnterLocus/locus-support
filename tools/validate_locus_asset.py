@@ -1363,6 +1363,8 @@ def validate_sound_playback(
 def validate_sound_sidecar(root: Path, files: set[str], *, owner: str) -> None:
     """Validate the optional sound sidecar, first readable by Locus 1.1.4.
 
+    Room music requires Locus 1.4.1 and sound v2 with one ambient loop.
+
     Audio never travels alone: the importer rejects an audio file no source
     names, and rejects audio with no sound.json at all, so an author who
     renames a clip learns it here rather than after the import fails.
@@ -1401,6 +1403,7 @@ def validate_sound_sidecar(root: Path, files: set[str], *, owner: str) -> None:
     identifiers: list[str] = []
     referenced: set[str] = set()
     total_gain = 0.0
+    music_sources = 0
     for index, source in enumerate(sources):
         context = f"{SOUND_FILE}.sources[{index}]"
         require(isinstance(source, dict), f"{context} must be an object")
@@ -1426,9 +1429,14 @@ def validate_sound_sidecar(root: Path, files: set[str], *, owner: str) -> None:
         identifiers.append(identifier)
         require_text(source["title"], f"{context}.title", 100)
         require(
-            source["role"] in {"background", "effect"},
-            f"{context}.role must be background or effect",
+            source["role"] in {"background", "effect", "music"},
+            f"{context}.role must be background, effect, or music",
         )
+        if source["role"] == "music":
+            require(owner == "room", f"{context} music is supported only by Rooms")
+            require(version == 2, f"{context} music requires sound version 2")
+            music_sources += 1
+            require(music_sources <= 1, f"{SOUND_FILE} may contain at most one music source")
         gain = source["gain"]
         require(
             finite(gain) and 0 <= gain <= 1,
@@ -1466,6 +1474,11 @@ def validate_sound_sidecar(root: Path, files: set[str], *, owner: str) -> None:
                 clips=len(paths),
                 context=f"{context}.playback",
             )
+            if source["role"] == "music":
+                require(
+                    placement_kind == "ambient" and source["playback"]["type"] == "loop",
+                    f"{context} music requires ambient placement and loop playback",
+                )
 
     require(
         len(set(identifiers)) == len(identifiers),

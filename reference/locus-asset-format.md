@@ -1498,8 +1498,8 @@ intensity plus saved Room EV offsets.
 A Room or a View may carry its own audio. It is independent of everything else
 in the package: a still picture with sound is not an animated View, gets no new
 mark in Places, and a Room's sound has nothing to do with its lighting or
-animations. Locus 1.1.4 is required — an older build rejects the ZIP rather
-than installing it without the audio.
+animations. Ordinary sound requires Locus 1.1.4; Room music requires Locus
+1.4.1. An older build rejects the ZIP rather than installing it without the audio.
 
 Put `sound.json` and the audio files at the ZIP root. Every audio file must be
 named by a source and every named file must be present; audio without
@@ -1524,12 +1524,12 @@ renamed clip is caught at import instead of going silently missing.
 
 | Field | Required | Meaning and validation |
 |---|---:|---|
-| `version` | yes | `1` for plain loops, `2` for placement and randomized playback. |
-| `backgroundPriority` | yes | Integer `0` through `100`. See arbitration below. |
+| `version` | yes | `1` for plain loops, `2` for placement, randomized playback, and Room music. |
+| `backgroundPriority` | yes | Integer `0` through `100`, retained for package compatibility; it does not suppress other background sound. |
 | `sources` | yes | One through eight sources. |
 | `sources[].id` | yes | Up to 100 characters of letters, digits, dot, dash, or underscore; distinct within the file. |
 | `sources[].title` | yes | Up to 100 characters, shown beside the source's own control. |
-| `sources[].role` | yes | `background` or `effect`. |
+| `sources[].role` | yes | `background` or `effect`; Rooms may use one `music` source in version 2 (Locus 1.4.1). |
 | `sources[].gain` | yes | `0` through `1`. The gains of all sources may total at most `1`. |
 | `sources[].path` | version 1 | One package-relative `.m4a`, `.mp3`, or `.wav` file at the ZIP root. |
 | `sources[].clips` | version 2 | One through eight distinct audio files, replacing `path`. |
@@ -1543,12 +1543,55 @@ randomized clip must be at most 30 seconds with at most 60 seconds of clips per
 source. A file that passes validation but breaks one of those playback rules
 loses that source, not the whole place.
 
-**Backgrounds arbitrate; effects do not.** A View and a Room each declare a
-`backgroundPriority`, and only an enabled, prepared background with a nonzero
-volume claims it. The strictly higher priority silences the other owner's
-backgrounds; equal priorities mix. Effects always keep their own master
-control. In Room Portal only the View's audio plays. Every control is
-session-only: Locus does not rewrite the ZIP, and nothing here is saved.
+**Backgrounds mix; effects have their own control.** The untouched View
+background volume defaults to 25% when Room background sound or music is
+audible, and to 50% otherwise. An explicit visitor level is kept.
+`backgroundPriority` remains accepted for compatibility and no longer
+suppresses either background. In Room Portal only the View's audio plays.
+Sound volume controls are session-only and never rewrite the ZIP. The default
+music choice for Rooms without their own track is saved on the device.
+
+### Room music (Locus 1.4.1)
+
+A Room may include one source with `role: "music"`. It must use sound
+`version: 2`, `placement: {"type": "ambient"}`, and
+`playback: {"type": "loop"}` with exactly one clip. Optional loop fades use
+the existing 0–5 second limits. Each Room's sound definition may contain at
+most one music source, and it counts toward the eight-source limit and the
+total authored gain of at most one. Music in a View, sound version 1, positioned
+music, randomized music, or a second music source in the same Room is rejected.
+
+In a complete Package v2 ZIP, put the definition in the Room's `sound` field in
+`catalog/spaces/<space-id>/space.json`, include its audio in the file inventory,
+and set the envelope's `minimumAppVersion` to `1.4.1` or later. This sound profile needs no additional envelope field or capability token.
+
+For a flat compatibility Room ZIP, put this definition in root-level
+`sound.json` beside the referenced audio file. The App generates the Locus
+1.4.1 minimum version on import. The public flat ZIP packer and validator
+accept this profile; they still do not validate complete Package v2 archives.
+
+```json
+{
+  "version": 2,
+  "backgroundPriority": 20,
+  "sources": [{
+    "id": "room-music",
+    "title": "A quiet afternoon",
+    "role": "music",
+    "gain": 0.5,
+    "clips": ["room-music.m4a"],
+    "placement": {"type": "ambient"},
+    "playback": {"type": "loop"}
+  }]
+}
+```
+
+Every installed Room with music, including imported Rooms, adds its track to
+the visitor's music choices. Music has its own control, separate from Room
+ambience and effects, and does not play in Room Portal. Authored `gain` scales
+the Music volume; Locus does not normalize track loudness. The visitor can
+save a default choice for Rooms without their own music: Off, Random, or an
+installed track. That choice is App state, not a package field.
 
 ### Placement and randomized playback (`version: 2`)
 
