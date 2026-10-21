@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
-  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-3"><a href="#locus-14-view-additions">Locus 1.4 View additions</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-3"><a href="#locus-14-view-additions">Locus 1.4 View additions</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#room-music-locus-141">Room music (Locus 1.4.1)</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
 <h2 id="complete-package-v2--canonical-import-format" tabindex="-1">Complete Package v2 — canonical import format</h2>
 <p>Locus 1.2.1 and later accepts a complete Package v2 ZIP from Files or a direct
 public HTTPS URL through both <strong>Import a View</strong> and <strong>Import a Room</strong>. Use an
@@ -1423,8 +1423,8 @@ intensity plus saved Room EV offsets.</p>
 <p>A Room or a View may carry its own audio. It is independent of everything else
 in the package: a still picture with sound is not an animated View, gets no new
 mark in Places, and a Room’s sound has nothing to do with its lighting or
-animations. Locus 1.1.4 is required — an older build rejects the ZIP rather
-than installing it without the audio.</p>
+animations. Ordinary sound requires Locus 1.1.4; Room music requires Locus
+1.4.1. An older build rejects the ZIP rather than installing it without the audio.</p>
 <p>Put <code>sound.json</code> and the audio files at the ZIP root. Every audio file must be
 named by a source and every named file must be present; audio without
 <code>sound.json</code>, or a file no source names, is rejected rather than ignored, so a
@@ -1455,12 +1455,12 @@ renamed clip is caught at import instead of going silently missing.</p>
 <tr>
 <td><code>version</code></td>
 <td style="text-align:right">yes</td>
-<td><code>1</code> for plain loops, <code>2</code> for placement and randomized playback.</td>
+<td><code>1</code> for plain loops, <code>2</code> for placement, randomized playback, and Room music.</td>
 </tr>
 <tr>
 <td><code>backgroundPriority</code></td>
 <td style="text-align:right">yes</td>
-<td>Integer <code>0</code> through <code>100</code>. See arbitration below.</td>
+<td>Integer <code>0</code> through <code>100</code>, retained for package compatibility; it does not suppress other background sound.</td>
 </tr>
 <tr>
 <td><code>sources</code></td>
@@ -1480,7 +1480,7 @@ renamed clip is caught at import instead of going silently missing.</p>
 <tr>
 <td><code>sources[].role</code></td>
 <td style="text-align:right">yes</td>
-<td><code>background</code> or <code>effect</code>.</td>
+<td><code>background</code> or <code>effect</code>; Rooms may use one <code>music</code> source in version 2 (Locus 1.4.1).</td>
 </tr>
 <tr>
 <td><code>sources[].gain</code></td>
@@ -1516,12 +1516,48 @@ and at most 600 seconds for a loop; a positioned source must be mono, and a
 randomized clip must be at most 30 seconds with at most 60 seconds of clips per
 source. A file that passes validation but breaks one of those playback rules
 loses that source, not the whole place.</p>
-<p><strong>Backgrounds arbitrate; effects do not.</strong> A View and a Room each declare a
-<code>backgroundPriority</code>, and only an enabled, prepared background with a nonzero
-volume claims it. The strictly higher priority silences the other owner’s
-backgrounds; equal priorities mix. Effects always keep their own master
-control. In Room Portal only the View’s audio plays. Every control is
-session-only: Locus does not rewrite the ZIP, and nothing here is saved.</p>
+<p><strong>Backgrounds mix; effects have their own control.</strong> The untouched View
+background volume defaults to 25% when Room background sound or music is
+audible, and to 50% otherwise. An explicit visitor level is kept.
+<code>backgroundPriority</code> remains accepted for compatibility and no longer
+suppresses either background. In Room Portal only the View’s audio plays.
+Sound volume controls are session-only and never rewrite the ZIP. The default
+music choice for Rooms without their own track is saved on the device.</p>
+<h3 id="room-music-locus-141" tabindex="-1">Room music (Locus 1.4.1)</h3>
+<p>A Room may include one source with <code>role: &quot;music&quot;</code>. It must use sound
+<code>version: 2</code>, <code>placement: {&quot;type&quot;: &quot;ambient&quot;}</code>, and
+<code>playback: {&quot;type&quot;: &quot;loop&quot;}</code> with exactly one clip. Optional loop fades use
+the existing 0–5 second limits. Each Room’s sound definition may contain at
+most one music source, and it counts toward the eight-source limit and the
+total authored gain of at most one. Music in a View, sound version 1, positioned
+music, randomized music, or a second music source in the same Room is rejected.</p>
+<p>In a complete Package v2 ZIP, put the definition in the Room’s <code>sound</code> field in
+<code>catalog/spaces/&lt;space-id&gt;/space.json</code>, include its audio in the file inventory,
+and set the envelope’s <code>minimumAppVersion</code> to <code>1.4.1</code> or later. This sound profile needs no additional envelope field or capability token.</p>
+<p>For a flat compatibility Room ZIP, put this definition in root-level
+<code>sound.json</code> beside the referenced audio file. The App generates the Locus
+1.4.1 minimum version on import. The public flat ZIP packer and validator
+accept this profile; they still do not validate complete Package v2 archives.</p>
+<pre><code class="language-json">{
+  &quot;version&quot;: 2,
+  &quot;backgroundPriority&quot;: 20,
+  &quot;sources&quot;: [{
+    &quot;id&quot;: &quot;room-music&quot;,
+    &quot;title&quot;: &quot;A quiet afternoon&quot;,
+    &quot;role&quot;: &quot;music&quot;,
+    &quot;gain&quot;: 0.5,
+    &quot;clips&quot;: [&quot;room-music.m4a&quot;],
+    &quot;placement&quot;: {&quot;type&quot;: &quot;ambient&quot;},
+    &quot;playback&quot;: {&quot;type&quot;: &quot;loop&quot;}
+  }]
+}
+</code></pre>
+<p>Every installed Room with music, including imported Rooms, adds its track to
+the visitor’s music choices. Music has its own control, separate from Room
+ambience and effects, and does not play in Room Portal. Authored <code>gain</code> scales
+the Music volume; Locus does not normalize track loudness. The visitor can
+save a default choice for Rooms without their own music: Off, Random, or an
+installed track. That choice is App state, not a package field.</p>
 <h3 id="placement-and-randomized-playback-version-2" tabindex="-1">Placement and randomized playback (<code>version: 2</code>)</h3>
 <p>Version 1 keeps its exact meaning forever. Version 2 replaces a source’s <code>path</code>
 with <code>clips</code> and adds <code>placement</code> and <code>playback</code>. <code>role</code> is unrelated to
