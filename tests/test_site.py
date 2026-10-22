@@ -529,7 +529,9 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("--confirm-paid", outpaint)
         for required in ["optional and paid", "aiGenerated", "aiProvider", "--confirm-paid"]:
             self.assertIn(required, page)
-        self.assertIn("Needs Locus 1.3.4 or later", page)
+        self.assertIn("Needs Locus 1.4 or later", page)
+        self.assertIn("Locus 1.4 or later from the App Store", page)
+        self.assertIn("1.3.4, which remains the package compatibility minimum", page)
         self.assertIn('href="../make-a-black-hole-view/"', (ROOT / "tutorials" / "index.html").read_text())
 
     def test_online_view_guide_leads_with_the_direct_use_resolution_gate(self):
@@ -966,7 +968,24 @@ class PublicSiteTests(unittest.TestCase):
         archive = (ROOT / "whats-new/index.html").read_text()
         self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
         self.assertNotIn("Locus 1.3.0 · Latest", archive)
-        self.assertIn('../1-4-0/', parser.links)
+        self.assertIn('../1-3-1/', parser.links)
+
+    def test_1_3_1_history_fills_the_release_sequence_without_becoming_latest(self):
+        article = (ROOT / "whats-new/1-3-1/index.html").read_text()
+        parser = PageParser()
+        parser.feed(article)
+        self.assertEqual(parser.h1_count, 1)
+        self.assertIn('data-pagefind-body', article)
+        self.assertIn("Release archive", article)
+        self.assertNotIn("Available now", article)
+        for href in ["../1-3-0/", "../1-4-0/", "../"]:
+            self.assertIn(href, parser.links)
+        self.assertEqual(parser.videos, [])
+        archive = (ROOT / "whats-new/index.html").read_text()
+        self.assertLess(archive.index('href="./1-4-0/"'), archive.index('href="./1-3-1/"'))
+        self.assertLess(archive.index('href="./1-3-1/"'), archive.index('href="./1-3-0/"'))
+        self.assertNotIn("Locus 1.3.1 · Latest", archive)
+        self.assertIn("https://enterlocus.com/whats-new/1-3-1/", (ROOT / "sitemap.xml").read_text())
 
     def test_released_1_4_article_archive_and_homepage(self):
         article = (ROOT / "whats-new/1-4-0/index.html").read_text()
@@ -986,7 +1005,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Event Horizon: Ring is free.", article)
         self.assertIn("Earth from Space and Low Orbit Earth are free.", article)
         self.assertNotIn("Browser", article)
-        for href in ["../1-3-0/", "../../make-a-black-hole-view/",
+        for href in ["../1-3-1/", "../../make-a-black-hole-view/",
                      "../../reference/locus-asset-format/#locus-14-view-additions",
                      "../../schemas/view-black-hole-v1.schema.json", APP_STORE_URL,
                      f"https://www.youtube.com/watch?v={LOCUS_1_4_FILM_ID}"]:
