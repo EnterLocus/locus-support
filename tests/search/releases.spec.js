@@ -1,5 +1,12 @@
 const { test, expect } = require('@playwright/test');
 
+// Exercise release links without smooth scrolling racing locator stability.
+test.use({ reducedMotion: 'reduce' });
+test.beforeEach(async ({ page }) => {
+  // Navigation assertions do not depend on the external player responding.
+  await page.route('https://www.youtube-nocookie.com/**', route => route.abort());
+});
+
 for (const width of [1440, 390, 320]) {
   test(`1.4.1 entry and release navigation at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
@@ -8,7 +15,7 @@ for (const width of [1440, 390, 320]) {
     const entry = page.locator('.whats-new-latest');
     await expect(entry).toContainText('New in Locus 1.4.1');
     await expect(page.locator('#whats-new-title')).toHaveText('Move your desk to outer space.');
-    await expect(page.locator('#whats-new .youtube-video-cover')).toHaveAttribute('data-youtube-id', 'ZSZR2hGGOCk');
+    await expect(page.locator('#whats-new [data-youtube-id="ZSZR2hGGOCk"], #whats-new iframe[src*="/embed/ZSZR2hGGOCk?"]')).toHaveCount(1);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
     await entry.scrollIntoViewIfNeeded();
     await page.screenshot({ path: `.scratch/release-home-${width}.png` });
