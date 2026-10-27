@@ -434,3 +434,19 @@ relighting or generative editing.
 | Website file | Source | Website SHA-256 |
 | --- | --- | --- |
 | `promo/locus-1.4-film-poster.jpg` | frame at 2 s of the uploaded film | `f17d08e362e8ba7c54e875f22f6f63549da7d3a7e16855047633dd73c1d67faa` |
+
+The two Locus 1.4.2 videos are the owner's own unedited captures in Locus,
+uploaded to the EnterLocus YouTube channel on October 24, 2026. Each poster is
+a single frame of the uploaded video, scaled once from 3840 × 2160 to
+1920 × 1080 and exported as a JPEG. There is no crop, retouching, compositing,
+relighting or generative editing.
+
+| Video | YouTube watch URL | Uploaded source SHA-256 |
+| --- | --- | --- |
+| Look at the floor to move (`whats-new/1-4-2/`) | https://www.youtube.com/watch?v=ZByjd2bkUgs | `e1f421345be33c655e43017f0fd2e2ff6cbb48b15ca17bf1f7f8e4c5f511b3f1` |
+| Smoother View changes (`whats-new/1-4-2/`) | https://www.youtube.com/watch?v=XfjIK8FH0lg | `10353de16bc3f2cd6f54b3ebb75658e83034993a4c447947a732ea0703718606` |
+
+| Website file | Source | Website SHA-256 |
+| --- | --- | --- |
+| `promo/locus-1.4.2-move-poster.jpg` | frame at 5 s of the floor-move video | `5ec2def0e25de0ddb4ae4f13dc8d4d753bb2181f9b44bdbe9ad5224a5a1c8a93` |
+| `promo/locus-1.4.2-transition-poster.jpg` | frame at 25 s of the View-change video | `fc9dee506d5428afcaceebfeba157b7c77c3aa788fca5e6174a025eb4f298020` |
