@@ -1896,6 +1896,23 @@
     "on Apple Vision Pro. Black-hole Views first work in Locus 1.3.4, which remains the package compatibility minimum; older versions refuse the file with “This place requires Locus 1.3.4 or later”.": "，在 Apple Vision Pro 上執行。黑洞景觀最早在 Locus 1.3.4 中獲得支援，該版本仍是資源包的最低相容版本；更早的版本會拒絕匯入檔案，並提示「This place requires Locus 1.3.4 or later」。",
     "to change height. Pick a step size of 1 cm · 1°, 5 cm · 15°, or 25 cm · 45°. Moves follow the direction you face.": "調整高度。可選擇 1 cm · 1°、5 cm · 15° 或 25 cm · 45° 的步長。移動方向以你面朝的方向為準。",
     "Choose Seats in the bar, then Move Seat.": "在欄位中選擇「座位」，再選擇「移動座位」。",
-    "Choose Save to keep that position for the seat, or Save as… → Save as a New Seat to add a seat of your own and leave the Room’s seat as it was.": "選擇「儲存」來保留該座位的位置；或者選擇「另存為… → 另存為新座位」，新增自己的座位，並保留房間原有的座位。"
+    "Choose Save to keep that position for the seat, or Save as… → Save as a New Seat to add a seat of your own and leave the Room’s seat as it was.": "選擇「儲存」來保留該座位的位置；或者選擇「另存為… → 另存為新座位」，新增自己的座位，並保留房間原有的座位。",
+    "Fixes and reliability": "修正與可靠性",
+    "In Seats, look at the floor and pinch to move there. Back to Seat takes you back, or save the spot as a new seat to keep it.": "在「座位」中看向地面並捏合，即可移到那裡。「回到座位」可返回原座位，也可以把這個位置另存為新座位。",
+    "Locus 1.4.2": "Locus 1.4.2",
+    "Locus 1.4.2 is available on the": "Locus 1.4.2 現已上架",
+    "Locus 1.4.2 lets you move around your Room by looking at the floor and pinching, makes View changes in the same Room smoother, and fixes Places details.": "Locus 1.4.2 讓你看向地面並捏合即可在房間裡移動，同一房間內的景觀切換更順暢，並修正了空間詳細資訊的問題。",
+    "Locus 1.4.2: move by looking at the floor": "Locus 1.4.2：看向地面即可移動",
+    "Look at the floor and pinch to move there, and switch Views in the same Room with a smoother transition.": "看向地面並捏合即可移到那裡；在同一個房間內切換景觀時，過渡也更加順暢。",
+    "Look at the floor and pinch to move there, then save the spot as a new seat if you like.": "看向地面並捏合即可移到那裡，喜歡的話還可以把這個位置另存為新座位。",
+    "Look at the floor to move": "看向地面即可移動",
+    "Places details no longer show an out-of-date download or In Use state. This update also improves reliability.": "空間詳細資訊不會再顯示過時的下載或「使用中」狀態。此更新也提升了可靠性。",
+    "Smoother View changes": "更順暢的景觀切換",
+    "Step anywhere in your Room.": "在房間裡隨處走動。",
+    "Switching to another View in the same Room now has a smoother transition.": "在同一個房間內切換到其他景觀時，過渡更加順暢。",
+    "Move around your Room by looking at the floor and pinching.": "看向地面並捏合，即可在房間裡移動。",
+    "New in Locus 1.4.2": "Locus 1.4.2 新內容",
+    "Locus 1.4.2 · Latest": "Locus 1.4.2 · 最新版",
+    "Look at the floor to move, and smoother View changes in the same Room.": "看向地面即可移動，同一房間內的景觀切換也更順暢。"
   }
 }
