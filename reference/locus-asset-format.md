@@ -1306,8 +1306,11 @@ currently only `"fire"` — and the app owns the entire resulting look (color,
 particle count, timing); the author's only contract is placement
 (`anchorEntity`) and size (`sizeMeters`: exactly 3 finite values, each
 within `(0, 3]` meters, in the anchor's local Y-up space as width, height,
-depth, centered on the anchor origin — flames rise along the anchor's local
-+Y). `anchorEntity` resolves like a lighting proxy's `anchorEntity`: it does
+depth). In Locus 1.4.3 and later, this footprint is a 3D fire volume: a long
+burner gets a long flame volume rather than a camera-facing billboard. Place
+the anchor at the burner or fuel surface, or at the top of a log stack. Flames
+begin at the anchor origin and rise along its local +Y; Locus adds no offset.
+`anchorEntity` resolves like a lighting proxy's `anchorEntity`: it does
 not need renderable geometry, since the expected authoring shape is a
 transform-only Xform exported from a Blender empty. An effect runs for the
 Room's entire lifetime; it is never tied to a `lighting.luminaireGroups`
