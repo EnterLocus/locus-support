@@ -879,6 +879,7 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
+        self.assertLess(archive.index('href="./1-4-3/"'), archive.index('href="./1-4-2/"'))
         self.assertLess(archive.index('href="./1-4-0/"'), archive.index('href="./1-3-0/"'))
         self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
         self.assertLess(archive.index('href="./1-2-3/"'), archive.index('href="./1-2-2/"'))
@@ -1069,22 +1070,44 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("https://enterlocus.com/whats-new/1-4-1/", (ROOT / "sitemap.xml").read_text())
         self.assertIn("../1-4-2/", parser.links)
 
-    def test_released_1_4_2_has_compact_entry_and_connected_article(self):
+    def test_released_1_4_3_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-2/"', homepage)
+        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-3/"', homepage)
         self.assertLess(homepage.index('class="whats-new-latest"'),
                         homepage.index('id="whats-new-title"'))
-        self.assertIn("New in Locus 1.4.2", homepage)
+        self.assertIn("New in Locus 1.4.3", homepage)
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.4.2 · Latest", archive)
-        self.assertLess(archive.index('href="./1-4-2/"'), archive.index('href="./1-4-1/"'))
+        self.assertIn("Locus 1.4.3 · Latest", archive)
+        self.assertLess(archive.index('href="./1-4-3/"'), archive.index('href="./1-4-2/"'))
         self.assertEqual(archive.count("· Latest"), 1)
-        article = (ROOT / "whats-new/1-4-2/index.html").read_text()
+        article = (ROOT / "whats-new/1-4-3/index.html").read_text()
         parser = PageParser()
         parser.feed(article)
         self.assertEqual(parser.h1_count, 1)
         self.assertIn('data-pagefind-body', article)
         self.assertIn("Available now for Apple Vision Pro", article)
+        for phrase in ["Hilltop Villa", "Supporter Room", "glass Sky Room", "infinity pool",
+                       "fuller, more natural flames", "water stays visible", "3D volume"]:
+            self.assertIn(phrase, article)
+        self.assertEqual(parser.videos, [])
+        for href in ["../1-4-2/", "../", "../../reference/locus-asset-format/#room-particle-effects-formatversion-9", APP_STORE_URL]:
+            self.assertIn(href, parser.links)
+        previous = PageParser()
+        previous.feed((ROOT / "whats-new/1-4-2/index.html").read_text())
+        self.assertIn("../1-4-3/", previous.links)
+        self.assertIn("https://enterlocus.com/whats-new/1-4-3/", (ROOT / "sitemap.xml").read_text())
+
+        reference = (ROOT / "reference/locus-asset-format.md").read_text()
+        for phrase in ["In Locus 1.4.3 and later", "3D fire volume", "camera-facing billboard",
+                       "begin at the anchor origin", "Locus adds no offset"]:
+            self.assertIn(phrase, reference)
+
+    def test_released_1_4_2_keeps_its_article_and_media_coverage(self):
+        article = (ROOT / "whats-new/1-4-2/index.html").read_text()
+        parser = PageParser()
+        parser.feed(article)
+        self.assertEqual(parser.h1_count, 1)
+        self.assertIn('data-pagefind-body', article)
         for phrase in ["Seats", "look at a spot on the floor", "Back to Seat", "Temporary Spot",
                        "Save as a New Seat", "Smoother View changes", "six Real Objects"]:
             self.assertIn(phrase, article)
@@ -1096,9 +1119,7 @@ class PublicSiteTests(unittest.TestCase):
             target = ROOT / "assets/promo" / poster
             self.assertTrue(target.is_file(), target)
             self.assertLess(target.stat().st_size, 400_000)
-        for href in ["../1-4-1/", "../", APP_STORE_URL]:
-            self.assertIn(href, parser.links)
-        self.assertIn("https://enterlocus.com/whats-new/1-4-2/", (ROOT / "sitemap.xml").read_text())
+        self.assertIn("../1-4-3/", parser.links)
 
     def test_locus_130_gallery_stays_with_its_release_article(self):
         expected = {"night-sky.jpg", "earth-orbit.jpg", "aurora.jpg", "lake-water.jpg", "sunlit-clouds.jpg"}
@@ -1127,7 +1148,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("New in Locus 1.4.0", homepage)
         self.assertIn("Move your desk to outer space.", homepage)
         self.assertIn('href="./whats-new/1-4-0/"', homepage)
-        # Keep the 1.4 film and leading story below the compact 1.4.2 strip.
+        # Keep the 1.4 film and leading story below the compact 1.4.3 strip.
         for stale in ["New in Locus 1.3", 'href="./whats-new/1-3-0/"', "New in Locus 1.2",
                       'href="./whats-new/1-2/"', 'data-youtube-id="nO2B7MP0uzI"',
                       'data-youtube-id="bahHCqyB9M4"', "real-objects-cup-poster.jpg",
