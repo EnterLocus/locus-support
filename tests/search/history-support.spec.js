@@ -4,7 +4,7 @@ for (const width of [1440, 390, 320]) {
   test(`historical release sequence and support links at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto('/whats-new/');
-    await expect(page.locator('.release-card').first()).toHaveAttribute('href', './1-4-2/');
+    await expect(page.locator('.release-card').first()).toHaveAttribute('href', './1-4-3/');
     await page.locator('.release-card[href="./1-3-0/"]').click();
     await page.locator('.release-pagination a[href="../1-3-1/"]').click();
     await expect(page.getByRole('heading', { level: 1 })).toHaveText('Smoother Places, clearer Real Objects.');
