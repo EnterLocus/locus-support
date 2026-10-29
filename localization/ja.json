@@ -2379,6 +2379,13 @@
     "with camera": "カメラ使用時",
     "with the": "を使用します。参照するガイドは",
     "yes": "はい",
-    "yes for imports": "インポート時は必須"
+    "yes for imports": "インポート時は必須",
+    ") and": "）と",
+    "), and": "）、および",
+    ", and it also\nrequires": "。さらに必要なのは",
+    ", radius is": "。半径は",
+    ", speed is": "。速度は",
+    "; its centre is\nwithin": "。中心の範囲は",
+    "defaults to": "の既定値は"
   }
 }
