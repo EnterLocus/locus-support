@@ -22,6 +22,7 @@ EXCLUDED = {'.git', '.github', '.claude', '.scratch', '.site', 'node_modules', '
             'playwright.config.js', 'localization', '.build', 'bin'}
 SITE = 'https://enterlocus.com'
 MARKDOWN_REFERENCE = Path('reference/locus-asset-format/index.html')
+MARKDOWN_REFERENCES = (MARKDOWN_REFERENCE, Path('reference/locusplace-format/index.html'))
 
 
 def page_url(relative: Path, locale: str = 'en') -> str:
@@ -147,11 +148,12 @@ def _build_sitemap() -> None:
     root = source.getroot()
     namespace = '{http://www.sitemaps.org/schemas/sitemap/0.9}'
     existing = [node.find(f'{namespace}loc').text for node in root.findall(f'{namespace}url')]
-    reference_url = page_url(MARKDOWN_REFERENCE)
-    if reference_url not in existing:
-        url = ET.SubElement(root, f'{namespace}url')
-        ET.SubElement(url, f'{namespace}loc').text = reference_url
-        existing.append(reference_url)
+    for reference in MARKDOWN_REFERENCES:
+        reference_url = page_url(reference)
+        if reference_url not in existing:
+            url = ET.SubElement(root, f'{namespace}url')
+            ET.SubElement(url, f'{namespace}loc').text = reference_url
+            existing.append(reference_url)
     for loc in existing:
         relative = Path(urlsplit(loc).path.lstrip('/') or '.') / 'index.html'
         for locale in TRANSLATED_LOCALES:
@@ -161,16 +163,16 @@ def _build_sitemap() -> None:
     source.write(OUTPUT / 'sitemap.xml', encoding='utf-8', xml_declaration=True)
 
 
-def _render_markdown_reference() -> str:
+def _render_markdown_reference(reference: Path = MARKDOWN_REFERENCE) -> str:
     """Render the Markdown-owned format reference into the staged site."""
-    source = ROOT / 'reference/locus-asset-format.md'
+    source = ROOT / 'reference' / (reference.parent.name + '.md')
     renderer = ROOT / 'tools/render_markdown_page.mjs'
     if not source.is_file() or not renderer.is_file():
         return ''
-    target = OUTPUT / MARKDOWN_REFERENCE
+    target = OUTPUT / reference
     subprocess.run([
         'node', str(renderer), str(source), str(target),
-        'reference', 'reference/locus-asset-format',
+        'reference', reference.parent.as_posix(),
     ], check=True)
     return target.read_text(encoding='utf-8')
 
@@ -188,13 +190,14 @@ def build() -> None:
             target = _output_path(relative, locale)
             target.parent.mkdir(parents=True, exist_ok=True)
             target.write_text(_translate_document(source, relative, locale, catalogs[locale]), encoding='utf-8')
-    reference_source = _render_markdown_reference()
-    if reference_source:
-        for locale in LOCALES:
-            target = _output_path(MARKDOWN_REFERENCE, locale)
-            target.parent.mkdir(parents=True, exist_ok=True)
-            target.write_text(_translate_document(reference_source, MARKDOWN_REFERENCE, locale,
-                                                  catalogs[locale]), encoding='utf-8')
+    for reference in MARKDOWN_REFERENCES:
+        reference_source = _render_markdown_reference(reference)
+        if reference_source:
+            for locale in LOCALES:
+                target = _output_path(reference, locale)
+                target.parent.mkdir(parents=True, exist_ok=True)
+                target.write_text(_translate_document(reference_source, reference, locale,
+                                                      catalogs[locale]), encoding='utf-8')
     _build_sitemap()
 
 

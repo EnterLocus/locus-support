@@ -1,0 +1,1090 @@
+<!doctype html>
+<!-- Generated from reference/locusplace-format.md by tools/render_markdown_page.mjs. Do not edit directly. -->
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0d141a">
+  <title>Complete Locus Package v2 authoring — Locus</title>
+  <meta name="description" content="The complete Locus Package v2 and legacy compatibility ZIP authoring reference.">
+  <meta property="og:title" content="Complete Locus Package v2 authoring"><meta property="og:description" content="Exact Package v2 structure, capabilities, fields, limits, and compatibility formats."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/reference/locusplace-format/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="https://enterlocus.com/reference/locusplace-format/"><link rel="icon" type="image/png" href="../../assets/favicon.png"><link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../../assets/site.css"><link rel="stylesheet" href="../../assets/docs.css"><link rel="stylesheet" href="../../assets/reference.css">
+  <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="complete-locus-package-v2-authoring" tabindex="-1">Complete Locus Package v2 authoring</h1><div class="reference-tools"><a class="reference-download" href="../locusplace-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#start-with-a-working-complete-package">Start with a working complete package</a></li><li class="reference-toc-level-2"><a href="#archive-layout">Archive layout</a></li><li class="reference-toc-level-2"><a href="#locusplacejson">locusplace.json</a></li><li class="reference-toc-level-3"><a href="#envelope-field-reference">Envelope field reference</a></li><li class="reference-toc-level-2"><a href="#package-v2-metadata-inside-the-zip">Package-v2 metadata inside the ZIP</a></li><li class="reference-toc-level-3"><a href="#view-destinationjson">View: destination.json</a></li><li class="reference-toc-level-3"><a href="#room-spacejson">Room: space.json</a></li><li class="reference-toc-level-3"><a href="#experience-experiencejson">Experience: experience.json</a></li><li class="reference-toc-level-2"><a href="#optional-capabilities-and-translated-labels">Optional capabilities and translated labels</a></li><li class="reference-toc-level-2"><a href="#required-provenance">Required provenance</a></li><li class="reference-toc-level-2"><a href="#security-and-resource-budgets">Security and resource budgets</a></li><li class="reference-toc-level-2"><a href="#files-and-url-acquisition">Files and URL acquisition</a></li><li class="reference-toc-level-2"><a href="#package-validation-and-examples">Package validation and examples</a></li></ol></details>
+<p>Status: canonical publication, storage, composition and feature-complete import
+contract. Locus 1.2.1 and later accept this archive from Files or a public HTTPS
+URL for both View and Room imports. The older flat format in
+<a href="../locus-asset-format"><code>locus-asset-format.md</code></a> remains a compatibility input.</p>
+<p>A <code>.zip</code> or <code>.locusplace</code> file is one ordinary ZIP archive containing one or more
+Package-v2 Destinations (product name: Views), Spaces (Rooms), and Experiences.
+It is the secure publication and integrity envelope used by Locus itself and by
+feature-complete portable packages. The ZIP root contains <code>locusplace.json</code> and
+<code>catalog/</code> directly; do not put both inside another parent directory.</p>
+<p>Validation is based on archive bytes and manifests, never the filename
+extension. A complete package preserves its <code>packageID</code>, content IDs,
+<code>contentVersion</code> update stream and supported Experiences; importing the same
+content hash is an idempotent no-op. The maintained packer and validator produce
+and inspect this exact format.</p>
+<p>This envelope carries pure data, not executable extensions. For one Locus
+binary, every runtime-consumed Package-v2 capability has the same content
+semantics whether the archive is bundled, downloaded from the Library or
+imported from Files/URL. The origin may change entitlement, custom-import
+allowance, update authority, storage, removal and UI labels, but never enables a
+different Room/View schema or renderer feature. Scripts, plugins, dynamic
+libraries and executable members are outside the format. All origins retain
+the same path confinement, integrity, resource-budget, structural-decode,
+reference-closure and minimum-version checks.</p>
+<p>Use this guide for the complete envelope and baseline manifests. The
+<a href="../locus-asset-format">field reference</a> documents the optional View and Room
+capabilities, their assets, ranges, and minimum app versions. The
+<a href="../../schemas/locusplace-v1.schema.json">envelope schema</a> and
+<a href="../../schemas/provenance-v1.schema.json">provenance schema</a> describe JSON shape;
+the packer and validator also check file bytes and cross-field rules. A JSON
+Schema alone cannot validate an archive or prove that it will feel comfortable
+on Apple Vision Pro.</p>
+<h2 id="start-with-a-working-complete-package" tabindex="-1">Start with a working complete package</h2>
+<p>Clone or download <a href="https://github.com/EnterLocus/locus-support">the public tools repository</a>.
+Run these commands from its root on macOS, with Python 3.9 or later and an Xcode installation that provides
+<code>xcrun usdchecker</code> and <code>xcrun usdcat</code>. Basic validation uses the Python standard library,
+<code>/usr/bin/sips</code> for full image decoding, and Xcode’s <code>usdchecker</code> and <code>usdcat</code>
+for models. Advanced cloud, water reflection/contact, and sun-free-sky checks
+also need NumPy and Pillow: <code>python3 -m pip install numpy pillow</code>.</p>
+<pre><code class="language-sh">python3 examples/locusplace/build_examples.py /absolute/path/to/locusplace-examples
+python3 tools/validate_locusplace.py --current-app-version 1.4.4 /absolute/path/to/locusplace-examples/view-only.locusplace
+python3 tools/validate_locusplace.py --current-app-version 1.4.4 /absolute/path/to/locusplace-examples/room-only.locusplace
+python3 tools/validate_locusplace.py --current-app-version 1.4.4 /absolute/path/to/locusplace-examples/combined.locusplace
+</code></pre>
+<p>The target directory must be absent or empty. These tiny synthetic examples
+exercise the format; the gradient and cube are not production-quality scenery
+or a finished Room. Their source and generated content are Apache-2.0 licensed.
+See <a href="../../examples/locusplace/README.md">the example instructions</a>.</p>
+<p><code>--current-app-version</code> is the Locus version you are validating <strong>for</strong>; it does
+not upgrade the installed app or grant support for a capability. The tools
+conservatively default to <code>1.0.0</code>; pass the intended version explicitly. Complete
+imports require Locus 1.2.1 or later, and newer fields require their own version
+floor. The Room ground and midground controls require a supporting 1.4.4-or-later
+build; this guide does not assert that such a build is currently on the App Store.</p>
+<p>For your own package, unzip an example into an editable folder or create the
+layout below. Replace its assets and provenance, use your own stable IDs, and
+pack to an output <strong>outside</strong> that folder:</p>
+<pre><code class="language-sh">python3 tools/pack_locusplace.py --current-app-version 1.4.4 MyEditablePlace MyPlace.zip
+python3 tools/validate_locusplace.py --current-app-version 1.4.4 --json MyPlace.zip
+</code></pre>
+<p>The packer recomputes <code>files</code> and <code>contentHash</code>, validates the archive, and only
+then publishes it. It refuses to overwrite an existing output. It leaves the
+editable source untouched. Import the result through <strong>Places → Import → Import
+a View</strong> or <strong>Import a Room → Files</strong>, choosing an entrypoint whose content
+kind is included. A combined package installs its contents together. A direct
+public HTTPS ZIP URL works too. Check each authored seat, effect, light and
+sound on Apple Vision Pro before sharing a finished place.</p>
+<h2 id="archive-layout" tabindex="-1">Archive layout</h2>
+<pre><code class="language-text">example.locusplace
+├── locusplace.json
+└── catalog/
+    ├── destinations/&lt;destination-id&gt;/
+    │   ├── destination.json
+    │   ├── provenance.json
+    │   └── ...
+    ├── spaces/&lt;space-id&gt;/
+    │   ├── space.json
+    │   ├── provenance.json
+    │   └── ...
+    └── experiences/&lt;experience-id&gt;/
+        └── experience.json
+</code></pre>
+<p>Every non-directory member other than the root <code>locusplace.json</code> must be
+declared in <code>files</code>. Every declared file must exist. The archive may contain
+only the three known catalog collections, and every file must be inside a
+package ID declared by <code>contents</code>. Package-v2 manifests remain
+forward-compatible with unknown fields, but unknown envelope fields, unsupported format versions, collections and content
+modes fail closed. Provenance follows its published schema.</p>
+<p>A View-only or Room-only archive installs reusable catalog content. Once the
+catalog resolves, Locus derives its default pairings: each View with Your Room,
+and each View with every Room that has a destination opening. An explicit
+Experience replaces only its named pair and may refer to content in the same
+archive or to a stable ID already present in the built-in/imported catalog.</p>
+<h2 id="locusplacejson" tabindex="-1"><code>locusplace.json</code></h2>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 1,
+  &quot;packageID&quot;: &quot;place.example-combined&quot;,
+  &quot;contentVersion&quot;: &quot;1.0.0&quot;,
+  &quot;minimumAppVersion&quot;: &quot;1.0.0&quot;,
+  &quot;contents&quot;: {
+    &quot;destinationIDs&quot;: [&quot;destination.example-view&quot;],
+    &quot;spaceIDs&quot;: [&quot;space.example-room&quot;],
+    &quot;experienceIDs&quot;: [&quot;experience.example-combined&quot;]
+  },
+  &quot;files&quot;: [
+    {
+      &quot;path&quot;: &quot;catalog/destinations/destination.example-view/destination.json&quot;,
+      &quot;byteCount&quot;: 214,
+      &quot;sha256&quot;: &quot;&lt;64 lowercase hex characters&gt;&quot;
+    }
+  ],
+  &quot;contentHash&quot;: &quot;&lt;64 lowercase hex characters&gt;&quot;
+}
+</code></pre>
+<p><code>packageID</code> and all content IDs are stable ASCII identifiers of at most 128
+bytes. They begin with a letter or digit and then use only letters, digits,
+<code>.</code>, <code>_</code>, and <code>-</code>.
+Versions have exactly three numeric components. An update with changed bytes
+must retain the same declared content IDs and use a greater <code>contentVersion</code>.
+Importing the same <code>contentHash</code> is an idempotent no-op.</p>
+<p><code>contentHash</code> is SHA-256 over every file record sorted by Unicode path. Each
+record contributes these UTF-8 bytes:</p>
+<pre><code class="language-text">path NUL decimal-byteCount NUL lowercase-sha256 NUL
+</code></pre>
+<p>This hash is independent of JSON whitespace and ZIP member ordering. The
+validator also streams and verifies every declared file’s actual byte count,
+ZIP CRC, and SHA-256.</p>
+<h3 id="envelope-field-reference" tabindex="-1">Envelope field reference</h3>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align:right">Required</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>formatVersion</code></td>
+<td style="text-align:right">yes</td>
+<td>Integer <code>1</code>; unknown envelope versions fail closed.</td>
+</tr>
+<tr>
+<td><code>packageID</code></td>
+<td style="text-align:right">yes</td>
+<td>Stable identity of this install/update stream; it is not a filename.</td>
+</tr>
+<tr>
+<td><code>contentVersion</code></td>
+<td style="text-align:right">yes</td>
+<td>Three numeric components such as <code>1.2.0</code>; increase when bytes change under the same IDs.</td>
+</tr>
+<tr>
+<td><code>minimumAppVersion</code></td>
+<td style="text-align:right">yes</td>
+<td>Oldest Locus version allowed to import the archive, also three numeric components.</td>
+</tr>
+<tr>
+<td><code>contents.destinationIDs</code></td>
+<td style="text-align:right">yes</td>
+<td>Unique View IDs owned by the ZIP; use <code>[]</code> when none.</td>
+</tr>
+<tr>
+<td><code>contents.spaceIDs</code></td>
+<td style="text-align:right">yes</td>
+<td>Unique Room IDs owned by the ZIP; use <code>[]</code> when none.</td>
+</tr>
+<tr>
+<td><code>contents.experienceIDs</code></td>
+<td style="text-align:right">yes</td>
+<td>Unique Experience IDs owned by the ZIP; use <code>[]</code> when none.</td>
+</tr>
+<tr>
+<td><code>files</code></td>
+<td style="text-align:right">yes</td>
+<td>Complete generated inventory of every payload file, excluding <code>locusplace.json</code>.</td>
+</tr>
+<tr>
+<td><code>files[].path</code></td>
+<td style="text-align:right">yes</td>
+<td>Canonical archive-relative <code>catalog/...</code> path.</td>
+</tr>
+<tr>
+<td><code>files[].byteCount</code></td>
+<td style="text-align:right">yes</td>
+<td>Exact expanded byte count.</td>
+</tr>
+<tr>
+<td><code>files[].sha256</code></td>
+<td style="text-align:right">yes</td>
+<td>SHA-256 of expanded bytes, 64 lowercase hexadecimal characters.</td>
+</tr>
+<tr>
+<td><code>contentHash</code></td>
+<td style="text-align:right">yes</td>
+<td>SHA-256 identity of the canonical payload inventory described above.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="package-v2-metadata-inside-the-zip" tabindex="-1">Package-v2 metadata inside the ZIP</h2>
+<p>The complete envelope uses <code>formatVersion: 1</code>; each <code>destination.json</code>,
+<code>space.json</code> and <code>experience.json</code> uses <code>formatVersion: 2</code>. The Room v1–v10
+numbers in the <a href="../locus-asset-format#flat-compatibility-room-zip">flat compatibility reference</a>
+belong to the separate flat <code>space.json</code> input. Do not change a complete
+<code>space.json</code> to version 10 to use baked light layers. In complete packages,
+optional capabilities are enabled by their typed fields and guarded by
+<code>minimumAppVersion</code>.</p>
+<p>All package asset paths are relative to the directory containing their
+manifest, not to the ZIP root. Every reference resolves to a regular file
+inside that package. Base Package-v2 manifests allow forward-compatible metadata; individual
+capability profiles may use closed field sets. Do not rely on an unknown field
+being rendered. The outer envelope rejects unknown fields, and provenance must
+follow its published schema.</p>
+<p>Coordinates are right-handed, meters, +Y up, and −Z forward. Quaternions are
+<code>[x, y, z, w]</code>. A transform can contain <code>translationMeters</code> (three finite
+numbers), <code>orientationXYZW</code> (four finite numbers with non-zero length), and
+<code>scale</code> (three finite positive numbers).</p>
+<h3 id="view-destinationjson" tabindex="-1">View: <code>destination.json</code></h3>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 2,
+  &quot;id&quot;: &quot;destination.example-view&quot;,
+  &quot;title&quot;: &quot;Example View&quot;,
+  &quot;panorama&quot;: {
+    &quot;path&quot;: &quot;panorama.jpg&quot;,
+    &quot;projection&quot;: &quot;equirectangular&quot;,
+    &quot;width&quot;: 8192,
+    &quot;height&quot;: 4096,
+    &quot;initialYawDegrees&quot;: 0
+  },
+  &quot;provenance&quot;: &quot;provenance.json&quot;
+}
+</code></pre>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align:right">Required</th>
+<th>Meaning and validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>formatVersion</code></td>
+<td style="text-align:right">yes</td>
+<td>Integer <code>2</code>.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td style="text-align:right">yes</td>
+<td>Stable View ID; equals its directory and envelope ID.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td style="text-align:right">yes</td>
+<td>Non-empty user-visible View name.</td>
+</tr>
+<tr>
+<td><code>panorama.path</code></td>
+<td style="text-align:right">yes</td>
+<td>Package-relative final JPEG or PNG; decoded bytes, not extension alone, determine type.</td>
+</tr>
+<tr>
+<td><code>panorama.projection</code></td>
+<td style="text-align:right">yes</td>
+<td>Exactly <code>equirectangular</code>.</td>
+</tr>
+<tr>
+<td><code>panorama.width</code>, <code>height</code></td>
+<td style="text-align:right">yes</td>
+<td>Positive decoded dimensions, exactly declared, with <code>width == 2 * height</code>.</td>
+</tr>
+<tr>
+<td><code>panorama.initialYawDegrees</code></td>
+<td style="text-align:right">no</td>
+<td>Finite rotation within the canonical panorama frame; default <code>0</code>.</td>
+</tr>
+<tr>
+<td><code>sourceImage</code></td>
+<td style="text-align:right">no</td>
+<td>Optional package-relative JPEG/PNG audit image. It is not rendered, but complete packages may retain it as typed, decoded and budgeted data. Editable/DCC sources remain outside the runtime ZIP.</td>
+</tr>
+<tr>
+<td><code>thumbnail</code></td>
+<td style="text-align:right">no</td>
+<td>Package-relative JPEG/PNG catalog image.</td>
+</tr>
+<tr>
+<td><code>caption</code></td>
+<td style="text-align:right">no</td>
+<td>Human-readable description.</td>
+</tr>
+<tr>
+<td><code>generation.generator</code></td>
+<td style="text-align:right">no</td>
+<td>Truthful generator or tool name.</td>
+</tr>
+<tr>
+<td><code>generation.model</code></td>
+<td style="text-align:right">no</td>
+<td>Optional model/workflow version.</td>
+</tr>
+<tr>
+<td><code>generation.generatedAt</code></td>
+<td style="text-align:right">no</td>
+<td>Optional timestamp; RFC 3339 UTC is recommended.</td>
+</tr>
+<tr>
+<td><code>depthLayers[]</code></td>
+<td style="text-align:right">no in Package v2; unsupported in public ZIP imports</td>
+<td>Reserved ordered depth assets. Public import rejects the field until a product runtime and byte-level validator consume its encoding.</td>
+</tr>
+<tr>
+<td><code>midground.path</code></td>
+<td style="text-align:right">no</td>
+<td>Runtime midground USDZ rendered in both Experience Modes; it follows the same member allowlist, structure and resource budgets for bundled, Library and imported packages. See the <a href="../locus-asset-format#complete-view-source-and-midground-data-locus-121">midground reference</a>.</td>
+</tr>
+<tr>
+<td><code>midground.transform</code></td>
+<td style="text-align:right">no</td>
+<td>Optional finite transform for <code>midground.path</code>.</td>
+</tr>
+<tr>
+<td><code>midground.terrainEntities</code></td>
+<td style="text-align:right">no</td>
+<td>Unique non-empty names of ground units in <code>midground.path</code>; the runtime uses them to grade terrain beneath the Room footprint.</td>
+</tr>
+<tr>
+<td><code>midground.water</code></td>
+<td style="text-align:right">no</td>
+<td>App-rendered water declaration, including validated mask/normal-map and optional shore data described in the <a href="../locus-asset-format">field reference</a>.</td>
+</tr>
+<tr>
+<td><code>sky</code></td>
+<td style="text-align:right">no</td>
+<td>App-rendered procedural night sky (stars, Milky Way, optional aurora) shown through a validated 2:1 grayscale <code>sky.mask</code>; requires <code>minimumAppVersion &gt;= 1.2.4</code>. See the <a href="../locus-asset-format#procedural-sky-celestial-bodies-and-near-orbit">sky reference</a>.</td>
+</tr>
+<tr>
+<td><code>gpuTexture</code>, <code>gpuTextures</code></td>
+<td style="text-align:right">no</td>
+<td>Validated ASTC KTX1 sidecars available to user ZIPs and Library packages alike. The v1 panorama sidecar requires <code>1.2.3</code>; the v2 source-image array requires <code>1.3.0</code>. Source hashes, dimensions and mip levels must match.</td>
+</tr>
+<tr>
+<td><code>water</code>, <code>clouds</code>, <code>fireflies</code></td>
+<td style="text-align:right">no</td>
+<td>Runtime water (including glow), painted-cloud motion and firefly declarations; require <code>minimumAppVersion &gt;= 1.3.0</code>. Their referenced assets and resource budgets follow the common Package-v2 contract.</td>
+</tr>
+<tr>
+<td><code>environment.sunPath</code></td>
+<td style="text-align:right">no</td>
+<td>Authored sun-free sky and optional masked solar disc; requires <code>1.3.0</code> and its authoring attestation.</td>
+</tr>
+<tr>
+<td><code>celestial</code></td>
+<td style="text-align:right">no</td>
+<td>Animated celestial body and referenced textures; requires <code>1.2.4</code>, or the newer floor declared by its optional features (cloud-shell motion/evolution requires <code>1.3.0</code>).</td>
+</tr>
+<tr>
+<td><code>nearOrbit</code></td>
+<td style="text-align:right">no</td>
+<td>Near-orbit profiles, texture assets and content-bound fallback proof. v1 and v2 require <code>1.3.0</code>; v2 includes the tile manifest, tile images and their GPU sidecars.</td>
+</tr>
+<tr>
+<td><code>splat.variants</code>, <code>splat.ply</code></td>
+<td style="text-align:right">no in Package v2; unsupported in public ZIP imports</td>
+<td>Reserved future asset references. The splat backend has been removed, so public import rejects the entire field.</td>
+</tr>
+<tr>
+<td><code>splat.metricScaleFactor</code></td>
+<td style="text-align:right">no in Package v2; unsupported in public ZIP imports</td>
+<td>Positive finite scale in the reserved contract.</td>
+</tr>
+<tr>
+<td><code>splat.groundPlaneOffset</code></td>
+<td style="text-align:right">no in Package v2; unsupported in public ZIP imports</td>
+<td>Finite authored ground offset in the reserved contract.</td>
+</tr>
+<tr>
+<td><code>splat.placement</code></td>
+<td style="text-align:right">no in Package v2; unsupported in public ZIP imports</td>
+<td>Optional shared transform in the reserved contract.</td>
+</tr>
+<tr>
+<td><code>environment</code></td>
+<td style="text-align:right">no</td>
+<td>Visible-View brightness, optional small SDR Room lighting, and direct-sun defaults below.</td>
+</tr>
+<tr>
+<td><code>audio.path</code></td>
+<td style="text-align:right">no in Package v2; unsupported in public ZIP imports</td>
+<td>Reserved runtime audio file. Public import rejects the field until complete audio byte validation and playback are product-supported.</td>
+</tr>
+<tr>
+<td><code>audio.loops</code></td>
+<td style="text-align:right">with Package-v2 audio; unsupported in public ZIP imports</td>
+<td>Boolean controlling repetition in the reserved contract.</td>
+</tr>
+<tr>
+<td><code>provenance</code></td>
+<td style="text-align:right">yes for imports</td>
+<td>Package-relative provenance JSON.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Complete ZIPs accept the fields this binary actually consumes, plus explicitly
+retained metadata such as <code>sourceImage</code>, when their payload can be validated as
+typed and budgeted data. <code>midground</code> is part of the common runtime contract and
+requires <code>minimumAppVersion &gt;= 1.2.1</code>.
+<code>depthLayers</code>, <code>splat</code>, and the legacy <code>audio</code> block remain reserved or retired
+without a current runtime consumer, so this binary rejects them regardless of
+origin instead of accepting a type-blind path. When a later binary implements
+one of those capabilities, it must add the field’s asset references, type and
+budget checks, runtime consumer and app-version floor to the common contract;
+it must not add a separate public-import switch.</p>
+<p><strong>12,288×6,144 (12K) is recommended, not required.</strong> Lower resolutions such
+as 8,192×4,096, 6,144×3,072, or 4,096×2,048 are valid when strictly 2:1 and
+declared with their real decoded dimensions. Do not upscale a smaller source
+merely to claim 12K: it invents no detail and wastes memory.</p>
+<p>Panorama coordinates are fixed: <code>u = 0.5</code> is yaw 0 and initial forward/world
+−Z; <code>u</code> increases eastward toward +X; the seam is <code>u = 0/1</code>, yaw ±180°; and the
+top image row is the zenith. <code>initialYawDegrees</code> rotates the image inside this
+frame and does not redefine it.</p>
+<p>Optional View lighting:</p>
+<pre><code class="language-json">{
+  &quot;environment&quot;: {
+    &quot;imageBasedLight&quot;: &quot;thumbnail.jpg&quot;,
+    &quot;skyGainEV&quot;: 0,
+    &quot;exposureEV&quot;: 0,
+    &quot;horizonPitchDegrees&quot;: 0,
+    &quot;colorGrade&quot;: {&quot;contrast&quot;: 1.15, &quot;saturation&quot;: 1.2},
+    &quot;directSun&quot;: {&quot;enabled&quot;: false, &quot;illuminanceLux&quot;: 5000}
+  }
+}
+</code></pre>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>imageBasedLight</code></td>
+<td>Separate 2:1 JPEG/PNG used only to light Room geometry and reflections. It must not reuse <code>panorama.path</code>; 1024×512 is recommended and a neutral renderer fallback is used when omitted.</td>
+</tr>
+<tr>
+<td><code>skyGainEV</code></td>
+<td>Finite EV gain applied only to the visible panorama.</td>
+</tr>
+<tr>
+<td><code>exposureEV</code></td>
+<td>Finite EV gain applied only to IBL.</td>
+</tr>
+<tr>
+<td><code>horizonPitchDegrees</code></td>
+<td>Finite authored horizon correction.</td>
+</tr>
+<tr>
+<td><code>colorGrade.contrast</code></td>
+<td>Optional SDR visible-panorama contrast from <code>0.5</code> through <code>2.0</code>; <code>1.0</code> is neutral.</td>
+</tr>
+<tr>
+<td><code>colorGrade.saturation</code></td>
+<td>Optional SDR visible-panorama saturation from <code>0.0</code> through <code>2.0</code>; <code>1.0</code> is neutral.</td>
+</tr>
+<tr>
+<td><code>directSun.enabled</code></td>
+<td>Whether a separate directional light is authored.</td>
+</tr>
+<tr>
+<td><code>directSun.azimuthDegrees</code>, <code>elevationDegrees</code></td>
+<td>Finite direction angles; both required when enabled.</td>
+</tr>
+<tr>
+<td><code>directSun.illuminanceLux</code></td>
+<td>Finite non-negative illuminance.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Color grading affects only the displayed SDR panorama. It reuses that texture
+and does not turn the View into HDR or add highlight detail that is absent from
+the source. A disabled sun can still carry <code>5000</code> lux so <strong>Add Sunlight</strong> starts
+at the app default without changing the package’s authored off state.</p>
+<p><code>visibleSkyHDR</code> and <code>hdrManifest</code> are retired and rejected. An outer-package
+EXR cannot be used as the visible View or Room-lighting map. OpenEXR remains an
+allowed USDZ texture format for Room assets and is validated inside the model.</p>
+<h3 id="room-spacejson" tabindex="-1">Room: <code>space.json</code></h3>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 2,
+  &quot;id&quot;: &quot;space.example-room&quot;,
+  &quot;title&quot;: &quot;Example Room&quot;,
+  &quot;scene&quot;: &quot;scene.usdz&quot;,
+  &quot;thumbnail&quot;: &quot;thumbnail.jpg&quot;,
+  &quot;caption&quot;: &quot;A quiet house arranged around a sunlit courtyard.&quot;,
+  &quot;previewCamera&quot;: {
+    &quot;yawDegrees&quot;: -28,
+    &quot;pitchDegrees&quot;: -10,
+    &quot;zoom&quot;: 1.0
+  },
+  &quot;seatedOrigin&quot;: {
+    &quot;translationMeters&quot;: [0, 0, 0],
+    &quot;orientationXYZW&quot;: [0, 0, 0, 1]
+  },
+  &quot;safeHeadVolume&quot;: {
+    &quot;centerMeters&quot;: [0, 1.2, 0],
+    &quot;sizeMeters&quot;: [1.2, 0.6, 1.2]
+  },
+  &quot;destinationOpenings&quot;: [
+    {
+      &quot;id&quot;: &quot;front&quot;,
+      &quot;transform&quot;: {
+        &quot;translationMeters&quot;: [0, 1.2, -2],
+        &quot;orientationXYZW&quot;: [0, 0, 0, 1]
+      },
+      &quot;widthMeters&quot;: 4,
+      &quot;heightMeters&quot;: 2.5
+    }
+  ],
+  &quot;collision&quot;: {&quot;mode&quot;: &quot;embedded&quot;},
+  &quot;teleportCatalog&quot;: {&quot;path&quot;: &quot;teleport-points.json&quot;, &quot;houseID&quot;: &quot;example-room&quot;},
+  &quot;quality&quot;: {
+    &quot;status&quot;: &quot;unverified&quot;,
+    &quot;triangleCount&quot;: 0,
+    &quot;materialCount&quot;: 0,
+    &quot;entityCount&quot;: 0,
+    &quot;maxTextureDimension&quot;: 0
+  },
+  &quot;provenance&quot;: &quot;provenance.json&quot;
+}
+</code></pre>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align:right">Required</th>
+<th>Meaning and validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>formatVersion</code></td>
+<td style="text-align:right">yes</td>
+<td>Integer <code>2</code>.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td style="text-align:right">yes</td>
+<td>Stable Room ID; equals its directory and envelope ID.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td style="text-align:right">yes</td>
+<td>Non-empty user-visible Room name.</td>
+</tr>
+<tr>
+<td><code>scene</code></td>
+<td style="text-align:right">yes</td>
+<td>Package-relative self-contained USDZ. <code>.blend</code> and other authoring files are not substitutes and cannot be bundled elsewhere.</td>
+</tr>
+<tr>
+<td><code>thumbnail</code></td>
+<td style="text-align:right">no</td>
+<td>Package-relative decoded JPEG or PNG shown on the Room card. If declared it must exist, decode completely, and shares the archive image budgets; omit it to use the fallback glyph.</td>
+</tr>
+<tr>
+<td><code>caption</code></td>
+<td style="text-align:right">no</td>
+<td>Non-empty user-facing copy for <strong>About This Room</strong>, up to 2,000 UTF-8 bytes.</td>
+</tr>
+<tr>
+<td><code>previewCamera.yawDegrees</code>, <code>pitchDegrees</code></td>
+<td style="text-align:right">no</td>
+<td>Finite starting angles for the bounded 3D preview. They do not affect immersive placement.</td>
+</tr>
+<tr>
+<td><code>previewCamera.zoom</code></td>
+<td style="text-align:right">with camera</td>
+<td>Finite positive starting scale for the bounded 3D preview. Reset returns to this authored pose; the viewer clamps it to the supported interaction range.</td>
+</tr>
+<tr>
+<td><code>seatedOrigin.translationMeters</code></td>
+<td style="text-align:right">yes</td>
+<td>Three finite meters locating the authored seated-floor reference.</td>
+</tr>
+<tr>
+<td><code>seatedOrigin.orientationXYZW</code></td>
+<td style="text-align:right">yes</td>
+<td>Four finite normalized quaternion components; the seated frame must remain upright (no pitch or roll).</td>
+</tr>
+<tr>
+<td><code>safeHeadVolume.centerMeters</code></td>
+<td style="text-align:right">yes</td>
+<td>Three finite meters in Room coordinates.</td>
+</tr>
+<tr>
+<td><code>safeHeadVolume.sizeMeters</code></td>
+<td style="text-align:right">yes</td>
+<td>Three finite, strictly positive dimensions.</td>
+</tr>
+<tr>
+<td><code>destinationOpenings</code></td>
+<td style="text-align:right">yes</td>
+<td>Rectangular opening array. A standalone Room-only import needs exactly one; zero or multiple openings require an authored <code>virtual-space</code> Experience in the same archive.</td>
+</tr>
+<tr>
+<td><code>destinationOpenings[].id</code></td>
+<td style="text-align:right">per entry</td>
+<td>Unique package ID used by Experience composition.</td>
+</tr>
+<tr>
+<td><code>destinationOpenings[].transform</code></td>
+<td style="text-align:right">per entry</td>
+<td>Required position/quaternion pose.</td>
+</tr>
+<tr>
+<td><code>destinationOpenings[].widthMeters</code>, <code>heightMeters</code></td>
+<td style="text-align:right">per entry</td>
+<td>Finite, strictly positive dimensions.</td>
+</tr>
+<tr>
+<td><code>collision.mode</code></td>
+<td style="text-align:right">yes</td>
+<td><code>embedded</code> or <code>separate</code>.</td>
+</tr>
+<tr>
+<td><code>collision.path</code></td>
+<td style="text-align:right">conditional</td>
+<td>Forbidden for <code>embedded</code>; for <code>separate</code>, a required package-relative self-contained USDZ validated with the same member, texture, and geometry rules as <code>scene</code>. Its geometry and scene geometry share the Room budget. Renamed authoring sources are not valid.</td>
+</tr>
+<tr>
+<td><code>quality.status</code></td>
+<td style="text-align:right">yes</td>
+<td><code>unverified</code> or <code>verified</code>.</td>
+</tr>
+<tr>
+<td><code>quality.triangleCount</code>, <code>materialCount</code>, <code>entityCount</code>, <code>maxTextureDimension</code></td>
+<td style="text-align:right">yes</td>
+<td>Non-negative author measurements. Zero means unmeasured; actual USD is checked independently.</td>
+</tr>
+<tr>
+<td><code>teleportCatalog.path</code></td>
+<td style="text-align:right">yes</td>
+<td>Package-relative teleport JSON. Its selected house must contain at least one point; otherwise the Room cannot enter Virtual Space. Its 1 MiB JSON budget is enforced by field role even if the filename does not end in <code>.json</code>; case or Unicode filesystem aliases do not bypass it.</td>
+</tr>
+<tr>
+<td><code>teleportCatalog.houseID</code></td>
+<td style="text-align:right">yes</td>
+<td>ID selecting one non-empty <code>houses</code> array in that JSON.</td>
+</tr>
+<tr>
+<td><code>spatialAdaptation.wallEntities</code></td>
+<td style="text-align:right">no</td>
+<td>Unique non-empty USD entity names for walls; this metadata does not hide them.</td>
+</tr>
+<tr>
+<td><code>spatialAdaptation.roofEntities</code></td>
+<td style="text-align:right">no</td>
+<td>Unique non-empty names disjoint from walls.</td>
+</tr>
+<tr>
+<td><code>spatialAdaptation.deskEntitiesByTeleportID</code></td>
+<td style="text-align:right">no</td>
+<td>Map from declared teleport ID to non-empty authored desk entity name.</td>
+</tr>
+<tr>
+<td><code>provenance</code></td>
+<td style="text-align:right">yes</td>
+<td>Package-relative provenance JSON.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The USDZ is meter-scale, right-handed, +Y up, and contains supported runtime
+USD, texture, and audio members only. USDZ members must be stored, not
+compressed. The validator loads/flattens the actual stage and counts geometry;
+small or zero <code>quality</code> values cannot hide an oversized model.</p>
+<p>Required teleport JSON (the selected house must contain at least one point):</p>
+<pre><code class="language-json">{
+  &quot;houses&quot;: {
+    &quot;example-room&quot;: [
+      {
+        &quot;id&quot;: &quot;work-desk&quot;,
+        &quot;title&quot;: &quot;Work desk&quot;,
+        &quot;anchorXZ&quot;: [0.5, 0.5],
+        &quot;sourceFloorOffset&quot;: 0,
+        &quot;eyeHeight&quot;: 1.15,
+        &quot;yawRadians&quot;: 0
+      }
+    ]
+  }
+}
+</code></pre>
+<p><code>anchorXZ</code> is two finite normalized values in <code>0...1</code>; <code>sourceFloorOffset</code> is
+finite and non-negative in authored model units; <code>eyeHeight</code> is positive,
+finite, and measured in meters; <code>yawRadians</code> is a finite model rotation about
++Y in the world frame. Point IDs are unique and titles non-empty.</p>
+<h3 id="experience-experiencejson" tabindex="-1">Experience: <code>experience.json</code></h3>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 2,
+  &quot;id&quot;: &quot;experience.example-combined&quot;,
+  &quot;title&quot;: &quot;Example Room · Example View&quot;,
+  &quot;destinationID&quot;: &quot;destination.example-view&quot;,
+  &quot;spaceID&quot;: &quot;space.example-room&quot;,
+  &quot;supportedModes&quot;: [&quot;virtual-space&quot;],
+  &quot;composition&quot;: {
+    &quot;destinationOpeningID&quot;: &quot;front&quot;,
+    &quot;destinationYawDegrees&quot;: 0,
+    &quot;destinationPitchDegrees&quot;: 0,
+    &quot;destinationExposureOffsetEV&quot;: 0
+  },
+  &quot;compatibility&quot;: {
+    &quot;minimumViewerVersion&quot;: &quot;1.0.0&quot;,
+    &quot;requiredCapabilities&quot;: [&quot;world-tracking&quot;]
+  }
+}
+</code></pre>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align:right">Required</th>
+<th>Meaning and validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>formatVersion</code></td>
+<td style="text-align:right">yes</td>
+<td>Integer <code>2</code>.</td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td style="text-align:right">yes</td>
+<td>Stable Experience ID.</td>
+</tr>
+<tr>
+<td><code>title</code></td>
+<td style="text-align:right">yes</td>
+<td>Non-empty user-visible tile name.</td>
+</tr>
+<tr>
+<td><code>destinationID</code></td>
+<td style="text-align:right">yes</td>
+<td>Stable View ID in this ZIP or already installed.</td>
+</tr>
+<tr>
+<td><code>spaceID</code></td>
+<td style="text-align:right">conditional</td>
+<td>Stable Room ID; required by <code>virtual-space</code>, normally omitted for <code>room-portal</code>.</td>
+</tr>
+<tr>
+<td><code>supportedModes</code></td>
+<td style="text-align:right">yes</td>
+<td>Non-empty unique array containing only <code>virtual-space</code> or <code>room-portal</code>.</td>
+</tr>
+<tr>
+<td><code>composition.destinationOpeningID</code></td>
+<td style="text-align:right">conditional</td>
+<td>Required for <code>virtual-space</code>; names an opening in the referenced Room.</td>
+</tr>
+<tr>
+<td><code>composition.destinationYawDegrees</code></td>
+<td style="text-align:right">no</td>
+<td>Finite sky alignment offset for this pair.</td>
+</tr>
+<tr>
+<td><code>composition.destinationPitchDegrees</code></td>
+<td style="text-align:right">no</td>
+<td>Finite sky pitch offset for this pair.</td>
+</tr>
+<tr>
+<td><code>composition.destinationExposureOffsetEV</code></td>
+<td style="text-align:right">no</td>
+<td>Finite relative exposure offset for this pair.</td>
+</tr>
+<tr>
+<td><code>compatibility.minimumViewerVersion</code></td>
+<td style="text-align:right">no</td>
+<td>Declarative minimum viewer version string.</td>
+</tr>
+<tr>
+<td><code>compatibility.requiredCapabilities</code></td>
+<td style="text-align:right">no</td>
+<td>Declarative capability strings.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>View-only and Room-only ZIPs install reusable content and join the default
+composition matrix. An explicit Experience is necessary only to override one
+pair’s opening, orientation, exposure, title, mode, or compatibility. References
+may resolve within the same archive or against built-in/already-installed stable
+IDs; unresolved references fail the whole import.</p>
+<h2 id="optional-capabilities-and-translated-labels" tabindex="-1">Optional capabilities and translated labels</h2>
+<p>Add optional fields to their owning View or Room manifest, and include every
+referenced asset beside that manifest. The <a href="../locus-asset-format">field reference</a>
+covers media and masks, sound and Room music, midground and wind, water, sky,
+clouds, sun path, celestial bodies, near orbit, black holes, point lights,
+GPU texture sidecars, seats and groups, lights, animations, video surfaces,
+particles and baked light layers. It also defines <code>localizations</code>,
+<code>provenanceDetail</code>, and the Room’s <code>viewGroundFloorOffsetMeters</code>,
+<code>viewGroundKeepOut</code>, and <code>viewMidgroundVisibility</code> controls.</p>
+<p>For example, these optional fields belong in an otherwise complete Room
+manifest, and require envelope <code>minimumAppVersion: &quot;1.4.4&quot;</code> or later:</p>
+<pre><code class="language-json">{
+  &quot;viewGroundFloorOffsetMeters&quot;: 0.2,
+  &quot;viewGroundKeepOut&quot;: false,
+  &quot;viewMidgroundVisibility&quot;: &quot;terrainOnly&quot;
+}
+</code></pre>
+<p>They keep their meaning for imported, bundled and Library content. Library
+capability names in the field reference belong to Library offers; do not add a
+made-up <code>requiredCapabilities</code> field to <code>locusplace.json</code>. The complete package
+import path checks its minimum app version and the typed content itself.</p>
+<h2 id="required-provenance" tabindex="-1">Required provenance</h2>
+<p>Every imported Destination and Space points to a provenance JSON document.
+It records the creator/agency, exactly one of a license or an
+all-rights-reserved statement, requested credit, modification notes, whether
+AI was used, and the AI provider when applicable. Source/original asset URLs
+are optional but must be HTTPS without credentials or fragments. Missing, oversized or malformed provenance fails the whole import. See the
+<a href="../locus-asset-format#provenance">provenance reference</a>.</p>
+<pre><code class="language-json">{
+  &quot;formatVersion&quot;: 1,
+  &quot;creatorOrAgency&quot;: &quot;Your name or studio&quot;,
+  &quot;sourcePageURL&quot;: &quot;https://example.com/project&quot;,
+  &quot;originalAssetURL&quot;: &quot;https://example.com/original&quot;,
+  &quot;license&quot;: {
+    &quot;identifier&quot;: &quot;YOUR-LICENSE-ID&quot;,
+    &quot;name&quot;: &quot;Your license name&quot;,
+    &quot;url&quot;: &quot;https://example.com/license&quot;
+  },
+  &quot;requestedCredit&quot;: &quot;Credit line requested by the creator&quot;,
+  &quot;modificationNotes&quot;: &quot;Converted and packaged for Locus.&quot;,
+  &quot;aiGenerated&quot;: false
+}
+</code></pre>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Field</th>
+<th style="text-align:right">Required</th>
+<th>Meaning and constraints</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>formatVersion</code></td>
+<td style="text-align:right">yes</td>
+<td>Integer <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>creatorOrAgency</code></td>
+<td style="text-align:right">yes</td>
+<td>Non-empty creator/studio name, at most 200 characters.</td>
+</tr>
+<tr>
+<td><code>sourcePageURL</code></td>
+<td style="text-align:right">no</td>
+<td>Public HTTPS project page; no credentials or fragment.</td>
+</tr>
+<tr>
+<td><code>originalAssetURL</code></td>
+<td style="text-align:right">no</td>
+<td>Public HTTPS source page; records origin without embedding the original file.</td>
+</tr>
+<tr>
+<td><code>license.identifier</code></td>
+<td style="text-align:right">conditional</td>
+<td>Non-empty identifier, at most 100 characters; required with <code>license</code>. Locus does not choose the asset’s license.</td>
+</tr>
+<tr>
+<td><code>license.name</code></td>
+<td style="text-align:right">conditional</td>
+<td>Non-empty name, at most 200 characters; required with <code>license</code>.</td>
+</tr>
+<tr>
+<td><code>license.url</code></td>
+<td style="text-align:right">conditional</td>
+<td>Public HTTPS license URL; required with <code>license</code>.</td>
+</tr>
+<tr>
+<td><code>rights.statement</code></td>
+<td style="text-align:right">conditional</td>
+<td>Non-empty rights statement, at most 1,000 characters; use with <code>rights.url</code> instead of <code>license</code>.</td>
+</tr>
+<tr>
+<td><code>rights.url</code></td>
+<td style="text-align:right">conditional</td>
+<td>Public HTTPS rights-statement URL; exactly one of <code>license</code> or <code>rights</code> is required.</td>
+</tr>
+<tr>
+<td><code>requestedCredit</code></td>
+<td style="text-align:right">yes</td>
+<td>Non-empty credit line, at most 1,000 characters.</td>
+</tr>
+<tr>
+<td><code>modificationNotes</code></td>
+<td style="text-align:right">yes</td>
+<td>Non-empty preparation notes, at most 2,000 characters.</td>
+</tr>
+<tr>
+<td><code>aiGenerated</code></td>
+<td style="text-align:right">yes</td>
+<td>Boolean.</td>
+</tr>
+<tr>
+<td><code>aiProvider</code></td>
+<td style="text-align:right">conditional</td>
+<td>Required and non-empty when <code>aiGenerated</code> is <code>true</code>; forbidden when false; at most 200 characters.</td>
+</tr>
+<tr>
+<td><code>importSource</code></td>
+<td style="text-align:right">no</td>
+<td>Reserved for a View Locus creates directly from an image: <code>photos</code>, <code>files</code>, or <code>url</code>. Third-party packages should omit it.</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>The document is limited to 64 KiB. Do not copy a starter’s provenance after
+replacing its assets. The repository’s license and the user’s asset license are
+separate declarations.</p>
+<p>The ZIP is runtime delivery, not an authoring backup. Every payload file must
+be reachable from a recognized Package-v2 asset field; unreferenced files are
+rejected even when they appear in <code>locusplace.json.files</code>. <code>.blend</code>, <code>.blend1</code>,
+<code>.blend2</code>, <code>.fbx</code>, <code>.obj</code>, <code>.mtl</code>, <code>.gltf</code>, and <code>.glb</code> files are rejected even
+when declared. Keep those source files outside the ZIP. A Room ships the final
+USDZ; a packaged View ships the final 2:1 panorama and, optionally, one small
+2:1 JPEG/PNG Room-lighting image.</p>
+<h2 id="security-and-resource-budgets" tabindex="-1">Security and resource budgets</h2>
+<p>Validation examines bytes, not extensions. It rejects traversal, absolute or
+non-canonical paths, backslashes, control characters, case/Unicode collisions,
+symlinks, duplicate entries, encrypted content, undeclared files, hash
+mismatches, unsupported manifests, malformed images, invalid EXR textures
+inside USDZ, malformed USDZ structure, compressed USDZ members, and
+unsupported USDZ asset types. Room budgets are checked against the USD stage
+that the system loader actually parses; the self-reported quality block is
+authoring metadata and cannot reduce those counts.</p>
+<p>The byte-level image allowlist is exact: imported panorama, <code>sourceImage</code>,
+<code>thumbnail</code>, and <code>imageBasedLight</code> raster fields are JPEG or PNG; USDZ textures
+may be JPEG, PNG, or OpenEXR. Other ImageIO-decodable formats are rejected
+rather than accepted implicitly. Outer-package 3D authoring formats are also
+rejected. A USDZ may contain only USD/USDA/USDC, JPEG, PNG, OpenEXR, M4A, WAV,
+and MP3 members.</p>
+<div class="reference-table-scroll" role="region" aria-label="Format table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Budget</th>
+<th style="text-align:right">v1 limit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Download or local archive</td>
+<td style="text-align:right">1 GiB</td>
+</tr>
+<tr>
+<td>ZIP entries</td>
+<td style="text-align:right">4,096</td>
+</tr>
+<tr>
+<td>Root manifest</td>
+<td style="text-align:right">1 MiB</td>
+</tr>
+<tr>
+<td>Any payload file</td>
+<td style="text-align:right">768 MiB</td>
+</tr>
+<tr>
+<td>Total expanded payload</td>
+<td style="text-align:right">2 GiB</td>
+</tr>
+<tr>
+<td>Compression ratio</td>
+<td style="text-align:right">200:1</td>
+</tr>
+<tr>
+<td>Any imported JSON file</td>
+<td style="text-align:right">1 MiB</td>
+</tr>
+<tr>
+<td>Provenance JSON</td>
+<td style="text-align:right">64 KiB</td>
+</tr>
+<tr>
+<td>Image dimension</td>
+<td style="text-align:right">32,768 px</td>
+</tr>
+<tr>
+<td>One image</td>
+<td style="text-align:right">150 million pixels</td>
+</tr>
+<tr>
+<td>All View images</td>
+<td style="text-align:right">500 million pixels</td>
+</tr>
+<tr>
+<td>USDZ entries</td>
+<td style="text-align:right">4,096</td>
+</tr>
+<tr>
+<td>USDZ file / expanded bytes</td>
+<td style="text-align:right">768 MiB / 1.5 GiB</td>
+</tr>
+<tr>
+<td>USDZ texture dimension / total pixels</td>
+<td style="text-align:right">16,384 px / 500 million</td>
+</tr>
+<tr>
+<td>Loaded Room geometry</td>
+<td style="text-align:right">5 million triangles, 1,024 materials, 100,000 entities</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="files-and-url-acquisition" tabindex="-1">Files and URL acquisition</h2>
+<p>For a View, the Imports page accepts one JPG, PNG, or HEIC from Photos, Files,
+or a direct public HTTPS URL. Locus normalizes an image to a Destination-only
+Package v2 payload and passes the transient package through the same validator
+and atomic installer. Files and URL also accept complete Package-v2 ZIPs for
+Views and Rooms, including combined packages when they contain the content kind
+selected by the visitor. Existing flat View/Room ZIPs remain accepted as
+compatibility inputs. A malformed archive that contains <code>locusplace.json</code> is
+rejected as an invalid complete package; it never falls back to the flat parser.
+URL imports reject
+credentials, fragments, localhost, <code>.local</code>, and non-public DNS results. A
+hostname is resolved once per request, every
+answer must be public, and the TLS socket connects to that exact numeric IP
+while authenticating the original hostname. Every redirect repeats this
+resolution-and-pinning step before a new connection, at most five redirects
+are followed, and both declared and streamed download sizes are bounded.</p>
+<p>Validation and catalog resolution finish in a private same-volume staging
+directory. A library-wide advisory lock serializes inventory, quota checks,
+and commit. First installs use exclusive atomic rename; updates use an atomic
+directory swap. Any failure removes staging and leaves the installed package
+untouched.</p>
+<h2 id="package-validation-and-examples" tabindex="-1">Package validation and examples</h2>
+<p>The commands below maintain the complete Package-v2 envelope used by publication
+and feature-complete imports. The legacy flat tools remain documented in
+<a href="../locus-asset-format"><code>locus-asset-format.md</code></a>.</p>
+<p>Validate either filename without installing:</p>
+<pre><code class="language-sh">python3 tools/validate_locusplace.py --current-app-version 1.4.4 MyPlace.locusplace
+python3 tools/validate_locusplace.py --current-app-version 1.4.4 MyPlace.zip
+python3 tools/validate_locusplace.py --current-app-version 1.4.4 --json MyPlace.locusplace
+</code></pre>
+<p>The Python code uses the standard library, macOS ImageIO through <code>/usr/bin/sips</code>,
+and the USD tools <code>usdchecker</code> and <code>usdcat</code> (installed with Xcode/Command Line
+Tools). ImageIO performs a complete pixel decode after structural JPEG or PNG
+validation; EXR validation is limited to textures inside USDZ, and the USD
+tools load, flatten, and measure the actual Room stage.
+It exits nonzero on failure and performs archive, integrity, Package-v2,
+provenance, image/EXR, and USDZ checks.
+The visionOS importer remains authoritative for installation and cross-catalog
+resolution.</p>
+<p>Pack an editable directory into an ordinary ZIP, recomputing every integrity
+record and refusing to publish unless this validator accepts the result:</p>
+<pre><code class="language-sh">python3 tools/pack_locusplace.py --current-app-version 1.4.4 MyEditablePlace MyPlace.zip
+</code></pre>
+<p>Generate real View-only, Room-only, and combined example archives into a
+temporary or ignored directory, then validate them:</p>
+<pre><code class="language-sh">python3 examples/locusplace/build_examples.py /tmp/locusplace-examples
+for package in /tmp/locusplace-examples/*.locusplace; do
+  python3 tools/validate_locusplace.py --current-app-version 1.4.4 &quot;$package&quot;
+done
+</code></pre>
+<p>The examples are generated from source without downloading private assets or
+calling a paid service. The builder and expected layouts are documented in
+<a href="../../examples/locusplace/README.md">the example README</a>.</p>
+</article></main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../../whats-new/">What’s New</a><a href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="../../privacy/">Privacy</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>
