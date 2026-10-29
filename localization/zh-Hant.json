@@ -2379,6 +2379,13 @@
     "{count} results": "{count} 條結果",
     "—then Quick Controls, and pages for Light & Picture, Sound, Motion, and Recline. Want a control on the bar itself?": "—然後是快捷控制，還有光線和圖片、聲音、運動和傾斜的頁面。想要在條桿上控制嗎？",
     "“360 equirectangular panorama JPG,” “2:1 skybox,” or “tonemapped HDRI JPEG.” If a site offers several formats, choose an SDR or tonemapped JPEG rather than an": "“360等角全景 JPG”、“2:1 天空盒”或“調色HDRI JPEG”。如果一個網站提供多種格式，請選擇 SDR 或調色 JPEG，而不是一個",
-    "← All updates": "← 所有更新"
+    "← All updates": "← 所有更新",
+    ") and": "）和",
+    "), and": "），以及",
+    ", and it also\nrequires": "，另外還要求",
+    ", radius is": "，半徑為",
+    ", speed is": "，速度為",
+    "; its centre is\nwithin": "；其中心必須位於",
+    "defaults to": "預設值為"
   }
 }

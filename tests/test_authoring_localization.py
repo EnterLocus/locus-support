@@ -53,6 +53,16 @@ class AuthoringLocalizationTests(unittest.TestCase):
                                      Counter(PROTECTED.findall(catalog[key])),
                                      'field names, filenames, flags and capability IDs must remain exact')
 
+    def test_touched_field_paragraphs_translate_connecting_prose(self):
+        # These fragments sit between code spans in the expanded water reference.
+        fragments = (') and', '), and', ', and it also\nrequires', ', radius is',
+                     ', speed is', '; its centre is\nwithin', 'defaults to')
+        for locale in localization.TRANSLATED_LOCALES:
+            catalog = localization.load_catalog(ROOT, locale)
+            for fragment in fragments:
+                with self.subTest(locale=locale, fragment=fragment):
+                    self.assertTrue(localization.has_translation(fragment, catalog))
+
     def test_every_locale_keeps_reference_code_and_json_byte_for_byte(self):
         for relative in (Path('reference/locus-asset-format/index.html'),
                          Path('reference/locusplace-format/index.html')):

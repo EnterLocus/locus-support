@@ -2379,6 +2379,13 @@
     "with camera": "avec caméra",
     "with the": "avec la",
     "yes": "oui",
-    "yes for imports": "oui pour les imports"
+    "yes for imports": "oui pour les imports",
+    ") and": ") et",
+    "), and": "), et",
+    ", and it also\nrequires": ", et exige aussi",
+    ", radius is": ", le rayon est",
+    ", speed is": ", la vitesse est",
+    "; its centre is\nwithin": "; son centre se situe dans",
+    "defaults to": "a pour valeur par défaut"
   }
 }
