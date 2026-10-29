@@ -104,6 +104,17 @@ def image(ref, archive, images, prefix='thumbnails/'):
             'sha256': ref['sha256']}
 
 
+def recent_date(place):
+    dates = []
+    for field in ('addedAt', 'updatedAt'):
+        if place.get(field):
+            value = datetime.fromisoformat(place[field].replace('Z', '+00:00'))
+            if value.tzinfo is None:
+                raise ValueError('Gallery dates must include a timezone')
+            dates.append(value)
+    return max(dates, default=datetime.min.replace(tzinfo=timezone.utc))
+
+
 def export(catalog, descriptor, archive, profile, images):
     if (catalog['environment'] != 'production' or catalog['catalogProtocol'] != 3
             or any(catalog[k] != descriptor[k] for k in ('environment', 'snapshotID', 'publishedAt', 'expiresAt'))):
@@ -131,7 +142,11 @@ def export(catalog, descriptor, archive, profile, images):
                                    if key in ('creator', 'credit', 'licenseName', 'licenseURL',
                                               'sourceURL', 'modification', 'aiGenerated', 'aiProvider')},
                        'contentVersion': entry['contentVersion'],
+                       **{key: entry[key] for key in ('addedAt', 'updatedAt') if key in entry},
                        'searchTerms': entry.get('searchTerms', []), 'localizations': locales})
+    # Match Library Recent: content chronology, not export/build time or version.
+    # Stable ties retain source order; undated built-ins follow dated content.
+    places.sort(key=recent_date, reverse=True)
     ids = {p['id'] for p in places}
     if len(ids) != len(places) or len({p['slug'] for p in places}) != len(places):
         raise ValueError('Duplicate Place identity or slug')

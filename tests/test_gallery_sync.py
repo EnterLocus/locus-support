@@ -1,9 +1,11 @@
 import copy
 import importlib.util
 import hashlib
+import io
 import json
 from pathlib import Path
 import unittest
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('sync_gallery', ROOT / 'tools/sync_gallery.py')
@@ -81,7 +83,8 @@ class GallerySyncTests(unittest.TestCase):
 
     def test_committed_snapshot_contains_only_public_preview_fields(self):
         allowed = {'id', 'slug', 'type', 'title', 'description', 'image', 'access', 'animated',
-                   'hasSound', 'builtIn', 'localizations', 'searchTerms', 'contentVersion', 'credits'}
+                   'hasSound', 'builtIn', 'localizations', 'searchTerms', 'contentVersion', 'credits',
+                   'addedAt', 'updatedAt'}
         for place in self.snapshot['places']:
             self.assertLessEqual(set(place), allowed)
             self.assertIn(place['access'], ('free', 'supporter'))
@@ -93,6 +96,38 @@ class GallerySyncTests(unittest.TestCase):
         for series in self.snapshot['series']:
             self.assertLessEqual(set(series['members']), ids)
             self.assertGreaterEqual(len(series['members']), 2)
+
+    def test_export_orders_new_and_substantially_updated_places_before_undated_builtins(self):
+        data = b'public thumbnail'
+        ref = {'path': 'thumbnails/example.jpg', 'byteCount': len(data),
+               'sha256': hashlib.sha256(data).hexdigest(), 'width': 1024, 'height': 512,
+               'mediaType': 'image/jpeg'}
+        entries = []
+        for name, added, updated in [
+                ('old', '2026-09-01T00:00:00Z', '2026-09-01T00:00:00Z'),
+                ('new', '2026-10-28T00:00:00Z', '2026-10-01T00:00:00Z'),
+                ('revised', '2026-08-01T00:00:00Z', '2026-10-29T01:00:00+01:00')]:
+            entry = copy.deepcopy(self.entry)
+            entry.update(packageID='space.' + name, addedAt=added, updatedAt=updated)
+            if name == 'old':
+                entry['contentVersion'] = '99.0.0'  # Maintenance/version changes do not make content recent.
+            entry['preview'].update(title=name, image=ref)
+            entries.append(entry)
+        catalog = {'environment': 'production', 'catalogProtocol': 3, 'snapshotID': 'example',
+                   'publishedAt': '2026-10-29T00:00:00Z', 'expiresAt': '2026-11-29T00:00:00Z',
+                   'releaseWatermarkAppVersion': '1.4.1', 'entries': entries}
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as archive:
+            archive.writestr(ref['path'], data)
+        with zipfile.ZipFile(buffer) as archive:
+            result = sync.export(catalog, catalog, archive, self.profile, {})
+        self.assertEqual([p['id'] for p in result['places'][:3]],
+                         ['space.revised', 'space.new', 'space.old'])
+        self.assertTrue(all(p['builtIn'] for p in result['places'][3:]))
+
+    def test_committed_snapshot_is_newest_first(self):
+        dates = [max(p.get('addedAt', ''), p.get('updatedAt', '')) for p in self.snapshot['places']]
+        self.assertEqual(dates, sorted(dates, reverse=True))
 
     def test_every_static_preview_exists_and_matches_its_published_hash(self):
         for place in self.snapshot['places']:

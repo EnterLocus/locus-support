@@ -158,6 +158,11 @@ Only preview metadata is exported: no install artifacts, grant credentials or
 Place-package download links. Built-in Places are included separately using the
 reviewed App Store release's metadata and thumbnails.
 
+Place cards are newest first using `max(addedAt, updatedAt)` from Production,
+matching the Library's Recent semantics. Substantive revisions rise naturally;
+maintenance revisions retain their content date. Undated built-ins follow dated
+Places. Filters and Series member grids preserve this order in every language.
+
 Run `python3 tools/sync_gallery.py` to refresh the snapshot, or add `--check` to
 check for drift without writing. The command reads the marketed US App Store
 version, verifies the descriptor/archive byte count and SHA-256, checks Production
