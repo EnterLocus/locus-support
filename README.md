@@ -148,3 +148,43 @@ The complete authoring guide is localized with the site. Its JSON keys, enum
 values, paths, capability IDs and executable code remain unchanged in every
 language; translate the explanations around them. `tests/test_authoring_localization.py`
 checks complete-guide coverage and exact code/identifier preservation.
+
+## Gallery catalog snapshot
+
+`/gallery/` is generated from `data/gallery.json`; it does not contact the Library
+or App Store in a visitor's browser. Place titles, captions, translations, preview
+images and Series membership come from the public **Production** revision catalog.
+Only preview metadata is exported: no install artifacts, grant credentials or
+Place-package download links. Built-in Places are included separately using the
+reviewed App Store release's metadata and thumbnails.
+
+Run `python3 tools/sync_gallery.py` to refresh the snapshot, or add `--check` to
+check for drift without writing. The command reads the marketed US App Store
+version, verifies the descriptor/archive byte count and SHA-256, checks Production
+snapshot identity, and verifies the chosen thumbnails inside that archive. Those
+selected public previews are copied byte for byte into `assets/gallery/` (the
+catalog's internal thumbnail paths are not independent HTTP endpoints). It
+selects the App's newest visible revision using both audience/watermark and the
+reviewed reader's App, OS and capability requirements. Selected previews that
+would only offer “Update App” are omitted, without advertising a superseded
+download. It never reads the Dev catalog or downloads
+Place packages.
+
+`data/gallery-reader.json` pins the reviewed public reader profile and four built-in
+Places. Update it from the next immutable release tag during release closeout,
+including that tag's exact supported/Animated capability sets, bundled metadata,
+translations and thumbnails. Do not derive a reader profile from development main
+or raise its App version before public availability. A newer public App leaves the
+older reviewed profile conservative until that update; an unpublished profile
+causes synchronization to fail. The website's normal build uses the committed
+snapshot, so a network outage does not remove the Gallery.
+
+The **Refresh public Gallery** workflow checks Production daily and on manual
+request. Changes go to an `automation/gallery` pull request for review; the
+workflow never merges or publishes them. If repository policy disallows Actions
+from creating pull requests, the job retains the refreshed review branch and
+provides a compare link in its summary without changing repository permissions.
+Content changes do not require hand-editing Gallery pages;
+new reader capabilities and built-in assets still require release review. Site
+build, localization, Pagefind and browser checks apply to these pages as they do
+to the rest of the website.

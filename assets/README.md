@@ -450,3 +450,18 @@ relighting or generative editing.
 | --- | --- | --- |
 | `promo/locus-1.4.2-move-poster.jpg` | frame at 5 s of the floor-move video | `5ec2def0e25de0ddb4ae4f13dc8d4d753bb2181f9b44bdbe9ad5224a5a1c8a93` |
 | `promo/locus-1.4.2-transition-poster.jpg` | frame at 25 s of the View-change video | `fc9dee506d5428afcaceebfeba157b7c77c3aa788fca5e6174a025eb4f298020` |
+
+## Gallery built-in previews — October 29, 2026
+
+The four `assets/gallery/` JPEGs are the unmodified catalog thumbnails extracted
+from the verified `visionos-v1.4.3-build-1` bundled Place packages. They are static
+previews, not new Vision Pro captures or proof of physical rendering. Their exact
+SHA-256 values, dimensions, release versions and published credit metadata are
+recorded in `data/gallery-reader.json`. Autumn Hill View is Grzegorz Wronkowski's
+CC0 panorama from Poly Haven; the three Room previews are EnterLocus assets.
+`library-<sha256>.jpg` and `.png` previews are copied byte for byte from the
+verified Production catalog ZIP, selecting only the currently usable public
+revisions. `data/gallery.json` records their hashes and dimensions. The catalog's
+internal thumbnail paths are not independent HTTP endpoints. Each Place's detail
+page retains the Production catalog's credit/source/license metadata. Gallery
+publication changes no campaign media.

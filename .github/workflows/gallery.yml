@@ -1,0 +1,46 @@
+name: Refresh public Gallery
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '23 15 * * *'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: gallery-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python3 tools/sync_gallery.py
+      - run: python3 -m unittest discover -s tests -p test_gallery_sync.py
+      - name: Propose catalog changes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          set -euo pipefail
+          if git diff --quiet -- data/gallery.json assets/gallery; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git checkout -B automation/gallery
+          git add data/gallery.json assets/gallery
+          git commit -m 'Refresh public Gallery from Production catalog'
+          git push --force-with-lease origin automation/gallery
+          if [ -z "$(gh pr list --head automation/gallery --state open --json number --jq '.[].number')" ]; then
+            if ! gh pr create --base main --head automation/gallery --title 'Refresh public Gallery' --body 'Refresh public preview metadata from the verified Production catalog using the reviewed shipped reader profile. No Place package bytes or download credentials are exported. Review the catalog delta and normal site checks before merge.'; then
+              echo '::warning::Repository policy prevented Actions from creating a pull request; the refreshed review branch is available.'
+              echo "[Review Gallery changes](https://github.com/${GITHUB_REPOSITORY}/compare/main...automation/gallery?expand=1)" >> "$GITHUB_STEP_SUMMARY"
+            fi
+          fi
