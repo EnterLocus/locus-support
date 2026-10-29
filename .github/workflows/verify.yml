@@ -16,8 +16,9 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.13"
-      - run: python3 -m unittest -v tests/test_site.py
+      - run: python3 -m unittest -v tests/test_site.py tests/test_authoring_localization.py
       - run: python3 -m pip install usd-core
       - run: python3 -m unittest -v tests/test_room_audit.py
       - run: python3 -m pip install numpy pillow
       - run: python3 -m unittest -v tests/test_black_hole_tools.py
+      - run: python3 -m unittest -v tests/test_complete_packages.py tests/test_validate_seat_groups.py tests/test_validate_spatial_adaptation.py

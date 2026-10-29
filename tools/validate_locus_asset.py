@@ -17,6 +17,13 @@ import zipfile
 from pathlib import Path, PurePosixPath
 from typing import Any
 
+# Support both direct CLI use and import-by-path test runners.
+_TOOLS_DIRECTORY = str(Path(__file__).resolve().parent)
+if _TOOLS_DIRECTORY not in sys.path:
+    sys.path.insert(0, _TOOLS_DIRECTORY)
+
+from content_localization import LABEL_FIELDS, LocalizationError, validate_localizations
+
 
 ARCHIVE_BYTES = 1_073_741_824
 FILE_BYTES = 805_306_368
@@ -48,13 +55,7 @@ VIEW_REQUIRED_FILES = {
     "panorama.jpg",
     "thumbnail.jpg",
 }
-VIEW_OPTIONAL_FILES = {"lighting.jpg"}
-SOUND_FILE = "sound.json"
-SOUND_EXTENSIONS = {"m4a", "mp3", "wav"}
-SOUND_BYTES = 134_217_728
-SOUND_SOURCES = 8
-SOUND_CLIPS = 8
-SOUND_POINTS = 16
+VIEW_OPTIONAL_FILES = {"lighting.jpg", "point-lights.json"}
 USDZ_EXTENSIONS = {
     "usd", "usda", "usdc", "png", "jpg", "jpeg", "exr", "m4a", "wav", "mp3"
 }
@@ -402,7 +403,6 @@ def validate_usdz(path: Path) -> None:
         raise ValidationError("scene.usdz validation timed out") from error
     require(checked.returncode == 0, "scene.usdz fails RealityKit USD validation")
 
-
 # Standalone public distribution of the binding contract and resolver used by
 # Locus import. Keep this native source synchronized with the app's
 # RoomEntityBindings.swift, RoomModelBindingValidator.swift and CLI entry point.
@@ -467,6 +467,22 @@ enum RoomEntityBindings {
         entity.components[ModelComponent.self] != nil
             || entity.children.contains(where: containsGeometry)
     }
+
+    static func requireNoAncestryOverlap(
+        _ entity: Entity, named name: String,
+        against other: Entity, named otherName: String
+    ) throws {
+        var current: Entity? = entity
+        while let node = current {
+            if node === other { throw BindingError.overlapping(otherName, name) }
+            current = node.parent
+        }
+        current = other
+        while let node = current {
+            if node === entity { throw BindingError.overlapping(name, otherName) }
+            current = node.parent
+        }
+    }
 }
 
 import Foundation
@@ -490,6 +506,7 @@ struct RoomModelBindingContract: Decodable, Sendable {
         struct Proxy: Decodable, Sendable { let anchorEntity: String }
         struct Group: Decodable, Sendable {
             let entities: [String]
+            let illuminatedEntities: [String]?
             let proxy: Proxy?
             let proxies: [Proxy]?
         }
@@ -498,10 +515,14 @@ struct RoomModelBindingContract: Decodable, Sendable {
         let bakedIndirect: Indirect?
     }
     struct Animation: Decodable, Sendable { let entityName: String }
+    struct VideoSurface: Decodable, Sendable { let entityName: String }
+    struct ParticleEffect: Decodable, Sendable { let anchorEntity: String }
     let spatialAdaptation: Adaptation?
     let rendering: Rendering?
     let lighting: Lighting?
     let ambientAnimations: [Animation]?
+    let videoSurfaces: [VideoSurface]?
+    let particleEffects: [ParticleEffect]?
 
     var names: [String] {
         var names: [String] = []
@@ -523,6 +544,8 @@ struct RoomModelBindingContract: Decodable, Sendable {
             names += lighting.bakedIndirect?.entities ?? []
         }
         names += (ambientAnimations ?? []).map(\.entityName)
+        names += (videoSurfaces ?? []).map(\.entityName)
+        names += (particleEffects ?? []).map(\.anchorEntity)
         return names
     }
 }
@@ -541,6 +564,50 @@ enum RoomModelBindingValidator {
         if let rendering = contract.rendering {
             _ = try RoomEntityBindings.subtrees(named: rendering.softenedReflectionEntities, in: model)
             _ = try RoomEntityBindings.subtrees(named: rendering.uiFadeEntities, in: model)
+        }
+        if let videoSurfaces = contract.videoSurfaces, !videoSurfaces.isEmpty {
+            _ = try RoomEntityBindings.subtrees(
+                named: videoSurfaces.map(\.entityName), in: model)
+        }
+        if let lighting = contract.lighting {
+            try validateIlluminatedEntities(lighting, in: model)
+        }
+    }
+
+    private static func validateIlluminatedEntities(
+        _ lighting: RoomModelBindingContract.Lighting, in model: Entity
+    ) throws {
+        guard lighting.luminaireGroups.contains(where: {
+            $0.illuminatedEntities?.isEmpty == false
+        }) else { return }
+        let entityNames = Set(lighting.luminaireGroups.flatMap(\.entities))
+        let bakedNames = Set(lighting.bakedIndirect?.entities ?? [])
+        var resolved: [String: Entity] = [:]
+        func entity(named name: String) throws -> Entity {
+            if let cached = resolved[name] { return cached }
+            let value = try RoomEntityBindings.entity(named: name, in: model)
+            resolved[name] = value
+            return value
+        }
+        for (index, group) in lighting.luminaireGroups.enumerated()
+        where group.illuminatedEntities?.isEmpty == false {
+            var otherIlluminatedNames = Set<String>()
+            for (otherIndex, other) in lighting.luminaireGroups.enumerated()
+            where otherIndex != index {
+                otherIlluminatedNames.formUnion(other.illuminatedEntities ?? [])
+            }
+            let protectedNames = entityNames
+                .union(bakedNames)
+                .union(otherIlluminatedNames)
+            for illuminatedName in group.illuminatedEntities ?? [] {
+                let illuminatedEntity = try entity(named: illuminatedName)
+                for protectedName in protectedNames {
+                    let protectedEntity = try entity(named: protectedName)
+                    try RoomEntityBindings.requireNoAncestryOverlap(
+                        illuminatedEntity, named: illuminatedName,
+                        against: protectedEntity, named: protectedName)
+                }
+            }
         }
     }
 }
@@ -606,7 +673,7 @@ struct ValidateRoomBindings {
 }
 """
 
-# One private executable per Python process; never execute a shared cache entry.
+# One dedicated executable per Python process; never execute a shared cache entry.
 _binding_tool_directory = None
 
 
@@ -634,8 +701,6 @@ def validate_room_bindings(model: Path, manifest: Path) -> None:
         raise ValidationError("scene.usdz entity binding validation timed out") from error
     require(result.returncode == 0,
             "scene.usdz entity bindings failed: " + (result.stderr.strip()[-4000:] or "RealityKit could not load the model"))
-
-
 def validate_teleports(path: Path) -> set[str]:
     value = decode_json(path, "teleport-points.json")
     exact_keys(
@@ -697,19 +762,17 @@ def validate_spatial_adaptation(value: Any, teleport_ids: set[str]) -> None:
     for teleport_id, entity in desks.items():
         require(teleport_id in teleport_ids and isinstance(entity, str) and entity.strip(),
                 f"desk mapping is invalid for teleport {teleport_id}")
-    # A lounge seat (sofa, daybed, bench) deliberately has no entry here at
-    # all; that is a first-class shape, not something this validator flags.
     if "deskGroupEntitiesByTeleportID" in value:
         groups = value["deskGroupEntitiesByTeleportID"]
         require(isinstance(groups, dict), "deskGroupEntitiesByTeleportID must be an object")
         for teleport_id, entity in groups.items():
             require(
-                teleport_id in teleport_ids
-                and teleport_id in desks
-                and isinstance(entity, str)
-                and entity.strip(),
-                f"desk group mapping is invalid for teleport {teleport_id}: "
-                "it must also have a deskEntitiesByTeleportID entry",
+                isinstance(teleport_id, str) and isinstance(entity, str) and entity.strip(),
+                f"desk group mapping is invalid for teleport {teleport_id}",
+            )
+            require(
+                teleport_id in desks,
+                f"desk group mapping for teleport {teleport_id} has no desk surface",
             )
 
 
@@ -788,11 +851,80 @@ def validate_proxy_light(
     return proxy["castsShadow"]
 
 
+def valid_light_layer_image_name(value: Any) -> bool:
+    return (
+        isinstance(value, str) and bool(value)
+        and "/" not in value and "\\" not in value
+        and value.lower().endswith(".png")
+    )
+
+
+def validate_baked_light_layers(
+    value: Any, luminaire_group_ids: set[str]
+) -> set[str]:
+    """Structural shape only; every referenced `.png` is a bare root ZIP
+    filename cross-checked against the actual extracted files (byte limit,
+    PNG header, and matching cross-layer dimensions) by the caller, matching
+    how `validate_video_surfaces` splits its own two-stage check.
+    """
+    require(isinstance(value, list) and value and len(value) <= 12,
+            "lighting.bakedIndirect.layers must contain 1 to 12 entries")
+    used_group_ids: set[str] = set()
+    images: set[str] = set()
+    for index, layer in enumerate(value):
+        context = f"lighting.bakedIndirect.layers[{index}]"
+        require(isinstance(layer, dict), f"{context} must be an object")
+        exact_keys(
+            layer,
+            required={"luminaireGroupID", "image"},
+            context=context,
+        )
+        group_id = layer["luminaireGroupID"]
+        require(isinstance(group_id, str) and group_id in luminaire_group_ids,
+                f"{context}.luminaireGroupID is unknown")
+        require(group_id not in used_group_ids,
+                f"{context}.luminaireGroupID is already used by another layer")
+        used_group_ids.add(group_id)
+        image = layer["image"]
+        require(valid_light_layer_image_name(image), f"{context}.image is invalid")
+        require(image not in images, f"duplicate light layer image {image}")
+        images.add(image)
+    return images
+
+
+def read_png_ihdr(path: Path) -> tuple[int, int, int, int]:
+    """(width, height, bit depth, color type) from a PNG's leading IHDR
+    chunk. Header-only: this checks shape and encoding, not that the
+    compressed pixel payload itself is well-formed (the pipeline that
+    produces these atlases is trusted the same way `videoSurfaces`' `.mp4`
+    only gets an `ftyp` header check, not a full decode).
+    """
+    with path.open("rb") as handle:
+        header = handle.read(33)
+    require(len(header) == 33 and header[:8] == b"\x89PNG\r\n\x1a\n",
+            f"{path.name} is not a PNG file")
+    require(header[12:16] == b"IHDR", f"{path.name} has no leading IHDR chunk")
+    width = int.from_bytes(header[16:20], "big")
+    height = int.from_bytes(header[20:24], "big")
+    bit_depth = header[24]
+    color_type = header[25]
+    return width, height, bit_depth, color_type
+
+
+def validate_light_layer_image(path: Path) -> tuple[int, int]:
+    width, height, bit_depth, color_type = read_png_ihdr(path)
+    require(0 < width <= 4096 and 0 < height <= 4096,
+            f"{path.name} exceeds the 4096x4096 light layer dimension limit")
+    require(bit_depth in (8, 16) and color_type in (2, 6),
+            f"{path.name} must be an 8- or 16-bit RGB or RGBA PNG")
+    return width, height
+
+
 def validate_lighting(
     value: Any,
     teleport_ids: set[str],
     room_format_version: int,
-) -> None:
+) -> set[str]:
     require(isinstance(value, dict), "space.json.lighting must be an object")
     exact_keys(
         value,
@@ -812,14 +944,15 @@ def validate_lighting(
     for index, group in enumerate(groups):
         context = f"lighting.luminaireGroups[{index}]"
         require(isinstance(group, dict), f"{context} must be an object")
+        group_optional = {"nearTeleportIDs", "authoredColor", "proxy"}
+        if room_format_version >= 3:
+            group_optional.add("proxies")
+        if room_format_version >= 8:
+            group_optional.add("illuminatedEntities")
         exact_keys(
             group,
             required={"id", "displayName", "entities", "controls"},
-            optional={
-                "nearTeleportIDs", "authoredColor", "proxy", "proxies",
-            } if room_format_version >= 3 else {
-                "nearTeleportIDs", "authoredColor", "proxy",
-            },
+            optional=group_optional,
             context=context,
         )
         require(valid_identifier(group["id"]), f"{context}.id is invalid")
@@ -834,6 +967,21 @@ def validate_lighting(
         require(luminaire_entities.isdisjoint(entities),
                 f"{context}.entities belongs to another lighting group")
         luminaire_entities.update(entities)
+        if "illuminatedEntities" in group:
+            # Room v8: surfaces an authored emissive texture washes with this
+            # group's light (a cove-lit wall) rather than the fixture itself.
+            # Exact-name overlap only; ancestor/descendant containment needs
+            # the live USDZ hierarchy and is checked by
+            # `validate_room_bindings` (RealityKit), not here.
+            illuminated = group["illuminatedEntities"]
+            require(isinstance(illuminated, list) and illuminated
+                    and all(isinstance(item, str) and item.strip() for item in illuminated),
+                    f"{context}.illuminatedEntities must contain names")
+            require(len(illuminated) == len(set(illuminated)),
+                    f"{context}.illuminatedEntities has duplicates")
+            require(luminaire_entities.isdisjoint(illuminated),
+                    f"{context}.illuminatedEntities belongs to another lighting group")
+            luminaire_entities.update(illuminated)
         near: list[str] | None = None
         if "nearTeleportIDs" in group:
             near = group["nearTeleportIDs"]
@@ -897,6 +1045,7 @@ def validate_lighting(
             "lighting exceeds the four-active-proxy budget")
     require(shadowing_count <= 1,
             "lighting exceeds the one-shadow-light budget")
+    referenced_layer_images: set[str] = set()
     if "bakedIndirect" in value:
         require(room_format_version >= 3,
                 "lighting.bakedIndirect requires space.json formatVersion 3")
@@ -905,6 +1054,7 @@ def validate_lighting(
         exact_keys(
             baked,
             required={"entities"},
+            optional={"layers"} if room_format_version >= 10 else set(),
             context="lighting.bakedIndirect",
         )
         entities = baked["entities"]
@@ -915,6 +1065,16 @@ def validate_lighting(
                 "lighting.bakedIndirect.entities has duplicates")
         require(luminaire_entities.isdisjoint(entities),
                 "lighting.bakedIndirect.entities must not name luminaires")
+        if "layers" in baked:
+            # Room v10 (docs/locus-asset-format.md "Room baked light
+            # layers"): one PNG per declared luminaire group, holding that
+            # group's own contribution to the shared bakedIndirect atlas.
+            # Structural shape only; PNG header/byte checks on the
+            # referenced files happen against the real extracted bytes in
+            # `validate_room`, matching how `videoSurfaces` checks `.mp4`.
+            referenced_layer_images = validate_baked_light_layers(
+                baked["layers"], identifiers)
+    return referenced_layer_images
 
 
 def validate_number_range(
@@ -969,6 +1129,95 @@ def validate_ambient_animations(value: Any) -> None:
                 f"{context}.defaultIntervalRangeSeconds exceeds its allowed range")
 
 
+def valid_video_surface_identifier(value: Any) -> bool:
+    return (
+        isinstance(value, str)
+        and bool(value)
+        and len(value.encode("utf-8")) <= 64
+        and all(character in "abcdefghijklmnopqrstuvwxyz0123456789-" for character in value)
+    )
+
+
+PARTICLE_EFFECT_PRESETS = {"fire"}
+
+
+def validate_particle_effects(value: Any) -> None:
+    """Structural shape only; `anchorEntity` resolution happens in
+    `validate_room_bindings` (RealityKit), matching every other authored
+    entity reference in this format (see the lighting proxy `anchorEntity`).
+    """
+    require(isinstance(value, list) and value and len(value) <= 4,
+            "space.json.particleEffects must contain 1 to 4 entries")
+    identifiers: set[str] = set()
+    for index, effect in enumerate(value):
+        context = f"space.json.particleEffects[{index}]"
+        require(isinstance(effect, dict), f"{context} must be an object")
+        exact_keys(
+            effect,
+            required={
+                "id", "displayName", "preset", "anchorEntity", "sizeMeters",
+            },
+            context=context,
+        )
+        require(valid_video_surface_identifier(effect["id"]),
+                f"{context}.id is invalid")
+        require(effect["id"] not in identifiers,
+                f"duplicate particle effect id {effect['id']}")
+        identifiers.add(effect["id"])
+        require_text(effect["displayName"], f"{context}.displayName", 200)
+        require(effect["preset"] in PARTICLE_EFFECT_PRESETS,
+                f"{context}.preset is unknown")
+        require_text(effect["anchorEntity"], f"{context}.anchorEntity", 200)
+        size = effect["sizeMeters"]
+        require_number_list(size, 3, f"{context}.sizeMeters")
+        require(all(0 < component <= 3 for component in size),
+                f"{context}.sizeMeters components must be within (0, 3]")
+
+
+def validate_video_surfaces(value: Any, luminaire_groups: Any) -> set[str]:
+    """Structural + reference shape only; byte limit, `ftyp` header, and
+    referenced-set-equals-actual-files are checked by the caller against the
+    real extracted files, and entity/geometry resolution happens in
+    `validate_room_bindings` (RealityKit), matching every other authored
+    entity reference in this format.
+    """
+    require(isinstance(value, list) and value and len(value) <= 2,
+            "space.json.videoSurfaces must contain 1 or 2 surfaces")
+    luminaire_group_ids = {
+        group.get("id") for group in luminaire_groups if isinstance(group, dict)
+    } if isinstance(luminaire_groups, list) else set()
+    identifiers: set[str] = set()
+    videos: set[str] = set()
+    for index, surface in enumerate(value):
+        context = f"space.json.videoSurfaces[{index}]"
+        require(isinstance(surface, dict), f"{context} must be an object")
+        exact_keys(
+            surface,
+            required={"id", "displayName", "entityName", "video"},
+            optional={"luminaireGroupID"},
+            context=context,
+        )
+        require(valid_video_surface_identifier(surface["id"]), f"{context}.id is invalid")
+        require(surface["id"] not in identifiers,
+                f"duplicate video surface id {surface['id']}")
+        identifiers.add(surface["id"])
+        require_text(surface["displayName"], f"{context}.displayName", 200)
+        require_text(surface["entityName"], f"{context}.entityName", 200)
+        video = surface["video"]
+        require(
+            isinstance(video, str) and video
+            and "/" not in video and "\\" not in video
+            and video.lower().endswith(".mp4"),
+            f"{context}.video is invalid",
+        )
+        require(video not in videos, f"duplicate video surface file {video}")
+        videos.add(video)
+        if "luminaireGroupID" in surface:
+            require(surface["luminaireGroupID"] in luminaire_group_ids,
+                    f"{context}.luminaireGroupID is unknown")
+    return videos
+
+
 def validate_rendering(value: Any) -> None:
     context = "space.json.rendering"
     require(isinstance(value, dict), f"{context} must be an object")
@@ -1010,7 +1259,33 @@ def validate_seat_groups(value: Any, teleport_ids: set[str]) -> None:
             grouped_seat_ids.add(seat_id)
 
 
-def validate_room(root: Path) -> dict[str, Any]:
+def validate_display_localizations(value, root, seats=()):
+    if "localizations" not in value:
+        return
+    def ids(items):
+        return {item["id"] for item in items}
+    references = {field: set() for field in LABEL_FIELDS}
+    references.update({
+        "seatTitles": set(seats),
+        "seatGroupTitles": ids(value.get("seatGroups", [])),
+        "lightTitles": ids((value.get("lighting") or {}).get("luminaireGroups", [])),
+        "animationTitles": ids(value.get("ambientAnimations", [])),
+        "videoTitles": ids(value.get("videoSurfaces", [])),
+        "particleTitles": ids(value.get("particleEffects", [])),
+    })
+    if (root / "sound.json").is_file():
+        references["soundTitles"] = ids(decode_json(root / "sound.json", "sound.json")["sources"])
+    try:
+        validate_localizations(value["localizations"], references=references)
+    except LocalizationError as error:
+        raise ValidationError(str(error)) from error
+
+
+def validate_room(
+    root: Path,
+    video_files: set[str] = frozenset(),
+    image_files: set[str] = frozenset(),
+) -> dict[str, Any]:
     value = decode_json(root / "space.json", "space.json")
     exact_keys(
         value,
@@ -1020,13 +1295,14 @@ def validate_room(root: Path) -> dict[str, Any]:
         },
         optional={
             "caption", "previewCamera", "spatialAdaptation", "lighting",
-            "ambientAnimations", "rendering", "seatGroups",
+            "ambientAnimations", "videoSurfaces", "rendering", "seatGroups",
+            "viewForwardYawRadians", "particleEffects", "localizations",
         },
         context="space.json",
     )
     require(type(value["formatVersion"]) is int
-            and value["formatVersion"] in {1, 2, 3, 4, 5, 6},
-            "space.json.formatVersion must be 1, 2, 3, 4, 5, or 6")
+            and value["formatVersion"] in {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
+            "space.json.formatVersion must be 1, 2, 3, 4, 5, 6, 7, 8, 9, or 10")
     require(value["formatVersion"] >= 2 or "lighting" not in value,
             "space.json.lighting requires formatVersion 2")
     require(value["formatVersion"] >= 4 or "ambientAnimations" not in value,
@@ -1036,6 +1312,35 @@ def validate_room(root: Path) -> dict[str, Any]:
         validate_rendering(value["rendering"])
     require(value["formatVersion"] >= 6 or "seatGroups" not in value,
             "space.json.seatGroups requires formatVersion 6")
+    require(value["formatVersion"] >= 7 or "videoSurfaces" not in value,
+            "space.json.videoSurfaces requires formatVersion 7")
+    require(value["formatVersion"] >= 8 or "viewForwardYawRadians" not in value,
+            "space.json.viewForwardYawRadians requires formatVersion 8")
+    require(value["formatVersion"] >= 9 or "particleEffects" not in value,
+            "space.json.particleEffects requires formatVersion 9")
+    if "particleEffects" in value:
+        validate_particle_effects(value["particleEffects"])
+    if "viewForwardYawRadians" in value:
+        yaw = value["viewForwardYawRadians"]
+        require(finite(yaw) and -math.pi <= yaw <= math.pi,
+                "space.json.viewForwardYawRadians must be finite and within [-pi, pi]")
+    if "videoSurfaces" in value:
+        referenced = validate_video_surfaces(
+            value["videoSurfaces"],
+            (value.get("lighting") or {}).get("luminaireGroups", []),
+        )
+        require(referenced == video_files,
+                "space.json.videoSurfaces must reference every .mp4 file, and no others")
+        for name in referenced:
+            path = root / name
+            require(0 < path.stat().st_size <= 64 * 1024 * 1024,
+                    f"{name} exceeds the video surface byte limit")
+            with path.open("rb") as handle:
+                header = handle.read(12)
+            require(len(header) == 12 and header[4:8] == b"ftyp",
+                    f"{name} must start with an MP4 ftyp box")
+    else:
+        require(not video_files, "video assets require space.json videoSurfaces")
     require_text(value["displayName"], "space.json.displayName", 200)
     if "caption" in value:
         require_text(value["caption"], "space.json.caption", 1_000)
@@ -1081,10 +1386,24 @@ def validate_room(root: Path) -> dict[str, Any]:
     if "spatialAdaptation" in value:
         validate_spatial_adaptation(value["spatialAdaptation"], teleports)
     if "lighting" in value:
-        validate_lighting(
+        referenced_layer_images = validate_lighting(
             value["lighting"], teleports, value["formatVersion"])
+        require(referenced_layer_images == image_files,
+                "lighting.bakedIndirect.layers must reference every .png file, and no others")
+        dimensions_seen: tuple[int, int] | None = None
+        for name in referenced_layer_images:
+            path = root / name
+            width, height = validate_light_layer_image(path)
+            if dimensions_seen is None:
+                dimensions_seen = (width, height)
+            else:
+                require(dimensions_seen == (width, height),
+                        "lighting.bakedIndirect.layers images must share identical pixel dimensions")
+    else:
+        require(not image_files, "light layer image assets require space.json lighting.bakedIndirect.layers")
     if "ambientAnimations" in value:
         validate_ambient_animations(value["ambientAnimations"])
+    validate_display_localizations(value, root, teleports)
     validate_provenance(root / "provenance.json")
     validate_image(root / "thumbnail.jpg", equirectangular=False)
     validate_usdz(root / "scene.usdz")
@@ -1142,7 +1461,7 @@ def validate_view(root: Path, files: set[str]) -> dict[str, Any]:
     exact_keys(
         value,
         required={"formatVersion", "displayName", "panorama"},
-        optional={"caption", "environment"},
+        optional={"caption", "environment", "localizations"},
         context="view.json",
     )
     require(type(value["formatVersion"]) is int and value["formatVersion"] in {1, 2},
@@ -1169,348 +1488,60 @@ def validate_view(root: Path, files: set[str]) -> dict[str, Any]:
         require(finite(panorama["initialYawDegrees"]), "initialYawDegrees must be finite")
     if "environment" in value:
         validate_environment(value["environment"])
+    validate_display_localizations(value, root)
     validate_provenance(root / "provenance.json")
     validate_image(root / "thumbnail.jpg", equirectangular=False)
     if "lighting.jpg" in files:
         validate_image(root / "lighting.jpg", equirectangular=True)
+    if "point-lights.json" in files:
+        from point_lights import validate_table
+
+        validate_table(
+            decode_json(root / "point-lights.json", "point-lights.json"),
+            require,
+        )
     return {"kind": "view", "displayName": value["displayName"], "seats": 0}
-
-
-def extension_of(name: str) -> str:
-    return name.rsplit(".", 1)[-1].lower() if "." in name else ""
-
-
-def sound_asset_paths(source: dict[str, Any]) -> list[Any]:
-    clips = source.get("clips")
-    if clips is not None:
-        return clips if isinstance(clips, list) else [clips]
-    path = source.get("path")
-    return [] if path is None else [path]
-
-
-def validate_sound_point(point: Any, *, frame: str, context: str) -> None:
-    require(isinstance(point, dict), f"{context} must be an object")
-    if frame == "room":
-        exact_keys(point, required={"positionMeters"}, context=context)
-        position = point["positionMeters"]
-        require(
-            isinstance(position, list) and len(position) == 3
-            and all(finite(value) and abs(value) <= 100 for value in position),
-            f"{context}.positionMeters must be three finite metres within 100",
-        )
-        return
-    exact_keys(
-        point,
-        required={"azimuthDegrees", "elevationDegrees", "distanceMeters"},
-        context=context,
-    )
-    require(
-        finite(point["azimuthDegrees"]) and -180 <= point["azimuthDegrees"] <= 180,
-        f"{context}.azimuthDegrees must be between -180 and 180",
-    )
-    require(
-        finite(point["elevationDegrees"]) and -90 <= point["elevationDegrees"] <= 90,
-        f"{context}.elevationDegrees must be between -90 and 90",
-    )
-    require(
-        finite(point["distanceMeters"]) and 0.1 <= point["distanceMeters"] <= 100,
-        f"{context}.distanceMeters must be between 0.1 and 100",
-    )
-
-
-def validate_sound_placement(
-    placement: Any, *, owner: str, context: str
-) -> str:
-    require(isinstance(placement, dict), f"{context} must be an object")
-    kind = placement.get("type")
-    require(
-        kind in {"ambient", "point", "points", "region"},
-        f"{context}.type must be ambient, point, points, or region",
-    )
-    if kind == "ambient":
-        exact_keys(placement, required={"type"}, context=context)
-        return kind
-    frame = placement.get("frame")
-    require(
-        frame in {"view", "room"},
-        f"{context}.frame must be view or room",
-    )
-    # The shipping importer refuses a View that positions sound in Room
-    # coordinates, and the other way round: a package may only use its own
-    # frame.
-    require(
-        frame == owner,
-        f"{context}.frame must be {owner} in a {owner} ZIP",
-    )
-    if "rolloff" in placement:
-        require(
-            finite(placement["rolloff"]) and 0 <= placement["rolloff"] <= 4,
-            f"{context}.rolloff must be between 0 and 4",
-        )
-    if kind == "point":
-        exact_keys(
-            placement,
-            required={"type", "frame", "point"},
-            optional={"rolloff"},
-            context=context,
-        )
-        validate_sound_point(
-            placement["point"], frame=frame, context=f"{context}.point")
-        return kind
-    if kind == "points":
-        exact_keys(
-            placement,
-            required={"type", "frame", "points"},
-            optional={"rolloff"},
-            context=context,
-        )
-        points = placement["points"]
-        require(
-            isinstance(points, list) and 2 <= len(points) <= SOUND_POINTS,
-            f"{context}.points must hold 2 through {SOUND_POINTS} points",
-        )
-        for index, point in enumerate(points):
-            validate_sound_point(
-                point, frame=frame, context=f"{context}.points[{index}]")
-        seen = [json.dumps(point, sort_keys=True) for point in points]
-        require(len(set(seen)) == len(seen), f"{context}.points must be distinct")
-        return kind
-    exact_keys(
-        placement,
-        required={
-            "type", "frame", "azimuthCenterDegrees", "azimuthSpanDegrees",
-            "elevationRangeDegrees", "distanceRangeMeters",
-        },
-        optional={"rolloff"},
-        context=context,
-    )
-    require(frame == "view", f"{context} region placement requires frame view")
-    require(
-        finite(placement["azimuthCenterDegrees"])
-        and -180 <= placement["azimuthCenterDegrees"] <= 180,
-        f"{context}.azimuthCenterDegrees must be between -180 and 180",
-    )
-    require(
-        finite(placement["azimuthSpanDegrees"])
-        and 0 <= placement["azimuthSpanDegrees"] <= 360,
-        f"{context}.azimuthSpanDegrees must be between 0 and 360",
-    )
-    for field, lower, upper in (
-        ("elevationRangeDegrees", -90, 90),
-        ("distanceRangeMeters", 0.1, 100),
-    ):
-        values = placement[field]
-        require(
-            isinstance(values, list) and len(values) == 2
-            and all(finite(value) and lower <= value <= upper for value in values)
-            and values[0] <= values[1],
-            f"{context}.{field} must be an ordered pair within "
-            f"{lower:g} through {upper:g}",
-        )
-    return kind
-
-
-def validate_sound_playback(
-    playback: Any, *, placement_kind: str, clips: int, context: str
-) -> None:
-    require(isinstance(playback, dict), f"{context} must be an object")
-    kind = playback.get("type")
-    require(kind in {"loop", "random"}, f"{context}.type must be loop or random")
-    if kind == "loop":
-        exact_keys(
-            playback,
-            required={"type"},
-            optional={"fadeInSeconds", "fadeOutSeconds"},
-            context=context,
-        )
-        for field in ("fadeInSeconds", "fadeOutSeconds"):
-            if field in playback:
-                require(
-                    finite(playback[field]) and 0 <= playback[field] <= 5,
-                    f"{context}.{field} must be between 0 and 5 seconds",
-                )
-        require(clips == 1, f"{context} loop playback takes exactly one clip")
-        require(
-            placement_kind in {"ambient", "point"},
-            f"{context} loop playback requires ambient or point placement",
-        )
-        return
-    exact_keys(
-        playback,
-        required={"type", "intervalSeconds", "maxConcurrent"},
-        optional={"avoidImmediateRepeat"},
-        context=context,
-    )
-    interval = playback["intervalSeconds"]
-    require(
-        isinstance(interval, list) and len(interval) == 2
-        and all(finite(value) and 0.25 <= value <= 600 for value in interval)
-        and interval[0] <= interval[1],
-        f"{context}.intervalSeconds must be an ordered pair within 0.25 "
-        "through 600 seconds",
-    )
-    require(
-        playback["maxConcurrent"] == 1,
-        f"{context}.maxConcurrent must be 1 in this version",
-    )
-    if "avoidImmediateRepeat" in playback:
-        require(
-            type(playback["avoidImmediateRepeat"]) is bool,
-            f"{context}.avoidImmediateRepeat must be a boolean",
-        )
-
-
-def validate_sound_sidecar(root: Path, files: set[str], *, owner: str) -> None:
-    """Validate the optional sound sidecar, first readable by Locus 1.1.4.
-
-    Audio never travels alone: the importer rejects an audio file no source
-    names, and rejects audio with no sound.json at all, so an author who
-    renames a clip learns it here rather than after the import fails.
-    """
-    audio_files = {name for name in files if extension_of(name) in SOUND_EXTENSIONS}
-    if SOUND_FILE not in files:
-        require(
-            not audio_files,
-            f"audio file {sorted(audio_files)[0] if audio_files else ''} "
-            f"requires {SOUND_FILE}",
-        )
-        return
-
-    value = decode_json(root / SOUND_FILE, SOUND_FILE)
-    exact_keys(
-        value,
-        required={"version", "backgroundPriority", "sources"},
-        context=SOUND_FILE,
-    )
-    version = value["version"]
-    require(
-        type(version) is int and version in {1, 2},
-        f"{SOUND_FILE}.version must be 1 or 2",
-    )
-    priority = value["backgroundPriority"]
-    require(
-        type(priority) is int and 0 <= priority <= 100,
-        f"{SOUND_FILE}.backgroundPriority must be between 0 and 100",
-    )
-    sources = value["sources"]
-    require(
-        isinstance(sources, list) and 1 <= len(sources) <= SOUND_SOURCES,
-        f"{SOUND_FILE}.sources must hold 1 through {SOUND_SOURCES} sources",
-    )
-
-    identifiers: list[str] = []
-    referenced: set[str] = set()
-    total_gain = 0.0
-    for index, source in enumerate(sources):
-        context = f"{SOUND_FILE}.sources[{index}]"
-        require(isinstance(source, dict), f"{context} must be an object")
-        if version == 1:
-            exact_keys(
-                source,
-                required={"id", "title", "path", "role", "gain"},
-                context=context,
-            )
-        else:
-            exact_keys(
-                source,
-                required={"id", "title", "clips", "role", "gain", "placement",
-                          "playback"},
-                context=context,
-            )
-        identifier = source["id"]
-        require_text(identifier, f"{context}.id", 100)
-        require(
-            set(identifier) <= IDENTIFIER_CHARS,
-            f"{context}.id may use only letters, digits, dot, dash, underscore",
-        )
-        identifiers.append(identifier)
-        require_text(source["title"], f"{context}.title", 100)
-        require(
-            source["role"] in {"background", "effect"},
-            f"{context}.role must be background or effect",
-        )
-        gain = source["gain"]
-        require(
-            finite(gain) and 0 <= gain <= 1,
-            f"{context}.gain must be between 0 and 1",
-        )
-        total_gain += gain
-
-        paths = sound_asset_paths(source)
-        require(
-            1 <= len(paths) <= SOUND_CLIPS and len(set(map(str, paths))) == len(paths),
-            f"{context} must name 1 through {SOUND_CLIPS} distinct audio files",
-        )
-        for path in paths:
-            require(
-                isinstance(path, str) and path in files,
-                f"{context} names missing audio file {path!r}",
-            )
-            require(
-                extension_of(path) in SOUND_EXTENSIONS,
-                f"{context} audio must be .m4a, .mp3, or .wav: {path}",
-            )
-            size = (root / path).stat().st_size
-            require(
-                0 < size <= SOUND_BYTES,
-                f"{path} must be larger than zero and at most 128 MiB",
-            )
-            referenced.add(path)
-
-        if version == 2:
-            placement_kind = validate_sound_placement(
-                source["placement"], owner=owner, context=f"{context}.placement")
-            validate_sound_playback(
-                source["playback"],
-                placement_kind=placement_kind,
-                clips=len(paths),
-                context=f"{context}.playback",
-            )
-
-    require(
-        len(set(identifiers)) == len(identifiers),
-        f"{SOUND_FILE}.sources must use distinct ids",
-    )
-    require(
-        total_gain <= 1 + 1e-6,
-        f"{SOUND_FILE} authored gain may total at most 1",
-    )
-    unreferenced = sorted(audio_files - referenced)
-    require(
-        not unreferenced,
-        f"{unreferenced[0] if unreferenced else ''} is not named by any "
-        f"{SOUND_FILE} source",
-    )
 
 
 def validate(path: Path) -> dict[str, Any]:
     with tempfile.TemporaryDirectory(prefix="locus-asset-") as directory:
         root = Path(directory)
         files = extract_archive(path, root)
-        sound_files = {
-            name for name in files
-            if name == SOUND_FILE or extension_of(name) in SOUND_EXTENSIONS
-        }
+        audio_files = {p for p in files if Path(p).suffix.lower() in ('.m4a', '.mp3', '.wav')}
+        if 'sound.json' in files:
+            from package_sound import validate_definition
+            sound = decode_json(root / 'sound.json', 'sound.json')
+            paths = validate_definition(sound, require, 'room' if 'space.json' in files else 'view')
+            require(set(paths) == audio_files, 'sound.json must reference every audio file')
+            for p in paths:
+                require(0 < (root / p).stat().st_size <= 128 * 1024 * 1024, 'sound asset byte limit')
+            files = files - audio_files - {'sound.json'}
+        else:
+            require(not audio_files, 'audio assets require sound.json')
         if "space.json" in files and "view.json" not in files:
+            # Room v7's `videoSurfaces` names its `.mp4` files directly in
+            # space.json; there is no separate sidecar manifest to gate their
+            # presence on ahead of decoding it, unlike `sound.json` above.
+            # Room v10's `lighting.bakedIndirect.layers` does the same for
+            # its `.png` files.
+            video_files = {p for p in files if Path(p).suffix.lower() == ".mp4"}
+            image_files = {p for p in files if Path(p).suffix.lower() == ".png"}
+            files = files - video_files - image_files
             missing = ROOM_FILES - files
-            extra = files - ROOM_FILES - sound_files
+            extra = files - ROOM_FILES
             if missing:
                 raise ValidationError(f"Room ZIP is missing {sorted(missing)[0]}")
             if extra:
                 raise ValidationError(f"Room ZIP contains unsupported file {sorted(extra)[0]}")
-            summary = validate_room(root)
-            validate_sound_sidecar(root, files, owner="room")
-            return summary
+            return validate_room(root, video_files, image_files)
         if "view.json" in files and "space.json" not in files:
             missing = VIEW_REQUIRED_FILES - files
-            extra = files - VIEW_REQUIRED_FILES - VIEW_OPTIONAL_FILES - sound_files
+            extra = files - VIEW_REQUIRED_FILES - VIEW_OPTIONAL_FILES
             if missing:
                 raise ValidationError(f"View ZIP is missing {sorted(missing)[0]}")
             if extra:
                 raise ValidationError(f"View ZIP contains unsupported file {sorted(extra)[0]}")
-            summary = validate_view(root, files)
-            validate_sound_sidecar(root, files, owner="view")
-            return summary
+            return validate_view(root, files)
         raise ValidationError("ZIP must contain either space.json or view.json, but not both")
 
 
