@@ -4,8 +4,11 @@ import hashlib
 import io
 import json
 from pathlib import Path
+import struct
+import tempfile
 import unittest
 import zipfile
+import zlib
 
 ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('sync_gallery', ROOT / 'tools/sync_gallery.py')
@@ -31,6 +34,22 @@ class GallerySyncTests(unittest.TestCase):
 
     def select(self, entries, watermark='1.4.1'):
         return sync.select_entries({'entries': entries, 'releaseWatermarkAppVersion': watermark}, self.profile)
+
+    def write_png(self, directory, width=3, height=2):
+        def chunk(name, value):
+            return struct.pack('>I', len(value)) + name + value + struct.pack('>I', zlib.crc32(name + value) & 0xffffffff)
+        data = (b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', struct.pack('>IIBBBBB', width, height, 8, 2, 0, 0, 0))
+                + chunk(b'IDAT', zlib.compress(b''.join(b'\0' + b'\0\0\0' * width for _ in range(height))))
+                + chunk(b'IEND', b''))
+        sha256 = hashlib.sha256(data).hexdigest()
+        path = Path(directory) / ('rendered-' + sha256 + '.png')
+        path.write_bytes(data)
+        return {'url': '/assets/gallery/' + path.name, 'width': width, 'height': height,
+                'sha256': sha256, 'label': 'front', 'captureKind': 'visionos-simulator'}
+
+    def registry(self, package_id, content_version, photo):
+        return {'formatVersion': 1, 'packages': [{'id': package_id, 'contentVersion': content_version,
+                                                   'photos': [photo]}]}
 
     def test_current_app_can_see_eligible_revision_above_old_watermark(self):
         newer = copy.deepcopy(self.entry)
@@ -83,7 +102,7 @@ class GallerySyncTests(unittest.TestCase):
 
     def test_committed_snapshot_contains_only_public_preview_fields(self):
         allowed = {'id', 'slug', 'type', 'title', 'description', 'image', 'access', 'animated',
-                   'hasSound', 'builtIn', 'localizations', 'searchTerms', 'contentVersion', 'credits',
+                   'hasSound', 'builtIn', 'localizations', 'searchTerms', 'contentVersion', 'credits', 'photos',
                    'addedAt', 'updatedAt'}
         for place in self.snapshot['places']:
             self.assertLessEqual(set(place), allowed)
@@ -136,6 +155,78 @@ class GallerySyncTests(unittest.TestCase):
             asset = ROOT / image['url'].lstrip('/')
             with self.subTest(place=place['id']):
                 self.assertEqual(hashlib.sha256(asset.read_bytes()).hexdigest(), image['sha256'])
+
+    def test_photo_registry_enriches_only_matching_selected_revision(self):
+        with tempfile.TemporaryDirectory() as directory:
+            photo = self.write_png(directory)
+            registry = sync.validate_photo_registry(self.registry('space.example', '1.0.0', photo), Path(directory))
+        places = [
+            {'id': 'space.example', 'contentVersion': '1.0.0'},
+            {'id': 'space.example', 'contentVersion': '1.0.1'},
+            {'id': 'space.other', 'contentVersion': '1.0.0'},
+        ]
+        sync.enrich_places_with_photos(places, registry)
+        self.assertEqual(places[0]['photos'], [photo])
+        self.assertNotIn('photos', places[1])
+        self.assertNotIn('photos', places[2])
+
+    def test_future_photo_registry_revision_does_not_export_on_older_place(self):
+        with tempfile.TemporaryDirectory() as directory:
+            photo = self.write_png(directory)
+            registry = sync.validate_photo_registry(self.registry('space.example', '99.0.0', photo), Path(directory))
+        places = [{'id': 'space.example', 'contentVersion': '1.0.0'}]
+        sync.enrich_places_with_photos(places, registry)
+        self.assertNotIn('photos', places[0])
+
+    def test_photo_registry_enriches_builtin_only_at_its_profile_revision(self):
+        builtin = copy.deepcopy(self.profile['builtIns'][0])
+        profile = copy.deepcopy(self.profile)
+        profile['builtIns'] = [builtin]
+        catalog = {'environment': 'production', 'catalogProtocol': 3, 'snapshotID': 'example',
+                   'publishedAt': '2026-10-29T00:00:00Z', 'expiresAt': '2026-11-29T00:00:00Z',
+                   'releaseWatermarkAppVersion': '1.4.1', 'entries': []}
+        with tempfile.TemporaryDirectory() as directory:
+            photo = self.write_png(directory)
+            registry = sync.validate_photo_registry(
+                self.registry(builtin['id'], builtin['contentVersion'], photo), Path(directory))
+        with zipfile.ZipFile(io.BytesIO(), 'w') as archive:
+            result = sync.export(catalog, catalog, archive, profile, {}, registry)
+        self.assertEqual(result['places'][0]['photos'], [photo])
+
+    def test_photo_registry_rejects_path_hash_mismatch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            photo = self.write_png(directory)
+            photo['url'] = '/assets/gallery/rendered-' + '0' * 64 + '.png'
+            with self.assertRaises(ValueError):
+                sync.validate_photo_registry(self.registry('space.example', '1.0.0', photo), Path(directory))
+
+    def test_series_covers_and_members_are_visible_same_kind(self):
+        data = b'public thumbnail'
+        ref = {'path': 'thumbnails/example.jpg', 'byteCount': len(data),
+               'sha256': hashlib.sha256(data).hexdigest(), 'width': 1024, 'height': 512,
+               'mediaType': 'image/jpeg'}
+        room = copy.deepcopy(self.entry)
+        room.update(packageID='space.room', addedAt='2026-10-01T00:00:00Z')
+        room['preview'].update(title='room', image=ref)
+        room_two = copy.deepcopy(room)
+        room_two.update(packageID='space.room-two')
+        view = copy.deepcopy(room)
+        view.update(packageID='destination.view', type='locus.view')
+        catalog = {'environment': 'production', 'catalogProtocol': 3, 'snapshotID': 'example',
+                   'publishedAt': '2026-10-29T00:00:00Z', 'expiresAt': '2026-11-29T00:00:00Z',
+                   'releaseWatermarkAppVersion': '1.4.1', 'entries': [room, room_two, view],
+                   'extensions': {'locus.places.series.v1': {'series': [
+                       {'id': 'mixed', 'title': 'Mixed', 'members': ['space.room', 'destination.view', 'space.room-two'],
+                        'heroMember': 'destination.view', 'cover': ['destination.view', 'space.room-two']}]}}}
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as archive:
+            archive.writestr(ref['path'], data)
+        with zipfile.ZipFile(buffer) as archive:
+            result = sync.export(catalog, catalog, archive, self.profile, {})
+        self.assertEqual(result['series'][0]['type'], 'room')
+        self.assertEqual(result['series'][0]['members'], ['space.room', 'space.room-two'])
+        self.assertNotIn('heroMember', result['series'][0])
+        self.assertEqual(result['series'][0]['cover'], ['space.room-two'])
 
 
 if __name__ == '__main__':
