@@ -1,0 +1,66 @@
+{
+  "formatVersion": 1,
+  "packages": [
+    {
+      "id": "destination.black-hole-ring",
+      "contentVersion": "1.0.6",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-056d07780fac2407772324d7124b17f9d9fcb3aa3e06520171d787dd6c57c04e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "056d07780fac2407772324d7124b17f9d9fcb3aa3e06520171d787dd6c57c04e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-961cacd5faf33e390acda7a8f06ad74541fa88ef98e7bbdf0274519053dcabc4.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "961cacd5faf33e390acda7a8f06ad74541fa88ef98e7bbdf0274519053dcabc4",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e666bddaac286de3aa58593bd54b99d4e02b9e3ec4b2f13ad894741611ecd72b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e666bddaac286de3aa58593bd54b99d4e02b9e3ec4b2f13ad894741611ecd72b",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.sunlit-cafe",
+      "contentVersion": "1.0.13",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-ab60bb8917b7088d9f7b165c781985c6c2d5b3ee71c032a9fd788f20f57c780b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ab60bb8917b7088d9f7b165c781985c6c2d5b3ee71c032a9fd788f20f57c780b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c1bc7ded3a0e82351c13b8e7efe88d8e35e73d29fb131d5999c689800c1750ef.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c1bc7ded3a0e82351c13b8e7efe88d8e35e73d29fb131d5999c689800c1750ef",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-3aefcb9d0c082610bbe37eec6853ad69a4aaf6af5b543a3a5920200f33e912b9.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3aefcb9d0c082610bbe37eec6853ad69a4aaf6af5b543a3a5920200f33e912b9",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-fcda237f6d02ae5c18aa089f836881332c3de09224278d64de5ac0b5a3d0beb5.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "fcda237f6d02ae5c18aa089f836881332c3de09224278d64de5ac0b5a3d0beb5",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    }
+  ]
+}
