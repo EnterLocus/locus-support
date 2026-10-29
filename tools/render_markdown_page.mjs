@@ -72,19 +72,24 @@ for (let index = 0; index < tokens.length; index += 1) {
 const tocItems = toc.map(({level, id, label}) =>
   `<li class="reference-toc-level-${level}"><a href="#${escapeHtml(id)}">${escapeHtml(label)}</a></li>`).join('');
 const tocHtml = `<details class="reference-toc" open><summary>On this page</summary><ol>${tocItems}</ol></details>`;
-const toolsHtml = '<div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div>';
+const completeGuide = path.basename(sourcePath) === 'locusplace-format.md';
+const pageTitle = completeGuide ? 'Complete Locus Package v2 authoring' : 'Public Locus Package v2 and compatibility ZIP formats';
+const sourceName = path.basename(sourcePath);
+const route = outputBase.replace(/^\/+|\/+$/g, '');
+const canonical = `https://enterlocus.com/${route}/`;
+const toolsHtml = `<div class="reference-tools"><a class="reference-download" href="../${escapeHtml(sourceName)}" download>Download Markdown</a></div>`;
 const article = markdown.render(source).replace(/<h1([^>]*)>([\s\S]*?)<\/h1>/, `<p class="kicker">Technical reference</p><h1$1>$2</h1>${toolsHtml}${tocHtml}`);
 
 const document = `<!doctype html>
-<!-- Generated from reference/locus-asset-format.md by tools/render_markdown_page.mjs. Do not edit directly. -->
+<!-- Generated from reference/${sourceName} by tools/render_markdown_page.mjs. Do not edit directly. -->
 <html lang="en">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0d141a">
-  <title>Public Locus Package v2 and compatibility ZIP formats — Locus</title>
+  <title>${escapeHtml(pageTitle)} — Locus</title>
   <meta name="description" content="The complete Locus Package v2 and legacy compatibility ZIP authoring reference.">
-  <meta property="og:title" content="Locus Package v2 and compatibility ZIP formats"><meta property="og:description" content="Exact Package v2 structure, capabilities, fields, limits, and compatibility formats."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/reference/locus-asset-format/"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
-  <link rel="canonical" href="https://enterlocus.com/reference/locus-asset-format/"><link rel="icon" type="image/png" href="../../assets/favicon.png"><link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
+  <meta property="og:title" content="${escapeHtml(pageTitle)}"><meta property="og:description" content="Exact Package v2 structure, capabilities, fields, limits, and compatibility formats."><meta property="og:type" content="website"><meta property="og:url" content="${canonical}"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <link rel="canonical" href="${canonical}"><link rel="icon" type="image/png" href="../../assets/favicon.png"><link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <link rel="stylesheet" href="../../assets/site.css"><link rel="stylesheet" href="../../assets/docs.css"><link rel="stylesheet" href="../../assets/reference.css">
   <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
 </head>

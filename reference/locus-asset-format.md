@@ -36,7 +36,8 @@ Changed bytes for the same `packageID` require a strictly newer
 View, Room, or Experience IDs.
 
 Supported complete packages preserve View media and masks, View and Room
-sound, Room animations, video surfaces and seat groups, provenance, and
+sound, Room animations, video surfaces, illuminated surfaces, particle effects,
+baked light layers, seat groups, localized display text, provenance, and
 supported Experiences. They must pass manifest and file-inventory agreement,
 hashes, safe canonical paths, archive and decoded-resource limits, declared
 capabilities, and `minimumAppVersion`. If `locusplace.json` is present but the
@@ -65,6 +66,47 @@ runtime consumer, and an app-version floor to the common Package v2 contract.
 Do not add the field to a separate public-import allowlist. A reserved or
 retired field with no runtime consumer can still be rejected because that Locus
 binary cannot use it—not because the ZIP came from outside the app.
+
+### Localized display text
+
+A Destination, Space, or Experience manifest may include a `localizations`
+object keyed by a canonical language tag: a lowercase two- or three-letter
+language code, optionally followed by a title-cased script and/or uppercase
+region, such as `en`, `zh-Hans`, or `pt-BR`. It translates visitor-facing
+metadata only; stable IDs, provenance, and the original `title` and `caption`
+remain part of the manifest.
+
+```json
+"localizations": {
+  "fr": {
+    "title": "Rivage tranquille",
+    "caption": "Une baie calme au coucher du soleil."
+  },
+  "en": {
+    "searchTerms": ["quiet", "bay", "sunset"],
+    "libraryCaption": "A quiet bay at sunset."
+  }
+}
+```
+
+Each language entry may provide non-empty `title`, `caption`, and
+`libraryCaption` strings; `searchTerms` arrays; and translated name maps
+for existing IDs: `seatTitles`, `seatGroupTitles`, `soundTitles`,
+`mediaTitles`, `lightTitles`, `animationTitles`, `videoTitles`, and
+`particleTitles`. All fields are optional, so missing fields fall back to the
+manifest's original text one field at a time. `libraryCaption` and
+`searchTerms` are Library-facing metadata; they do not replace the manifest
+caption or inject search terms into another language. A package supports at
+most 32 languages; title and label text are at most 200 characters, captions
+10,000, Library captions 500, and there are at most 64 search terms of 200
+characters and 256 entries in each label map.
+
+Complete packages carry the final translations, so an imported package works
+offline and cannot be changed by editing a separate catalog after it has been
+built. Flat `view.json` and `space.json` compatibility imports can also carry
+this object with a supporting Locus 1.3.1-or-later build; an older flat reader
+rejects unknown metadata. Optional localizations add no Package v2 capability
+or minimum-app-version floor.
 
 ### Complete View source and midground data (Locus 1.2.1)
 
@@ -215,6 +257,15 @@ finite values in `(0, 1000]` and a disc uses its first value as diameter.
 aliases, but are not new authoring choices. `waveHeightMeters` is `0...20`,
 `waveLengthMeters` is bounded by the region's sampling floor through 1000 m,
 `waveSpeed` is `-100...100`, and `directionDegrees` is `-360...360`.
+`flowMetersPerSecond` defaults to `[0, 0]` and supplies View-local X/Z flow,
+with each component in `-100...100`. `roughness` defaults to `0.18` and is
+`0...1`. `detailFadeMeters`, when present, is an ordered two-number distance
+range in `1...5000`; `normalMap` is a package-relative PNG.
+
+`optics.color` defaults to `[0.03, 0.18, 0.24]`; each component is `0...1`.
+`optics.absorptionPerMeter` defaults to `[0.95, 0.28, 0.08]` and has three
+components in `0...50`. `reflectionBlur` defaults to `1.5` (`0...8`) and
+`sunGlint` defaults to `1` (`0...20`).
 
 `bed.albedo` is an 8-bit, non-interlaced RGBA PNG no larger than 4096 pixels
 on either side. Its RGB is the bed colour and alpha is height relief.
@@ -226,13 +277,57 @@ is grayscale and 2:1. All water textures, including their required mipmaps and
 renderer-owned buffers, share a 64 MiB resident budget. A bed may also add
 `shoreline` foam (`0...4`), swash (`0...0.5` m), and period (`0.5...60` s).
 
+A View bed with `tileMeters` may add `deepening` to transition a tiled shallow
+bed into open water with distance. It is View-only and cannot be combined with
+`extentMeters`:
+
+```json
+"deepening": {
+  "startMeters": 18,
+  "endMeters": 65,
+  "depthMeters": 8,
+  "color": [0.01, 0.05, 0.08],
+  "rmsSlope": 0.08,
+  "shoreSlope": 0.05
+}
+```
+
+`startMeters` and `endMeters` are ordered distances in `0...5000`.
+`depthMeters` is `-50...50` and cannot be shallower than the enclosing bed's
+`depthMeters`. `color` has components in `0...1` and, when omitted, uses the enclosing `optics.color`;
+`rmsSlope` defaults to `0` (`0...0.5`) and `shoreSlope` defaults to `0.05`
+(`0.005...1`). This field requires `minimumAppVersion >= "1.3.1"` and
+Library capability `locus.view.water.bed-deepening.v1`.
+
 `glow` is a water sub-block, not a separate profile. It can add bounded bed
 emission, particles, sparkle, and surface flashes. It uses the same water
-capability, has no image asset, and is disabled by `strength: 0`. A View
-region can additionally supply a four-number `glow.mover`
+capability and has no image asset. `strength` defaults to `0` and is `0...4`;
+zero disables the visible glow. Its full optional controls are: `color`
+(`[0.1, 0.85, 1]`, each component `0...1`), `density` (`0.5`, `0...1`),
+`pulseHz` (`0.2`, `0.02...2`), `haloSize` (`0.5`, `0...1`), `bedAmount` and
+`columnAmount` (both `1`, `0...2`), ordered `depthRangeMeters`
+(`[0.15, 1.2]`, endpoints `0...5`), `patchiness` (`0`, `0...1`),
+`patchMeters` (`12`, `2...50`), `bedTileMeters` (`8`, `0.25...100`),
+`particleTileMeters` (`1.25`, `0.25...100`), `sparkle` (`0`, `0...4`),
+`sparkleWave` (`1`, `0...2`), `sparkleTileMeters` (`0.625`,
+`0.25...100`), and `surfaceFlashes` (`0`, `0...2`). `bedAmount` needs a
+bed; a region without one can still show column emission. A View region can
+additionally supply a four-number `glow.mover`
 `[centreX, centreZ, radiusMeters, angularRadiansPerSecond]`; its centre is
 within `-1000...1000`, radius is `0.1...25`, speed is `0...1`, and it also
 requires `locus.view.water.glow-disturbance.v1`.
+
+#### View reflection registration (supporting build 1.3.1 or later)
+
+A View water region can select a mask-derived reflection approximation with
+`"reflectionRegistration": {"model": "mask-image-v1"}` or
+`"mask-layered-v1"`. It is View-only, requires `blend.panoramaMask`, and
+requires `minimumAppVersion` `1.3.1` or later plus
+`locus.view.water.reflection-registration.v1`; `mask-layered-v1` additionally
+requires `locus.view.water.reflection-registration.layered.v1`. Omit the
+object to keep ordinary directional reflection. The object accepts only the
+`model` key. It is not a terrain reconstruction or a promise of stereo-correct
+reflections; test the selected View in the target build and on device.
 
 `midground.water` remains a compatibility reader for previously authored
 lakes. Do not mix its old field table with the root `water` interface; new
@@ -1351,6 +1446,44 @@ missing or a layer's dimensions do not match it. `bakedIndirect.layers`
 requires Locus 1.2.1 or later; format v3's `bakedIndirect.entities` keeps
 working unchanged without it.
 
+### Complete-package Room/View composition (supporting build 1.4.4 or later)
+
+The following top-level `space.json` fields belong only to a complete Package
+v2 Room. They need `minimumAppVersion` `1.4.4` or later and their respective
+capabilities. That floor describes the required supporting build; it does not
+state that any particular installed or App Store build already supports them.
+The legacy/simple flat Room ZIP cannot carry these fields.
+
+```json
+{
+  "viewGroundFloorOffsetMeters": 1.4,
+  "viewGroundKeepOut": false,
+  "viewMidgroundVisibility": "terrainOnly"
+}
+```
+
+`viewGroundFloorOffsetMeters` (`locus.room.view-ground.v1`) is a finite
+`0...100` height above the Room visual-bounds minimum Y, in the same frame as
+a seat's `sourceFloorOffset`. It fixes the selected View's ground under the
+default seat's X/Z point. When omitted, that ground stays at the default
+seat's floor, preserving existing Rooms. It affects View water, legacy
+`midground.water`, View midground terrain, and fireflies; it never moves seats,
+changes desk alignment, or rotates the View.
+
+`viewGroundKeepOut` (`locus.room.view-ground-keepout.v1`) is an optional
+Boolean that defaults to `true`: View-ground layers are removed within the
+Room's visual bounds. Set it to `false` only when occupied floors are above
+the selected View ground and the Room's opaque geometry should depth-occlude
+that ground instead. It has no effect on Room-owned water, seats, the Room
+anchor, or Room Portal.
+
+`viewMidgroundVisibility` (`locus.room.view-midground-visibility.v1`) is
+`"all"` (the default), `"terrainOnly"`, or `"hidden"`. `terrainOnly` retains
+only units named by the selected View's `midground.terrainEntities`; `hidden`
+does not load the selected View's `midground.path` model or textures. It does
+not hide the panorama, View water, Room water, fireflies, or the Room's own
+geometry, and it is independent of `viewGroundKeepOut`.
+
 ## How Locus uses a Room
 
 The authoring interface and the runtime rules are both documented here. Public
@@ -1664,6 +1797,10 @@ For an all-rights-reserved original, replace `license` with:
 
 ## Pack and validate a flat compatibility ZIP
 
+Clone or download the whole public repository before running these commands.
+Keep the validator and its sibling Python modules together; downloading one
+script alone is not sufficient.
+
 Keep only regular root files in the source directory, then run:
 
 ```sh
@@ -1671,13 +1808,15 @@ python3 tools/pack_locus_asset.py /absolute/path/to/asset /absolute/path/to/asse
 python3 tools/validate_locus_asset.py /absolute/path/to/asset.zip
 ```
 
-These current public Python tools build and validate only the legacy/simple
-flat compatibility format; they do not build or validate complete Package v2.
-The packer is deterministic, refuses to overwrite an existing ZIP, and only
-publishes a flat ZIP accepted by the same validator. Room validation uses macOS
+These compatibility Python tools build and validate only the legacy/simple
+flat format. For complete Package v2, use `tools/pack_locusplace.py` and
+`tools/validate_locusplace.py` with the
+[complete-package guide](locusplace-format/). The flat packer is deterministic,
+refuses to overwrite an existing ZIP, and only publishes a flat ZIP accepted by
+the same validator. Room validation uses macOS
 `sips`, Xcode's `usdchecker`, and a small Swift RealityKit checker compiled with
-`xcrun swiftc`. The downloadable Python validator includes its Swift checker; it requires no
-private repository or separately downloaded helper. The same binding rules
+`xcrun swiftc`. The Python validator embeds its Swift checker; its Python dependencies ship
+beside it in this public repository. The same binding rules
 are used by the app before import. A `VALID` result covers structure, metadata,
 image decoding, model structure, and machine-checkable entity bindings. Import the
 exact ZIP and enter every Room seat to check scale, appearance, and comfort.

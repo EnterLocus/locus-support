@@ -1,0 +1,165 @@
+{
+  "formatVersion": 1,
+  "sourceCommit": "f6a873501708e016270aa76cc144eb420bacbca2",
+  "files": [
+    {
+      "source": "scripts/pack_locusplace.py",
+      "target": "tools/pack_locusplace.py",
+      "sourceSHA256": "4c5e63d53c20d4569ab088ae3a08cd8e22880b4e31ea33193820b5e5a0446fe9"
+    },
+    {
+      "source": "scripts/validate_locusplace.py",
+      "target": "tools/validate_locusplace.py",
+      "sourceSHA256": "fcc0395842adb6848115c2feb7c59181858254f1a68595fb86ef0761b9a97dfc",
+      "publicSHA256": "cafacf4ef8a413ac40aa07b081c313c581861bf73ecb720453a0931496f2d0c4",
+      "adaptation": "Reject retired publisher-only oceanGlint data"
+    },
+    {
+      "source": "scripts/black_hole_view.py",
+      "target": "tools/black_hole_view.py",
+      "sourceSHA256": "6c2b0bf48f57187c63745fe5f2736250ede339dca63b8f99c237fba8d0c4a4cd"
+    },
+    {
+      "source": "scripts/celestial_advection.py",
+      "target": "tools/celestial_advection.py",
+      "sourceSHA256": "67070094020fd66d42f2fbfb05f55edc91ffe16b20b3a412008da14c95e8814e"
+    },
+    {
+      "source": "scripts/celestial_rings.py",
+      "target": "tools/celestial_rings.py",
+      "sourceSHA256": "28478e334618db8f734503e1f7979ac6b9e34f90bb81c185cea0a36735b5d5e6"
+    },
+    {
+      "source": "scripts/celestial_view.py",
+      "target": "tools/celestial_view.py",
+      "sourceSHA256": "f4e9f07f5ceb5c00e000cd3699046f68a8c29b9794c27da54570f26300b6dc24"
+    },
+    {
+      "source": "scripts/clouds_contract.py",
+      "target": "tools/clouds_contract.py",
+      "sourceSHA256": "8ab34d232312344ef18b1509816dfea016481a4b789cf7c27e147bac92ced40a"
+    },
+    {
+      "source": "scripts/content_localization.py",
+      "target": "tools/content_localization.py",
+      "sourceSHA256": "a6cc0d7d814713fa789a0e9b9e7d2281cb6ecec54e9f72d7447bc3e80e331a8f"
+    },
+    {
+      "source": "scripts/fireflies_contract.py",
+      "target": "tools/fireflies_contract.py",
+      "sourceSHA256": "e3e53ebf06dc4bfe63253f7e5be3d3e21b55c8f1070063b185f2b3795f6b69b1"
+    },
+    {
+      "source": "scripts/gpu_texture_sidecar.py",
+      "target": "tools/gpu_texture_sidecar.py",
+      "sourceSHA256": "a4a8d74dbb75b56d6bde5d20843a5632693894cc2fe6a32a8fef5684e8a62bce"
+    },
+    {
+      "source": "scripts/ktx1.py",
+      "target": "tools/ktx1.py",
+      "sourceSHA256": "cecf9ee44aa8c2548dc54b858c78b69aa912f4252753fc09fc70064e8d8a2b51"
+    },
+    {
+      "source": "scripts/near_orbit_profile.py",
+      "target": "tools/near_orbit_profile.py",
+      "sourceSHA256": "ed78aa30bf4efece14095ddcfb1339f0c907d7654c619cda19b7286e88e15c60"
+    },
+    {
+      "source": "scripts/ocean_glint.py",
+      "target": "tools/ocean_glint.py",
+      "sourceSHA256": "d8894b803acaf9b8819d8b5089f421b421effb249e1bec76c63221adad972761"
+    },
+    {
+      "source": "scripts/package_sound.py",
+      "target": "tools/package_sound.py",
+      "sourceSHA256": "266a2b66d3a4e154a6b14eb93a59b6136b41b1e1187c28e64c81a22048816dce"
+    },
+    {
+      "source": "scripts/panorama_media.py",
+      "target": "tools/panorama_media.py",
+      "sourceSHA256": "ddc9a07f50f98acbb68905144678a658ee4a693aaa3a90b794447eb8416c360f"
+    },
+    {
+      "source": "scripts/point_lights.py",
+      "target": "tools/point_lights.py",
+      "sourceSHA256": "ee0ccc616d8581b4e4541953181f3db2d5bc4e8f80aac6efc1f9aae0af5c6f75"
+    },
+    {
+      "source": "scripts/procedural_sky.py",
+      "target": "tools/procedural_sky.py",
+      "sourceSHA256": "2863e30fddd5f7393189840ca43df5c72c97ae25e98e16ad30833b45d3584c14"
+    },
+    {
+      "source": "scripts/sun_free_sky_check.py",
+      "target": "tools/sun_free_sky_check.py",
+      "sourceSHA256": "510ffab3528b6f48d627297cc22c13ae6edbb1ccb132e4a7e5046c1f6f8708d1"
+    },
+    {
+      "source": "scripts/sun_path_contract.py",
+      "target": "tools/sun_path_contract.py",
+      "sourceSHA256": "0afe8f8326d80945abf1c1f295399070634779f13673b1cbff734dd1f7a2c888"
+    },
+    {
+      "source": "scripts/water_contact_proxy.py",
+      "target": "tools/water_contact_proxy.py",
+      "sourceSHA256": "7422619a43fd7ad554432fe2765dba01970e5afca72716c0c5e5045218b32628"
+    },
+    {
+      "source": "scripts/water_contract.py",
+      "target": "tools/water_contract.py",
+      "sourceSHA256": "afb6fc3f1416d60008cd1ce72a89e0d2c8840cde622f5aa2eea9c54df2fb5847"
+    },
+    {
+      "source": "scripts/water_layered_reflection_mask.py",
+      "target": "tools/water_layered_reflection_mask.py",
+      "sourceSHA256": "1021b845f0b1a2e27835eb3b9f45815bafdfb18f34917f5c37f6e99ac6f1ceea"
+    },
+    {
+      "source": "scripts/water_reflection_mask.py",
+      "target": "tools/water_reflection_mask.py",
+      "sourceSHA256": "daf1235187f493402a80274205ca2e0cf06762c68cfe9c4b09a1bfb210de11af"
+    },
+    {
+      "source": "docs/schemas/locusplace-v1.schema.json",
+      "target": "schemas/locusplace-v1.schema.json",
+      "sourceSHA256": "fe38b78f773e8788447619c3f2a2925f960413e36828f3cacf230bc42acf9e53"
+    },
+    {
+      "source": "docs/schemas/locusplace-provenance-v1.schema.json",
+      "target": "schemas/provenance-v1.schema.json",
+      "sourceSHA256": "22963db6616b689fb426ffca3072441809b64eba76af8604dfc48b0c6bed220b"
+    },
+    {
+      "source": "docs/schemas/view-celestial-v1.schema.json",
+      "target": "schemas/view-celestial-v1.schema.json",
+      "sourceSHA256": "d38043dc70582f85718881934757b5ae91a420ed9b62590c3855a28b6fe7e7b5"
+    },
+    {
+      "source": "docs/schemas/view-celestial-v2.schema.json",
+      "target": "schemas/view-celestial-v2.schema.json",
+      "sourceSHA256": "799767f9eb5720cf8c0dc8da65cdc0997a0a27605f7608cf853dded21f601671"
+    },
+    {
+      "source": "docs/schemas/view-near-orbit-v1.schema.json",
+      "target": "schemas/view-near-orbit-v1.schema.json",
+      "sourceSHA256": "c8016bae0f67ed1758f872401644c43c54cfeede43a0b5ae41438edef5a953d7"
+    },
+    {
+      "source": "docs/schemas/view-near-orbit-v2.schema.json",
+      "target": "schemas/view-near-orbit-v2.schema.json",
+      "sourceSHA256": "6af913df4afb1ccddd246b17029e5cf7292e566d0f69e5fddd4f69820382a578"
+    },
+    {
+      "source": "docs/schemas/view-black-hole-v1.schema.json",
+      "target": "schemas/view-black-hole-v1.schema.json",
+      "sourceSHA256": "af3bf6c29031ed733f32e8681d427fd30808da71cd59a6822b09fe6969de1dcd"
+    },
+    {
+      "source": "scripts/validate_locus_asset.py",
+      "target": "tools/validate_locus_asset.py",
+      "sourceSHA256": "163907b14ce56c0fc77f78683b710770e1fde70cf7b7bfc613a83754daef7096",
+      "publicSHA256": "e5a8fb5db67416bd476471ce649ea18bbf02beee8455114cd09ef532f512280b",
+      "adaptation": "Standalone public Swift USD binding inspection"
+    }
+  ]
+}

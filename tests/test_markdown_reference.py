@@ -41,3 +41,20 @@ class MarkdownReferenceTests(unittest.TestCase):
         self.assertIn('href="../../schemas/view-celestial-v1.schema.json"', rendered)
         self.assertIn('href="../locus-asset-format.md" download', rendered)
         self.assertIn('class="reference-table-scroll"', rendered)
+
+    @unittest.skipUnless(shutil.which('node') and (ROOT / 'node_modules' / 'markdown-it').is_dir(),
+                         'requires npm ci before running the Markdown renderer')
+    def test_complete_guide_uses_its_own_route_title_download_and_schema(self):
+        source = ROOT / 'reference/locusplace-format.md'
+        with tempfile.TemporaryDirectory() as directory:
+            output = Path(directory) / 'reference/locusplace-format/index.html'
+            subprocess.run(['node', str(RENDERER), str(source), str(output),
+                            'reference', 'reference/locusplace-format'], check=True)
+            rendered = output.read_text(encoding='utf-8')
+        self.assertEqual(rendered, (ROOT / 'reference/locusplace-format/index.html').read_text())
+        self.assertIn('Complete Locus Package v2 authoring — Locus', rendered)
+        self.assertIn('href="https://enterlocus.com/reference/locusplace-format/"', rendered)
+        self.assertIn('href="../locusplace-format.md" download', rendered)
+        self.assertIn('href="../../schemas/locusplace-v1.schema.json"', rendered)
+        self.assertIn('id="start-with-a-working-complete-package"', rendered)
+        self.assertNotIn('href="https://enterlocus.com/reference/locus-asset-format/"', rendered)

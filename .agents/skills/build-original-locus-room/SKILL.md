@@ -23,9 +23,8 @@ tool is available, state that limitation before promising a finished Room.
 
 Read these local references before authoring:
 
-- `references/room-interface.md` for the current Room v1-v3 contract, optional
-  experimental animations, explicit Room v5 rendering roles and spotlight
-  directions, Room v6 seat groups, and exact delivery gates.
+- `references/room-interface.md` for the flat compatibility contract through
+  Room v10, its delivery limits, and the routing rule for complete Package v2.
 - `references/design-language.md` when designing a new Room or judging whether
   it belongs beside the public Locus examples.
 - `references/blender-headless.md` when using the default Blender Python route
@@ -34,9 +33,11 @@ Read these local references before authoring:
   bounce or architectural glazing, or checking bright-state surface blotches
   and a dark/colored center in a reflected sun.
 
-The online [Room ZIP reference](https://enterlocus.com/reference/locus-asset-format.md)
-is canonical when network access is available. The bundled reference is enough
-to work offline and prevents an unavailable website from blocking the task.
+The online [field reference](https://enterlocus.com/reference/locus-asset-format.md)
+and [complete Package v2 guide](https://enterlocus.com/reference/locusplace-format/)
+are canonical when network access is available. The bundled reference is enough
+to work offline for the flat compatibility route and directs advanced work to
+the complete-package toolchain.
 
 ## Establish the deliverable and rights
 
@@ -148,18 +149,19 @@ intended visible motion.
 
 ## Choose the delivery format
 
-Complete Package v2 is the canonical feature-complete import format in Locus
-1.2.1 and later. Its ZIP root contains `locusplace.json` and `catalog/`, with
+Complete Package v2 is the canonical feature-complete import format and the
+recommended route in Locus 1.2.1 and later. Its ZIP root contains
+`locusplace.json` and `catalog/`, with
 the Room below `catalog/spaces/<space-id>/`. It preserves authored stable IDs,
-updates by `packageID` and newer `contentVersion`, and can carry supported
-Experiences and other Package v2 features.
+updates by `packageID` and newer `contentVersion`, localizations, supported
+Room/View composition, Experiences, and other current Package v2 features.
 
-The bundled scaffolder, packer, and validator currently produce only the
-legacy/simple flat Room compatibility format. A flat import receives a new
-UUID every time. Do not claim these scripts validate a complete Package v2
-archive. If stable identity, in-place updates, bundled Experiences, or complete
-Package v2 delivery is required, use a compatible Package v2 authoring and
-validation pipeline and follow the canonical public reference.
+For complete delivery, use the public `tools/pack_locusplace.py` and
+`tools/validate_locusplace.py` commands with the complete Package v2 guide.
+The bundled scaffolder, packer, and validator below produce only the
+legacy/simple flat Room compatibility format: a flat import receives a new UUID
+every time and cannot carry complete-package-only fields. Do not claim these
+scripts validate a complete Package v2 archive.
 
 ## Scaffold, package, and validate a compatibility ZIP
 

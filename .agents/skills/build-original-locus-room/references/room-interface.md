@@ -7,17 +7,25 @@ Use this bundled reference when authoring offline. The public reference at
 
 - Use right-handed meters, +Y up, and world -Z forward.
 - Quaternions are `[x, y, z, w]`.
-- Complete Package v2 is the canonical feature-complete import format in Locus
-  1.2.1 and later. Its ZIP root directly contains `locusplace.json` and
+- Complete Package v2 is the recommended feature-complete import format in
+  Locus 1.2.1 and later. Its ZIP root directly contains `locusplace.json` and
   `catalog/`; a Room lives below `catalog/spaces/<space-id>/` and keeps its
-  authored stable identity.
-- The bundled sample tools produce a legacy/simple flat compatibility Room ZIP
+  authored stable identity. Use the public `tools/pack_locusplace.py` and
+  `tools/validate_locusplace.py` commands with
+  `reference/locusplace-format.md` for a complete Room, View, or combined
+  Place and for advanced fields unavailable to flat ZIPs.
+- The bundled sample tools below produce a legacy/simple flat compatibility Room ZIP
   containing exactly `space.json`, `provenance.json`, `teleport-points.json`,
   `scene.usdz`, and `thumbnail.jpg`. Each flat import receives a new UUID.
 - The USDZ is self-contained, stores its members without compression, and must
   pass `usdchecker --arkit`.
 - `thumbnail.jpg` must contain decodable JPEG or PNG image data.
 - In a flat compatibility ZIP, `displayName` is user-facing text, not identity.
+
+The rest of this offline reference documents that retained flat route, including
+its Room v1-v10 additions. It does not turn a flat ZIP into complete Package
+v2 or make it carry complete-only View media, Room/View composition,
+Experiences, or stable package identity.
 
 ## One-seat Room v3 example
 

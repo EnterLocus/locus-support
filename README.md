@@ -26,11 +26,15 @@ third-party notices.
 
 The repository includes a tool-agnostic Room integration guide and an optional
 Room-building skill at `.agents/skills/build-original-locus-room/`. Complete
-Package v2 is the canonical feature-complete import format in Locus 1.2.1 and
-later. The current public packer, validator, skill, and three Room examples use
-the legacy/simple flat ZIP compatibility format; they do not yet author or
-validate complete Package v2 archives. The examples show the current public
-lighting and spatial contracts.
+Package v2 is the recommended feature-complete import format in Locus 1.2.1
+and later. Use `tools/pack_locusplace.py` and `tools/validate_locusplace.py`
+with [the complete-package guide](reference/locusplace-format.md) for stable
+IDs, updates, localized metadata, and supported current View and Room fields.
+The older flat packer, validator, scaffolder, and downloadable Room examples
+remain intentionally available for simple compatibility archives; they cannot
+carry complete-package-only fields. The flat validator supports Room contracts
+through v10; the downloadable demo Rooms intentionally remain historical v5 examples. A flat archive does
+not expose every current feature.
 The skill bundles an offline Room reference, design language, metadata
 scaffolder, packer, validator, and delivery checks. For automated authoring from
 a blank brief, it defaults to headless Blender Python with saved render review;
@@ -139,3 +143,8 @@ After building, run `npx playwright install chromium` and `npm run test:search`.
 Browser tests serve the real built site and cover desktop/mobile results, FAQ
 links, keyboard focus, empty queries and unavailable search assets. The full
 Python suite runs on macOS with Xcode and `usd-core` for Room binding tests.
+
+The complete authoring guide is localized with the site. Its JSON keys, enum
+values, paths, capability IDs and executable code remain unchanged in every
+language; translate the explanations around them. `tests/test_authoring_localization.py`
+checks complete-guide coverage and exact code/identifier preservation.

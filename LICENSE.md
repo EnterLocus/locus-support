@@ -12,6 +12,7 @@ The following paths are licensed under the Apache License, Version 2.0:
 - `.agents/skills/build-original-locus-room/**`
 - `tools/**`
 - `schemas/**`
+- `examples/locusplace/**` (generator source and its generated synthetic examples)
 
 The full terms are in [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt).
 

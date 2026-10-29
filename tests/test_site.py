@@ -228,19 +228,19 @@ class PublicSiteTests(unittest.TestCase):
             build(directory / "frame.zip", wrong_frame)
             result = validate(directory / "frame.zip")
             self.assertEqual(result.returncode, 2)
-            self.assertIn("must be view in a view ZIP", result.stderr)
+            self.assertIn("invalid sound frame", result.stderr)
 
             # Audio never travels alone, in either direction.
             build(directory / "stray.zip", sound,
                   audio=("waterfall.m4a", "unused.wav"))
             result = validate(directory / "stray.zip")
             self.assertEqual(result.returncode, 2)
-            self.assertIn("unused.wav is not named", result.stderr)
+            self.assertIn("sound.json must reference every audio file", result.stderr)
 
             build(directory / "orphan.zip", None)
             result = validate(directory / "orphan.zip")
             self.assertEqual(result.returncode, 2)
-            self.assertIn("requires sound.json", result.stderr)
+            self.assertIn("audio assets require sound.json", result.stderr)
 
     def test_every_page_links_to_the_public_community(self):
         for path in html_files():
@@ -1253,8 +1253,8 @@ class PublicSiteTests(unittest.TestCase):
         for required in [
             "canonical feature-complete import format",
             "catalog/spaces/<space-id>/", "stable IDs", "new UUID",
-            "only the legacy/simple flat Room compatibility format",
-            "Do not claim these scripts validate a complete Package v2 archive",
+            "pack_locusplace.py", "validate_locusplace.py",
+            "https://enterlocus.com/reference/locusplace-format/",
         ]:
             self.assertIn(required, skill)
 
@@ -1832,7 +1832,8 @@ class PublicRoomBindingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = pathlib.Path(directory)
             tool = root / "validate_locus_asset.py"
-            shutil.copyfile(ROOT / "tools/validate_locus_asset.py", tool)
+            for name in ["validate_locus_asset.py", "content_localization.py", "point_lights.py", "package_sound.py"]:
+                shutil.copyfile(ROOT / "tools" / name, root / name)
             with zipfile.ZipFile(ROOT / "examples/atrium-loft-room.zip") as source:
                 files = {name: source.read(name) for name in source.namelist()}
             manifest = json.loads(files["space.json"])
@@ -1871,7 +1872,7 @@ def Xform "Root" {
     def test_standalone_download_rejects_missing_reference_and_packer_leaves_no_zip(self):
         with tempfile.TemporaryDirectory() as folder:
             root = pathlib.Path(folder)
-            for tool in ["validate_locus_asset.py", "pack_locus_asset.py"]:
+            for tool in ["validate_locus_asset.py", "pack_locus_asset.py", "content_localization.py", "point_lights.py", "package_sound.py"]:
                 shutil.copyfile(ROOT / "tools" / tool, root / tool)
             source = root / "room"
             source.mkdir()
