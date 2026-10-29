@@ -112,15 +112,16 @@ WHATS_NEW_LABEL = "What’s New"
 # the linking page's own directory.
 NAV_TARGETS = {
     WHATS_NEW_LABEL: "whats-new",
+    "Gallery": "gallery",
     "Tutorials": "tutorials",
     "FAQ": "faq",
     "Support": "support",
     "Privacy": "privacy",
 }
 
-EXPECTED_PRIMARY_NAV_LABELS = [WHATS_NEW_LABEL, "Tutorials", "FAQ", "Support", "Community"]
+EXPECTED_PRIMARY_NAV_LABELS = [WHATS_NEW_LABEL, "Gallery", "Tutorials", "FAQ", "Support", "Community"]
 EXPECTED_FOOTER_NAV_LABELS = [
-    WHATS_NEW_LABEL, "Tutorials", "FAQ", "Support", "Privacy", "Community", "Report a Bug",
+    WHATS_NEW_LABEL, "Gallery", "Tutorials", "FAQ", "Support", "Privacy", "Community", "Report a Bug",
 ]
 
 
@@ -261,7 +262,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Share creations, ask questions", readme)
 
     def test_primary_nav_is_unified_across_pages(self):
-        # Every page's header nav must carry the same five destinations, in
+        # Every page's header nav must carry the same six destinations, in
         # the same order, with internal hrefs that actually resolve to their
         # target section from that page's own directory. What's New must be
         # marked current on (and only on) pages under whats-new/.
@@ -269,6 +270,7 @@ class PublicSiteTests(unittest.TestCase):
             rel = path.relative_to(ROOT)
             rel_dir = rel.parent.as_posix()
             under_whats_new = "whats-new" in rel.parts[:-1]
+            under_gallery = rel.parts[:-1] == ("gallery",)
             text = path.read_text()
 
             with self.subTest(page=str(rel)):
@@ -290,9 +292,11 @@ class PublicSiteTests(unittest.TestCase):
 
                     if link["text"] == WHATS_NEW_LABEL:
                         self.assertEqual(link["current"], under_whats_new)
+                    if link["text"] == "Gallery":
+                        self.assertEqual(link["current"], under_gallery)
 
     def test_footer_nav_is_unified_across_pages(self):
-        # Every page's footer nav must carry the same seven destinations, in
+        # Every page's footer nav must carry the same eight destinations, in
         # the same order, with internal hrefs that resolve correctly and the
         # same external Community/Report a Bug URLs everywhere.
         for path in html_files():

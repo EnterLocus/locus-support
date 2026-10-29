@@ -1,0 +1,459 @@
+{
+  "formatVersion": 1,
+  "appVersion": "1.4.3",
+  "minimumOSVersion": "27.0.0",
+  "readerSource": "visionos-v1.4.3-build-1",
+  "capabilities": [
+    "locus.view.media.v1",
+    "locus.view.audio.v1",
+    "locus.room.audio.v1",
+    "locus.view.audio.v2",
+    "locus.room.audio.v2",
+    "locus.view.audio.spatial.v1",
+    "locus.room.audio.spatial.v1",
+    "locus.view.audio.random.v1",
+    "locus.room.audio.random.v1",
+    "locus.room.audio.music.v1",
+    "locus.room.video-surfaces.v1",
+    "locus.room.lighting.illuminated-surfaces.v1",
+    "locus.room.view-forward.v1",
+    "locus.room.particle-effects.v1",
+    "locus.room.lighting.baked-light-layers.v1",
+    "locus.view.midground.v1",
+    "locus.view.midground.wind-sway.v1",
+    "locus.view.midground.wind-sway.wave.v1",
+    "locus.view.midground.water.v1",
+    "locus.view.gpu-texture.v1",
+    "locus.view.gpu-texture.v2",
+    "locus.view.celestial.v1",
+    "locus.view.celestial.v2",
+    "locus.view.celestial-sky.v1",
+    "locus.view.celestial-sun.v1",
+    "locus.view.near-orbit.v1",
+    "locus.view.near-orbit.v2",
+    "locus.view.near-orbit.surface.v1",
+    "locus.view.black-hole.v1",
+    "locus.view.sky.stars.v1",
+    "locus.view.sky.aurora.v1",
+    "locus.view.sky.default-mode.v1",
+    "locus.view.sky.milky-way-map.v1",
+    "locus.view.point-lights.v1",
+    "locus.view.water.v1",
+    "locus.view.water.glow-disturbance.v1",
+    "locus.view.water.reflection-registration.v1",
+    "locus.view.water.reflection-registration.layered.v1",
+    "locus.view.water.bed-deepening.v1",
+    "locus.view.water.contact-calibration.v1",
+    "locus.view.fireflies.v1",
+    "locus.view.clouds.v1",
+    "locus.view.sun-path.v1",
+    "locus.room.water.v1",
+    "locus.preview.card.v1",
+    "locus.install.view.v1",
+    "locus.install.room.v1",
+    "locus.envelope.locusplace.v1",
+    "locus.package.v2",
+    "locus.delivery.public-https.v1",
+    "locus.delivery.grant.v2"
+  ],
+  "animatedViewCapabilities": [
+    "locus.view.media.v1",
+    "locus.view.celestial.v1",
+    "locus.view.celestial.v2",
+    "locus.view.celestial-sky.v1",
+    "locus.view.celestial-sun.v1",
+    "locus.view.near-orbit.v1",
+    "locus.view.near-orbit.v2",
+    "locus.view.near-orbit.surface.v1",
+    "locus.view.sky.stars.v1",
+    "locus.view.black-hole.v1",
+    "locus.view.sky.aurora.v1",
+    "locus.view.point-lights.v1",
+    "locus.view.water.v1",
+    "locus.view.fireflies.v1",
+    "locus.view.clouds.v1",
+    "locus.view.sun-path.v1"
+  ],
+  "builtIns": [
+    {
+      "id": "destination.autumn-hill-view",
+      "slug": "autumn-hill-view",
+      "type": "view",
+      "title": "Autumn Hill View",
+      "description": "Autumn hilltop meadow overlooking forested valleys and rolling farmland. Dry grass and scattered green patches fill the foreground, with small houses and fields spread across the surrounding slopes. Golden and rust-colored trees mix with dark evergreens beneath a pale blue sky and thin clouds, while low sun creates soft, warm backlight. Calm and open.",
+      "image": {
+        "url": "/assets/gallery/destination.autumn-hill-view.jpg",
+        "width": 1024,
+        "height": 512,
+        "sha256": "052e9b0a95e92fb3138b39b037a5117a0d05d56cca69100a5579553ff73f3780"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": true,
+      "contentVersion": "1.0.5",
+      "searchTerms": [],
+      "localizations": {
+        "zh-Hans": {
+          "title": "秋日山丘景观",
+          "description": "秋日山顶草甸俯瞰林木山谷与起伏农田。近处是干草与零散绿地，小屋和田野分布在周围山坡上。金色、铁锈色树木与深色常青树交织，上方是带薄云的淡蓝天空，低斜太阳营造出柔和温暖的逆光。安静而开阔。",
+          "searchTerms": [
+            "秋日",
+            "山丘",
+            "草甸",
+            "农田"
+          ]
+        },
+        "zh-Hant": {
+          "title": "秋日山丘景觀",
+          "description": "秋日山頂草甸俯瞰林木山谷與起伏農田。近處是乾草與零散綠地，小屋和田野分布在周圍山坡上。金色、鐵鏽色樹木與深色常青樹交織，上方是帶薄雲的淡藍天空，低斜太陽營造出柔和溫暖的逆光。安靜而開闊。",
+          "searchTerms": [
+            "秋日",
+            "山丘",
+            "草甸",
+            "農田"
+          ]
+        },
+        "ja": {
+          "title": "秋の丘の眺め",
+          "description": "秋の丘の草地から、森の谷と起伏のある農地を見渡します。前景には乾いた草と点在する緑が広がり、周囲の斜面には小さな家と畑が散らばります。黄金色と赤錆色の木々が濃い常緑樹に混じり、淡い青空と薄雲の下、低い太陽が柔らかな暖かい逆光を作ります。穏やかで開放的です。",
+          "searchTerms": [
+            "秋",
+            "丘",
+            "草原",
+            "農地"
+          ]
+        },
+        "ko": {
+          "title": "가을 언덕 전망",
+          "description": "숲이 우거진 계곡과 완만한 농지를 내려다보는 가을 언덕의 풀밭. 마른 풀과 군데군데 푸른 풀이 앞을 채우고, 주변 비탈에는 작은 집과 밭이 흩어져 있습니다. 연한 푸른 하늘과 얇은 구름 아래 금빛과 적갈색 나무들이 짙은 상록수와 어우러지고, 낮게 뜬 태양이 부드럽고 따뜻한 역광을 만듭니다. 평온하고 탁 트인 풍경입니다.",
+          "searchTerms": [
+            "가을",
+            "언덕",
+            "풀밭",
+            "농지"
+          ]
+        },
+        "de": {
+          "title": "Herbstlicher Hügelblick",
+          "description": "Herbstliche Hügelwiese mit Blick auf bewaldete Täler und sanft gewelltes Ackerland. Trockenes Gras und vereinzelte grüne Flächen liegen im Vordergrund; kleine Häuser und Felder verteilen sich auf den Hängen. Goldene und rostfarbene Bäume mischen sich mit dunklen Nadelbäumen unter blassblauem Himmel und dünnen Wolken. Die tief stehende Sonne sorgt für sanftes warmes Gegenlicht. Ruhig und offen.",
+          "searchTerms": [
+            "Herbst",
+            "Hügel",
+            "Wiese",
+            "Ackerland"
+          ]
+        },
+        "fr": {
+          "title": "Vue sur les collines d’automne",
+          "description": "Prairie sur une colline d’automne dominant vallées boisées et terres agricoles vallonnées. Herbes sèches et touches de verdure au premier plan ; petites maisons et champs sur les pentes. Arbres dorés et rouille mêlés aux conifères sombres sous un ciel bleu pâle et de fins nuages. Le soleil bas crée un contre-jour doux et chaud. Calme et dégagé.",
+          "searchTerms": [
+            "automne",
+            "colline",
+            "prairie",
+            "champs"
+          ]
+        },
+        "es": {
+          "title": "Vista de las colinas otoñales",
+          "description": "Pradera otoñal en una colina sobre valles boscosos y campos ondulados. Hierba seca y zonas verdes ocupan el primer plano; pequeñas casas y campos se reparten por las laderas. Árboles dorados y rojizos se mezclan con coníferas oscuras bajo un cielo azul pálido y nubes finas. El sol bajo crea un contraluz cálido y suave. Tranquilo y abierto.",
+          "searchTerms": [
+            "otoño",
+            "colina",
+            "pradera",
+            "campos"
+          ]
+        }
+      },
+      "credits": {
+        "creator": "Grzegorz Wronkowski",
+        "credit": "CC0 does not require attribution; credit is retained for the photographer and donation-funded source library.",
+        "sourceURL": "https://polyhaven.com/a/autumn_hill_view",
+        "licenseName": "CC0",
+        "licenseURL": "https://creativecommons.org/publicdomain/zero/1.0/"
+      }
+    },
+    {
+      "id": "space.atrium-loft",
+      "slug": "atrium-loft",
+      "type": "room",
+      "title": "Atrium Loft",
+      "description": "Modern double-height loft with floor-to-ceiling glass and a mezzanine workspace. Warm wood floors and matching worktables contrast with pale walls, slim black window frames, and glass railings. A straight stair with metal handrails leads to the upper desk, while the open lower level includes a white sofa, pendant light, and potted plant. Calm and airy.",
+      "image": {
+        "url": "/assets/gallery/space.atrium-loft.jpg",
+        "width": 1600,
+        "height": 900,
+        "sha256": "02ad3ca505152eb8cd87903b0354a92d997887e19df2f78bad7765a7a5e6b148"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": true,
+      "contentVersion": "1.0.22",
+      "searchTerms": [],
+      "localizations": {
+        "zh-Hans": {
+          "title": "中庭阁楼",
+          "description": "现代挑高阁楼配有落地玻璃和夹层工作区。温暖木地板与同色工作桌，与浅色墙面、纤细黑窗框和玻璃栏杆形成对比。带金属扶手的直梯通向上层书桌；开放下层设有白色沙发、吊灯与盆栽。安静而通透。",
+          "searchTerms": [
+            "中庭",
+            "阁楼",
+            "夹层",
+            "书桌"
+          ]
+        },
+        "zh-Hant": {
+          "title": "中庭閣樓",
+          "description": "現代挑高閣樓配有落地玻璃和夾層工作區。溫暖木地板與同色工作桌，與淺色牆面、纖細黑窗框和玻璃欄桿形成對比。帶金屬扶手的直梯通向上層書桌；開放下層設有白色沙發、吊燈與盆栽。安靜而通透。",
+          "searchTerms": [
+            "中庭",
+            "閣樓",
+            "夾層",
+            "書桌"
+          ]
+        },
+        "ja": {
+          "title": "アトリウム・ロフト",
+          "description": "床から天井までのガラスと中二階のワークスペースを持つ、現代的な吹き抜けのロフト。暖かな木の床と揃いの作業テーブルが、淡い壁、細い黒い窓枠、ガラスの手すりと対照をなします。金属の手すりを備えた直線階段が上階のデスクへ続き、開放的な下階には白いソファ、ペンダントライト、鉢植えがあります。穏やかで風通しのよい空間です。",
+          "searchTerms": [
+            "アトリウム",
+            "ロフト",
+            "中二階",
+            "デスク"
+          ]
+        },
+        "ko": {
+          "title": "아트리움 로프트",
+          "description": "바닥부터 천장까지 이어지는 유리와 중층 작업 공간이 있는 현대적인 복층 높이 로프트. 따뜻한 목재 바닥과 어울리는 작업대가 밝은 벽, 가느다란 검은 창틀과 유리 난간에 대비됩니다. 금속 난간이 있는 곧은 계단이 위층 책상으로 이어지고, 개방된 아래층에는 흰 소파, 펜던트 조명과 화분이 있습니다. 평온하고 쾌적합니다.",
+          "searchTerms": [
+            "아트리움",
+            "로프트",
+            "중층",
+            "책상"
+          ]
+        },
+        "de": {
+          "title": "Atrium-Loft",
+          "description": "Modernes Loft mit doppelter Raumhöhe, bodenhohem Glas und Arbeitsbereich auf der Galerie. Warme Holzböden und passende Arbeitstische stehen im Kontrast zu hellen Wänden, schmalen schwarzen Fensterrahmen und Glasgeländern. Eine gerade Treppe mit Metallhandläufen führt zum oberen Schreibtisch. Unten gibt es ein weißes Sofa, eine Pendelleuchte und eine Topfpflanze. Ruhig und luftig.",
+          "searchTerms": [
+            "Atrium",
+            "Loft",
+            "Galerie",
+            "Schreibtisch"
+          ]
+        },
+        "fr": {
+          "title": "Loft avec atrium",
+          "description": "Loft moderne à double hauteur, vitrage toute hauteur et espace de travail en mezzanine. Sols en bois chaud et tables assorties contrastent avec murs pâles, cadres noirs fins et garde-corps vitrés. Un escalier droit à mains courantes métalliques mène au bureau supérieur ; le niveau bas ouvert comprend un canapé blanc, une suspension et une plante en pot. Calme et aéré.",
+          "searchTerms": [
+            "atrium",
+            "loft",
+            "mezzanine",
+            "bureau"
+          ]
+        },
+        "es": {
+          "title": "Loft con atrio",
+          "description": "Loft moderno de doble altura, acristalamiento de suelo a techo y zona de trabajo en el altillo. Suelo de madera cálida y mesas a juego contrastan con paredes claras, marcos negros finos y barandillas de cristal. Una escalera recta con pasamanos metálicos lleva al escritorio superior; el nivel inferior abierto tiene sofá blanco, lámpara colgante y planta en maceta. Tranquilo y espacioso.",
+          "searchTerms": [
+            "atrio",
+            "loft",
+            "altillo",
+            "escritorio"
+          ]
+        }
+      },
+      "credits": {
+        "creator": "EnterLocus"
+      }
+    },
+    {
+      "id": "space.courtyard-gallery",
+      "slug": "courtyard-gallery",
+      "type": "room",
+      "title": "Courtyard Gallery",
+      "description": "Modern glass-walled courtyard gallery with a reflecting pool and rooftop terrace. Split-level rooms have pale plaster walls, wood floors, slim black metal frames, and simple wooden tables with chairs for working or dining. A central planted water court connects the spaces, while stairs, glass railings, and small pendant lights give the pavilion a calm, minimalist feel.",
+      "image": {
+        "url": "/assets/gallery/space.courtyard-gallery.jpg",
+        "width": 1600,
+        "height": 900,
+        "sha256": "824faae34b18b45326c44df2e9ec6dcd515b5ce6cbe94d392b16efab7455c8e1"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": true,
+      "contentVersion": "1.0.22",
+      "searchTerms": [],
+      "localizations": {
+        "zh-Hans": {
+          "title": "庭院画廊",
+          "description": "现代玻璃墙庭院画廊配有倒影水池与屋顶露台。错层房间采用浅色灰泥墙、木地板和纤细黑金属框架，简洁木桌椅适合工作或用餐。中央绿植水庭连接各个空间，楼梯、玻璃栏杆与小吊灯让凉亭显得安静而简约。",
+          "searchTerms": [
+            "庭院",
+            "画廊",
+            "水池",
+            "露台"
+          ]
+        },
+        "zh-Hant": {
+          "title": "庭院畫廊",
+          "description": "現代玻璃牆庭院畫廊配有倒影水池與屋頂露台。錯層房間採用淺色灰泥牆、木地板和纖細黑金屬框架，簡潔木桌椅適合工作或用餐。中央綠植水庭連接各個空間，樓梯、玻璃欄桿與小吊燈讓涼亭顯得安靜而簡約。",
+          "searchTerms": [
+            "庭院",
+            "畫廊",
+            "水池",
+            "露台"
+          ]
+        },
+        "ja": {
+          "title": "中庭のギャラリー",
+          "description": "反射池と屋上テラスを持つ、現代的なガラス壁の中庭ギャラリー。段差のある部屋には淡い漆喰壁、木の床、細い黒い金属フレームがあり、作業や食事用の簡素な木製テーブルと椅子を備えます。中央の植栽された水の庭が空間をつなぎ、階段、ガラスの手すり、小さなペンダントライトが、パビリオンに穏やかでミニマルな印象を与えます。",
+          "searchTerms": [
+            "中庭",
+            "ギャラリー",
+            "水盤",
+            "テラス"
+          ]
+        },
+        "ko": {
+          "title": "안뜰 갤러리",
+          "description": "반사 연못과 옥상 테라스가 있는 현대적인 유리 벽 안뜰 갤러리. 높이가 다른 공간에 밝은 미장 벽, 나무 바닥, 가느다란 검은 금속 프레임과 작업이나 식사에 쓸 의자가 딸린 단순한 나무 테이블이 있습니다. 식물을 심은 중앙 수공간이 방들을 연결하고, 계단과 유리 난간, 작은 펜던트 조명이 정자에 평온하고 미니멀한 분위기를 줍니다.",
+          "searchTerms": [
+            "안뜰",
+            "갤러리",
+            "연못",
+            "테라스"
+          ]
+        },
+        "de": {
+          "title": "Hofgalerie",
+          "description": "Moderne gläserne Hofgalerie mit Spiegelbecken und Dachterrasse. Räume auf verschiedenen Ebenen haben helle Putzwände, Holzböden, schmale schwarze Metallrahmen und einfache Holztische mit Stühlen zum Arbeiten oder Essen. Ein bepflanzter Wasserhof verbindet die Räume. Treppen, Glasgeländer und kleine Pendelleuchten geben dem Pavillon eine ruhige minimalistische Atmosphäre.",
+          "searchTerms": [
+            "Innenhof",
+            "Galerie",
+            "Wasserbecken",
+            "Terrasse"
+          ]
+        },
+        "fr": {
+          "title": "Galerie autour d’une cour",
+          "description": "Galerie moderne aux murs vitrés, bassin miroir et terrasse sur le toit. Les espaces à niveaux décalés ont murs enduits pâles, sols en bois, fins cadres métalliques noirs et simples tables en bois avec chaises pour travailler ou manger. Une cour centrale plantée avec bassin relie les espaces ; escaliers, garde-corps vitrés et petites suspensions donnent au pavillon une ambiance calme et minimaliste.",
+          "searchTerms": [
+            "cour",
+            "galerie",
+            "bassin",
+            "terrasse"
+          ]
+        },
+        "es": {
+          "title": "Galería del patio",
+          "description": "Galería moderna acristalada con estanque reflectante y terraza en la azotea. Las zonas a distintos niveles tienen paredes enlucidas claras, suelo de madera, marcos metálicos negros finos y mesas sencillas con sillas para trabajar o comer. Un patio central con agua y plantas conecta los espacios; escaleras, barandillas de cristal y pequeñas lámparas colgantes crean un ambiente tranquilo y minimalista.",
+          "searchTerms": [
+            "patio",
+            "galería",
+            "estanque",
+            "terraza"
+          ]
+        }
+      },
+      "credits": {
+        "creator": "EnterLocus"
+      }
+    },
+    {
+      "id": "space.horizon-atelier",
+      "slug": "horizon-atelier",
+      "type": "room",
+      "title": "Horizon Atelier",
+      "description": "Modern glass-walled studio pavilion with wood floors, worktables, and a covered terrace. Black-framed floor-to-ceiling windows enclose a compact workspace with a wood desk, dining table, wall shelves, and two pendant lamps. A low upholstered lounge, round coffee table, potted plants, and a small outdoor table create a calm, minimalist setting.",
+      "image": {
+        "url": "/assets/gallery/space.horizon-atelier.jpg",
+        "width": 1600,
+        "height": 900,
+        "sha256": "7e6c01cb2e30a5c5a511145c2dec273a460ba8cfcd844887470a0b9ce47b4eb0"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": true,
+      "contentVersion": "1.0.27",
+      "searchTerms": [],
+      "localizations": {
+        "zh-Hans": {
+          "title": "天际工作室",
+          "description": "现代玻璃墙工作室凉亭配有木地板、工作桌和带顶露台。黑框落地窗围住紧凑工作区，内部设有木书桌、餐桌、墙上搁板和两盏吊灯。低矮软包休息座、圆茶几、盆栽与户外小桌营造出安静、简约的环境。",
+          "searchTerms": [
+            "天际",
+            "工作室",
+            "凉亭",
+            "书桌"
+          ]
+        },
+        "zh-Hant": {
+          "title": "天際工作室",
+          "description": "現代玻璃牆工作室涼亭配有木地板、工作桌和帶頂露台。黑框落地窗圍住緊湊工作區，內部設有木書桌、餐桌、牆上擱板和兩盞吊燈。低矮軟包休息座、圓茶几、盆栽與戶外小桌營造出安靜、簡約的環境。",
+          "searchTerms": [
+            "天際",
+            "工作室",
+            "涼亭",
+            "書桌"
+          ]
+        },
+        "ja": {
+          "title": "ホライズン・アトリエ",
+          "description": "木の床、作業テーブル、屋根付きテラスを持つ、現代的なガラス壁のスタジオパビリオン。黒枠の床から天井までの窓が、木のデスク、食卓、壁棚、二つのペンダントランプを備えたコンパクトなワークスペースを囲みます。低い張り地のラウンジ、丸いコーヒーテーブル、鉢植え、小さな屋外テーブルが、穏やかでミニマルな空間を作ります。",
+          "searchTerms": [
+            "地平線",
+            "スタジオ",
+            "パビリオン",
+            "デスク"
+          ]
+        },
+        "ko": {
+          "title": "호라이즌 아틀리에",
+          "description": "나무 바닥, 작업대와 지붕 있는 테라스를 갖춘 현대적인 유리 벽 스튜디오 정자. 검은 프레임의 전면 창이 목재 책상, 식탁, 벽 선반과 펜던트 조명 두 개가 있는 작은 작업 공간을 감쌉니다. 낮은 패브릭 라운지 좌석, 둥근 커피 테이블, 화분과 작은 야외 테이블이 평온하고 미니멀한 환경을 만듭니다.",
+          "searchTerms": [
+            "지평선",
+            "스튜디오",
+            "정자",
+            "책상"
+          ]
+        },
+        "de": {
+          "title": "Horizont-Atelier",
+          "description": "Moderner gläserner Atelierpavillon mit Holzböden, Arbeitstischen und überdachter Terrasse. Bodenhohe Fenster mit schwarzen Rahmen umschließen einen kompakten Arbeitsbereich mit Holzschreibtisch, Esstisch, Wandregalen und zwei Pendellampen. Eine niedrige gepolsterte Lounge, ein runder Couchtisch, Topfpflanzen und ein kleiner Außentisch schaffen eine ruhige minimalistische Umgebung.",
+          "searchTerms": [
+            "Horizont",
+            "Atelier",
+            "Pavillon",
+            "Schreibtisch"
+          ]
+        },
+        "fr": {
+          "title": "Atelier Horizon",
+          "description": "Pavillon-atelier moderne vitré, sols en bois, tables de travail et terrasse couverte. Le vitrage toute hauteur à cadres noirs entoure un espace compact avec bureau en bois, table à manger, étagères murales et deux suspensions. Assise basse rembourrée, table basse ronde, plantes en pot et petite table extérieure composent un cadre calme et minimaliste.",
+          "searchTerms": [
+            "horizon",
+            "atelier",
+            "pavillon",
+            "bureau"
+          ]
+        },
+        "es": {
+          "title": "Taller Horizonte",
+          "description": "Pabellón de estudio moderno acristalado, suelo de madera, mesas de trabajo y terraza cubierta. Ventanas de suelo a techo con marcos negros rodean una zona compacta con escritorio de madera, mesa de comedor, estantes y dos lámparas colgantes. Asientos bajos tapizados, mesa baja redonda, plantas en maceta y una pequeña mesa exterior crean un entorno tranquilo y minimalista.",
+          "searchTerms": [
+            "horizonte",
+            "estudio",
+            "pabellón",
+            "escritorio"
+          ]
+        }
+      },
+      "credits": {
+        "creator": "EnterLocus"
+      }
+    }
+  ]
+}
