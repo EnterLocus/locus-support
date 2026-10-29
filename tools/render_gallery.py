@@ -139,7 +139,9 @@ def credits_markup(place: dict, locale: str) -> str:
     if credits.get("creator"):
         rows.append((c["creator"], esc(credits["creator"])))
     if credits.get("credit"):
-        rows.append((c["heading"], esc(credits["credit"])))
+        credit = esc(credits["credit"]).replace('CC BY 4.0',
+            '<a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>')
+        rows.append((c["heading"], credit))
     if credits.get("sourceURL"):
         url = esc(credits["sourceURL"])
         rows.append((c["source"], f'<a href="{url}">{url}</a>'))

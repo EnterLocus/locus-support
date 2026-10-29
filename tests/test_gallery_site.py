@@ -42,6 +42,7 @@ class GallerySiteTests(unittest.TestCase):
         place = next(item for item in self.manifest["places"] if item["title"] == "Event Horizon: Ring")
         rendered = render_gallery.place_page(place, self.manifest, "en")
         self.assertIn("NASA, ESA, CSA, and STScI", rendered)
+        self.assertIn('href="https://creativecommons.org/licenses/by/4.0/"', rendered)
         self.assertIn("https://esawebb.org/images/weic2212a/", rendered)
         self.assertIn("Get Locus on the App Store", rendered)
         self.assertNotIn("locus://", rendered)
