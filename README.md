@@ -164,9 +164,10 @@ version, verifies the descriptor/archive byte count and SHA-256, checks Producti
 snapshot identity, and verifies the chosen thumbnails inside that archive. Those
 selected public previews are copied byte for byte into `assets/gallery/` (the
 catalog's internal thumbnail paths are not independent HTTP endpoints). It
-selects the newest usable revision using both audience/watermark and the reviewed
-reader's App, OS and capability requirements. Watermarked previews that would
-only offer “Update App” are omitted. It never reads the Dev catalog or downloads
+selects the App's newest visible revision using both audience/watermark and the
+reviewed reader's App, OS and capability requirements. Selected previews that
+would only offer “Update App” are omitted, without advertising a superseded
+download. It never reads the Dev catalog or downloads
 Place packages.
 
 `data/gallery-reader.json` pins the reviewed public reader profile and four built-in

@@ -56,6 +56,12 @@ class GallerySyncTests(unittest.TestCase):
         entry['install']['access']['kind'] = 'future'
         self.assertEqual(self.select([entry]), [])
 
+    def test_promoted_update_app_revision_does_not_advertise_superseded_download(self):
+        newer = copy.deepcopy(self.entry)
+        newer.update(contentVersion='1.0.1', availableFromAppVersion='99.0.0')
+        newer['install']['requires']['minimumAppVersion'] = '99.0.0'
+        self.assertEqual(self.select([self.entry, newer], '99.0.0'), [])
+
     def test_versions_compare_numerically(self):
         newer = copy.deepcopy(self.entry)
         newer['contentVersion'] = '1.0.10'

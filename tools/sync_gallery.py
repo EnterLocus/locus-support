@@ -62,7 +62,7 @@ def compatible(requirements, profile):
 
 
 def select_entries(catalog, profile):
-    """Revision audience + preview + install compatibility, then newest revision.
+    """Select the App's newest visible revision, then omit unusable previews.
 
     Gallery showcases usable content, so it excludes even watermarked
     preview-only/Update App entries. This is stricter than the App's card list.
@@ -72,24 +72,23 @@ def select_entries(catalog, profile):
     current = version(profile['appVersion'])
     for entry in catalog['entries']:
         preview, install = entry['preview'], entry['install']
-        if (entry['type'] not in ('locus.view', 'locus.room')
-                or preview['contract'] != 'locus.preview.card.v1'
+        known = entry['type'] in ('locus.view', 'locus.room')
+        if (preview['contract'] != 'locus.preview.card.v1'
                 or preview['visibility'] not in ('generic', 'known-type')
-                or not compatible(preview['requires'], profile)
-                or not compatible(install['requires'], profile)):
+                or (not known and preview['visibility'] != 'generic')
+                or not compatible(preview['requires'], profile)):
             continue
         access, delivery = install['access']['kind'], install['delivery']['kind']
-        if (access, delivery) not in (('free', 'public-https.v1'), ('supporter', 'grant.v2')):
-            continue
-        if install['artifact']['envelope'] != {'format': 'locusplace', 'version': 1}:
-            continue
+        usable = (known and compatible(install['requires'], profile)
+                  and (access, delivery) in (('free', 'public-https.v1'), ('supporter', 'grant.v2'))
+                  and install['artifact']['envelope'] == {'format': 'locusplace', 'version': 1})
         audience = version(entry['availableFromAppVersion'])
-        if audience > watermark and audience > current:
+        if audience > watermark and not (audience <= current and usable):
             continue
         pid = entry['packageID']
-        if pid not in selected or version(entry['contentVersion']) > version(selected[pid]['contentVersion']):
-            selected[pid] = entry
-    return [selected[key] for key in sorted(selected)]
+        if pid not in selected or version(entry['contentVersion']) > version(selected[pid][0]['contentVersion']):
+            selected[pid] = (entry, usable)
+    return [selected[key][0] for key in sorted(selected) if selected[key][1]]
 
 
 def image(ref, archive, images, prefix='thumbnails/'):
