@@ -48,3 +48,79 @@ class GallerySiteTests(unittest.TestCase):
         self.assertIn("Get Locus on the App Store", rendered)
         self.assertNotIn("locus://", rendered)
         self.assertNotIn("Download", rendered)
+
+    def test_folded_series_use_first_owner_and_recent_mixed_order(self):
+        from tools import render_gallery
+        def place(identifier, title, kind, date):
+            return {"id": identifier, "slug": identifier, "type": kind, "title": title,
+                    "description": "", "image": {"url": "/image.jpg", "width": 4, "height": 2},
+                    "access": "free", "addedAt": date, "searchTerms": [], "localizations": {}}
+        places = [place("one", "First", "view", "2026-10-04T00:00:00Z"),
+                  place("two", "Second", "view", "2026-10-03T00:00:00Z"),
+                  place("three", "Third", "room", "2026-10-05T00:00:00Z"),
+                  place("four", "Fourth", "room", "2026-10-02T00:00:00Z")]
+        series = [{"id": "first", "title": "Alpha", "members": ["one", "two"], "localizations": {}},
+                  {"id": "duplicate", "title": "Duplicate", "members": ["one", "two"], "localizations": {}},
+                  {"id": "mixed", "title": "Mixed", "type": "view", "members": ["one", "three"], "localizations": {}},
+                  {"id": "rooms", "title": "Rooms", "members": ["three", "four"], "localizations": {}}]
+        groups = render_gallery.eligible_series(places, series)
+        self.assertEqual([group["series"]["id"] for group in groups], ["first", "rooms"])
+        order = render_gallery.collection_order(places, series)
+        self.assertEqual([item.get("series", {}).get("id") or item["place"]["id"] for item in order],
+                         ["rooms", "first"])
+        rendered = render_gallery.gallery_page({"places": places, "series": series}, "en")
+        self.assertEqual(rendered.count('data-gallery-series-card'), 2)
+        self.assertIn('data-series-member="true"', rendered)
+        self.assertIn('data-search="first alpha"', rendered)
+
+    def test_series_card_prefers_curated_cover_members(self):
+        from tools import render_gallery
+        members = [
+            {"id": "newest", "image": {"url": "/newest.jpg", "width": 4, "height": 2}},
+            {"id": "cover", "image": {"url": "/cover.jpg", "width": 4, "height": 2}},
+            {"id": "older", "image": {"url": "/older.jpg", "width": 4, "height": 2}},
+            {"id": "last", "image": {"url": "/last.jpg", "width": 4, "height": 2}},
+        ]
+        self.assertEqual([member["id"] for member in render_gallery.card_cover_members(
+            {"cover": ["cover", "older"]}, members)], ["cover", "older", "newest"])
+
+    def test_localized_series_title_is_searchable_from_its_member_cards(self):
+        from tools import render_gallery
+        rendered = render_gallery.gallery_page(self.manifest, "de")
+        self.assertIn('bei nacht', rendered.lower())
+        # The App accepts every author-provided Series title in any UI locale.
+        self.assertRegex(rendered, r'data-search="[^"]*after dark[^"]*bei nacht[^"]*"')
+
+    def test_series_detail_keeps_members_in_newest_first_order(self):
+        from tools import render_gallery
+        first = {"id": "first", "slug": "first", "type": "view", "title": "First", "description": "",
+                 "image": {"url": "/first.jpg", "width": 4, "height": 2}, "access": "free", "addedAt": "2026-10-01T00:00:00Z"}
+        newest = {**first, "id": "newest", "slug": "newest", "title": "Newest", "image": {"url": "/newest.jpg", "width": 4, "height": 2}, "updatedAt": "2026-10-02T00:00:00Z"}
+        rendered = render_gallery.series_page({"id": "test", "title": "Test", "members": ["first", "newest"]}, [first, newest], "en")
+        self.assertLess(rendered.index("Newest"), rendered.index("First"))
+
+    def test_recent_sort_normalizes_timestamp_offsets(self):
+        from tools import render_gallery
+        older = {"id": "older", "title": "Older", "addedAt": "2026-10-02T00:30:00+01:00"}
+        newer = {"id": "newer", "title": "Newer", "addedAt": "2026-10-01T23:45:00Z"}
+        self.assertEqual([item["id"] for item in render_gallery.newest_first([older, newer])], ["newer", "older"])
+
+    def test_photo_gallery_uses_only_exported_captures(self):
+        from tools import render_gallery
+        place = next(item for item in self.manifest["places"] if item["title"] == "Event Horizon: Ring").copy()
+        place["photos"] = [
+            {"url": "/assets/gallery/capture-front.jpg", "width": 1000, "height": 800,
+             "sha256": "a" * 64, "label": "front", "captureKind": "visionos-simulator"},
+            {"url": "/assets/gallery/capture-left.jpg", "width": 1000, "height": 800,
+             "sha256": "b" * 64, "label": "left", "captureKind": "visionos-simulator"},
+        ]
+        rendered = render_gallery.place_page(place, self.manifest, "en")
+        self.assertIn('data-gallery-photos', rendered)
+        self.assertIn('/assets/gallery/capture-front.jpg', rendered)
+        self.assertIn('Rendered in Locus · Simulator', rendered)
+        self.assertIn('data-gallery-photo-dialog', rendered)
+        self.assertIn('data-template="Photo {current} of {total}"', rendered)
+        self.assertIn('data-template="Open photo {current} of {total}"', rendered)
+        no_photos = place.copy()
+        no_photos.pop("photos")
+        self.assertNotIn('data-gallery-photos', render_gallery.place_page(no_photos, self.manifest, "en"))

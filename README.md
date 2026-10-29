@@ -163,6 +163,19 @@ matching the Library's Recent semantics. Substantive revisions rise naturally;
 maintenance revisions retain their content date. Undated built-ins follow dated
 Places. Filters and Series member grids preserve this order in every language.
 
+Series share the All Places, Views and Rooms grids with individual Places. On
+the default Recent grid they fold at the newest visible member's content date;
+search and narrowing filters reveal matching members instead. A Series needs
+two visible members of one kind. Its curated covers lead the card collage.
+
+Reviewed native photos are registered in `data/gallery-photos.json` by exact
+package ID and content version. Synchronization validates local image hashes,
+dimensions and capture kind, then attaches photos only to the selected public
+revision. Never use a newer revision's photos for an older Place. Detail pages
+offer thumbnails and a keyboard-accessible large viewer; their Simulator caption
+distinguishes these captures from physical-headset evidence. The canonical card
+thumbnail remains the public catalog preview.
+
 Run `python3 tools/sync_gallery.py` to refresh the snapshot, or add `--check` to
 check for drift without writing. The command reads the marketed US App Store
 version, verifies the descriptor/archive byte count and SHA-256, checks Production
