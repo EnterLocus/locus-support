@@ -126,17 +126,28 @@ class GallerySiteTests(unittest.TestCase):
             self.assertNotIn('class="gallery-cta"', rendered)
             self.assertIn('release-preview', rendered)
 
-    def test_photo_gallery_uses_only_exported_captures(self):
+    def test_photo_gallery_prepends_localized_cover_without_mutating_native_captures(self):
         from tools import render_gallery
         place = next(item for item in self.manifest["places"] if item["title"] == "Event Horizon: Ring").copy()
+        place["image"] = {"url": "/assets/gallery/cover.jpg", "width": 1200, "height": 800,
+                          "sha256": "c" * 64, "captureKind": "visionos-simulator"}
         place["photos"] = [
             {"url": "/assets/gallery/capture-front.jpg", "width": 1000, "height": 800,
              "sha256": "a" * 64, "label": "front", "captureKind": "visionos-simulator"},
             {"url": "/assets/gallery/capture-left.jpg", "width": 1000, "height": 800,
              "sha256": "b" * 64, "label": "left", "captureKind": "visionos-simulator"},
         ]
+        album = render_gallery.display_album(place, "en")
+        self.assertEqual([photo["url"] for photo in album], [
+            "/assets/gallery/cover.jpg", "/assets/gallery/capture-front.jpg", "/assets/gallery/capture-left.jpg"])
+        self.assertEqual(album[0]["caption"], "Cover image")
+        self.assertNotIn("captureKind", album[0])
+        self.assertEqual(album[1]["captureKind"], "visionos-simulator")
+        self.assertNotIn("caption", place["image"])
+        self.assertNotIn("isCover", place["photos"][0])
         rendered = render_gallery.place_page(place, self.manifest, "en")
         self.assertIn('data-gallery-photos', rendered)
+        self.assertIn('data-gallery-photo-caption>Cover image', rendered)
         self.assertIn('/assets/gallery/capture-front.jpg', rendered)
         self.assertIn('Rendered in Locus · Simulator', rendered)
         self.assertIn('data-gallery-photo-dialog', rendered)
@@ -150,4 +161,28 @@ class GallerySiteTests(unittest.TestCase):
         self.assertNotIn('/assets/gallery/capture-front.jpg', series_card)
         no_photos = place.copy()
         no_photos.pop("photos")
-        self.assertNotIn('data-gallery-photos', render_gallery.place_page(no_photos, self.manifest, "en"))
+        self.assertEqual(len(render_gallery.display_album(no_photos, "en")), 1)
+        self.assertIn('data-gallery-photos', render_gallery.place_page(no_photos, self.manifest, "en"))
+
+    def test_display_album_deduplicates_cover_by_url_or_sha(self):
+        from tools import render_gallery
+        place = {"image": {"url": "/cover.jpg", "width": 4, "height": 2, "sha256": "a" * 64},
+                 "photos": [
+                     {"url": "/cover.jpg", "width": 4, "height": 2, "sha256": "different", "captureKind": "visionos-simulator"},
+                     {"url": "/other.jpg", "width": 4, "height": 2, "sha256": "a" * 64, "captureKind": "visionos-simulator"},
+                     {"url": "/native.jpg", "width": 4, "height": 2, "sha256": "b" * 64, "captureKind": "visionos-simulator"},
+                 ]}
+        album = render_gallery.display_album(place, "fr")
+        self.assertEqual([photo["url"] for photo in album], ["/cover.jpg", "/native.jpg"])
+        self.assertEqual(album[0]["caption"], "Image de couverture")
+        self.assertEqual(album[1]["caption"], "Rendu dans Locus · Simulateur")
+
+    def test_display_album_localizes_cover_and_native_captions_for_every_locale(self):
+        from tools import render_gallery
+        place = {"image": {"url": "/cover.jpg", "width": 4, "height": 2},
+                 "photos": [{"url": "/native.jpg", "width": 4, "height": 2,
+                             "captureKind": "visionos-simulator"}]}
+        for locale in render_gallery.LOCALES:
+            album = render_gallery.display_album(place, locale)
+            self.assertEqual(album[0]["caption"], render_gallery.DISPLAY_ALBUM_COPY[locale]["cover"])
+            self.assertEqual(album[1]["caption"], render_gallery.COPY[locale]["photos"])

@@ -32,6 +32,17 @@ COPY = {
     "es": {"gallery": "Galería", "eyebrow": "Galería de Locus", "title": "Encuentra un lugar para lo que viene.", "intro": "Explora las Views y Rooms de Locus.", "filters": "Filtrar lugares", "search": "Buscar lugares", "search_hint": "Busca por nombre o ambiente", "all_places": "Todos los lugares", "views": "Views", "rooms": "Rooms", "all_access": "Todo el acceso", "free": "Gratis", "supporter": "Supporter", "animated": "Animado", "sound": "Con sonido", "reset": "Restablecer filtros", "places": "Todos los lugares", "series": "Series", "count": "{count} lugares", "empty_title": "Ningún lugar coincide con estos filtros.", "empty_copy": "Prueba otra búsqueda o restablece los filtros.", "view": "View", "room": "Room", "get_app": "Obtener Locus en App Store", "back": "Volver a la galería", "members": "Lugares de esta serie", "series_intro": "Explora lugares relacionados en Locus.", "available": "Disponible en Locus {version}.", "photos": "Renderizado en Locus · Simulador", "open_photo": "Abrir foto {current} de {total}", "photo_strip": "Fotos renderizadas", "previous_photo": "Foto anterior", "next_photo": "Foto siguiente", "close_photo": "Cerrar foto", "photo_counter": "Foto {current} de {total}"},
 }
 
+DISPLAY_ALBUM_COPY = {
+    "en": {"cover": "Cover image", "strip": "Photos"},
+    "zh-Hans": {"cover": "封面图片", "strip": "照片"},
+    "zh-Hant": {"cover": "封面圖片", "strip": "照片"},
+    "ja": {"cover": "カバー画像", "strip": "写真"},
+    "ko": {"cover": "표지 이미지", "strip": "사진"},
+    "de": {"cover": "Titelbild", "strip": "Fotos"},
+    "fr": {"cover": "Image de couverture", "strip": "Photos"},
+    "es": {"cover": "Imagen de portada", "strip": "Fotos"},
+}
+
 CREDIT_COPY = {
     "en": {"heading": "Credits", "creator": "Creator", "source": "Source", "license": "License", "changes": "Changes", "ai": "AI-generated"},
     "zh-Hans": {"heading": "署名", "creator": "创作者", "source": "来源", "license": "许可", "changes": "修改", "ai": "AI 生成"},
@@ -300,14 +311,35 @@ def gallery_page(manifest: dict, locale: str) -> str:
     return document(locale, f'{c["gallery"]} — Locus', c["intro"], '/gallery/', body)
 
 
+def same_gallery_image(left: dict, right: dict) -> bool:
+    """Compare Gallery image references without mutating the native-photo registry."""
+    return bool(
+        left.get("url") and left.get("url") == right.get("url")
+        or left.get("sha256") and left.get("sha256") == right.get("sha256")
+    )
+
+
+def display_album(place: dict, locale: str) -> list[dict]:
+    """Return the localized cover plus the selected native captures for a Place page."""
+    copy = DISPLAY_ALBUM_COPY[locale]
+    cover = {key: value for key, value in place["image"].items() if key != "captureKind"}
+    cover.update(caption=copy["cover"], isCover=True)
+    native = [
+        {**photo, "caption": COPY[locale]["photos"], "isCover": False}
+        for photo in place.get("photos", [])
+        if not same_gallery_image(cover, photo)
+    ]
+    return [cover, *native]
+
+
 def photo_gallery(place: dict, locale: str) -> str:
-    photos = place.get("photos") or []
-    if not photos:
-        return f'<figure class="gallery-detail-media">{image_markup(place["image"], place["title"], "eager", "gallery-detail-image")}</figure>'
+    photos = display_album(place, locale)
     c = COPY[locale]
     first = photos[0]
     photo_data = json.dumps(photos, ensure_ascii=False).replace('</', '<\\/')
     def label(photo: dict, index: int) -> str:
+        if photo.get("isCover"):
+            return photo["caption"]
         return PHOTO_LABELS[locale].get(photo.get("label"), c["photo_counter"].format(current=index + 1, total=len(photos)))
     def thumb(photo: dict, index: int) -> str:
         caption = label(photo, index)
@@ -316,9 +348,9 @@ def photo_gallery(place: dict, locale: str) -> str:
                 f'aria-label="{esc(caption)}">{image_markup(photo, alt, css_class="gallery-photo-thumb-image")}</button>')
     thumbs = ''.join(thumb(photo, index) for index, photo in enumerate(photos))
     return f'''<section class="gallery-photo-gallery" data-gallery-photos data-photos="{esc(photo_data)}">
-<figure class="gallery-detail-media"><button type="button" class="gallery-photo-main" data-gallery-photo-open data-template="{esc(c["open_photo"])}" aria-haspopup="dialog" aria-label="{esc(c["open_photo"].format(current=1, total=len(photos)))}">{image_markup(first, place["title"], "eager", "gallery-detail-image")}</button><figcaption>{esc(c["photos"])}</figcaption></figure>
-<div class="gallery-photo-strip" aria-label="{esc(c["photo_strip"])}">{thumbs}</div>
-<dialog class="gallery-photo-dialog" data-gallery-photo-dialog aria-label="{esc(place["title"])}"><button type="button" class="gallery-photo-close" data-gallery-photo-close aria-label="{esc(c["close_photo"])}">×</button><button type="button" class="gallery-photo-nav previous" data-gallery-photo-previous aria-label="{esc(c["previous_photo"])}">←</button><img data-gallery-photo-dialog-image src="{esc(first["url"])}" width="{int(first["width"])}" height="{int(first["height"])}" alt="{esc(place["title"])}"><button type="button" class="gallery-photo-nav next" data-gallery-photo-next aria-label="{esc(c["next_photo"])}">→</button><p data-gallery-photo-counter data-template="{esc(c["photo_counter"])}">{esc(c["photo_counter"].format(current=1, total=len(photos)))}</p></dialog>
+<figure class="gallery-detail-media"><button type="button" class="gallery-photo-main" data-gallery-photo-open data-template="{esc(c["open_photo"])}" aria-haspopup="dialog" aria-label="{esc(c["open_photo"].format(current=1, total=len(photos)))}">{image_markup(first, f'{place["title"]} — {first["caption"]}', "eager", "gallery-detail-image")}</button><figcaption data-gallery-photo-caption>{esc(first["caption"])}</figcaption></figure>
+<div class="gallery-photo-strip" aria-label="{esc(DISPLAY_ALBUM_COPY[locale]["strip"])}">{thumbs}</div>
+<dialog class="gallery-photo-dialog" data-gallery-photo-dialog aria-label="{esc(place["title"])}"><button type="button" class="gallery-photo-close" data-gallery-photo-close aria-label="{esc(c["close_photo"])}">×</button><button type="button" class="gallery-photo-nav previous" data-gallery-photo-previous aria-label="{esc(c["previous_photo"])}">←</button><img data-gallery-photo-dialog-image src="{esc(first["url"])}" width="{int(first["width"])}" height="{int(first["height"])}" alt="{esc(place["title"])} — {esc(first["caption"])}"><button type="button" class="gallery-photo-nav next" data-gallery-photo-next aria-label="{esc(c["next_photo"])}">→</button><p class="gallery-photo-dialog-caption" data-gallery-photo-dialog-caption>{esc(first["caption"])}</p><p data-gallery-photo-counter data-template="{esc(c["photo_counter"])}">{esc(c["photo_counter"].format(current=1, total=len(photos)))}</p></dialog>
 </section>'''
 
 
