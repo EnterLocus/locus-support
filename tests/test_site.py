@@ -17,6 +17,8 @@ import zlib
 
 
 ROOT = pathlib.Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(ROOT / "tools"))
+import localization
 COMMUNITY_URL = "https://www.reddit.com/r/EnterLocus/"
 DISCUSSIONS_URL = "https://github.com/EnterLocus/locus-support/discussions"
 BUG_URL = "https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml"
@@ -883,7 +885,7 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_whats_new_archive_is_newest_first_and_articles_use_release_media(self):
         archive = (ROOT / "whats-new" / "index.html").read_text()
-        self.assertLess(archive.index('href="./1-4-3/"'), archive.index('href="./1-4-2/"'))
+        self.assertLess(archive.index('href="./1-4-4/"'), archive.index('href="./1-4-3/"'))
         self.assertLess(archive.index('href="./1-4-0/"'), archive.index('href="./1-3-0/"'))
         self.assertLess(archive.index('href="./1-3-0/"'), archive.index('href="./1-2-3/"'))
         self.assertLess(archive.index('href="./1-2-3/"'), archive.index('href="./1-2-2/"'))
@@ -1074,36 +1076,48 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("https://enterlocus.com/whats-new/1-4-1/", (ROOT / "sitemap.xml").read_text())
         self.assertIn("../1-4-2/", parser.links)
 
-    def test_released_1_4_3_has_compact_entry_and_connected_article(self):
+    def test_released_1_4_4_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-3/"', homepage)
+        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-4/"', homepage)
         self.assertLess(homepage.index('class="whats-new-latest"'),
                         homepage.index('id="whats-new-title"'))
-        self.assertIn("New in Locus 1.4.3", homepage)
+        self.assertIn("New in Locus 1.4.4", homepage)
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.4.3 · Latest", archive)
-        self.assertLess(archive.index('href="./1-4-3/"'), archive.index('href="./1-4-2/"'))
+        self.assertIn("Locus 1.4.4 · Latest", archive)
+        self.assertLess(archive.index('href="./1-4-4/"'), archive.index('href="./1-4-3/"'))
         self.assertEqual(archive.count("· Latest"), 1)
-        article = (ROOT / "whats-new/1-4-3/index.html").read_text()
+        article = (ROOT / "whats-new/1-4-4/index.html").read_text()
         parser = PageParser()
         parser.feed(article)
         self.assertEqual(parser.h1_count, 1)
         self.assertIn('data-pagefind-body', article)
-        self.assertIn("Available now for Apple Vision Pro", article)
-        for phrase in ["Hilltop Villa", "Supporter Room", "glass Sky Room", "infinity pool",
-                       "fuller, more natural flames", "water stays visible", "3D volume"]:
+        self.assertIn("Locus 1.4.4 for Apple Vision Pro", article)
+        for phrase in ["The Mansions collection", "Hilltop Villa", "Aegean Terrace Estate", "Maple Courtyard House",
+                       "Pacific Palapa House", "partly hidden seats", "elevated seats", "midground"]:
             self.assertIn(phrase, article)
+        release_sources = localization._sources_in_html(article)
+        release_sources.update({
+            "Four Mansions, clearer seats, and water at the edge of your Room.",
+            "Mansions brings four Supporter Rooms, clearer seats in large Rooms, and water that meets Room edges more cleanly.",
+            "New in Locus 1.4.4",
+            "Locus 1.4.4 · Latest",
+        })
+        for locale in localization.TRANSLATED_LOCALES:
+            catalog = localization.load_catalog(ROOT, locale)
+            for source in release_sources:
+                with self.subTest(locale=locale, source=source):
+                    self.assertTrue(localization.has_translation(source, catalog))
         self.assertEqual(parser.videos, [])
-        for href in ["../1-4-2/", "../", "../../reference/locus-asset-format/#room-particle-effects-formatversion-9", APP_STORE_URL]:
+        for href in ["../1-4-3/", "../", "../../reference/locus-asset-format/#complete-package-roomview-composition-supporting-build-144-or-later", APP_STORE_URL]:
             self.assertIn(href, parser.links)
         previous = PageParser()
-        previous.feed((ROOT / "whats-new/1-4-2/index.html").read_text())
-        self.assertIn("../1-4-3/", previous.links)
-        self.assertIn("https://enterlocus.com/whats-new/1-4-3/", (ROOT / "sitemap.xml").read_text())
+        previous.feed((ROOT / "whats-new/1-4-3/index.html").read_text())
+        self.assertIn("../1-4-4/", previous.links)
+        self.assertIn("https://enterlocus.com/whats-new/1-4-4/", (ROOT / "sitemap.xml").read_text())
 
         reference = (ROOT / "reference/locus-asset-format.md").read_text()
-        for phrase in ["In Locus 1.4.3 and later", "3D fire volume", "camera-facing billboard",
-                       "begin at the anchor origin", "Locus adds no offset"]:
+        for phrase in ["Complete-package Room/View composition", "viewGroundFloorOffsetMeters",
+                       "viewGroundKeepOut", "viewMidgroundVisibility"]:
             self.assertIn(phrase, reference)
 
     def test_released_1_4_2_keeps_its_article_and_media_coverage(self):
@@ -1152,7 +1166,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("New in Locus 1.4.0", homepage)
         self.assertIn("Move your desk to outer space.", homepage)
         self.assertIn('href="./whats-new/1-4-0/"', homepage)
-        # Keep the 1.4 film and leading story below the compact 1.4.3 strip.
+        # Keep the 1.4 film and leading story below the compact latest strip.
         for stale in ["New in Locus 1.3", 'href="./whats-new/1-3-0/"', "New in Locus 1.2",
                       'href="./whats-new/1-2/"', 'data-youtube-id="nO2B7MP0uzI"',
                       'data-youtube-id="bahHCqyB9M4"', "real-objects-cup-poster.jpg",
