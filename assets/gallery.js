@@ -3,6 +3,11 @@
   if (app) {
     const cards = [...app.querySelectorAll('[data-gallery-card]')];
     const seriesCards = [...app.querySelectorAll('[data-gallery-series-card]')];
+    const grid = app.querySelector('.gallery-grid');
+    const foldedOrder = [...grid.children];
+    const recentOrder = [...cards].sort((a, b) =>
+      Number(a.dataset.galleryRecentOrder) - Number(b.dataset.galleryRecentOrder));
+    let previousNarrowed;
     const search = app.querySelector('[data-gallery-search]');
     const status = app.querySelector('[data-gallery-status]');
     const empty = app.querySelector('[data-gallery-empty]');
@@ -45,6 +50,11 @@
 
     function render() {
       const narrowed = Boolean((search?.value || '').trim()) || active.access !== 'all' || active.animated || active.sound;
+      if (narrowed !== previousNarrowed) {
+        // Move the actual nodes so visual order and keyboard order agree.
+        grid.replaceChildren(...(narrowed ? [...recentOrder, ...seriesCards] : foldedOrder));
+        previousNarrowed = narrowed;
+      }
       let visible = 0;
       cards.forEach(card => {
         const show = matches(card);

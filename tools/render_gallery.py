@@ -154,6 +154,11 @@ def card_cover_members(item: dict, members: list[dict]) -> list[dict]:
     return selected[:3]
 
 
+def preview_image(place: dict) -> dict:
+    photos = place.get("photos") or []
+    return photos[0] if photos else place["image"]
+
+
 def series_image(item: dict, places: list[dict]) -> dict | None:
     if item.get("image"):
         return item["image"]
@@ -161,7 +166,7 @@ def series_image(item: dict, places: list[dict]) -> dict | None:
     member = next((place for place in places if place["id"] == hero), None)
     if not member:
         member = next((place for place in places if place["id"] in item.get("members", [])), None)
-    return member.get("image") if member else None
+    return preview_image(member) if member else None
 
 
 def nav(locale: str, current: str) -> str:
@@ -232,18 +237,20 @@ def credits_markup(place: dict, locale: str) -> str:
     return f'<section class="gallery-credits"><h2>{esc(c["heading"])}</h2><dl>{values}</dl></section>'
 
 
-def place_card(place: dict, locale: str, series_titles: list[str] | None = None) -> str:
+def place_card(place: dict, locale: str, series_titles: list[str] | None = None,
+               recent_order: int | None = None) -> str:
     c = COPY[locale]
     search = ' '.join(term for term in [place["title"], place.get("description", ""), *place.get("searchTerms", []), *(series_titles or [])] if term).lower()
     path = locale_url(f'/gallery/place/{quote(place["slug"])}/', locale)
     membership = f' data-series-member="true"' if series_titles else ''
-    return f'''<article class="gallery-card" data-gallery-card{membership} data-type="{esc(place["type"])}" data-access="{esc(place["access"])}" data-animated="{str(bool(place.get("animated"))).lower()}" data-sound="{str(bool(place.get("hasSound"))).lower()}" data-search="{esc(search)}"><a href="{path}">{image_markup(place["image"], place["title"])}<div class="gallery-card-copy"><span class="gallery-preview-note">{esc(PREVIEW_COPY[locale]["still"])}</span><h3>{esc(place["title"])}</h3><p>{esc(place.get("description", ""))}</p><div class="gallery-badges">{badges(place, c, locale)}</div></div></a></article>'''
+    recent = f' data-gallery-recent-order="{int(recent_order)}"' if recent_order is not None else ''
+    return f'''<article class="gallery-card" data-gallery-card{membership}{recent} data-type="{esc(place["type"])}" data-access="{esc(place["access"])}" data-animated="{str(bool(place.get("animated"))).lower()}" data-sound="{str(bool(place.get("hasSound"))).lower()}" data-search="{esc(search)}"><a href="{path}">{image_markup(preview_image(place), place["title"])}<div class="gallery-card-copy"><span class="gallery-preview-note">{esc(PREVIEW_COPY[locale]["still"])}</span><h3>{esc(place["title"])}</h3><p>{esc(place.get("description", ""))}</p><div class="gallery-badges">{badges(place, c, locale)}</div></div></a></article>'''
 
 
 def series_card(item: dict, members: list[dict], kind: str, locale: str) -> str:
     c = COPY[locale]
     path = locale_url(f'/gallery/series/{quote(item["id"])}/', locale)
-    covers = ''.join(image_markup(member["image"], member["title"], css_class="gallery-collage-image")
+    covers = ''.join(image_markup(preview_image(member), member["title"], css_class="gallery-collage-image")
                      for member in card_cover_members(item, members))
     return f'''<article class="gallery-card gallery-series-card" data-gallery-series-card data-type="{esc(kind)}"><a href="{path}"><div class="gallery-series-collage" aria-hidden="true">{covers}</div><div class="gallery-card-copy"><span class="gallery-preview-note">{esc(c["series"])}</span><h3>{esc(item["title"])}</h3><p>{esc(item.get("description", c["series_intro"]))}</p></div></a></article>'''
 
@@ -252,6 +259,7 @@ def gallery_page(manifest: dict, locale: str) -> str:
     c = COPY[locale]
     places = [localize(place, locale) for place in manifest["places"]]
     series = [localize(item, locale) for item in manifest.get("series", [])]
+    recent_order = {place["id"]: index for index, place in enumerate(newest_first(places))}
     groups = eligible_series(places, series)
     source_series = {item["id"]: item for item in manifest.get("series", [])}
     member_series = {member["id"]: [] for group in groups for member in group["members"]}
@@ -266,11 +274,11 @@ def gallery_page(manifest: dict, locale: str) -> str:
     for collection in collection_order(places, series):
         if collection["kind"] == "series":
             cards.append(series_card(collection["series"], collection["members"], collection["type"], locale))
-            cards.extend(place_card(member, locale, member_series.get(member["id"]))
+            cards.extend(place_card(member, locale, member_series.get(member["id"]), recent_order[member["id"]])
                          for member in collection["members"])
         else:
             place = collection["place"]
-            cards.append(place_card(place, locale, member_series.get(place["id"])))
+            cards.append(place_card(place, locale, member_series.get(place["id"]), recent_order[place["id"]]))
     body = f'''<div class="gallery-page" data-gallery><header class="gallery-header"><p class="kicker">{esc(c["eyebrow"])}</p><h1>{esc(c["title"])}</h1><p>{esc(c["intro"])}</p><nav class="gallery-mode-tabs" aria-label="{esc(c["filters"])}"><button type="button" data-gallery-mode data-value="all">{esc(c["all_places"])}</button><button type="button" data-gallery-mode data-value="view">{esc(c["views"])}</button><button type="button" data-gallery-mode data-value="room">{esc(c["rooms"])}</button></nav></header><div class="gallery-filters" data-gallery-filters aria-label="{esc(c["filters"])}"><label class="gallery-search-label">{esc(c["search"])}<input data-gallery-search type="search" placeholder="{esc(c["search_hint"])}" autocomplete="off"></label><div class="gallery-filter-group"><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="all">{esc(c["all_access"])}</button><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="free">{esc(c["free"])}</button><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="supporter">{esc(c["supporter"])}</button></div><div class="gallery-filter-group"><button class="gallery-filter" type="button" data-gallery-filter="animated" data-value="true">{esc(c["animated"])}</button><button class="gallery-filter" type="button" data-gallery-filter="sound" data-value="true">{esc(c["sound"])}</button></div><button class="gallery-reset" type="button" data-gallery-reset>{esc(c["reset"])}</button></div><section class="gallery-section" data-gallery-places aria-labelledby="places-heading"><div class="gallery-section-heading"><h2 id="places-heading">{esc(c["places"])}</h2><p data-gallery-status data-gallery-count="{esc(c["count"])}" aria-live="polite"></p></div><div class="gallery-grid">{"".join(cards)}</div><div class="gallery-empty" data-gallery-empty hidden><h2>{esc(c["empty_title"])}</h2><p>{esc(c["empty_copy"])}</p><button class="gallery-reset" type="button" data-gallery-reset>{esc(c["reset"])}</button></div></section></div>'''
     return document(locale, f'{c["gallery"]} — Locus', c["intro"], '/gallery/', body)
 
