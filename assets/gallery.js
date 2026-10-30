@@ -78,6 +78,18 @@
     render();
   }
 
+  const back = document.querySelector('[data-gallery-back]');
+  if (back) {
+    const source = new URLSearchParams(location.search).get('series');
+    // Only this Place's generated memberships can change the return target.
+    const target = JSON.parse(back.dataset.galleryReturnOptions || '[]')
+      .find(item => item.id === source);
+    if (target) {
+      back.href = target.url;
+      back.textContent = `← ${target.label}`;
+    }
+  }
+
   document.querySelectorAll('[data-gallery-photos]').forEach(gallery => {
     const photos = JSON.parse(gallery.dataset.photos || '[]');
     const dialog = gallery.querySelector('[data-gallery-photo-dialog]');

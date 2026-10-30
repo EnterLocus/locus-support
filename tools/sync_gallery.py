@@ -24,6 +24,7 @@ MAX_GALLERY_PHOTO_DIMENSION = 8192
 MAX_GALLERY_PHOTO_PIXELS = 32 * 1024 * 1024
 PHOTO_LABELS = {'front', 'left', 'right', 'alternate-seat'}
 PHOTO_URL = re.compile(r'/assets/gallery/rendered-([a-f0-9]{64})\.(jpg|png)')
+PREVIEW_RELEASES_FORMAT = 1
 
 
 def version(value):
@@ -186,6 +187,28 @@ def compatible(requirements, profile):
             and not requirements.get('deviceCapabilities'))
 
 
+def validate_release_previews(release_previews):
+    """Return exact owner-reviewed future revisions eligible for Gallery cards."""
+    if not isinstance(release_previews, dict) or set(release_previews) != {'formatVersion', 'previews'}:
+        raise ValueError('Invalid gallery preview release allowlist')
+    if (release_previews['formatVersion'] != PREVIEW_RELEASES_FORMAT
+            or not isinstance(release_previews['previews'], list)):
+        raise ValueError('Unsupported gallery preview release allowlist')
+    approved = {}
+    for item in release_previews['previews']:
+        if not isinstance(item, dict) or set(item) != {'id', 'contentVersion', 'appVersion'}:
+            raise ValueError('Invalid gallery preview release')
+        package_id = item['id']
+        if not isinstance(package_id, str) or not re.fullmatch(r'space\.[a-z0-9-]+', package_id):
+            raise ValueError('Invalid gallery preview release ID')
+        version(item['contentVersion'])
+        version(item['appVersion'])
+        if package_id in approved:
+            raise ValueError('Ambiguous gallery preview release')
+        approved[package_id] = {'contentVersion': item['contentVersion'], 'appVersion': item['appVersion']}
+    return approved
+
+
 def select_entries(catalog, profile):
     """Select the App's newest visible revision, then omit unusable previews.
 
@@ -216,6 +239,39 @@ def select_entries(catalog, profile):
     return [selected[key][0] for key in sorted(selected) if selected[key][1]]
 
 
+def select_release_previews(catalog, profile, release_previews):
+    """Select exact future Room previews after validating their public contract."""
+    approved = validate_release_previews(release_previews)
+    selected = []
+    for package_id, configured in approved.items():
+        matches = [entry for entry in catalog['entries']
+                   if (entry.get('packageID') == package_id
+                       and entry.get('contentVersion') == configured['contentVersion'])]
+        if len(matches) != 1:
+            raise ValueError('Missing or ambiguous gallery preview release revision')
+        entry = matches[0]
+        preview = entry.get('preview')
+        install = entry.get('install')
+        if not isinstance(preview, dict) or not isinstance(install, dict):
+            raise ValueError('Invalid gallery preview release metadata')
+        try:
+            preview_compatible = (
+                entry['type'] == 'locus.room'
+                and preview['contract'] == 'locus.preview.card.v1'
+                and preview['visibility'] in ('generic', 'known-type')
+                and compatible(preview['requires'], profile))
+            install_valid = (install['access']['kind'], install['delivery']['kind']) in (
+                ('free', 'public-https.v1'), ('supporter', 'grant.v2'))
+            envelope_valid = install['artifact']['envelope'] == {'format': 'locusplace', 'version': 1}
+            exact_release = install['requires']['minimumAppVersion'] == configured['appVersion']
+        except (KeyError, TypeError, ValueError):
+            raise ValueError('Invalid gallery preview release metadata')
+        if not preview_compatible or not install_valid or not envelope_valid or not exact_release:
+            raise ValueError('Gallery preview release is not compatible with its allowlist')
+        selected.append((entry, configured['appVersion']))
+    return selected
+
+
 def image(ref, archive, images, prefix='thumbnails/'):
     path = safe_path(ref['path'], prefix)
     if (ref.get('mediaType') not in ('image/jpeg', 'image/png')
@@ -240,13 +296,20 @@ def recent_date(place):
     return max(dates, default=datetime.min.replace(tzinfo=timezone.utc))
 
 
-def export(catalog, descriptor, archive, profile, images, photo_registry=None):
+def export(catalog, descriptor, archive, profile, images, photo_registry=None, release_previews=None):
     if (catalog['environment'] != 'production' or catalog['catalogProtocol'] != 3
             or any(catalog[k] != descriptor[k] for k in ('environment', 'snapshotID', 'publishedAt', 'expiresAt'))):
         raise ValueError('Production descriptor/catalog identity mismatch')
     places = copy.deepcopy(profile['builtIns'])
     animated = set(profile['animatedViewCapabilities'])
-    for entry in select_entries(catalog, profile):
+    normal_entries = select_entries(catalog, profile)
+    selected = [(entry, None) for entry in normal_entries]
+    if release_previews is not None:
+        normal_ids = {entry['packageID'] for entry in normal_entries}
+        selected.extend((entry, app_version) for entry, app_version in
+                        select_release_previews(catalog, profile, release_previews)
+                        if entry['packageID'] not in normal_ids)
+    for entry, preview_release in selected:
         preview = entry['preview']
         pid = entry['packageID']
         if not re.fullmatch(r'(?:destination|space)\.[a-z0-9-]+', pid):
@@ -255,7 +318,7 @@ def export(catalog, descriptor, archive, profile, images, photo_registry=None):
                          'description': value.get('caption', preview.get('caption', '')),
                          'searchTerms': value.get('searchTerms', entry.get('searchTerms', []))}
                    for tag, value in preview.get('localizations', {}).items()}
-        places.append({'id': pid, 'slug': pid.split('.', 1)[1],
+        place = {'id': pid, 'slug': pid.split('.', 1)[1],
                        'type': 'view' if entry['type'] == 'locus.view' else 'room',
                        'title': preview['title'], 'description': preview.get('caption', ''),
                        'image': image(preview['image'], archive, images),
@@ -268,7 +331,10 @@ def export(catalog, descriptor, archive, profile, images, photo_registry=None):
                                               'sourceURL', 'modification', 'aiGenerated', 'aiProvider')},
                        'contentVersion': entry['contentVersion'],
                        **{key: entry[key] for key in ('addedAt', 'updatedAt') if key in entry},
-                       'searchTerms': entry.get('searchTerms', []), 'localizations': locales})
+                       'searchTerms': entry.get('searchTerms', []), 'localizations': locales}
+        if preview_release is not None:
+            place['previewRelease'] = preview_release
+        places.append(place)
     # Match Library Recent: content chronology, not export/build time or version.
     # Stable ties retain source order; undated built-ins follow dated content.
     places.sort(key=recent_date, reverse=True)
@@ -313,6 +379,7 @@ def main():
     parser.add_argument('--check', action='store_true', help='Check if the committed snapshot is current')
     args = parser.parse_args()
     profile = json.loads((ROOT / 'data/gallery-reader.json').read_text())
+    release_previews = json.loads((ROOT / 'data/gallery-preview-releases.json').read_text())
     photo_registry = validate_photo_registry(
         json.loads((ROOT / 'data/gallery-photos.json').read_text()), ROOT / 'assets/gallery')
     result = json.loads(fetch(APP_LOOKUP, 2 * 1024 * 1024))['results']
@@ -331,7 +398,8 @@ def main():
         info = archive.getinfo('catalog.json')
         if info.file_size > 8 * 1024 * 1024:
             raise ValueError('Catalog JSON exceeds limit')
-        value = export(json.loads(archive.read(info)), descriptor, archive, profile, images, photo_registry)
+        value = export(json.loads(archive.read(info)), descriptor, archive, profile, images, photo_registry,
+                       release_previews)
     output = json.dumps(value, ensure_ascii=False, indent=2) + '\n'
     target = ROOT / 'data/gallery.json'
     if args.check:
