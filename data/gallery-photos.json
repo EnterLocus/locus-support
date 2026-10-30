@@ -1940,33 +1940,6 @@
       ]
     },
     {
-      "id": "space.pacific-palapa-house",
-      "contentVersion": "1.0.4",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-77b2dbe2c5047391efeb4e746a8368ccccfe8a5912bd0920fb5c8b4b00efc31f.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "77b2dbe2c5047391efeb4e746a8368ccccfe8a5912bd0920fb5c8b4b00efc31f",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-bb005eb47479f1a5fb20f28bb7d52e329953a4354ad8074652380da4ed72ccb7.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "bb005eb47479f1a5fb20f28bb7d52e329953a4354ad8074652380da4ed72ccb7",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-c04fa4a2dada3d96834ebb1471dc210b2d83fc8adef19a604cc8b471b803437e.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "c04fa4a2dada3d96834ebb1471dc210b2d83fc8adef19a604cc8b471b803437e",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
       "id": "space.rooftop-garden-breeze",
       "contentVersion": "1.0.14",
       "photos": [
@@ -2104,6 +2077,33 @@
           "width": 1920,
           "height": 1080,
           "sha256": "bb487558c4fdde4ab686541096ee813f1dbc843ca92c551637e2eb804e59dc72",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.pacific-palapa-house",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-a003c74ab9a760426e5ed8b6cd16322a77bc71f67ae43747671397325ef20fe7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "a003c74ab9a760426e5ed8b6cd16322a77bc71f67ae43747671397325ef20fe7",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-b00a1954cdde4200d066ff65a7797185d92bf1f90ec48c61ab4bc8038e813dc2.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b00a1954cdde4200d066ff65a7797185d92bf1f90ec48c61ab4bc8038e813dc2",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ad583c0ea0de460c1b799e3de67851e9875d3bcf44d4d53f403f3ec571cfdab0.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ad583c0ea0de460c1b799e3de67851e9875d3bcf44d4d53f403f3ec571cfdab0",
           "captureKind": "visionos-simulator"
         }
       ]
