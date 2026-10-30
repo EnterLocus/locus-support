@@ -1518,31 +1518,24 @@
       "contentVersion": "1.0.3",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-148ef9257f93a46a3ac97c09ed60bc32beaa0706d0ed1bda6d62f9cb5b37e9d2.jpg",
+          "url": "/assets/gallery/rendered-5652388033100fe070a56cf8edcf12660b042ba924280506eadceeb0dbf4e36c.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "148ef9257f93a46a3ac97c09ed60bc32beaa0706d0ed1bda6d62f9cb5b37e9d2",
+          "sha256": "5652388033100fe070a56cf8edcf12660b042ba924280506eadceeb0dbf4e36c",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-3a24ac973c7021c177e715e2f7118b96909debbf45665b2288ef288e76c53551.jpg",
+          "url": "/assets/gallery/rendered-c9cba28bb6d2374ef9b0ca40a0c22a8ced1d942bf6ba8212c6420a37c1681432.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "3a24ac973c7021c177e715e2f7118b96909debbf45665b2288ef288e76c53551",
+          "sha256": "c9cba28bb6d2374ef9b0ca40a0c22a8ced1d942bf6ba8212c6420a37c1681432",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-5ffeff694ed5c3d9799be9467f8fea310942357873c551ee0ad9f7e92e944a5c.jpg",
+          "url": "/assets/gallery/rendered-b59c8ea1c66a855b25efb2da102b3975d5e8830275010097be24174d80936c32.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "5ffeff694ed5c3d9799be9467f8fea310942357873c551ee0ad9f7e92e944a5c",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-ccd26c9f1d0fc9df421a84e87ff03c722cc8690c1fc69b55d4b544dc608450b2.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ccd26c9f1d0fc9df421a84e87ff03c722cc8690c1fc69b55d4b544dc608450b2",
+          "sha256": "b59c8ea1c66a855b25efb2da102b3975d5e8830275010097be24174d80936c32",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -1552,24 +1545,24 @@
       "contentVersion": "1.0.22",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-817a75af51d03309822d9789deb1165e11d428a58ec574f552bc742039d09fe5.jpg",
+          "url": "/assets/gallery/rendered-e55429643a4dfb59f5c77db0a267f10f2041ab022986311e129d15530370f3ef.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "817a75af51d03309822d9789deb1165e11d428a58ec574f552bc742039d09fe5",
+          "sha256": "e55429643a4dfb59f5c77db0a267f10f2041ab022986311e129d15530370f3ef",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-f4d50d83aee647e11dee50b2a4990e6a1919297724873015499bc01e66d270d9.jpg",
+          "url": "/assets/gallery/rendered-dd4a8813e458e92b5288e35a00b4b84ccec33b77cc6020cc553867a583636af8.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "f4d50d83aee647e11dee50b2a4990e6a1919297724873015499bc01e66d270d9",
+          "sha256": "dd4a8813e458e92b5288e35a00b4b84ccec33b77cc6020cc553867a583636af8",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-8fcb60a7eadde10d790092ca5a85f6ed6ede3d3e5d410849c0251784448d4380.jpg",
+          "url": "/assets/gallery/rendered-2682502f7de7550e21c81a0b89bb8993d53f410503ec67826e1d151df900ea94.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "8fcb60a7eadde10d790092ca5a85f6ed6ede3d3e5d410849c0251784448d4380",
+          "sha256": "2682502f7de7550e21c81a0b89bb8993d53f410503ec67826e1d151df900ea94",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -1579,31 +1572,24 @@
       "contentVersion": "1.0.9",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-b2c6aeb5636f5ad3a82df9b61f4d1a0ea909878a6366c3b02504b4ffdd1facef.jpg",
+          "url": "/assets/gallery/rendered-e468d13f334a8b8c3f72f10b5ed118aa38d6f99ca541ff8a196f78ee03f2b329.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "b2c6aeb5636f5ad3a82df9b61f4d1a0ea909878a6366c3b02504b4ffdd1facef",
+          "sha256": "e468d13f334a8b8c3f72f10b5ed118aa38d6f99ca541ff8a196f78ee03f2b329",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-e9bab1c8e9071de14af991a9d4b56d70553a024e3dfbacdd35dc3aa9ddc1a961.jpg",
+          "url": "/assets/gallery/rendered-d2bda21ca459af70b0e0eb39c4f5a52f4ffb718e9dc9e739fcbd517f4ba4a8d8.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "e9bab1c8e9071de14af991a9d4b56d70553a024e3dfbacdd35dc3aa9ddc1a961",
+          "sha256": "d2bda21ca459af70b0e0eb39c4f5a52f4ffb718e9dc9e739fcbd517f4ba4a8d8",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-a9f283a5ce704fc5c9bccfcd49fc58276c7c5c72f2fa0494e717160df2eb8d76.jpg",
+          "url": "/assets/gallery/rendered-86c499c09401c79b91a34e62113cfd7f6763dd7d38bca3a681d9ab5aab43a1ff.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "a9f283a5ce704fc5c9bccfcd49fc58276c7c5c72f2fa0494e717160df2eb8d76",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-e9bca7ef9c64b60fb539bc958c77bb09bca4423d36e151d8820446a05c2ae25b.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "e9bca7ef9c64b60fb539bc958c77bb09bca4423d36e151d8820446a05c2ae25b",
+          "sha256": "86c499c09401c79b91a34e62113cfd7f6763dd7d38bca3a681d9ab5aab43a1ff",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -1613,431 +1599,24 @@
       "contentVersion": "1.0.6",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-5b25a5f385018c31465d8af7d8c4d13d7685dee43d3f2653188dad7d34e94863.jpg",
+          "url": "/assets/gallery/rendered-d4adc6f86b8f8666e5c9038392bc2ec7703f5091343259f8db7712001ed1f051.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "5b25a5f385018c31465d8af7d8c4d13d7685dee43d3f2653188dad7d34e94863",
+          "sha256": "d4adc6f86b8f8666e5c9038392bc2ec7703f5091343259f8db7712001ed1f051",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-4a3ddb41ac30548471c495f5a30b3d53ddc6e0824079eb857b1822b33d734dae.jpg",
+          "url": "/assets/gallery/rendered-e246a1198e53124e2eed99f581be76a5ff81b4d4e5a94094a2cc297039da225d.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "4a3ddb41ac30548471c495f5a30b3d53ddc6e0824079eb857b1822b33d734dae",
+          "sha256": "e246a1198e53124e2eed99f581be76a5ff81b4d4e5a94094a2cc297039da225d",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-fea75eada51db9d08770ba7679cd758610e499cc16c1dc96eba26d1a6b085638.jpg",
+          "url": "/assets/gallery/rendered-f616c63385c912379c4ed55a04f9575ccd8854c47130bee1d414c5e85b737c53.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "fea75eada51db9d08770ba7679cd758610e499cc16c1dc96eba26d1a6b085638",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-b29e8cf27e7b5209df9f22bd224f2912fbacabd8e851c9e90e7bbbb48996e5bd.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "b29e8cf27e7b5209df9f22bd224f2912fbacabd8e851c9e90e7bbbb48996e5bd",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.free-capsule",
-      "contentVersion": "1.0.4",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-bcd3446f1461a680061ce56a3699b4311fc486153c8b832796f6dcc188f22aa8.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "bcd3446f1461a680061ce56a3699b4311fc486153c8b832796f6dcc188f22aa8",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-5c144ff20d9c41bc853f44c95b5001a25f9a0c4a3f37923e91c382582d438da7.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "5c144ff20d9c41bc853f44c95b5001a25f9a0c4a3f37923e91c382582d438da7",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-ffccd8e8b44b58a2781a1ad0f4816ef4e336e1dc5bd2981b6017dbaedf917b88.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ffccd8e8b44b58a2781a1ad0f4816ef4e336e1dc5bd2981b6017dbaedf917b88",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.hilltop-villa",
-      "contentVersion": "1.0.5",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-63153dca2b162a2fc13c32733326aa1cdd1e519a2af3ab8c0bb83c61eb05b521.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "63153dca2b162a2fc13c32733326aa1cdd1e519a2af3ab8c0bb83c61eb05b521",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-750aa4951ee772895d05ad21a454367f5e64fd374c46dba58cc1b71c6c25e04e.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "750aa4951ee772895d05ad21a454367f5e64fd374c46dba58cc1b71c6c25e04e",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-fd15ad4f943fca5c182d6d3835bb2bea7b4558736e42b61e1b97abe7e41ac648.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "fd15ad4f943fca5c182d6d3835bb2bea7b4558736e42b61e1b97abe7e41ac648",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-0c21c418508c1d0fce3cc22890bb83786ab0a6920cc49a82d90e32ceb5c8cb5d.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "0c21c418508c1d0fce3cc22890bb83786ab0a6920cc49a82d90e32ceb5c8cb5d",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-2f388e7ce5981f8a5dbfe35d9a546dcfc39ba4bc988aecd961d0084d3afdada8.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "2f388e7ce5981f8a5dbfe35d9a546dcfc39ba4bc988aecd961d0084d3afdada8",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.illustrated-harbor-cottage",
-      "contentVersion": "1.0.9",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-1b7efd07fd6177df0a36cfd415331629913d990e2e709e667e3ed81048c93170.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "1b7efd07fd6177df0a36cfd415331629913d990e2e709e667e3ed81048c93170",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-ba7012b6eb840d3a3e6301f6bcda3813812529de2682c8568f0b4db1ec4fcd03.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ba7012b6eb840d3a3e6301f6bcda3813812529de2682c8568f0b4db1ec4fcd03",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-e852d77aceca2f6ae65edcb3b7471938a2e4448af58261981d0600c07bddefc4.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "e852d77aceca2f6ae65edcb3b7471938a2e4448af58261981d0600c07bddefc4",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-87fe594a67c505d590b9cb928516bd7e008542ae308617976f443cfec95ba68c.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "87fe594a67c505d590b9cb928516bd7e008542ae308617976f443cfec95ba68c",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.lakeside-cabin",
-      "contentVersion": "1.0.10",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-e2d40c260aa2d6c41e311df254fbe1336823f0a0f9063629b1a77e9fde67c394.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "e2d40c260aa2d6c41e311df254fbe1336823f0a0f9063629b1a77e9fde67c394",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-9dd3c269e247a4ca62865143155616eecaf85de30f5e0b665d17d92185e7754a.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "9dd3c269e247a4ca62865143155616eecaf85de30f5e0b665d17d92185e7754a",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-bbde739ef2352413055d8a57d6a16cce80f958baeefb7043e3136483af1e71b5.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "bbde739ef2352413055d8a57d6a16cce80f958baeefb7043e3136483af1e71b5",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-0bd8951d4529c2fd09050248894a240f610c89094f7aa1b7cc3bcc7459693605.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "0bd8951d4529c2fd09050248894a240f610c89094f7aa1b7cc3bcc7459693605",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.mediterranean-loggia",
-      "contentVersion": "1.0.9",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-c32b40ecbeda537436e5f22f2c6c3e32d8a11fd1e7fdb9d9b13ba32e7fd64785.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "c32b40ecbeda537436e5f22f2c6c3e32d8a11fd1e7fdb9d9b13ba32e7fd64785",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-65bf8851ebbc949ef915009196d6bf5777ebfdc7a64b89eb1e29ac8f99ce40c4.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "65bf8851ebbc949ef915009196d6bf5777ebfdc7a64b89eb1e29ac8f99ce40c4",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-40b7ad10f42bf132c6ba2b504a610a3ebc6bd7efe838c2198827d25ccd7247fe.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "40b7ad10f42bf132c6ba2b504a610a3ebc6bd7efe838c2198827d25ccd7247fe",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.midnight-1997-bedroom",
-      "contentVersion": "1.0.10",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-def0546404f2b9273d7ea7d766f35e1ee98d74709bfb229aa1c14e3fda17561f.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "def0546404f2b9273d7ea7d766f35e1ee98d74709bfb229aa1c14e3fda17561f",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-51fbb3d5e5ae3f2f61314a0bee8ca0d8ac8008bf3cf518de8304ef22a83a5837.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "51fbb3d5e5ae3f2f61314a0bee8ca0d8ac8008bf3cf518de8304ef22a83a5837",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-a1b8eafa5c4ad34d836c8772503b063474dcfbb59a8f9c4a9618545317ff6331.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "a1b8eafa5c4ad34d836c8772503b063474dcfbb59a8f9c4a9618545317ff6331",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.old-town-cafe",
-      "contentVersion": "1.0.9",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-76a732d95ecbea6de84a56eb36d8d57d6a719da56055b03c1e841c6e4ecc396f.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "76a732d95ecbea6de84a56eb36d8d57d6a719da56055b03c1e841c6e4ecc396f",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-ad66cb5c885e7e3b78c03650547631e623e3667f60e4431e39d79ca3be9bb024.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ad66cb5c885e7e3b78c03650547631e623e3667f60e4431e39d79ca3be9bb024",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-99822dfd445c2c29a8d4a1fa2073cc0ad912a306a4ad5111c24b844384c11544.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "99822dfd445c2c29a8d4a1fa2073cc0ad912a306a4ad5111c24b844384c11544",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-0b90decf469719578ef4a875019813b69f41d02b264b7ee974c84953e7fc902c.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "0b90decf469719578ef4a875019813b69f41d02b264b7ee974c84953e7fc902c",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.orbital-lounge-fan",
-      "contentVersion": "1.0.12",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-13900c5c4ef19265fd84a2703d9509d450b8f5361504cd40d93df8c774e0f702.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "13900c5c4ef19265fd84a2703d9509d450b8f5361504cd40d93df8c774e0f702",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-b974d8c1b84a824c256d8ce9f616736607a5cec05759f71065ff4f0d14897ea8.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "b974d8c1b84a824c256d8ce9f616736607a5cec05759f71065ff4f0d14897ea8",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-67fd54f673397fd03189b0ae3241ff1b9fa0b41ce088987493e5c170cfde6fe3.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "67fd54f673397fd03189b0ae3241ff1b9fa0b41ce088987493e5c170cfde6fe3",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.rooftop-garden-breeze",
-      "contentVersion": "1.0.14",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-ec1338a1f76850380afcc75a08d9c6fc85be2d4f0492f0d71871c1395836f70b.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ec1338a1f76850380afcc75a08d9c6fc85be2d4f0492f0d71871c1395836f70b",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-8ecef49dcbffc4d2c52f90314c24c466180dbfee7dc478772162cdcdc23f9b63.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "8ecef49dcbffc4d2c52f90314c24c466180dbfee7dc478772162cdcdc23f9b63",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-abfbc03fd46b5132118dbfe56db67a856c1af726404d8afea479c7c1918c90bb.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "abfbc03fd46b5132118dbfe56db67a856c1af726404d8afea479c7c1918c90bb",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-566bb5ea4f27c4b91eeeae56b60356fd6406cce197525e43e83b1b063f2a51f7.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "566bb5ea4f27c4b91eeeae56b60356fd6406cce197525e43e83b1b063f2a51f7",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.skyline-office",
-      "contentVersion": "1.0.6",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-2209334c9c77050f136f8c7a191c47692abd80b4bb28b636122ed0ba757b9d90.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "2209334c9c77050f136f8c7a191c47692abd80b4bb28b636122ed0ba757b9d90",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-6f49341624c5a2c51f1506161106c005c30c666bf5d8420811468927987293f5.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "6f49341624c5a2c51f1506161106c005c30c666bf5d8420811468927987293f5",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-1badb36e77882cfc97646dac307c2070395488134282f37e7e83132c252fce74.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "1badb36e77882cfc97646dac307c2070395488134282f37e7e83132c252fce74",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.sunlit-cafe",
-      "contentVersion": "1.0.13",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-ab60bb8917b7088d9f7b165c781985c6c2d5b3ee71c032a9fd788f20f57c780b.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ab60bb8917b7088d9f7b165c781985c6c2d5b3ee71c032a9fd788f20f57c780b",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-c1bc7ded3a0e82351c13b8e7efe88d8e35e73d29fb131d5999c689800c1750ef.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "c1bc7ded3a0e82351c13b8e7efe88d8e35e73d29fb131d5999c689800c1750ef",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-3aefcb9d0c082610bbe37eec6853ad69a4aaf6af5b543a3a5920200f33e912b9.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "3aefcb9d0c082610bbe37eec6853ad69a4aaf6af5b543a3a5920200f33e912b9",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-fcda237f6d02ae5c18aa089f836881332c3de09224278d64de5ac0b5a3d0beb5.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "fcda237f6d02ae5c18aa089f836881332c3de09224278d64de5ac0b5a3d0beb5",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.tidal-veranda",
-      "contentVersion": "1.0.8",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-b6858c35b8899da25f9edb07da600b590f3195c1c8967464b3ea31f3ae2db830.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "b6858c35b8899da25f9edb07da600b590f3195c1c8967464b3ea31f3ae2db830",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-750ed7c9c00523f4554875a0888986ff97b0f6c5e6de239cdce2f83c63e26c29.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "750ed7c9c00523f4554875a0888986ff97b0f6c5e6de239cdce2f83c63e26c29",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-1060b3eae5049c49b9f3e0e017b5ca75e7acdbbbe1bb0a8ff05e0328ac575864.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "1060b3eae5049c49b9f3e0e017b5ca75e7acdbbbe1bb0a8ff05e0328ac575864",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.winter-garden-breeze",
-      "contentVersion": "1.0.10",
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-557e071474e3a41f229211db3eb8ac47d061c991f1c2b044d9fdeb51fe55b632.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "557e071474e3a41f229211db3eb8ac47d061c991f1c2b044d9fdeb51fe55b632",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-451a10f7ad39b0a3210a04e442b9f190df4cc43b2afb34b7617fa18e63326268.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "451a10f7ad39b0a3210a04e442b9f190df4cc43b2afb34b7617fa18e63326268",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-46a0c4ef6554bdcb50043a6a1f3e89e87cead204724b6335a1d0e1e3d55e5af4.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "46a0c4ef6554bdcb50043a6a1f3e89e87cead204724b6335a1d0e1e3d55e5af4",
+          "sha256": "f616c63385c912379c4ed55a04f9575ccd8854c47130bee1d414c5e85b737c53",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -2047,24 +1626,85 @@
       "contentVersion": "1.0.22",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-bfa87e5503e9181d1c137fe668ceb5042e9d9f8c8d2f39f6ae36a29170601d6a.jpg",
+          "url": "/assets/gallery/rendered-10793c6113d401ac0834281765107e36b7b1342039a6183481fc5fcf497cb985.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "bfa87e5503e9181d1c137fe668ceb5042e9d9f8c8d2f39f6ae36a29170601d6a",
+          "sha256": "10793c6113d401ac0834281765107e36b7b1342039a6183481fc5fcf497cb985",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-29efbfa5187ac23b05fe44736961d5a5b73162cbb8f2e063cf49e65c36d7c30a.jpg",
+          "url": "/assets/gallery/rendered-7f29729c2d70cdb8e9fa7f2825ef0934f23ab783bfedeae0f581f9a2b49386f1.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "29efbfa5187ac23b05fe44736961d5a5b73162cbb8f2e063cf49e65c36d7c30a",
+          "sha256": "7f29729c2d70cdb8e9fa7f2825ef0934f23ab783bfedeae0f581f9a2b49386f1",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-f41853d53562e9e2e25511d2baede8f1eaef54b5d74a9d0bdac09fa5d9690a69.jpg",
+          "url": "/assets/gallery/rendered-948c9ae5d096b5c2baf9950ca4c86ad040d1b14b3e8e55032a4179b70abc0026.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "f41853d53562e9e2e25511d2baede8f1eaef54b5d74a9d0bdac09fa5d9690a69",
+          "sha256": "948c9ae5d096b5c2baf9950ca4c86ad040d1b14b3e8e55032a4179b70abc0026",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.free-capsule",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-0bad764425de0f3a127038cd5141e3b9dc68184cf793a5155fc9377005192ece.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0bad764425de0f3a127038cd5141e3b9dc68184cf793a5155fc9377005192ece",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-3fe62f1f70af6066b1515ac58ef38b685c884451088d866e5c6ea35f21924003.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3fe62f1f70af6066b1515ac58ef38b685c884451088d866e5c6ea35f21924003",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-9eea6815254041e9af418b68943af101439c8567dcf8782771981eee301b246f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9eea6815254041e9af418b68943af101439c8567dcf8782771981eee301b246f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.hilltop-villa",
+      "contentVersion": "1.0.5",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9aba23d5af809642929095e2d62ab1e696cfc9a6456316e351aa51017b69b30a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9aba23d5af809642929095e2d62ab1e696cfc9a6456316e351aa51017b69b30a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6d538cf986120239b196e483a4bcbff9b478844f84bd491e8c419ada1dbb5157.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6d538cf986120239b196e483a4bcbff9b478844f84bd491e8c419ada1dbb5157",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ef217562a5decd6f62a8a570b08797b4ad8e5369f8701320d3cb8ed84b9f1440.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ef217562a5decd6f62a8a570b08797b4ad8e5369f8701320d3cb8ed84b9f1440",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -2074,31 +1714,403 @@
       "contentVersion": "1.0.27",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-dcb9ff686eea212812453455edc46f625e5a42eae07779162316e27001389c01.jpg",
+          "url": "/assets/gallery/rendered-99bb275c58d1387d4e3e545a13c0a78bf008421755f03d915893987c196ed9f7.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "dcb9ff686eea212812453455edc46f625e5a42eae07779162316e27001389c01",
+          "sha256": "99bb275c58d1387d4e3e545a13c0a78bf008421755f03d915893987c196ed9f7",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-45336a3eb475242ff97a950cf4b36e91c53387513c01245346301bc66f4b9077.jpg",
+          "url": "/assets/gallery/rendered-1dcc21e8665f07907b74c165d0e8dd3f6f5aa212c94153277c8579817e714c6f.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "45336a3eb475242ff97a950cf4b36e91c53387513c01245346301bc66f4b9077",
+          "sha256": "1dcc21e8665f07907b74c165d0e8dd3f6f5aa212c94153277c8579817e714c6f",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-9414f4234bfe0542ea4f4e2d09df7349ccceb8b94de944ee4933b88a7a74462a.jpg",
+          "url": "/assets/gallery/rendered-928460ccd3bec91070697615cbadb40b710c6327742eb971224bb0718b677e90.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "9414f4234bfe0542ea4f4e2d09df7349ccceb8b94de944ee4933b88a7a74462a",
+          "sha256": "928460ccd3bec91070697615cbadb40b710c6327742eb971224bb0718b677e90",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-248806d88ee3e434f500c63ecc4294041b9a16794ffae774d954206c1ab55ec9.jpg",
+          "url": "/assets/gallery/rendered-42b17209004eeaf1dcffe6547aed30f476b4292977f929b764d187a620b3d41f.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "248806d88ee3e434f500c63ecc4294041b9a16794ffae774d954206c1ab55ec9",
+          "sha256": "42b17209004eeaf1dcffe6547aed30f476b4292977f929b764d187a620b3d41f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.illustrated-harbor-cottage",
+      "contentVersion": "1.0.9",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9fa02e1008efe1b661b5f0b87965c8fdb322a394fbc808cb56713db0c15b220e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9fa02e1008efe1b661b5f0b87965c8fdb322a394fbc808cb56713db0c15b220e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-27d880a59d583ac6cb54547e0c0d122ea2109bac2f05d4f6e4606b35d54fff4f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "27d880a59d583ac6cb54547e0c0d122ea2109bac2f05d4f6e4606b35d54fff4f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-9cdf4552c4e1721f91563ba39f3f8ae5f8cb82d0e0b2601c2b079ac1170c65da.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9cdf4552c4e1721f91563ba39f3f8ae5f8cb82d0e0b2601c2b079ac1170c65da",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-71e3c8651c5c74ab1cde7afbb8088ec9a5326ce882d8240ca1caadb856165504.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "71e3c8651c5c74ab1cde7afbb8088ec9a5326ce882d8240ca1caadb856165504",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.japanese-courtyard-mansion",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-72d99fee8677510f3aa806c713e9067f679052f84936ff39bec2f1eb28b68ffc.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "72d99fee8677510f3aa806c713e9067f679052f84936ff39bec2f1eb28b68ffc",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ac85ad0bc6059934e9bf3c94f8aff416db10dc786198915701c63accdac01983.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ac85ad0bc6059934e9bf3c94f8aff416db10dc786198915701c63accdac01983",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-45c25b261ae569895dcefb6c13d89d76dc11ae6d2b0e01a63f73a4ff567b5ae3.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "45c25b261ae569895dcefb6c13d89d76dc11ae6d2b0e01a63f73a4ff567b5ae3",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-a37bc025f5441d03b88d3ec564fd8a39cfcbc1de8ae556a7a4cc9bcac3c4ab1b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "a37bc025f5441d03b88d3ec564fd8a39cfcbc1de8ae556a7a4cc9bcac3c4ab1b",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.lakeside-cabin",
+      "contentVersion": "1.0.10",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-5fb69be01fd4a7e0cf0b875c2467da7db9b910377b6246c9eab262f8eb9d1e9a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5fb69be01fd4a7e0cf0b875c2467da7db9b910377b6246c9eab262f8eb9d1e9a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-1e500c85ff7de1c9c42de9745d04e025293477b788f4251d4b038caddd41def0.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1e500c85ff7de1c9c42de9745d04e025293477b788f4251d4b038caddd41def0",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6c808d4a9c7f370509caad8e24caae86f0b34a6e64f6b9526ad643234d21ed19.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6c808d4a9c7f370509caad8e24caae86f0b34a6e64f6b9526ad643234d21ed19",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.mediterranean-loggia",
+      "contentVersion": "1.0.9",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9673d059701bc9372cd2dc08b6f202ffdb346d40a89974ed39e1375e432b5917.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9673d059701bc9372cd2dc08b6f202ffdb346d40a89974ed39e1375e432b5917",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f2d350d4e62dfc60874bced8c624cb545127adc06c96541054866d486cf9e80a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f2d350d4e62dfc60874bced8c624cb545127adc06c96541054866d486cf9e80a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-063f7a9c6ec2b3138e5d4051574cf7edc06d418f1958f0f946be95bc6881b779.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "063f7a9c6ec2b3138e5d4051574cf7edc06d418f1958f0f946be95bc6881b779",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.midnight-1997-bedroom",
+      "contentVersion": "1.0.10",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-3db6152227c87d379639c13fd8e9e19da936aefee820d8f27f1497847f21d19c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3db6152227c87d379639c13fd8e9e19da936aefee820d8f27f1497847f21d19c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-4e65a10036b6808bfbaf449348e2c4ed7a19ece0bbb7f648a487c1b64cd55d67.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4e65a10036b6808bfbaf449348e2c4ed7a19ece0bbb7f648a487c1b64cd55d67",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-0754288e15196e8cb68f224b56d1dd64f59340d2051f7f6fb8f3e0f2d4acc1ab.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0754288e15196e8cb68f224b56d1dd64f59340d2051f7f6fb8f3e0f2d4acc1ab",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.old-town-cafe",
+      "contentVersion": "1.0.9",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-b74cf8146ade9b3a0a54b34fa1c3ae9de99ec820e081017cd35f0bb763417637.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b74cf8146ade9b3a0a54b34fa1c3ae9de99ec820e081017cd35f0bb763417637",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-b611a5f54e5c97bed1f862402100ffa706e5430377b0dd2e9c721f5b0056f581.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b611a5f54e5c97bed1f862402100ffa706e5430377b0dd2e9c721f5b0056f581",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-4e779d47492799f52b43ffb3ae64546606fd706ea5dd5a3bf43804d859691a0f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4e779d47492799f52b43ffb3ae64546606fd706ea5dd5a3bf43804d859691a0f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.orbital-lounge-fan",
+      "contentVersion": "1.0.12",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-a5a7f372ec9c08ec565e06276133ba4e1ffb62fc0f74bbe08d35d4a89fd78ec8.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "a5a7f372ec9c08ec565e06276133ba4e1ffb62fc0f74bbe08d35d4a89fd78ec8",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f2eb9d8489ffb3eeed5426641358c15e48fdbdd0e42058b9ebbdcd51d82ba8ff.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f2eb9d8489ffb3eeed5426641358c15e48fdbdd0e42058b9ebbdcd51d82ba8ff",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-01fc953a97fd245f7252680af05ac168c4f2cc5a008ccfaed2671dcc57b6fe42.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "01fc953a97fd245f7252680af05ac168c4f2cc5a008ccfaed2671dcc57b6fe42",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.pacific-palapa-house",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-77b2dbe2c5047391efeb4e746a8368ccccfe8a5912bd0920fb5c8b4b00efc31f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "77b2dbe2c5047391efeb4e746a8368ccccfe8a5912bd0920fb5c8b4b00efc31f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-bb005eb47479f1a5fb20f28bb7d52e329953a4354ad8074652380da4ed72ccb7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "bb005eb47479f1a5fb20f28bb7d52e329953a4354ad8074652380da4ed72ccb7",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c04fa4a2dada3d96834ebb1471dc210b2d83fc8adef19a604cc8b471b803437e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c04fa4a2dada3d96834ebb1471dc210b2d83fc8adef19a604cc8b471b803437e",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.rooftop-garden-breeze",
+      "contentVersion": "1.0.14",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-3bde1b14db2870378f749af699a958d315348d200b415dec6a4b61ffcca07ce4.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3bde1b14db2870378f749af699a958d315348d200b415dec6a4b61ffcca07ce4",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-0f7772b8b600be34df8d67dc16cfc6040ba3d1514cd66dfae27debd0df8c7070.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0f7772b8b600be34df8d67dc16cfc6040ba3d1514cd66dfae27debd0df8c7070",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-1c1d857faa3a502002c5345aff810cb3037c5632a33f8415751ce55fa868f433.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1c1d857faa3a502002c5345aff810cb3037c5632a33f8415751ce55fa868f433",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.skyline-office",
+      "contentVersion": "1.0.6",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-8dbc95a75e98a0fa8df81159c8c8497b96b6500619630ff51ebb5bff25ef5508.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "8dbc95a75e98a0fa8df81159c8c8497b96b6500619630ff51ebb5bff25ef5508",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ecdb85badecf5f842a9ee076103fd987b51bcb2cc02e554c2a232afb1e9cf298.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ecdb85badecf5f842a9ee076103fd987b51bcb2cc02e554c2a232afb1e9cf298",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-d2043c661de66be0b8431c14bce964a5017502e0656ba2fda5da3c62d14736b2.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d2043c661de66be0b8431c14bce964a5017502e0656ba2fda5da3c62d14736b2",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.sunlit-cafe",
+      "contentVersion": "1.0.13",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-7d84cb928e30d1d7069a9c3226f602d44d3a5b68d8cbcb2fa7cfa6e8eedc9103.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7d84cb928e30d1d7069a9c3226f602d44d3a5b68d8cbcb2fa7cfa6e8eedc9103",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-636d279a86d14759a1bec2e7fc684d5aebdef4a1fc7e1b0a8f88d8d7e8d71f94.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "636d279a86d14759a1bec2e7fc684d5aebdef4a1fc7e1b0a8f88d8d7e8d71f94",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-510b5854ea7c0501b6e253d9b1c91c1395bf71c20de0bcac31e1ee00f46f31b7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "510b5854ea7c0501b6e253d9b1c91c1395bf71c20de0bcac31e1ee00f46f31b7",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-68b3b034be66e0c78e5546b7edc6a03c38528d51672f4b837fd37e9151dc54a5.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "68b3b034be66e0c78e5546b7edc6a03c38528d51672f4b837fd37e9151dc54a5",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.tidal-veranda",
+      "contentVersion": "1.0.8",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-906168244d3fee00fc891758015d8d54d5de4bf623f467a1b64bce965ec9803b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "906168244d3fee00fc891758015d8d54d5de4bf623f467a1b64bce965ec9803b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-b93c6c130df2c316af60d180bafbaad5476b47b959ea8c84538afc50d2ef4469.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b93c6c130df2c316af60d180bafbaad5476b47b959ea8c84538afc50d2ef4469",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c5717a7b6f48caf86f13f117ce6a3c1fdf436c471f98732be1118ac8d9ddd22c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c5717a7b6f48caf86f13f117ce6a3c1fdf436c471f98732be1118ac8d9ddd22c",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.winter-garden-breeze",
+      "contentVersion": "1.0.10",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-e2c6b7c5af7381515bece108edfc7d99753f6193c79ff14fe7fc89ee0078243c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e2c6b7c5af7381515bece108edfc7d99753f6193c79ff14fe7fc89ee0078243c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c9f201ca57e314390715a87e623f2507d0dcfc487e2882ff266b7dd9da5b741b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c9f201ca57e314390715a87e623f2507d0dcfc487e2882ff266b7dd9da5b741b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-bb487558c4fdde4ab686541096ee813f1dbc843ca92c551637e2eb804e59dc72.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "bb487558c4fdde4ab686541096ee813f1dbc843ca92c551637e2eb804e59dc72",
           "captureKind": "visionos-simulator"
         }
       ]

@@ -103,7 +103,7 @@ class GallerySyncTests(unittest.TestCase):
     def test_committed_snapshot_contains_only_public_preview_fields(self):
         allowed = {'id', 'slug', 'type', 'title', 'description', 'image', 'access', 'animated',
                    'hasSound', 'builtIn', 'localizations', 'searchTerms', 'contentVersion', 'credits', 'photos',
-                   'addedAt', 'updatedAt'}
+                   'addedAt', 'updatedAt', 'previewRelease'}
         for place in self.snapshot['places']:
             self.assertLessEqual(set(place), allowed)
             self.assertIn(place['access'], ('free', 'supporter'))
@@ -227,6 +227,92 @@ class GallerySyncTests(unittest.TestCase):
         self.assertEqual(result['series'][0]['members'], ['space.room', 'space.room-two'])
         self.assertNotIn('heroMember', result['series'][0])
         self.assertEqual(result['series'][0]['cover'], ['space.room-two'])
+
+    def test_authorized_future_room_previews_export_without_artifacts(self):
+        data = b'public thumbnail'
+        ref = {'path': 'thumbnails/example.jpg', 'byteCount': len(data),
+               'sha256': hashlib.sha256(data).hexdigest(), 'width': 1024, 'height': 512,
+               'mediaType': 'image/jpeg'}
+        entries = []
+        for package_id in ('space.japanese-courtyard-mansion', 'space.pacific-palapa-house'):
+            entry = copy.deepcopy(self.entry)
+            entry.update(packageID=package_id, contentVersion='1.0.4',
+                         availableFromAppVersion='1.4.4', addedAt='2026-10-30T00:00:00Z')
+            entry['install']['requires']['minimumAppVersion'] = '1.4.4'
+            entry['preview'].update(title=package_id, image=ref)
+            entries.append(entry)
+        catalog = {'environment': 'production', 'catalogProtocol': 3, 'snapshotID': 'example',
+                   'publishedAt': '2026-10-29T00:00:00Z', 'expiresAt': '2026-11-29T00:00:00Z',
+                   'releaseWatermarkAppVersion': '1.4.3', 'entries': entries}
+        allowlist = {'formatVersion': 1, 'previews': [
+            {'id': 'space.japanese-courtyard-mansion', 'contentVersion': '1.0.4', 'appVersion': '1.4.4'},
+            {'id': 'space.pacific-palapa-house', 'contentVersion': '1.0.4', 'appVersion': '1.4.4'}]}
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as archive:
+            archive.writestr(ref['path'], data)
+        with zipfile.ZipFile(buffer) as archive:
+            result = sync.export(catalog, catalog, archive, self.profile, {}, release_previews=allowlist)
+        preview_places = [place for place in result['places'] if place['id'] in {
+            'space.japanese-courtyard-mansion', 'space.pacific-palapa-house'}]
+        self.assertEqual({place['id'] for place in preview_places},
+                         {'space.japanese-courtyard-mansion', 'space.pacific-palapa-house'})
+        for place in preview_places:
+            self.assertEqual(place['previewRelease'], '1.4.4')
+            self.assertNotIn('install', place)
+            self.assertNotIn('artifact', json.dumps(place))
+
+    def test_nonapproved_future_entry_remains_hidden(self):
+        future = copy.deepcopy(self.entry)
+        future.update(packageID='space.not-approved', contentVersion='1.0.4', availableFromAppVersion='1.4.4')
+        future['install']['requires']['minimumAppVersion'] = '1.4.4'
+        allowlist = {'formatVersion': 1, 'previews': []}
+        self.assertEqual(sync.select_release_previews({'entries': [future]}, self.profile, allowlist), [])
+
+    def test_preview_release_requires_exact_configured_install_version_and_revision(self):
+        entry = copy.deepcopy(self.entry)
+        entry.update(packageID='space.japanese-courtyard-mansion', contentVersion='1.0.4')
+        entry['install']['requires']['minimumAppVersion'] = '1.4.3'
+        allowlist = {'formatVersion': 1, 'previews': [
+            {'id': 'space.japanese-courtyard-mansion', 'contentVersion': '1.0.4', 'appVersion': '1.4.4'}]}
+        with self.assertRaises(ValueError):
+            sync.select_release_previews({'entries': [entry]}, self.profile, allowlist)
+        entry['install']['requires']['minimumAppVersion'] = '1.4.4'
+        allowlist['previews'][0]['contentVersion'] = '1.0.5'
+        with self.assertRaises(ValueError):
+            sync.select_release_previews({'entries': [entry]}, self.profile, allowlist)
+
+    def test_malformed_or_ambiguous_preview_allowlist_fails_closed(self):
+        with self.assertRaises(ValueError):
+            sync.validate_release_previews({'formatVersion': 1, 'previews': [{}]})
+        with self.assertRaises(ValueError):
+            sync.validate_release_previews({'formatVersion': 1, 'previews': [
+                {'id': 'space.example', 'contentVersion': '1.0.4', 'appVersion': '1.4.4'},
+                {'id': 'space.example', 'contentVersion': '1.0.5', 'appVersion': '1.4.4'}]})
+
+    def test_normal_selection_wins_over_authorized_preview(self):
+        data = b'public thumbnail'
+        ref = {'path': 'thumbnails/example.jpg', 'byteCount': len(data),
+               'sha256': hashlib.sha256(data).hexdigest(), 'width': 1024, 'height': 512,
+               'mediaType': 'image/jpeg'}
+        profile = copy.deepcopy(self.profile)
+        profile['appVersion'] = '1.4.4'
+        entry = copy.deepcopy(self.entry)
+        entry.update(packageID='space.japanese-courtyard-mansion', contentVersion='1.0.4',
+                     availableFromAppVersion='1.4.4')
+        entry['install']['requires']['minimumAppVersion'] = '1.4.4'
+        entry['preview'].update(title='Maple Courtyard', image=ref)
+        catalog = {'environment': 'production', 'catalogProtocol': 3, 'snapshotID': 'example',
+                   'publishedAt': '2026-10-29T00:00:00Z', 'expiresAt': '2026-11-29T00:00:00Z',
+                   'releaseWatermarkAppVersion': '1.4.3', 'entries': [entry]}
+        allowlist = {'formatVersion': 1, 'previews': [
+            {'id': 'space.japanese-courtyard-mansion', 'contentVersion': '1.0.4', 'appVersion': '1.4.4'}]}
+        buffer = io.BytesIO()
+        with zipfile.ZipFile(buffer, 'w') as archive:
+            archive.writestr(ref['path'], data)
+        with zipfile.ZipFile(buffer) as archive:
+            result = sync.export(catalog, catalog, archive, profile, {}, release_previews=allowlist)
+        place = next(place for place in result['places'] if place['id'] == entry['packageID'])
+        self.assertNotIn('previewRelease', place)
 
 
 if __name__ == '__main__':

@@ -188,6 +188,15 @@ would only offer “Update App” are omitted, without advertising a superseded
 download. It never reads the Dev catalog or downloads
 Place packages.
 
+An owner-reviewed `data/gallery-preview-releases.json` may name an exact future
+Room revision for an upcoming-release Gallery preview. Each entry pins the Place
+ID, content version and required App version; synchronization accepts it only
+when the Production catalog's public preview and install metadata match that
+contract. It exports no package or artifact data and marks the Place with its
+upcoming release version. The reviewed reader profile, watermark and ordinary
+selection stay unchanged; once a Room is normally selectable, that ordinary
+record wins and the upcoming-release marker is omitted.
+
 `data/gallery-reader.json` pins the reviewed public reader profile and four built-in
 Places. Update it from the next immutable release tag during release closeout,
 including that tag's exact supported/Animated capability sets, bundled metadata,
