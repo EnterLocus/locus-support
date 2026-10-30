@@ -250,8 +250,10 @@ class GallerySyncTests(unittest.TestCase):
         buffer = io.BytesIO()
         with zipfile.ZipFile(buffer, 'w') as archive:
             archive.writestr(ref['path'], data)
+        profile = copy.deepcopy(self.profile)
+        profile['appVersion'] = '1.4.3'
         with zipfile.ZipFile(buffer) as archive:
-            result = sync.export(catalog, catalog, archive, self.profile, {}, release_previews=allowlist)
+            result = sync.export(catalog, catalog, archive, profile, {}, release_previews=allowlist)
         preview_places = [place for place in result['places'] if place['id'] in {
             'space.japanese-courtyard-mansion', 'space.pacific-palapa-house'}]
         self.assertEqual({place['id'] for place in preview_places},

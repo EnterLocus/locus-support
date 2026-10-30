@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
-  "appVersion": "1.4.3",
+  "appVersion": "1.4.4",
   "minimumOSVersion": "27.0.0",
-  "readerSource": "visionos-v1.4.3-build-1",
+  "readerSource": "visionos-v1.4.4-build-1",
   "capabilities": [
     "locus.view.media.v1",
     "locus.view.audio.v1",
@@ -17,6 +17,9 @@
     "locus.room.video-surfaces.v1",
     "locus.room.lighting.illuminated-surfaces.v1",
     "locus.room.view-forward.v1",
+    "locus.room.view-ground.v1",
+    "locus.room.view-ground-keepout.v1",
+    "locus.room.view-midground-visibility.v1",
     "locus.room.particle-effects.v1",
     "locus.room.lighting.baked-light-layers.v1",
     "locus.view.midground.v1",
@@ -283,7 +286,7 @@
       "animated": false,
       "hasSound": false,
       "builtIn": true,
-      "contentVersion": "1.0.22",
+      "contentVersion": "1.0.23",
       "searchTerms": [],
       "localizations": {
         "zh-Hans": {
@@ -377,7 +380,7 @@
       "animated": false,
       "hasSound": false,
       "builtIn": true,
-      "contentVersion": "1.0.27",
+      "contentVersion": "1.0.28",
       "searchTerms": [],
       "localizations": {
         "zh-Hans": {

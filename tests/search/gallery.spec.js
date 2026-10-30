@@ -5,6 +5,9 @@ const placeCount = gallery.places.length;
 const roomCount = gallery.places.filter(place => place.type === 'room').length;
 const viewCount = gallery.places.filter(place => place.type === 'view').length;
 const photoPlace = gallery.places.find(place => place.slug === 'black-hole-ring');
+const displayAlbum = place => [place.image, ...(place.photos || []).filter(photo =>
+  photo.url !== place.image.url && (!place.image.sha256 || photo.sha256 !== place.image.sha256)
+)];
 
 test('Gallery folds eligible Series, then unfolds matching Places for filters and search', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
@@ -63,25 +66,31 @@ test('Gallery folds eligible Series, then unfolds matching Places for filters an
   expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(390);
 });
 
-test('approved native photo captures support thumbnails, wrapping navigation, and focus-safe dialog close', async ({ page }) => {
+test('cover-first albums retain native captures, switch captions, and close dialogs with focus restored', async ({ page }) => {
   expect(photoPlace.photos.length).toBeGreaterThanOrEqual(3);
+  const album = displayAlbum(photoPlace);
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto(`/gallery/place/${photoPlace.slug}/`, { waitUntil: 'networkidle' });
   const open = page.locator('[data-gallery-photo-open]');
   const dialog = page.locator('[data-gallery-photo-dialog]');
   const counter = page.locator('[data-gallery-photo-counter]');
-  await expect(page.locator('[data-gallery-photo-thumb]')).toHaveCount(photoPlace.photos.length);
-  await expect(page.getByText('Rendered in Locus · Simulator')).toBeVisible();
-  await expect(open).toHaveAttribute('aria-label', `Open photo 1 of ${photoPlace.photos.length}`);
+  const caption = page.locator('[data-gallery-photo-caption]');
+  const dialogCaption = page.locator('[data-gallery-photo-dialog-caption]');
+  await expect(page.locator('[data-gallery-photo-thumb]')).toHaveCount(album.length);
+  await expect(caption).toHaveText('Cover image');
+  await expect(open).toHaveAttribute('aria-label', `Open photo 1 of ${album.length}`);
 
   await open.click();
   await expect(dialog).toBeVisible();
-  await expect(counter).toHaveText(`Photo 1 of ${photoPlace.photos.length}`);
+  await expect(dialogCaption).toHaveText('Cover image');
+  await expect(counter).toHaveText(`Photo 1 of ${album.length}`);
   await page.keyboard.press('ArrowLeft');
-  await expect(counter).toHaveText(`Photo ${photoPlace.photos.length} of ${photoPlace.photos.length}`);
-  await expect(open).toHaveAttribute('aria-label', `Open photo ${photoPlace.photos.length} of ${photoPlace.photos.length}`);
+  await expect(counter).toHaveText(`Photo ${album.length} of ${album.length}`);
+  await expect(caption).toHaveText('Rendered in Locus · Simulator');
+  await expect(dialogCaption).toHaveText('Rendered in Locus · Simulator');
+  await expect(open).toHaveAttribute('aria-label', `Open photo ${album.length} of ${album.length}`);
   await page.keyboard.press('ArrowRight');
-  await expect(counter).toHaveText(`Photo 1 of ${photoPlace.photos.length}`);
+  await expect(counter).toHaveText(`Photo 1 of ${album.length}`);
   await page.keyboard.press('Escape');
   await expect(dialog).toBeHidden();
   await expect(open).toBeFocused();
@@ -89,11 +98,12 @@ test('approved native photo captures support thumbnails, wrapping navigation, an
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto(`/gallery/place/${photoPlace.slug}/`, { waitUntil: 'networkidle' });
   await page.locator('[data-gallery-photo-thumb]').nth(1).click();
-  await expect(open).toHaveAttribute('aria-label', `Open photo 2 of ${photoPlace.photos.length}`);
+  await expect(caption).toHaveText('Rendered in Locus · Simulator');
+  await expect(open).toHaveAttribute('aria-label', `Open photo 2 of ${album.length}`);
   await open.click();
   await expect(dialog).toBeVisible();
   await page.locator('[data-gallery-photo-next]').click();
-  await expect(counter).toHaveText(`Photo 3 of ${photoPlace.photos.length}`);
+  await expect(counter).toHaveText(`Photo 3 of ${album.length}`);
 });
 
 test('catalog thumbnails cover cards while Series context survives photo browsing and reload', async ({ page }) => {
@@ -110,6 +120,7 @@ test('catalog thumbnails cover cards while Series context survives photo browsin
     await card.locator('a').click();
     const back = page.locator('[data-gallery-back]');
     await expect(back).toHaveAttribute('href', `${locale}/gallery/series/mansions/`);
+    await expect(page.locator('[data-gallery-photo-thumb]')).toHaveCount(displayAlbum(place).length);
     await page.locator('[data-gallery-photo-thumb]').nth(1).click();
     await page.locator('[data-gallery-photo-open]').click();
     await page.keyboard.press('Escape');
@@ -139,7 +150,7 @@ test('the two approved new Rooms explain availability and retain native albums',
       await expect(page.locator('.release-preview')).toHaveCount(0);
       await expect(page.locator('.gallery-cta')).toBeVisible();
     }
-    await expect(page.locator('[data-gallery-photo-thumb]')).toHaveCount(place.photos.length);
+    await expect(page.locator('[data-gallery-photo-thumb]')).toHaveCount(displayAlbum(place).length);
     expect(place.photos.length).toBeGreaterThanOrEqual(3);
   }
 });

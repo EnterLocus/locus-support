@@ -97,6 +97,8 @@
     const main = gallery.querySelector('.gallery-detail-image');
     const dialogImage = gallery.querySelector('[data-gallery-photo-dialog-image]');
     const counter = gallery.querySelector('[data-gallery-photo-counter]');
+    const caption = gallery.querySelector('[data-gallery-photo-caption]');
+    const dialogCaption = gallery.querySelector('[data-gallery-photo-dialog-caption]');
     const thumbs = [...gallery.querySelectorAll('[data-gallery-photo-thumb]')];
     const open = gallery.querySelector('[data-gallery-photo-open]');
     let index = 0;
@@ -109,9 +111,12 @@
       const photo = photos[index];
       [main, dialogImage].filter(Boolean).forEach(image => {
         image.src = photo.url; image.width = photo.width; image.height = photo.height;
+        image.alt = `${gallery.closest('.gallery-detail')?.querySelector('h1')?.textContent || ''} — ${photo.caption}`;
       });
       open?.setAttribute('aria-label', format(openTemplate, index));
       if (counter) counter.textContent = format(counterTemplate, index);
+      if (caption) caption.textContent = photo.caption;
+      if (dialogCaption) dialogCaption.textContent = photo.caption;
       thumbs.forEach((thumb, thumbIndex) => thumb.setAttribute('aria-current', String(thumbIndex === index)));
     }
     open?.addEventListener('click', () => dialog.showModal());

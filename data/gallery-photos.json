@@ -1515,27 +1515,27 @@
     },
     {
       "id": "space.aegean-terrace-estate",
-      "contentVersion": "1.0.3",
+      "contentVersion": "1.0.6",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-5652388033100fe070a56cf8edcf12660b042ba924280506eadceeb0dbf4e36c.jpg",
+          "url": "/assets/gallery/rendered-cc332e5f7f48119eb2ec9e1e4ea29d6eb302c81b1468e29b142011b42dc72dfc.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "5652388033100fe070a56cf8edcf12660b042ba924280506eadceeb0dbf4e36c",
+          "sha256": "cc332e5f7f48119eb2ec9e1e4ea29d6eb302c81b1468e29b142011b42dc72dfc",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-c9cba28bb6d2374ef9b0ca40a0c22a8ced1d942bf6ba8212c6420a37c1681432.jpg",
+          "url": "/assets/gallery/rendered-69e2d7e0df51ce30b7f21448e0b515b0b4166dfc7d5c82aebf0a6020191be31d.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "c9cba28bb6d2374ef9b0ca40a0c22a8ced1d942bf6ba8212c6420a37c1681432",
+          "sha256": "69e2d7e0df51ce30b7f21448e0b515b0b4166dfc7d5c82aebf0a6020191be31d",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-b59c8ea1c66a855b25efb2da102b3975d5e8830275010097be24174d80936c32.jpg",
+          "url": "/assets/gallery/rendered-4957b4408758dfb89fa2a417805e88ad4f62c79f08726ee1fd73fd3d8c49dded.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "b59c8ea1c66a855b25efb2da102b3975d5e8830275010097be24174d80936c32",
+          "sha256": "4957b4408758dfb89fa2a417805e88ad4f62c79f08726ee1fd73fd3d8c49dded",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -1623,13 +1623,13 @@
     },
     {
       "id": "space.courtyard-gallery",
-      "contentVersion": "1.0.22",
+      "contentVersion": "1.0.23",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-10793c6113d401ac0834281765107e36b7b1342039a6183481fc5fcf497cb985.jpg",
+          "url": "/assets/gallery/rendered-c3cf8cdf6faccc734ee0587b1bfd52fd25dfb094eff3000b651022f7a3199879.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "10793c6113d401ac0834281765107e36b7b1342039a6183481fc5fcf497cb985",
+          "sha256": "c3cf8cdf6faccc734ee0587b1bfd52fd25dfb094eff3000b651022f7a3199879",
           "captureKind": "visionos-simulator"
         },
         {
@@ -1640,10 +1640,10 @@
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-948c9ae5d096b5c2baf9950ca4c86ad040d1b14b3e8e55032a4179b70abc0026.jpg",
+          "url": "/assets/gallery/rendered-601038579795c6d9d31ba6c6f95870b7115d27c788c819de40a098f6af82f026.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "948c9ae5d096b5c2baf9950ca4c86ad040d1b14b3e8e55032a4179b70abc0026",
+          "sha256": "601038579795c6d9d31ba6c6f95870b7115d27c788c819de40a098f6af82f026",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -1677,20 +1677,20 @@
     },
     {
       "id": "space.hilltop-villa",
-      "contentVersion": "1.0.5",
+      "contentVersion": "1.0.7",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-9aba23d5af809642929095e2d62ab1e696cfc9a6456316e351aa51017b69b30a.jpg",
+          "url": "/assets/gallery/rendered-d492204d91a9a3be336ce94ebc73e7565d28291663d69f547c6814ac33e35155.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "9aba23d5af809642929095e2d62ab1e696cfc9a6456316e351aa51017b69b30a",
+          "sha256": "d492204d91a9a3be336ce94ebc73e7565d28291663d69f547c6814ac33e35155",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-6d538cf986120239b196e483a4bcbff9b478844f84bd491e8c419ada1dbb5157.jpg",
+          "url": "/assets/gallery/rendered-984b875602ef60a6801e1d8100d0388c09e1740853d58818518e918686b453bb.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "6d538cf986120239b196e483a4bcbff9b478844f84bd491e8c419ada1dbb5157",
+          "sha256": "984b875602ef60a6801e1d8100d0388c09e1740853d58818518e918686b453bb",
           "captureKind": "visionos-simulator"
         },
         {
@@ -1701,44 +1701,37 @@
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-ef217562a5decd6f62a8a570b08797b4ad8e5369f8701320d3cb8ed84b9f1440.jpg",
+          "url": "/assets/gallery/rendered-3e9eed75aa50a99c55412b4776d2516057ec57ca9bd071d1b13e8ceae20ddd89.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "ef217562a5decd6f62a8a570b08797b4ad8e5369f8701320d3cb8ed84b9f1440",
+          "sha256": "3e9eed75aa50a99c55412b4776d2516057ec57ca9bd071d1b13e8ceae20ddd89",
           "captureKind": "visionos-simulator"
         }
       ]
     },
     {
       "id": "space.horizon-atelier",
-      "contentVersion": "1.0.27",
+      "contentVersion": "1.0.28",
       "photos": [
         {
-          "url": "/assets/gallery/rendered-99bb275c58d1387d4e3e545a13c0a78bf008421755f03d915893987c196ed9f7.jpg",
+          "url": "/assets/gallery/rendered-671214881989103180c57453478cc75068385ffdcd1444929e7dce80582a949c.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "99bb275c58d1387d4e3e545a13c0a78bf008421755f03d915893987c196ed9f7",
+          "sha256": "671214881989103180c57453478cc75068385ffdcd1444929e7dce80582a949c",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-1dcc21e8665f07907b74c165d0e8dd3f6f5aa212c94153277c8579817e714c6f.jpg",
+          "url": "/assets/gallery/rendered-7711a58677604e353705fc4f22cb3fb14ab1b27ac2a819c948284b619e7a478e.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "1dcc21e8665f07907b74c165d0e8dd3f6f5aa212c94153277c8579817e714c6f",
+          "sha256": "7711a58677604e353705fc4f22cb3fb14ab1b27ac2a819c948284b619e7a478e",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-928460ccd3bec91070697615cbadb40b710c6327742eb971224bb0718b677e90.jpg",
+          "url": "/assets/gallery/rendered-0c82dac26f7e1b443fdeb5a6487d42aa9c55c6d8117002bf1709bd695d6c43ff.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "928460ccd3bec91070697615cbadb40b710c6327742eb971224bb0718b677e90",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-42b17209004eeaf1dcffe6547aed30f476b4292977f929b764d187a620b3d41f.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "42b17209004eeaf1dcffe6547aed30f476b4292977f929b764d187a620b3d41f",
+          "sha256": "0c82dac26f7e1b443fdeb5a6487d42aa9c55c6d8117002bf1709bd695d6c43ff",
           "captureKind": "visionos-simulator"
         }
       ]
