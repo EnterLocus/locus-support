@@ -105,6 +105,27 @@ class GallerySiteTests(unittest.TestCase):
         newer = {"id": "newer", "title": "Newer", "addedAt": "2026-10-01T23:45:00Z"}
         self.assertEqual([item["id"] for item in render_gallery.newest_first([older, newer])], ["newer", "older"])
 
+    def test_series_member_links_carry_only_their_series_context(self):
+        from tools import render_gallery
+        series = next(item for item in self.manifest["series"] if item["id"] == "mansions")
+        rendered = render_gallery.series_page(series, self.manifest["places"], "zh-Hans")
+        self.assertIn('?series=mansions', rendered)
+        place = next(item for item in self.manifest["places"] if item["id"] in series["members"])
+        detail = render_gallery.place_page(place, self.manifest, "zh-Hans")
+        self.assertIn('data-gallery-return-options=', detail)
+        self.assertIn('/zh-Hans/gallery/series/mansions/', detail)
+        self.assertIn('返回豪宅系列', detail)
+
+    def test_release_preview_copy_is_localized_and_does_not_claim_current_availability(self):
+        from tools import render_gallery
+        place = self.manifest["places"][0].copy()
+        place["previewRelease"] = "1.4.4"
+        for locale in render_gallery.LOCALES:
+            rendered = render_gallery.place_page(place, self.manifest, locale)
+            self.assertIn(render_gallery.RELEASE_PREVIEW_COPY[locale]["available"].format(version="1.4.4"), rendered)
+            self.assertNotIn('class="gallery-cta"', rendered)
+            self.assertIn('release-preview', rendered)
+
     def test_photo_gallery_uses_only_exported_captures(self):
         from tools import render_gallery
         place = next(item for item in self.manifest["places"] if item["title"] == "Event Horizon: Ring").copy()
@@ -122,11 +143,11 @@ class GallerySiteTests(unittest.TestCase):
         self.assertIn('data-template="Photo {current} of {total}"', rendered)
         self.assertIn('data-template="Open photo {current} of {total}"', rendered)
         card = render_gallery.place_card(place, "en")
-        self.assertIn('/assets/gallery/capture-front.jpg', card)
-        self.assertNotIn(place["image"]["url"], card)
+        self.assertIn(place["image"]["url"], card)
+        self.assertNotIn('/assets/gallery/capture-front.jpg', card)
         series_card = render_gallery.series_card({"id": "test", "title": "Test"}, [place], place["type"], "en")
-        self.assertIn('/assets/gallery/capture-front.jpg', series_card)
-        self.assertNotIn(place["image"]["url"], series_card)
+        self.assertIn(place["image"]["url"], series_card)
+        self.assertNotIn('/assets/gallery/capture-front.jpg', series_card)
         no_photos = place.copy()
         no_photos.pop("photos")
         self.assertNotIn('data-gallery-photos', render_gallery.place_page(no_photos, self.manifest, "en"))

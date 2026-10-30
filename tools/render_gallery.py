@@ -15,7 +15,7 @@ APP_STORE = "https://apps.apple.com/app/id6802168265"
 
 COPY = {
     "en": {"gallery": "Gallery", "eyebrow": "Locus Gallery", "title": "Find a place for what’s next.",
-           "intro": "Browse the Views and Rooms available in Locus.", "filters": "Filter Places",
+           "intro": "Explore Views and Rooms for Locus.", "filters": "Filter Places",
            "search": "Search Places", "search_hint": "Search by name or mood", "all_places": "All Places",
            "views": "Views", "rooms": "Rooms", "all_access": "All access", "free": "Free",
            "supporter": "Supporter", "animated": "Animated", "sound": "With sound", "reset": "Reset filters",
@@ -23,13 +23,13 @@ COPY = {
            "empty_copy": "Try another search or reset filters.", "view": "View", "room": "Room",
            "get_app": "Get Locus on the App Store", "back": "Back to Gallery", "members": "Places in this series",
            "series_intro": "Explore related Places in Locus.", "available": "Available in Locus {version}.", "photos": "Rendered in Locus · Simulator", "open_photo": "Open photo {current} of {total}", "photo_strip": "Rendered photos", "previous_photo": "Previous photo", "next_photo": "Next photo", "close_photo": "Close photo", "photo_counter": "Photo {current} of {total}"},
-    "zh-Hans": {"gallery": "画廊", "eyebrow": "Locus 画廊", "title": "为下一刻找到一个地方。", "intro": "浏览 Locus 中可用的 View 和 Room。", "filters": "筛选地点", "search": "搜索地点", "search_hint": "按名称或氛围搜索", "all_places": "所有地点", "views": "View", "rooms": "Room", "all_access": "所有访问权限", "free": "免费", "supporter": "支持者", "animated": "动态", "sound": "含声音", "reset": "重置筛选", "places": "所有地点", "series": "系列", "count": "{count} 个地点", "empty_title": "没有地点符合这些筛选条件。", "empty_copy": "换个搜索词，或重置筛选条件。", "view": "View", "room": "Room", "get_app": "在 App Store 获取 Locus", "back": "返回画廊", "members": "此系列中的地点", "series_intro": "在 Locus 中探索相关地点。", "available": "可在 Locus {version} 中使用。", "photos": "在 Locus 中渲染 · 模拟器", "open_photo": "打开第 {current} 张，共 {total} 张", "photo_strip": "渲染照片", "previous_photo": "上一张照片", "next_photo": "下一张照片", "close_photo": "关闭照片", "photo_counter": "第 {current} 张，共 {total} 张"},
-    "zh-Hant": {"gallery": "藝廊", "eyebrow": "Locus 藝廊", "title": "為下一刻找到一個地方。", "intro": "瀏覽 Locus 中可用的 View 和 Room。", "filters": "篩選地點", "search": "搜尋地點", "search_hint": "依名稱或氛圍搜尋", "all_places": "所有地點", "views": "View", "rooms": "Room", "all_access": "所有存取權", "free": "免費", "supporter": "支持者", "animated": "動態", "sound": "含聲音", "reset": "重設篩選", "places": "所有地點", "series": "系列", "count": "{count} 個地點", "empty_title": "沒有地點符合這些篩選條件。", "empty_copy": "換個搜尋詞，或重設篩選條件。", "view": "View", "room": "Room", "get_app": "在 App Store 取得 Locus", "back": "返回藝廊", "members": "此系列中的地點", "series_intro": "在 Locus 中探索相關地點。", "available": "可在 Locus {version} 中使用。", "photos": "在 Locus 中渲染 · 模擬器", "open_photo": "開啟第 {current} 張，共 {total} 張", "photo_strip": "渲染照片", "previous_photo": "上一張照片", "next_photo": "下一張照片", "close_photo": "關閉照片", "photo_counter": "第 {current} 張，共 {total} 張"},
-    "ja": {"gallery": "ギャラリー", "eyebrow": "Locus ギャラリー", "title": "次の時間のための場所を見つけよう。", "intro": "Locus で利用できる View と Room をご覧ください。", "filters": "場所を絞り込む", "search": "場所を検索", "search_hint": "名前や雰囲気で検索", "all_places": "すべての場所", "views": "View", "rooms": "Room", "all_access": "すべてのアクセス", "free": "無料", "supporter": "Supporter", "animated": "アニメーション", "sound": "サウンドあり", "reset": "絞り込みをリセット", "places": "すべての場所", "series": "シリーズ", "count": "{count} 件の場所", "empty_title": "条件に合う場所はありません。", "empty_copy": "別の語句で検索するか、絞り込みをリセットしてください。", "view": "View", "room": "Room", "get_app": "App Store で Locus を入手", "back": "ギャラリーに戻る", "members": "このシリーズの場所", "series_intro": "Locus で関連する場所を見つけましょう。", "available": "Locus {version} で利用できます。", "photos": "Locus でレンダリング · シミュレータ", "open_photo": "写真 {current} / {total} を開く", "photo_strip": "レンダリング写真", "previous_photo": "前の写真", "next_photo": "次の写真", "close_photo": "写真を閉じる", "photo_counter": "写真 {current} / {total}"},
-    "ko": {"gallery": "갤러리", "eyebrow": "Locus 갤러리", "title": "다음 시간을 위한 장소를 찾아보세요.", "intro": "Locus에서 사용할 수 있는 View와 Room을 둘러보세요.", "filters": "장소 필터", "search": "장소 검색", "search_hint": "이름이나 분위기로 검색", "all_places": "모든 장소", "views": "View", "rooms": "Room", "all_access": "모든 이용 권한", "free": "무료", "supporter": "Supporter", "animated": "애니메이션", "sound": "사운드 포함", "reset": "필터 재설정", "places": "모든 장소", "series": "시리즈", "count": "장소 {count}개", "empty_title": "이 필터에 맞는 장소가 없습니다.", "empty_copy": "다른 검색어를 입력하거나 필터를 재설정하세요.", "view": "View", "room": "Room", "get_app": "App Store에서 Locus 받기", "back": "갤러리로 돌아가기", "members": "이 시리즈의 장소", "series_intro": "Locus에서 관련 장소를 살펴보세요.", "available": "Locus {version}에서 이용할 수 있습니다.", "photos": "Locus에서 렌더링 · 시뮬레이터", "open_photo": "사진 {current}/{total} 열기", "photo_strip": "렌더링 사진", "previous_photo": "이전 사진", "next_photo": "다음 사진", "close_photo": "사진 닫기", "photo_counter": "사진 {current}/{total}"},
-    "de": {"gallery": "Galerie", "eyebrow": "Locus Galerie", "title": "Finde einen Ort für das, was als Nächstes kommt.", "intro": "Entdecke die in Locus verfügbaren Views und Räume.", "filters": "Orte filtern", "search": "Orte suchen", "search_hint": "Nach Name oder Stimmung suchen", "all_places": "Alle Orte", "views": "Views", "rooms": "Räume", "all_access": "Jeder Zugriff", "free": "Kostenlos", "supporter": "Supporter", "animated": "Animiert", "sound": "Mit Ton", "reset": "Filter zurücksetzen", "places": "Alle Orte", "series": "Serien", "count": "{count} Orte", "empty_title": "Keine Orte entsprechen diesen Filtern.", "empty_copy": "Versuche eine andere Suche oder setze die Filter zurück.", "view": "View", "room": "Raum", "get_app": "Locus im App Store laden", "back": "Zurück zur Galerie", "members": "Orte in dieser Serie", "series_intro": "Entdecke zusammengehörige Orte in Locus.", "available": "Verfügbar in Locus {version}.", "photos": "In Locus gerendert · Simulator", "open_photo": "Foto {current} von {total} öffnen", "photo_strip": "Gerenderte Fotos", "previous_photo": "Vorheriges Foto", "next_photo": "Nächstes Foto", "close_photo": "Foto schließen", "photo_counter": "Foto {current} von {total}"},
-    "fr": {"gallery": "Galerie", "eyebrow": "Galerie Locus", "title": "Trouvez un lieu pour la suite.", "intro": "Parcourez les Views et les Rooms disponibles dans Locus.", "filters": "Filtrer les lieux", "search": "Rechercher des lieux", "search_hint": "Rechercher par nom ou ambiance", "all_places": "Tous les lieux", "views": "Views", "rooms": "Rooms", "all_access": "Tous les accès", "free": "Gratuit", "supporter": "Supporter", "animated": "Animé", "sound": "Avec son", "reset": "Réinitialiser les filtres", "places": "Tous les lieux", "series": "Séries", "count": "{count} lieux", "empty_title": "Aucun lieu ne correspond à ces filtres.", "empty_copy": "Essayez une autre recherche ou réinitialisez les filtres.", "view": "View", "room": "Room", "get_app": "Obtenir Locus sur l’App Store", "back": "Retour à la galerie", "members": "Lieux de cette série", "series_intro": "Découvrez des lieux associés dans Locus.", "available": "Disponible dans Locus {version}.", "photos": "Rendu dans Locus · Simulateur", "open_photo": "Ouvrir la photo {current} sur {total}", "photo_strip": "Photos rendues", "previous_photo": "Photo précédente", "next_photo": "Photo suivante", "close_photo": "Fermer la photo", "photo_counter": "Photo {current} sur {total}"},
-    "es": {"gallery": "Galería", "eyebrow": "Galería de Locus", "title": "Encuentra un lugar para lo que viene.", "intro": "Explora las Views y Rooms disponibles en Locus.", "filters": "Filtrar lugares", "search": "Buscar lugares", "search_hint": "Busca por nombre o ambiente", "all_places": "Todos los lugares", "views": "Views", "rooms": "Rooms", "all_access": "Todo el acceso", "free": "Gratis", "supporter": "Supporter", "animated": "Animado", "sound": "Con sonido", "reset": "Restablecer filtros", "places": "Todos los lugares", "series": "Series", "count": "{count} lugares", "empty_title": "Ningún lugar coincide con estos filtros.", "empty_copy": "Prueba otra búsqueda o restablece los filtros.", "view": "View", "room": "Room", "get_app": "Obtener Locus en App Store", "back": "Volver a la galería", "members": "Lugares de esta serie", "series_intro": "Explora lugares relacionados en Locus.", "available": "Disponible en Locus {version}.", "photos": "Renderizado en Locus · Simulador", "open_photo": "Abrir foto {current} de {total}", "photo_strip": "Fotos renderizadas", "previous_photo": "Foto anterior", "next_photo": "Foto siguiente", "close_photo": "Cerrar foto", "photo_counter": "Foto {current} de {total}"},
+    "zh-Hans": {"gallery": "画廊", "eyebrow": "Locus 画廊", "title": "为下一刻找到一个地方。", "intro": "探索 Locus 的 View 和 Room。", "filters": "筛选地点", "search": "搜索地点", "search_hint": "按名称或氛围搜索", "all_places": "所有地点", "views": "View", "rooms": "Room", "all_access": "所有访问权限", "free": "免费", "supporter": "支持者", "animated": "动态", "sound": "含声音", "reset": "重置筛选", "places": "所有地点", "series": "系列", "count": "{count} 个地点", "empty_title": "没有地点符合这些筛选条件。", "empty_copy": "换个搜索词，或重置筛选条件。", "view": "View", "room": "Room", "get_app": "在 App Store 获取 Locus", "back": "返回画廊", "members": "此系列中的地点", "series_intro": "在 Locus 中探索相关地点。", "available": "可在 Locus {version} 中使用。", "photos": "在 Locus 中渲染 · 模拟器", "open_photo": "打开第 {current} 张，共 {total} 张", "photo_strip": "渲染照片", "previous_photo": "上一张照片", "next_photo": "下一张照片", "close_photo": "关闭照片", "photo_counter": "第 {current} 张，共 {total} 张"},
+    "zh-Hant": {"gallery": "藝廊", "eyebrow": "Locus 藝廊", "title": "為下一刻找到一個地方。", "intro": "探索 Locus 的 View 和 Room。", "filters": "篩選地點", "search": "搜尋地點", "search_hint": "依名稱或氛圍搜尋", "all_places": "所有地點", "views": "View", "rooms": "Room", "all_access": "所有存取權", "free": "免費", "supporter": "支持者", "animated": "動態", "sound": "含聲音", "reset": "重設篩選", "places": "所有地點", "series": "系列", "count": "{count} 個地點", "empty_title": "沒有地點符合這些篩選條件。", "empty_copy": "換個搜尋詞，或重設篩選條件。", "view": "View", "room": "Room", "get_app": "在 App Store 取得 Locus", "back": "返回藝廊", "members": "此系列中的地點", "series_intro": "在 Locus 中探索相關地點。", "available": "可在 Locus {version} 中使用。", "photos": "在 Locus 中渲染 · 模擬器", "open_photo": "開啟第 {current} 張，共 {total} 張", "photo_strip": "渲染照片", "previous_photo": "上一張照片", "next_photo": "下一張照片", "close_photo": "關閉照片", "photo_counter": "第 {current} 張，共 {total} 張"},
+    "ja": {"gallery": "ギャラリー", "eyebrow": "Locus ギャラリー", "title": "次の時間のための場所を見つけよう。", "intro": "Locus の View と Room をご覧ください。", "filters": "場所を絞り込む", "search": "場所を検索", "search_hint": "名前や雰囲気で検索", "all_places": "すべての場所", "views": "View", "rooms": "Room", "all_access": "すべてのアクセス", "free": "無料", "supporter": "Supporter", "animated": "アニメーション", "sound": "サウンドあり", "reset": "絞り込みをリセット", "places": "すべての場所", "series": "シリーズ", "count": "{count} 件の場所", "empty_title": "条件に合う場所はありません。", "empty_copy": "別の語句で検索するか、絞り込みをリセットしてください。", "view": "View", "room": "Room", "get_app": "App Store で Locus を入手", "back": "ギャラリーに戻る", "members": "このシリーズの場所", "series_intro": "Locus で関連する場所を見つけましょう。", "available": "Locus {version} で利用できます。", "photos": "Locus でレンダリング · シミュレータ", "open_photo": "写真 {current} / {total} を開く", "photo_strip": "レンダリング写真", "previous_photo": "前の写真", "next_photo": "次の写真", "close_photo": "写真を閉じる", "photo_counter": "写真 {current} / {total}"},
+    "ko": {"gallery": "갤러리", "eyebrow": "Locus 갤러리", "title": "다음 시간을 위한 장소를 찾아보세요.", "intro": "Locus의 View와 Room을 둘러보세요.", "filters": "장소 필터", "search": "장소 검색", "search_hint": "이름이나 분위기로 검색", "all_places": "모든 장소", "views": "View", "rooms": "Room", "all_access": "모든 이용 권한", "free": "무료", "supporter": "Supporter", "animated": "애니메이션", "sound": "사운드 포함", "reset": "필터 재설정", "places": "모든 장소", "series": "시리즈", "count": "장소 {count}개", "empty_title": "이 필터에 맞는 장소가 없습니다.", "empty_copy": "다른 검색어를 입력하거나 필터를 재설정하세요.", "view": "View", "room": "Room", "get_app": "App Store에서 Locus 받기", "back": "갤러리로 돌아가기", "members": "이 시리즈의 장소", "series_intro": "Locus에서 관련 장소를 살펴보세요.", "available": "Locus {version}에서 이용할 수 있습니다.", "photos": "Locus에서 렌더링 · 시뮬레이터", "open_photo": "사진 {current}/{total} 열기", "photo_strip": "렌더링 사진", "previous_photo": "이전 사진", "next_photo": "다음 사진", "close_photo": "사진 닫기", "photo_counter": "사진 {current}/{total}"},
+    "de": {"gallery": "Galerie", "eyebrow": "Locus Galerie", "title": "Finde einen Ort für das, was als Nächstes kommt.", "intro": "Entdecke Views und Räume für Locus.", "filters": "Orte filtern", "search": "Orte suchen", "search_hint": "Nach Name oder Stimmung suchen", "all_places": "Alle Orte", "views": "Views", "rooms": "Räume", "all_access": "Jeder Zugriff", "free": "Kostenlos", "supporter": "Supporter", "animated": "Animiert", "sound": "Mit Ton", "reset": "Filter zurücksetzen", "places": "Alle Orte", "series": "Serien", "count": "{count} Orte", "empty_title": "Keine Orte entsprechen diesen Filtern.", "empty_copy": "Versuche eine andere Suche oder setze die Filter zurück.", "view": "View", "room": "Raum", "get_app": "Locus im App Store laden", "back": "Zurück zur Galerie", "members": "Orte in dieser Serie", "series_intro": "Entdecke zusammengehörige Orte in Locus.", "available": "Verfügbar in Locus {version}.", "photos": "In Locus gerendert · Simulator", "open_photo": "Foto {current} von {total} öffnen", "photo_strip": "Gerenderte Fotos", "previous_photo": "Vorheriges Foto", "next_photo": "Nächstes Foto", "close_photo": "Foto schließen", "photo_counter": "Foto {current} von {total}"},
+    "fr": {"gallery": "Galerie", "eyebrow": "Galerie Locus", "title": "Trouvez un lieu pour la suite.", "intro": "Découvrez les Views et les Rooms de Locus.", "filters": "Filtrer les lieux", "search": "Rechercher des lieux", "search_hint": "Rechercher par nom ou ambiance", "all_places": "Tous les lieux", "views": "Views", "rooms": "Rooms", "all_access": "Tous les accès", "free": "Gratuit", "supporter": "Supporter", "animated": "Animé", "sound": "Avec son", "reset": "Réinitialiser les filtres", "places": "Tous les lieux", "series": "Séries", "count": "{count} lieux", "empty_title": "Aucun lieu ne correspond à ces filtres.", "empty_copy": "Essayez une autre recherche ou réinitialisez les filtres.", "view": "View", "room": "Room", "get_app": "Obtenir Locus sur l’App Store", "back": "Retour à la galerie", "members": "Lieux de cette série", "series_intro": "Découvrez des lieux associés dans Locus.", "available": "Disponible dans Locus {version}.", "photos": "Rendu dans Locus · Simulateur", "open_photo": "Ouvrir la photo {current} sur {total}", "photo_strip": "Photos rendues", "previous_photo": "Photo précédente", "next_photo": "Photo suivante", "close_photo": "Fermer la photo", "photo_counter": "Photo {current} sur {total}"},
+    "es": {"gallery": "Galería", "eyebrow": "Galería de Locus", "title": "Encuentra un lugar para lo que viene.", "intro": "Explora las Views y Rooms de Locus.", "filters": "Filtrar lugares", "search": "Buscar lugares", "search_hint": "Busca por nombre o ambiente", "all_places": "Todos los lugares", "views": "Views", "rooms": "Rooms", "all_access": "Todo el acceso", "free": "Gratis", "supporter": "Supporter", "animated": "Animado", "sound": "Con sonido", "reset": "Restablecer filtros", "places": "Todos los lugares", "series": "Series", "count": "{count} lugares", "empty_title": "Ningún lugar coincide con estos filtros.", "empty_copy": "Prueba otra búsqueda o restablece los filtros.", "view": "View", "room": "Room", "get_app": "Obtener Locus en App Store", "back": "Volver a la galería", "members": "Lugares de esta serie", "series_intro": "Explora lugares relacionados en Locus.", "available": "Disponible en Locus {version}.", "photos": "Renderizado en Locus · Simulador", "open_photo": "Abrir foto {current} de {total}", "photo_strip": "Fotos renderizadas", "previous_photo": "Foto anterior", "next_photo": "Foto siguiente", "close_photo": "Cerrar foto", "photo_counter": "Foto {current} de {total}"},
 }
 
 CREDIT_COPY = {
@@ -63,6 +63,23 @@ PHOTO_LABELS = {
     "de": {"front": "Vorderansicht", "left": "Linke Ansicht", "right": "Rechte Ansicht", "alternate-seat": "Anderer Sitzplatz"},
     "fr": {"front": "Vue de face", "left": "Vue de gauche", "right": "Vue de droite", "alternate-seat": "Autre siège"},
     "es": {"front": "Vista frontal", "left": "Vista izquierda", "right": "Vista derecha", "alternate-seat": "Otro asiento"},
+}
+
+SERIES_BACK_COPY = {
+    "en": "Back to {title}", "zh-Hans": "返回{title}系列", "zh-Hant": "返回{title}系列",
+    "ja": "{title}に戻る", "ko": "{title}(으)로 돌아가기", "de": "Zurück zu {title}",
+    "fr": "Retour à {title}", "es": "Volver a {title}",
+}
+
+RELEASE_PREVIEW_COPY = {
+    "en": {"badge": "Locus {version} preview", "available": "Coming in Locus {version}."},
+    "zh-Hans": {"badge": "Locus {version} 预览", "available": "将在 Locus {version} 上架后推出。"},
+    "zh-Hant": {"badge": "Locus {version} 預覽", "available": "將在 Locus {version} 上架後推出。"},
+    "ja": {"badge": "Locus {version} プレビュー", "available": "Locus {version} で登場予定。"},
+    "ko": {"badge": "Locus {version} 미리보기", "available": "Locus {version}에서 출시 예정입니다."},
+    "de": {"badge": "Vorschau auf Locus {version}", "available": "Demnächst in Locus {version}."},
+    "fr": {"badge": "Aperçu de Locus {version}", "available": "À venir dans Locus {version}."},
+    "es": {"badge": "Avance de Locus {version}", "available": "Próximamente en Locus {version}."},
 }
 
 SERIES_COPY = {
@@ -154,11 +171,6 @@ def card_cover_members(item: dict, members: list[dict]) -> list[dict]:
     return selected[:3]
 
 
-def preview_image(place: dict) -> dict:
-    photos = place.get("photos") or []
-    return photos[0] if photos else place["image"]
-
-
 def series_image(item: dict, places: list[dict]) -> dict | None:
     if item.get("image"):
         return item["image"]
@@ -166,7 +178,7 @@ def series_image(item: dict, places: list[dict]) -> dict | None:
     member = next((place for place in places if place["id"] == hero), None)
     if not member:
         member = next((place for place in places if place["id"] in item.get("members", [])), None)
-    return preview_image(member) if member else None
+    return member["image"] if member else None
 
 
 def nav(locale: str, current: str) -> str:
@@ -202,6 +214,9 @@ def badges(place: dict, c: dict, locale: str) -> str:
         items.append(f'<span class="gallery-badge">{esc(PREVIEW_COPY[locale]["animated"])}</span>')
     if place.get("hasSound"):
         items.append(f'<span class="gallery-badge">{esc(c["sound"])}</span>')
+    if place.get("previewRelease"):
+        label = RELEASE_PREVIEW_COPY[locale]["badge"].format(version=place["previewRelease"])
+        items.append(f'<span class="gallery-badge release-preview">{esc(label)}</span>')
     return ''.join(items)
 
 
@@ -238,19 +253,21 @@ def credits_markup(place: dict, locale: str) -> str:
 
 
 def place_card(place: dict, locale: str, series_titles: list[str] | None = None,
-               recent_order: int | None = None) -> str:
+               recent_order: int | None = None, return_series: str | None = None) -> str:
     c = COPY[locale]
     search = ' '.join(term for term in [place["title"], place.get("description", ""), *place.get("searchTerms", []), *(series_titles or [])] if term).lower()
     path = locale_url(f'/gallery/place/{quote(place["slug"])}/', locale)
+    if return_series:
+        path += "?series=" + quote(return_series, safe="")
     membership = f' data-series-member="true"' if series_titles else ''
     recent = f' data-gallery-recent-order="{int(recent_order)}"' if recent_order is not None else ''
-    return f'''<article class="gallery-card" data-gallery-card{membership}{recent} data-type="{esc(place["type"])}" data-access="{esc(place["access"])}" data-animated="{str(bool(place.get("animated"))).lower()}" data-sound="{str(bool(place.get("hasSound"))).lower()}" data-search="{esc(search)}"><a href="{path}">{image_markup(preview_image(place), place["title"])}<div class="gallery-card-copy"><span class="gallery-preview-note">{esc(PREVIEW_COPY[locale]["still"])}</span><h3>{esc(place["title"])}</h3><p>{esc(place.get("description", ""))}</p><div class="gallery-badges">{badges(place, c, locale)}</div></div></a></article>'''
+    return f'''<article class="gallery-card" data-gallery-card{membership}{recent} data-type="{esc(place["type"])}" data-access="{esc(place["access"])}" data-animated="{str(bool(place.get("animated"))).lower()}" data-sound="{str(bool(place.get("hasSound"))).lower()}" data-search="{esc(search)}"><a href="{path}">{image_markup(place["image"], place["title"])}<div class="gallery-card-copy"><span class="gallery-preview-note">{esc(PREVIEW_COPY[locale]["still"])}</span><h3>{esc(place["title"])}</h3><p>{esc(place.get("description", ""))}</p><div class="gallery-badges">{badges(place, c, locale)}</div></div></a></article>'''
 
 
 def series_card(item: dict, members: list[dict], kind: str, locale: str) -> str:
     c = COPY[locale]
     path = locale_url(f'/gallery/series/{quote(item["id"])}/', locale)
-    covers = ''.join(image_markup(preview_image(member), member["title"], css_class="gallery-collage-image")
+    covers = ''.join(image_markup(member["image"], member["title"], css_class="gallery-collage-image")
                      for member in card_cover_members(item, members))
     return f'''<article class="gallery-card gallery-series-card" data-gallery-series-card data-type="{esc(kind)}"><a href="{path}"><div class="gallery-series-collage" aria-hidden="true">{covers}</div><div class="gallery-card-copy"><span class="gallery-preview-note">{esc(c["series"])}</span><h3>{esc(item["title"])}</h3><p>{esc(item.get("description", c["series_intro"]))}</p></div></a></article>'''
 
@@ -315,7 +332,15 @@ def place_page(place: dict, manifest: dict, locale: str) -> str:
         f'<a href="{locale_url("/gallery/series/" + quote(item["id"]) + "/", locale)}">{esc(item["title"])}</a>'
         for item in series)
     membership_markup = f'<div class="gallery-membership"><span>{esc(SERIES_COPY[locale])}</span>{memberships}</div>' if memberships else ''
-    body = f'''<div class="gallery-detail">{photo_gallery(place, locale)}<section class="gallery-detail-copy"><p class="kicker">{esc(c[place["type"]])}</p><h1>{esc(place["title"])}</h1><p>{esc(description)}</p><div class="gallery-meta">{meta}</div>{membership_markup}<p>{esc(c["available"].format(version=version))}</p><a class="gallery-cta" href="{APP_STORE}">{esc(c["get_app"])}</a><a class="gallery-back" href="{locale_url("/gallery/", locale)}">← {esc(c["back"])}</a></section></div>{credits_markup(place, locale)}'''
+    return_options = [{"id": item["id"],
+                       "url": locale_url("/gallery/series/" + quote(item["id"]) + "/", locale),
+                       "label": SERIES_BACK_COPY[locale].format(title=item["title"])} for item in series]
+    return_data = esc(json.dumps(return_options, ensure_ascii=False))
+    availability = (RELEASE_PREVIEW_COPY[locale]["available"].format(version=place["previewRelease"])
+                    if place.get("previewRelease") else c["available"].format(version=version))
+    cta = (f'<a class="gallery-cta" href="{APP_STORE}">{esc(c["get_app"])}</a>'
+           if not place.get("previewRelease") else '')
+    body = f'''<div class="gallery-detail">{photo_gallery(place, locale)}<section class="gallery-detail-copy"><p class="kicker">{esc(c[place["type"]])}</p><h1>{esc(place["title"])}</h1><p>{esc(description)}</p><div class="gallery-meta">{meta}</div>{membership_markup}<p>{esc(availability)}</p>{cta}<a class="gallery-back" data-gallery-back data-gallery-return-options="{return_data}" href="{locale_url("/gallery/", locale)}">← {esc(c["back"])}</a></section></div>{credits_markup(place, locale)}'''
     return document(locale, f'{place["title"]} — {c["gallery"]} — Locus', description, f'/gallery/place/{quote(place["slug"])}/', body)
 
 
@@ -324,7 +349,7 @@ def series_page(item: dict, places: list[dict], locale: str) -> str:
     members = newest_first([place for place in places if place["id"] in item.get("members", [])])
     image = series_image(item, places)
     hero = f'<figure class="gallery-detail-media">{image_markup(image, item["title"], "eager")}</figure>' if image else ''
-    body = f'''<div class="gallery-detail"><section class="gallery-detail-copy"><p class="kicker">{esc(c["series"])}</p><h1>{esc(item["title"])}</h1><p>{esc(item.get("description", c["series_intro"]))}</p><a class="gallery-back" href="{locale_url("/gallery/", locale)}">← {esc(c["back"])}</a></section>{hero}</div><section class="gallery-series-members"><div class="gallery-section-heading"><h2>{esc(c["members"])}</h2></div><div class="gallery-grid">{"".join(place_card(place, locale) for place in members)}</div></section>'''
+    body = f'''<div class="gallery-detail"><section class="gallery-detail-copy"><p class="kicker">{esc(c["series"])}</p><h1>{esc(item["title"])}</h1><p>{esc(item.get("description", c["series_intro"]))}</p><a class="gallery-back" href="{locale_url("/gallery/", locale)}">← {esc(c["back"])}</a></section>{hero}</div><section class="gallery-series-members"><div class="gallery-section-heading"><h2>{esc(c["members"])}</h2></div><div class="gallery-grid">{"".join(place_card(place, locale, return_series=item["id"]) for place in members)}</div></section>'''
     return document(locale, f'{item["title"]} — {c["series"]} — Locus', item.get("description", c["series_intro"]), f'/gallery/series/{quote(item["id"])}/', body)
 
 

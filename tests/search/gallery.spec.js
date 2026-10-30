@@ -95,3 +95,51 @@ test('approved native photo captures support thumbnails, wrapping navigation, an
   await page.locator('[data-gallery-photo-next]').click();
   await expect(counter).toHaveText(`Photo 3 of ${photoPlace.photos.length}`);
 });
+
+test('catalog thumbnails cover cards while Series context survives photo browsing and reload', async ({ page }) => {
+  const series = gallery.series.find(item => item.id === 'mansions');
+  for (const locale of ['', '/zh-Hans']) {
+    await page.setViewportSize({ width: locale ? 390 : 1440, height: locale ? 844 : 1000 });
+    await page.goto(`${locale}/gallery/series/${series.id}/`);
+    const card = page.locator('[data-gallery-card]').first();
+    const href = await card.locator('a').getAttribute('href');
+    expect(href).toContain('?series=mansions');
+    const slug = new URL(href, 'http://localhost').pathname.split('/').filter(Boolean).pop();
+    const place = gallery.places.find(item => item.slug === slug);
+    await expect(card.locator('img')).toHaveAttribute('src', place.image.url);
+    await card.locator('a').click();
+    const back = page.locator('[data-gallery-back]');
+    await expect(back).toHaveAttribute('href', `${locale}/gallery/series/mansions/`);
+    await page.locator('[data-gallery-photo-thumb]').nth(1).click();
+    await page.locator('[data-gallery-photo-open]').click();
+    await page.keyboard.press('Escape');
+    await page.reload();
+    await expect(back).toHaveAttribute('href', `${locale}/gallery/series/mansions/`);
+    await back.click();
+    await expect(page).toHaveURL(new RegExp(`${locale}/gallery/series/mansions/$`));
+    for (const query of ['', '?series=after-dark', '?series=https://example.com']) {
+      await page.goto(`${locale}/gallery/place/${place.slug}/${query}`);
+      await expect(page.locator('[data-gallery-back]')).toHaveAttribute('href', `${locale}/gallery/`);
+    }
+  }
+});
+
+test('the two approved new Rooms explain availability and retain native albums', async ({ page }) => {
+  const ids = ['space.japanese-courtyard-mansion', 'space.pacific-palapa-house'];
+  const rooms = gallery.places.filter(place => ids.includes(place.id));
+  expect(rooms).toHaveLength(ids.length);
+  expect(gallery.places.filter(place => place.previewRelease).every(place => ids.includes(place.id))).toBe(true);
+  for (const place of rooms) {
+    await page.goto(`/zh-Hans/gallery/place/${place.slug}/`);
+    if (place.previewRelease) {
+      await expect(page.locator('.release-preview')).toHaveText(`Locus ${place.previewRelease} 预览`);
+      await expect(page.getByText(`将在 Locus ${place.previewRelease} 上架后推出。`)).toBeVisible();
+      await expect(page.locator('.gallery-cta')).toHaveCount(0);
+    } else {
+      await expect(page.locator('.release-preview')).toHaveCount(0);
+      await expect(page.locator('.gallery-cta')).toBeVisible();
+    }
+    await expect(page.locator('[data-gallery-photo-thumb]')).toHaveCount(place.photos.length);
+    expect(place.photos.length).toBeGreaterThanOrEqual(3);
+  }
+});
