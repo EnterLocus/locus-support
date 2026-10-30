@@ -40,6 +40,15 @@ test('Gallery folds eligible Series, then unfolds matching Places for filters an
   await expect(page.locator('[data-gallery-card]:visible')).toHaveCount(
     await page.locator('[data-gallery-card][data-type="room"][data-sound="true"]').count()
   );
+  const recent = place => Math.max(...['addedAt', 'updatedAt'].map(key => Date.parse(place[key] || '') || 0));
+  const expectedRooms = gallery.places.filter(place => place.type === 'room' && place.hasSound)
+    .sort((a, b) => recent(b) - recent(a) || a.title.localeCompare(b.title))
+    .map(place => place.slug);
+  const visibleRooms = await page.locator('[data-gallery-card]:visible').evaluateAll(cards =>
+    cards.map(card => ({ slug: card.querySelector('a').pathname.split('/').filter(Boolean).pop(),
+                       top: card.getBoundingClientRect().top, left: card.getBoundingClientRect().left }))
+      .sort((a, b) => a.top - b.top || a.left - b.left).map(card => card.slug));
+  expect(visibleRooms).toEqual(expectedRooms);
 
   await page.goto('/gallery/place/black-hole-ring/');
   await expect(page.getByRole('heading', { name: 'Event Horizon: Ring' })).toBeVisible();
