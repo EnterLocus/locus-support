@@ -1,8 +1,210 @@
 {
   "formatVersion": 1,
-  "appVersion": "1.4.3",
-  "catalogGeneration": "4a285ac1-598b-4bf2-81c2-2ca7500984dc",
+  "appVersion": "1.4.4",
+  "catalogGeneration": "88219eee-5ce7-4074-9108-a5db545db730",
   "places": [
+    {
+      "id": "space.hilltop-villa",
+      "slug": "hilltop-villa",
+      "type": "room",
+      "title": "Hilltop Villa",
+      "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
+      "image": {
+        "url": "/assets/gallery/library-1db98622df08132d88407fd6121ef486ac589e882db539af996a98ef019a8086.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "1db98622df08132d88407fd6121ef486ac589e882db539af996a98ef019a8086"
+      },
+      "access": "supporter",
+      "animated": false,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.0.7",
+      "addedAt": "2026-10-24T16:43:41Z",
+      "updatedAt": "2026-10-29T04:47:01Z",
+      "searchTerms": [
+        "Room",
+        "Villa",
+        "Luxury",
+        "Living Room",
+        "Fireplace",
+        "Pool",
+        "Terrace",
+        "Hilltop",
+        "Modern",
+        "Fire",
+        "Music"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Villa auf dem Hügel",
+          "description": "Zweigeschossiger Wohnraum einer Villa auf dem Hügel mit Kaminwand aus Travertin und langem Kamin, einem langen elfenbeinfarbenen Sofa, cremefarbenen Bouclé-Drehsesseln und einer Kaskade gläserner Röhrenleuchten. Schiebetüren aus Glas öffnen sich zur Terrasse mit Lounge am Feuertisch, Essplatz für acht und Infinity-Pool. Oben blicken eine verglaste Brücke, eine Galeriebibliothek und der auskragende gläserne Sky Room mit Schreibtisch auf die Aussicht.",
+          "searchTerms": [
+            "Raum",
+            "Villa",
+            "Luxus",
+            "Wohnzimmer",
+            "Kamin",
+            "Pool",
+            "Terrasse",
+            "Hügel",
+            "Modern",
+            "Feuer",
+            "Musik"
+          ]
+        },
+        "en": {
+          "title": "Hilltop Villa",
+          "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
+          "searchTerms": [
+            "Room",
+            "Villa",
+            "Luxury",
+            "Living Room",
+            "Fireplace",
+            "Pool",
+            "Terrace",
+            "Hilltop",
+            "Modern",
+            "Fire",
+            "Music"
+          ]
+        },
+        "es": {
+          "title": "Villa en la colina",
+          "description": "Salón de doble altura de una villa en la colina: pared de chimenea de travertino con hogar lineal, un largo sofá marfil, sillones giratorios de bouclé crema y una cascada de lámparas de tubos de vidrio. Las puertas correderas de vidrio se abren a una terraza con zona de estar junto a una mesa de fuego, comedor exterior para ocho y piscina infinita. Arriba, un puente acristalado, una biblioteca en galería y la Sky Room de vidrio en voladizo, con escritorio, miran al paisaje.",
+          "searchTerms": [
+            "Sala",
+            "Villa",
+            "Lujo",
+            "Salón",
+            "Chimenea",
+            "Piscina",
+            "Terraza",
+            "Colina",
+            "Moderno",
+            "Fuego",
+            "Música"
+          ]
+        },
+        "fr": {
+          "title": "Villa sur la colline",
+          "description": "Séjour en double hauteur d’une villa sur la colline : mur de cheminée en travertin et foyer linéaire, long canapé ivoire, fauteuils pivotants en bouclette crème et cascade de suspensions à tubes de verre. Les baies coulissantes s’ouvrent sur une terrasse avec salon autour d’une table à feu, table pour huit et piscine à débordement. À l’étage, une passerelle vitrée, une bibliothèque en galerie et la Sky Room vitrée en porte-à-faux, avec bureau, regardent la vue.",
+          "searchTerms": [
+            "Pièce",
+            "Villa",
+            "Luxe",
+            "Salon",
+            "Cheminée",
+            "Piscine",
+            "Terrasse",
+            "Colline",
+            "Moderne",
+            "Feu",
+            "Musique"
+          ]
+        },
+        "ja": {
+          "title": "丘の上のヴィラ",
+          "description": "吹き抜けの丘の上のヴィラのリビング。トラバーチンの暖炉壁と横長の暖炉、長いアイボリーのソファ、クリーム色のブークレ生地のスイベルチェア、ガラス管のペンダントライトの連なり。引き戸のガラスを開けると、ファイヤーテーブルのラウンジ、8人掛けの屋外ダイニング、インフィニティプールのあるテラスへ。上階にはガラス張りのブリッジ、ギャラリーの書庫、デスクのある張り出したガラスのスカイルームがあり、眺めに向いています。",
+          "searchTerms": [
+            "ルーム",
+            "ヴィラ",
+            "高級",
+            "リビング",
+            "暖炉",
+            "プール",
+            "テラス",
+            "丘",
+            "モダン",
+            "火",
+            "音楽"
+          ]
+        },
+        "ko": {
+          "title": "언덕 위의 빌라",
+          "description": "층고가 높은 언덕 위 빌라의 거실. 트래버틴 벽난로 벽과 가로로 긴 벽난로, 긴 아이보리 소파, 크림색 부클레 회전 의자, 유리관 펜던트 조명이 늘어져 있습니다. 슬라이딩 유리문을 열면 파이어 테이블 라운지, 8인용 야외 다이닝, 인피니티 풀이 있는 테라스로 이어집니다. 위층에는 유리 브리지, 갤러리 서재, 책상이 있는 돌출된 유리 스카이 룸이 풍경을 향해 있습니다.",
+          "searchTerms": [
+            "룸",
+            "빌라",
+            "럭셔리",
+            "거실",
+            "벽난로",
+            "수영장",
+            "테라스",
+            "언덕",
+            "모던",
+            "불",
+            "음악"
+          ]
+        },
+        "zh-Hans": {
+          "title": "山顶别墅",
+          "description": "通高的山顶别墅客厅：石灰华壁炉墙与线性壁炉、长长的象牙色沙发、奶油色羊羔绒旋转椅和一簇玻璃管吊灯。推拉玻璃门通向露台，那里有火炉休闲区、八人户外餐桌和无边泳池。楼上的玻璃天桥、书廊和悬挑的玻璃房配有书桌，面朝远景。",
+          "searchTerms": [
+            "房间",
+            "别墅",
+            "豪宅",
+            "客厅",
+            "壁炉",
+            "泳池",
+            "露台",
+            "山顶",
+            "现代",
+            "火",
+            "音乐"
+          ]
+        },
+        "zh-Hant": {
+          "title": "山頂別墅",
+          "description": "挑高的山頂別墅客廳：石灰華壁爐牆與線性壁爐、長長的象牙色沙發、奶油色羔羊絨旋轉椅和一簇玻璃管吊燈。橫拉玻璃門通往露台，那裡有火爐休閒區、八人戶外餐桌和無邊際泳池。樓上的玻璃天橋、書廊和懸挑的玻璃屋配有書桌，面向遠景。",
+          "searchTerms": [
+            "房間",
+            "別墅",
+            "豪宅",
+            "客廳",
+            "壁爐",
+            "泳池",
+            "露台",
+            "山頂",
+            "現代",
+            "火",
+            "音樂"
+          ]
+        }
+      },
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-d492204d91a9a3be336ce94ebc73e7565d28291663d69f547c6814ac33e35155.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d492204d91a9a3be336ce94ebc73e7565d28291663d69f547c6814ac33e35155",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-984b875602ef60a6801e1d8100d0388c09e1740853d58818518e918686b453bb.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "984b875602ef60a6801e1d8100d0388c09e1740853d58818518e918686b453bb",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-3e9eed75aa50a99c55412b4776d2516057ec57ca9bd071d1b13e8ceae20ddd89.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3e9eed75aa50a99c55412b4776d2516057ec57ca9bd071d1b13e8ceae20ddd89",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
     {
       "id": "space.japanese-courtyard-mansion",
       "slug": "japanese-courtyard-mansion",
@@ -192,7 +394,6 @@
           ]
         }
       },
-      "previewRelease": "1.4.4",
       "photos": [
         {
           "url": "/assets/gallery/rendered-72d99fee8677510f3aa806c713e9067f679052f84936ff39bec2f1eb28b68ffc.jpg",
@@ -412,7 +613,6 @@
           ]
         }
       },
-      "previewRelease": "1.4.4",
       "photos": [
         {
           "url": "/assets/gallery/rendered-77b2dbe2c5047391efeb4e746a8368ccccfe8a5912bd0920fb5c8b4b00efc31f.jpg",
@@ -454,9 +654,9 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.3",
+      "contentVersion": "1.0.6",
       "addedAt": "2026-10-28T00:01:42Z",
-      "updatedAt": "2026-10-28T14:13:49Z",
+      "updatedAt": "2026-10-29T03:06:45Z",
       "searchTerms": [
         "Room",
         "Villa",
@@ -628,226 +828,24 @@
       },
       "photos": [
         {
-          "url": "/assets/gallery/rendered-5652388033100fe070a56cf8edcf12660b042ba924280506eadceeb0dbf4e36c.jpg",
+          "url": "/assets/gallery/rendered-cc332e5f7f48119eb2ec9e1e4ea29d6eb302c81b1468e29b142011b42dc72dfc.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "5652388033100fe070a56cf8edcf12660b042ba924280506eadceeb0dbf4e36c",
+          "sha256": "cc332e5f7f48119eb2ec9e1e4ea29d6eb302c81b1468e29b142011b42dc72dfc",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-c9cba28bb6d2374ef9b0ca40a0c22a8ced1d942bf6ba8212c6420a37c1681432.jpg",
+          "url": "/assets/gallery/rendered-69e2d7e0df51ce30b7f21448e0b515b0b4166dfc7d5c82aebf0a6020191be31d.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "c9cba28bb6d2374ef9b0ca40a0c22a8ced1d942bf6ba8212c6420a37c1681432",
+          "sha256": "69e2d7e0df51ce30b7f21448e0b515b0b4166dfc7d5c82aebf0a6020191be31d",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-b59c8ea1c66a855b25efb2da102b3975d5e8830275010097be24174d80936c32.jpg",
+          "url": "/assets/gallery/rendered-4957b4408758dfb89fa2a417805e88ad4f62c79f08726ee1fd73fd3d8c49dded.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "b59c8ea1c66a855b25efb2da102b3975d5e8830275010097be24174d80936c32",
-          "captureKind": "visionos-simulator"
-        }
-      ]
-    },
-    {
-      "id": "space.hilltop-villa",
-      "slug": "hilltop-villa",
-      "type": "room",
-      "title": "Hilltop Villa",
-      "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
-      "image": {
-        "url": "/assets/gallery/library-1db98622df08132d88407fd6121ef486ac589e882db539af996a98ef019a8086.jpg",
-        "width": 1280,
-        "height": 720,
-        "sha256": "1db98622df08132d88407fd6121ef486ac589e882db539af996a98ef019a8086"
-      },
-      "access": "supporter",
-      "animated": false,
-      "hasSound": true,
-      "builtIn": false,
-      "credits": {},
-      "contentVersion": "1.0.5",
-      "addedAt": "2026-10-24T16:43:41Z",
-      "updatedAt": "2026-10-28T03:00:00Z",
-      "searchTerms": [
-        "Room",
-        "Villa",
-        "Luxury",
-        "Living Room",
-        "Fireplace",
-        "Pool",
-        "Terrace",
-        "Hilltop",
-        "Modern",
-        "Fire",
-        "Music"
-      ],
-      "localizations": {
-        "de": {
-          "title": "Villa auf dem Hügel",
-          "description": "Zweigeschossiger Wohnraum einer Villa auf dem Hügel mit Kaminwand aus Travertin und langem Kamin, einem langen elfenbeinfarbenen Sofa, cremefarbenen Bouclé-Drehsesseln und einer Kaskade gläserner Röhrenleuchten. Schiebetüren aus Glas öffnen sich zur Terrasse mit Lounge am Feuertisch, Essplatz für acht und Infinity-Pool. Oben blicken eine verglaste Brücke, eine Galeriebibliothek und der auskragende gläserne Sky Room mit Schreibtisch auf die Aussicht.",
-          "searchTerms": [
-            "Raum",
-            "Villa",
-            "Luxus",
-            "Wohnzimmer",
-            "Kamin",
-            "Pool",
-            "Terrasse",
-            "Hügel",
-            "Modern",
-            "Feuer",
-            "Musik"
-          ]
-        },
-        "en": {
-          "title": "Hilltop Villa",
-          "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
-          "searchTerms": [
-            "Room",
-            "Villa",
-            "Luxury",
-            "Living Room",
-            "Fireplace",
-            "Pool",
-            "Terrace",
-            "Hilltop",
-            "Modern",
-            "Fire",
-            "Music"
-          ]
-        },
-        "es": {
-          "title": "Villa en la colina",
-          "description": "Salón de doble altura de una villa en la colina: pared de chimenea de travertino con hogar lineal, un largo sofá marfil, sillones giratorios de bouclé crema y una cascada de lámparas de tubos de vidrio. Las puertas correderas de vidrio se abren a una terraza con zona de estar junto a una mesa de fuego, comedor exterior para ocho y piscina infinita. Arriba, un puente acristalado, una biblioteca en galería y la Sky Room de vidrio en voladizo, con escritorio, miran al paisaje.",
-          "searchTerms": [
-            "Sala",
-            "Villa",
-            "Lujo",
-            "Salón",
-            "Chimenea",
-            "Piscina",
-            "Terraza",
-            "Colina",
-            "Moderno",
-            "Fuego",
-            "Música"
-          ]
-        },
-        "fr": {
-          "title": "Villa sur la colline",
-          "description": "Séjour en double hauteur d’une villa sur la colline : mur de cheminée en travertin et foyer linéaire, long canapé ivoire, fauteuils pivotants en bouclette crème et cascade de suspensions à tubes de verre. Les baies coulissantes s’ouvrent sur une terrasse avec salon autour d’une table à feu, table pour huit et piscine à débordement. À l’étage, une passerelle vitrée, une bibliothèque en galerie et la Sky Room vitrée en porte-à-faux, avec bureau, regardent la vue.",
-          "searchTerms": [
-            "Pièce",
-            "Villa",
-            "Luxe",
-            "Salon",
-            "Cheminée",
-            "Piscine",
-            "Terrasse",
-            "Colline",
-            "Moderne",
-            "Feu",
-            "Musique"
-          ]
-        },
-        "ja": {
-          "title": "丘の上のヴィラ",
-          "description": "吹き抜けの丘の上のヴィラのリビング。トラバーチンの暖炉壁と横長の暖炉、長いアイボリーのソファ、クリーム色のブークレ生地のスイベルチェア、ガラス管のペンダントライトの連なり。引き戸のガラスを開けると、ファイヤーテーブルのラウンジ、8人掛けの屋外ダイニング、インフィニティプールのあるテラスへ。上階にはガラス張りのブリッジ、ギャラリーの書庫、デスクのある張り出したガラスのスカイルームがあり、眺めに向いています。",
-          "searchTerms": [
-            "ルーム",
-            "ヴィラ",
-            "高級",
-            "リビング",
-            "暖炉",
-            "プール",
-            "テラス",
-            "丘",
-            "モダン",
-            "火",
-            "音楽"
-          ]
-        },
-        "ko": {
-          "title": "언덕 위의 빌라",
-          "description": "층고가 높은 언덕 위 빌라의 거실. 트래버틴 벽난로 벽과 가로로 긴 벽난로, 긴 아이보리 소파, 크림색 부클레 회전 의자, 유리관 펜던트 조명이 늘어져 있습니다. 슬라이딩 유리문을 열면 파이어 테이블 라운지, 8인용 야외 다이닝, 인피니티 풀이 있는 테라스로 이어집니다. 위층에는 유리 브리지, 갤러리 서재, 책상이 있는 돌출된 유리 스카이 룸이 풍경을 향해 있습니다.",
-          "searchTerms": [
-            "룸",
-            "빌라",
-            "럭셔리",
-            "거실",
-            "벽난로",
-            "수영장",
-            "테라스",
-            "언덕",
-            "모던",
-            "불",
-            "음악"
-          ]
-        },
-        "zh-Hans": {
-          "title": "山顶别墅",
-          "description": "通高的山顶别墅客厅：石灰华壁炉墙与线性壁炉、长长的象牙色沙发、奶油色羊羔绒旋转椅和一簇玻璃管吊灯。推拉玻璃门通向露台，那里有火炉休闲区、八人户外餐桌和无边泳池。楼上的玻璃天桥、书廊和悬挑的玻璃房配有书桌，面朝远景。",
-          "searchTerms": [
-            "房间",
-            "别墅",
-            "豪宅",
-            "客厅",
-            "壁炉",
-            "泳池",
-            "露台",
-            "山顶",
-            "现代",
-            "火",
-            "音乐"
-          ]
-        },
-        "zh-Hant": {
-          "title": "山頂別墅",
-          "description": "挑高的山頂別墅客廳：石灰華壁爐牆與線性壁爐、長長的象牙色沙發、奶油色羔羊絨旋轉椅和一簇玻璃管吊燈。橫拉玻璃門通往露台，那裡有火爐休閒區、八人戶外餐桌和無邊際泳池。樓上的玻璃天橋、書廊和懸挑的玻璃屋配有書桌，面向遠景。",
-          "searchTerms": [
-            "房間",
-            "別墅",
-            "豪宅",
-            "客廳",
-            "壁爐",
-            "泳池",
-            "露台",
-            "山頂",
-            "現代",
-            "火",
-            "音樂"
-          ]
-        }
-      },
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-9aba23d5af809642929095e2d62ab1e696cfc9a6456316e351aa51017b69b30a.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "9aba23d5af809642929095e2d62ab1e696cfc9a6456316e351aa51017b69b30a",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-6d538cf986120239b196e483a4bcbff9b478844f84bd491e8c419ada1dbb5157.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "6d538cf986120239b196e483a4bcbff9b478844f84bd491e8c419ada1dbb5157",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-ef217562a5decd6f62a8a570b08797b4ad8e5369f8701320d3cb8ed84b9f1440.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ef217562a5decd6f62a8a570b08797b4ad8e5369f8701320d3cb8ed84b9f1440",
+          "sha256": "4957b4408758dfb89fa2a417805e88ad4f62c79f08726ee1fd73fd3d8c49dded",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -11497,7 +11495,7 @@
       "animated": false,
       "hasSound": false,
       "builtIn": true,
-      "contentVersion": "1.0.22",
+      "contentVersion": "1.0.23",
       "searchTerms": [],
       "localizations": {
         "zh-Hans": {
@@ -11576,10 +11574,10 @@
       },
       "photos": [
         {
-          "url": "/assets/gallery/rendered-10793c6113d401ac0834281765107e36b7b1342039a6183481fc5fcf497cb985.jpg",
+          "url": "/assets/gallery/rendered-c3cf8cdf6faccc734ee0587b1bfd52fd25dfb094eff3000b651022f7a3199879.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "10793c6113d401ac0834281765107e36b7b1342039a6183481fc5fcf497cb985",
+          "sha256": "c3cf8cdf6faccc734ee0587b1bfd52fd25dfb094eff3000b651022f7a3199879",
           "captureKind": "visionos-simulator"
         },
         {
@@ -11590,10 +11588,10 @@
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-948c9ae5d096b5c2baf9950ca4c86ad040d1b14b3e8e55032a4179b70abc0026.jpg",
+          "url": "/assets/gallery/rendered-601038579795c6d9d31ba6c6f95870b7115d27c788c819de40a098f6af82f026.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "948c9ae5d096b5c2baf9950ca4c86ad040d1b14b3e8e55032a4179b70abc0026",
+          "sha256": "601038579795c6d9d31ba6c6f95870b7115d27c788c819de40a098f6af82f026",
           "captureKind": "visionos-simulator"
         }
       ]
@@ -11614,7 +11612,7 @@
       "animated": false,
       "hasSound": false,
       "builtIn": true,
-      "contentVersion": "1.0.27",
+      "contentVersion": "1.0.28",
       "searchTerms": [],
       "localizations": {
         "zh-Hans": {
@@ -11693,31 +11691,24 @@
       },
       "photos": [
         {
-          "url": "/assets/gallery/rendered-99bb275c58d1387d4e3e545a13c0a78bf008421755f03d915893987c196ed9f7.jpg",
+          "url": "/assets/gallery/rendered-671214881989103180c57453478cc75068385ffdcd1444929e7dce80582a949c.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "99bb275c58d1387d4e3e545a13c0a78bf008421755f03d915893987c196ed9f7",
+          "sha256": "671214881989103180c57453478cc75068385ffdcd1444929e7dce80582a949c",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-1dcc21e8665f07907b74c165d0e8dd3f6f5aa212c94153277c8579817e714c6f.jpg",
+          "url": "/assets/gallery/rendered-7711a58677604e353705fc4f22cb3fb14ab1b27ac2a819c948284b619e7a478e.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "1dcc21e8665f07907b74c165d0e8dd3f6f5aa212c94153277c8579817e714c6f",
+          "sha256": "7711a58677604e353705fc4f22cb3fb14ab1b27ac2a819c948284b619e7a478e",
           "captureKind": "visionos-simulator"
         },
         {
-          "url": "/assets/gallery/rendered-928460ccd3bec91070697615cbadb40b710c6327742eb971224bb0718b677e90.jpg",
+          "url": "/assets/gallery/rendered-0c82dac26f7e1b443fdeb5a6487d42aa9c55c6d8117002bf1709bd695d6c43ff.jpg",
           "width": 1920,
           "height": 1080,
-          "sha256": "928460ccd3bec91070697615cbadb40b710c6327742eb971224bb0718b677e90",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-42b17209004eeaf1dcffe6547aed30f476b4292977f929b764d187a620b3d41f.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "42b17209004eeaf1dcffe6547aed30f476b4292977f929b764d187a620b3d41f",
+          "sha256": "0c82dac26f7e1b443fdeb5a6487d42aa9c55c6d8117002bf1709bd695d6c43ff",
           "captureKind": "visionos-simulator"
         }
       ]

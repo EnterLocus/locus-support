@@ -1,15 +1,4 @@
 {
   "formatVersion": 1,
-  "previews": [
-    {
-      "id": "space.japanese-courtyard-mansion",
-      "contentVersion": "1.0.4",
-      "appVersion": "1.4.4"
-    },
-    {
-      "id": "space.pacific-palapa-house",
-      "contentVersion": "1.0.4",
-      "appVersion": "1.4.4"
-    }
-  ]
+  "previews": []
 }
