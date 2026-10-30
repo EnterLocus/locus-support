@@ -14,6 +14,7 @@ import xml.etree.ElementTree as ET
 from localization import (LOCALES, TRANSLATED_LOCALES, ATTRIBUTE_NAMES, SKIPPED_TAGS,
                           VOID_TAGS, _ATTR_RE, _TAG_RE, _HTML_PART_RE, load_catalog,
                           has_translation, public_html_files, runtime_strings, translate)
+from render_gallery import build as build_gallery
 
 ROOT = Path(__file__).resolve().parents[1]
 OUTPUT = ROOT / '.site'
@@ -199,6 +200,7 @@ def build() -> None:
                 target.write_text(_translate_document(reference_source, reference, locale,
                                                       catalogs[locale]), encoding='utf-8')
     _build_sitemap()
+    build_gallery(ROOT, OUTPUT, catalogs, _translate_document)
 
 
 if __name__ == '__main__':

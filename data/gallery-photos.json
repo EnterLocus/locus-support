@@ -1,0 +1,2119 @@
+{
+  "formatVersion": 1,
+  "packages": [
+    {
+      "id": "destination.alien-desert-ringed-planet",
+      "contentVersion": "1.2.6",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-7bf6986111b1bd804e593007888e6422ba6a9d464f5d822d3ee258d607e9d035.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7bf6986111b1bd804e593007888e6422ba6a9d464f5d822d3ee258d607e9d035",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-907eca00f8dc2403810d72e4b954081e4727a35648145e1a8076fbdd835b6026.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "907eca00f8dc2403810d72e4b954081e4727a35648145e1a8076fbdd835b6026",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-7a0290a2a03fdb5d81046f4c62dd1649f6b04af6f33f66bf961bfd1ba10547ae.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7a0290a2a03fdb5d81046f4c62dd1649f6b04af6f33f66bf961bfd1ba10547ae",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.alien-twin-moon-coast",
+      "contentVersion": "1.0.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-625b7ea96091fdd8dbf9d177f8b017025e876dc176623af3d71e3e6c4db1e69e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "625b7ea96091fdd8dbf9d177f8b017025e876dc176623af3d71e3e6c4db1e69e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-72907a38768971acea5c9b0d65533ddf4eee227d3dae82f0b00f0b531fe4a01c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "72907a38768971acea5c9b0d65533ddf4eee227d3dae82f0b00f0b531fe4a01c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-033b6376fbce6537bc021e49f90b23c84f757fb5c1a0271b03f6838071dff5fa.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "033b6376fbce6537bc021e49f90b23c84f757fb5c1a0271b03f6838071dff5fa",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.amethyst-plains",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9b8a9535351b8b567162be5f1c1e836b8b8915f09be59dfe2def19226337d7af.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9b8a9535351b8b567162be5f1c1e836b8b8915f09be59dfe2def19226337d7af",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-09d9de0b789cda8b4d4e2f756d7ab63765a6f7358bb32796c500e7458a0109db.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "09d9de0b789cda8b4d4e2f756d7ab63765a6f7358bb32796c500e7458a0109db",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e5cfc2f94c00655e58c675d687661c5164f7eedf67c9f2356c4696c4523a2bea.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e5cfc2f94c00655e58c675d687661c5164f7eedf67c9f2356c4696c4523a2bea",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.aurora-black-ice-shore",
+      "contentVersion": "1.1.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-efc385a2681b225abf6db330db2a2cd7ecedec601c2b5a1cec231a349af92a9b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "efc385a2681b225abf6db330db2a2cd7ecedec601c2b5a1cec231a349af92a9b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-970fdf4c8c101a5e32e282a41f845a846666873ae0c7336885e06e6f94d25403.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "970fdf4c8c101a5e32e282a41f845a846666873ae0c7336885e06e6f94d25403",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-803c8d88c84e0cf74c567871098acda747aad286f87d041afd8412553c227531.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "803c8d88c84e0cf74c567871098acda747aad286f87d041afd8412553c227531",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.autumn-hill-view",
+      "contentVersion": "1.0.5",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-eed19dfe4fdb948475b147da447ba33a81961b5be4739662b42ae54ac617d236.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "eed19dfe4fdb948475b147da447ba33a81961b5be4739662b42ae54ac617d236",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-5f258490fdc70154ce58f5a28d6b6279e1dd1949074603e11eaba21828dabdc3.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5f258490fdc70154ce58f5a28d6b6279e1dd1949074603e11eaba21828dabdc3",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-8fb35120d51a2b83d839d0a87e87ea29fbefd2e0810c710e1d185e0348086e61.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "8fb35120d51a2b83d839d0a87e87ea29fbefd2e0810c710e1d185e0348086e61",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.autumn-river-valley",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-cd2875fda0af4b03f543a53faf329daaaf6be1a16093af4ce4084cb459f3277a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "cd2875fda0af4b03f543a53faf329daaaf6be1a16093af4ce4084cb459f3277a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-4a0ee7a44802c7b6695618d9061ff355c9d51d5d9737ccdb70d7a7cfd682983b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4a0ee7a44802c7b6695618d9061ff355c9d51d5d9737ccdb70d7a7cfd682983b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-7cc1a5320c5b6c0ab8e997c82be33870aa6786be31df64f1b7139fdebbdbfdd3.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7cc1a5320c5b6c0ab8e997c82be33870aa6786be31df64f1b7139fdebbdbfdd3",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.bioluminescent-mangrove-lagoon",
+      "contentVersion": "1.2.10",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-16f9b3383f911460052969370698605c79f13c211facf91ba3665511c8a1d5bc.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "16f9b3383f911460052969370698605c79f13c211facf91ba3665511c8a1d5bc",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f47971dee3c95f9533e4b87b7e201a443dbdb46fface89e04bd98c72f427fd61.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f47971dee3c95f9533e4b87b7e201a443dbdb46fface89e04bd98c72f427fd61",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-230e07f0bf526bc5e93e955977a18a6fba3e75118ba77a50e7e51856bebdbd31.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "230e07f0bf526bc5e93e955977a18a6fba3e75118ba77a50e7e51856bebdbd31",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.black-hole-hover",
+      "contentVersion": "1.0.8",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-b73c732f4aaceae940692680e9e2be5d3b2291e3b6c7ac2799619deb76dbd201.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b73c732f4aaceae940692680e9e2be5d3b2291e3b6c7ac2799619deb76dbd201",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e63b322460cc77f9281977d6a09fb56e200c1dcf074eb65725fbb586f705572e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e63b322460cc77f9281977d6a09fb56e200c1dcf074eb65725fbb586f705572e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-98eda7f74c0d43993a977609c269290fdd900a1699c1031b551f144edcc49da3.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "98eda7f74c0d43993a977609c269290fdd900a1699c1031b551f144edcc49da3",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.black-hole-ring",
+      "contentVersion": "1.0.6",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-056d07780fac2407772324d7124b17f9d9fcb3aa3e06520171d787dd6c57c04e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "056d07780fac2407772324d7124b17f9d9fcb3aa3e06520171d787dd6c57c04e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-961cacd5faf33e390acda7a8f06ad74541fa88ef98e7bbdf0274519053dcabc4.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "961cacd5faf33e390acda7a8f06ad74541fa88ef98e7bbdf0274519053dcabc4",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e666bddaac286de3aa58593bd54b99d4e02b9e3ec4b2f13ad894741611ecd72b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e666bddaac286de3aa58593bd54b99d4e02b9e3ec4b2f13ad894741611ecd72b",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.cloud-sea-level",
+      "contentVersion": "1.1.5",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-66f601768547f810a8101c1d96b7773433a2ea54242b75159ab951269339e225.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "66f601768547f810a8101c1d96b7773433a2ea54242b75159ab951269339e225",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-3e97792c4d2e33d15a64aba60299f63f224f086037859f0cccc5f45102c6de35.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3e97792c4d2e33d15a64aba60299f63f224f086037859f0cccc5f45102c6de35",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-995f7b67edc2f0379b9c246b2c05c94f5a46e89f4836886427faea51a7d6a2dd.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "995f7b67edc2f0379b9c246b2c05c94f5a46e89f4836886427faea51a7d6a2dd",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.cloud-sea-morning",
+      "contentVersion": "1.1.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-07f668b7bc06c7d8dfe44d7d6b1e24fc43d3c5858dd743308235e4f047437dc3.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "07f668b7bc06c7d8dfe44d7d6b1e24fc43d3c5858dd743308235e4f047437dc3",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f875e3a9e186fd5cc028ccce787deb7e0d3e4962b7f244993cb47cf0aded4080.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f875e3a9e186fd5cc028ccce787deb7e0d3e4962b7f244993cb47cf0aded4080",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ba3691cd6be5e6f19e24eab09d39a637f9184e5f6952711f62630cb20cde8f70.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ba3691cd6be5e6f19e24eab09d39a637f9184e5f6952711f62630cb20cde8f70",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.deep-night-future-city",
+      "contentVersion": "1.0.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-601299a9b35de771c6b19f61264dbb01a1cfe2b421408f807836f003f790d69f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "601299a9b35de771c6b19f61264dbb01a1cfe2b421408f807836f003f790d69f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-72ee11d1a52eecd446368af57e93219485c9fff949db15931d5d13cca77f58ba.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "72ee11d1a52eecd446368af57e93219485c9fff949db15931d5d13cca77f58ba",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c46036d3656e58753776bdcd7b48a9736a63d21b03a4c1430d7a5a08de0b2801.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c46036d3656e58753776bdcd7b48a9736a63d21b03a4c1430d7a5a08de0b2801",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.desert-canyon-oasis",
+      "contentVersion": "1.10.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-976287d9b689475517e509b5fba93b1f9a9c3a8f08fd3f7cbe5f55c780eef75f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "976287d9b689475517e509b5fba93b1f9a9c3a8f08fd3f7cbe5f55c780eef75f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c06c4836f2fca9046a953fc990fb0b3969c1c6963e9cfc1804b1bf70ec9e8fe4.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c06c4836f2fca9046a953fc990fb0b3969c1c6963e9cfc1804b1bf70ec9e8fe4",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6483b5911246c00883ca889ea864b96fe1cd5bc5806cb8b5ad6345d18707747d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6483b5911246c00883ca889ea864b96fe1cd5bc5806cb8b5ad6345d18707747d",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.desolation-canyon",
+      "contentVersion": "1.0.5",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-d2913d6c9cde7a5e4a51dd466aa2709cbb49f7ad60b16e4b252bc4240bfed072.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d2913d6c9cde7a5e4a51dd466aa2709cbb49f7ad60b16e4b252bc4240bfed072",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-1115496b43c63117a9e23b497c5ef5e587b38f6d6d42fbfabddbc48762d49268.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1115496b43c63117a9e23b497c5ef5e587b38f6d6d42fbfabddbc48762d49268",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-de691906af660ff2975badfb82303dc50b79081184a6a8137440a66e54e192bb.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "de691906af660ff2975badfb82303dc50b79081184a6a8137440a66e54e192bb",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.dusk-mountain",
+      "contentVersion": "1.0.2",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9bac8a42660ebb9303765de98f78f3438160f32f9cdd7f4acebb4b5531302882.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9bac8a42660ebb9303765de98f78f3438160f32f9cdd7f4acebb4b5531302882",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-0b9bef71b050ee92ae935bcbef2c1ecad9b6aa6eccda2f8cb77ed9bb140365db.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0b9bef71b050ee92ae935bcbef2c1ecad9b6aa6eccda2f8cb77ed9bb140365db",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-34baf4ce8b3edb5fe6a5e17d7fac03f9049268abef3681fb3b45ae00c772de02.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "34baf4ce8b3edb5fe6a5e17d7fac03f9049268abef3681fb3b45ae00c772de02",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.earth-from-space",
+      "contentVersion": "1.1.7",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-663aec49652a4a6f991a904a8f3d6445ad0645f1dec905506b6125b8e33123f6.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "663aec49652a4a6f991a904a8f3d6445ad0645f1dec905506b6125b8e33123f6",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-731a6513dd2e0cdc52f7f3a1ce9b7815018b883adbd07697cf7004f82becc46f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "731a6513dd2e0cdc52f7f3a1ce9b7815018b883adbd07697cf7004f82becc46f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-4026b30f5d93ae4cd8b21536aca06179ccafdd8d3bd68088036d36136149acde.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4026b30f5d93ae4cd8b21536aca06179ccafdd8d3bd68088036d36136149acde",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.emerald-grotto",
+      "contentVersion": "1.8.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-44f554dad22872b4bc107c178b26753bbff18d01366a6a0df7b7edfa0d7c2e50.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "44f554dad22872b4bc107c178b26753bbff18d01366a6a0df7b7edfa0d7c2e50",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-9b43688a6ee55939f7e66a0dcc7c2ccee2ad19105dd648d9d9ecefbc5ef7b9f8.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9b43688a6ee55939f7e66a0dcc7c2ccee2ad19105dd648d9d9ecefbc5ef7b9f8",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-13e8af1445601021758cbb6c6f99fe1a75862400376cc7de753c608f45a5bb6f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "13e8af1445601021758cbb6c6f99fe1a75862400376cc7de753c608f45a5bb6f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.evergreen-summit-skybox",
+      "contentVersion": "1.0.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-e728056de7b7ba8743a6710b708fb9e01e649a92b70484106a914e2b2adf0dbe.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e728056de7b7ba8743a6710b708fb9e01e649a92b70484106a914e2b2adf0dbe",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-92f4f289491f4c30a6f19381e6ffbb2df391b5a3c04b0a5e8539c83ff52c7480.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "92f4f289491f4c30a6f19381e6ffbb2df391b5a3c04b0a5e8539c83ff52c7480",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ff3a74654870ece6a917c702d2cb14bcf13c58d8002ae0aabe0b2723251bd4e0.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ff3a74654870ece6a917c702d2cb14bcf13c58d8002ae0aabe0b2723251bd4e0",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.floating-coastal-cliff",
+      "contentVersion": "1.2.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-b52f12425fe8e8f9e52e6fac23ef27f780edae50bb67ea77a5e98c2eb5d3a5db.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b52f12425fe8e8f9e52e6fac23ef27f780edae50bb67ea77a5e98c2eb5d3a5db",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-40e9a5cd94a61a1dfbfb7dc8efb641269a564f8bdf1c61239eedc6fbfd6feb55.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "40e9a5cd94a61a1dfbfb7dc8efb641269a564f8bdf1c61239eedc6fbfd6feb55",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f5b2a8e54e30395a93adc021be6305f64bc230f09acb44b24e6f7706ca7c2c86.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f5b2a8e54e30395a93adc021be6305f64bc230f09acb44b24e6f7706ca7c2c86",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.floating-islands-cloud-waterfalls",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-522009a02d105bc23fe1a41250b8c4c741effe9cb9cb48b72468a3454fd2663a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "522009a02d105bc23fe1a41250b8c4c741effe9cb9cb48b72468a3454fd2663a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-55910f8ce1f457cc0812a72978e7e2fa060e79611d828161e2a7eb8cba750852.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "55910f8ce1f457cc0812a72978e7e2fa060e79611d828161e2a7eb8cba750852",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ed2e8f65e5c039df247c904da4827a7926e4a695bdef931a4ce91479455633c8.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ed2e8f65e5c039df247c904da4827a7926e4a695bdef931a4ce91479455633c8",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.fouriesburg-mountain-midday",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-ca099fa9017ba0692e0ff5b291214675a70a0abe5d6f5c4d57fa99acdb29050d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ca099fa9017ba0692e0ff5b291214675a70a0abe5d6f5c4d57fa99acdb29050d",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-31486522b507214c7d3aaacb2efe4efa0f874463a523a0185b4820073ca6cdf6.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "31486522b507214c7d3aaacb2efe4efa0f874463a523a0185b4820073ca6cdf6",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-9b714b66559818f77afc37886ff373f92dea099e32f65529a71d6a33458a07c1.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9b714b66559818f77afc37886ff373f92dea099e32f65529a71d6a33458a07c1",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.galactic-ledge",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-c6d165c7ab7af41000da7a65afdf6b9f31c44a1cad564f3b44849b0984011a34.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c6d165c7ab7af41000da7a65afdf6b9f31c44a1cad564f3b44849b0984011a34",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f69fdf120d985f71bb0555cb589f39b0c5a8d441626cd3acd903bd75c7583747.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f69fdf120d985f71bb0555cb589f39b0c5a8d441626cd3acd903bd75c7583747",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-d435c02792228d03301fa571825a88211d79dec975548fb1c4f0f06601f79506.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d435c02792228d03301fa571825a88211d79dec975548fb1c4f0f06601f79506",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.giant-waterfall-valley",
+      "contentVersion": "1.1.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-b594fe66ea35f00b1812a825977d8a3b7ef361b9cfd7d81f1a2d59f968e8801b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b594fe66ea35f00b1812a825977d8a3b7ef361b9cfd7d81f1a2d59f968e8801b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-7c7b32eb1b14f7d76be52889093b647140c6811d8be7275065403702a2574e1c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7c7b32eb1b14f7d76be52889093b647140c6811d8be7275065403702a2574e1c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6fc90c50defd40426304434e072a05a0a0f584312175de041b8f53b0fcafebf7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6fc90c50defd40426304434e072a05a0a0f584312175de041b8f53b0fcafebf7",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.glacier-isles",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-696a350e3a0578523629e4987dacb081a0cd8249b0badd00738ffd01028ba16d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "696a350e3a0578523629e4987dacb081a0cd8249b0badd00738ffd01028ba16d",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-64017dd03a265da8240e61ebdc4f1596fb428855e27616cdf9c0931a22549f0f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "64017dd03a265da8240e61ebdc4f1596fb428855e27616cdf9c0931a22549f0f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-33feab67b3ffed717226f1ad5d8797b0e7c8d4ec1c72eaac5d443ea7e6684291.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "33feab67b3ffed717226f1ad5d8797b0e7c8d4ec1c72eaac5d443ea7e6684291",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.golden-gate-hills",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-bc240aafd96ba97dd709c475c42daa3d67922e842f2fef80e5b8135107355ad9.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "bc240aafd96ba97dd709c475c42daa3d67922e842f2fef80e5b8135107355ad9",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-37e3e0b3b5572025433fc59acf7c8049196d583d7c469dda8c9dcb43e5d349c1.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "37e3e0b3b5572025433fc59acf7c8049196d583d7c469dda8c9dcb43e5d349c1",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e07f185a21e96fc79e4c108201d081148858d1a20f7d935ea53bf4fe98a8c143.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e07f185a21e96fc79e4c108201d081148858d1a20f7d935ea53bf4fe98a8c143",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.graniteperch",
+      "contentVersion": "1.0.13",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-e95018cb8bc372404c432db5a118f118ba9c024bbec183bb0c85c24ef69fb22e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e95018cb8bc372404c432db5a118f118ba9c024bbec183bb0c85c24ef69fb22e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-d5eb675e7bc40138fb67b859b10f6f99ed5e71019bcee405665776136897bce0.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d5eb675e7bc40138fb67b859b10f6f99ed5e71019bcee405665776136897bce0",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-1984877511eeafa2ce207c602e1cbd1c5df58f978a8780442f9cfe2cfc4f0630.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1984877511eeafa2ce207c602e1cbd1c5df58f978a8780442f9cfe2cfc4f0630",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.illustrated-harbor",
+      "contentVersion": "1.0.9",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-7eb371f7b62857c5237c17748b30d91666598279fb8953360fcd51f04043b554.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7eb371f7b62857c5237c17748b30d91666598279fb8953360fcd51f04043b554",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f3df761e797b44b124b5f8756a087201baf9bc4d36ae9da57ce6250cd879e389.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f3df761e797b44b124b5f8756a087201baf9bc4d36ae9da57ce6250cd879e389",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e3cc0117ee762fd7ef5ddefadb880c876877e0d206b8be99fe77e0359bd520f0.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e3cc0117ee762fd7ef5ddefadb880c876877e0d206b8be99fe77e0359bd520f0",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.jupiter-from-space",
+      "contentVersion": "1.0.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-24867f9d461f907a15f50e93a733a33016cca189d57df3096409e29013906c3c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "24867f9d461f907a15f50e93a733a33016cca189d57df3096409e29013906c3c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-d97266adb817e230c7cee824f1909a308f5209f074d49a7bddbfa13b5d1e034e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d97266adb817e230c7cee824f1909a308f5209f074d49a7bddbfa13b5d1e034e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-5f31caec4694006eccf1e2a32e50b00cf3c22ff6e13c458013765b50d4ba4f40.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5f31caec4694006eccf1e2a32e50b00cf3c22ff6e13c458013765b50d4ba4f40",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.lakeshore-water-lab",
+      "contentVersion": "1.4.8",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-1dba06b5920aec7d8caeb3333aec2a4e0e2aa0e3c6a39421c852f37448c373fb.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1dba06b5920aec7d8caeb3333aec2a4e0e2aa0e3c6a39421c852f37448c373fb",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e66a53811a5464f8cfb96c4b22a342227d633d4624d86b6ef27af9aaa380f3c6.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e66a53811a5464f8cfb96c4b22a342227d633d4624d86b6ef27af9aaa380f3c6",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-60117b0d56e56c39cd136733880dbf860a57fee0203887de7ecb989bd93fb88f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "60117b0d56e56c39cd136733880dbf860a57fee0203887de7ecb989bd93fb88f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.lakeside-sunrise",
+      "contentVersion": "1.1.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-5a9abcaea8e2bc141d8885f1cb0f6d6e77c0d468348f5b813361f6810bf8b702.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5a9abcaea8e2bc141d8885f1cb0f6d6e77c0d468348f5b813361f6810bf8b702",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c6735827b8a64e758d3de0e37c172d381c9c2b480840664c0e6d3f47db273e47.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c6735827b8a64e758d3de0e37c172d381c9c2b480840664c0e6d3f47db273e47",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-753321e65b0163f86ac2437564e701ed21683f7cfd44205c3d381986aaa66cfa.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "753321e65b0163f86ac2437564e701ed21683f7cfd44205c3d381986aaa66cfa",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.low-orbit-earth",
+      "contentVersion": "2.1.2",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-da498ff9025456141cf3fd9401ba59bf19f30779ee4071ba8413d296d7a19294.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "da498ff9025456141cf3fd9401ba59bf19f30779ee4071ba8413d296d7a19294",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-0707d336f693bbdf64a8ef0f1a569ac6885749f3392759d8f3e7b94634c2c885.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0707d336f693bbdf64a8ef0f1a569ac6885749f3392759d8f3e7b94634c2c885",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-81a5d6306ca56ea45e58c4763410f3403b81d419e5d11f44cbcb0cec8e9fc30e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "81a5d6306ca56ea45e58c4763410f3403b81d419e5d11f44cbcb0cec8e9fc30e",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.mars-from-space",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-5240b1fe0e5d7186769be600de8179df6f37380cfd2925f6ed0d40b2c28daabc.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5240b1fe0e5d7186769be600de8179df6f37380cfd2925f6ed0d40b2c28daabc",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6aa6eae60687ea76e76b6170eec816e8cdcce6a6d8b86d20618baab7ba476fec.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6aa6eae60687ea76e76b6170eec816e8cdcce6a6d8b86d20618baab7ba476fec",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-15303e35991900a6443d99dd358707ca5d9778256abfb6f4d1906fd8ac5ef74d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "15303e35991900a6443d99dd358707ca5d9778256abfb6f4d1906fd8ac5ef74d",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.milky-way-alpine-lake",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-d8d326a42fd405bf9a137190fb3a501fe9ace0fb1cd8e603a5b5e48019e0f7c5.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d8d326a42fd405bf9a137190fb3a501fe9ace0fb1cd8e603a5b5e48019e0f7c5",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-2d2b144012c5ff4567b8c89f625f19d6c2425e83dd5bd96891f0ea9cc9fa3caf.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "2d2b144012c5ff4567b8c89f625f19d6c2425e83dd5bd96891f0ea9cc9fa3caf",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-9594811eddd5042f648129907a169dd8ccde84fadcdbbf43ab23fe91198f5cea.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9594811eddd5042f648129907a169dd8ccde84fadcdbbf43ab23fe91198f5cea",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.milky-way-rocklands",
+      "contentVersion": "1.0.6",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-4d1df7690aa77467ff2f5e67d024e38094433d87054b118c925ede667e993e79.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4d1df7690aa77467ff2f5e67d024e38094433d87054b118c925ede667e993e79",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f4332d44f2f5ee41b94fe5810a89817adab445027916e7b4f0248d62affdd59d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f4332d44f2f5ee41b94fe5810a89817adab445027916e7b4f0248d62affdd59d",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-554f8c54e15d75c4dc8ad08b063365028ccc7b0dec0d592771c0b63f02c5ef00.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "554f8c54e15d75c4dc8ad08b063365028ccc7b0dec0d592771c0b63f02c5ef00",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.moon-from-space",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-112ab37149392f5d959605c6a81df6188d9a3312caf05d9ffc503e6f7456dc3e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "112ab37149392f5d959605c6a81df6188d9a3312caf05d9ffc503e6f7456dc3e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-2c614cb06ed296d525ee303f21de13c6f55215e5028915c15dfad24b59d038f8.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "2c614cb06ed296d525ee303f21de13c6f55215e5028915c15dfad24b59d038f8",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6fb29f536f364f95fabf092f4e885aa608d06a0a27aa0a5d6479158bf9663f2a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6fb29f536f364f95fabf092f4e885aa608d06a0a27aa0a5d6479158bf9663f2a",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.moonlit-citadel",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-23e8e99cac865913896afea85e9a73830cac2cc31ab0db7ed740b4d34635d4ed.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "23e8e99cac865913896afea85e9a73830cac2cc31ab0db7ed740b4d34635d4ed",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-0d4b719d5ba3853b2a10a48f299591e52b7f3eaaf079a8aa10c38a8c60aa7850.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0d4b719d5ba3853b2a10a48f299591e52b7f3eaaf079a8aa10c38a8c60aa7850",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-63345b0bad4bd5be8e2e82d21c870d13d8bb5094da41bc62062ab5d371ae770f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "63345b0bad4bd5be8e2e82d21c870d13d8bb5094da41bc62062ab5d371ae770f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.moonlit-silvergrass-ridge",
+      "contentVersion": "1.0.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-142981e81739c8e011baf569744e95126d5d203ba9cd54a5a9c0271718ff6280.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "142981e81739c8e011baf569744e95126d5d203ba9cd54a5a9c0271718ff6280",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f59b68e8266c1c0509acee4b0584710fef73a0accc49ff8c00f5d5a87efc7c9d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f59b68e8266c1c0509acee4b0584710fef73a0accc49ff8c00f5d5a87efc7c9d",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-324849fe90e69b5c288937bdaed5bd8d8079a3d233572c9a12bf92a1ca7f9599.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "324849fe90e69b5c288937bdaed5bd8d8079a3d233572c9a12bf92a1ca7f9599",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.moonlit-volcanic-lake",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-cc2ef18cf546bcb8db2b8945100d6f42f992cb25047115eb60fe071529a6395a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "cc2ef18cf546bcb8db2b8945100d6f42f992cb25047115eb60fe071529a6395a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e0bc4c5aa3f68ee79594eaf2d849bfde33089555e26cc503b4370741fec7553f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e0bc4c5aa3f68ee79594eaf2d849bfde33089555e26cc503b4370741fec7553f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-8c57bfcb6f7b022ac62084652ec943c79087b13afad4e1675d1d2f7ea8277fcc.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "8c57bfcb6f7b022ac62084652ec943c79087b13afad4e1675d1d2f7ea8277fcc",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.neptune-from-space",
+      "contentVersion": "1.0.2",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-b264b12c7cc3882dccc6e3815c5c38c8da8cf1bf7b874056dda6d76dd29ae622.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b264b12c7cc3882dccc6e3815c5c38c8da8cf1bf7b874056dda6d76dd29ae622",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-4d40513ac72a0f350e9e6644a1456a6e1d607a42d7e196dcfe1779dfe2e487b6.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4d40513ac72a0f350e9e6644a1456a6e1d607a42d7e196dcfe1779dfe2e487b6",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-4c631fb1df319129466baa74be9fec6d6788283b160d33f8c49089c7a191ace0.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4c631fb1df319129466baa74be9fec6d6788283b160d33f8c49089c7a191ace0",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.pine-valley",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-036d409d9188ce87d37da247ee1c6c9ea5df6996658ead1d0a91ada02e36511d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "036d409d9188ce87d37da247ee1c6c9ea5df6996658ead1d0a91ada02e36511d",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-bf0d14181c37be5ee6e6c8f7e2f528b9304a931afb8f88625b4238804144b12f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "bf0d14181c37be5ee6e6c8f7e2f528b9304a931afb8f88625b4238804144b12f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ecace55cf3b0ac38e2547035f0eef6c1a5e270d760198443ff78d0f785b58c67.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ecace55cf3b0ac38e2547035f0eef6c1a5e270d760198443ff78d0f785b58c67",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.rainwashed-terraces",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-82bbb4e631d3e2636ad3a69ddeec9c589b99f72ae1265d0a2846ad1280362623.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "82bbb4e631d3e2636ad3a69ddeec9c589b99f72ae1265d0a2846ad1280362623",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-817aa0d20ab4392905a1e3c8d907d9ff13fc7987787f60c03123b1c11dd211a7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "817aa0d20ab4392905a1e3c8d907d9ff13fc7987787f60c03123b1c11dd211a7",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-26b60331620a55f7b5996eebf25df4d5e12ef1f898c4be82b8eab9e2ce186841.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "26b60331620a55f7b5996eebf25df4d5e12ef1f898c4be82b8eab9e2ce186841",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.redrock-arch",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-ef7a81dcf6535a755772e7095a682e83ed75cd349d74e00b7a39b6898122e11f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ef7a81dcf6535a755772e7095a682e83ed75cd349d74e00b7a39b6898122e11f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c9751368afbf2f7af2106b6419b78a2f1c7d1cdf3f5c1e78be9dececbf9648c2.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c9751368afbf2f7af2106b6419b78a2f1c7d1cdf3f5c1e78be9dececbf9648c2",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-766de1ad2f58cf742b91620b883bd70d0e97cc88943b8f86aa0078c2bee50626.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "766de1ad2f58cf742b91620b883bd70d0e97cc88943b8f86aa0078c2bee50626",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.saturn-from-space",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-99a35233151f89364d98b377f1f4ad9f2cd5d7f5022f44190835c8cd34f84e2d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "99a35233151f89364d98b377f1f4ad9f2cd5d7f5022f44190835c8cd34f84e2d",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-953c3bf1813931bb48dc2663f1deb00a6826e0812a9390f0e6dbf098551286df.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "953c3bf1813931bb48dc2663f1deb00a6826e0812a9390f0e6dbf098551286df",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-203e6ef7bd888fe432293a1e2804bbfc7f53b9e2273797a4c0c66f07f26e7e1d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "203e6ef7bd888fe432293a1e2804bbfc7f53b9e2273797a4c0c66f07f26e7e1d",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.shadowed-forest",
+      "contentVersion": "1.1.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-deee62c920f9e48e0fa6d1ecfe8b20a026ea3cc909ab10d3ea55a2dc637542f8.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "deee62c920f9e48e0fa6d1ecfe8b20a026ea3cc909ab10d3ea55a2dc637542f8",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-548dd1ac4a3d23496f0b3804dd84a2c1721f6321fe454022c4b3383cde8c6f42.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "548dd1ac4a3d23496f0b3804dd84a2c1721f6321fe454022c4b3383cde8c6f42",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-7f959127062bb5d7359c8a66f5c4e6b348330390da475dddbb00aaf9bea4cb0e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7f959127062bb5d7359c8a66f5c4e6b348330390da475dddbb00aaf9bea4cb0e",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.silverpine-night-lake",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-ab0be79b60e914dc4d231c6f4c51033be5b467945ce4118a2af17cbc22bc09bd.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ab0be79b60e914dc4d231c6f4c51033be5b467945ce4118a2af17cbc22bc09bd",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-5df37fece7cef5d1b0cf06a739a135d513599f0f49450c30a3355326190549bb.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5df37fece7cef5d1b0cf06a739a135d513599f0f49450c30a3355326190549bb",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-8e06dab1abd52d0942d38185458d40221d76c313ee8d5fdd6b3a8386c7be6ab2.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "8e06dab1abd52d0942d38185458d40221d76c313ee8d5fdd6b3a8386c7be6ab2",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.snowbound-forest-paths",
+      "contentVersion": "1.1.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-43d7164c5e1c641ca4402201bf019b3a17701497ed0dcb7cb958a4f99f0d8c44.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "43d7164c5e1c641ca4402201bf019b3a17701497ed0dcb7cb958a4f99f0d8c44",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-8fba9ce52e3aae940202daf9208b5ccbd313d41257796a5581397dcae472939a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "8fba9ce52e3aae940202daf9208b5ccbd313d41257796a5581397dcae472939a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-1502c0f0bfc03050da82f66b7040faed2b28dfdb7734bfc4f988c3b4bba4cb6a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1502c0f0bfc03050da82f66b7040faed2b28dfdb7734bfc4f988c3b4bba4cb6a",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.snowpeak-hot-springs",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-328989b6a3a0b47c00ecf0ec2557fa1be8b465dceb88a51009221ee6b8b073d6.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "328989b6a3a0b47c00ecf0ec2557fa1be8b465dceb88a51009221ee6b8b073d6",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-0161cc99e5c3fd925c6a40d38a0a9c114441973a772a4c62725db57a61a432c2.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0161cc99e5c3fd925c6a40d38a0a9c114441973a772a4c62725db57a61a432c2",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-35ffcba4d53576877bb2e8c0ec31d71bb4042fce5a8e222b5a4e8c0a04ae7c7f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "35ffcba4d53576877bb2e8c0ec31d71bb4042fce5a8e222b5a4e8c0a04ae7c7f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.spruit-sunrise",
+      "contentVersion": "1.0.5",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9c7e9167071136efb0f1644ceed4515a71dc84103f35670970f8f637dbddb949.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9c7e9167071136efb0f1644ceed4515a71dc84103f35670970f8f637dbddb949",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-fb3eeb6047a0251a17e9bee0ff792736b0d1acd7ff0e9f3c794d767c08b28226.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "fb3eeb6047a0251a17e9bee0ff792736b0d1acd7ff0e9f3c794d767c08b28226",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-797ccdfccaffdaad8e27520042b4dcf6d32013a8f1405d72728d14ae9cfea5b4.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "797ccdfccaffdaad8e27520042b4dcf6d32013a8f1405d72728d14ae9cfea5b4",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.sunken-forest",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-d1b1b7e373b6ab7c9730cae1b192e4ae503996187764acfcd59bd59821a6e30d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d1b1b7e373b6ab7c9730cae1b192e4ae503996187764acfcd59bd59821a6e30d",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-d16ac2609ef7597b9b4df8188f750e06c5db951adcbc93a213aca7af89d8d84b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d16ac2609ef7597b9b4df8188f750e06c5db951adcbc93a213aca7af89d8d84b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-cd742b05eabc0c5f2d32543d252074407e467a613586f5e4e7b2c3532bfcefdc.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "cd742b05eabc0c5f2d32543d252074407e467a613586f5e4e7b2c3532bfcefdc",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.sunlit-cloud-walkway",
+      "contentVersion": "1.4.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-a9adc7b46e0423bf3036924653ce94e8a621b49c83d1d9937ddbfa45aa33c0e7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "a9adc7b46e0423bf3036924653ce94e8a621b49c83d1d9937ddbfa45aa33c0e7",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f20891b4b89f199e2cefa6525dbd23455a8fb444c272666e731a7e461e541199.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f20891b4b89f199e2cefa6525dbd23455a8fb444c272666e731a7e461e541199",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-fcef653a1503560dbfad9b78c8ee3d447c392c33a9b29a32fe979dd20ac98a7b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "fcef653a1503560dbfad9b78c8ee3d447c392c33a9b29a32fe979dd20ac98a7b",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.tokyo-night-overlook",
+      "contentVersion": "1.1.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-79d1eb77e5198a378ab22e7d163a350dcd02b896b3986eb036824a184a4c9947.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "79d1eb77e5198a378ab22e7d163a350dcd02b896b3986eb036824a184a4c9947",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6a8ab280c017e7442aa69fe8d6535deccdd695a9eb7b3091b8d31c5ccf3b784f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6a8ab280c017e7442aa69fe8d6535deccdd695a9eb7b3091b8d31c5ccf3b784f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-5ac209f303c0413ab99def9606422a5125301c1561e701dff060c579792ffa24.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5ac209f303c0413ab99def9606422a5125301c1561e701dff060c579792ffa24",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.toposcope-sunset",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-0705b46d2a13a42190da71d48fb07415a7915c259d549a023e5ffda6e1a2afaf.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0705b46d2a13a42190da71d48fb07415a7915c259d549a023e5ffda6e1a2afaf",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-660fd3b509138ca69ea908af897400071b3f0abc628dde15acdc81ca211c96d6.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "660fd3b509138ca69ea908af897400071b3f0abc628dde15acdc81ca211c96d6",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-5e536ede7e9dab8ab8bea88e157e43d51cf0ded697161f5c4995326be9b5d153.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5e536ede7e9dab8ab8bea88e157e43d51cf0ded697161f5c4995326be9b5d153",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.tropical-shallow-bay",
+      "contentVersion": "1.0.13",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-354236f44544533514930757b031720954c5d05c275aecc66a297a0791b0c939.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "354236f44544533514930757b031720954c5d05c275aecc66a297a0791b0c939",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-69c86fcbd9612b2666882440e63d56d2323b8e47f6dd21fba24b0cf09b423610.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "69c86fcbd9612b2666882440e63d56d2323b8e47f6dd21fba24b0cf09b423610",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-cdc0cdcde8cd8a7058370a02d91c91b72cec1831ddbe84cf72f63328d1a5acec.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "cdc0cdcde8cd8a7058370a02d91c91b72cec1831ddbe84cf72f63328d1a5acec",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.white-sand-atoll",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-ac6c0b6ec771467bdfcdfb2b0f3407d2af73977187fc1f0f0e81f829330d8186.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ac6c0b6ec771467bdfcdfb2b0f3407d2af73977187fc1f0f0e81f829330d8186",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6f419f178a47eeb37d8b303e8bc139ce918562fbbf6d6e842836c2ed6223517f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6f419f178a47eeb37d8b303e8bc139ce918562fbbf6d6e842836c2ed6223517f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-3bdbecf4b7a711260c82db12e4742b75244fe4e7506a27fb2eb0029a62113aef.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3bdbecf4b7a711260c82db12e4742b75244fe4e7506a27fb2eb0029a62113aef",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.winter-lake-lights",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-ca304072dcad19a44c9165cb5a8bc629b783ccb620cf71a8d76a51825666de2c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ca304072dcad19a44c9165cb5a8bc629b783ccb620cf71a8d76a51825666de2c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-5883eab24ad3fc7ad0f8e31d113c07e6936e19b339627f9acf55e747a57d0b56.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5883eab24ad3fc7ad0f8e31d113c07e6936e19b339627f9acf55e747a57d0b56",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-2bc6dcd918cabd717f7989086a5eaee95494758fffb3ee6b80b4d88f6173a762.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "2bc6dcd918cabd717f7989086a5eaee95494758fffb3ee6b80b4d88f6173a762",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "destination.winter-valley-lights",
+      "contentVersion": "1.0.1",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-dc04b88017d40cb8e3b34c4d89f12a70f279f624855b4d75bb511eff3d4bd88f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "dc04b88017d40cb8e3b34c4d89f12a70f279f624855b4d75bb511eff3d4bd88f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-27fbcdf7cc892d6d1677ef152add86e4181ff6d057fc8ac46a31b7cf9177bfbf.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "27fbcdf7cc892d6d1677ef152add86e4181ff6d057fc8ac46a31b7cf9177bfbf",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ca5b434a27e7409cd6558d6dca72e30ef62cd13510f27a051a612b55c91e77d4.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ca5b434a27e7409cd6558d6dca72e30ef62cd13510f27a051a612b55c91e77d4",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.aegean-terrace-estate",
+      "contentVersion": "1.0.3",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-5652388033100fe070a56cf8edcf12660b042ba924280506eadceeb0dbf4e36c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5652388033100fe070a56cf8edcf12660b042ba924280506eadceeb0dbf4e36c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c9cba28bb6d2374ef9b0ca40a0c22a8ced1d942bf6ba8212c6420a37c1681432.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c9cba28bb6d2374ef9b0ca40a0c22a8ced1d942bf6ba8212c6420a37c1681432",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-b59c8ea1c66a855b25efb2da102b3975d5e8830275010097be24174d80936c32.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b59c8ea1c66a855b25efb2da102b3975d5e8830275010097be24174d80936c32",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.atrium-loft",
+      "contentVersion": "1.0.22",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-e55429643a4dfb59f5c77db0a267f10f2041ab022986311e129d15530370f3ef.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e55429643a4dfb59f5c77db0a267f10f2041ab022986311e129d15530370f3ef",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-dd4a8813e458e92b5288e35a00b4b84ccec33b77cc6020cc553867a583636af8.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "dd4a8813e458e92b5288e35a00b4b84ccec33b77cc6020cc553867a583636af8",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-2682502f7de7550e21c81a0b89bb8993d53f410503ec67826e1d151df900ea94.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "2682502f7de7550e21c81a0b89bb8993d53f410503ec67826e1d151df900ea94",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.cloud-fan-pavilion",
+      "contentVersion": "1.0.9",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-e468d13f334a8b8c3f72f10b5ed118aa38d6f99ca541ff8a196f78ee03f2b329.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e468d13f334a8b8c3f72f10b5ed118aa38d6f99ca541ff8a196f78ee03f2b329",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-d2bda21ca459af70b0e0eb39c4f5a52f4ffb718e9dc9e739fcbd517f4ba4a8d8.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d2bda21ca459af70b0e0eb39c4f5a52f4ffb718e9dc9e739fcbd517f4ba4a8d8",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-86c499c09401c79b91a34e62113cfd7f6763dd7d38bca3a681d9ab5aab43a1ff.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "86c499c09401c79b91a34e62113cfd7f6763dd7d38bca3a681d9ab5aab43a1ff",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.cloudvault-retreat",
+      "contentVersion": "1.0.6",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-d4adc6f86b8f8666e5c9038392bc2ec7703f5091343259f8db7712001ed1f051.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d4adc6f86b8f8666e5c9038392bc2ec7703f5091343259f8db7712001ed1f051",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-e246a1198e53124e2eed99f581be76a5ff81b4d4e5a94094a2cc297039da225d.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e246a1198e53124e2eed99f581be76a5ff81b4d4e5a94094a2cc297039da225d",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f616c63385c912379c4ed55a04f9575ccd8854c47130bee1d414c5e85b737c53.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f616c63385c912379c4ed55a04f9575ccd8854c47130bee1d414c5e85b737c53",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.courtyard-gallery",
+      "contentVersion": "1.0.22",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-10793c6113d401ac0834281765107e36b7b1342039a6183481fc5fcf497cb985.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "10793c6113d401ac0834281765107e36b7b1342039a6183481fc5fcf497cb985",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-7f29729c2d70cdb8e9fa7f2825ef0934f23ab783bfedeae0f581f9a2b49386f1.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7f29729c2d70cdb8e9fa7f2825ef0934f23ab783bfedeae0f581f9a2b49386f1",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-948c9ae5d096b5c2baf9950ca4c86ad040d1b14b3e8e55032a4179b70abc0026.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "948c9ae5d096b5c2baf9950ca4c86ad040d1b14b3e8e55032a4179b70abc0026",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.free-capsule",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-0bad764425de0f3a127038cd5141e3b9dc68184cf793a5155fc9377005192ece.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0bad764425de0f3a127038cd5141e3b9dc68184cf793a5155fc9377005192ece",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-3fe62f1f70af6066b1515ac58ef38b685c884451088d866e5c6ea35f21924003.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3fe62f1f70af6066b1515ac58ef38b685c884451088d866e5c6ea35f21924003",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-9eea6815254041e9af418b68943af101439c8567dcf8782771981eee301b246f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9eea6815254041e9af418b68943af101439c8567dcf8782771981eee301b246f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.hilltop-villa",
+      "contentVersion": "1.0.5",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9aba23d5af809642929095e2d62ab1e696cfc9a6456316e351aa51017b69b30a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9aba23d5af809642929095e2d62ab1e696cfc9a6456316e351aa51017b69b30a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6d538cf986120239b196e483a4bcbff9b478844f84bd491e8c419ada1dbb5157.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6d538cf986120239b196e483a4bcbff9b478844f84bd491e8c419ada1dbb5157",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ef217562a5decd6f62a8a570b08797b4ad8e5369f8701320d3cb8ed84b9f1440.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ef217562a5decd6f62a8a570b08797b4ad8e5369f8701320d3cb8ed84b9f1440",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.horizon-atelier",
+      "contentVersion": "1.0.27",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-99bb275c58d1387d4e3e545a13c0a78bf008421755f03d915893987c196ed9f7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "99bb275c58d1387d4e3e545a13c0a78bf008421755f03d915893987c196ed9f7",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-1dcc21e8665f07907b74c165d0e8dd3f6f5aa212c94153277c8579817e714c6f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1dcc21e8665f07907b74c165d0e8dd3f6f5aa212c94153277c8579817e714c6f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-928460ccd3bec91070697615cbadb40b710c6327742eb971224bb0718b677e90.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "928460ccd3bec91070697615cbadb40b710c6327742eb971224bb0718b677e90",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-42b17209004eeaf1dcffe6547aed30f476b4292977f929b764d187a620b3d41f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "42b17209004eeaf1dcffe6547aed30f476b4292977f929b764d187a620b3d41f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.illustrated-harbor-cottage",
+      "contentVersion": "1.0.9",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9fa02e1008efe1b661b5f0b87965c8fdb322a394fbc808cb56713db0c15b220e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9fa02e1008efe1b661b5f0b87965c8fdb322a394fbc808cb56713db0c15b220e",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-27d880a59d583ac6cb54547e0c0d122ea2109bac2f05d4f6e4606b35d54fff4f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "27d880a59d583ac6cb54547e0c0d122ea2109bac2f05d4f6e4606b35d54fff4f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-9cdf4552c4e1721f91563ba39f3f8ae5f8cb82d0e0b2601c2b079ac1170c65da.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9cdf4552c4e1721f91563ba39f3f8ae5f8cb82d0e0b2601c2b079ac1170c65da",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-71e3c8651c5c74ab1cde7afbb8088ec9a5326ce882d8240ca1caadb856165504.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "71e3c8651c5c74ab1cde7afbb8088ec9a5326ce882d8240ca1caadb856165504",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.japanese-courtyard-mansion",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-72d99fee8677510f3aa806c713e9067f679052f84936ff39bec2f1eb28b68ffc.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "72d99fee8677510f3aa806c713e9067f679052f84936ff39bec2f1eb28b68ffc",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ac85ad0bc6059934e9bf3c94f8aff416db10dc786198915701c63accdac01983.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ac85ad0bc6059934e9bf3c94f8aff416db10dc786198915701c63accdac01983",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-45c25b261ae569895dcefb6c13d89d76dc11ae6d2b0e01a63f73a4ff567b5ae3.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "45c25b261ae569895dcefb6c13d89d76dc11ae6d2b0e01a63f73a4ff567b5ae3",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-a37bc025f5441d03b88d3ec564fd8a39cfcbc1de8ae556a7a4cc9bcac3c4ab1b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "a37bc025f5441d03b88d3ec564fd8a39cfcbc1de8ae556a7a4cc9bcac3c4ab1b",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.lakeside-cabin",
+      "contentVersion": "1.0.10",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-5fb69be01fd4a7e0cf0b875c2467da7db9b910377b6246c9eab262f8eb9d1e9a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "5fb69be01fd4a7e0cf0b875c2467da7db9b910377b6246c9eab262f8eb9d1e9a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-1e500c85ff7de1c9c42de9745d04e025293477b788f4251d4b038caddd41def0.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1e500c85ff7de1c9c42de9745d04e025293477b788f4251d4b038caddd41def0",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-6c808d4a9c7f370509caad8e24caae86f0b34a6e64f6b9526ad643234d21ed19.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "6c808d4a9c7f370509caad8e24caae86f0b34a6e64f6b9526ad643234d21ed19",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.mediterranean-loggia",
+      "contentVersion": "1.0.9",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-9673d059701bc9372cd2dc08b6f202ffdb346d40a89974ed39e1375e432b5917.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "9673d059701bc9372cd2dc08b6f202ffdb346d40a89974ed39e1375e432b5917",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f2d350d4e62dfc60874bced8c624cb545127adc06c96541054866d486cf9e80a.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f2d350d4e62dfc60874bced8c624cb545127adc06c96541054866d486cf9e80a",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-063f7a9c6ec2b3138e5d4051574cf7edc06d418f1958f0f946be95bc6881b779.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "063f7a9c6ec2b3138e5d4051574cf7edc06d418f1958f0f946be95bc6881b779",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.midnight-1997-bedroom",
+      "contentVersion": "1.0.10",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-3db6152227c87d379639c13fd8e9e19da936aefee820d8f27f1497847f21d19c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3db6152227c87d379639c13fd8e9e19da936aefee820d8f27f1497847f21d19c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-4e65a10036b6808bfbaf449348e2c4ed7a19ece0bbb7f648a487c1b64cd55d67.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4e65a10036b6808bfbaf449348e2c4ed7a19ece0bbb7f648a487c1b64cd55d67",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-0754288e15196e8cb68f224b56d1dd64f59340d2051f7f6fb8f3e0f2d4acc1ab.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0754288e15196e8cb68f224b56d1dd64f59340d2051f7f6fb8f3e0f2d4acc1ab",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.old-town-cafe",
+      "contentVersion": "1.0.9",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-b74cf8146ade9b3a0a54b34fa1c3ae9de99ec820e081017cd35f0bb763417637.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b74cf8146ade9b3a0a54b34fa1c3ae9de99ec820e081017cd35f0bb763417637",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-b611a5f54e5c97bed1f862402100ffa706e5430377b0dd2e9c721f5b0056f581.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b611a5f54e5c97bed1f862402100ffa706e5430377b0dd2e9c721f5b0056f581",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-4e779d47492799f52b43ffb3ae64546606fd706ea5dd5a3bf43804d859691a0f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "4e779d47492799f52b43ffb3ae64546606fd706ea5dd5a3bf43804d859691a0f",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.orbital-lounge-fan",
+      "contentVersion": "1.0.12",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-a5a7f372ec9c08ec565e06276133ba4e1ffb62fc0f74bbe08d35d4a89fd78ec8.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "a5a7f372ec9c08ec565e06276133ba4e1ffb62fc0f74bbe08d35d4a89fd78ec8",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-f2eb9d8489ffb3eeed5426641358c15e48fdbdd0e42058b9ebbdcd51d82ba8ff.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "f2eb9d8489ffb3eeed5426641358c15e48fdbdd0e42058b9ebbdcd51d82ba8ff",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-01fc953a97fd245f7252680af05ac168c4f2cc5a008ccfaed2671dcc57b6fe42.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "01fc953a97fd245f7252680af05ac168c4f2cc5a008ccfaed2671dcc57b6fe42",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.pacific-palapa-house",
+      "contentVersion": "1.0.4",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-77b2dbe2c5047391efeb4e746a8368ccccfe8a5912bd0920fb5c8b4b00efc31f.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "77b2dbe2c5047391efeb4e746a8368ccccfe8a5912bd0920fb5c8b4b00efc31f",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-bb005eb47479f1a5fb20f28bb7d52e329953a4354ad8074652380da4ed72ccb7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "bb005eb47479f1a5fb20f28bb7d52e329953a4354ad8074652380da4ed72ccb7",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c04fa4a2dada3d96834ebb1471dc210b2d83fc8adef19a604cc8b471b803437e.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c04fa4a2dada3d96834ebb1471dc210b2d83fc8adef19a604cc8b471b803437e",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.rooftop-garden-breeze",
+      "contentVersion": "1.0.14",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-3bde1b14db2870378f749af699a958d315348d200b415dec6a4b61ffcca07ce4.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "3bde1b14db2870378f749af699a958d315348d200b415dec6a4b61ffcca07ce4",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-0f7772b8b600be34df8d67dc16cfc6040ba3d1514cd66dfae27debd0df8c7070.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "0f7772b8b600be34df8d67dc16cfc6040ba3d1514cd66dfae27debd0df8c7070",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-1c1d857faa3a502002c5345aff810cb3037c5632a33f8415751ce55fa868f433.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "1c1d857faa3a502002c5345aff810cb3037c5632a33f8415751ce55fa868f433",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.skyline-office",
+      "contentVersion": "1.0.6",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-8dbc95a75e98a0fa8df81159c8c8497b96b6500619630ff51ebb5bff25ef5508.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "8dbc95a75e98a0fa8df81159c8c8497b96b6500619630ff51ebb5bff25ef5508",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-ecdb85badecf5f842a9ee076103fd987b51bcb2cc02e554c2a232afb1e9cf298.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "ecdb85badecf5f842a9ee076103fd987b51bcb2cc02e554c2a232afb1e9cf298",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-d2043c661de66be0b8431c14bce964a5017502e0656ba2fda5da3c62d14736b2.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "d2043c661de66be0b8431c14bce964a5017502e0656ba2fda5da3c62d14736b2",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.sunlit-cafe",
+      "contentVersion": "1.0.13",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-7d84cb928e30d1d7069a9c3226f602d44d3a5b68d8cbcb2fa7cfa6e8eedc9103.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "7d84cb928e30d1d7069a9c3226f602d44d3a5b68d8cbcb2fa7cfa6e8eedc9103",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-636d279a86d14759a1bec2e7fc684d5aebdef4a1fc7e1b0a8f88d8d7e8d71f94.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "636d279a86d14759a1bec2e7fc684d5aebdef4a1fc7e1b0a8f88d8d7e8d71f94",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-510b5854ea7c0501b6e253d9b1c91c1395bf71c20de0bcac31e1ee00f46f31b7.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "510b5854ea7c0501b6e253d9b1c91c1395bf71c20de0bcac31e1ee00f46f31b7",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-68b3b034be66e0c78e5546b7edc6a03c38528d51672f4b837fd37e9151dc54a5.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "68b3b034be66e0c78e5546b7edc6a03c38528d51672f4b837fd37e9151dc54a5",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.tidal-veranda",
+      "contentVersion": "1.0.8",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-906168244d3fee00fc891758015d8d54d5de4bf623f467a1b64bce965ec9803b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "906168244d3fee00fc891758015d8d54d5de4bf623f467a1b64bce965ec9803b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-b93c6c130df2c316af60d180bafbaad5476b47b959ea8c84538afc50d2ef4469.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "b93c6c130df2c316af60d180bafbaad5476b47b959ea8c84538afc50d2ef4469",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c5717a7b6f48caf86f13f117ce6a3c1fdf436c471f98732be1118ac8d9ddd22c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c5717a7b6f48caf86f13f117ce6a3c1fdf436c471f98732be1118ac8d9ddd22c",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    },
+    {
+      "id": "space.winter-garden-breeze",
+      "contentVersion": "1.0.10",
+      "photos": [
+        {
+          "url": "/assets/gallery/rendered-e2c6b7c5af7381515bece108edfc7d99753f6193c79ff14fe7fc89ee0078243c.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "e2c6b7c5af7381515bece108edfc7d99753f6193c79ff14fe7fc89ee0078243c",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-c9f201ca57e314390715a87e623f2507d0dcfc487e2882ff266b7dd9da5b741b.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "c9f201ca57e314390715a87e623f2507d0dcfc487e2882ff266b7dd9da5b741b",
+          "captureKind": "visionos-simulator"
+        },
+        {
+          "url": "/assets/gallery/rendered-bb487558c4fdde4ab686541096ee813f1dbc843ca92c551637e2eb804e59dc72.jpg",
+          "width": 1920,
+          "height": 1080,
+          "sha256": "bb487558c4fdde4ab686541096ee813f1dbc843ca92c551637e2eb804e59dc72",
+          "captureKind": "visionos-simulator"
+        }
+      ]
+    }
+  ]
+}
