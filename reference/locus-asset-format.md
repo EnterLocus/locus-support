@@ -299,6 +299,41 @@ bed into open water with distance. It is View-only and cannot be combined with
 (`0.005...1`). This field requires `minimumAppVersion >= "1.3.1"` and
 Library capability `locus.view.water.bed-deepening.v1`.
 
+From Locus 1.4.5, `deepening` may add `macro`, a large-scale seabed under the
+deep water. One deep datum makes calm, clear open water a single colour, and
+extending a small shallow tile to the horizon turns its stones into a wrong
+size cue; `macro` raises sand flats and reef patches tens to hundreds of metres
+across instead, while reflections and the near bed stay unchanged:
+
+```json
+"deepening": {
+  "startMeters": 5, "endMeters": 25, "depthMeters": 50,
+  "macro": {
+    "map": "seabed-macro.png",
+    "tileMeters": 240,
+    "shallowMeters": 4,
+    "coverage": 0.4,
+    "fadeMeters": [350, 900]
+  }
+}
+```
+
+`map` is required: a package-relative 8-bit grayscale PNG, square, at most
+2048 pixels, that tiles seamlessly; white is raised seabed. `tileMeters`
+(`20...5000`, default `240`) is how many metres one tile spans on the water.
+`shallowMeters` is required, at least the bed's `depthMeters` and shallower
+than the deepening `depthMeters`: the depth of a fully raised patch.
+`coverage` (`0...1`, default `0.5`) raises the map wherever it is brighter than
+`1 − coverage`, with a soft edge; a map whose values are evenly spread (for
+example rank-equalized) raises exactly that fraction of the seabed. Optional
+`fadeMeters` is an ordered pair in `0...5000`: the distance over which the
+patches give way to open deep water, like a reef edge. Locus samples the map
+twice at different scales and angles so the tile does not visibly repeat, and
+the map counts toward the shared 64 MiB water texture budget with its mipmaps.
+`macro` requires `minimumAppVersion >= "1.4.5"` and Library capability
+`locus.view.water.bed-deepening.macro.v1`; unknown fields and `null` values are
+rejected.
+
 `glow` is a water sub-block, not a separate profile. It can add bounded bed
 emission, particles, sparkle, and surface flashes. It uses the same water
 capability and has no image asset. `strength` defaults to `0` and is `0...4`;
@@ -779,6 +814,13 @@ identity-rotation, floor-relative disc region, `blend.horizonSkirt` on, no
 `glow`, and zero authored and composed pitch; anything else is rejected at
 import. Contact ranges and the hidden background are authored approximations
 for one reference eye position, not surveyed terrain.
+
+From Locus 1.4.5, when a Room seats the visitor higher above the View's water
+than `referenceEyeHeightMeters` (for example a terrace or cliff house that sets
+`viewGroundFloorOffsetMeters`), Locus scales the land uniformly about the
+water origin by the eye-height ratio, so it keeps the photograph's composition
+from the default seat instead of standing close to the house. Nothing changes
+in the package; earlier versions of Locus keep the land at its authored size.
 
 #### Smaller additions
 

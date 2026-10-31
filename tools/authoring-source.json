@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "sourceCommit": "f6a873501708e016270aa76cc144eb420bacbca2",
+  "sourceCommit": "a098550d5b7253db1ee41172d9cb49eb0c4835b7",
   "files": [
     {
       "source": "scripts/pack_locusplace.py",
@@ -10,8 +10,8 @@
     {
       "source": "scripts/validate_locusplace.py",
       "target": "tools/validate_locusplace.py",
-      "sourceSHA256": "fcc0395842adb6848115c2feb7c59181858254f1a68595fb86ef0761b9a97dfc",
-      "publicSHA256": "cafacf4ef8a413ac40aa07b081c313c581861bf73ecb720453a0931496f2d0c4",
+      "sourceSHA256": "c6b146500d9999161804b39ac68f79be025b35a45fea14bbc9ab5de2ff3c021f",
+      "publicSHA256": "dc661b0e85a6c8a2658c78fce549954ecc3f4878d679276ec869a24040f4115b",
       "adaptation": "Reject retired publisher-only oceanGlint data"
     },
     {
@@ -102,12 +102,12 @@
     {
       "source": "scripts/water_contact_proxy.py",
       "target": "tools/water_contact_proxy.py",
-      "sourceSHA256": "7422619a43fd7ad554432fe2765dba01970e5afca72716c0c5e5045218b32628"
+      "sourceSHA256": "76595f1c25166ad4ae4a84ba42049a61a96d96be8d6717a80f3976dba5e11363"
     },
     {
       "source": "scripts/water_contract.py",
       "target": "tools/water_contract.py",
-      "sourceSHA256": "afb6fc3f1416d60008cd1ce72a89e0d2c8840cde622f5aa2eea9c54df2fb5847"
+      "sourceSHA256": "902e7c06cb1b75f6dda05f715543219713d616bc2ba1012aa7ba4923b9c97cef"
     },
     {
       "source": "scripts/water_layered_reflection_mask.py",
@@ -157,7 +157,7 @@
     {
       "source": "scripts/validate_locus_asset.py",
       "target": "tools/validate_locus_asset.py",
-      "sourceSHA256": "163907b14ce56c0fc77f78683b710770e1fde70cf7b7bfc613a83754daef7096",
+      "sourceSHA256": "f039bbf486ef80c76e3a1198725aacb6452d5c18bf7931805fc8de986d139d1d",
       "publicSHA256": "e5a8fb5db67416bd476471ce649ea18bbf02beee8455114cd09ef532f512280b",
       "adaptation": "Standalone public Swift USD binding inspection"
     }
