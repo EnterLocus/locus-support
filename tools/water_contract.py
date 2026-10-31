@@ -10,9 +10,11 @@ VIEW_REFLECTION_REGISTRATION_CAPABILITY = "locus.view.water.reflection-registrat
 VIEW_LAYERED_REFLECTION_CAPABILITY = "locus.view.water.reflection-registration.layered.v1"
 VIEW_BED_DEEPENING_CAPABILITY = "locus.view.water.bed-deepening.v1"
 VIEW_CONTACT_CALIBRATION_CAPABILITY = "locus.view.water.contact-calibration.v1"
+VIEW_DEEPENING_MACRO_CAPABILITY = "locus.view.water.bed-deepening.macro.v1"
 REFLECTION_REGISTRATION_MINIMUM_APP = (1, 3, 1)
 BED_DEEPENING_MINIMUM_APP = (1, 3, 1)
 CONTACT_CALIBRATION_MINIMUM_APP = (1, 3, 2)
+DEEPENING_MACRO_MINIMUM_APP = (1, 4, 5)
 REFLECTION_REGISTRATION_TEXTURE_BYTES = 4096 * (256 + 1) * 4
 MAXIMUM_TEXTURE_BYTES = 64 * 1024 * 1024
 
@@ -23,6 +25,11 @@ def deepens(region):
     return isinstance(bed, dict) and "deepening" in bed
 
 
+def has_deepening_macro(region):
+    """True when the region's deepening declares a large-scale seabed map."""
+    return deepens(region) and "macro" in region["bed"]["deepening"]
+
+
 def has_contact_calibration(region):
     """True when a View declares a source-side water-contact reprojection."""
     return "contactCalibration" in region
@@ -30,6 +37,8 @@ def has_contact_calibration(region):
 
 def minimum_app(value):
     """Highest required app floor among the explicitly authored water features."""
+    if any(has_deepening_macro(region) for region in value["regions"]):
+        return DEEPENING_MACRO_MINIMUM_APP
     if any(has_contact_calibration(region) for region in value["regions"]):
         return CONTACT_CALIBRATION_MINIMUM_APP
     if any("reflectionRegistration" in region for region in value["regions"]):
@@ -56,6 +65,8 @@ def capabilities(value, owner):
         result.append(VIEW_LAYERED_REFLECTION_CAPABILITY)
     if owner == "view" and any(deepens(region) for region in value["regions"]):
         result.append(VIEW_BED_DEEPENING_CAPABILITY)
+    if owner == "view" and any(has_deepening_macro(region) for region in value["regions"]):
+        result.append(VIEW_DEEPENING_MACRO_CAPABILITY)
     if owner == "view" and any(has_contact_calibration(region) for region in value["regions"]):
         result.append(VIEW_CONTACT_CALIBRATION_CAPABILITY)
     return result
@@ -362,7 +373,7 @@ def validate_definition(
                 d = b["deepening"]
                 name = base + ".bed.deepening"
                 require(owner == "view", name + " is View-only")
-                _keys(d, {"startMeters", "endMeters", "depthMeters"}, {"color", "rmsSlope", "shoreSlope"}, name, require)
+                _keys(d, {"startMeters", "endMeters", "depthMeters"}, {"color", "rmsSlope", "shoreSlope", "macro"}, name, require)
                 require("extentMeters" not in b, name + " requires a tiled bed")
                 require(
                     _finite(d["startMeters"], 0, 5000)
@@ -375,6 +386,23 @@ def validate_definition(
                     and _finite(d.get("shoreSlope", 0.05), 0.005, 1),
                     name + " is invalid",
                 )
+                if "macro" in d:
+                    m = d["macro"]
+                    mname = name + ".macro"
+                    require(isinstance(m, dict), mname + " must be an object")
+                    _keys(m, {"map", "shallowMeters"}, {"tileMeters", "coverage", "fadeMeters"}, mname, require)
+                    fade = m.get("fadeMeters", [0, 1])
+                    require(
+                        _finite(m.get("tileMeters", 240), 20, 5000)
+                        and _finite(m["shallowMeters"], -50, 50)
+                        and m["shallowMeters"] >= b["depthMeters"]
+                        and m["shallowMeters"] < d["depthMeters"]
+                        and _finite(m.get("coverage", 0.5), 0, 1)
+                        and _array(fade, 2, 0, 5000)
+                        and fade[0] < fade[1],
+                        mname + " is invalid",
+                    )
+                    asset(m["map"], mname + ".map", png=True, grayscale=True, tile=True)
             if "shoreline" in b:
                 sh = b["shoreline"]
                 _keys(
