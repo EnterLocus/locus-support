@@ -344,12 +344,17 @@ def reflection_plate(payload, background, source, capture_origin, width=2048, he
 
 
 def bake_patch(alpha, water_mask, bounds_pixels, frame, kind, range_scale, inland_depth=20, slope=.15, step=6,
-               source_v_transform=None):
+               source_v_transform=None, land_range=None):
     """Bake one explicitly selected land patch; no other panorama pixels enter.
 
     Per-column contact samples come only from the authored near-land selection
     intersecting the original water contour. The emitted asset records those
     samples as real vertices, rather than asking the viewer to infer them.
+
+    ``land_range(u, v, elevation, d, slope_range)`` optionally replaces the
+    default ground-slope-then-vertical-wall range of a non-contact shore
+    vertex; ``slope_range`` is that default. Vertices stay on their source
+    rays, so only depth changes.
     """
     w,h=alpha.size;land=alpha.load();water=water_mask.load();ww,wh=water_mask.size;x0,y0,x1,y1=bounds_pixels
     eye=frame['referenceEyeHeightMeters'];center=frame['referenceSkyCenterMeters'];yaw=math.radians(frame['referenceYawDegrees'])
@@ -394,6 +399,7 @@ def bake_patch(alpha, water_mask, bounds_pixels, frame, kind, range_scale, inlan
             denominator=slope-math.tan(elevation)
             r=(eye+slope*d)/denominator if denominator>1e-5 else d+inland_depth
             r=max(d,min(d+inland_depth,r))
+            if land_range is not None:r=land_range(u%1,v,elevation,d,r)
         p=[r*px/horizontal,eye+r*math.tan(elevation),r*pz/horizontal]
         if contact:p=[d*px/horizontal,0,d*pz/horizontal]
         index=len(payload['positionsMeters']);cache[key]=index
@@ -429,7 +435,10 @@ def bake_patch(alpha, water_mask, bounds_pixels, frame, kind, range_scale, inlan
             ids=[add(*vertex) for vertex in tri]
             points=[payload['positionsMeters'][i] for i in ids]
             n=cross(sub(points[1],points[0]),sub(points[2],points[0]))
-            if dot(n,n)>1e-16:payload['indices'].extend(ids)
+            # Contour clipping can leave a flat sliver on the water plane
+            # wound away from the eye; it covers no visible area, so drop it.
+            centroid=tuple(sum(q[k] for q in points)/3 for k in range(3))
+            if dot(n,n)>1e-16 and dot(n,sub((0,eye,0),centroid))>0:payload['indices'].extend(ids)
     # Source-resolution silhouette, coarse interior. Refine every cell that
     # contains an alpha boundary, including a thin frond missed by its corners.
     # Stitch neighboring cell edges before triangulation, so there are no
