@@ -170,6 +170,31 @@ VIEW_GROUND_MINIMUM_APP = (1, 4, 4)
 VIEW_GROUND_MAXIMUM_FLOOR_OFFSET_METERS = 100
 VIEW_MIDGROUND_VISIBILITY_MINIMUM_APP = (1, 4, 4)
 VIEW_MIDGROUND_VISIBILITIES = {"all", "terrainOnly", "hidden"}
+# Optional Room `destinationOpenings` and Experience `destinationOpeningID`,
+# mirrored by SpacePackage.optionalViewOpeningsMinimumAppVersion. Earlier
+# readers decode the openings key as required, reject a Room with no opening
+# or with several unless an authored virtual-space Experience names one, and
+# require every virtual-space Experience to name an opening.
+OPTIONAL_VIEW_OPENINGS_MINIMUM_APP = (1, 4, 5)
+
+
+def requires_optional_view_openings_reader(spaces, experiences) -> bool:
+    """Whether an App below 1.4.5 would refuse these Rooms/Experiences."""
+    virtual = [
+        experience for experience in experiences
+        if "virtual-space" in (experience.get("supportedModes") or [])
+    ]
+    if any(
+        (experience.get("composition") or {}).get("destinationOpeningID") is None
+        for experience in virtual
+    ):
+        return True
+    authored = {experience.get("spaceID") for experience in virtual}
+    for space_id, space in spaces.items():
+        openings = space.get("destinationOpenings", [])
+        if not openings or (len(openings) > 1 and space_id not in authored):
+            return True
+    return False
 
 
 def parse_version(value: Any, field: str) -> tuple[int, int, int]:
@@ -2968,7 +2993,7 @@ def validate_payload(
             require(not (destination.get('midground') or {}).get('water'),
                     'water cannot coexist with midground.water')
             require(destination.get('celestial') is None, 'water cannot coexist with celestial')
-            def water_asset(raw, name, png=False, panorama=False, grayscale=False, rgba=False, reflection_registration=False, raw_gray=False, source_only=False):
+            def water_asset(raw, name, png=False, panorama=False, grayscale=False, rgba=False, reflection_registration=False, raw_gray=False, source_only=False, tile=False):
                 nonlocal total_water_bytes
                 asset = referenced_asset(base, raw, name)
                 if png:
@@ -2977,12 +3002,13 @@ def validate_payload(
                     nonlocal total_pixels
                     total_pixels = add_pixels(total_pixels, dimensions, asset, maximum_dimension=4096, maximum_total=TOTAL_IMAGE_PIXELS)
                     if panorama: require(dimensions[0] == 2 * dimensions[1], name + ' must be 2:1')
+                    if tile: require(dimensions[0] == dimensions[1] and dimensions[0] <= 2048, name + ' must be square and at most 2048 px')
                     with archive.open(asset) as source:
                         data = source.read()
                     _, _, bit_depth, color_type = light_layer_png_info(data, asset)
                     require(bit_depth == 8 and color_type in (0, 2, 4, 6), name + ' must be an 8-bit non-palette PNG')
                     total_water_bytes += (0 if source_only else dimensions[0] * dimensions[1] if raw_gray or reflection_registration == "mask-layered-v1"
-                                          else texture_bytes(*dimensions, mipmaps=name.endswith(('.normalMap', '.albedo', '.landTexture', '.reflectionPanorama'))))
+                                          else texture_bytes(*dimensions, mipmaps=tile or name.endswith(('.normalMap', '.albedo', '.landTexture', '.reflectionPanorama'))))
                     require(total_water_bytes <= MAXIMUM_TEXTURE_BYTES, 'water textures exceed the 64 MiB resident budget')
                     if grayscale:
                         require(color_type == 0, name + ' must be a grayscale PNG')
@@ -3134,6 +3160,15 @@ def validate_payload(
 
     for space_id, space in packages["spaces"].items():
         base = f"catalog/spaces/{space_id}"
+        openings = space.get("destinationOpenings", [])
+        require(isinstance(openings, list), f"{base}.destinationOpenings must be an array")
+        opening_ids: set[str] = set()
+        for index, opening in enumerate(openings):
+            require(isinstance(opening, dict)
+                    and valid_identifier(opening.get("id"))
+                    and opening["id"] not in opening_ids,
+                    f"{base}.destinationOpenings[{index}].id is invalid or duplicated")
+            opening_ids.add(opening["id"])
         require("fireflies" not in space, "fireflies belongs to a View")
         require("clouds" not in space, "clouds belongs to a View")
         require("nearOrbit" not in space, "nearOrbit belongs to a View")
@@ -3462,13 +3497,27 @@ def validate_payload(
                     f"{base}.composition.destinationPitchDegrees must be zero for layered water contacts")
         if "virtual-space" in modes:
             require(space_id is not None, f"{base} virtual-space requires spaceID")
-            opening_id = composition.get("destinationOpeningID")
+        # Optional from App 1.4.5 (OPTIONAL_VIEW_OPENINGS_MINIMUM_APP); a
+        # named opening must still resolve in the referenced Room.
+        opening_id = composition.get("destinationOpeningID")
+        if opening_id is not None:
             require(valid_identifier(opening_id),
-                    f"{base} virtual-space requires destinationOpeningID")
+                    f"{base}.composition.destinationOpeningID is invalid")
             if space_id in packages["spaces"]:
                 openings = packages["spaces"][space_id].get("destinationOpenings", [])
                 require(any(item.get("id") == opening_id for item in openings),
                         f"{base} references a missing Destination opening")
+
+    if requires_optional_view_openings_reader(
+        packages["spaces"], packages["experiences"].values()
+    ):
+        require(
+            parse_version(manifest["minimumAppVersion"], "minimumAppVersion")
+            >= OPTIONAL_VIEW_OPENINGS_MINIMUM_APP,
+            "a Room with no or several destinationOpenings, or a virtual-space "
+            "Experience without destinationOpeningID, requires minimumAppVersion >= "
+            + ".".join(map(str, OPTIONAL_VIEW_OPENINGS_MINIMUM_APP)),
+        )
 
     payload_files = set(infos) - {"locusplace.json"}
     unreferenced = sorted(payload_files - referenced_files)
