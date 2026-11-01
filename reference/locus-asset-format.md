@@ -334,6 +334,26 @@ the map counts toward the shared 64 MiB water texture budget with its mipmaps.
 `locus.view.water.bed-deepening.macro.v1`; unknown fields and `null` values are
 rejected.
 
+Also from Locus 1.4.5, two optional `deepening` fields roughen only the open
+water, so a calm, clear lagoon can sit beside a wind-roughened deep sea that
+breaks the sky into small facets. Both follow the same shallow-to-deep ramp,
+leave the shallows exactly as they are, and change shading only (not wave
+height):
+
+```json
+"deepening": {
+  "startMeters": 5, "endMeters": 25, "depthMeters": 50,
+  "waveSlopeScale": 6,
+  "chopSlope": 0.12
+}
+```
+
+`waveSlopeScale` (`1...8`, default `1`) multiplies the tilt of the water's wave
+normals on the deep water. `chopSlope` (`0...0.5`, default `0`) adds a moving
+octave of short wind waves with that RMS slope on the deep water. Either field
+away from its default requires `minimumAppVersion >= "1.4.5"` and Library
+capability `locus.view.water.bed-deepening.open-water.v1`.
+
 `glow` is a water sub-block, not a separate profile. It can add bounded bed
 emission, particles, sparkle, and surface flashes. It uses the same water
 capability and has no image asset. `strength` defaults to `0` and is `0...4`;
