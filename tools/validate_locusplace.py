@@ -1546,8 +1546,11 @@ def validate_spatial_adaptation(
 
 
 def validate_usdz(
-    outer: zipfile.ZipFile, info: zipfile.ZipInfo, path: str
+    outer: zipfile.ZipFile, info: zipfile.ZipInfo, path: str,
+    prim_names: set[str] | None = None,
 ) -> dict[str, int]:
+    """Validate one USDZ; when `prim_names` is given, also collect the name of
+    every defined non-material prim of the flattened stage into it."""
     require(info.file_size <= MODEL_BYTES, f"model budget exceeded: {path}")
     # A real temp file, not tempfile.SpooledTemporaryFile: on Python < 3.11
     # SpooledTemporaryFile has no seekable() while it is still the in-memory
@@ -1603,7 +1606,7 @@ def validate_usdz(
                     )
             require(has_root_layer, f"USDZ has no root USD layer: {path}")
         temporary.seek(0)
-        statistics = actual_usd_statistics(temporary, path)
+        statistics = actual_usd_statistics(temporary, path, prim_names)
         require(
             statistics["triangleCount"] <= TRIANGLES,
             f"actual USD triangle budget exceeded: {path}",
@@ -1619,7 +1622,9 @@ def validate_usdz(
         return statistics
 
 
-def actual_usd_statistics(model: BinaryIO, path: str) -> dict[str, int]:
+def actual_usd_statistics(
+    model: BinaryIO, path: str, prim_names: set[str] | None = None,
+) -> dict[str, int]:
     """Load and flatten the real USD stage before counting its authored prims.
 
     Xcode's USD tools understand USDA, USDC, references, variants, and USDZ.
@@ -1680,11 +1685,19 @@ def actual_usd_statistics(model: BinaryIO, path: str) -> dict[str, int]:
             flattened_path.stat().st_size <= MODEL_FLATTENED_BYTES,
             f"flattened USD budget exceeded: {path}",
         )
-        return inspect_flattened_usda(flattened_path, path)
+        return inspect_flattened_usda(flattened_path, path, prim_names)
 
 
-def inspect_flattened_usda(path: Path, source_path: str) -> dict[str, int]:
+# Prim types that never become a midground unit or one of its model
+# entities, so their names cannot satisfy an entity-name prefix.
+NON_ENTITY_PRIM_TYPES = {"Material", "Shader", "NodeGraph", "GeomSubset"}
+
+
+def inspect_flattened_usda(
+    path: Path, source_path: str, prim_names: set[str] | None = None,
+) -> dict[str, int]:
     prim = re.compile(r'^\s*def\s+([A-Za-z_][A-Za-z0-9_]*)\s+"')
+    named_prim = re.compile(r'^\s*def\s+(?:([A-Za-z_][A-Za-z0-9_]*)\s+)?"([^"]+)"')
     face_counts_start = re.compile(r"\bfaceVertexCounts\s*=\s*\[")
     statistics = {
         "triangleCount": 0,
@@ -1695,6 +1708,10 @@ def inspect_flattened_usda(path: Path, source_path: str) -> dict[str, int]:
 
     with path.open("r", encoding="utf-8") as source:
         for line in source:
+            if prim_names is not None:
+                named = named_prim.match(line)
+                if named and named.group(1) not in NON_ENTITY_PRIM_TYPES:
+                    prim_names.add(named.group(2))
             match = prim.match(line)
             if match:
                 prim_type = match.group(1)
@@ -1779,6 +1796,73 @@ MIDGROUND_WIND_SWAY_RANGES: dict[str, tuple[float, float]] = {
 # The first app version that renders `midground.windSway.wavelengthMeters`
 # as a travelling wave; older readers would silently keep per-plant sway.
 MIDGROUND_WIND_SWAY_WAVE_MINIMUM_APP = (1, 3, 4)
+
+# `destination.midground.textureFlow`. Mirrors
+# `DestinationManifest.Midground.validateTextureFlow` and its constants in
+# viewer/LocusViewer/Models/PackageV2.swift; keep both in sync. Older readers
+# ignore the unknown key and would show the surface frozen, so the field
+# raises the package floor rather than degrading silently.
+MIDGROUND_TEXTURE_FLOW_MINIMUM_APP = (1, 4, 5)
+MIDGROUND_TEXTURE_FLOW_MAXIMUM_ENTRIES = 16
+MIDGROUND_TEXTURE_FLOW_MAXIMUM_SPEED = 2.0
+
+
+def validate_midground_texture_flow(
+    base: str, flows: Any, *, has_path: bool, minimum_app: tuple[int, int, int],
+    prim_names: set[str], terrain_names: set[str],
+) -> None:
+    """`midground.textureFlow` (docs/package-spec-v2.md): prefix entries with a
+    constant UV velocity. Every prefix must name a non-terrain prim of the
+    actual midground USDZ, so a typo fails here instead of freezing quietly."""
+    context = f"{base}.midground.textureFlow"
+    require(has_path, f"{context} is only valid alongside path")
+    require(
+        minimum_app >= MIDGROUND_TEXTURE_FLOW_MINIMUM_APP,
+        "midground.textureFlow requires minimumAppVersion >= 1.4.5",
+    )
+    require(
+        isinstance(flows, list)
+        and 0 < len(flows) <= MIDGROUND_TEXTURE_FLOW_MAXIMUM_ENTRIES
+        and all(isinstance(flow, dict) for flow in flows),
+        f"{context} must be a non-empty list of at most "
+        f"{MIDGROUND_TEXTURE_FLOW_MAXIMUM_ENTRIES} objects",
+    )
+    prefixes: list[str] = []
+    for index, flow in enumerate(flows):
+        exact_keys(
+            flow, required={"entities", "uvVelocity"}, optional=set(),
+            context=f"{context}[{index}]",
+        )
+        entities = flow["entities"]
+        require(
+            isinstance(entities, list) and len(entities) > 0
+            and all(isinstance(name, str) and name for name in entities),
+            f"{context}[{index}].entities must be a non-empty list of non-empty prefixes",
+        )
+        prefixes.extend(entities)
+        velocity = flow["uvVelocity"]
+        require(
+            isinstance(velocity, list) and len(velocity) == 2
+            and all(is_finite_number(value)
+                    and abs(value) <= MIDGROUND_TEXTURE_FLOW_MAXIMUM_SPEED
+                    for value in velocity)
+            and any(value != 0 for value in velocity),
+            f"{context}[{index}].uvVelocity must be two finite numbers within "
+            f"±{MIDGROUND_TEXTURE_FLOW_MAXIMUM_SPEED:g}, not both zero",
+        )
+    require(
+        len(set(prefixes)) == len(prefixes)
+        and not any(other != prefix and other.startswith(prefix)
+                    for prefix in prefixes for other in prefixes),
+        f"{context} prefixes must be unique and none may be a prefix of another",
+    )
+    candidates = prim_names - terrain_names
+    for prefix in prefixes:
+        require(
+            any(name.startswith(prefix) for name in candidates),
+            f"{context} prefix {prefix!r} matches no non-terrain prim in the midground USDZ",
+        )
+
 
 # `destination.midground.water` numeric ranges. Mirrors
 # `PackageV2Store.validate(_ water:, in:)` in
@@ -2911,13 +2995,15 @@ def validate_payload(
                 path is not None or water is not None,
                 f"{base}.midground must declare path or water",
             )
+            midground_prim_names: set[str] = set()
             if path is not None:
                 midground_asset = referenced_asset(base, path, "midground.path")
                 require(
                     midground_asset.lower().endswith(".usdz"),
                     f"{base}.midground.path must be a USDZ",
                 )
-                validate_usdz(archive, infos[midground_asset], midground_asset)
+                validate_usdz(archive, infos[midground_asset], midground_asset,
+                              midground_prim_names)
             if "terrainEntities" in midground:
                 names = midground["terrainEntities"]
                 require(
@@ -2977,6 +3063,16 @@ def validate_payload(
                         >= MIDGROUND_WIND_SWAY_WAVE_MINIMUM_APP,
                         "midground.windSway.wavelengthMeters requires minimumAppVersion >= 1.3.4",
                     )
+            if "textureFlow" in midground:
+                terrain_names = midground.get("terrainEntities")
+                validate_midground_texture_flow(
+                    base, midground["textureFlow"],
+                    has_path=path is not None,
+                    minimum_app=parse_version(
+                        manifest["minimumAppVersion"], "minimumAppVersion"),
+                    prim_names=midground_prim_names,
+                    terrain_names=set(terrain_names) if isinstance(terrain_names, list) else set(),
+                )
             if water is not None:
                 def account_midground_image(path: str, dimensions: tuple[int, int]) -> None:
                     nonlocal total_pixels
