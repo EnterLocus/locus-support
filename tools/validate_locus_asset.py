@@ -279,6 +279,9 @@ def validate_pose(value: Any, field: str) -> None:
     )
     require_number_list(value["translationMeters"], 3, f"{field}.translationMeters")
     require_number_list(value["orientationXYZW"], 4, f"{field}.orientationXYZW")
+    length_squared = sum(component * component for component in value["orientationXYZW"])
+    require(math.isfinite(length_squared) and length_squared > 1e-12,
+            f"{field}.orientationXYZW must be nonzero with finite squared length")
 
 
 def validate_image(path: Path, *, equirectangular: bool,
