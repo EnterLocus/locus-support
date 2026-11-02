@@ -37,6 +37,8 @@ _SCRIPTS_DIRECTORY = str(Path(__file__).resolve().parent)
 if _SCRIPTS_DIRECTORY not in sys.path:
     sys.path.insert(0, _SCRIPTS_DIRECTORY)
 
+import room_bindings  # noqa: E402  (sibling module; needs the path above)
+
 
 ARCHIVE_BYTES = 1_073_741_824
 ENTRY_COUNT = 4_096
@@ -2276,8 +2278,10 @@ def validate_payload(
     infos: dict[str, zipfile.ZipInfo],
     manifest: dict[str, Any],
     json_cache: dict[str, dict[str, Any]],
+    check_bindings: bool = True,
 ) -> dict[str, Any]:
     warnings = []
+    binding_rooms: list[tuple[str, str]] = []
     sun_heuristic_findings = []
     contents = manifest["contents"]
     declared = {
@@ -3547,6 +3551,8 @@ def validate_payload(
             "particleTitles": title_ids(space.get("particleEffects")),
         })
         actual = validate_usdz(archive, infos[scene], scene)
+        if room_bindings.references_entities(space):
+            binding_rooms.append((f"{base}/space.json", scene))
         if collision_asset is not None:
             collision_actual = validate_usdz(
                 archive, infos[collision_asset], collision_asset
@@ -3631,6 +3637,9 @@ def validate_payload(
                 require(all((region.get("bed") or {}).get("sunVisibility") is None
                             for region in (value.get("water") or {}).get("regions", [])),
                         "sunPath cannot coexist with static Room sunVisibility")
+    if check_bindings:
+        for space_path, scene in binding_rooms:
+            validate_room_bindings(archive, infos, space_path, scene)
     return {
         "packageID": manifest["packageID"],
         "contentVersion": manifest["contentVersion"],
@@ -3641,6 +3650,34 @@ def validate_payload(
         "warnings": warnings,
         "sunHeuristicFindings": sun_heuristic_findings,
     }
+
+
+def validate_room_bindings(
+    archive: zipfile.ZipFile,
+    infos: dict[str, zipfile.ZipInfo],
+    space_path: str,
+    scene: str,
+) -> None:
+    """Resolve every model entity a Room names, as Locus does before import.
+
+    The app decodes each Room's `space.json` into its binding contract and
+    loads the Room scene with RealityKit; see room_bindings.py for the shared
+    Swift check. Rooms that name no entities are skipped, like the app.
+    """
+    with tempfile.TemporaryDirectory(prefix="locusplace-bindings-") as directory:
+        root = Path(directory)
+        model = root / "scene.usdz"
+        manifest = root / "space.json"
+        for member, target in ((scene, model), (space_path, manifest)):
+            with archive.open(infos[member]) as source, target.open("xb") as output:
+                shutil.copyfileobj(source, output)
+        try:
+            room_bindings.check(model, manifest)
+        except room_bindings.BindingToolError as error:
+            raise ValidationError(str(error)) from error
+        except room_bindings.BindingCheckError as error:
+            raise ValidationError(
+                f"{scene} entity bindings failed: {error}") from error
 
 
 def package_asset(
@@ -3672,8 +3709,13 @@ def decoded_member(
 def validate(
     path: Path,
     current_app_version: str = "1.0.0",
+    *,
+    check_bindings: bool = True,
 ) -> dict[str, Any]:
     """Validate one `.locusplace` archive.
+
+    `check_bindings=False` skips only the RealityKit entity-binding check,
+    for callers (check_room.py) that run it themselves.
     """
     path = Path(path)
     require(path.is_file() and not path.is_symlink(), "source is not a regular file")
@@ -3751,7 +3793,10 @@ def validate(
             if capture:
                 json_cache[member_path] = decode_json(prefix, member_path)
 
-        return validate_payload(archive, payload_infos, manifest, json_cache)
+        return validate_payload(
+            archive, payload_infos, manifest, json_cache,
+            check_bindings=check_bindings,
+        )
 
 
 def parser() -> argparse.ArgumentParser:
