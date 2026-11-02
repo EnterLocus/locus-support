@@ -125,6 +125,9 @@ class CompletePackageCLITests(unittest.TestCase):
             "sizeMeters": [0.62, 0.04, 0.22],
         }]
         manifest_path.write_text(json.dumps(manifest), encoding="utf-8")
+        # Every entity the manifest names must exist in the Room scene; the
+        # validator resolves them with RealityKit like the app's import.
+        (base / "scene.usdz").write_bytes(binding_usdz())
         (base / "fireplace-fire.mp4").write_bytes(minimal_mp4())
         (base / "light-cove.png").write_bytes(EXAMPLES.rgb_png(layer_sizes[0], layer_sizes[0]))
         (base / "light-reading.png").write_bytes(EXAMPLES.rgb_png(layer_sizes[1], layer_sizes[1]))
