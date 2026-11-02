@@ -7,6 +7,7 @@ no archive is checked into the repository.
 from __future__ import annotations
 
 from dataclasses import dataclass
+from math import sqrt
 from typing import Callable, Optional
 
 import room_fixtures
@@ -53,6 +54,16 @@ def missing_binding(room: room_fixtures.Room) -> None:
 
 def tilted_seated_origin(room: room_fixtures.Room) -> None:
     room.space["seatedOrigin"]["orientationXYZW"] = [0.1, 0, 0, 0.995]
+
+
+def borderline_tilted_seated_origin(room: room_fixtures.Room) -> None:
+    x = 0.000075
+    room.space["seatedOrigin"]["orientationXYZW"] = [x, 0, 0, sqrt(1 - x * x)]
+
+
+def near_upright_seated_origin(room: room_fixtures.Room) -> None:
+    x = 0.000025
+    room.space["seatedOrigin"]["orientationXYZW"] = [x, 0, 0, sqrt(1 - x * x)]
 
 
 def zero_seated_origin(room: room_fixtures.Room) -> None:
@@ -110,6 +121,8 @@ def degenerate_bounds(room: room_fixtures.Room) -> None:
     floor = room.box("Floor")
     floor["size"] = (0.0, 0.0, 0.0)
     room.boxes = [floor]
+    for field in ("spatialAdaptation", "lighting", "rendering"):
+        room.space.pop(field)
 
 
 def no_seats(room: room_fixtures.Room) -> None:
@@ -120,9 +133,13 @@ CASES = (
     ContractCase("valid", "Valid Room baseline.", lambda room: None,
                  "accept", None, "accept", None, None),
     ContractCase("missingbinding", "A referenced roof entity is absent from the model.", missing_binding,
-                 "reject", "missingAdaptationEntity", "reject", "missingAdaptationEntity", "binding"),
+                 "reject", "missingEntity", "reject", "missingAdaptationEntity", "binding"),
     ContractCase("tilted-seated-origin", "The seated-origin quaternion tilts the Room.", tilted_seated_origin,
                  "accept", None, "reject", "invalidModelBounds", "seatedOrigin"),
+    ContractCase("borderline-tilted-seated-origin", "The seated-origin tilt is just above the verticality threshold.", borderline_tilted_seated_origin,
+                 "accept", None, "reject", "invalidModelBounds", "seatedOrigin"),
+    ContractCase("near-upright-seated-origin", "The seated-origin tilt is below the verticality threshold.", near_upright_seated_origin,
+                 "accept", None, "accept", None, None),
     ContractCase("zero-seated-origin", "The seated-origin quaternion is zero.", zero_seated_origin,
                  "accept", None, "reject", "invalidModelBounds", "seatedOrigin"),
     ContractCase("nonemissive-luminaire", "A declared luminaire has no positive emission.", nonemissive_luminaire,
@@ -139,11 +156,9 @@ CASES = (
                  "accept", None, "accept", None, "deskBounds",
                  "Intentional conservative checker difference: the reader accepts a zero-thickness desk, while the checker requires three nondegenerate visual extents."),
     ContractCase("degenerate-bounds", "The model has degenerate visual bounds.", degenerate_bounds,
-                 "accept", None, "reject", "invalidModelBounds", "invalidModelBounds", None,
-                 "The source exporter does not run the app installer or enter a Room; app-stage parity is verified by the app consumer."),
+                 "accept", None, "reject", "invalidModelBounds", "invalidModelBounds"),
     ContractCase("no-seats", "The Room declares no teleport points.", no_seats,
-                 "accept", None, "reject", "missingTeleportPoints", "missingTeleportPoints", None,
-                 "Public structural validators reject an empty teleport catalog before entry; the app importer and entry-stage boundary remains for the app consumer to verify."),
+                 "reject", "missingTeleportPoints", "reject", "missingTeleportPoints", "missingTeleportPoints"),
 )
 
 
