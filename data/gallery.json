@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "appVersion": "1.4.4",
-  "catalogGeneration": "88219eee-5ce7-4074-9108-a5db545db730",
+  "catalogGeneration": "0e3d6b87-31f5-44f0-a54b-87b356c0a373",
   "places": [
     {
       "id": "space.hilltop-villa",
@@ -654,7 +654,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.6",
+      "contentVersion": "1.0.8",
       "addedAt": "2026-10-28T00:01:42Z",
       "updatedAt": "2026-10-29T03:06:45Z",
       "searchTerms": [
@@ -825,30 +825,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-cc332e5f7f48119eb2ec9e1e4ea29d6eb302c81b1468e29b142011b42dc72dfc.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "cc332e5f7f48119eb2ec9e1e4ea29d6eb302c81b1468e29b142011b42dc72dfc",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-69e2d7e0df51ce30b7f21448e0b515b0b4166dfc7d5c82aebf0a6020191be31d.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "69e2d7e0df51ce30b7f21448e0b515b0b4166dfc7d5c82aebf0a6020191be31d",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-4957b4408758dfb89fa2a417805e88ad4f62c79f08726ee1fd73fd3d8c49dded.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "4957b4408758dfb89fa2a417805e88ad4f62c79f08726ee1fd73fd3d8c49dded",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.tropical-shallow-bay",
@@ -4427,17 +4404,17 @@
       "title": "Lakeside Cabin",
       "description": "Cozy timber cabin with glass walls, a writing desk, and stone fireplace. Warm wood floors and ceilings frame a compact lounge with a white sofa, armchair, round dining table, and tall bookcase. A desk lamp, floor lamp, pendant light, and deck seating support quiet work and relaxed reading.",
       "image": {
-        "url": "/assets/gallery/library-80a99877cf67e6d5687e89a2db35a7e5b55a76dcef72567a67547b2d28a1205f.jpg",
+        "url": "/assets/gallery/library-2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "80a99877cf67e6d5687e89a2db35a7e5b55a76dcef72567a67547b2d28a1205f"
+        "sha256": "2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.10",
+      "contentVersion": "1.0.14",
       "addedAt": "2026-09-25T17:43:20Z",
       "updatedAt": "2026-09-27T19:07:10Z",
       "searchTerms": [
@@ -4554,30 +4531,7 @@
             "火焰"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-5fb69be01fd4a7e0cf0b875c2467da7db9b910377b6246c9eab262f8eb9d1e9a.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "5fb69be01fd4a7e0cf0b875c2467da7db9b910377b6246c9eab262f8eb9d1e9a",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-1e500c85ff7de1c9c42de9745d04e025293477b788f4251d4b038caddd41def0.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "1e500c85ff7de1c9c42de9745d04e025293477b788f4251d4b038caddd41def0",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-6c808d4a9c7f370509caad8e24caae86f0b34a6e64f6b9526ad643234d21ed19.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "6c808d4a9c7f370509caad8e24caae86f0b34a6e64f6b9526ad643234d21ed19",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.alien-desert-ringed-planet",
@@ -5055,7 +5009,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.10",
+      "contentVersion": "1.0.16",
       "addedAt": "2026-09-20T16:23:15Z",
       "updatedAt": "2026-09-21T05:25:44Z",
       "searchTerms": [
@@ -5172,30 +5126,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-3db6152227c87d379639c13fd8e9e19da936aefee820d8f27f1497847f21d19c.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "3db6152227c87d379639c13fd8e9e19da936aefee820d8f27f1497847f21d19c",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-4e65a10036b6808bfbaf449348e2c4ed7a19ece0bbb7f648a487c1b64cd55d67.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "4e65a10036b6808bfbaf449348e2c4ed7a19ece0bbb7f648a487c1b64cd55d67",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-0754288e15196e8cb68f224b56d1dd64f59340d2051f7f6fb8f3e0f2d4acc1ab.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "0754288e15196e8cb68f224b56d1dd64f59340d2051f7f6fb8f3e0f2d4acc1ab",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.old-town-cafe",
@@ -5625,7 +5556,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.12",
+      "contentVersion": "1.0.16",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T03:32:01Z",
       "searchTerms": [
@@ -5715,30 +5646,7 @@
             "風扇"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-a5a7f372ec9c08ec565e06276133ba4e1ffb62fc0f74bbe08d35d4a89fd78ec8.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "a5a7f372ec9c08ec565e06276133ba4e1ffb62fc0f74bbe08d35d4a89fd78ec8",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-f2eb9d8489ffb3eeed5426641358c15e48fdbdd0e42058b9ebbdcd51d82ba8ff.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "f2eb9d8489ffb3eeed5426641358c15e48fdbdd0e42058b9ebbdcd51d82ba8ff",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-01fc953a97fd245f7252680af05ac168c4f2cc5a008ccfaed2671dcc57b6fe42.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "01fc953a97fd245f7252680af05ac168c4f2cc5a008ccfaed2671dcc57b6fe42",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.winter-garden-breeze",
@@ -6144,7 +6052,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.9",
+      "contentVersion": "1.0.12",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T02:25:36Z",
       "searchTerms": [
@@ -6225,30 +6133,7 @@
             "涼廊"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "/assets/gallery/rendered-9673d059701bc9372cd2dc08b6f202ffdb346d40a89974ed39e1375e432b5917.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "9673d059701bc9372cd2dc08b6f202ffdb346d40a89974ed39e1375e432b5917",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-f2d350d4e62dfc60874bced8c624cb545127adc06c96541054866d486cf9e80a.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "f2d350d4e62dfc60874bced8c624cb545127adc06c96541054866d486cf9e80a",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "/assets/gallery/rendered-063f7a9c6ec2b3138e5d4051574cf7edc06d418f1958f0f946be95bc6881b779.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "063f7a9c6ec2b3138e5d4051574cf7edc06d418f1958f0f946be95bc6881b779",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.desert-canyon-oasis",
