@@ -11,6 +11,7 @@ from __future__ import annotations
 import json
 import platform
 import subprocess
+import struct
 import sys
 import tempfile
 import unittest
@@ -95,6 +96,23 @@ class CheckRoomCLITests(unittest.TestCase):
         room = room_fixtures.Room()
         introduce_binding_typo(room)
         self.assert_binding_typo_rejected(room.write_v2(self.root / "typo-v2.locusplace"))
+
+    def test_render_minimal_room_or_report_unavailable_gpu(self) -> None:
+        archive = room_fixtures.Room().write_v2(self.root / "render.locusplace")
+        output = self.root / "renders"
+        result = self.run_checker(archive, "--renders", str(output))
+        report = json.loads(result.stdout)
+        if not report['valid'] and any('Metal GPU unavailable' in e['message'] for e in report['errors']):
+            self.skipTest('Metal GPU unavailable; macOS RealityKit render was not executed')
+        self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
+        self.assertIn('R', report['layers'])
+        files = [Path(p) for p in report['rooms'][0]['files']]
+        self.assertEqual(len(files), 12)
+        self.assertTrue(all(p.is_file() for p in files))
+        self.assertTrue((output / 'room-0/contact-sheet.png').is_file())
+        png = (output / 'room-0/seat-0/yaw-0.png').read_bytes()
+        self.assertEqual(png[:8], b'\x89PNG\r\n\x1a\n')
+        self.assertEqual(struct.unpack('>II', png[16:24]), (640, 360))
 
     def test_explicit_current_app_version_is_required(self) -> None:
         archive = room_fixtures.Room().write_flat(self.root / "minimal-flat.zip")
