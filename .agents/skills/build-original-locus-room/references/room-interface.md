@@ -1,19 +1,19 @@
 # Locus Room interface reference
 
-Use this bundled reference when authoring offline. The public reference at
+Use this bundled reference for the retained flat compatibility format and its
+Room v1-v10 fields. The Package v2 workflow and USDZ-derived seat procedure
+are in [Package v2 delivery](package-v2.md). The public reference at
 <https://enterlocus.com/reference/locus-asset-format.md> remains canonical.
 
 ## Coordinate and archive contract
 
 - Use right-handed meters, +Y up, and world -Z forward.
 - Quaternions are `[x, y, z, w]`.
-- Complete Package v2 is the recommended feature-complete import format in
-  Locus 1.2.1 and later. Its ZIP root directly contains `locusplace.json` and
-  `catalog/`; a Room lives below `catalog/spaces/<space-id>/` and keeps its
-  authored stable identity. Use the public `tools/pack_locusplace.py` and
-  `tools/validate_locusplace.py` commands with
-  `reference/locusplace-format.md` for a complete Room, View, or combined
-  Place and for advanced fields unavailable to flat ZIPs.
+- Package v2 is the canonical feature-complete import format. Its ZIP root
+  directly contains `locusplace.json` and `catalog/`; a Room lives below
+  `catalog/spaces/<space-id>/` and keeps its authored stable identity. Use
+  `tools/pack_locusplace.py`, then run `tools/check_room.py` with an explicit
+  render directory against the exact archive. See [Package v2 delivery](package-v2.md).
 - The bundled sample tools below produce a legacy/simple flat compatibility Room ZIP
   containing exactly `space.json`, `provenance.json`, `teleport-points.json`,
   `scene.usdz`, and `thumbnail.jpg`. Each flat import receives a new UUID.
@@ -22,10 +22,11 @@ Use this bundled reference when authoring offline. The public reference at
 - `thumbnail.jpg` must contain decodable JPEG or PNG image data.
 - In a flat compatibility ZIP, `displayName` is user-facing text, not identity.
 
-The rest of this offline reference documents that retained flat route, including
-its Room v1-v10 additions. It does not turn a flat ZIP into complete Package
-v2 or make it carry complete-only View media, Room/View composition,
-Experiences, or stable package identity.
+The rest of this reference documents that retained flat route, including its
+Room v1-v10 additions. It is a compatibility appendix, not the default
+workflow. It does not turn a flat ZIP into Package v2 or make it carry
+complete-only View media, Room/View composition, Experiences, or stable
+package identity.
 
 ## One-seat Room v3 example
 

@@ -1,248 +1,177 @@
 ---
 name: build-original-locus-room
-description: Build, package, validate, and runtime-check an original 3D Room for Locus using the public Room ZIP, seat, entity, desk, lighting, optional experimental animation, provenance, and verification contracts. Use when creating a new Room from a brief or adapting an original professional 3D scene for Locus.
+description: Build an original 3D Room for Locus on a Mac, from a brief or reference image to a checked Package v2 archive and Apple Vision Pro preview. Use for a new Room or for adapting an original professional 3D scene. The workflow uses no API key; paid generation is optional.
 ---
 
 # Build an Original Locus Room
 
-This is a sample skill for taking an original Room from concept to an exact,
-importable Locus ZIP. Use the creator's preferred professional 3D workflow.
-Concentrate on the Locus interface, deterministic packaging, and honest
-verification; preserve the creator's modeling judgment.
+This is a sample skill for taking an original Room from a brief to an importable
+Package v2 archive. It uses a reference image as the design and camera target, a
+repeatable 3D build, an exported USDZ as the source of truth for seats, the
+public Room checker, and device preview. It is not a promise that a render or
+an archive alone proves comfort or appearance on Apple Vision Pro.
 
-For an automated build from a blank brief without a specified tool, default to
-Blender Python executed through the command line in background mode. No open
-Blender window or MCP connection is required. Save reproducible scripts and
-review renders, inspect the images, and iterate without asking the creator to
-operate the viewport. Honor an explicitly chosen alternative authoring tool.
+The required workflow runs on **macOS** with Blender and Xcode or the Xcode
+Command Line Tools. The checks use macOS image and USD tooling. There is no
+supported non-Mac route. Start in a clone of the public `locus-support`
+repository; commands below use paths relative to its root. Use Python 3.9 or
+later and pass the Locus version being targeted to `--current-app-version`.
 
-If the request starts from a blank brief, use an available professional 3D
-authoring tool to create the geometry, materials, lighting geometry, and camera
-views. Do not stop after producing metadata or a package skeleton. If no such
-tool is available, state that limitation before promising a finished Room.
+No API key is required. A supplied photo, sketch, or Blender blockout can be
+the reference image. Paid image generation, image-to-3D, material relief, and
+audio are optional additions, never prerequisites; see
+[optional paid generation](references/optional-paid-generation.md).
 
-Read these local references before authoring:
+## Stages
 
-- `references/room-interface.md` for the flat compatibility contract through
-  Room v10, its delivery limits, and the routing rule for complete Package v2.
-- `references/design-language.md` when designing a new Room or judging whether
-  it belongs beside the public Locus examples.
-- `references/blender-headless.md` when using the default Blender Python route
-  for authoring, rendering, baking, or export.
-- [Lighting and glass](references/lighting-and-glass.md) when authoring indirect
-  bounce or architectural glazing, or checking bright-state surface blotches
-  and a dark/colored center in a reflected sun.
+Read the reference for each stage when that stage begins.
 
-The online [field reference](https://enterlocus.com/reference/locus-asset-format.md)
-and [complete Package v2 guide](https://enterlocus.com/reference/locusplace-format/)
-are canonical when network access is available. The bundled reference is enough
-to work offline for the flat compatibility route and directs advanced work to
-the complete-package toolchain.
+| Stage | Deliverable | Reference |
+| --- | --- | --- |
+| 1. Brief and concept | Brief, seat plan, and one approved reference image | [Concept and brief](references/concept-and-brief.md) and [design language](references/design-language.md) |
+| 2. Model from the image | Reproducible source, blockout and final review renders | [Headless Blender](references/blender-headless.md) |
+| 3. Materials and export | Self-contained, meter-scale, +Y-up USDZ | [Materials and export](references/materials-and-export.md) |
+| 4. Optional lights | Fixture bodies, proxies, and optional baked indirect layer | [Lighting and glass](references/lighting-and-glass.md) |
+| 5. Package v2 | Source directory, archive, and USDZ-derived seats | [Package v2 delivery](references/package-v2.md) |
+| 6. Check and review | Checked archive and inspected render contact sheet | [Package v2 delivery](references/package-v2.md#validate-the-exact-archive) |
+| 7. Device preview | Import, Preview in 3D, seats, lights, and Hide Desk | [Device preview and report](references/device-preview-and-report.md) |
+| 8. Report | SHA-256, evidence, and explicit open checks | [Device preview and report](references/device-preview-and-report.md#write-the-report) |
 
-## Establish the deliverable and rights
+For many floors, seats, and lamps, add [larger Rooms](references/larger-rooms.md)
+to the plan. The public [Package v2 guide](https://enterlocus.com/reference/locusplace-format/)
+and [field reference](https://enterlocus.com/reference/locus-asset-format/)
+are the canonical online contracts.
 
-Write down the intended Room, important views, entry seats, optional desks,
-wall/roof references, explicit rendering roles, and visitor-controlled lights.
-Room Portal opens detected real walls; these virtual references do not create
-portals, and the current product does not open the real ceiling. State any assumption that
-changes the Room interface or delivered files.
+## 1. Establish the deliverable and rights
 
-Before authoring, inventory every model, texture, image, font, and generated
-input. For each non-original component, retain its creator, exact source URL,
-license identifier and URL, and any required credit. Do not describe a
-composite Room as wholly original when third-party components remain embedded.
-Use only material that permits redistribution inside the delivered USDZ.
+Write down the Room's intended purpose, principal view, each seat and its
+purpose, desk-backed seats, visitor-controlled lamps, View opening, and any
+optional animation. Room Portal opens detected real walls; virtual wall and
+roof references do not create portals.
 
-Record creators, sources, rights, requested credit, modifications, and AI use
-truthfully in `provenance.json`. Set `aiGenerated` to `true` and name every
-generative AI provider that materially contributed in `aiProvider`. A
-permissive component does not become proprietary merely because it is packed
-inside the Room; say which parts are third-party in `modificationNotes` and
-point `sourcePageURL` to a durable notices page when several sources must be
-listed.
+Inventory every model, texture, image, font, and generated input. Record each
+non-original component's creator, source URL, license identifier and URL, and
+required credit. `provenance.json` must describe AI use truthfully:
+`aiGenerated: true` names every materially contributing generative provider in
+`aiProvider`. A DCC, renderer, exporter, or ordinary build tool is not an AI
+provider. Embedded content must permit redistribution in the delivered USDZ.
 
-`aiProvider` names the generative AI service or model, not the DCC, renderer,
-exporter, scripting language, or ordinary build tools. Make sure a custom
-`rights.url` actually publishes that exact statement; otherwise use the
-matching standard or project license object.
+## 2. Brief, reference image, and model
 
-## Design and author the Room
+Turn the brief into one reference image. Any image model is acceptable but
+optional: use a creator-supplied photo or sketch, or render a simple Blender
+blockout. The selected image sets both the thumbnail viewpoint and the camera
+used to compare the blockout and final model. A concept image is design input,
+not proof of a working Room.
 
-- Create an original, coherent environment rather than copying a public demo.
-- Export one self-contained, meter-scale, +Y-up USDZ with world -Z forward.
-- Give every metadata-referenced entity a stable, unique exported name.
-- Declare exactly one View opening and at least one usable entry seat.
-- Derive each seat's normalized `anchorXZ` from the final delivered USDZ bounds,
-  after any exporter axis or root-transform conversion; do not copy DCC world
-  coordinates into the normalized field.
-- Keep teleport IDs stable across revisions.
-- Group seats only when at least two teleports genuinely share one table,
-  sofa, or bar; a single seat stays a direct row and needs no group.
-- Map an optional desk seat to the tabletop entity itself, not a hierarchy
-  containing legs, chairs, lamps, computers, or props.
-- Name optional wall and roof entities explicitly for spatial adaptation.
-- Create a current `thumbnail.jpg` that represents the delivered Room.
+Build original geometry with the creator's preferred professional 3D workflow.
+When no tool is specified, use Blender Python in background mode and save the
+scripts and review renders. Match a camera to the reference's eye height,
+direction, field of view, and framing. Compare the blockout to it before
+adding detail, then compare the finished Room again.
 
-Inspect the authored Room from every declared seated eye point before export.
-Check sightlines, scale, glass, normals, materials, clipping, and whether a
-visitor can read the Room's intended focal point without standing up.
+Review every seat in the source: its forward view, a 360-degree surround, and
+the view above and below. Repair floating or intersecting objects, unsupported
+props, incomplete walls, light leaks, backwards fixtures, clipping, and poor
+sightlines before export. Place each eye point in front of the backrest over
+the cushion, not at the chair's center.
 
-After export, inspect the delivered USDZ rather than trusting the DCC viewport
-or render. Confirm up axis and scale, metadata-referenced entity names,
-embedded texture paths, positive emission on every controlled fixture body,
-and transparent-material parameters. Some exporters render alpha correctly in
-the authoring tool but write an opaque USD PreviewSurface. `usdchecker` can
-accept that file because it checks USD validity, not appearance. Correct the
-source or repeatable export pipeline and rebuild the USDZ when fidelity drifts.
+For a desk-backed seat, the desktop must be a real slab with thickness. Map
+the seat to the actual tabletop, not a parent containing legs, chairs, lamps,
+computers, or props. If offering **Hide Desk**, make a separate group contain
+the table and every object resting on it; the tabletop is a descendant of that
+group. Keep seat IDs and exported entity names stable across revisions.
 
-## Declare optional lighting
+## 3. Materials and export
 
-Treat each `luminaireGroups` entry as one logical visitor control. `entities`
-names emissive fixture bodies; `proxy` or Room-v3 `proxies` declares bounded
-direct sources. An enabled fixture body must remain visibly emissive from every
-seat. `nearTeleportIDs` scopes only the direct source; it must not make the
-fixture body appear switched off elsewhere.
+Export one self-contained USDZ in meters, +Y up, with world -Z forward. Store
+its ZIP members uncompressed. Use file-backed base-color, roughness, metallic,
+and normal maps where appropriate, and bake procedural looks to images.
 
-The emissive body, direct proxy, and indirect response are separate layers:
+Inspect the exported USDZ, not only the authoring viewport. Confirm the axes,
+scale, unique referenced entity names, embedded texture paths, controlled
+fixture emission, and transparency parameters. `usdchecker` can accept a
+USDZ whose appearance is still wrong in RealityKit.
 
-1. The exported emissive material makes the physical fixture look on.
-2. A bounded point or spot proxy creates local direct illumination.
-3. Optional Room-v3 `bakedIndirect.entities` supplies broad, low-frequency
-   diffuse response on opaque receivers.
+Common export failures are covered in
+[materials and export](references/materials-and-export.md): give open thin
+objects real thickness because double-sided material intent is back-face
+culled; split a packed ORM image into grayscale roughness and metallic maps;
+point thin leaf normals outward; and do not add a terrain base that blocks View
+water or inflates the Room bounds.
 
-Keep glass, water, transmissive materials, luminaire glow meshes, and
-fixture-specific halos out of the baked-indirect subtree. Locus scales that
-layer with the Room Lights master and Overall Room EV; individual light
-switches and color controls do not recolor the shared bounce.
+## 4. Optional lighting and animation
 
-Respect the Room-v3 safety contract: no more than 12 authored proxies, 4 active
-proxies at a seat, 1 shadow-casting proxy, 10,000 lumens per proxy, and a
-per-light brightness range within -4...+1 EV. These limits are not modeling or
-lighting recommendations. Overall Room brightness is a separate app control;
-do not expand the package's per-light range to enable a Room-wide stress test.
+Treat a `luminaireGroups` entry as one visitor control: fixture bodies make the
+lamp look on, bounded proxies provide direct light, and optional
+`bakedIndirect.entities` provide broad diffuse response. The fixture body must
+remain visibly emissive even where its proxy is scoped with `nearTeleportIDs`.
+Respect the Room v3 safety limits: no more than 12 authored proxies, 4 active
+at a seat, 1 shadow-casting proxy, 10,000 lumens per proxy, and per-light
+brightness between -4 and +1 EV.
 
-For a baked indirect layer, preserve linear precision and material color,
-separate material UVs from bake UVs, and verify the encoded atlas and emission
-gain in the exact USDZ. Follow the self-contained
-[lighting and glass workflow](references/lighting-and-glass.md), including its
-scoped clearcoat-roughness correction and public in-app verification steps.
+Experimental `ambientAnimations` may change. Add them only after the USDZ
+contains the named clips; test every switch, speed, and replay interval. Do
+not describe a checker pass as proof that an animation looks right.
 
-## Declare optional experimental animations
+## 5. Package v2 and derive seats from the USDZ
 
-Treat all Room animation metadata and playback behavior as experimental. Add
-animations in Room v4 or v5 only when the creator knowingly accepts that the field names, controls,
-speed behavior, and replay interval behavior may change.
+Package v2 is the default and canonical feature-complete import format. Its
+ZIP root contains `locusplace.json` and `catalog/`; the Room is under
+`catalog/spaces/<space-id>/`. It preserves stable IDs: keep `packageID`, space
+ID, and teleport IDs stable. Increase `contentVersion` whenever the archive
+bytes change. Run `tools/validate_locusplace.py` as part of packing, then use
+the Room checker as the required delivery validation. Starting with Locus
+1.4.5, reimporting a changed payload with the same imported `packageID` asks
+before replacing it and keeps its saved settings and organization.
 
-Each `ambientAnimations` entry connects one stable ID and visitor-facing name
-to one exact entity and animation name in the delivered USDZ. Set bounded speed
-and interval ranges. `[0, 0]` means immediate replay; any other range selects a
-fresh random pause after every completed play. The default interval must fit
-inside the adjustable range.
+Run `tools/pack_locusplace.py` for the archive. Do not copy DCC coordinates
+into `anchorXZ`: derive `anchorXZ` and `sourceFloorOffset` from the final
+exported USDZ bounds after axis and root-transform conversion. The bundled
+`scripts/locus_room_v2.py` helper reads those bounds through Blender's bundled
+`pxr`, turns friendly seat positions into the Package v2 `houses` teleport
+format, and prints eye points for review cameras. Its full use is in
+[Package v2 delivery](references/package-v2.md).
 
-The bundled scaffolder uses Room v1-v3 for its existing arguments and v5 when
-explicit rendering roles or `--light-direction` are supplied. To experiment
-with animations, add `ambientAnimations` only after the USDZ
-contains the named clips, then run the bundled validator against the exact ZIP.
-Try every animation switch, speed, and interval in Locus before delivery. Do
-not describe validator success as proof that the named clip produces the
-intended visible motion.
+The old five-file flat ZIP is only a compatibility appendix in
+[room interface](references/room-interface.md). It receives a new UUID on
+each import and is not this workflow's default delivery format.
 
-## Choose the delivery format
+## 6. Validate the exact archive and review renders
 
-Complete Package v2 is the canonical feature-complete import format and the
-recommended route in Locus 1.2.1 and later. Its ZIP root contains
-`locusplace.json` and `catalog/`, with
-the Room below `catalog/spaces/<space-id>/`. It preserves authored stable IDs,
-updates by `packageID` and newer `contentVersion`, localizations, supported
-Room/View composition, Experiences, and other current Package v2 features.
-
-For complete delivery, use the public `tools/pack_locusplace.py` and
-`tools/validate_locusplace.py` commands with the complete Package v2 guide.
-The bundled scaffolder, packer, and validator below produce only the
-legacy/simple flat Room compatibility format: a flat import receives a new UUID
-every time and cannot carry complete-package-only fields. Do not claim these
-scripts validate a complete Package v2 archive.
-
-## Scaffold, package, and validate a compatibility ZIP
-
-Resolve the directory that contains this `SKILL.md`; do not assume the current
-working directory is the skill directory. The bundled scaffolder creates the
-metadata and copies a finished USDZ and thumbnail into a new flat
-compatibility source directory. Run its `--help` first, then provide explicit provenance and Room
-arguments. For example:
+For every delivery, run the public Room checker against the exact archive with
+an explicit, empty output directory for its seat renders:
 
 ```sh
-python3 /absolute/path/to/skill/scripts/scaffold_locus_room.py --help
+python3 tools/check_room.py --current-app-version <target-version> \
+  --renders /absolute/path/to/renders /absolute/path/to/MyRoom.locusplace
 ```
 
-For a one-seat Room with one pendant, pass `--light-body` and `--light-anchor`
-using the exact exported entity names. Add `--baked-indirect-entity` only when
-that exported subtree actually exists. Review every generated JSON value; the
-scaffolder cannot infer geometry, bounds, seat pose, authorship, or rights.
+The checker verifies Package v2 structure and Room bindings, reports entry
+risks, and produces render evidence. Read every warning and inspect the whole
+render contact sheet. Correct the editable source and rebuild; never patch the
+ZIP by hand. A pass does not prove physical comfort, real-world alignment, or
+device appearance.
 
-The finished source directory contains exactly:
+## 7. Preview on Apple Vision Pro
 
-```text
-room/
-|-- space.json
-|-- provenance.json
-|-- teleport-points.json
-|-- scene.usdz
-`-- thumbnail.jpg
-```
+Import the exact checked archive from Files or a direct HTTPS URL. Use
+**Preview in 3D** from the Room card, pair the Room with a View, enter Virtual
+Space, and try every declared seat, light control, and Hide Desk. Exercise
+desk alignment, reach, scale, lighting, and comfort from more than one seat.
+Simulator and render evidence cannot substitute for this device check.
 
-For this compatibility format, do not add an ID, parent folder, editable
-source, GLB, loose texture, cache, or any other file. Put the user-visible name
-in `space.json` as `displayName`; Locus assigns a new UUID at each import and
-allows duplicate display names. These restrictions do not describe the
-canonical complete Package v2 layout.
+## 8. Report
 
-Pack and validate by absolute path so the commands work from any directory:
-
-```sh
-python3 /absolute/path/to/skill/scripts/pack_locus_asset.py /absolute/path/to/room /absolute/path/to/room.zip
-python3 /absolute/path/to/skill/scripts/validate_locus_asset.py /absolute/path/to/room.zip
-```
-
-The packer refuses to overwrite an existing ZIP. Validate the exact archive
-that will be delivered. Passing validation confirms structure and
-machine-checkable requirements; it does not prove entity semantics, comfort,
-scale, glass transparency, fixture emission, appearance, or runtime behavior.
-
-## Exercise the shipping path
-
-Import the exact validated ZIP through Locus's normal public import flow, pair
-it with a View, enter the Room, and try every declared seat and visitor control.
-On a simulator, verify archive import, catalog presentation, Room loading,
-entry, and controls that do not require world sensing. Capture a screenshot and
-inspect it for a loaded Room rather than treating a successful launch command
-as visual proof.
-
-Before calling physical behavior complete, try every declared seat on Apple
-Vision Pro. Exercise desk mappings, adaptive surfaces, Room Portal behavior,
-tracking, scale, reach, comfort, and lighting from different viewpoints there.
-Simulator evidence must not be reported as physical-device evidence.
-
-For experimental Room v4 or v5 content, also check every animation from every seat,
-including off, continuous `0–0`, fixed nonzero, and random interval behavior.
-Check motion scale, comfort, and sustained performance on Apple Vision Pro.
-
-Report the archive path and SHA-256, validator result, import and entry result,
-tested seats and interfaces, screenshot or device evidence, and every check
-that remains pending. Correct the authored source and rebuild instead of
-patching the ZIP by hand.
+Report the archive's SHA-256, target app version, checker result, render
+contact sheet, imported/entered result, seat-by-seat and control-by-control
+device result, and anything not yet checked. An independent reviewer should
+inspect the archive, checker output, renders, and device evidence separately
+from the author. Say `not verified` for unavailable device checks; never infer
+them from a simulator, a launch command, or a successful ZIP validation.
 
 ## License
 
-This skill, its references, and its bundled scripts are licensed under the
-[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). The
-repository's `LICENSE.md` and `LICENSES/Apache-2.0.txt` contain the exact scope
-and terms.
-
-## Keep the source authoritative
-
-Use temporary overrides only to test an appearance. A finished Room must store
-its intended geometry, transforms, PBR values, maps, UVs, and light directions
-in its editable source and matching export. Do not rely on Room IDs, name
-fragments, size thresholds, or runtime material repair. Declare v5 reflection
-and UI fade roles explicitly as described in the offline Room reference.
+This skill, its references, and bundled scripts are licensed under the
+[Apache License 2.0](https://www.apache.org/licenses/LICENSE-2.0). See
+`LICENSE.md` and `LICENSES/Apache-2.0.txt` in the repository for scope.

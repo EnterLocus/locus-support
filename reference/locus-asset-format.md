@@ -1860,8 +1860,8 @@ For an all-rights-reserved original, replace `license` with:
 ## Pack and validate a flat compatibility ZIP
 
 Clone or download the whole public repository before running these commands.
-Keep the validator and its sibling Python modules together; downloading one
-script alone is not sufficient.
+Keep the validator, its sibling Python modules, and `tools/room-bindings/`
+together; downloading one script alone is not sufficient.
 
 Keep only regular root files in the source directory, then run:
 
@@ -1877,11 +1877,56 @@ flat format. For complete Package v2, use `tools/pack_locusplace.py` and
 refuses to overwrite an existing ZIP, and only publishes a flat ZIP accepted by
 the same validator. Room validation uses macOS
 `sips`, Xcode's `usdchecker`, and a small Swift RealityKit checker compiled with
-`xcrun swiftc`. The Python validator embeds its Swift checker; its Python dependencies ship
-beside it in this public repository. The same binding rules
+`xcrun --sdk macosx swiftc`. Both archive validators share the Swift source
+in `tools/room-bindings/`; its Python launcher ships beside them. The same binding rules
 are used by the app before import. A `VALID` result covers structure, metadata,
 image decoding, model structure, and machine-checkable entity bindings. Import the
 exact ZIP and enter every Room seat to check scale, appearance, and comfort.
+
+### Check a Room before device preview
+
+For either Room format, use the layered macOS checker as the final authoring
+check. The version is the reader you are targeting, not the repository branch:
+
+```sh
+python3 tools/check_room.py --current-app-version <target-version> \
+  --renders /absolute/path/to/renders /absolute/path/to/room.locusplace
+```
+
+It reports structure (S), import binding (B), entry prerequisites (E), risk
+warnings (W), and requested diagnostic renders (R). The Mac must run macOS 15
+or later with Xcode or Command Line Tools; non-Mac execution fails explicitly.
+Errors make the command fail; warnings require review without changing its exit
+status. Use `--json` for the complete report and file inventory.
+
+The Room contract includes these entry prerequisites:
+
+- `seatedOrigin.orientationXYZW` must be nonzero and remain upright after
+  normalization: the transformed up vector's absolute X/Z components are below
+  `0.0001`, and its Y component exceeds `0.9999`.
+- Loaded visual bounds must be finite and nondegenerate on every axis, and a
+  Room must provide at least one teleport point.
+- Each desktop needs an upright basis (one world-up axis with score above 0.9,
+  two horizontal axes below 0.1). Author a slab, not a zero-thickness plane;
+  the checker conservatively requires all three local extents above 0.0001 m.
+- A desktop named by a seat must be within its declared Hide Desk group.
+- Each luminaire subtree needs authored positive emission. Illuminated and
+  baked-indirect emissive sites must use opaque materials. A positive default
+  intensity with black color and no emissive texture does not count.
+- An ambient animation must resolve to the named entity and a named resource
+  in its loaded animation library.
+
+Seat eye points derive from delivered model bounds and the authored floor
+and eye height. Clearance, isolated bounds pollution, double-sided meshes,
+packed-texture risks and budget ratios are warnings, not device predictions.
+The renderer uses fixed neutral lighting and marks its images **scaffolded**;
+it does not reproduce the selected View, runtime lighting controls, water,
+procedural sky, head-pose placement, desk alignment or personal safety state.
+See the [checker design and limits](https://github.com/EnterLocus/locus-support/tree/main/tools/locus-room-check)
+for exact thresholds and conservative differences from the reader.
+Comfort, tracking, Room Portal, frame rate, sound and appearance still require
+Apple Vision Pro. Import allowance and installed-ID conflicts cannot be checked
+offline.
 
 In a flat compatibility ZIP, do not include `.blend`, GLB, source textures,
 parent folders, symlinks, `catalog/`, Experience files, an ID, or

@@ -2407,6 +2407,11 @@
     ", radius is": "，半径为",
     ", speed is": "，速度为",
     "; its centre is\nwithin": "；其中心必须位于",
-    "defaults to": "默认值为"
+    "defaults to": "默认值为",
+    ", then run check_room.py with the target version and an explicit empty renders directory; inspect its seat-render contact sheet.": "，然后使用目标版本和明确为空的渲染目录运行 check_room.py，并查看座位渲染联系表。",
+    "Brief-to-device Package v2 workflow, Blender Python, exported-bounds seats, checker renders, and an honest delivery report.": "从简报到设备的 Package v2 工作流程、Blender Python、由导出边界得出的座位、检查器渲染图以及诚实的交付报告。",
+    "Give the public Room-building skill and your brief to an AI coding agent that can run local scripts and inspect images. On a Mac with Blender and Xcode or its Command Line Tools, its default route turns a supplied image, sketch, or blockout into an original Room: it matches the reference camera, models and reviews every seat, exports a self-contained USDZ, derives Package v2 seats from that exported model, and checks the final archive. Any image model is optional; no API key is needed. You can still use another professional 3D workflow if you prefer.": "将公开的 Room 制作技能和你的简报交给能够运行本地脚本并检查图像的 AI 编程代理。在装有 Blender 和 Xcode 或其 Command Line Tools 的 Mac 上，默认路线会将提供的图像、草图或块体模型制作成原创 Room：它匹配参考相机，建模并检查每个座位，导出自包含 USDZ，从该导出模型推导 Package v2 座位，并检查最终归档。任何图像模型均为可选项；不需要 API 密钥。如果愿意，你仍可使用其他专业 3D 工作流程。",
+    "Headless authoring still includes visual review. Saved renders help the agent catch modeling and material problems, but the final Apple Vision Pro preview confirms how the Room looks and feels in Locus. Import the exact checked archive, use Preview in 3D, pair it with a View, then try every seat, light control, and Hide Desk. If the agent cannot operate a suitable 3D tool or inspect images, it must explain which work remains incomplete.": "无界面制作仍包括视觉审查。保存的渲染图可帮助代理发现建模和材质问题，但最终 Apple Vision Pro 预览才能确认 Room 在 Locus 中的外观和感受。导入准确检查过的归档，使用 Preview in 3D，与 View 配对，然后尝试每个座位、灯光控制和 Hide Desk。如果代理无法操作合适的 3D 工具或检查图像，必须说明哪些工作尚未完成。",
+    "The agent saves reproducible scripts and renders, checks the images, and revises the Room. It must run check_room.py with an explicit render directory, inspect the contact sheet, and report the archive SHA-256 and remaining device checks.": "代理会保存可复现的脚本和渲染图、检查图像并修订 Room。它必须使用明确的渲染目录运行 check_room.py，查看联系表，并报告归档 SHA-256 和剩余的设备检查。"
   }
 }
