@@ -85,3 +85,26 @@ cannot determine import allowance or conflicts with content already installed.
 No successful check guarantees device acceptance. E rules are maintained semantic
 checks, not private runtime code; cross-repository fixture parity is tracked
 separately. Detailed mesh attribution of USD warnings remains a future improvement.
+
+## Measured diagnostic examples
+
+On an Apple M4 Pro running macOS 27, after shader caches were warm, the
+one-seat source fixture took about 0.26 seconds for R (11 views plus its sheet),
+and the 9.9 MB Atrium model took about 0.56 seconds (21 views plus its sheet).
+The Atrium command took 12.6 seconds including validation and a fresh Swift
+build. `renderDurationSeconds` measures only R; model loading, archive checks
+and Swift compilation are outside that number. These timings describe these
+small examples, not device frame rate or a performance budget.
+
+The source fixtures in `tests/render_risk_fixtures.py` provide a reproducible
+platform spike. On this Mac, a wall declaring `doubleSided = 1` disappeared
+from the rear, while explicitly authored reverse-facing geometry restored it.
+A packed ORM texture and equivalent separate grayscale maps both loaded with
+roughness/metallic texture bindings and showed no blackening in this synthetic
+case. The ORM symptom was therefore not reproduced here; it remains a warning,
+not an entry error. Inspect the exact model on Vision Pro.
+
+Entry errors still allow requested diagnostic images when finite model bounds
+and seat eyes are available. Structural/binding failures prevent unsafe render
+attempts. Missing Metal GPUs are reported as errors by the CLI; CI tests may
+explicitly skip the GPU-only assertion while retaining S/B/E coverage.

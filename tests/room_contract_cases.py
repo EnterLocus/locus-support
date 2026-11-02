@@ -141,7 +141,7 @@ CASES = (
     ContractCase("near-upright-seated-origin", "The seated-origin tilt is below the verticality threshold.", near_upright_seated_origin,
                  "accept", None, "accept", None, None),
     ContractCase("zero-seated-origin", "The seated-origin quaternion is zero.", zero_seated_origin,
-                 "accept", None, "reject", "invalidModelBounds", "seatedOrigin"),
+                 "reject", "invalidPose", "reject", "invalidModelBounds", "seatedOrigin"),
     ContractCase("nonemissive-luminaire", "A declared luminaire has no positive emission.", nonemissive_luminaire,
                  "accept", None, "reject", "entityHasNoPositiveEmissive", "entityHasNoPositiveEmissive"),
     ContractCase("nonopaque-illuminated", "A separate illuminated subtree has nonopaque positive emission.", add_nonopaque_illuminated,

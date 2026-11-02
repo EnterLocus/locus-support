@@ -114,6 +114,20 @@ class CheckRoomCLITests(unittest.TestCase):
         self.assertEqual(png[:8], b'\x89PNG\r\n\x1a\n')
         self.assertEqual(struct.unpack('>II', png[16:24]), (640, 360))
 
+    def test_entry_error_still_produces_diagnostic_renders(self) -> None:
+        room = room_fixtures.Room()
+        room.materials['Lamp_Glow'] = ((1, .64, .3), .5, None, 1)
+        archive = room.write_v2(self.root / 'nonemissive.locusplace')
+        result = self.run_checker(archive, '--renders', str(self.root / 'renders'))
+        report = json.loads(result.stdout)
+        if any('Metal GPU unavailable' in e['message'] for e in report['errors']):
+            self.skipTest('Metal GPU unavailable; macOS render not executed')
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        self.assertIn('entityHasNoPositiveEmissive', [e.get('code') for e in report['errors']])
+        self.assertIn('R', report['layers'])
+        self.assertGreater(report['rooms'][0]['renderDurationSeconds'], 0)
+        self.assertTrue((self.root / 'renders/room-0/contact-sheet.png').exists())
+
     def test_explicit_current_app_version_is_required(self) -> None:
         archive = room_fixtures.Room().write_flat(self.root / "minimal-flat.zip")
         result = subprocess.run(

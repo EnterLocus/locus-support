@@ -3364,6 +3364,9 @@ def validate_payload(
                             f"{base}.seatedOrigin.translationMeters")
         require_number_list(space.get("seatedOrigin", {}).get("orientationXYZW"), 4,
                             f"{base}.seatedOrigin.orientationXYZW")
+        length_squared = sum(component * component for component in space["seatedOrigin"]["orientationXYZW"])
+        require(math.isfinite(length_squared) and length_squared > 1e-12,
+                f"{base}.seatedOrigin.orientationXYZW must be nonzero with finite squared length")
         safe_head = space.get("safeHeadVolume", {})
         require_number_list(safe_head.get("centerMeters"), 3,
                             f"{base}.safeHeadVolume.centerMeters")

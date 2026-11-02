@@ -13,6 +13,7 @@ struct Report: Codable {
     var macOS = ProcessInfo.processInfo.operatingSystemVersionString
     var layers = ["E", "W"]
     var files: [String] = []
+    var renderDurationSeconds: Double?
 }
 @main struct Check {
     @MainActor static func main() async {
@@ -24,9 +25,11 @@ struct Report: Codable {
             let space = try JSONSerialization.jsonObject(with: Data(contentsOf: URL(fileURLWithPath: args[2]))) as! [String: Any]
             let seats = try JSONSerialization.jsonObject(with: Data(contentsOf: URL(fileURLWithPath: args[3]))) as! [[String: Any]]
             evaluate(root, space, seats, &report)
-            if args.count == 5 && report.errors.isEmpty {
+            if args.count == 5 && !report.seats.isEmpty {
                 do {
+                    let started = ProcessInfo.processInfo.systemUptime
                     report.files = try await render(root, space, report.seats, URL(fileURLWithPath: args[4]))
+                    report.renderDurationSeconds = ProcessInfo.processInfo.systemUptime - started
                     report.layers.append("R")
                 } catch {
                     report.errors.append(.init(layer: "R", code: "renderUnavailable", message: error.localizedDescription))
