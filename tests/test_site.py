@@ -1333,6 +1333,18 @@ class PublicSiteTests(unittest.TestCase):
             (root / "scripts" / "pack_locus_asset.py").read_bytes(),
             (ROOT / "tools" / "pack_locus_asset.py").read_bytes(),
         )
+        # The RealityKit binding check is one Swift source shared by both
+        # validators; the skill bundles a byte-identical copy beside them.
+        for relative in [
+            "room_bindings.py",
+            "room-bindings/RoomBindings.swift",
+            "room-bindings/ValidateRoomBindings.swift",
+        ]:
+            self.assertEqual(
+                (root / "scripts" / relative).read_bytes(),
+                (ROOT / "tools" / relative).read_bytes(),
+                relative,
+            )
         guide = (ROOT / "create-your-own-place" / "index.html").read_text()
         self.assertLess(
             guide.index("Try three complete Rooms"),
@@ -1850,8 +1862,9 @@ class PublicRoomBindingTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as directory:
             root = pathlib.Path(directory)
             tool = root / "validate_locus_asset.py"
-            for name in ["validate_locus_asset.py", "content_localization.py", "point_lights.py", "package_sound.py"]:
+            for name in ["validate_locus_asset.py", "content_localization.py", "point_lights.py", "package_sound.py", "room_bindings.py"]:
                 shutil.copyfile(ROOT / "tools" / name, root / name)
+            shutil.copytree(ROOT / "tools" / "room-bindings", root / "room-bindings")
             with zipfile.ZipFile(ROOT / "examples/atrium-loft-room.zip") as source:
                 files = {name: source.read(name) for name in source.namelist()}
             manifest = json.loads(files["space.json"])
@@ -1890,8 +1903,9 @@ def Xform "Root" {
     def test_standalone_download_rejects_missing_reference_and_packer_leaves_no_zip(self):
         with tempfile.TemporaryDirectory() as folder:
             root = pathlib.Path(folder)
-            for tool in ["validate_locus_asset.py", "pack_locus_asset.py", "content_localization.py", "point_lights.py", "package_sound.py"]:
+            for tool in ["validate_locus_asset.py", "pack_locus_asset.py", "content_localization.py", "point_lights.py", "package_sound.py", "room_bindings.py"]:
                 shutil.copyfile(ROOT / "tools" / tool, root / tool)
+            shutil.copytree(ROOT / "tools" / "room-bindings", root / "room-bindings")
             source = root / "room"
             source.mkdir()
             with zipfile.ZipFile(ROOT / "examples/atrium-loft-room.zip") as archive:
