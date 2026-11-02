@@ -123,7 +123,12 @@ def check(archive: Path, version: str, renders: Path | None = None) -> dict:
                 text = flattened.read_text()
                 if re.search(r"doubleSided\s*=\s*(?:1|true)", text):
                     room["warnings"].append({"layer": "W", "code": "doubleSided", "message": "USD declares double-sided geometry; RealityKit backface behavior needs inspection from both sides. Use outward normals and explicit back geometry where needed."})
-                if re.search(r"inputs:roughness\.connect", text) and re.search(r"inputs:metallic\.connect", text):
+                rough = set(re.findall(r"inputs:roughness\.connect\s*=\s*<([^>]+)>", text))
+                metal = set(re.findall(r"inputs:metallic\.connect\s*=\s*<([^>]+)>", text))
+                shared_sampler = {path.split('.outputs:', 1)[0] for path in rough} & {path.split('.outputs:', 1)[0] for path in metal}
+                textures = re.findall(r"\basset\s+inputs:file\s*=\s*@([^@]+)@", text)
+                reused_image = len(textures) != len(set(textures))
+                if rough and metal and (shared_sampler or reused_image):
                     room["warnings"].append({"layer": "W", "code": "packedORM", "message": "Roughness and metallic use connected textures. Inspect for packed ORM and split into independent grayscale images if shared; dark rendering is a platform-dependent risk."})
                 room["manifest"] = str(path.relative_to(root))
                 report["rooms"].append(room)

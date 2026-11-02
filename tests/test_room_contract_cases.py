@@ -163,6 +163,8 @@ class RoomContractFixtureTests(unittest.TestCase):
         self.assertIn("Intentional conservative checker difference", annotation["intentionalDifference"])
 
     def test_confirmed_importer_outcomes_use_semantic_error_codes(self):
+        self.assertEqual(self.cases["zero-seated-origin"]["annotations"]["importer"],
+                         {"outcome": "reject", "error": "invalidPose"})
         self.assertEqual(
             self.cases["missingbinding"]["annotations"]["importer"],
             {"outcome": "reject", "error": "missingEntity"},

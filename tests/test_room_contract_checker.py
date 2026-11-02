@@ -25,5 +25,7 @@ class SharedCheckerContract(unittest.TestCase):
                         report = check_room.check(root / (case.identifier + '.' + suffix), '1.4.5')
                         expected_error = case.importer_outcome == 'reject' or case.checker_e_code is not None
                         self.assertEqual(report['valid'], not expected_error, report)
+                        if case.importer_outcome == 'reject':
+                            self.assertNotIn('E', report['layers'], report)
                         if case.importer_outcome == 'accept' and case.checker_e_code is not None:
                             self.assertIn(case.checker_e_code, [e.get('code') for e in report['errors']], report)
