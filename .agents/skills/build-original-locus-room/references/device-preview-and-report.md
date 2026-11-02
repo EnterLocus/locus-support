@@ -22,6 +22,14 @@ RealityKit appearance. Preview the exact archive that passed the Room checker.
 Use a simulator only for import, loading, and non-world-sensing controls. Do
 not label simulator screenshots or offline renders as device acceptance.
 
+## Reimport a revision
+
+Starting with Locus 1.4.5, importing a changed Package v2 payload with the same
+imported `packageID` asks before replacing it, including equal or lower content
+versions. Keep the same content IDs. Replacement preserves saved settings and
+organization and uses no additional import allowance; an identical content
+hash remains a no-op. Continue incrementing `contentVersion` for revisions.
+
 ## Independent review
 
 Ask someone other than the author to inspect the archive hash, checker output,

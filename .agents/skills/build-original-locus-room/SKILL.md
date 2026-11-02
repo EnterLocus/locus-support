@@ -121,7 +121,9 @@ ZIP root contains `locusplace.json` and `catalog/`; the Room is under
 `catalog/spaces/<space-id>/`. It preserves stable IDs: keep `packageID`, space
 ID, and teleport IDs stable. Increase `contentVersion` whenever the archive
 bytes change. Run `tools/validate_locusplace.py` as part of packing, then use
-the Room checker as the required delivery validation.
+the Room checker as the required delivery validation. Starting with Locus
+1.4.5, reimporting a changed payload with the same imported `packageID` asks
+before replacing it and keeps its saved settings and organization.
 
 Run `tools/pack_locusplace.py` for the archive. Do not copy DCC coordinates
 into `anchorXZ`: derive `anchorXZ` and `sourceFloorOffset` from the final
