@@ -24,7 +24,13 @@ def executable() -> Path:
         temporary = tempfile.TemporaryDirectory(prefix="locus-room-check-build-")
         build = Path(temporary.name)
         package = Path(__file__).parent / "locus-room-check"
-        command = ["xcrun", "--sdk", "macosx", "swift", "build", "--package-path", str(package), "--scratch-path", str(build)]
+        # This dependency-free executable needs no package manifest evaluation.
+        # Compile the reviewed sources directly so externally sandboxed authoring
+        # environments do not require a nested SwiftPM sandbox.
+        sources = sorted((package / "Sources" / "LocusRoomCheck").glob("*.swift"))
+        command = ["xcrun", "--sdk", "macosx", "swiftc", "-swift-version", "6",
+                   "-target", platform.machine() + "-apple-macosx15.0",
+                   "-o", str(build / "locus-room-check")] + [str(source) for source in sources]
         try:
             compiled = subprocess.run(command, capture_output=True, text=True, timeout=300)
             if compiled.returncode:
@@ -33,7 +39,7 @@ def executable() -> Path:
             temporary.cleanup()
             raise
         _build_directory = temporary
-    return Path(_build_directory.name) / "debug" / "locus-room-check"
+    return Path(_build_directory.name) / "locus-room-check"
 
 
 def check(archive: Path, version: str, renders: Path | None = None) -> dict:

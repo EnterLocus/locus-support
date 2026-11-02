@@ -2,6 +2,7 @@
 import importlib.util
 import json
 from pathlib import Path
+import shutil
 import subprocess
 import sys
 import tempfile
@@ -10,6 +11,25 @@ import unittest
 
 ROOT = Path(__file__).resolve().parents[1]
 HELPER = ROOT / ".agents/skills/build-original-locus-room/scripts/locus_room_v2.py"
+sys.path.insert(0, str(ROOT / "tests"))
+
+import room_fixtures
+
+
+def blender_python():
+    """Locate Blender's embedded Python when this host provides it."""
+    blender = shutil.which("blender")
+    if blender:
+        candidate = Path(blender).resolve().parents[2] / "Resources"
+        embedded = sorted(candidate.glob("*/python/bin/python3*"))
+        if embedded:
+            return embedded[-1]
+    resources = Path("/Applications/Blender.app/Contents/Resources")
+    embedded = sorted(resources.glob("*/python/bin/python3*"))
+    return embedded[-1] if embedded else None
+
+
+BLENDER_PYTHON = blender_python()
 
 
 def load_helper():
@@ -97,6 +117,29 @@ class RoomV2HelperTests(unittest.TestCase):
         with self.assertRaisesRegex(self.helper.HelperError, "exactly one"):
             self.helper.seat_record({"id": "ambiguous", "title": "Ambiguous", "floor": [0, 0, 0],
                                      "eye": [0, 1, 0], "eyeHeight": 1, "yawRadians": 0}, 0, bounds, "usd")
+
+    def test_bounds_accepts_tuple_coordinates_from_an_exported_usdz(self):
+        self.assertEqual(
+            self.helper.checked_bounds(((-2.0, -0.16, -2.0), (2.0, 2.7, 2.0)), "scene"),
+            ((-2.0, -0.16, -2.0), (2.0, 2.7, 2.0)),
+        )
+
+    @unittest.skipUnless(BLENDER_PYTHON, "Blender embedded Python is unavailable")
+    def test_blender_pxr_bounds_reads_a_source_generated_usdz(self):
+        with tempfile.TemporaryDirectory() as folder:
+            scene = Path(folder) / "scene.usdz"
+            scene.write_bytes(room_fixtures.minimal_room().usdz())
+            result = subprocess.run(
+                [str(BLENDER_PYTHON), str(HELPER), "bounds", str(scene)],
+                capture_output=True,
+                text=True,
+            )
+            self.assertEqual(result.returncode, 0, result.stderr)
+            self.assertEqual(json.loads(result.stdout), {
+                "min": [-2.0, -0.16, -2.0],
+                "max": [2.0, 2.7, 2.0],
+                "size": [4.0, 2.86, 4.0],
+            })
 
 
 if __name__ == "__main__":

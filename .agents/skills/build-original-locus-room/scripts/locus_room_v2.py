@@ -62,7 +62,7 @@ def rounded(value: float) -> float:
 
 
 def numbers(value: Any, count: int, context: str) -> List[float]:
-    if (not isinstance(value, list) or len(value) != count or
+    if (not isinstance(value, (list, tuple)) or len(value) != count or
             not all(type(item) in (int, float) and math.isfinite(item) for item in value)):
         raise HelperError(f"{context} must be {count} finite numbers")
     return [float(item) for item in value]
