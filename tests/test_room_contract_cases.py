@@ -96,6 +96,20 @@ class RoomContractFixtureTests(unittest.TestCase):
 
                 space, _seats, _model = self.metadata("tilted-seated-origin", archive_format)
                 self.assertEqual(space["seatedOrigin"]["orientationXYZW"], [0.1, 0, 0, 0.995])
+                for case_id, x, verdict in (
+                    ("borderline-tilted-seated-origin", 0.000075, "reject"),
+                    ("near-upright-seated-origin", 0.000025, "accept"),
+                ):
+                    space, _seats, _model = self.metadata(case_id, archive_format)
+                    quaternion = space["seatedOrigin"]["orientationXYZW"]
+                    self.assertEqual(quaternion[:3], [x, 0, 0])
+                    self.assertAlmostEqual(quaternion[3], (1 - x * x) ** 0.5)
+                    verticality_error = abs(2 * quaternion[0] * quaternion[3])
+                    if verdict == "reject":
+                        self.assertGreater(verticality_error, 0.0001)
+                    else:
+                        self.assertLess(verticality_error, 0.0001)
+                    self.assertEqual(self.cases[case_id]["annotations"]["entry"]["outcome"], verdict)
                 space, _seats, _model = self.metadata("zero-seated-origin", archive_format)
                 self.assertEqual(space["seatedOrigin"]["orientationXYZW"], [0, 0, 0, 0])
 
@@ -137,6 +151,9 @@ class RoomContractFixtureTests(unittest.TestCase):
                 scene = self.scene_usda(model)
                 self.assertIn('def Xform "Floor"', scene)
                 self.assertNotIn('def Xform "Back_Wall"', scene)
+                self.assertNotIn("spatialAdaptation", _space)
+                self.assertNotIn("lighting", _space)
+                self.assertNotIn("rendering", _space)
 
     def test_zero_thickness_annotation_records_the_intentional_difference(self):
         annotation = self.cases["zero-thickness-desk"]["annotations"]
@@ -145,12 +162,15 @@ class RoomContractFixtureTests(unittest.TestCase):
         self.assertEqual(annotation["checker"]["expectedECode"], "deskBounds")
         self.assertIn("Intentional conservative checker difference", annotation["intentionalDifference"])
 
-    def test_uncertain_stage_boundaries_are_explicit(self):
-        for case_id in ("degenerate-bounds", "no-seats"):
-            with self.subTest(case=case_id):
-                annotation = self.cases[case_id]["annotations"]
-                self.assertEqual(annotation["expectation"], "expected-app-behavior")
-                self.assertIn("app", annotation["uncertainty"].lower())
+    def test_confirmed_importer_outcomes_use_semantic_error_codes(self):
+        self.assertEqual(
+            self.cases["missingbinding"]["annotations"]["importer"],
+            {"outcome": "reject", "error": "missingEntity"},
+        )
+        self.assertEqual(
+            self.cases["no-seats"]["annotations"]["importer"],
+            {"outcome": "reject", "error": "missingTeleportPoints"},
+        )
 
     def test_export_is_byte_deterministic(self):
         second = self.root / "second"
