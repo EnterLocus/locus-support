@@ -141,7 +141,13 @@ bytes. They begin with a letter or digit and then use only letters, digits,
 `.`, `_`, and `-`.
 Versions have exactly three numeric components. An update with changed bytes
 must retain the same declared content IDs and use a greater `contentVersion`.
-Importing the same `contentHash` is an idempotent no-op.
+Importing the same `contentHash` is an idempotent no-op. Starting with Locus
+1.4.5, importing a different payload with the same imported `packageID` asks
+for confirmation before replacement, including an equal or lower content
+version. The declared content IDs must remain stable; replacement keeps saved
+settings and organization and does not consume another import allowance.
+Library updates keep their normal version rules. Continue increasing
+`contentVersion` for portable revisions and compatibility with earlier apps.
 
 `contentHash` is SHA-256 over every file record sorted by Unicode path. Each
 record contributes these UTF-8 bytes:
