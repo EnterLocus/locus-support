@@ -619,6 +619,19 @@ provenance, image/EXR, and USDZ checks.
 The visionOS importer remains authoritative for installation and cross-catalog
 resolution.
 
+For a Room delivery, also run the macOS Room checker after the final pack. It
+adds Room-binding and entry-risk checks and produces seat-render evidence; pass
+an explicit empty output directory and inspect the resulting contact sheet:
+
+```sh
+python3 tools/check_room.py --current-app-version 1.4.4 \
+  --renders /absolute/path/to/room-renders MyRoom.locusplace
+```
+
+This check is required for the public Room workflow. Its render evidence does
+not replace Apple Vision Pro checks for physical comfort, tracking, real-world
+alignment, or device appearance.
+
 Pack an editable directory into an ordinary ZIP, recomputing every integrity
 record and refusing to publish unless this validator accepts the result:
 

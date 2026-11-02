@@ -25,22 +25,27 @@ See [LICENSE.md](LICENSE.md) for exact paths and
 third-party notices.
 
 The repository includes a tool-agnostic Room integration guide and an optional
-Room-building skill at `.agents/skills/build-original-locus-room/`. Complete
-Package v2 is the recommended feature-complete import format in Locus 1.2.1
-and later. Use `tools/pack_locusplace.py` and `tools/validate_locusplace.py`
-with [the complete-package guide](reference/locusplace-format.md) for stable
-IDs, updates, localized metadata, and supported current View and Room fields.
+Room-building skill at `.agents/skills/build-original-locus-room/`. Its default
+workflow is a Mac-based, reference-led build to Package v2: model and review a
+self-contained USDZ, derive seats from its exported bounds, pack it, run
+`tools/check_room.py` with an explicit render directory, then preview the
+exact archive on Apple Vision Pro. No API key is required; paid generation is
+optional. Complete Package v2 is the recommended feature-complete import
+format in Locus 1.2.1 and later. Use `tools/pack_locusplace.py` and
+`tools/validate_locusplace.py` with [the complete-package guide](reference/locusplace-format.md)
+for stable IDs, updates, localized metadata, and supported current View and
+Room fields.
 The older flat packer, validator, scaffolder, and downloadable Room examples
 remain intentionally available for simple compatibility archives; they cannot
 carry complete-package-only fields. The flat validator supports Room contracts
 through v10; the downloadable demo Rooms intentionally remain historical v5 examples. A flat archive does
 not expose every current feature.
-The skill bundles an offline Room reference, design language, metadata
-scaffolder, packer, validator, and delivery checks. For automated authoring from
-a blank brief, it defaults to headless Blender Python with saved render review;
-creators can still use their preferred professional 3D workflow. No open
-Blender window or MCP connection is required for that default route. The free Cloud Fan Pavilion
-download demonstrates experimental Room animation playback.
+The skill bundles offline references, a Package v2 seat conversion helper, and
+compatibility tools. For automated authoring from a blank brief, it defaults to
+headless Blender Python with saved render review; creators can still use their
+preferred professional 3D workflow. No open Blender window or MCP connection is
+required for that default route. The free Cloud Fan Pavilion download
+demonstrates experimental Room animation playback.
 
 Experimental Room animation metadata, playback controls, speed, and replay
 intervals are documented at
