@@ -1310,17 +1310,15 @@ class PublicSiteTests(unittest.TestCase):
         self.assertTrue(skill.startswith("---\n"))
         for required in [
             "This is a sample skill", "professional 3D workflow",
-            "thumbnail.jpg", "teleport-points.json", "aiGenerated",
-            "aiProvider", "luminaireGroups", "nearTeleportIDs",
-            "bakedIndirect.entities", "pack_locus_asset.py",
-            "validate_locus_asset.py", "scaffold_locus_room.py",
-            "references/room-interface.md", "references/design-language.md",
-            "Do not stop after producing metadata", "SHA-256",
-            "write an opaque USD PreviewSurface",
-            "not the DCC, renderer, exporter",
-            "try every declared seat on Apple Vision Pro",
-            "Declare optional experimental animations", "ambientAnimations",
-            "[0, 0]", "may change",
+            "Package v2", "macOS", "No API key is required",
+            "aiGenerated", "aiProvider", "luminaireGroups", "nearTeleportIDs",
+            "bakedIndirect.entities", "contentVersion", "anchorXZ",
+            "sourceFloorOffset", "locus_room_v2.py", "check_room.py",
+            "--current-app-version", "--renders", "Preview in 3D",
+            "Hide Desk", "Apple Vision Pro", "not verified",
+            "references/package-v2.md", "references/concept-and-brief.md",
+            "references/materials-and-export.md", "optional paid generation",
+            "ambientAnimations", "may change",
         ]:
             self.assertIn(required, flat_skill)
         for private_detail in ["/Users/", "Dropbox", "Locus Dev", "Blender MCP"]:
@@ -1345,6 +1343,7 @@ class PublicSiteTests(unittest.TestCase):
                 (ROOT / "tools" / relative).read_bytes(),
                 relative,
             )
+        self.assertTrue((root / "scripts" / "locus_room_v2.py").is_file())
         guide = (ROOT / "create-your-own-place" / "index.html").read_text()
         self.assertLess(
             guide.index("Try three complete Rooms"),
@@ -1357,9 +1356,10 @@ class PublicSiteTests(unittest.TestCase):
         )
         room_guide = (ROOT / "build-a-room" / "index.html").read_text()
         for required in [
-            "Build with an AI assistant", "create an original Room",
-            "scaffold the five delivery files", "cannot operate a suitable 3D tool",
-            "Offline Room contract", "scaffolder", "delivery checks",
+            "Build with an AI assistant",
+            "Package v2", "check_room.py", "Preview in 3D",
+            "cannot operate a suitable 3D tool", "exported model",
+            "No Blender window or MCP setup required",
         ]:
             self.assertIn(required, room_guide)
 
@@ -1402,6 +1402,8 @@ class PublicSiteTests(unittest.TestCase):
         validator = root / "scripts" / "validate_locus_asset.py"
         interface = (root / "references" / "room-interface.md").read_text()
         design = (root / "references" / "design-language.md").read_text()
+        package_v2 = (root / "references" / "package-v2.md").read_text()
+        materials = (root / "references" / "materials-and-export.md").read_text()
         for required in [
             "One-seat Room v3 example", "Three glazed sides",
             "emissive fixture bodies", "Exact delivery gates",
@@ -1414,6 +1416,16 @@ class PublicSiteTests(unittest.TestCase):
             "visibly on whenever its Locus control is enabled",
         ]:
             self.assertIn(required, design)
+        for required in [
+            "locus_room_v2.py", "sourceFloorOffset", "convert-points",
+            "tools/check_room.py", "--renders", "contact sheet",
+        ]:
+            self.assertIn(required, package_v2)
+        for required in [
+            "back-face culled", "packed ORM", "zero-thickness desktop",
+            "terrain base", "RealityKit",
+        ]:
+            self.assertIn(required, materials)
 
         with tempfile.TemporaryDirectory(prefix="locus-public-skill-test-") as directory:
             temporary = pathlib.Path(directory)

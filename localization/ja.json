@@ -2407,6 +2407,11 @@
     ", radius is": "。半径は",
     ", speed is": "。速度は",
     "; its centre is\nwithin": "。中心の範囲は",
-    "defaults to": "の既定値は"
+    "defaults to": "の既定値は",
+    ", then run check_room.py with the target version and an explicit empty renders directory; inspect its seat-render contact sheet.": "、次に対象バージョンと明示的に空のレンダーディレクトリを指定して check_room.py を実行し、座席レンダーのコンタクトシートを確認します。",
+    "Brief-to-device Package v2 workflow, Blender Python, exported-bounds seats, checker renders, and an honest delivery report.": "ブリーフからデバイスまでの Package v2 ワークフロー、Blender Python、エクスポート済み境界から導出した座席、チェッカーのレンダー、正直な納品報告。",
+    "Give the public Room-building skill and your brief to an AI coding agent that can run local scripts and inspect images. On a Mac with Blender and Xcode or its Command Line Tools, its default route turns a supplied image, sketch, or blockout into an original Room: it matches the reference camera, models and reviews every seat, exports a self-contained USDZ, derives Package v2 seats from that exported model, and checks the final archive. Any image model is optional; no API key is needed. You can still use another professional 3D workflow if you prefer.": "ローカルスクリプトを実行して画像を確認できる AI コーディングエージェントに、公開された Room 作成スキルとブリーフを渡します。Blender と Xcode またはその Command Line Tools を備えた Mac では、標準ルートが提供された画像、スケッチ、またはブロックアウトからオリジナルの Room を作成します。参照カメラを合わせ、各座席をモデリングして確認し、自己完結した USDZ を書き出し、そのモデルから Package v2 の座席を導出して最終アーカイブを検査します。画像モデルは任意で、API キーは不要です。必要に応じて別のプロ向け 3D ワークフローを使えます。",
+    "Headless authoring still includes visual review. Saved renders help the agent catch modeling and material problems, but the final Apple Vision Pro preview confirms how the Room looks and feels in Locus. Import the exact checked archive, use Preview in 3D, pair it with a View, then try every seat, light control, and Hide Desk. If the agent cannot operate a suitable 3D tool or inspect images, it must explain which work remains incomplete.": "ヘッドレス制作にも視覚レビューは含まれます。保存したレンダーはエージェントがモデリングやマテリアルの問題を見つける助けになりますが、最終的な Apple Vision Pro のプレビューが Locus での Room の見え方と感触を確認します。正確に検査したアーカイブを読み込み、Preview in 3D を使用して View と組み合わせ、各座席、照明コントロール、Hide Desk を試します。適切な 3D ツールを操作できない、または画像を確認できない場合、エージェントは未完了の作業を説明する必要があります。",
+    "The agent saves reproducible scripts and renders, checks the images, and revises the Room. It must run check_room.py with an explicit render directory, inspect the contact sheet, and report the archive SHA-256 and remaining device checks.": "エージェントは再現可能なスクリプトとレンダーを保存し、画像を確認して Room を改訂します。明示的なレンダーディレクトリを指定して check_room.py を実行し、コンタクトシートを確認して、アーカイブの SHA-256 と残るデバイス確認を報告する必要があります。"
   }
 }
