@@ -22,3 +22,4 @@ jobs:
       - run: python3 -m pip install numpy pillow
       - run: python3 -m unittest -v tests/test_black_hole_tools.py
       - run: python3 -m unittest -v tests/test_complete_packages.py tests/test_validate_seat_groups.py tests/test_validate_spatial_adaptation.py
+      - run: python3 -m unittest -v tests/test_room_bindings.py tests/test_check_room.py tests/test_check_room_cli.py
