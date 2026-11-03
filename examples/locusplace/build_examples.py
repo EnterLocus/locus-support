@@ -157,10 +157,12 @@ def destination_payload() -> dict[str, bytes]:
                     "initialYawDegrees": 0,
                 },
                 "caption": "A generated gradient used only for import validation.",
+                "thumbnail": "thumbnail.png",
                 "provenance": "provenance.json",
             }
         ),
         f"{base}/panorama.png": panorama_png(),
+        f"{base}/thumbnail.png": panorama_png(),
         f"{base}/provenance.json": json_bytes(PROVENANCE),
     }
 
