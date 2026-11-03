@@ -157,6 +157,15 @@ class CompletePackageCLITests(unittest.TestCase):
                 self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
                 self.assert_valid(repacked)
 
+    def test_generated_view_examples_include_a_thumbnail(self):
+        for name in ("view-only", "combined"):
+            with self.subTest(name=name):
+                with zipfile.ZipFile(self.generated / (name + ".locusplace")) as archive:
+                    base = "catalog/destinations/destination.example-view/"
+                    destination = json.loads(archive.read(base + "destination.json"))
+                    self.assertEqual(destination["thumbnail"], "thumbnail.png")
+                    self.assertIn(base + destination["thumbnail"], archive.namelist())
+
     def write_archive_with(self, output, source, transform):
         with zipfile.ZipFile(source) as archive:
             members = {info.filename: archive.read(info) for info in archive.infolist()}
