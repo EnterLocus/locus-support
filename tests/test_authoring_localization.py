@@ -53,6 +53,19 @@ class AuthoringLocalizationTests(unittest.TestCase):
                                      Counter(PROTECTED.findall(catalog[key])),
                                      'field names, filenames, flags and capability IDs must remain exact')
 
+    def test_room_workflow_article_is_translated_and_keeps_checker_command(self):
+        source = (ROOT / 'make-a-room/index.html').read_text()
+        keys = localization._sources_in_html(source)
+        expected_code = code_text(source)
+        for locale in localization.TRANSLATED_LOCALES:
+            catalog = localization.load_catalog(ROOT, locale)
+            for key in keys:
+                with self.subTest(locale=locale, source=key):
+                    self.assertTrue(localization.has_translation(key, catalog), 'missing Room workflow prose')
+                    self.assertEqual(Counter(PROTECTED.findall(key)), Counter(PROTECTED.findall(catalog[key])))
+            translated = build_site._translate_document(source, Path('make-a-room/index.html'), locale, catalog)
+            self.assertEqual(code_text(translated), expected_code)
+
     def test_touched_field_paragraphs_translate_connecting_prose(self):
         # These fragments sit between code spans in the expanded water reference.
         fragments = (') and', '), and', ', and it also\nrequires', ', radius is',
