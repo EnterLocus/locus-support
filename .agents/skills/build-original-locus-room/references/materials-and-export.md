@@ -22,6 +22,40 @@ texture paths, axes, scale, material bindings, transparency values, and every
 controlled fixture body's emission. A structural checker cannot judge whether
 a material looks plausible from a visitor's eye point.
 
+## Asset and texture inputs
+
+Use only the models and textures needed for the selected Room; downloading a
+large library does not make it a Room input. The creator may supply their own
+properly licensed model, select a free licensed model, or ask ChatGPT to
+generate a needed texture. Treat all of these as authoring inputs, not as
+runtime-ready Room content: use Blender to normalize axes, scale, and
+materials; resolve every external dependency; UV-map the model where needed;
+prepare file-backed PBR maps; and review the final exported USDZ.
+
+Useful public sources include:
+
+- [Poly Haven models](https://polyhaven.com/models) and
+  [textures](https://polyhaven.com/textures), both offered under
+  [CC0](https://polyhaven.com/license);
+- NVIDIA's official
+  [SimReady assets dataset](https://huggingface.co/datasets/nvidia/simready-assets),
+  licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); and
+- Scenario's official
+  [3D collection](https://huggingface.co/datasets/scenario-labs/3d-collection),
+  licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
+
+The NVIDIA license statement applies to that official dataset, not generally to
+all SimReady Central datasets. For NVIDIA or Scenario inputs, retain the source
+URL, required attribution, license, and a record of the changes made in
+`provenance.json`. Prefer mesh assets such as GLB or USD. Do not use Scenario
+SPZ or splat assets: a Locus Room is delivered as a mesh USDZ.
+
+For a ChatGPT-generated texture, keep the generated source and record material
+AI use in provenance. Build or derive the required base-color, roughness,
+metallic, and normal maps, then confirm the UV mapping and PBR response in the
+exported USDZ. A free or generated input is not a promise of RealityKit-ready
+materials, scale, topology, or licensing beyond its recorded terms.
+
 ## Known RealityKit failures
 
 **Do not rely on a double-sided material flag.** It can be back-face culled.

@@ -26,10 +26,14 @@ third-party notices.
 
 The repository includes a tool-agnostic Room integration guide and an optional
 Room-building skill at `.agents/skills/build-original-locus-room/`. Its default
-workflow is a Mac-based, reference-led build to Package v2: model and review a
-self-contained USDZ, derive seats from its exported bounds, pack it, run
-`tools/check_room.py` with an explicit render directory, then preview the
-exact archive on Apple Vision Pro. No API key is required; paid generation is
+workflow has four steps: choose a concept image (ChatGPT, another image model,
+or a supplied picture); ask the agent for a metric floor plan and seat layout;
+model from both image and layout, export and check an importable Package v2
+archive; then import on Apple Vision Pro and feed observations back to the
+agent for revisions. Use only these public docs, skill, and tools; Locus app
+source and a Simulator are not required. The agent reviews the model and every
+seat, derives seats from exported USDZ bounds, and runs `tools/check_room.py`
+with an explicit render directory before each device iteration. No API key is required; paid generation is
 optional. Complete Package v2 is the recommended feature-complete import
 format in Locus 1.2.1 and later. Use `tools/pack_locusplace.py` and
 `tools/validate_locusplace.py` with [the complete-package guide](reference/locusplace-format.md)
