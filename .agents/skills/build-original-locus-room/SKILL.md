@@ -1,174 +1,157 @@
 ---
 name: build-original-locus-room
-description: Build an original 3D Room for Locus on a Mac, from a brief or reference image to a checked Package v2 archive and Apple Vision Pro preview. Use for a new Room or for adapting an original professional 3D scene. The workflow uses no API key; paid generation is optional.
+description: Build an original 3D Room for Locus on a Mac, from a concept image and metric layout to a checked Package v2 archive and physical Apple Vision Pro iteration. Use for a new Room or an original professional 3D scene. No image-generation provider or API key is required.
 ---
 
 # Build an Original Locus Room
 
-This is a sample skill for taking an original Room from a brief to an importable
-Package v2 archive. It uses a reference image as the design and camera target, a
-repeatable 3D build, an exported USDZ as the source of truth for seats, the
-public Room checker, and device preview. It is not a promise that a render or
-an archive alone proves comfort or appearance on Apple Vision Pro.
+This public workflow takes an original Room from design input to a Package v2
+archive that a creator checks on Apple Vision Pro. A concept image guides the
+design; it is not proof that the delivered Room works, looks right, or is
+comfortable on device.
 
-The required workflow runs on **macOS** with Blender and Xcode or the Xcode
-Command Line Tools. The checks use macOS image and USD tooling. There is no
-supported non-Mac route. Start in a clone of the public `locus-support`
-repository; commands below use paths relative to its root. Use Python 3.9 or
-later and pass the Locus version being targeted to `--current-app-version`.
+It runs from a clone of the public `locus-support` repository with Blender,
+macOS, Xcode or the Xcode Command Line Tools, and the installed Locus app. It
+does not need private Locus source code, internal tools, a Simulator, an API
+key, or a particular image-model vendor. Commands below are relative to the
+public repository root. Use Python 3.9 or later and pass the Locus version
+being targeted to `--current-app-version`.
 
-No API key is required. A supplied photo, sketch, or Blender blockout can be
-the reference image. Paid image generation, image-to-3D, material relief, and
-audio are optional additions, never prerequisites; see
-[optional paid generation](references/optional-paid-generation.md).
+Any capable external agent can perform the normal workflow. For a clean-room
+demonstration, start that agent with fresh context and give it only the public
+repository, this skill, the creator's inputs, and public tools. Do not use a
+Simulator in either case. Renders and archive checks establish useful evidence
+but leave physical-device appearance, tracking, scale, and comfort as device
+acceptance gaps until the creator checks them.
 
-## Stages
+## The four steps
 
-Read the reference for each stage when that stage begins.
+Read the linked reference when beginning its step. The public
+[Package v2 guide](https://enterlocus.com/reference/locusplace-format/) and
+[field reference](https://enterlocus.com/reference/locus-asset-format/) are
+the canonical online contracts.
 
-| Stage | Deliverable | Reference |
+| Step | Creator and agent outcome | Reference |
 | --- | --- | --- |
-| 1. Brief and concept | Brief, seat plan, and one approved reference image | [Concept and brief](references/concept-and-brief.md) and [design language](references/design-language.md) |
-| 2. Model from the image | Reproducible source, blockout and final review renders | [Headless Blender](references/blender-headless.md) |
-| 3. Materials and export | Self-contained, meter-scale, +Y-up USDZ | [Materials and export](references/materials-and-export.md) |
-| 4. Optional lights | Fixture bodies, proxies, and optional baked indirect layer | [Lighting and glass](references/lighting-and-glass.md) |
-| 5. Package v2 | Source directory, archive, and USDZ-derived seats | [Package v2 delivery](references/package-v2.md) |
-| 6. Check and review | Checked archive and inspected render contact sheet | [Package v2 delivery](references/package-v2.md#validate-the-exact-archive) |
-| 7. Device preview | Import, Preview in 3D, seats, lights, and Hide Desk | [Device preview and report](references/device-preview-and-report.md) |
-| 8. Report | SHA-256, evidence, and explicit open checks | [Device preview and report](references/device-preview-and-report.md#write-the-report) |
+| 1. Choose a concept image | The creator supplies or selects one clear visual target. | [Concept and brief](references/concept-and-brief.md) and [design language](references/design-language.md) |
+| 2. Derive a metric layout | The agent turns that image into a buildable floor plan and seat layout before modeling. | [Concept and brief](references/concept-and-brief.md) and [larger Rooms](references/larger-rooms.md) |
+| 3. Build, review, and package | The agent models from both inputs, repairs the editable source, and produces a checked Package v2 archive plus portable editable source. | [Headless Blender](references/blender-headless.md), [materials and export](references/materials-and-export.md), [lighting and glass](references/lighting-and-glass.md), and [Package v2 delivery](references/package-v2.md) |
+| 4. Check on Apple Vision Pro and iterate | The creator checks the exact archive on the physical device and sends screenshots and concrete findings back to the agent for revisions. | [Device preview and report](references/device-preview-and-report.md) |
 
-For many floors, seats, and lamps, add [larger Rooms](references/larger-rooms.md)
-to the plan. The public [Package v2 guide](https://enterlocus.com/reference/locusplace-format/)
-and [field reference](https://enterlocus.com/reference/locus-asset-format/)
-are the canonical online contracts.
+## 1. Choose a concept image
 
-## 1. Establish the deliverable and rights
+The creator produces or selects a single concept image using ChatGPT, any
+text-to-image model, another image model, a supplied photo or sketch, a
+Blender blockout, or their own image. Image generation is optional: there is
+no provider, API, or paid-service prerequisite. The image should establish the
+principal view, mood, architectural type, major materials, opening, and
+day/night state. It is the camera and visual target for review.
 
-Write down the Room's intended purpose, principal view, each seat and its
-purpose, desk-backed seats, visitor-controlled lamps, View opening, and any
-optional animation. Room Portal opens detected real walls; virtual wall and
-roof references do not create portals.
+Record the Room's intended purpose, each seat and its purpose, desk-backed
+seats, visitor-controlled lamps, optional animation or sound, and a rights
+inventory for every supplied or incorporated asset. Record material AI use
+truthfully in `provenance.json`: `aiGenerated: true` names every materially
+contributing generative provider in `aiProvider`; a DCC, renderer, exporter,
+or ordinary build tool is not an AI provider. Embedded content must permit
+redistribution in the delivered USDZ.
 
-Inventory every model, texture, image, font, and generated input. Record each
-non-original component's creator, source URL, license identifier and URL, and
-required credit. `provenance.json` must describe AI use truthfully:
-`aiGenerated: true` names every materially contributing generative provider in
-`aiProvider`. A DCC, renderer, exporter, or ordinary build tool is not an AI
-provider. Embedded content must permit redistribution in the delivered USDZ.
+## 2. Derive a metric floor plan and seat layout
 
-## 2. Brief, reference image, and model
+Before building geometry, the agent derives a metric floor plan from the
+concept image. It is a layout target, not a dump of exported anchors. Specify
+the Room envelope and dimensions; opening widths, heights, and locations;
+floor levels and transitions; usable paths and clearance; and the View opening
+or virtual wall/roof references. Room Portal opens detected real walls;
+virtual references do not create portals.
 
-Turn the brief into one reference image. Any image model is acceptable but
-optional: use a creator-supplied photo or sketch, or render a simple Blender
-blockout. The selected image sets both the thumbnail viewpoint and the camera
-used to compare the blockout and final model. A concept image is design input,
-not proof of a working Room.
+For every seat, record its intended eye position and facing direction, purpose,
+forward focal point, and whether it is desk-backed or lounge seating. For a
+desk-backed seat, define the tabletop and usable working relationship; for a
+lounge seat, define the relaxed view and circulation around it. Include the
+principal comparison camera's eye height, direction, framing, and field of
+view. The plan must make each path, seat surround, ceiling height, and opening
+reviewable before detail work begins.
 
-Build original geometry with the creator's preferred professional 3D workflow.
-When no tool is specified, use Blender Python in background mode and save the
-scripts and review renders. Match a camera to the reference's eye height,
-direction, field of view, and framing. Compare the blockout to it before
-adding detail, then compare the finished Room again.
+## 3. Build from the image and layout, then package the result
 
-Review every seat in the source: its forward view, a 360-degree surround, and
-the view above and below. Repair floating or intersecting objects, unsupported
-props, incomplete walls, light leaks, backwards fixtures, clipping, and poor
-sightlines before export. Place each eye point in front of the backrest over
-the cushion, not at the chair's center.
+The agent models from both the concept image and the metric layout, preserving
+the editable source, scripts, textures, and review renders. Blender Python in
+background mode is the default build route and needs no Blender MCP; another
+professional 3D workflow is fine when the creator chooses it. Use
+[Headless Blender](references/blender-headless.md) for the default route and
+[Materials and export](references/materials-and-export.md#asset-and-texture-inputs)
+for optional creator-provided licensed models, generated textures, and other
+asset inputs. Tripo is an optional image-to-3D route, never a prerequisite; see
+[optional paid generation](references/optional-paid-generation.md).
+Match the comparison camera to the concept image, review the blockout before
+detail, and review the finished Room against both the image and layout.
 
-For a desk-backed seat, the desktop must be a real slab with thickness. Map
-the seat to the actual tabletop, not a parent containing legs, chairs, lamps,
-computers, or props. If offering **Hide Desk**, make a separate group contain
-the table and every object resting on it; the tabletop is a descendant of that
-group. Keep seat IDs and exported entity names stable across revisions.
+Render the principal view, exterior and thumbnail views, plus enough
+overlapping views at every declared seat to inspect the forward view, complete
+surround, above, and below. Fix the editable source—not a hand-edited ZIP—for
+floating or intersecting objects, unsupported props, incomplete walls, light
+leaks, backwards fixtures, clipping, poor sightlines, or unusable desk space.
+Seat eye points belong in front of the backrest over the cushion, not at a
+chair center. Use [Materials and export](references/materials-and-export.md)
+for export-safe PBR and [Lighting and glass](references/lighting-and-glass.md)
+for controlled fixtures, indirect light, or glazing.
 
-## 3. Materials and export
+Export one self-contained USDZ in meters, +Y up, with world -Z forward, and
+store its ZIP members uncompressed. Inspect the exported USDZ as well as the
+authoring scene: its axes, scale, unique
+referenced entity names, texture packaging and paths, transparency, fixture
+emission, and bounds. `usdchecker` can accept a USDZ whose appearance is still
+wrong in the app.
 
-Export one self-contained USDZ in meters, +Y up, with world -Z forward. Store
-its ZIP members uncompressed. Use file-backed base-color, roughness, metallic,
-and normal maps where appropriate, and bake procedural looks to images.
-
-Inspect the exported USDZ, not only the authoring viewport. Confirm the axes,
-scale, unique referenced entity names, embedded texture paths, controlled
-fixture emission, and transparency parameters. `usdchecker` can accept a
-USDZ whose appearance is still wrong in RealityKit.
-
-Common export failures are covered in
-[materials and export](references/materials-and-export.md): give open thin
-objects real thickness because double-sided material intent is back-face
-culled; split a packed ORM image into grayscale roughness and metallic maps;
-point thin leaf normals outward; and do not add a terrain base that blocks View
-water or inflates the Room bounds.
-
-## 4. Optional lighting and animation
-
-Treat a `luminaireGroups` entry as one visitor control: fixture bodies make the
-lamp look on, bounded proxies provide direct light, and optional
-`bakedIndirect.entities` provide broad diffuse response. The fixture body must
-remain visibly emissive even where its proxy is scoped with `nearTeleportIDs`.
-Respect the Room v3 safety limits: no more than 12 authored proxies, 4 active
-at a seat, 1 shadow-casting proxy, 10,000 lumens per proxy, and per-light
-brightness between -4 and +1 EV.
-
-Experimental `ambientAnimations` may change. Add them only after the USDZ
-contains the named clips; test every switch, speed, and replay interval. Do
-not describe a checker pass as proof that an animation looks right.
-
-## 5. Package v2 and derive seats from the USDZ
-
-Package v2 is the default and canonical feature-complete import format. Its
-ZIP root contains `locusplace.json` and `catalog/`; the Room is under
-`catalog/spaces/<space-id>/`. It preserves stable IDs: keep `packageID`, space
-ID, and teleport IDs stable. Increase `contentVersion` whenever the archive
-bytes change. Run `tools/validate_locusplace.py` as part of packing, then use
-the Room checker as the required delivery validation. Starting with Locus
-1.4.5, reimporting a changed payload with the same imported `packageID` asks
-before replacing it and keeps its saved settings and organization.
-
-Run `tools/pack_locusplace.py` for the archive. Do not copy DCC coordinates
-into `anchorXZ`: derive `anchorXZ` and `sourceFloorOffset` from the final
-exported USDZ bounds after axis and root-transform conversion. The bundled
-`scripts/locus_room_v2.py` helper reads those bounds through Blender's bundled
-`pxr`, turns friendly seat positions into the Package v2 `houses` teleport
-format, and prints eye points for review cameras. Its full use is in
+Package the Room as Package v2—the canonical feature-complete import format—and
+deliver the importable archive together with portable editable source. Preserve
+`packageID`, space ID, teleport IDs, and exported entity names across revisions;
+increase `contentVersion` whenever archive bytes change. Derive `anchorXZ` and
+`sourceFloorOffset` from the final exported USDZ bounds after axis and
+root-transform conversion, rather than copying DCC coordinates. Use
+`tools/pack_locusplace.py` and `tools/validate_locusplace.py` as described in
 [Package v2 delivery](references/package-v2.md).
 
-The old five-file flat ZIP is only a compatibility appendix in
-[room interface](references/room-interface.md). It receives a new UUID on
-each import and is not this workflow's default delivery format.
+The older five-file flat ZIP is a compatibility appendix in
+[room interface](references/room-interface.md): it receives a new UUID on each
+import and is not this workflow's default delivery format.
 
-## 6. Validate the exact archive and review renders
-
-For every delivery, run the public Room checker against the exact archive with
-an explicit, empty output directory for its seat renders:
+Validate the exact delivery archive with an explicit, empty render directory:
 
 ```sh
 python3 tools/check_room.py --current-app-version <target-version> \
   --renders /absolute/path/to/renders /absolute/path/to/MyRoom.locusplace
 ```
 
-The checker verifies Package v2 structure and Room bindings, reports entry
-risks, and produces render evidence. Read every warning and inspect the whole
-render contact sheet. Correct the editable source and rebuild; never patch the
-ZIP by hand. A pass does not prove physical comfort, real-world alignment, or
-device appearance.
+Read every checker warning and inspect the complete render contact sheet.
+`--current-app-version` and the explicit `--renders` directory are required
+evidence for this handoff. Correct the editable source, rebuild, repack, and
+recheck when either render review or the checker exposes a problem. A passing
+archive remains narrower evidence than physical-device acceptance.
 
-## 7. Preview on Apple Vision Pro
+## 4. Check the exact archive on Apple Vision Pro and iterate
 
-Import the exact checked archive from Files or a direct HTTPS URL. Use
-**Preview in 3D** from the Room card, pair the Room with a View, enter Virtual
-Space, and try every declared seat, light control, and Hide Desk. Exercise
-desk alignment, reach, scale, lighting, and comfort from more than one seat.
-Simulator and render evidence cannot substitute for this device check.
+The creator imports the exact checked Package v2 archive from Files or a direct
+HTTPS URL on a physical Apple Vision Pro. In **Preview in 3D**, inspect the
+full model, materials, bounds, and thumbnail relationship. Pair the Room with
+a View, enter Virtual Space, and check actual appearance, scale, reach,
+readability, comfort, and lighting in the intended conditions.
 
-## 8. Report
+Try every declared seat: its forward view, full surround, headroom, footroom,
+focal point, clipping, facing direction, and usable path. For every desk-backed
+seat, check tabletop alignment and **Hide Desk** when declared; its group must
+contain the table and everything resting on it. Try every light control and,
+if present, each animation switch, speed, and replay interval.
 
-Report the archive's SHA-256, target app version, checker result, render
-contact sheet, imported/entered result, seat-by-seat and control-by-control
-device result, and anything not yet checked. An independent reviewer should
-inspect the archive, checker output, renders, and device evidence separately
-from the author. Say `not verified` for unavailable device checks; never infer
-them from a simulator, a launch command, or a successful ZIP validation.
+The creator sends screenshots and concrete observations to the agent. The agent
+repairs the editable source, rebuilds the archive, reruns the exact-archive
+checker and affected render review, and returns a revised archive. Reimport the
+revised archive while keeping the stable IDs, incremented `contentVersion`, and
+saved settings behavior described in the device reference; then repeat the
+affected physical-device checks on that exact revised archive. Report its hash,
+target app version, checks performed, and every unavailable check as `not
+verified`. Do not infer device acceptance from a render, importer result,
+command exit code, or archive validation.
 
 ## License
 
