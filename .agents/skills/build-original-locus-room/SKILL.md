@@ -80,8 +80,16 @@ background mode is the default build route and needs no Blender MCP; another
 professional 3D workflow is fine when the creator chooses it. Use
 [Headless Blender](references/blender-headless.md) for the default route and
 [Materials and export](references/materials-and-export.md#asset-and-texture-inputs)
-for optional creator-provided licensed models, generated textures, and other
-asset inputs. Tripo is an optional image-to-3D route, never a prerequisite; see
+for asset inputs. When existing assets would improve the requested quality or
+save work, actively look for suitable licensed models and textures; candidates
+include [Poly Haven](https://polyhaven.com/models), NVIDIA's
+[SimReady assets](https://huggingface.co/datasets/nvidia/simready-assets), and
+Scenario's [3D collection](https://huggingface.co/datasets/scenario-labs/3d-collection).
+The creator can also provide assets or use ChatGPT or another image model to
+generate textures. Select only useful assets, verify their individual terms,
+record provenance, and prepare them for Blender and USDZ export. Free or
+generated inputs are optional, and no paid provider is a prerequisite.
+Tripo is an optional image-to-3D route, never a prerequisite; see
 [optional paid generation](references/optional-paid-generation.md).
 Match the comparison camera to the concept image, review the blockout before
 detail, and review the finished Room against both the image and layout.
@@ -141,7 +149,7 @@ Try every declared seat: its forward view, full surround, headroom, footroom,
 focal point, clipping, facing direction, and usable path. For every desk-backed
 seat, check tabletop alignment and **Hide Desk** when declared; its group must
 contain the table and everything resting on it. Try every light control and,
-if present, each animation switch, speed, and replay interval.
+if present, each experimental animation switch, speed, and replay interval.
 
 The creator sends screenshots and concrete observations to the agent. The agent
 repairs the editable source, rebuilds the archive, reruns the exact-archive

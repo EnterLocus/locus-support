@@ -24,8 +24,10 @@ a material looks plausible from a visitor's eye point.
 
 ## Asset and texture inputs
 
-Use only the models and textures needed for the selected Room; downloading a
-large library does not make it a Room input. The creator may supply their own
+When modeling demands detail that suitable external assets could provide,
+search available libraries rather than assuming primitive placeholders are the
+only option. Use only the models and textures needed for the selected Room;
+downloading a large library does not make it a Room input. The creator may supply their own
 properly licensed model, select a free licensed model, or ask ChatGPT to
 generate a needed texture. Treat all of these as authoring inputs, not as
 runtime-ready Room content: use Blender to normalize axes, scale, and
