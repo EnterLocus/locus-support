@@ -472,7 +472,7 @@ class PublicSiteTests(unittest.TestCase):
                 "Disc Brightness", "Doppler Beaming", "Turbulence Detail", "Disc Glow", "Flares",
                 "tools/black_hole", "NASA, ESA, CSA, and STScI", "aiGenerated", "Reduce Motion",
             ],
-            "make-a-room": ["smallest working Room", "five files", "Apple Vision Pro"],
+            "make-a-room": ["1. Choose a concept image", "2. Plan the floor and seats", "3. Build and check the Room", "4. Import, review, and iterate", "Apple Vision Pro"],
             "github-pages-skyboxes": ["GitHub Pages", "image itself", "Save as View…"],
         }
 
@@ -1267,7 +1267,8 @@ class PublicSiteTests(unittest.TestCase):
                 self.assertIn("Package v2", page)
                 self.assertIn("compatib", page.lower())
 
-        skill = " ".join((ROOT / ".agents" / "skills" / "build-original-locus-room" / "SKILL.md").read_text().split())
+        skill_root = ROOT / ".agents" / "skills" / "build-original-locus-room"
+        skill = " ".join(((skill_root / "SKILL.md").read_text() + (skill_root / "references" / "package-v2.md").read_text()).split())
         for required in [
             "canonical feature-complete import format",
             "catalog/spaces/<space-id>/", "stable IDs", "new UUID",
@@ -1306,11 +1307,12 @@ class PublicSiteTests(unittest.TestCase):
     def test_sample_skill_is_public_safe_and_includes_its_tools(self):
         root = ROOT / ".agents" / "skills" / "build-original-locus-room"
         skill = (root / "SKILL.md").read_text()
-        flat_skill = " ".join(skill.split())
+        flat_skill = " ".join((skill + "\n" + "\n".join(path.read_text() for path in (root / "references").glob("*.md"))).split())
         self.assertTrue(skill.startswith("---\n"))
+        self.assertIn("needs no Blender MCP", flat_skill)
         for required in [
-            "This is a sample skill", "professional 3D workflow",
-            "Package v2", "macOS", "No API key is required",
+            "This public workflow", "professional 3D workflow",
+            "Package v2", "macOS", "no provider, API, or paid-service prerequisite",
             "aiGenerated", "aiProvider", "luminaireGroups", "nearTeleportIDs",
             "bakedIndirect.entities", "contentVersion", "anchorXZ",
             "sourceFloorOffset", "locus_room_v2.py", "check_room.py",
@@ -1321,7 +1323,7 @@ class PublicSiteTests(unittest.TestCase):
             "ambientAnimations", "may change",
         ]:
             self.assertIn(required, flat_skill)
-        for private_detail in ["/Users/", "Dropbox", "Locus Dev", "Blender MCP"]:
+        for private_detail in ["/Users/", "Dropbox", "Locus Dev"]:
             self.assertNotIn(private_detail, skill)
         self.assertEqual(
             (root / "scripts" / "validate_locus_asset.py").read_bytes(),
@@ -1362,6 +1364,28 @@ class PublicSiteTests(unittest.TestCase):
             "No Blender window or MCP setup required",
         ]:
             self.assertIn(required, room_guide)
+
+    def test_room_workflow_uses_four_public_stages_and_real_device_feedback(self):
+        page = (ROOT / "make-a-room" / "index.html").read_text()
+        stages = ["concept", "layout", "build", "device"]
+        positions = [page.index('id="' + stage + '"') for stage in stages]
+        self.assertEqual(positions, sorted(positions))
+        for stage in stages:
+            self.assertIn('href="#' + stage + '"', page)
+        for promise in ["concept image and the layout", "floor plan and seat layout",
+                        "Blender MCP is not required", "tools/check_room.py",
+                        "--current-app-version", "--renders", "MyRoom.locusplace",
+                        "screenshots and specific feedback", "revise the source",
+                        "do not need access to the Locus application source code or a Simulator"]:
+            self.assertIn(promise, page)
+        for url in ["https://polyhaven.com/models", "https://polyhaven.com/textures",
+                    "https://huggingface.co/datasets/nvidia/simready-assets",
+                    "https://huggingface.co/datasets/scenario-labs/3d-collection"]:
+            self.assertIn('href="' + url + '"', page)
+        for provider in ["TRIPO", "ChatGPT", "CC0", "CC BY 4.0"]:
+            self.assertIn(provider, page)
+        skill = (ROOT / ".agents/skills/build-original-locus-room/SKILL.md").read_text()
+        self.assertEqual(re.findall(r"^## (\d)\.", skill, re.MULTILINE), ["1", "2", "3", "4"])
 
     def test_sample_skill_references_are_portable_and_public_safe(self):
         source = ROOT / ".agents" / "skills" / "build-original-locus-room"
