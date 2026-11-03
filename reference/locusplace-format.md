@@ -214,6 +214,7 @@ numbers), `orientationXYZW` (four finite numbers with non-zero length), and
     "height": 4096,
     "initialYawDegrees": 0
   },
+  "thumbnail": "thumbnail.jpg",
   "provenance": "provenance.json"
 }
 ```
@@ -228,7 +229,7 @@ numbers), `orientationXYZW` (four finite numbers with non-zero length), and
 | `panorama.width`, `height` | yes | Positive decoded dimensions, exactly declared, with `width == 2 * height`. |
 | `panorama.initialYawDegrees` | no | Finite rotation within the canonical panorama frame; default `0`. |
 | `sourceImage` | no | Optional package-relative JPEG/PNG audit image. It is not rendered, but complete packages may retain it as typed, decoded and budgeted data. Editable/DCC sources remain outside the runtime ZIP. |
-| `thumbnail` | no | Package-relative JPEG/PNG catalog image. |
+| `thumbnail` | no | Package-relative JPEG/PNG catalog image. Include a representative thumbnail for the View card; the file must exist in the package. |
 | `caption` | no | Human-readable description. |
 | `generation.generator` | no | Truthful generator or tool name. |
 | `generation.model` | no | Optional model/workflow version. |

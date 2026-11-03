@@ -8,7 +8,7 @@ provider, paid generation, or private asset is involved.
 
 | Archive | Declared content |
 | --- | --- |
-| `view-only.locusplace` | one Destination/View |
+| `view-only.locusplace` | one Destination/View with a declared thumbnail |
 | `room-only.locusplace` | one Space/Room |
 | `combined.locusplace` | one View, one Room, and one virtual-space Experience |
 
