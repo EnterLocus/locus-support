@@ -87,6 +87,62 @@ class CheckRoomCLITests(unittest.TestCase):
         )
         self.assertEqual(report["summary"]["packageID"], "place.minimal-reading-room")
 
+    def test_modelio_rejects_repeated_material_bindings_over_app_limit(self) -> None:
+        room = room_fixtures.Room()
+        # One authored USD material can become one ModelIO material object per
+        # mesh. USD prim counts alone therefore miss the App's actual limit.
+        for index in range(1050):
+            room.boxes.append({"name": f"Extra_{index}", "center": (0, 0, 0),
+                               "size": (.1, .1, .1), "material": "Warm_Wood"})
+        result = self.run_checker(room.write_v2(self.root / "many-materials.locusplace"))
+        report = json.loads(result.stdout)
+        self.assertEqual(result.returncode, 1, result.stdout + result.stderr)
+        self.assertTrue(any(e.get("code") == "modelIOBudget" and "materials" in e["message"]
+                            for e in report["errors"]))
+        group = report["modelIO"]["groups"][0]
+        self.assertGreater(group["totals"]["materials"], group["limits"]["materials"])
+        self.assertLess(report["rooms"][0]["budgets"]["materials"]["used"], 1024)
+
+    def test_modelio_combines_scene_and_separate_collision(self) -> None:
+        import sys
+        sys.path.insert(0, str(ROOT / "tools"))
+        import check_room
+        import validate_locusplace
+        room = room_fixtures.Room()
+        for index in range(520):
+            room.boxes.append({"name": f"Extra_{index}", "center": (0, 0, 0),
+                               "size": (.1, .1, .1), "material": "Warm_Wood"})
+        model = self.root / "scene.usdz"
+        collision = self.root / "collision.usdz"
+        model.write_bytes(room.usdz())
+        collision.write_bytes(model.read_bytes())
+        groups, errors = check_room.check_modelio_groups(
+            self.root, [("room", "test", [("scene", model), ("collision", collision)])],
+            check_room.executable(), validate_locusplace)
+        scene, second = groups[0]["models"]
+        self.assertLessEqual(scene["statistics"]["materials"], 1024)
+        self.assertEqual(scene["statistics"], second["statistics"])
+        self.assertGreater(groups[0]["totals"]["materials"], 1024)
+        self.assertTrue(any("materials" in error["message"] for error in errors))
+
+    def test_modelio_checks_destination_midground(self) -> None:
+        import sys
+        sys.path.insert(0, str(ROOT / "tools"))
+        import check_room
+        import validate_locusplace
+        room = room_fixtures.Room()
+        directory = self.root / "catalog/destinations/view.test"
+        directory.mkdir(parents=True)
+        (directory / "terrain.usdz").write_bytes(room.usdz())
+        (directory / "destination.json").write_text(json.dumps({"midground": {"path": "terrain.usdz"}}))
+        groups, errors = check_room.check_modelio(
+            self.root, {"contents": {"spaceIDs": [], "destinationIDs": ["view.test"]}},
+            check_room.executable(), validate_locusplace)
+        self.assertEqual(errors, [])
+        self.assertEqual(groups[0]["kind"], "midground")
+        self.assertGreater(groups[0]["totals"]["triangles"], 0)
+        self.assertEqual(groups[0]["models"][0]["role"], "midground")
+
     def test_flat_binding_typo_is_rejected(self) -> None:
         room = room_fixtures.Room()
         introduce_binding_typo(room)

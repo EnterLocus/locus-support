@@ -42,6 +42,64 @@ def executable() -> Path:
     return Path(_build_directory.name) / "locus-room-check"
 
 
+def check_modelio(root: Path, manifest: dict, binary: Path, v2) -> tuple[list, list]:
+    """Apply the App's ModelIO counting policy to every imported model.
+
+    Structural validation has already checked all paths before this is called.
+    The counts describe this Mac's ModelIO, not the installed visionOS build.
+    """
+    groups = []
+    for space_id in manifest["contents"].get("spaceIDs", []):
+        directory = root / "catalog" / "spaces" / space_id
+        space = json.loads((directory / "space.json").read_text())
+        models = [("scene", directory / space["scene"])]
+        collision = space.get("collision", {})
+        if collision.get("mode") == "separate":
+            models.append(("collision", directory / collision["path"]))
+        groups.append(("room", space_id, models))
+    for destination_id in manifest["contents"].get("destinationIDs", []):
+        directory = root / "catalog" / "destinations" / destination_id
+        destination = json.loads((directory / "destination.json").read_text())
+        path = (destination.get("midground") or {}).get("path")
+        if path:
+            groups.append(("midground", destination_id, [("midground", directory / path)]))
+    return check_modelio_groups(root, groups, binary, v2)
+
+
+def check_modelio_groups(root: Path, groups: list, binary: Path, v2) -> tuple[list, list]:
+    results, errors = [], []
+    limits = {"triangles": v2.TRIANGLES, "materials": v2.MATERIALS, "entities": v2.ENTITIES}
+    for kind, identifier, models in groups:
+        total = dict.fromkeys(limits, 0)
+        entries = []
+        complete = True
+        for role, path in models:
+            process = subprocess.run([str(binary), "--modelio-budget", str(path)],
+                                     capture_output=True, text=True, timeout=300)
+            try:
+                stats = json.loads(process.stdout.strip().splitlines()[-1])
+            except (ValueError, IndexError) as error:
+                raise RuntimeError("ModelIO inspection failed: " + process.stderr[-4000:]) from error
+            name = str(path.relative_to(root))
+            entries.append({"role": role, "path": name, "statistics": stats})
+            if process.returncode or stats.get("error"):
+                complete = False
+                errors.append({"layer": "S", "code": "modelIOBudget",
+                               "message": f"ModelIO rejected {name}: {stats.get('error', 'inspection failed')}"})
+            else:
+                for key in limits:
+                    total[key] += stats[key]
+        result = {"kind": kind, "id": identifier, "models": entries,
+                  "totals": total if complete else None, "limits": limits}
+        results.append(result)
+        if complete:
+            for key, limit in limits.items():
+                if total[key] > limit:
+                    errors.append({"layer": "S", "code": "modelIOBudget",
+                                   "message": f"ModelIO {key} budget exceeded in {kind} {identifier}: {total[key]} > {limit}"})
+    return results, errors
+
+
 def check(archive: Path, version: str, renders: Path | None = None) -> dict:
     report = {"valid": False, "layers": [], "errors": [], "warnings": [], "rooms": [],
               "currentAppVersion": version, "macOS": platform.mac_ver()[0]}
@@ -74,6 +132,13 @@ def check(archive: Path, version: str, renders: Path | None = None) -> dict:
             if not spaces:
                 raise ValueError("Archive contains no Room.")
             binary = executable()
+            if is_v2:
+                modelio, modelio_errors = check_modelio(root, manifest, binary, v2)
+            else:
+                modelio, modelio_errors = check_modelio_groups(
+                    root, [("room", "flat", [("scene", root / "scene.usdz")])], binary, v2)
+            report["modelIO"] = {"platform": "macOS", "groups": modelio}
+            report["errors"].extend(modelio_errors)
             for index, path in enumerate(spaces):
                 space = json.loads(path.read_text())
                 if is_v2:
