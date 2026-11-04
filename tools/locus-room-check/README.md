@@ -20,6 +20,9 @@ reduced check that could be mistaken for success.
 
 * **S, structure:** archive safety, integrity, public schema, resource budgets,
   complete image decode, USD validation (`usdchecker --arkit`) and model counts.
+  It also applies the App's ModelIO triangle, material-object and entity budget
+  rules to each Room scene plus separate collision model, and each View
+  midground model. A ModelIO budget failure makes the check invalid.
 * **B, binding:** the shared public RealityKit entity resolver used by both
   archive validators. Exact, unique names; geometry and subtree overlap checks.
 * **E, entry:** always load the model, even if no entities are referenced; check
@@ -36,7 +39,12 @@ reduced check that could be mistaken for success.
 
 Only errors affect exit status (0 valid, 1 invalid; argument errors use 2).
 JSON lists completed layers, errors, warnings, the macOS runtime, elapsed wall
-clock time, each seat's coordinates and produced image paths. Per-Room
+clock time, each seat's coordinates and produced image paths. `modelIO.groups`
+reports counts and limits for each Room or midground; Room totals combine the
+scene and separate collision. Existing `rooms[].budgets` counts come from
+flattened USD and use a different counting method, so the numbers can differ.
+ModelIO results reflect this Mac's OS and ModelIO implementation, not the
+installed visionOS build or a guarantee that device import will succeed. Per-Room
 `room-N/seat-N/` output directories use indices so author-controlled names never
 become filesystem paths; the report maps each seat index to its authored ID.
 
