@@ -17,6 +17,12 @@ key, or a particular image-model vendor. Commands below are relative to the
 public repository root. Use Python 3.9 or later and pass the Locus version
 being targeted to `--current-app-version`.
 
+Package a Room and a View as separate Package v2 import archives with separate
+stable `packageID` values. This is the default even when they are designed as a
+pair: each archive can then be replaced, removed, and iterated without changing
+the other. A combined Package v2 archive remains supported for content that
+really shares one lifecycle, but is not the normal creation or review delivery.
+
 Any capable external agent can perform the normal workflow. For a clean-room
 demonstration, start that agent with fresh context and give it only the public
 repository, this skill, the creator's inputs, and public tools. Do not use a
@@ -35,7 +41,7 @@ the canonical online contracts.
 | --- | --- | --- |
 | 1. Choose a concept image | The creator supplies or selects one clear visual target. | [Concept and brief](references/concept-and-brief.md) and [design language](references/design-language.md) |
 | 2. Derive a metric layout | The agent turns that image into a buildable floor plan and seat layout before modeling. | [Concept and brief](references/concept-and-brief.md) and [larger Rooms](references/larger-rooms.md) |
-| 3. Build, review, and package | The agent models from both inputs, repairs the editable source, and produces a checked Package v2 archive plus portable editable source. | [Headless Blender](references/blender-headless.md), [materials and export](references/materials-and-export.md), [lighting and glass](references/lighting-and-glass.md), and [Package v2 delivery](references/package-v2.md) |
+| 3. Build, review, and package | The agent models from both inputs, repairs the editable source, and produces a checked Room-only Package v2 archive plus portable editable source. | [Headless Blender](references/blender-headless.md), [materials and export](references/materials-and-export.md), [lighting and glass](references/lighting-and-glass.md), and [Package v2 delivery](references/package-v2.md) |
 | 4. Check on Apple Vision Pro and iterate | The creator checks the exact archive on the physical device and sends screenshots and concrete findings back to the agent for revisions. | [Device preview and report](references/device-preview-and-report.md) |
 
 ## 1. Choose a concept image
@@ -102,7 +108,12 @@ leaks, backwards fixtures, clipping, poor sightlines, or unusable desk space.
 Seat eye points belong in front of the backrest over the cushion, not at a
 chair center. Use [Materials and export](references/materials-and-export.md)
 for export-safe PBR and [Lighting and glass](references/lighting-and-glass.md)
-for controlled fixtures, indirect light, or glazing.
+for controlled fixtures, receiving-surface light, or glazing. A lamp that only
+glows as a fixture is incomplete when the intended scene calls for it to light
+nearby architecture: bake its contribution into intentional opaque receiving
+surfaces. Use one baked layer per independently switchable, dimmable, or
+recolorable luminaire group; a single shared atlas is only appropriate for
+light that is controlled solely by Room master/overall EV.
 
 Export one self-contained USDZ in meters, +Y up, with world -Z forward, and
 store its ZIP members uncompressed. Inspect the exported USDZ as well as the
@@ -111,10 +122,13 @@ referenced entity names, texture packaging and paths, transparency, fixture
 emission, and bounds. `usdchecker` can accept a USDZ whose appearance is still
 wrong in the app.
 
-Package the Room as Package v2—the canonical feature-complete import format—and
-deliver the importable archive together with portable editable source. Preserve
-`packageID`, space ID, teleport IDs, and exported entity names across revisions;
-increase `contentVersion` whenever archive bytes change. Derive `anchorXZ` and
+Package the Room as a Room-only Package v2 archive—the canonical
+feature-complete import format—and deliver that importable archive together
+with portable editable source. If this Room has a companion View, package and
+deliver the View independently with its own `packageID`; do not combine them
+for an ordinary iteration. Preserve the Room `packageID`, space ID, teleport
+IDs, and exported entity names across Room revisions; increase `contentVersion`
+whenever that archive's bytes change. Derive `anchorXZ` and
 `sourceFloorOffset` from the final exported USDZ bounds after axis and
 root-transform conversion, rather than copying DCC coordinates. Use
 `tools/pack_locusplace.py` and `tools/validate_locusplace.py` as described in
