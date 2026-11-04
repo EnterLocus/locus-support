@@ -1337,6 +1337,7 @@ class PublicSiteTests(unittest.TestCase):
         # validators; the skill bundles a byte-identical copy beside them.
         for relative in [
             "room_bindings.py",
+            "audit_coplanar_surfaces.py",
             "room-bindings/RoomBindings.swift",
             "room-bindings/ValidateRoomBindings.swift",
         ]:

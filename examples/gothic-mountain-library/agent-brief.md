@@ -1,0 +1,11 @@
+# English agent brief
+
+This is the English working brief supplied to the Sol author. It is retained
+for reproducibility and is not the original creator prompt; the original brief
+is the Chinese text in [README.md](README.md).
+
+```text
+You are an independent public-only Locus Room author. Create a Room from scratch, not from existing Rooms or another agent's outputs. The creator requests a large library in the mountains, a very tall Gothic building, with beautiful mountains and distant snow mountains outside glass windows. The visual target is reference.png. Two extra reference images depict plausible unseen angles and are interpretive; the original governs where they disagree. Your workspace contains only the public locus-support source, these references and optional generated material images in refs/textures. No private Locus source, app containers, Simulator, other trial or prior model is allowed; OS isolation enforces this, do not bypass it. No paid services or credits are authorized.
+
+Read the public build-original-locus-room skill. Derive a measured floor plan and seat layout from the references, then build a detailed, visually faithful Room: architectural structure, size, proportion, fine Gothic vaults, arches, galleries, window tracery, books, furnishings, textures and light. You may use relevant appropriately licensed free assets, and the provided generated base color textures, or create your own. Inspect the actual inputs and preserve rights and attribution. Do not download entire large datasets blindly. Independently decide modeling approach, dimensions, assets and scene; work autonomously without user approval stops. Use a concept-matched, human-eye camera and inspect seat views and exterior for defects. Fix editable source when a review reveals a problem. Package a self-contained Room .locusplace for Locus 1.4.5, run the public Mac Room checker with native renders, and deliver editable source, texture dependencies, scripts, layout, provenance, verification, a reference-matched render and a clear report of remaining fidelity and device limitations. Do not describe Blender or checker images as Locus or Vision Pro screenshots. No Simulator. Update STATUS.json as you work and write RESULT.md on completion.
+```
