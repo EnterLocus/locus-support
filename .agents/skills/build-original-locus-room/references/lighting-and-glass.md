@@ -112,16 +112,19 @@ diffuse lighting in a real home.
 
 ## Bake independently controlled lamps as receiver layers
 
-Use the Room-v10 baked-light-layer capability when a lamp's control must
-visibly affect its surroundings. `bakedIndirect.layers` has one image per
-luminaire group, up to 12. Each layer contains only that group's direct and
-bounce contribution with the receiver material colour included, at its authored
-brightness and colour. The existing `bakedIndirect.entities` receiver subtree
-remains the one shared opaque positive-emissive atlas in the USDZ; it must
-sample that atlas through `LocusIndirectUV`. Keep each layer and that USDZ atlas
-identically laid out. Set `minimumAppVersion` to `1.2.1` or later. In a
-complete Package v2 Room, keep `space.json` at its Package-v2
-`formatVersion: 2`; the layer declaration is nested Room metadata:
+The legacy/simple flat Room metadata feature is `formatVersion: 10`. In the
+preferred Package v2 delivery, `space.json` **MUST** remain
+`formatVersion: 2`: put `lighting.bakedIndirect.layers` inside that manifest;
+never copy the flat `formatVersion: 10` into it. Use the baked-light-layer
+capability when a lamp's control must visibly affect its surroundings.
+`bakedIndirect.layers` has one image per luminaire group, up to 12. Each layer
+contains only that group's direct and bounce contribution with the receiver
+material colour included, at its authored brightness and colour. The existing
+`bakedIndirect.entities` receiver subtree remains the one shared opaque
+positive-emissive atlas in the USDZ; it must sample that atlas through
+`LocusIndirectUV`. Keep each layer and that USDZ atlas identically laid out.
+Set `minimumAppVersion` to `1.2.1` or later. The Package v2 layer declaration
+is nested Room metadata:
 
 ```json
 "lighting": {
