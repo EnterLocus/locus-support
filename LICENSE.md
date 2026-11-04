@@ -48,6 +48,19 @@ The embedded Poly Haven plywood, laminate floor, and white plaster texture maps
 retain their CC0 1.0 terms. Their works, creators, and source links are listed at
 <https://enterlocus.com/asset-rights/#experimental-animation-demo-notices>.
 
+## Alpine Scriptorium Sol 1.1.1 public example
+
+The exact scope, release hashes, creator brief, source, and credits for this
+historical example are in
+[`examples/gothic-mountain-library/README.md`](examples/gothic-mountain-library/README.md).
+The Männlichen-derived View, IBL, thumbnail, and Blender review render that
+contains that background retain [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/)
+with the source and modification notice recorded there. The embedded Poly Haven
+Coffee Table and Sofa 02 retain CC0 1.0. The original Room, Locus interface,
+Cloud Garden scenery shown in the authorized Apple Vision Pro screenshots,
+creator-supplied concept, and all other components remain reserved except where
+their own notices say otherwise.
+
 ## Solar System Scope planetary textures
 
 The Solar System Scope / INOVE images identified in
