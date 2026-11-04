@@ -24,8 +24,14 @@ Simulator.
 Capture screenshots that make concrete findings reviewable. Send the archive
 hash, screenshots, and specific observations to the agent—for example the
 affected seat, direction, material, lamp, or missing hidden object. The agent
-uses that feedback to repair the editable source rather than patching the ZIP,
-then rebuilds and reruns the affected render and archive checks. A creator may
+uses that feedback to investigate and repair the editable source rather than
+patching the ZIP, then exports a new USDZ, rebuilds and reruns the affected
+render and archive checks. For flicker, request a recording, affected light,
+seat, viewing direction, control state, and conditions; investigate the cause
+before choosing a fix. For a wall fixture that appears detached, capture it
+from multiple angles and inspect the authored geometry and transforms. Do not
+claim either issue fixed from a static render or archive validation alone;
+recheck the affected behavior on the headset with the revised archive. A creator may
 also ask another reviewer to look for coverage gaps, but that is not a required
 approval step.
 
