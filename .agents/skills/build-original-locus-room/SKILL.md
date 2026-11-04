@@ -115,6 +115,13 @@ surfaces. Use one baked layer per independently switchable, dimmable, or
 recolorable luminaire group; a single shared atlas is only appropriate for
 light that is controlled solely by Room master/overall EV.
 
+Before delivery, follow [Flicker prevention](references/flicker-prevention.md):
+avoid duplicate and near-coplanar surfaces, run the public geometry audit on
+the source and exact exported USDZ, and review a slow camera move. Fix reported
+visible-surface risks or document an intentional overlap; record incomplete
+scopes. Do not wait for creator feedback to inspect lamp openings, trim,
+glazing, and thin detail. A clean geometry report does not prove no flicker.
+
 Export one self-contained USDZ in meters, +Y up, with world -Z forward, and
 store its ZIP members uncompressed. Inspect the exported USDZ as well as the
 authoring scene: its axes, scale, unique
