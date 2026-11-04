@@ -1476,6 +1476,11 @@ later.
 
 ### Room baked light layers (formatVersion 10)
 
+`formatVersion: 10` is the legacy/simple flat Room `space.json` feature. In a
+preferred Package v2 Room, `space.json` **MUST** stay `formatVersion: 2`; put
+the same `lighting.bakedIndirect.layers` object in that manifest and never
+copy the flat version number into it.
+
 A Room whose `lighting.bakedIndirect` wants per-lamp control over the shared
 indirect atlas uses `formatVersion: 10` and adds `bakedIndirect.layers`: one
 root PNG per declared luminaire group, holding only that group's own
