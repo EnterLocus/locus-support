@@ -1500,13 +1500,21 @@ most once across the array — with a bare root `.png` `image` filename (no
 path separators). The set of `image` values across the array must exactly
 match the `.png` files present in the ZIP, so an unreferenced or missing
 image fails import. Every referenced image must be an 8- or 16-bit RGB or
-RGBA PNG at most 4096×4096, and every layer image in the same Room must
-share identical pixel dimensions. Locus composites these layers in linear
-light at load and whenever the visitor's lighting changes, and falls back to
-plain format-v3 whole-atlas EV scaling if the shared atlas texture is
-missing or a layer's dimensions do not match it. `bakedIndirect.layers`
-requires Locus 1.2.1 or later; format v3's `bakedIndirect.entities` keeps
-working unchanged without it.
+RGBA sRGB PNG at most 4096×4096. Every layer and the shared atlas on the
+`bakedIndirect.entities` receiver subtree must have identical pixel dimensions
+and layout; that receiver material samples the shared atlas through
+`LocusIndirectUV`. A layer contains only its group's direct and bounce
+contribution, with receiver material color included. The shared atlas is the
+linear-light composite of all groups at their authored defaults, not an
+always-on substitute for an independently controlled lamp.
+
+Locus composites the layers in linear light at load and whenever visitor
+lighting changes, and falls back to plain format-v3 whole-atlas EV scaling if
+the shared atlas texture is missing or a layer's dimensions do not match it.
+`bakedIndirect.layers` requires `minimumAppVersion` 1.2.1 or later; format
+v3's `bakedIndirect.entities` keeps working unchanged without it. The package
+checks image metadata and declared bindings, but cannot prove a layer changes
+the intended receiver surfaces or has the intended appearance in Locus.
 
 ### Complete-package Room/View composition (supporting build 1.4.4 or later)
 

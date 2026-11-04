@@ -11,6 +11,12 @@ It is the secure publication and integrity envelope used by Locus itself and by
 feature-complete portable packages. The ZIP root contains `locusplace.json` and
 `catalog/` directly; do not put both inside another parent directory.
 
+For ordinary authoring and iteration, package one independently managed View or
+Room per archive, with its own stable `packageID`. A View-only archive and a
+Room-only archive can be paired after import while still being replaced or
+removed independently. Combined archives remain fully supported for content
+that intentionally shares a single update and removal lifecycle.
+
 Validation is based on archive bytes and manifests, never the filename
 extension. A complete package preserves its `packageID`, content IDs,
 `contentVersion` update stream and supported Experiences; importing the same
@@ -78,9 +84,11 @@ The packer recomputes `files` and `contentHash`, validates the archive, and only
 then publishes it. It refuses to overwrite an existing output. It leaves the
 editable source untouched. Import the result through **Places → Import → Import
 a View** or **Import a Room → Files**, choosing an entrypoint whose content
-kind is included. A combined package installs its contents together. A direct
-public HTTPS ZIP URL works too. Check each authored seat, effect, light and
-sound on Apple Vision Pro before sharing a finished place.
+kind is included. Deliver a Room and its companion View as separate archives
+for normal iteration. A combined package installs its contents together and
+remains available when that single lifecycle is intentional. A direct public
+HTTPS ZIP URL works too. Check each authored seat, effect, light and sound on
+Apple Vision Pro before sharing a finished place.
 
 ## Archive layout
 
@@ -179,17 +187,19 @@ ZIP CRC, and SHA-256.
 | `files[].sha256` | yes | SHA-256 of expanded bytes, 64 lowercase hexadecimal characters. |
 | `contentHash` | yes | SHA-256 identity of the canonical payload inventory described above. |
 
-## Remove or restore imported items
+## Remove an imported package
 
-Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.
+Removing an import always removes the whole imported package. In Places, open
+the import's menu and choose **Remove Import**. The confirmation lists every
+View and Room in that package before anything is deleted. Locus removes its
+installed package files and saved package content; the original ZIP or image in
+Files or cloud storage is unchanged.
 
-In Places, open an imported View or Room’s menu and choose Remove View or Remove Room. Confirming removes that item and any Experiences in the same import that use it. Other Views and Rooms from that import stay installed with their files and saved settings.
-
-Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.
-
-If another installed package depends on the selected item, Locus refuses the removal and leaves the packages unchanged. Remove the dependent package first to continue.
-
-Importing the complete original package again asks for confirmation before restoring previously removed items, even when the package version has not changed. The package keeps its original identity for later updates. Restored Views and Rooms count toward your current import allowance.
+Use separate View-only and Room-only archives when they need independent
+lifecycles. A combined archive remains valid, but Remove Import removes all of
+its Rooms and Views together. Importing the original package again creates or
+updates that package under its stable identity and counts its Views and Rooms
+toward the current import allowance.
 
 ## Package-v2 metadata inside the ZIP
 

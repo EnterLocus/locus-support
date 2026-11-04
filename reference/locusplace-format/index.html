@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a href="../../gallery/">Gallery</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
-  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="complete-locus-package-v2-authoring" tabindex="-1">Complete Locus Package v2 authoring</h1><div class="reference-tools"><a class="reference-download" href="../locusplace-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#start-with-a-working-complete-package">Start with a working complete package</a></li><li class="reference-toc-level-2"><a href="#archive-layout">Archive layout</a></li><li class="reference-toc-level-2"><a href="#locusplacejson">locusplace.json</a></li><li class="reference-toc-level-3"><a href="#envelope-field-reference">Envelope field reference</a></li><li class="reference-toc-level-2"><a href="#remove-or-restore-imported-items">Remove or restore imported items</a></li><li class="reference-toc-level-2"><a href="#package-v2-metadata-inside-the-zip">Package-v2 metadata inside the ZIP</a></li><li class="reference-toc-level-3"><a href="#view-destinationjson">View: destination.json</a></li><li class="reference-toc-level-3"><a href="#room-spacejson">Room: space.json</a></li><li class="reference-toc-level-3"><a href="#experience-experiencejson">Experience: experience.json</a></li><li class="reference-toc-level-2"><a href="#optional-capabilities-and-translated-labels">Optional capabilities and translated labels</a></li><li class="reference-toc-level-2"><a href="#required-provenance">Required provenance</a></li><li class="reference-toc-level-2"><a href="#security-and-resource-budgets">Security and resource budgets</a></li><li class="reference-toc-level-2"><a href="#files-and-url-acquisition">Files and URL acquisition</a></li><li class="reference-toc-level-2"><a href="#package-validation-and-examples">Package validation and examples</a></li></ol></details>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="complete-locus-package-v2-authoring" tabindex="-1">Complete Locus Package v2 authoring</h1><div class="reference-tools"><a class="reference-download" href="../locusplace-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#start-with-a-working-complete-package">Start with a working complete package</a></li><li class="reference-toc-level-2"><a href="#archive-layout">Archive layout</a></li><li class="reference-toc-level-2"><a href="#locusplacejson">locusplace.json</a></li><li class="reference-toc-level-3"><a href="#envelope-field-reference">Envelope field reference</a></li><li class="reference-toc-level-2"><a href="#remove-an-imported-package">Remove an imported package</a></li><li class="reference-toc-level-2"><a href="#package-v2-metadata-inside-the-zip">Package-v2 metadata inside the ZIP</a></li><li class="reference-toc-level-3"><a href="#view-destinationjson">View: destination.json</a></li><li class="reference-toc-level-3"><a href="#room-spacejson">Room: space.json</a></li><li class="reference-toc-level-3"><a href="#experience-experiencejson">Experience: experience.json</a></li><li class="reference-toc-level-2"><a href="#optional-capabilities-and-translated-labels">Optional capabilities and translated labels</a></li><li class="reference-toc-level-2"><a href="#required-provenance">Required provenance</a></li><li class="reference-toc-level-2"><a href="#security-and-resource-budgets">Security and resource budgets</a></li><li class="reference-toc-level-2"><a href="#files-and-url-acquisition">Files and URL acquisition</a></li><li class="reference-toc-level-2"><a href="#package-validation-and-examples">Package validation and examples</a></li></ol></details>
 <p>Status: canonical publication, storage, composition and feature-complete import
 contract. Locus 1.2.1 and later accept this archive from Files or a public HTTPS
 URL for both View and Room imports. The older flat format in
@@ -24,11 +24,17 @@ Package-v2 Destinations (product name: Views), Spaces (Rooms), and Experiences.
 It is the secure publication and integrity envelope used by Locus itself and by
 feature-complete portable packages. The ZIP root contains <code>locusplace.json</code> and
 <code>catalog/</code> directly; do not put both inside another parent directory.</p>
+<p>For ordinary authoring and iteration, package one independently managed View or
+Room per archive, with its own stable <code>packageID</code>. A View-only archive and a
+Room-only archive can be paired after import while still being replaced or
+removed independently. Combined archives remain fully supported for content
+that intentionally shares a single update and removal lifecycle.</p>
 <p>Validation is based on archive bytes and manifests, never the filename
 extension. A complete package preserves its <code>packageID</code>, content IDs,
 <code>contentVersion</code> update stream and supported Experiences; importing the same
-content hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce
-and inspect this exact format.</p>
+content hash is an idempotent no-op when the complete package is already
+installed. The maintained packer and validator produce and inspect this exact
+format.</p>
 <p>This envelope carries pure data, not executable extensions. For one Locus
 binary, every runtime-consumed Package-v2 capability has the same content
 semantics whether the archive is bundled, downloaded from the Library or
@@ -78,9 +84,11 @@ python3 tools/validate_locusplace.py --current-app-version 1.4.4 --json MyPlace.
 then publishes it. It refuses to overwrite an existing output. It leaves the
 editable source untouched. Import the result through <strong>Places → Import → Import
 a View</strong> or <strong>Import a Room → Files</strong>, choosing an entrypoint whose content
-kind is included. A combined package installs its contents together. A direct
-public HTTPS ZIP URL works too. Check each authored seat, effect, light and
-sound on Apple Vision Pro before sharing a finished place.</p>
+kind is included. Deliver a Room and its companion View as separate archives
+for normal iteration. A combined package installs its contents together and
+remains available when that single lifecycle is intentional. A direct public
+HTTPS ZIP URL works too. Check each authored seat, effect, light and sound on
+Apple Vision Pro before sharing a finished place.</p>
 <h2 id="archive-layout" tabindex="-1">Archive layout</h2>
 <pre><code class="language-text">example.locusplace
 ├── locusplace.json
@@ -133,7 +141,14 @@ bytes. They begin with a letter or digit and then use only letters, digits,
 <code>.</code>, <code>_</code>, and <code>-</code>.
 Versions have exactly three numeric components. An update with changed bytes
 must retain the same declared content IDs and use a greater <code>contentVersion</code>.
-Importing the same <code>contentHash</code> is an idempotent no-op when the complete package is already installed.</p>
+Importing the same <code>contentHash</code> is an idempotent no-op when the complete package
+is already installed. Starting with Locus
+1.4.5, importing a different payload with the same imported <code>packageID</code> asks
+for confirmation before replacement, including an equal or lower content
+version. The declared content IDs must remain stable; replacement keeps saved
+settings and organization and does not consume another import allowance.
+Library updates keep their normal version rules. Continue increasing
+<code>contentVersion</code> for portable revisions and compatibility with earlier apps.</p>
 <p><code>contentHash</code> is SHA-256 over every file record sorted by Unicode path. Each
 record contributes these UTF-8 bytes:</p>
 <pre><code class="language-text">path NUL decimal-byteCount NUL lowercase-sha256 NUL
@@ -214,12 +229,17 @@ ZIP CRC, and SHA-256.</p>
 </tbody>
 </table>
 </div>
-<h2 id="remove-or-restore-imported-items" tabindex="-1">Remove or restore imported items</h2>
-<p>Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.</p>
-<p>In Places, open an imported View or Room’s menu and choose Remove View or Remove Room. Confirming removes that item and any Experiences in the same import that use it. Other Views and Rooms from that import stay installed with their files and saved settings.</p>
-<p>Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.</p>
-<p>If another installed package depends on the selected item, Locus refuses the removal and leaves the packages unchanged. Remove the dependent package first to continue.</p>
-<p>Importing the complete original package again asks for confirmation before restoring previously removed items, even when the package version has not changed. The package keeps its original identity for later updates. Restored Views and Rooms count toward your current import allowance.</p>
+<h2 id="remove-an-imported-package" tabindex="-1">Remove an imported package</h2>
+<p>Removing an import always removes the whole imported package. In Places, open
+the import’s menu and choose <strong>Remove Import</strong>. The confirmation lists every
+View and Room in that package before anything is deleted. Locus removes its
+installed package files and saved package content; the original ZIP or image in
+Files or cloud storage is unchanged.</p>
+<p>Use separate View-only and Room-only archives when they need independent
+lifecycles. A combined archive remains valid, but Remove Import removes all of
+its Rooms and Views together. Importing the original package again creates or
+updates that package under its stable identity and counts its Views and Rooms
+toward the current import allowance.</p>
 <h2 id="package-v2-metadata-inside-the-zip" tabindex="-1">Package-v2 metadata inside the ZIP</h2>
 <p>The complete envelope uses <code>formatVersion: 1</code>; each <code>destination.json</code>,
 <code>space.json</code> and <code>experience.json</code> uses <code>formatVersion: 2</code>. The Room v1–v10
@@ -1077,6 +1097,15 @@ It exits nonzero on failure and performs archive, integrity, Package-v2,
 provenance, image/EXR, and USDZ checks.
 The visionOS importer remains authoritative for installation and cross-catalog
 resolution.</p>
+<p>For a Room delivery, also run the macOS Room checker after the final pack. It
+adds Room-binding and entry-risk checks and produces seat-render evidence; pass
+an explicit empty output directory and inspect the resulting contact sheet:</p>
+<pre><code class="language-sh">python3 tools/check_room.py --current-app-version 1.4.4 \
+  --renders /absolute/path/to/room-renders MyRoom.locusplace
+</code></pre>
+<p>This check is required for the public Room workflow. Its render evidence does
+not replace Apple Vision Pro checks for physical comfort, tracking, real-world
+alignment, or device appearance.</p>
 <p>Pack an editable directory into an ordinary ZIP, recomputing every integrity
 record and refusing to publish unless this validator accepts the result:</p>
 <pre><code class="language-sh">python3 tools/pack_locusplace.py --current-app-version 1.4.4 MyEditablePlace MyPlace.zip
