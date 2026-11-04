@@ -2463,6 +2463,7 @@
     "Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.": "Locus 會刪除僅由被移除項目使用的檔案，並保留其他項目仍需使用的檔案。「檔案」App 或雲端儲存中的原始 ZIP 或影像不會改變。若要一次移除整個套件，請在「匯入」頁面選擇「移除」。移除最後一個項目時，也會移除該匯入套件。",
     "Remove or restore imported items": "移除或回復匯入項目",
     "is an idempotent no-op when the complete package is already installed.": "為冪等操作，不產生變化。 只有完整套件仍已安裝時，重複匯入相同內容才不會執行操作。",
-    "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "更新流及受支持的 Experience；導入相同內容哈希時為冪等操作，不產生變化。維護中的打包器和校驗器會生成並檢查這一確切格式。 只有完整套件仍已安裝時，重複匯入相同內容才不會執行操作。"
+    "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "更新流及受支持的 Experience；導入相同內容哈希時為冪等操作，不產生變化。維護中的打包器和校驗器會生成並檢查這一確切格式。 只有完整套件仍已安裝時，重複匯入相同內容才不會執行操作。",
+    "Item-level removal is coming in the Locus 1.4.5 release. Earlier builds, including early 1.4.5 betas, remove the whole import.": "逐項移除功能將隨 Locus 1.4.5 正式版本推出。較早的建置版本（包括早期的 1.4.5 測試版）會移除整個匯入套件。"
   }
 }

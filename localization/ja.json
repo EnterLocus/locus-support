@@ -2463,6 +2463,7 @@
     "Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.": "Locus は削除した項目だけが使用するファイルを削除し、残った項目に必要なファイルは保持します。「ファイル」やクラウドストレージにある元の ZIP や画像は変更しません。パッケージ全体を一度に削除するには、「Imports」ページの「削除」を使います。最後の項目を削除すると、読み込んだパッケージも削除されます。",
     "Remove or restore imported items": "読み込んだ項目を削除・復元する",
     "is an idempotent no-op when the complete package is already installed.": "のインポートは冪等な処理で、何も変更しません。 同じ内容の読み込みで何も実行されないのは、完全なパッケージがすでにインストールされている場合だけです。",
-    "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "による更新系列、サポートする Experience を維持します。同じコンテンツハッシュのインポートは冪等な処理で、何も変更しません。維持管理されているパッキングツールとバリデーターは、この形式そのものを生成・検査します。 同じ内容の読み込みで何も実行されないのは、完全なパッケージがすでにインストールされている場合だけです。"
+    "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "による更新系列、サポートする Experience を維持します。同じコンテンツハッシュのインポートは冪等な処理で、何も変更しません。維持管理されているパッキングツールとバリデーターは、この形式そのものを生成・検査します。 同じ内容の読み込みで何も実行されないのは、完全なパッケージがすでにインストールされている場合だけです。",
+    "Item-level removal is coming in the Locus 1.4.5 release. Earlier builds, including early 1.4.5 betas, remove the whole import.": "項目ごとの削除は、Locus 1.4.5 の正式リリースで提供予定です。それ以前のビルド（初期の 1.4.5 ベータ版を含む）では、読み込んだパッケージ全体が削除されます。"
   }
 }
