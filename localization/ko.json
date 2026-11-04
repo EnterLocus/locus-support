@@ -2456,6 +2456,13 @@
     "textures": "텍스처",
     "use CC BY 4.0; keep their attribution and record your changes. Download only what the Room needs, then have the agent clean and assemble it in Blender.": "는 CC BY 4.0을 사용합니다. 저작자 표시를 유지하고 변경 사항을 기록하세요. Room에 필요한 것만 다운로드한 다음 에이전트가 Blender에서 정리하고 조립하게 하세요.",
     "use CC0.": "는 CC0을 사용합니다.",
-    "walks through this workflow without access to Locus application source code or a Simulator.": "는 Locus 애플리케이션 소스 코드나 Simulator에 접근하지 않고 이 워크플로를 단계별로 설명합니다."
+    "walks through this workflow without access to Locus application source code or a Simulator.": "는 Locus 애플리케이션 소스 코드나 Simulator에 접근하지 않고 이 워크플로를 단계별로 설명합니다.",
+    "If another installed package depends on the selected item, Locus refuses the removal and leaves the packages unchanged. Remove the dependent package first to continue.": "설치된 다른 패키지가 선택한 항목에 의존하는 경우 Locus는 제거를 거부하며 패키지를 변경하지 않습니다. 계속하려면 해당 항목에 의존하는 패키지를 먼저 제거하세요.",
+    "Importing the complete original package again asks for confirmation before restoring previously removed items, even when the package version has not changed. The package keeps its original identity for later updates. Restored Views and Rooms count toward your current import allowance.": "원래의 전체 패키지를 다시 가져오면 패키지 버전이 같더라도 이전에 제거한 항목을 복원하기 전에 확인을 요청합니다. 이후 업데이트에도 원래 패키지 식별 정보가 유지됩니다. 복원된 View와 Room은 현재 가져오기 한도에 포함됩니다.",
+    "In Places, open an imported View or Room’s menu and choose Remove View or Remove Room. Confirming removes that item and any Experiences in the same import that use it. Other Views and Rooms from that import stay installed with their files and saved settings.": "Places에서 가져온 View 또는 Room의 메뉴를 열고 View 제거 또는 Room 제거를 선택하세요. 확인하면 해당 항목과 같은 가져오기 패키지에서 이를 사용하는 Experience가 제거됩니다. 같은 패키지의 다른 View와 Room은 파일 및 저장된 설정과 함께 유지됩니다.",
+    "Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.": "Locus는 제거한 항목만 사용하는 파일을 삭제하고, 남아 있는 항목에 필요한 파일은 유지합니다. 파일 앱이나 클라우드 저장소의 원본 ZIP 또는 이미지는 변경되지 않습니다. 전체 패키지를 한 번에 제거하려면 Imports 페이지에서 제거를 선택하세요. 마지막 항목을 제거하면 가져온 패키지도 제거됩니다.",
+    "Remove or restore imported items": "가져온 항목 제거 또는 복원",
+    "is an idempotent no-op when the complete package is already installed.": "를 가져오면 멱등 작업으로 아무것도 변경하지 않습니다. 동일한 내용을 가져올 때 아무 작업도 하지 않는 것은 전체 패키지가 이미 설치되어 있는 경우뿐입니다.",
+    "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "업데이트 계열과 지원되는 Experience를 보존합니다. 동일한 콘텐츠 해시를 가져오는 것은 아무것도 바꾸지 않는 멱등 작업입니다. 유지 관리되는 패키징 및 검증 도구는 정확히 이 형식을 생성하고 검사합니다. 동일한 내용을 가져올 때 아무 작업도 하지 않는 것은 전체 패키지가 이미 설치되어 있는 경우뿐입니다."
   }
 }

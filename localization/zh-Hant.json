@@ -2456,6 +2456,13 @@
     "textures": "紋理",
     "use CC BY 4.0; keep their attribution and record your changes. Download only what the Room needs, then have the agent clean and assemble it in Blender.": "使用 CC BY 4.0；請保留其署名並記錄你的修改。只下載 Room 所需的內容，然後讓代理在 Blender 中清理並組裝它。",
     "use CC0.": "使用 CC0。",
-    "walks through this workflow without access to Locus application source code or a Simulator.": "在不存取 Locus 應用程式原始碼或 Simulator 的情況下，逐步說明此工作流程。"
+    "walks through this workflow without access to Locus application source code or a Simulator.": "在不存取 Locus 應用程式原始碼或 Simulator 的情況下，逐步說明此工作流程。",
+    "If another installed package depends on the selected item, Locus refuses the removal and leaves the packages unchanged. Remove the dependent package first to continue.": "如果其他已安裝的套件依賴所選項目，Locus 會拒絕移除，並保持這些套件不變。如要繼續，請先移除依賴它的套件。",
+    "Importing the complete original package again asks for confirmation before restoring previously removed items, even when the package version has not changed. The package keeps its original identity for later updates. Restored Views and Rooms count toward your current import allowance.": "再次匯入完整的原始套件時，即使套件版本未變，Locus 也會在回復先前移除的項目之前要求確認。套件會保留原始識別資訊，供後續更新使用。回復的景觀和房間計入目前的匯入限額。",
+    "In Places, open an imported View or Room’s menu and choose Remove View or Remove Room. Confirming removes that item and any Experiences in the same import that use it. Other Views and Rooms from that import stay installed with their files and saved settings.": "在「場所」中，打開已匯入景觀或房間的選單，選擇「移除景觀」或「移除房間」。確認後，該項目以及同一匯入套件中使用它的體驗都會被移除。同一匯入套件中的其他景觀和房間會保留，其檔案和已儲存設定也保持不變。",
+    "Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.": "Locus 會刪除僅由被移除項目使用的檔案，並保留其他項目仍需使用的檔案。「檔案」App 或雲端儲存中的原始 ZIP 或影像不會改變。若要一次移除整個套件，請在「匯入」頁面選擇「移除」。移除最後一個項目時，也會移除該匯入套件。",
+    "Remove or restore imported items": "移除或回復匯入項目",
+    "is an idempotent no-op when the complete package is already installed.": "為冪等操作，不產生變化。 只有完整套件仍已安裝時，重複匯入相同內容才不會執行操作。",
+    "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "更新流及受支持的 Experience；導入相同內容哈希時為冪等操作，不產生變化。維護中的打包器和校驗器會生成並檢查這一確切格式。 只有完整套件仍已安裝時，重複匯入相同內容才不會執行操作。"
   }
 }

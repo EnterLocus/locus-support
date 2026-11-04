@@ -2456,6 +2456,13 @@
     "textures": "テクスチャ",
     "use CC BY 4.0; keep their attribution and record your changes. Download only what the Room needs, then have the agent clean and assemble it in Blender.": "は CC BY 4.0 を使用します。帰属表示を保持し、変更を記録してください。Room に必要なものだけをダウンロードし、エージェントに Blender でクリーンアップと組み立てをさせます。",
     "use CC0.": "は CC0 を使用します。",
-    "walks through this workflow without access to Locus application source code or a Simulator.": "は、Locus アプリケーションのソースコードや Simulator にアクセスせず、このワークフローを順に説明します。"
+    "walks through this workflow without access to Locus application source code or a Simulator.": "は、Locus アプリケーションのソースコードや Simulator にアクセスせず、このワークフローを順に説明します。",
+    "If another installed package depends on the selected item, Locus refuses the removal and leaves the packages unchanged. Remove the dependent package first to continue.": "インストール済みの別のパッケージが選択した項目に依存している場合、Locus は削除を拒否し、パッケージを変更しません。続行するには、依存しているパッケージを先に削除してください。",
+    "Importing the complete original package again asks for confirmation before restoring previously removed items, even when the package version has not changed. The package keeps its original identity for later updates. Restored Views and Rooms count toward your current import allowance.": "元の完全なパッケージを再度読み込むと、バージョンが変わっていなくても、削除済みの項目を復元する前に確認を求められます。今後の更新にも元のパッケージ識別情報が使われます。復元する View と Room は、現在の読み込み上限に数えられます。",
+    "In Places, open an imported View or Room’s menu and choose Remove View or Remove Room. Confirming removes that item and any Experiences in the same import that use it. Other Views and Rooms from that import stay installed with their files and saved settings.": "「Places」で読み込んだ View または Room のメニューを開き、「View を削除」または「Room を削除」を選びます。確認すると、その項目と、同じ読み込みパッケージ内でその項目を使用する Experience が削除されます。同じパッケージの他の View と Room は、ファイルや保存済み設定とともに残ります。",
+    "Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.": "Locus は削除した項目だけが使用するファイルを削除し、残った項目に必要なファイルは保持します。「ファイル」やクラウドストレージにある元の ZIP や画像は変更しません。パッケージ全体を一度に削除するには、「Imports」ページの「削除」を使います。最後の項目を削除すると、読み込んだパッケージも削除されます。",
+    "Remove or restore imported items": "読み込んだ項目を削除・復元する",
+    "is an idempotent no-op when the complete package is already installed.": "のインポートは冪等な処理で、何も変更しません。 同じ内容の読み込みで何も実行されないのは、完全なパッケージがすでにインストールされている場合だけです。",
+    "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "による更新系列、サポートする Experience を維持します。同じコンテンツハッシュのインポートは冪等な処理で、何も変更しません。維持管理されているパッキングツールとバリデーターは、この形式そのものを生成・検査します。 同じ内容の読み込みで何も実行されないのは、完全なパッケージがすでにインストールされている場合だけです。"
   }
 }
