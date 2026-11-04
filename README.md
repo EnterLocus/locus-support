@@ -51,6 +51,13 @@ preferred professional 3D workflow. No open Blender window or MCP connection is
 required for that default route. The free Cloud Fan Pavilion download
 demonstrates experimental Room animation playback.
 
+For a complete, candid worked record—including the creator brief, concept,
+editable source, exact import archive, Apple Vision Pro screenshots, rights,
+and unresolved lamp defects—see the [Alpine Scriptorium Sol 1.1.1 public
+example](examples/gothic-mountain-library/README.md). It preserves an older
+combined Room/View/Experience package; new work should follow the separate
+Package v2 workflow above.
+
 Experimental Room animation metadata, playback controls, speed, and replay
 intervals are documented at
 <https://enterlocus.com/experimental-room-animations/>. They are not presented
