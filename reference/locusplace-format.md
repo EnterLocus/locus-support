@@ -189,11 +189,16 @@ ZIP CRC, and SHA-256.
 
 ## Remove an imported package
 
-Removing an import always removes the whole imported package. In Places, open
-the import's menu and choose **Remove Import**. The confirmation lists every
-View and Room in that package before anything is deleted. Locus removes its
-installed package files and saved package content; the original ZIP or image in
-Files or cloud storage is unchanged.
+In development builds that offer **Remove Import**, removing an import always
+removes the whole imported package. In Places, open the import's menu and
+choose **Remove Import**. When the total number of Rooms and Views in that
+package is more than one, the confirmation enumerates them; a one-item
+package has no unnecessary item list. Locus removes its installed package files
+and saved package content; the original ZIP or image in Files or cloud storage
+is unchanged. Earlier public builds may have different removal UI.
+
+If another installed package depends on this package, Locus leaves both
+packages unchanged. Remove the dependent package first.
 
 Use separate View-only and Room-only archives when they need independent
 lifecycles. A combined archive remains valid, but Remove Import removes all of
