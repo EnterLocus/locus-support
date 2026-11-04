@@ -209,12 +209,14 @@ toward the current import allowance.
 ## Package-v2 metadata inside the ZIP
 
 The complete envelope uses `formatVersion: 1`; each `destination.json`,
-`space.json` and `experience.json` uses `formatVersion: 2`. The Room v1–v10
-numbers in the [flat compatibility reference](locus-asset-format/#flat-compatibility-room-zip)
-belong to the separate flat `space.json` input. Do not change a complete
-`space.json` to version 10 to use baked light layers. In complete packages,
-optional capabilities are enabled by their typed fields and guarded by
-`minimumAppVersion`.
+`space.json` and `experience.json` uses `formatVersion: 2`. The legacy flat
+Room metadata feature for baked light layers is `formatVersion: 10`; it belongs
+to the separate flat `space.json` input in the [flat compatibility
+reference](locus-asset-format/#flat-compatibility-room-zip). In a preferred
+Package v2 Room, `space.json` **MUST** stay `formatVersion: 2`; put
+`lighting.bakedIndirect.layers` inside it and never copy the legacy version 10.
+In complete packages, optional capabilities are enabled by their typed fields
+and guarded by `minimumAppVersion`.
 
 
 All package asset paths are relative to the directory containing their
