@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a href="../../gallery/">Gallery</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
-  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#localized-display-text">Localized display text</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-3"><a href="#locus-14-view-additions">Locus 1.4 View additions</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-3"><a href="#complete-package-roomview-composition-supporting-build-144-or-later">Complete-package Room/View composition (supporting build 1.4.4 or later)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#localized-display-text">Localized display text</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-3"><a href="#locus-14-view-additions">Locus 1.4 View additions</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-3"><a href="#complete-package-roomview-composition-supporting-build-144-or-later">Complete-package Room/View composition (supporting build 1.4.4 or later)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#check-a-room-before-device-preview">Check a Room before device preview</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
 <h2 id="complete-package-v2--canonical-import-format" tabindex="-1">Complete Package v2 — canonical import format</h2>
 <p>Locus 1.2.1 and later accepts a complete Package v2 ZIP from Files or a direct
 public HTTPS URL through both <strong>Import a View</strong> and <strong>Import a Room</strong>. Use an
@@ -276,6 +276,53 @@ bed into open water with distance. It is View-only and cannot be combined with
 <code>rmsSlope</code> defaults to <code>0</code> (<code>0...0.5</code>) and <code>shoreSlope</code> defaults to <code>0.05</code>
 (<code>0.005...1</code>). This field requires <code>minimumAppVersion &gt;= &quot;1.3.1&quot;</code> and
 Library capability <code>locus.view.water.bed-deepening.v1</code>.</p>
+<p>From Locus 1.4.5, <code>deepening</code> may add <code>macro</code>, a large-scale seabed under the
+deep water. One deep datum makes calm, clear open water a single colour, and
+extending a small shallow tile to the horizon turns its stones into a wrong
+size cue; <code>macro</code> raises sand flats and reef patches tens to hundreds of metres
+across instead, while reflections and the near bed stay unchanged:</p>
+<pre><code class="language-json">&quot;deepening&quot;: {
+  &quot;startMeters&quot;: 5, &quot;endMeters&quot;: 25, &quot;depthMeters&quot;: 50,
+  &quot;macro&quot;: {
+    &quot;map&quot;: &quot;seabed-macro.png&quot;,
+    &quot;tileMeters&quot;: 240,
+    &quot;shallowMeters&quot;: 4,
+    &quot;coverage&quot;: 0.4,
+    &quot;fadeMeters&quot;: [350, 900]
+  }
+}
+</code></pre>
+<p><code>map</code> is required: a package-relative 8-bit grayscale PNG, square, at most
+2048 pixels, that tiles seamlessly; white is raised seabed. <code>tileMeters</code>
+(<code>20...5000</code>, default <code>240</code>) is how many metres one tile spans on the water.
+<code>shallowMeters</code> is required, at least the bed’s <code>depthMeters</code> and shallower
+than the deepening <code>depthMeters</code>: the depth of a fully raised patch.
+<code>coverage</code> (<code>0...1</code>, default <code>0.5</code>) raises the map wherever it is brighter than
+<code>1 − coverage</code>, with a soft edge; a map whose values are evenly spread (for
+example rank-equalized) raises exactly that fraction of the seabed. Optional
+<code>fadeMeters</code> is an ordered pair in <code>0...5000</code>: the distance over which the
+patches give way to open deep water, like a reef edge. Locus samples the map
+twice at different scales and angles so the tile does not visibly repeat, and
+the map counts toward the shared 64 MiB water texture budget with its mipmaps.
+<code>macro</code> requires <code>minimumAppVersion &gt;= &quot;1.4.5&quot;</code> and Library capability
+<code>locus.view.water.bed-deepening.macro.v1</code>; unknown fields and <code>null</code> values are
+rejected.</p>
+<p>Also from Locus 1.4.5, two optional <code>deepening</code> fields roughen only the open
+water, so a calm, clear lagoon can sit beside a wind-roughened deep sea that
+breaks the sky into small facets. Both follow the same shallow-to-deep ramp,
+leave the shallows exactly as they are, and change shading only (not wave
+height):</p>
+<pre><code class="language-json">&quot;deepening&quot;: {
+  &quot;startMeters&quot;: 5, &quot;endMeters&quot;: 25, &quot;depthMeters&quot;: 50,
+  &quot;waveSlopeScale&quot;: 6,
+  &quot;chopSlope&quot;: 0.12
+}
+</code></pre>
+<p><code>waveSlopeScale</code> (<code>1...8</code>, default <code>1</code>) multiplies the tilt of the water’s wave
+normals on the deep water. <code>chopSlope</code> (<code>0...0.5</code>, default <code>0</code>) adds a moving
+octave of short wind waves with that RMS slope on the deep water. Either field
+away from its default requires <code>minimumAppVersion &gt;= &quot;1.4.5&quot;</code> and Library
+capability <code>locus.view.water.bed-deepening.open-water.v1</code>.</p>
 <p><code>glow</code> is a water sub-block, not a separate profile. It can add bounded bed
 emission, particles, sparkle, and surface flashes. It uses the same water
 capability and has no image asset. <code>strength</code> defaults to <code>0</code> and is <code>0...4</code>;
@@ -684,6 +731,12 @@ identity-rotation, floor-relative disc region, <code>blend.horizonSkirt</code> o
 <code>glow</code>, and zero authored and composed pitch; anything else is rejected at
 import. Contact ranges and the hidden background are authored approximations
 for one reference eye position, not surveyed terrain.</p>
+<p>From Locus 1.4.5, when a Room seats the visitor higher above the View’s water
+than <code>referenceEyeHeightMeters</code> (for example a terrace or cliff house that sets
+<code>viewGroundFloorOffsetMeters</code>), Locus scales the land uniformly about the
+water origin by the eye-height ratio, so it keeps the photograph’s composition
+from the default seat instead of standing close to the house. Nothing changes
+in the package; earlier versions of Locus keep the land at its authored size.</p>
 <h4 id="smaller-additions" tabindex="-1">Smaller additions</h4>
 <ul>
 <li><code>midground.windSway.wavelengthMeters</code> (<code>1...200</code>; declare
@@ -1275,13 +1328,20 @@ most once across the array — with a bare root <code>.png</code> <code>image</c
 path separators). The set of <code>image</code> values across the array must exactly
 match the <code>.png</code> files present in the ZIP, so an unreferenced or missing
 image fails import. Every referenced image must be an 8- or 16-bit RGB or
-RGBA PNG at most 4096×4096, and every layer image in the same Room must
-share identical pixel dimensions. Locus composites these layers in linear
-light at load and whenever the visitor’s lighting changes, and falls back to
-plain format-v3 whole-atlas EV scaling if the shared atlas texture is
-missing or a layer’s dimensions do not match it. <code>bakedIndirect.layers</code>
-requires Locus 1.2.1 or later; format v3’s <code>bakedIndirect.entities</code> keeps
-working unchanged without it.</p>
+RGBA sRGB PNG at most 4096×4096. Every layer and the shared atlas on the
+<code>bakedIndirect.entities</code> receiver subtree must have identical pixel dimensions
+and layout; that receiver material samples the shared atlas through
+<code>LocusIndirectUV</code>. A layer contains only its group’s direct and bounce
+contribution, with receiver material color included. The shared atlas is the
+linear-light composite of all groups at their authored defaults, not an
+always-on substitute for an independently controlled lamp.</p>
+<p>Locus composites the layers in linear light at load and whenever visitor
+lighting changes, and falls back to plain format-v3 whole-atlas EV scaling if
+the shared atlas texture is missing or a layer’s dimensions do not match it.
+<code>bakedIndirect.layers</code> requires <code>minimumAppVersion</code> 1.2.1 or later; format
+v3’s <code>bakedIndirect.entities</code> keeps working unchanged without it. The package
+checks image metadata and declared bindings, but cannot prove a layer changes
+the intended receiver surfaces or has the intended appearance in Locus.</p>
 <h3 id="complete-package-roomview-composition-supporting-build-144-or-later" tabindex="-1">Complete-package Room/View composition (supporting build 1.4.4 or later)</h3>
 <p>The following top-level <code>space.json</code> fields belong only to a complete Package
 v2 Room. They need <code>minimumAppVersion</code> <code>1.4.4</code> or later and their respective
@@ -1764,8 +1824,8 @@ app distribution agreement and is not an asset provenance license.</p>
 </code></pre>
 <h2 id="pack-and-validate-a-flat-compatibility-zip" tabindex="-1">Pack and validate a flat compatibility ZIP</h2>
 <p>Clone or download the whole public repository before running these commands.
-Keep the validator and its sibling Python modules together; downloading one
-script alone is not sufficient.</p>
+Keep the validator, its sibling Python modules, and <code>tools/room-bindings/</code>
+together; downloading one script alone is not sufficient.</p>
 <p>Keep only regular root files in the source directory, then run:</p>
 <pre><code class="language-sh">python3 tools/pack_locus_asset.py /absolute/path/to/asset /absolute/path/to/asset.zip
 python3 tools/validate_locus_asset.py /absolute/path/to/asset.zip
@@ -1777,11 +1837,50 @@ flat format. For complete Package v2, use <code>tools/pack_locusplace.py</code> 
 refuses to overwrite an existing ZIP, and only publishes a flat ZIP accepted by
 the same validator. Room validation uses macOS
 <code>sips</code>, Xcode’s <code>usdchecker</code>, and a small Swift RealityKit checker compiled with
-<code>xcrun swiftc</code>. The Python validator embeds its Swift checker; its Python dependencies ship
-beside it in this public repository. The same binding rules
+<code>xcrun --sdk macosx swiftc</code>. Both archive validators share the Swift source
+in <code>tools/room-bindings/</code>; its Python launcher ships beside them. The same binding rules
 are used by the app before import. A <code>VALID</code> result covers structure, metadata,
 image decoding, model structure, and machine-checkable entity bindings. Import the
 exact ZIP and enter every Room seat to check scale, appearance, and comfort.</p>
+<h3 id="check-a-room-before-device-preview" tabindex="-1">Check a Room before device preview</h3>
+<p>For either Room format, use the layered macOS checker as the final authoring
+check. The version is the reader you are targeting, not the repository branch:</p>
+<pre><code class="language-sh">python3 tools/check_room.py --current-app-version &lt;target-version&gt; \
+  --renders /absolute/path/to/renders /absolute/path/to/room.locusplace
+</code></pre>
+<p>It reports structure (S), import binding (B), entry prerequisites (E), risk
+warnings (W), and requested diagnostic renders ®. The Mac must run macOS 15
+or later with Xcode or Command Line Tools; non-Mac execution fails explicitly.
+Errors make the command fail; warnings require review without changing its exit
+status. Use <code>--json</code> for the complete report and file inventory.</p>
+<p>The Room contract includes these entry prerequisites:</p>
+<ul>
+<li><code>seatedOrigin.orientationXYZW</code> must be nonzero and remain upright after
+normalization: the transformed up vector’s absolute X/Z components are below
+<code>0.0001</code>, and its Y component exceeds <code>0.9999</code>.</li>
+<li>Loaded visual bounds must be finite and nondegenerate on every axis, and a
+Room must provide at least one teleport point.</li>
+<li>Each desktop needs an upright basis (one world-up axis with score above 0.9,
+two horizontal axes below 0.1). Author a slab, not a zero-thickness plane;
+the checker conservatively requires all three local extents above 0.0001 m.</li>
+<li>A desktop named by a seat must be within its declared Hide Desk group.</li>
+<li>Each luminaire subtree needs authored positive emission. Illuminated and
+baked-indirect emissive sites must use opaque materials. A positive default
+intensity with black color and no emissive texture does not count.</li>
+<li>An ambient animation must resolve to the named entity and a named resource
+in its loaded animation library.</li>
+</ul>
+<p>Seat eye points derive from delivered model bounds and the authored floor
+and eye height. Clearance, isolated bounds pollution, double-sided meshes,
+packed-texture risks and budget ratios are warnings, not device predictions.
+The renderer uses fixed neutral lighting and marks its images <strong>scaffolded</strong>;
+it does not reproduce the selected View, runtime lighting controls, water,
+procedural sky, head-pose placement, desk alignment or personal safety state.
+See the <a href="https://github.com/EnterLocus/locus-support/tree/main/tools/locus-room-check">checker design and limits</a>
+for exact thresholds and conservative differences from the reader.
+Comfort, tracking, Room Portal, frame rate, sound and appearance still require
+Apple Vision Pro. Import allowance and installed-ID conflicts cannot be checked
+offline.</p>
 <p>In a flat compatibility ZIP, do not include <code>.blend</code>, GLB, source textures,
 parent folders, symlinks, <code>catalog/</code>, Experience files, an ID, or
 <code>locusplace.json</code>. Those last three belong only to the canonical complete
