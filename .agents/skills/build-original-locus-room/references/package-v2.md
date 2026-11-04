@@ -88,6 +88,31 @@ overwrite an existing archive. Never edit its output ZIP by hand. Pack a
 companion View from a different View-only source directory to a different
 output filename; do not add it to this Room archive just for review.
 
+## Review a companion View as a complete sphere
+
+A separate companion View is its own delivery, not merely the image visible
+through Room windows. Validate its exact View-only archive with the public
+[Package v2 guide](https://enterlocus.com/reference/locusplace-format/) and
+the existing archive validator:
+
+```sh
+python3 tools/validate_locusplace.py --current-app-version <target-version> \
+  /absolute/path/to/MyView.locusplace
+```
+
+Then inspect the actual 2:1 panorama at a usable size: the intended forward
+view and back, both left/right seam edges, zenith, and nadir. An 8K header or a
+passing validator proves dimensions and package structure, not full-sphere
+image quality. A thumbnail or Room-window framing cannot stand in for this
+review.
+
+If the panorama uses a flat artificial fill, mirrored region, or cropped source
+outside its intended window backdrop, disclose that exact limitation as a
+limited companion background. Do not describe it as a polished independent
+360° View. When reusing previously accepted, unchanged View media, record its
+exact hash and known limitations instead of remaking media that the Room
+iteration did not request.
+
 ## Validate the exact archive
 
 Run the Room checker after the final pack, not a checker against a staging
