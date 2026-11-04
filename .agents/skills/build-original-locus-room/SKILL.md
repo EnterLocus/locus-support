@@ -151,8 +151,11 @@ seat, check tabletop alignment and **Hide Desk** when declared; its group must
 contain the table and everything resting on it. Try every light control and,
 if present, each experimental animation switch, speed, and replay interval.
 
-The creator sends screenshots and concrete observations to the agent. The agent
-repairs the editable source, rebuilds the archive, reruns the exact-archive
+The creator sends the archive hash, screenshots or recordings, and concrete
+observations to the agent. For example, record when a lamp flickers or show a
+wall fixture from multiple angles when it appears detached. Investigate the
+actual cause; do not assume a static render proves a flicker fix. The agent
+repairs the editable source, exports a new USDZ, rebuilds the archive, reruns the exact-archive
 checker and affected render review, and returns a revised archive. Reimport the
 revised archive while keeping the stable IDs, incremented `contentVersion`, and
 saved settings behavior described in the device reference; then repeat the
