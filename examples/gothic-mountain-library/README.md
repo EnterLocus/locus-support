@@ -38,11 +38,12 @@ English: a large library in the mountains, a very tall Gothic building, with a
 beautiful mountain landscape and distant snow-capped mountains outside the
 glass windows.
 
-The English agent brief and later feedback were working instructions, not the
-original creator prompt. The later refinement asked for a closer practical
-match to the concept and was supplied after the initial handoff. The exact
-image-generation prompt used to make the concept image was not retained, so it
-is deliberately not reconstructed or presented as a quote.
+The English [agent brief](agent-brief.md), [View feedback](view-feedback.md),
+and [later refinement feedback](refinement-feedback.md) were working
+instructions, not the original creator prompt. The later refinement asked for
+a closer practical match to the concept and was supplied after the initial
+handoff. The exact image-generation prompt used to make the concept image was
+not retained, so it is deliberately not reconstructed or presented as a quote.
 
 ![Original concept: a sunlit, tall Gothic library with bookcases, long tables, and snowy mountains beyond glazed arches](../../assets/examples/gothic-mountain-library/original-concept.jpg)
 
@@ -66,8 +67,9 @@ Pro. These are the creator-supplied headset screenshots from that review:
 ![Apple Vision Pro dining-table view, showing the long table and surrounding room](../../assets/examples/gothic-mountain-library/vision-pro-dining.jpg)
 
 They show the result in Locus, but they do not establish frame rate, comfort,
-tracking, interaction behavior, or a cause for a defect. In particular, a
-still image cannot prove or disprove lamp flicker.
+tracking, interaction behavior, or a cause for a defect. Both show separate
+Cloud Garden Locus scenery rather than the paired Männlichen-derived Alpine
+View. In particular, a still image cannot prove or disprove lamp flicker.
 
 ## Known issues — preserved, not repaired
 
@@ -87,12 +89,11 @@ not a claim that these issues are fixed. A future revision should change the
 editable Blender source, rebuild a new archive and content version, then be
 reviewed again on the same device conditions.
 
-A focused [source-geometry preflight](../../tools/audit_coplanar_surfaces.py)
-finds 48 opposing coplanar triangle pairs in the original
-`Scholar_Table_Lamp_1_59_Shade`, plus overlap in its shade/piping.
-The repaired lamp has no finding in those three objects. This is evidence about
-one lamp source only; it is neither a whole-Room check nor proof that Apple
-Vision Pro flicker is fixed.
+A focused [source and exported-USDZ geometry preflight](../../tools/audit_coplanar_surfaces.py)
+detects opposing near-coplanar shade faces and shade/piping overlap in the
+original lamp. The repaired USDZ has no finding in its shade, frame, and
+brass-object scan. This is evidence about one lamp only; it is neither a
+whole-Room check nor proof that Apple Vision Pro flicker is fixed.
 
 ## Import scope and current workflow
 
@@ -130,9 +131,11 @@ non-secret build-location reference, not a runtime dependency.
   via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:2007-10-03_M%C3%A4nnlichen_05.jpg).
   It was downsampled, latitude-mapped, mirrored at the rear, extended at sky
   and ground, yaw-adjusted, and cropped for the thumbnail. The derivative
-  View, IBL, thumbnail, and landscape-containing review images/screenshots
+  View, IBL, thumbnail, and Blender review render containing that background
   are offered under the same CC BY-SA 3.0 license; no photographer endorsement
-  is implied.
+  is implied. The Apple Vision Pro screenshots instead show separate Cloud
+  Garden Locus scenery. They are shown with owner authorization and remain
+  reserved; they do not change the Room or interface license.
 - The included public `locus-support` tools, schemas, and skill retain their
   Apache-2.0 notices. See the release `LICENSES.md` and the source bundle's
   `SOURCE-LICENSES.md` for the complete component notices.
