@@ -20,6 +20,12 @@ struct Report: Codable {
         var report = Report()
         do {
             let args = CommandLine.arguments
+            if args.count == 3 && args[1] == "--modelio-budget" {
+                let result = inspectModelIOBudget(URL(fileURLWithPath: args[2]))
+                let data = try JSONEncoder().encode(result)
+                print(String(decoding: data, as: UTF8.self))
+                exit(result.error == nil ? 0 : 1)
+            }
             guard args.count == 4 || args.count == 5 else { throw CocoaError(.fileReadInvalidFileName) }
             let root = try await Entity(contentsOf: URL(fileURLWithPath: args[1]))
             let space = try JSONSerialization.jsonObject(with: Data(contentsOf: URL(fileURLWithPath: args[2]))) as! [String: Any]
