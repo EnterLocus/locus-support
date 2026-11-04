@@ -14,8 +14,9 @@ feature-complete portable packages. The ZIP root contains `locusplace.json` and
 Validation is based on archive bytes and manifests, never the filename
 extension. A complete package preserves its `packageID`, content IDs,
 `contentVersion` update stream and supported Experiences; importing the same
-content hash is an idempotent no-op. The maintained packer and validator produce
-and inspect this exact format.
+content hash is an idempotent no-op when the complete package is already
+installed. The maintained packer and validator produce and inspect this exact
+format.
 
 This envelope carries pure data, not executable extensions. For one Locus
 binary, every runtime-consumed Package-v2 capability has the same content
@@ -141,7 +142,8 @@ bytes. They begin with a letter or digit and then use only letters, digits,
 `.`, `_`, and `-`.
 Versions have exactly three numeric components. An update with changed bytes
 must retain the same declared content IDs and use a greater `contentVersion`.
-Importing the same `contentHash` is an idempotent no-op. Starting with Locus
+Importing the same `contentHash` is an idempotent no-op when the complete package
+is already installed. Starting with Locus
 1.4.5, importing a different payload with the same imported `packageID` asks
 for confirmation before replacement, including an equal or lower content
 version. The declared content IDs must remain stable; replacement keeps saved
@@ -176,6 +178,18 @@ ZIP CRC, and SHA-256.
 | `files[].byteCount` | yes | Exact expanded byte count. |
 | `files[].sha256` | yes | SHA-256 of expanded bytes, 64 lowercase hexadecimal characters. |
 | `contentHash` | yes | SHA-256 identity of the canonical payload inventory described above. |
+
+## Remove or restore imported items
+
+Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.
+
+In Places, open an imported View or Room’s menu and choose Remove View or Remove Room. Confirming removes that item and any Experiences in the same import that use it. Other Views and Rooms from that import stay installed with their files and saved settings.
+
+Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.
+
+If another installed package depends on the selected item, Locus refuses the removal and leaves the packages unchanged. Remove the dependent package first to continue.
+
+Importing the complete original package again asks for confirmation before restoring previously removed items, even when the package version has not changed. The package keeps its original identity for later updates. Restored Views and Rooms count toward your current import allowance.
 
 ## Package-v2 metadata inside the ZIP
 

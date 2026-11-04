@@ -2456,6 +2456,14 @@
     "textures": "纹理",
     "use CC BY 4.0; keep their attribution and record your changes. Download only what the Room needs, then have the agent clean and assemble it in Blender.": "使用 CC BY 4.0；请保留其署名并记录你的修改。只下载 Room 所需的内容，然后让代理在 Blender 中清理并组装它。",
     "use CC0.": "使用 CC0。",
-    "walks through this workflow without access to Locus application source code or a Simulator.": "在无需访问 Locus 应用源代码或 Simulator 的情况下，逐步讲解此工作流程。"
+    "walks through this workflow without access to Locus application source code or a Simulator.": "在无需访问 Locus 应用源代码或 Simulator 的情况下，逐步讲解此工作流程。",
+    "If another installed package depends on the selected item, Locus refuses the removal and leaves the packages unchanged. Remove the dependent package first to continue.": "如果其他已安装的包依赖所选项目，Locus 会拒绝移除，并保持这些包不变。如需继续，请先移除依赖它的包。",
+    "Importing the complete original package again asks for confirmation before restoring previously removed items, even when the package version has not changed. The package keeps its original identity for later updates. Restored Views and Rooms count toward your current import allowance.": "再次导入完整的原始包时，即使包版本未变，Locus 也会在恢复先前移除的项目之前请求确认。该包会保留原始身份，以供后续更新使用。恢复的景观和房间计入当前导入限额。",
+    "In Places, open an imported View or Room’s menu and choose Remove View or Remove Room. Confirming removes that item and any Experiences in the same import that use it. Other Views and Rooms from that import stay installed with their files and saved settings.": "在“场所”中，打开已导入景观或房间的菜单，选择“移除景观”或“移除房间”。确认后，该项目以及同一导入包中使用它的体验都会被移除。同一导入包中的其他景观和房间会保留，其文件和已保存设置也保持不变。",
+    "Locus deletes files used only by the removed items and keeps files needed by retained items. Your original ZIP or image in Files or cloud storage is unchanged. To remove an entire package at once, use Remove on the Imports page. Removing the last item also removes the import.": "Locus 会删除仅由被移除项目使用的文件，并保留其他项目仍需使用的文件。文件 App 或云存储中的原始 ZIP 或图像不会改变。要一次移除整个包，请在“导入”页面选择“移除”。移除最后一个项目时，也会移除该导入包。",
+    "Remove or restore imported items": "移除或恢复导入项目",
+    "is an idempotent no-op when the complete package is already installed.": "为幂等操作，不产生变化。 只有完整包仍已安装时，重复导入相同内容才不会执行操作。",
+    "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "更新流及受支持的 Experience；导入相同内容哈希时为幂等操作，不产生变化。维护中的打包器和校验器会生成并检查这一确切格式。 只有完整包仍已安装时，重复导入相同内容才不会执行操作。",
+    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "开发预览：较新的开发构建版本支持按项目移除。较早的构建版本会移除整个导入包。"
   }
 }
