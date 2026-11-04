@@ -2464,6 +2464,6 @@
     "Remove or restore imported items": "移除或恢复导入项目",
     "is an idempotent no-op when the complete package is already installed.": "为幂等操作，不产生变化。 只有完整包仍已安装时，重复导入相同内容才不会执行操作。",
     "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "更新流及受支持的 Experience；导入相同内容哈希时为幂等操作，不产生变化。维护中的打包器和校验器会生成并检查这一确切格式。 只有完整包仍已安装时，重复导入相同内容才不会执行操作。",
-    "Item-level removal is coming in the Locus 1.4.5 release. Earlier builds, including early 1.4.5 betas, remove the whole import.": "按项目移除功能将随 Locus 1.4.5 正式版本推出。较早的构建版本（包括早期的 1.4.5 测试版）会移除整个导入包。"
+    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "开发预览：较新的开发构建版本支持按项目移除。较早的构建版本会移除整个导入包。"
   }
 }

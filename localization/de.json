@@ -2464,6 +2464,6 @@
     "Remove or restore imported items": "Importierte Elemente entfernen oder wiederherstellen",
     "is an idempotent no-op when the complete package is already installed.": "ist eine idempotente Operation ohne Änderung. Ein erneuter Import desselben Inhalts bleibt nur dann ohne Wirkung, wenn das vollständige Paket bereits installiert ist.",
     "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "-Updatestrom und unterstützte Experiences. Ein erneuter Import desselben Inhalts-Hashes ist eine idempotente Operation ohne Änderung. Der gepflegte Packer und Validator erstellen und prüfen genau dieses Format. Ein erneuter Import desselben Inhalts bleibt nur dann ohne Wirkung, wenn das vollständige Paket bereits installiert ist.",
-    "Item-level removal is coming in the Locus 1.4.5 release. Earlier builds, including early 1.4.5 betas, remove the whole import.": "Das Entfernen einzelner Elemente kommt mit der Veröffentlichung von Locus 1.4.5. Frühere Builds, einschließlich früher Betaversionen von 1.4.5, entfernen den gesamten Import."
+    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "Entwicklungsvorschau: In neuen Entwicklungsbuilds lassen sich einzelne Elemente entfernen. Frühere Builds entfernen den gesamten Import."
   }
 }

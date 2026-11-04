@@ -181,7 +181,7 @@ ZIP CRC, and SHA-256.
 
 ## Remove or restore imported items
 
-Item-level removal is coming in the Locus 1.4.5 release. Earlier builds, including early 1.4.5 betas, remove the whole import.
+Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.
 
 In Places, open an imported View or Room’s menu and choose Remove View or Remove Room. Confirming removes that item and any Experiences in the same import that use it. Other Views and Rooms from that import stay installed with their files and saved settings.
 

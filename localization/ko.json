@@ -2464,6 +2464,6 @@
     "Remove or restore imported items": "가져온 항목 제거 또는 복원",
     "is an idempotent no-op when the complete package is already installed.": "를 가져오면 멱등 작업으로 아무것도 변경하지 않습니다. 동일한 내용을 가져올 때 아무 작업도 하지 않는 것은 전체 패키지가 이미 설치되어 있는 경우뿐입니다.",
     "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "업데이트 계열과 지원되는 Experience를 보존합니다. 동일한 콘텐츠 해시를 가져오는 것은 아무것도 바꾸지 않는 멱등 작업입니다. 유지 관리되는 패키징 및 검증 도구는 정확히 이 형식을 생성하고 검사합니다. 동일한 내용을 가져올 때 아무 작업도 하지 않는 것은 전체 패키지가 이미 설치되어 있는 경우뿐입니다.",
-    "Item-level removal is coming in the Locus 1.4.5 release. Earlier builds, including early 1.4.5 betas, remove the whole import.": "개별 항목 제거는 Locus 1.4.5 정식 버전에서 제공될 예정입니다. 초기 1.4.5 베타를 포함한 이전 빌드에서는 가져온 패키지 전체가 제거됩니다."
+    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "개발 미리보기: 새로운 개발 빌드에서는 개별 항목을 제거할 수 있습니다. 이전 빌드에서는 가져온 패키지 전체가 제거됩니다."
   }
 }
