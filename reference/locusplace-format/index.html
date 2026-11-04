@@ -246,12 +246,14 @@ updates that package under its stable identity and counts its Views and Rooms
 toward the current import allowance.</p>
 <h2 id="package-v2-metadata-inside-the-zip" tabindex="-1">Package-v2 metadata inside the ZIP</h2>
 <p>The complete envelope uses <code>formatVersion: 1</code>; each <code>destination.json</code>,
-<code>space.json</code> and <code>experience.json</code> uses <code>formatVersion: 2</code>. The Room v1–v10
-numbers in the <a href="../locus-asset-format#flat-compatibility-room-zip">flat compatibility reference</a>
-belong to the separate flat <code>space.json</code> input. Do not change a complete
-<code>space.json</code> to version 10 to use baked light layers. In complete packages,
-optional capabilities are enabled by their typed fields and guarded by
-<code>minimumAppVersion</code>.</p>
+<code>space.json</code> and <code>experience.json</code> uses <code>formatVersion: 2</code>. The legacy flat
+Room metadata feature for baked light layers is <code>formatVersion: 10</code>; it belongs
+to the separate flat <code>space.json</code> input in the <a href="../locus-asset-format#flat-compatibility-room-zip">flat compatibility
+reference</a>. In a preferred
+Package v2 Room, <code>space.json</code> <strong>MUST</strong> stay <code>formatVersion: 2</code>; put
+<code>lighting.bakedIndirect.layers</code> inside it and never copy the legacy version 10.
+In complete packages, optional capabilities are enabled by their typed fields
+and guarded by <code>minimumAppVersion</code>.</p>
 <p>All package asset paths are relative to the directory containing their
 manifest, not to the ZIP root. Every reference resolves to a regular file
 inside that package. Base Package-v2 manifests allow forward-compatible metadata; individual

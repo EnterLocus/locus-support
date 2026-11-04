@@ -1307,6 +1307,10 @@ Room’s entire lifetime; it is never tied to a <code>lighting.luminaireGroups</
 switch and carries no audio. <code>particleEffects</code> requires Locus 1.2.1 or
 later.</p>
 <h3 id="room-baked-light-layers-formatversion-10" tabindex="-1">Room baked light layers (formatVersion 10)</h3>
+<p><code>formatVersion: 10</code> is the legacy/simple flat Room <code>space.json</code> feature. In a
+preferred Package v2 Room, <code>space.json</code> <strong>MUST</strong> stay <code>formatVersion: 2</code>; put
+the same <code>lighting.bakedIndirect.layers</code> object in that manifest and never
+copy the flat version number into it.</p>
 <p>A Room whose <code>lighting.bakedIndirect</code> wants per-lamp control over the shared
 indirect atlas uses <code>formatVersion: 10</code> and adds <code>bakedIndirect.layers</code>: one
 root PNG per declared luminaire group, holding only that group’s own
