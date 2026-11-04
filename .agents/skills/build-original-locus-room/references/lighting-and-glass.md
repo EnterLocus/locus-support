@@ -7,10 +7,23 @@ tool; the Blender-specific details below describe the default headless route.
 
 ## Identify the affected layer
 
-An emissive fixture, a point/spot direct source, and an indirect atlas do
-different jobs. A brighter direct source does not replace broad diffuse bounce.
-The Room Lights master changes both direct and indirect contributions, so
-toggling it alone cannot isolate which one causes an artifact.
+An emissive fixture, a point/spot proxy, a shared indirect atlas, and a
+per-group baked layer do different jobs. A fixture body makes the lamp visible;
+a bounded proxy can add a local direct pool; a baked receiver atlas makes walls,
+floors, tables, and ceilings look lit. A brighter fixture or proxy does not
+replace broad receiving-surface light. The Room Lights master changes all of
+them, so toggling it alone cannot isolate an artifact.
+
+For a lamp with its own switch, brightness EV, temperature, or colour control,
+prefer one `lighting.bakedIndirect.layers` image for that luminaire group. A
+layer follows that group everywhere in the Room, including from seats outside a
+proxy's `nearTeleportIDs`. A plain v3 shared atlas follows only the Room master
+and Overall Room EV; never paint a particular lamp's always-on pool into it if
+that lamp can be switched or adjusted. A group normally uses either a layer or
+a proxy for its illumination; do not count the same direct pool twice. Keep the
+emissive fixture body separate in `luminaireGroups[].entities`; it is not an
+indirect receiver. `illuminatedEntities` is a group-scaled authored emissive
+receiver option, not a substitute for a correctly bound baked atlas.
 
 For an investigation, hold the Room, View, camera/seat, sun, brightness, and app
 version fixed. Change one contribution or material parameter in a recoverable
@@ -90,11 +103,78 @@ own generated nodes/lights and preserve geometry, base UVs, material settings,
 and any authored animation.
 
 This layer is static aggregate lamp bounce, not full dynamic global
-illumination. The Room master and Overall Room EV affect it, but per-light
-switch/color/temperature/EV changes do not recompute that light's baked
-contribution, and moving occluders do not rebake it. Point/spot proxies are not
-large area emitters. A clean bright-state result is not proof of physically
-calibrated equivalence to diffuse lighting in a real home.
+illumination. Use it only for the aggregate contribution of groups that have no
+independent adjustment. It responds to the Room master and Overall Room EV, but
+not to a particular lamp's switch/color/temperature/EV, and moving occluders do
+not rebake it. Point/spot proxies are not large area emitters. A clean
+bright-state result is not proof of physically calibrated equivalence to
+diffuse lighting in a real home.
+
+## Bake independently controlled lamps as receiver layers
+
+Use the Room-v10 baked-light-layer capability when a lamp's control must
+visibly affect its surroundings. `bakedIndirect.layers` has one image per
+luminaire group, up to 12. Each layer contains only that group's direct and
+bounce contribution with the receiver material colour included, at its authored
+brightness and colour. The existing `bakedIndirect.entities` receiver subtree
+remains the one shared opaque positive-emissive atlas in the USDZ; it must
+sample that atlas through `LocusIndirectUV`. Keep each layer and that USDZ atlas
+identically laid out. Set `minimumAppVersion` to `1.2.1` or later. In a
+complete Package v2 Room, keep `space.json` at its Package-v2
+`formatVersion: 2`; the layer declaration is nested Room metadata:
+
+```json
+"lighting": {
+  "luminaireGroups": [
+    {"id": "desk-pendant", "displayName": "Desk Pendant", "entities": ["Desk_Pendant_Glow"]}
+  ],
+  "bakedIndirect": {
+    "entities": ["Locus_BakedIndirect"],
+    "layers": [
+      {"luminaireGroupID": "desk-pendant", "image": "desk-pendant-indirect.png"}
+    ]
+  }
+}
+```
+
+1. **Choose receivers deliberately.** Include opaque architectural surfaces
+   that should visibly respond: floors, walls, ceilings, hearths, stone and
+   tabletops. Exclude transparent or transmissive materials, fixture glows,
+   and local fixture halos. Protect the original base-material UV and create a
+   separate, non-overlapping `LocusIndirectUV` layout for the receivers.
+2. **Bake a group in isolation.** Enable only that group's light/emission and
+   bake its receiver contribution. Reset light energy for every group before
+   each bake so an inherited preview or proxy minimum cannot make a dim lamp
+   look identical to a bright one. Use the same scene-linear settings,
+   sampling budget, UV layout, and absolute radiance-to-emission scale for all
+   groups. Do not normalize each image independently: that destroys lamp
+   ratios. Keep generated baking lights and source-only helpers out of the
+   exported USDZ.
+3. **Compose the authored default once.** Sum all group images in linear light,
+   clip only as the intended final atlas requires, then encode the one shared
+   USDZ atlas. It is both the v3 fallback and the all-groups-on preview. Do not
+   add a separate proxy on top of a layer unless its contribution was excluded
+   from the baked image and you can show that no direct pool is double counted.
+4. **Export and inspect the binding.** Export the secondary UV primvar and
+   verify that the indirect texture reader uses `LocusIndirectUV`, not `st` or
+   whichever UV set happened to export first. Base PBR textures must continue
+   to use their original UVs. Confirm the receiver materials remain opaque and
+   positive-emissive, and that no `bakedIndirect` receiver overlaps a fixture
+   or `illuminatedEntities` subtree.
+5. **Encode and package exactly.** The shared atlas and every layer image are
+   8- or 16-bit RGB/RGBA PNGs, sRGB encoded, no larger than 4096 pixels on
+   either side, with exactly the same dimensions. Put each layer PNG at the
+   Room package root; its `image` field is that bare filename, while
+   `luminaireGroupID` names its group. Every root layer PNG must be claimed.
+
+Use one all-off candidate and one all-on candidate for source review, then one
+candidate with each group isolated. In a dim/night View, use matched
+seat/camera framing and inspect the wall, floor, table, and ceiling receivers:
+each group must make the expected surfaces change without a permanent
+always-on painted pool, missing atlas binding, gross clipping, or a duplicate
+proxy contribution. Repeat the relevant check in daylight to make sure the
+layer does not create a false night-only repair. Keep all other variables fixed
+between the comparison frames.
 
 ## Check transmissive materials in the exact USDZ
 
@@ -152,21 +232,37 @@ RealityKit highlight is unchanged.
 - Validate the exact rebuilt USDZ and Room ZIP, then import, pair with a View,
   and enter it using the normal app controls. Inspect the loaded Room, not only
   the thumbnail or a settings panel over the surrounding environment.
-- For an indirect-layer change, review affected seats in a dark View and a
-  daylight View at 0/+2 EV and at +4 EV stress when the installed app exposes
-  that Room-wide setting. If it does not, test its available ceiling and report
-  that boundary. Do not modify per-light `brightnessEVRange` beyond `[-4, 1]`;
-  it is a different contract. Inspect walls, floors, ceiling undersides,
-  transitions, color patches, mottling, and clipping.
+- For an indirect-layer change, review every affected seat in a dim/night View
+  and a daylight View at 0/+2 EV and at +4 EV stress when the installed app
+  exposes that Room-wide setting. If it does not, test its available ceiling and
+  report that boundary. At matched camera framing capture all-off, all-on, and
+  each group isolated. Verify visible changes on walls, floors, tables and
+  ceiling undersides, and inspect transitions, color patches, mottling,
+  clipping, missing atlas bindings, static painted light, and double-counted
+  proxy pools. Do not modify per-light `brightnessEVRange` beyond `[-4, 1]`; it
+  is a different contract.
 - For a glass-only correction, reproduce the reflected-sun case at the same
   camera and compare its center, extent, surrounding pixels, and transparency.
   Check relevant View changes; preserve the intended appearance rather than
   merely hiding the light. A scalar-only correction does not require unrelated
   lighting rebakes or establish a new all-seat comfort acceptance.
+- Run the exact package checks before device review:
+
+  ```sh
+  python3 tools/validate_locusplace.py --current-app-version <target-version> \
+    /absolute/path/to/MyRoom.locusplace
+  python3 tools/check_room.py --current-app-version <target-version> \
+    --renders /absolute/path/to/empty-room-renders \
+    /absolute/path/to/MyRoom.locusplace
+  ```
+
+  The checker validates structure and gives scaffolded seat renders, but it
+  does not render lamp controls, proxies, baked-layer compositing, or the
+  selected View. It cannot demonstrate that an exported atlas looks right.
 - Record the exact source/export, app version, Room variant, View, seat,
-  brightness and sun settings with the screenshots. Simulator captures are
-  useful for deterministic comparisons but do not replace physical Vision Pro
-  checks for subtle glare, scale, tracking, reach, and comfort.
+  brightness and sun settings with the comparison captures. Simulator captures
+  are useful for deterministic comparisons but do not replace physical Vision
+  Pro checks for subtle glare, scale, tracking, reach, and comfort.
 
 Return to [the Room interface](room-interface.md) for metadata and exact
 delivery gates, and [the main skill](../SKILL.md) for packaging and handoff.

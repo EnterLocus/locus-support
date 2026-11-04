@@ -7,6 +7,20 @@ identity and updates, unlike a flat compatibility ZIP. The ZIP root contains
 [complete Package v2 guide](https://enterlocus.com/reference/locusplace-format/)
 for every metadata field and minimum version.
 
+## Package one independently managed Place at a time
+
+Make the normal Room delivery a Room-only archive with its own stable
+`packageID`. If it has a companion View, make a separate View-only archive and
+give it a different `packageID`. Deliver, hash, validate, import, replace, and
+review those archives independently. The app can pair an installed View and
+Room; an ordinary Room iteration does not need a combined archive or an
+Experience.
+
+Package v2 still supports a combined archive containing a View, Room, and
+Experience. Use it only when those contents intentionally have one update and
+removal lifecycle. Removing an import removes the whole import, so a combined
+archive is not the default for separate Room and View work.
+
 ## Derive seats from the final USDZ
 
 Never normalize seats against a DCC viewport or an earlier export. The
@@ -70,7 +84,9 @@ python3 tools/pack_locusplace.py --current-app-version <target-version> \
 ```
 
 The packer creates the manifest file inventory and content hash. It refuses to
-overwrite an existing archive. Never edit its output ZIP by hand.
+overwrite an existing archive. Never edit its output ZIP by hand. Pack a
+companion View from a different View-only source directory to a different
+output filename; do not add it to this Room archive just for review.
 
 ## Validate the exact archive
 
@@ -85,5 +101,8 @@ python3 tools/check_room.py --current-app-version <target-version> \
 
 The checker covers Package v2 structure, USDZ/resource checks, Room bindings,
 entry risks, and seat-view render evidence. Treat warnings as review work, not
-decorative output. The resulting renders help find geometry, material, and
-camera problems but cannot establish physical comfort or real-world alignment.
+decorative output. Its scaffold renderer does not implement lamp controls,
+proxies, baked-light-layer mixing, or the selected View. It cannot prove that a
+lamp actually changes a wall, floor, tabletop, or ceiling in the app. The
+resulting renders help find geometry, material, and camera problems but cannot
+establish lighting aesthetics, physical comfort, or real-world alignment.
