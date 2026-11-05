@@ -92,6 +92,17 @@ class EntryConditions(unittest.TestCase):
         self.assertEqual(report['errors'], [])
         self.assertIn('boundsPollution', [w['code'] for w in report['warnings']])
 
+    def test_embedded_backdrop_warns_once_per_root_entity(self):
+        self.assertNotIn('embeddedBackdrop', [w['code'] for w in self.check(Room())['warnings']])
+        r = Room()
+        r.boxes.append({'name': 'Alpine_Window_Backdrop_1', 'center': (0, 1.4, -3.5),
+                        'size': (3.5, 2.4, .05), 'material': 'Lamp_Glow'})
+        report = self.check(r)
+        self.assertEqual(report['errors'], [])
+        backdrop_warnings = [w for w in report['warnings'] if w['code'] == 'embeddedBackdrop']
+        self.assertEqual(len(backdrop_warnings), 1)
+        self.assertIn('Alpine_Window_Backdrop_1', backdrop_warnings[0]['message'])
+
     def test_no_seats(self):
         r = Room()
         r.seats = []

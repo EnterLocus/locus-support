@@ -67,6 +67,14 @@ struct Report: Codable {
         }
         if max(extents.x, extents.z) < 1.5 { warn("smallRoom", "Room spans less than 1.5 m horizontally.") }
         if max(extents.x, max(extents.y, extents.z)) > 80 { warn("largeRoom", "Model extends over 80 m; compare geometry with the View sphere on device.") }
+        let backdropTokens = ["skybox", "skydome", "sky_dome", "sky-dome", "cyclorama", "backdrop"]
+        func hasBackdropName(_ entity: Entity) -> Bool {
+            let lower = entity.name.lowercased()
+            return backdropTokens.contains { lower.contains($0) }
+        }
+        for e in all where hasBackdropName(e) && !(e.parent.map(hasBackdropName) ?? false) {
+            warn("embeddedBackdrop", "Entity '\(e.name)' looks like an exported skybox or backdrop; keep openings unobstructed in scene.usdz so Locus can display the paired 360° View.")
+        }
         let meshBounds = all.filter { $0.components[ModelComponent.self] != nil }.map { ($0.name, $0.visualBounds(relativeTo: nil)) }
         if meshBounds.count >= 3 {
             func median(_ values: [Float]) -> Float { values.sorted()[values.count / 2] }

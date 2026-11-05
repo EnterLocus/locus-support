@@ -1392,7 +1392,8 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(positions, sorted(positions))
         for stage in stages:
             self.assertIn('href="#' + stage + '"', page)
-        for promise in ["concept image and the layout", "floor plan and seat layout",
+        for promise in ["concept image and the layout", "leave the Room’s openings clear",
+                        "floor plan and seat layout",
                         "Blender MCP is not required", "tools/check_room.py",
                         "--current-app-version", "--renders", "MyRoom.locusplace",
                         "screenshots and specific feedback", "revise the source",
@@ -1406,6 +1407,8 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(provider, page)
         skill = (ROOT / ".agents/skills/build-original-locus-room/SKILL.md").read_text()
         self.assertEqual(re.findall(r"^## (\d)\.", skill, re.MULTILINE), ["1", "2", "3", "4"])
+        for rule in ["Never\nmodel or export a skybox sphere", "neutral gray lighting scaffold"]:
+            self.assertIn(rule, skill)
 
     def test_sample_skill_references_are_portable_and_public_safe(self):
         source = ROOT / ".agents" / "skills" / "build-original-locus-room"
@@ -1467,9 +1470,11 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(required, package_v2)
         for required in [
             "back-face culled", "packed ORM", "zero-thickness desktop",
-            "terrain base", "RealityKit",
+            "terrain base", "cyclorama", "RealityKit",
         ]:
             self.assertIn(required, materials)
+        concept = (root / "references" / "concept-and-brief.md").read_text()
+        self.assertIn("Separate Room architecture from outdoor View scenery", concept)
 
         with tempfile.TemporaryDirectory(prefix="locus-public-skill-test-") as directory:
             temporary = pathlib.Path(directory)
