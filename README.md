@@ -90,6 +90,12 @@ Run `npm ci` and `npm run build`, then
 search index from each public page's `data-pagefind-body`. GitHub Pages deploys
 `.site/`, including the index. Dependencies and local evidence are excluded.
 
+**Publish GitHub Pages** builds and deploys the site on pushes to `main` or a
+manual dispatch. It runs one Ubuntu deployment job. Run the applicable Python,
+Blender/RealityKit and browser checks locally before merging; those checks are
+not part of the deployment Action. The separate **Verify public support surface**
+and **Refresh public Gallery** workflows remain disabled.
+
 Search supports Command/Ctrl-K and Escape. FAQ questions have stable heading
 IDs; links to them open the matching answer. Keep existing IDs when editing
 question wording. Add the shared search assets and indexed main element when
@@ -222,8 +228,9 @@ older reviewed profile conservative until that update; an unpublished profile
 causes synchronization to fail. The website's normal build uses the committed
 snapshot, so a network outage does not remove the Gallery.
 
-The **Refresh public Gallery** workflow checks Production daily and on manual
-request. Changes go to an `automation/gallery` pull request for review; the
+The **Refresh public Gallery** workflow is currently disabled. When separately
+enabled, it checks Production daily and on manual request. Changes go to an
+`automation/gallery` pull request for review; the
 workflow never merges or publishes them. If repository policy disallows Actions
 from creating pull requests, the job retains the refreshed review branch and
 provides a compare link in its summary without changing repository permissions.
