@@ -1078,12 +1078,12 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_released_1_4_4_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-4/"', homepage)
+        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-6/"', homepage)
         self.assertLess(homepage.index('class="whats-new-latest"'),
                         homepage.index('id="whats-new-title"'))
-        self.assertIn("New in Locus 1.4.4", homepage)
+        self.assertIn("New in Locus 1.4.6", homepage)
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.4.4 · Latest", archive)
+        self.assertIn("Locus 1.4.6 · Latest", archive)
         self.assertLess(archive.index('href="./1-4-4/"'), archive.index('href="./1-4-3/"'))
         self.assertEqual(archive.count("· Latest"), 1)
         article = (ROOT / "whats-new/1-4-4/index.html").read_text()
