@@ -1076,6 +1076,25 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("https://enterlocus.com/whats-new/1-4-1/", (ROOT / "sitemap.xml").read_text())
         self.assertIn("../1-4-2/", parser.links)
 
+    def test_release_articles_have_all_site_translations(self):
+        for path in (ROOT / "whats-new").glob("*/index.html"):
+            sources = localization._sources_in_html(path.read_text())
+            for locale in localization.TRANSLATED_LOCALES:
+                catalog = localization.load_catalog(ROOT, locale)
+                for source in sources:
+                    with self.subTest(page=str(path), locale=locale, source=source):
+                        self.assertTrue(localization.has_translation(source, catalog))
+
+    def test_released_1_4_6_is_latest_and_connected(self):
+        article = (ROOT / "whats-new/1-4-6/index.html").read_text()
+        self.assertIn("Low Poly Cabins", article)
+        self.assertIn("Move with Glide", article)
+        self.assertIn("../1-4-4/", article)
+        previous = (ROOT / "whats-new/1-4-4/index.html").read_text()
+        self.assertIn("../1-4-6/", previous)
+        archive = (ROOT / "whats-new/index.html").read_text()
+        self.assertLess(archive.index('href="./1-4-6/"'), archive.index('href="./1-4-4/"'))
+
     def test_released_1_4_4_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
         self.assertIn('class="whats-new-latest" href="./whats-new/1-4-6/"', homepage)
