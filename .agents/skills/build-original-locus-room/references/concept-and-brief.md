@@ -23,6 +23,18 @@ eye height, direction, focal length or field of view, foreground, Room envelope,
 opening, and desired view through it. Avoid text, logos, or tiny decorative
 features that a model cannot reproduce reliably.
 
+## Separate Room architecture from outdoor View scenery
+
+Distant mountains, sea, sky, clouds, and horizon in the concept image establish
+mood, daylight direction, and opening proportions—they are **not** geometry to
+model or texture onto a backdrop inside the Room. Locus supplies the
+surrounding world at runtime from whichever 360° View the visitor selects.
+Model only the Room architecture, furnishings, and immediate occupied
+thresholds (such as a window frame, balcony railing, or courtyard parapet),
+keeping glazing transparent and openings unobstructed. If the creator
+explicitly wants a companion 360° View as well, deliver it as a separate
+View-only Package v2 archive rather than an image backdrop in `scene.usdz`.
+
 ## Derive the metric plan before modeling
 
 The agent turns the selected image into a floor plan and seat layout. These are

@@ -53,6 +53,12 @@ no provider, API, or paid-service prerequisite. The image should establish the
 principal view, mood, architectural type, major materials, opening, and
 day/night state. It is the camera and visual target for review.
 
+Outdoor mountains, water, clouds, or city light in the concept image establish
+framing and daylight, **not** geometry for the Room. In Virtual Space, Locus
+surrounds the Room with whichever 360° View the visitor pairs with it. Never
+model or export a skybox sphere, curved backdrop/cyclorama, scenery card, or
+distant terrain mesh inside the Room's `scene.usdz`.
+
 Record the Room's intended purpose, each seat and its purpose, desk-backed
 seats, visitor-controlled lamps, optional animation or sound, and a rights
 inventory for every supplied or incorporated asset. Record material AI use
@@ -125,7 +131,10 @@ scopes. Do not wait for creator feedback to inspect lamp openings, trim,
 glazing, and thin detail. A clean geometry report does not prove no flicker.
 
 Export one self-contained USDZ in meters, +Y up, with world -Z forward, and
-store its ZIP members uncompressed. Inspect the exported USDZ as well as the
+store its ZIP members uncompressed. Leave window glazing transmissive and
+openings completely clear to the outside world: exclude any Blender World
+environment or temporary preview backdrop from `scene.usdz` along with preview
+cameras and authoring lights. Inspect the exported USDZ as well as the
 authoring scene: its axes, scale, unique
 referenced entity names, texture packaging and paths, transparency, fixture
 emission, and bounds. `usdchecker` can accept a USDZ whose appearance is still
@@ -154,11 +163,14 @@ python3 tools/check_room.py --current-app-version <target-version> \
   --renders /absolute/path/to/renders /absolute/path/to/MyRoom.locusplace
 ```
 
-Read every checker warning and inspect the complete render contact sheet.
-`--current-app-version` and the explicit `--renders` directory are required
-evidence for this handoff. Correct the editable source, rebuild, repack, and
-recheck when either render review or the checker exposes a problem. A passing
-archive remains narrower evidence than physical-device acceptance.
+Read every checker warning and inspect the complete render contact sheet. In
+`check_room.py` renders, clear windows and openings are expected to show the
+checker's neutral gray lighting scaffold rather than outdoor scenery; painted
+mountains or sky through a window mean an exported backdrop mesh is blocking
+the View. `--current-app-version` and the explicit `--renders` directory are
+required evidence for this handoff. Correct the editable source, rebuild,
+repack, and recheck when either render review or the checker exposes a problem.
+A passing archive remains narrower evidence than physical-device acceptance.
 
 ## 4. Check the exact archive on Apple Vision Pro and iterate
 
