@@ -465,3 +465,7 @@ revisions. `data/gallery.json` records their hashes and dimensions. The catalog'
 internal thumbnail paths are not independent HTTP endpoints. Each Place's detail
 page retains the Production catalog's credit/source/license metadata. Gallery
 publication changes no campaign media.
+
+## Locus 1.4.6 Glide image
+
+`screenshots/locus-1.4.6-glide.jpg` is the owner-requested frame at 00:19.500 from `Dropbox/scratch/glide-demo.mp4`. The 3840 × 2160 recording frame is resized to 1920 × 1080 and JPEG encoded without cropping or content edits. Source SHA-256: `70301b8edb492951742dd2e3a77f398fcb973b55a775ac6ab88929633d5ab4b7`; image SHA-256: `3a6f55c7ba64646e6aa3c0e82acc10cbf00944d2dde13160f7bef8ac563a1c11`. Used in the 1.4.6 release article.
