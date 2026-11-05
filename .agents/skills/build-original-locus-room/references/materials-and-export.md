@@ -41,13 +41,22 @@ Useful public sources include:
   [CC0](https://polyhaven.com/license);
 - NVIDIA's official
   [SimReady assets dataset](https://huggingface.co/datasets/nvidia/simready-assets),
-  licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); and
+  licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/);
 - Scenario's official
   [3D collection](https://huggingface.co/datasets/scenario-labs/3d-collection),
   licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/).
 
+- [Amazon Berkeley Objects GLB](https://huggingface.co/datasets/codepawl/abo-glb):
+  furniture and household-object meshes with PBR materials, plus optional LODs.
+  The [official ABO source](https://registry.opendata.aws/amazon-berkeley-objects/)
+  is CC BY 4.0 (updated from CC BY-NC in 2023). Retain Amazon/ABO attribution,
+  the source/model ID, license link and changes made, including the mirror's
+  compression. Smaller GLB files do not imply fewer triangles; check decoder
+  support for meshopt/WebP/KTX2 when selecting a variant, then normalize and
+  verify the Blender-to-USDZ result as above.
+
 The NVIDIA license statement applies to that official dataset, not generally to
-all SimReady Central datasets. For NVIDIA or Scenario inputs, retain the source
+all SimReady Central datasets. For NVIDIA, Scenario or ABO inputs, retain the source
 URL, required attribution, license, and a record of the changes made in
 `provenance.json`. Prefer mesh assets such as GLB or USD. Do not use Scenario
 SPZ or splat assets: a Locus Room is delivered as a mesh USDZ.
