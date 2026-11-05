@@ -2589,6 +2589,11 @@
     "Remove or restore imported items": "移除或恢复导入项目",
     "is an idempotent no-op when the complete package is already installed.": "为幂等操作，不产生变化。 只有完整包仍已安装时，重复导入相同内容才不会执行操作。",
     "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "更新流及受支持的 Experience；导入相同内容哈希时为幂等操作，不产生变化。维护中的打包器和校验器会生成并检查这一确切格式。 只有完整包仍已安装时，重复导入相同内容才不会执行操作。",
-    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "开发预览：较新的开发构建版本支持按项目移除。较早的构建版本会移除整个导入包。"
+    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "开发预览：较新的开发构建版本支持按项目移除。较早的构建版本会移除整个导入包。",
+    "Any mountains, water, or sky outside the windows in the concept image are only for framing and daylight: leave the Room’s openings clear so you can pair it with any 360° View in Locus.": "概念图中窗外的群山、水面或天空仅用于辅助构图与采光：请保持 Room 的开口通透无遮挡，以便在 Locus 中与任意 360° View 搭配。",
+    "Send the agent the archive filename and hash, screenshots and specific feedback (with a recording for motion): which seat and viewing direction, what blocks the view, or which light flickers and when. For example, show a wall lamp that appears separated from the wall from more than one angle. Ask the agent to investigate the editable geometry, transforms, materials, and lighting as appropriate, revise the source, export a new USDZ, rebuild and recheck the package, then return it for comparison. Flicker can have several causes; a screenshot or checker pass alone does not establish the cause or prove the fix.": "向代理发送归档文件名与哈希值、截图以及具体反馈（涉及动态表现时附上录屏）：是哪个座位与视线方向、什么遮挡了视野，或哪盏灯在何时闪烁。例如，从不止一个角度展示一盏看似与墙面脱开的壁灯。请代理视情况排查可编辑几何体、变换、材质与灯光，修订源文件，导出新的 USDZ，重新构建并复检资源包后再交回对比。闪烁可能由多种原因引起；仅凭单张截图或检查器通过并不能确定根因，也不能证明问题已修复。",
+    "For a candid worked record, see": "如需查看坦诚的完整实战记录，请参阅",
+    "Alpine Scriptorium": "Alpine Scriptorium",
+    ": its original brief, source, creator Apple Vision Pro screenshots, preserved issues, and the distinction between checker evidence and device review.": "：其中包含原始需求简报、源文件、创作者在 Apple Vision Pro 上的实机截图、保留的问题记录，以及检查器证据与实机审阅之间的区别。"
   }
 }
