@@ -1076,16 +1076,12 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("https://enterlocus.com/whats-new/1-4-1/", (ROOT / "sitemap.xml").read_text())
         self.assertIn("../1-4-2/", parser.links)
 
-    def test_released_1_4_4_has_compact_entry_and_connected_article(self):
-        homepage = (ROOT / "index.html").read_text()
-        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-4/"', homepage)
-        self.assertLess(homepage.index('class="whats-new-latest"'),
-                        homepage.index('id="whats-new-title"'))
-        self.assertIn("New in Locus 1.4.4", homepage)
+    def test_released_1_4_4_keeps_its_article_and_sequence(self):
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.4.4 · Latest", archive)
+        self.assertIn('href="./1-4-4/"', archive)
+        self.assertNotIn("Locus 1.4.4 · Latest", archive)
+        self.assertLess(archive.index('href="./1-4-6/"'), archive.index('href="./1-4-4/"'))
         self.assertLess(archive.index('href="./1-4-4/"'), archive.index('href="./1-4-3/"'))
-        self.assertEqual(archive.count("· Latest"), 1)
         article = (ROOT / "whats-new/1-4-4/index.html").read_text()
         parser = PageParser()
         parser.feed(article)
@@ -1097,10 +1093,7 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(phrase, article)
         release_sources = localization._sources_in_html(article)
         release_sources.update({
-            "Four Mansions, clearer seats, and water at the edge of your Room.",
             "Mansions brings four Supporter Rooms, clearer seats in large Rooms, and water that meets Room edges more cleanly.",
-            "New in Locus 1.4.4",
-            "Locus 1.4.4 · Latest",
         })
         for locale in localization.TRANSLATED_LOCALES:
             catalog = localization.load_catalog(ROOT, locale)
@@ -1108,7 +1101,7 @@ class PublicSiteTests(unittest.TestCase):
                 with self.subTest(locale=locale, source=source):
                     self.assertTrue(localization.has_translation(source, catalog))
         self.assertEqual(parser.videos, [])
-        for href in ["../1-4-3/", "../", "../../reference/locus-asset-format/#complete-package-roomview-composition-supporting-build-144-or-later", APP_STORE_URL]:
+        for href in ["../1-4-3/", "../1-4-6/", "../../reference/locus-asset-format/#complete-package-roomview-composition-supporting-build-144-or-later", APP_STORE_URL]:
             self.assertIn(href, parser.links)
         previous = PageParser()
         previous.feed((ROOT / "whats-new/1-4-3/index.html").read_text())
@@ -1119,6 +1112,46 @@ class PublicSiteTests(unittest.TestCase):
         for phrase in ["Complete-package Room/View composition", "viewGroundFloorOffsetMeters",
                        "viewGroundKeepOut", "viewMidgroundVisibility"]:
             self.assertIn(phrase, reference)
+
+    def test_released_1_4_6_has_compact_entry_and_connected_article(self):
+        homepage = (ROOT / "index.html").read_text()
+        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-6/"', homepage)
+        self.assertLess(homepage.index('class="whats-new-latest"'),
+                        homepage.index('id="whats-new-title"'))
+        self.assertIn("New in Locus 1.4.6", homepage)
+        archive = (ROOT / "whats-new/index.html").read_text()
+        self.assertIn("Locus 1.4.6 · Latest", archive)
+        self.assertLess(archive.index('href="./1-4-6/"'), archive.index('href="./1-4-4/"'))
+        self.assertEqual(archive.count("· Latest"), 1)
+        article = (ROOT / "whats-new/1-4-6/index.html").read_text()
+        parser = PageParser()
+        parser.feed(article)
+        self.assertEqual(parser.h1_count, 1)
+        self.assertIn('data-pagefind-body', article)
+        self.assertIn("Locus 1.4.6 for Apple Vision Pro", article)
+        for phrase in ["Low Poly Cabins", "Cloud Garden Cabin", "Cloud Garden Isles", "Root Library",
+                       "Ancient Forest", "Layered Lodge", "Jungle Terraces", "Glide",
+                       "Remove imported Rooms and Views independently"]:
+            self.assertIn(phrase, article)
+        release_sources = localization._sources_in_html(article)
+        release_sources.update({
+            "Low Poly Cabins, Glide, and clearer import controls.",
+            "Three Low Poly Cabins with matching landscapes, Glide through Virtual Space, and independent import removal.",
+            "New in Locus 1.4.6",
+            "Locus 1.4.6 · Latest",
+        })
+        for locale in localization.TRANSLATED_LOCALES:
+            catalog = localization.load_catalog(ROOT, locale)
+            for source in release_sources:
+                with self.subTest(locale=locale, source=source):
+                    self.assertTrue(localization.has_translation(source, catalog))
+        self.assertEqual(parser.videos, [])
+        for href in ["../1-4-4/", "../", "../../create-your-own-place/#remove-imported-items", APP_STORE_URL]:
+            self.assertIn(href, parser.links)
+        previous = PageParser()
+        previous.feed((ROOT / "whats-new/1-4-4/index.html").read_text())
+        self.assertIn("../1-4-6/", previous.links)
+        self.assertIn("https://enterlocus.com/whats-new/1-4-6/", (ROOT / "sitemap.xml").read_text())
 
     def test_released_1_4_2_keeps_its_article_and_media_coverage(self):
         article = (ROOT / "whats-new/1-4-2/index.html").read_text()
