@@ -90,7 +90,9 @@ for asset inputs. When existing assets would improve the requested quality or
 save work, actively look for suitable licensed models and textures; candidates
 include [Poly Haven](https://polyhaven.com/models), NVIDIA's
 [SimReady assets](https://huggingface.co/datasets/nvidia/simready-assets), and
-Scenario's [3D collection](https://huggingface.co/datasets/scenario-labs/3d-collection).
+Scenario's [3D collection](https://huggingface.co/datasets/scenario-labs/3d-collection),
+and [Amazon Berkeley Objects GLB](https://huggingface.co/datasets/codepawl/abo-glb)
+for furniture and household objects (CC BY 4.0; retain attribution and changes).
 The creator can also provide assets or use ChatGPT or another image model to
 generate textures. Select only useful assets, verify their individual terms,
 record provenance, and prepare them for Blender and USDZ export. Free or
