@@ -2464,6 +2464,24 @@
     "Remove or restore imported items": "読み込んだ項目を削除・復元する",
     "is an idempotent no-op when the complete package is already installed.": "のインポートは冪等な処理で、何も変更しません。 同じ内容の読み込みで何も実行されないのは、完全なパッケージがすでにインストールされている場合だけです。",
     "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "による更新系列、サポートする Experience を維持します。同じコンテンツハッシュのインポートは冪等な処理で、何も変更しません。維持管理されているパッキングツールとバリデーターは、この形式そのものを生成・検査します。 同じ内容の読み込みで何も実行されないのは、完全なパッケージがすでにインストールされている場合だけです。",
-    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "開発プレビュー：新しい開発ビルドでは項目ごとに削除できます。それ以前のビルドでは、読み込んだパッケージ全体が削除されます。"
+    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "開発プレビュー：新しい開発ビルドでは項目ごとに削除できます。それ以前のビルドでは、読み込んだパッケージ全体が削除されます。",
+    "Locus 1.4.6: Low Poly Cabins": "Locus 1.4.6：Low Poly Cabins",
+    "Locus 1.4.6 brings Low Poly Cabins: three Rooms paired with colorful landscapes, including Ancient Forest and Jungle Terraces. Move through Virtual Space with Glide, remove imported Rooms and Views independently, and choose whether Places stays open.": "Locus 1.4.6ではLow Poly Cabinsが登場します。カラフルな風景と対になった3つのRoomで、Ancient ForestやJungle Terracesも含まれます。Glide（グライド）でVirtual Spaceを移動し、読み込んだRoomとViewを個別に削除でき、Placesを開いたままにするかも選べます。",
+    "Three Low Poly Cabins with matching landscapes, Glide through Virtual Space, and clearer control of imports and Places.": "対応する風景付きの3つのLow Poly Cabins、Virtual SpaceでのGlide、読み込みとPlacesのより明確な操作。",
+    "Locus 1.4.6": "Locus 1.4.6",
+    "Cabins, landscapes, and Glide.": "キャビン、風景、そしてGlide。",
+    "Explore three Low Poly Cabins with matching landscapes, move through Virtual Space with Glide, and manage imports and Places more clearly.": "対応する風景付きの3つのLow Poly Cabinsを探索し、GlideでVirtual Spaceを移動し、読み込みとPlacesをより明確に管理できます。",
+    "Locus 1.4.6 for Apple Vision Pro": "Apple Vision Pro向け Locus 1.4.6",
+    "Low Poly Cabins": "Low Poly Cabins",
+    "Explore Low Poly Cabins: three Rooms paired with colorful landscapes. Cloud Garden Cabin looks out on Cloud Garden Isles, Root Library sits in Ancient Forest, and Layered Lodge opens onto Jungle Terraces. Ancient Forest and Jungle Terraces need Locus 1.4.6.": "Low Poly Cabinsを探索しましょう。カラフルな風景と対になった3つのRoomです。Cloud Garden CabinはCloud Garden Islesを眺め、Root LibraryはAncient Forestにあり、Layered LodgeはJungle Terracesに開きます。Ancient ForestとJungle TerracesにはLocus 1.4.6が必要です。",
+    "Glide through Virtual Space": "Virtual SpaceをGlide（グライド）",
+    "Move through Virtual Space with Glide, with adjustable movement and turning controls.": "GlideでVirtual Spaceを移動し、移動と旋回のコントロールを調整できます。",
+    "Imports and Places": "読み込みとPlaces",
+    "Remove imported Rooms and Views independently, and choose whether Places stays open.": "読み込んだRoomとViewを個別に削除でき、Placesを開いたままにするかも選べます。",
+    "How to remove an imported package": "読み込んだパッケージの削除方法",
+    "New in Locus 1.4.6": "Locus 1.4.6の新機能",
+    "Low Poly Cabins, Glide, and clearer import controls.": "Low Poly Cabins、Glide、より明確な読み込み操作。",
+    "Locus 1.4.6 · Latest": "Locus 1.4.6 · 最新",
+    "Three Low Poly Cabins with matching landscapes, Glide through Virtual Space, and independent import removal.": "対応する風景付きの3つのLow Poly Cabins、Virtual SpaceでのGlide、個別の読み込み削除。"
   }
 }

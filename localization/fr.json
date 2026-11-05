@@ -2464,6 +2464,24 @@
     "Remove or restore imported items": "Supprimer ou restaurer des éléments importés",
     "is an idempotent no-op when the complete package is already installed.": "est une opération idempotente sans effet. Une nouvelle importation du même contenu reste sans effet uniquement si le paquet complet est déjà installé.",
     "update stream and supported Experiences; importing the same\ncontent hash is an idempotent no-op when the complete package is already installed. The maintained packer and validator produce\nand inspect this exact format.": "et ses Experiences prises en charge ; réimporter la même empreinte de contenu est une opération idempotente sans effet. Les outils d’empaquetage et de vérification maintenus créent et contrôlent exactement ce format. Une nouvelle importation du même contenu reste sans effet uniquement si le paquet complet est déjà installé.",
-    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "Aperçu de développement : les nouvelles versions de développement permettent de supprimer des éléments individuels. Les versions antérieures suppriment l’import entier."
+    "Development preview: item-level removal is available in new development builds. Earlier builds remove the whole import.": "Aperçu de développement : les nouvelles versions de développement permettent de supprimer des éléments individuels. Les versions antérieures suppriment l’import entier.",
+    "Locus 1.4.6: Low Poly Cabins": "Locus 1.4.6 : Low Poly Cabins",
+    "Locus 1.4.6 brings Low Poly Cabins: three Rooms paired with colorful landscapes, including Ancient Forest and Jungle Terraces. Move through Virtual Space with Glide, remove imported Rooms and Views independently, and choose whether Places stays open.": "Locus 1.4.6 apporte Low Poly Cabins : trois Rooms associées à des paysages colorés, dont Ancient Forest et Jungle Terraces. Déplacez-vous dans Virtual Space avec Glide (Glisse), supprimez indépendamment les Rooms et Views importées, et choisissez si Places reste ouvert.",
+    "Three Low Poly Cabins with matching landscapes, Glide through Virtual Space, and clearer control of imports and Places.": "Trois Low Poly Cabins avec paysages assortis, Glide dans Virtual Space, et un contrôle plus clair des imports et de Places.",
+    "Locus 1.4.6": "Locus 1.4.6",
+    "Cabins, landscapes, and Glide.": "Cabanes, paysages et Glide.",
+    "Explore three Low Poly Cabins with matching landscapes, move through Virtual Space with Glide, and manage imports and Places more clearly.": "Explorez trois Low Poly Cabins avec paysages assortis, déplacez-vous dans Virtual Space avec Glide, et gérez plus clairement les imports et Places.",
+    "Locus 1.4.6 for Apple Vision Pro": "Locus 1.4.6 pour Apple Vision Pro",
+    "Low Poly Cabins": "Low Poly Cabins",
+    "Explore Low Poly Cabins: three Rooms paired with colorful landscapes. Cloud Garden Cabin looks out on Cloud Garden Isles, Root Library sits in Ancient Forest, and Layered Lodge opens onto Jungle Terraces. Ancient Forest and Jungle Terraces need Locus 1.4.6.": "Explorez Low Poly Cabins : trois Rooms associées à des paysages colorés. Cloud Garden Cabin donne sur Cloud Garden Isles, Root Library se trouve dans Ancient Forest, et Layered Lodge s’ouvre sur Jungle Terraces. Ancient Forest et Jungle Terraces nécessitent Locus 1.4.6.",
+    "Glide through Virtual Space": "Glide dans Virtual Space",
+    "Move through Virtual Space with Glide, with adjustable movement and turning controls.": "Déplacez-vous dans Virtual Space avec Glide, avec des commandes de déplacement et de rotation réglables.",
+    "Imports and Places": "Imports et Places",
+    "Remove imported Rooms and Views independently, and choose whether Places stays open.": "Supprimez indépendamment les Rooms et Views importées, et choisissez si Places reste ouvert.",
+    "How to remove an imported package": "Comment supprimer un package importé",
+    "New in Locus 1.4.6": "Nouveautés de Locus 1.4.6",
+    "Low Poly Cabins, Glide, and clearer import controls.": "Low Poly Cabins, Glide, et des commandes d’import plus claires.",
+    "Locus 1.4.6 · Latest": "Locus 1.4.6 · Dernière version",
+    "Three Low Poly Cabins with matching landscapes, Glide through Virtual Space, and independent import removal.": "Trois Low Poly Cabins avec paysages assortis, Glide dans Virtual Space, et suppression indépendante des imports."
   }
 }
