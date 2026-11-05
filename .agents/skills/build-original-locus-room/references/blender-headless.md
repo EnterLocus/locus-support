@@ -68,16 +68,21 @@ to watch each modeling iteration.
 
 Headless describes how Blender runs; visual review uses its saved images.
 Choose render settings for the purpose: a polished Cycles image helps judge the
-authored scene but does not demonstrate Locus's realtime appearance.
+authored scene but does not demonstrate Locus's realtime appearance. Outdoor
+scenery in the concept image represents Locus's runtime View rather than Room
+geometry: you may use a Blender `World` shader (or a source-only preview
+collection disabled for export) to judge daylight and framing, while keeping
+windows transparent and openings clear.
 
 ## Export and finish the Room
 
 Use export-compatible materials with file-backed color, roughness, and normal
 maps. Bake procedural appearance when needed by the target format. Keep preview
-cameras and authoring lights out of the exported model; declare any
-visitor-controlled lights using the Room interface. Export the required
-meter-scale, +Y-up USDZ, reopen a clean copy, and check the actual entity names,
-material bindings, texture packaging, axes, and bounds.
+cameras, authoring lights, and any temporary preview backdrops or sky domes out
+of the exported model; declare any visitor-controlled lights using the Room
+interface, and leave openings unobstructed for Locus's 360° View. Export the
+required meter-scale, +Y-up USDZ, reopen a clean copy, and check the actual
+entity names, material bindings, texture packaging, axes, and bounds.
 
 Make the editable source portable as well as the USDZ. Keep texture originals
 beside the source, use relative image paths, and pack the required images.

@@ -11,8 +11,8 @@ calling an export complete.
 - Store USDZ members uncompressed so the archive remains accepted by the
   public tooling.
 - Give every metadata-referenced object a stable, unique exported name.
-- Keep authoring cameras, helper lights, unused test geometry, and source-only
-  collections out of the delivered model.
+- Keep authoring cameras, helper lights, skyboxes or window backdrop meshes,
+  unused test geometry, and source-only collections out of the delivered model.
 - Use file-backed base color, roughness, metallic, and normal maps. Bake
   procedural textures to images before export when the target material cannot
   express them.
@@ -86,6 +86,14 @@ actual tabletop entity.
 paired View's water and makes the USDZ visual bounds much larger than the Room.
 That shifts every normalized `anchorXZ` seat. The Room floor and architecture
 should be only what the visitor needs to see and occupy.
+
+**Do not export a skybox, cyclorama, or window backdrop mesh.** Distant
+mountains, water, clouds, and sky belong to the paired Locus View, not the
+Room's `scene.usdz`. A curved image backdrop, scenery plane, or skydome outside
+the windows blocks every 360° View the visitor selects in Locus and inflates
+the Room's visual bounds. Leave architectural openings unobstructed and glass
+transmissive; keep any preview environment in Blender's World shader or an
+unexported collection.
 
 **Do not center a seat eye point inside the chair.** Put it in front of the
 backrest and above the cushion. Exported bounds and the eye-point helper make
