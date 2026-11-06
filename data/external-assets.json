@@ -2040,6 +2040,54 @@
       "url": "https://github.com/EnterLocus/locus-support/releases/download/site-downloads-2026-11-05/legacy-horizon-atelier-room.zip",
       "byteCount": 8644903,
       "sha256": "dd3551316cae67c01a114a6130db37823f03dcebcec703f15a8fedf7dc291fe7"
+    },
+    {
+      "path": "assets/gallery/library-fe6dfc2f37c6078edf138ac821eb8c554e12464eaaffeaef44ab6c827208dcaa.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-fe6dfc2f37c6078edf138ac821eb8c554e12464eaaffeaef44ab6c827208dcaa.jpg",
+      "byteCount": 144172,
+      "sha256": "fe6dfc2f37c6078edf138ac821eb8c554e12464eaaffeaef44ab6c827208dcaa"
+    },
+    {
+      "path": "assets/gallery/library-f8607b3c1bcc1141fd61d8cb2cdfd689f70baca2f5d0fa2542fac4cad95e74a4.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-f8607b3c1bcc1141fd61d8cb2cdfd689f70baca2f5d0fa2542fac4cad95e74a4.jpg",
+      "byteCount": 179492,
+      "sha256": "f8607b3c1bcc1141fd61d8cb2cdfd689f70baca2f5d0fa2542fac4cad95e74a4"
+    },
+    {
+      "path": "assets/gallery/library-3e55173c20ae5689d29dbd379ada7fb696b3831e4f668b795d97c7d572a7c279.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-3e55173c20ae5689d29dbd379ada7fb696b3831e4f668b795d97c7d572a7c279.jpg",
+      "byteCount": 178214,
+      "sha256": "3e55173c20ae5689d29dbd379ada7fb696b3831e4f668b795d97c7d572a7c279"
+    },
+    {
+      "path": "assets/gallery/library-5e7c639aa00090a6d07d9ae02e59eeeb88568b28cfcdca36d00a654a6df19893.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-5e7c639aa00090a6d07d9ae02e59eeeb88568b28cfcdca36d00a654a6df19893.jpg",
+      "byteCount": 125088,
+      "sha256": "5e7c639aa00090a6d07d9ae02e59eeeb88568b28cfcdca36d00a654a6df19893"
+    },
+    {
+      "path": "assets/gallery/library-4850db1017b74c7dd75459f5a4b58f510a314c7055ca68d7fb3713c8bb429a19.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-4850db1017b74c7dd75459f5a4b58f510a314c7055ca68d7fb3713c8bb429a19.jpg",
+      "byteCount": 132954,
+      "sha256": "4850db1017b74c7dd75459f5a4b58f510a314c7055ca68d7fb3713c8bb429a19"
+    },
+    {
+      "path": "assets/gallery/library-2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086.jpg",
+      "byteCount": 205509,
+      "sha256": "2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086"
+    },
+    {
+      "path": "assets/gallery/library-ef81af088c540050217d40a310d62f939f6224d3781d2a94a1103b7d095feaaa.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-ef81af088c540050217d40a310d62f939f6224d3781d2a94a1103b7d095feaaa.jpg",
+      "byteCount": 160658,
+      "sha256": "ef81af088c540050217d40a310d62f939f6224d3781d2a94a1103b7d095feaaa"
+    },
+    {
+      "path": "assets/gallery/library-a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934.jpg",
+      "byteCount": 101238,
+      "sha256": "a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934"
     }
   ]
 }

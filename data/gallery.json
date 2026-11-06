@@ -1,8 +1,902 @@
 {
   "formatVersion": 1,
-  "appVersion": "1.4.4",
-  "catalogGeneration": "88219eee-5ce7-4074-9108-a5db545db730",
+  "appVersion": "1.4.7",
+  "catalogGeneration": "2dc7c82a-2444-4d19-bfbc-dc07fbd10ac7",
   "places": [
+    {
+      "id": "destination.ancient-forest",
+      "slug": "ancient-forest",
+      "type": "view",
+      "title": "Ancient Forest",
+      "description": "A soft low-poly ancient forest where giant trees with great buttress roots rise into a misty canopy. A forest stream runs down stepped cascades and under a fallen-log bridge, past ferns, mossy boulders and red-capped mushrooms, toward a misty ravine and a distant waterfall, while warm shafts of light fall through the trees.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-fe6dfc2f37c6078edf138ac821eb8c554e12464eaaffeaef44ab6c827208dcaa.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "fe6dfc2f37c6078edf138ac821eb8c554e12464eaaffeaef44ab6c827208dcaa"
+      },
+      "access": "free",
+      "animated": true,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {
+        "aiGenerated": true,
+        "aiProvider": "OpenAI",
+        "creator": "Locus",
+        "modification": "Adapted for use in Locus."
+      },
+      "contentVersion": "1.1.9",
+      "addedAt": "2026-11-01T22:30:09Z",
+      "updatedAt": "2026-11-04T23:17:24Z",
+      "searchTerms": [
+        "Low Poly",
+        "Forest",
+        "Giant Trees",
+        "Roots",
+        "Stream",
+        "Waterfall",
+        "Mushrooms",
+        "Fantasy"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Urwald",
+          "description": "Ein sanfter Low-Poly-Urwald, in dem Baumriesen mit mächtigen Brettwurzeln in ein nebliges Blätterdach ragen. Ein Waldbach fließt über gestufte Kaskaden und unter einer Brücke aus einem umgestürzten Stamm hindurch, vorbei an Farnen, bemoosten Felsen und rot gekappten Pilzen, zu einer nebligen Schlucht und einem fernen Wasserfall, während warme Lichtstrahlen durch die Bäume fallen.",
+          "searchTerms": [
+            "Low Poly",
+            "Wald",
+            "Baumriesen",
+            "Wurzeln",
+            "Bach",
+            "Wasserfall",
+            "Pilze",
+            "Fantasy"
+          ]
+        },
+        "en": {
+          "title": "Ancient Forest",
+          "description": "A soft low-poly ancient forest where giant trees with great buttress roots rise into a misty canopy. A forest stream runs down stepped cascades and under a fallen-log bridge, past ferns, mossy boulders and red-capped mushrooms, toward a misty ravine and a distant waterfall, while warm shafts of light fall through the trees.",
+          "searchTerms": [
+            "Low Poly",
+            "Forest",
+            "Giant Trees",
+            "Roots",
+            "Stream",
+            "Waterfall",
+            "Mushrooms",
+            "Fantasy"
+          ]
+        },
+        "es": {
+          "title": "Bosque ancestral",
+          "description": "Un suave bosque ancestral low poly donde árboles gigantes de grandes raíces tabulares se alzan hacia un dosel brumoso. Un arroyo baja por cascadas escalonadas y pasa bajo un puente de tronco caído, junto a helechos, rocas cubiertas de musgo y setas de sombrero rojo, hacia un barranco brumoso y una cascada lejana, mientras cálidos rayos de luz caen entre los árboles.",
+          "searchTerms": [
+            "Low poly",
+            "Bosque",
+            "Árboles gigantes",
+            "Raíces",
+            "Arroyo",
+            "Cascada",
+            "Setas",
+            "Fantasía"
+          ]
+        },
+        "fr": {
+          "title": "Forêt ancienne",
+          "description": "Une douce forêt ancienne low poly où des arbres géants aux larges contreforts s’élèvent vers une canopée brumeuse. Un ruisseau descend des cascades en gradins et passe sous un pont fait d’un tronc tombé, longe fougères, rochers moussus et champignons au chapeau rouge, vers un ravin brumeux et une cascade lointaine, tandis que de chauds rayons de lumière filtrent entre les arbres.",
+          "searchTerms": [
+            "Low poly",
+            "Forêt",
+            "Arbres géants",
+            "Racines",
+            "Ruisseau",
+            "Cascade",
+            "Champignons",
+            "Fantaisie"
+          ]
+        },
+        "ja": {
+          "title": "太古の森",
+          "description": "やわらかなローポリの太古の森。大きな板根を張った巨木が、霧に包まれた樹冠へとそびえます。森の小川は段になった滝を下り、倒木の橋の下をくぐって、シダや苔むした岩、赤いキノコのそばを抜け、霧の谷と遠くの滝へ向かいます。木々の間からは暖かな光の筋が差し込みます。",
+          "searchTerms": [
+            "ローポリ",
+            "森",
+            "巨木",
+            "根",
+            "小川",
+            "滝",
+            "キノコ",
+            "ファンタジー"
+          ]
+        },
+        "ko": {
+          "title": "태고의 숲",
+          "description": "부드러운 로우폴리 태고의 숲. 넓은 판뿌리를 펼친 거대한 나무들이 안개 낀 수관까지 솟아 있습니다. 숲속 개울은 계단 같은 폭포를 따라 흘러 쓰러진 통나무 다리 아래를 지나고, 고사리와 이끼 낀 바위, 빨간 버섯 곁을 지나 안개 낀 협곡과 먼 폭포로 이어집니다. 나무 사이로 따스한 빛줄기가 내려옵니다.",
+          "searchTerms": [
+            "로우폴리",
+            "숲",
+            "거대한 나무",
+            "뿌리",
+            "개울",
+            "폭포",
+            "버섯",
+            "판타지"
+          ]
+        },
+        "zh-Hans": {
+          "title": "远古森林",
+          "description": "一片柔和的低多边形远古森林，巨树张开宽大的板根，直入雾气笼罩的树冠。林间溪流沿阶梯状的跌水流下，从一座倒木桥下穿过，经过蕨类、长满青苔的巨石和红伞菇，流向雾气弥漫的峡谷和远处的瀑布，温暖的光束从林间洒落。",
+          "searchTerms": [
+            "低多边形",
+            "森林",
+            "巨树",
+            "树根",
+            "溪流",
+            "瀑布",
+            "蘑菇",
+            "奇幻"
+          ]
+        },
+        "zh-Hant": {
+          "title": "遠古森林",
+          "description": "一片柔和的低多邊形遠古森林，巨樹張開寬大的板根，直入霧氣籠罩的樹冠。林間溪流沿階梯狀的跌水流下，從一座倒木橋下穿過，經過蕨類、長滿青苔的巨石和紅傘菇，流向霧氣瀰漫的峽谷和遠處的瀑布，溫暖的光束從林間灑落。",
+          "searchTerms": [
+            "低多邊形",
+            "森林",
+            "巨樹",
+            "樹根",
+            "溪流",
+            "瀑布",
+            "蘑菇",
+            "奇幻"
+          ]
+        }
+      }
+    },
+    {
+      "id": "destination.jungle-terraces",
+      "slug": "jungle-terraces",
+      "type": "view",
+      "title": "Jungle Terraces",
+      "description": "Soft low-poly jungle terraces in fresh morning light, stepping down through grass-topped rock and earth blocks to a calm lagoon. Two slim cascades fall from rocky spurs into the water, palms and broadleaf trees rise around the bowl, and ferns, vines and big tropical flowers crowd every ledge.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-3e55173c20ae5689d29dbd379ada7fb696b3831e4f668b795d97c7d572a7c279.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "3e55173c20ae5689d29dbd379ada7fb696b3831e4f668b795d97c7d572a7c279"
+      },
+      "access": "free",
+      "animated": true,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {
+        "aiGenerated": true,
+        "aiProvider": "OpenAI",
+        "creator": "Locus",
+        "modification": "Adapted for use in Locus."
+      },
+      "contentVersion": "1.0.9",
+      "addedAt": "2026-11-02T17:11:52Z",
+      "updatedAt": "2026-11-04T23:17:24Z",
+      "searchTerms": [
+        "Low Poly",
+        "Jungle",
+        "Terraces",
+        "Lagoon",
+        "Waterfall",
+        "Palms",
+        "Tropical",
+        "Fantasy"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Dschungelterrassen",
+          "description": "Sanfte Low-Poly-Dschungelterrassen im frischen Morgenlicht, die über grasbedeckte Fels- und Erdblöcke zu einer ruhigen Lagune abfallen. Zwei schmale Kaskaden stürzen von felsigen Graten ins Wasser, Palmen und Laubbäume umringen den Kessel, und Farne, Ranken und große Tropenblüten füllen jeden Absatz.",
+          "searchTerms": [
+            "Low Poly",
+            "Dschungel",
+            "Terrassen",
+            "Lagune",
+            "Wasserfall",
+            "Palmen",
+            "Tropisch",
+            "Fantasy"
+          ]
+        },
+        "en": {
+          "title": "Jungle Terraces",
+          "description": "Soft low-poly jungle terraces in fresh morning light, stepping down through grass-topped rock and earth blocks to a calm lagoon. Two slim cascades fall from rocky spurs into the water, palms and broadleaf trees rise around the bowl, and ferns, vines and big tropical flowers crowd every ledge.",
+          "searchTerms": [
+            "Low Poly",
+            "Jungle",
+            "Terraces",
+            "Lagoon",
+            "Waterfall",
+            "Palms",
+            "Tropical",
+            "Fantasy"
+          ]
+        },
+        "es": {
+          "title": "Terrazas de la jungla",
+          "description": "Suaves terrazas de jungla low poly bajo la fresca luz de la mañana, que descienden por bloques de roca y tierra cubiertos de hierba hasta una laguna tranquila. Dos finas cascadas caen de espolones rocosos al agua, palmeras y árboles de hoja ancha rodean la hondonada, y helechos, enredaderas y grandes flores tropicales llenan cada rellano.",
+          "searchTerms": [
+            "Low poly",
+            "Jungla",
+            "Terrazas",
+            "Laguna",
+            "Cascada",
+            "Palmeras",
+            "Tropical",
+            "Fantasía"
+          ]
+        },
+        "fr": {
+          "title": "Terrasses de la jungle",
+          "description": "De douces terrasses de jungle low poly dans la fraîche lumière du matin, qui descendent par des blocs de roche et de terre coiffés d’herbe jusqu’à un lagon paisible. Deux fines cascades tombent d’éperons rocheux dans l’eau, palmiers et arbres à larges feuilles entourent la cuvette, et fougères, lianes et grandes fleurs tropicales envahissent chaque palier.",
+          "searchTerms": [
+            "Low poly",
+            "Jungle",
+            "Terrasses",
+            "Lagon",
+            "Cascade",
+            "Palmiers",
+            "Tropical",
+            "Fantaisie"
+          ]
+        },
+        "ja": {
+          "title": "ジャングルの段丘",
+          "description": "さわやかな朝の光に包まれた、やわらかなローポリのジャングルの段丘。草をいただく岩と土の段を下っていくと、穏やかなラグーンに出ます。二筋の細い滝が岩の尾根から水面へ落ち、ヤシや広葉樹がくぼ地を囲み、シダやつる、大きな南国の花がどの段にもあふれています。",
+          "searchTerms": [
+            "ローポリ",
+            "ジャングル",
+            "段丘",
+            "ラグーン",
+            "滝",
+            "ヤシ",
+            "トロピカル",
+            "ファンタジー"
+          ]
+        },
+        "ko": {
+          "title": "정글 테라스",
+          "description": "상쾌한 아침 햇살 속 부드러운 로우폴리 정글 테라스가 풀 덮인 바위와 흙 단을 따라 잔잔한 석호까지 계단처럼 내려갑니다. 가느다란 두 줄기 폭포가 바위 능선에서 물로 떨어지고, 야자수와 활엽수가 분지를 둘러싸며, 고사리와 덩굴, 커다란 열대 꽃이 모든 단을 가득 채웁니다.",
+          "searchTerms": [
+            "로우폴리",
+            "정글",
+            "테라스",
+            "석호",
+            "폭포",
+            "야자수",
+            "열대",
+            "판타지"
+          ]
+        },
+        "zh-Hans": {
+          "title": "丛林梯田",
+          "description": "清新晨光中的柔和低多边形丛林梯田，沿着覆草的岩石与泥土台阶层层而下，通向平静的潟湖。两道细长的跌水从岩石山脊落入水中，棕榈和阔叶树环绕着谷地，蕨类、藤蔓和硕大的热带花朵铺满每一级台地。",
+          "searchTerms": [
+            "低多边形",
+            "丛林",
+            "梯田",
+            "潟湖",
+            "瀑布",
+            "棕榈",
+            "热带",
+            "奇幻"
+          ]
+        },
+        "zh-Hant": {
+          "title": "叢林梯田",
+          "description": "清新晨光中的柔和低多邊形叢林梯田，沿著覆草的岩石與泥土台階層層而下，通向平靜的潟湖。兩道細長的跌水從岩石山脊落入水中，棕櫚和闊葉樹環繞著谷地，蕨類、藤蔓和碩大的熱帶花朵鋪滿每一級台地。",
+          "searchTerms": [
+            "低多邊形",
+            "叢林",
+            "梯田",
+            "潟湖",
+            "瀑布",
+            "棕櫚",
+            "熱帶",
+            "奇幻"
+          ]
+        }
+      }
+    },
+    {
+      "id": "destination.cloud-garden-isles",
+      "slug": "cloud-garden-isles",
+      "type": "view",
+      "title": "Cloud Garden Isles",
+      "description": "A soft low-poly garden island floating above a pastel sea of clouds in warm evening light. A stone path leads past a still lily pond with stepping stones to an arched wooden bridge and a small islet with a round tree. Trees, flowers and reeds sway gently in the breeze, and floating isles all around pour waterfalls into the clouds below.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-f8607b3c1bcc1141fd61d8cb2cdfd689f70baca2f5d0fa2542fac4cad95e74a4.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "f8607b3c1bcc1141fd61d8cb2cdfd689f70baca2f5d0fa2542fac4cad95e74a4"
+      },
+      "access": "free",
+      "animated": true,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {
+        "aiGenerated": true,
+        "aiProvider": "OpenAI",
+        "creator": "Locus",
+        "modification": "Adapted for use in Locus."
+      },
+      "contentVersion": "1.1.6",
+      "addedAt": "2026-10-31T16:19:08Z",
+      "updatedAt": "2026-11-03T23:11:09Z",
+      "searchTerms": [
+        "Low Poly",
+        "Clouds",
+        "Floating Islands",
+        "Garden",
+        "Pond",
+        "Bridge",
+        "Waterfall",
+        "Fantasy"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Wolkengarten-Inseln",
+          "description": "Eine sanfte Low-Poly-Garteninsel schwebt im warmen Abendlicht über einem pastellfarbenen Wolkenmeer. Ein Steinweg führt an einem stillen Seerosenteich mit Trittsteinen vorbei zu einer gewölbten Holzbrücke und einem kleinen Inselchen mit einem runden Baum. Bäume, Blumen und Schilf wiegen sich in der Brise, und ringsum stürzen schwebende Inseln Wasserfälle in die Wolken hinab.",
+          "searchTerms": [
+            "Low Poly",
+            "Wolken",
+            "Schwebende Inseln",
+            "Garten",
+            "Teich",
+            "Brücke",
+            "Wasserfall",
+            "Fantasy"
+          ]
+        },
+        "en": {
+          "title": "Cloud Garden Isles",
+          "description": "A soft low-poly garden island floating above a pastel sea of clouds in warm evening light. A stone path leads past a still lily pond with stepping stones to an arched wooden bridge and a small islet with a round tree. Trees, flowers and reeds sway gently in the breeze, and floating isles all around pour waterfalls into the clouds below.",
+          "searchTerms": [
+            "Low Poly",
+            "Clouds",
+            "Floating Islands",
+            "Garden",
+            "Pond",
+            "Bridge",
+            "Waterfall",
+            "Fantasy"
+          ]
+        },
+        "es": {
+          "title": "Islas del jardín de nubes",
+          "description": "Una suave isla jardín low poly flota sobre un mar de nubes pastel bajo la cálida luz de la tarde. Un camino de piedra pasa junto a un tranquilo estanque de nenúfares con pasaderas hasta un puente de madera en arco y un pequeño islote con un árbol redondo. Árboles, flores y juncos se mecen con la brisa, y a su alrededor las islas flotantes vierten cascadas en las nubes.",
+          "searchTerms": [
+            "Low poly",
+            "Nubes",
+            "Islas flotantes",
+            "Jardín",
+            "Estanque",
+            "Puente",
+            "Cascada",
+            "Fantasía"
+          ]
+        },
+        "fr": {
+          "title": "Îles du jardin des nuages",
+          "description": "Une douce île-jardin low poly flotte au-dessus d’une mer de nuages pastel, dans la chaude lumière du soir. Un chemin de pierre longe un paisible étang de nénuphars aux pas japonais jusqu’à un pont de bois en arc et un petit îlot planté d’un arbre rond. Arbres, fleurs et roseaux ondulent doucement dans la brise, et tout autour, des îles flottantes déversent leurs cascades dans les nuages.",
+          "searchTerms": [
+            "Low poly",
+            "Nuages",
+            "Îles flottantes",
+            "Jardin",
+            "Étang",
+            "Pont",
+            "Cascade",
+            "Fantaisie"
+          ]
+        },
+        "ja": {
+          "title": "雲の庭の浮島",
+          "description": "暖かな夕方の光に包まれたパステルカラーの雲海に、やわらかなローポリの庭の島が浮かんでいます。石の小道は飛び石のある静かな睡蓮の池のそばを抜け、アーチ形の木の橋と丸い木が立つ小さな離れ島へ続きます。木々や花、葦がそよ風にやさしく揺れ、周りの浮島からは滝が眼下の雲へと流れ落ちます。",
+          "searchTerms": [
+            "ローポリ",
+            "雲海",
+            "浮島",
+            "庭",
+            "池",
+            "橋",
+            "滝",
+            "ファンタジー"
+          ]
+        },
+        "ko": {
+          "title": "구름 정원 섬",
+          "description": "따뜻한 저녁 햇살 속 파스텔빛 구름바다 위로 부드러운 로우폴리 정원 섬이 떠 있습니다. 돌길은 징검돌이 놓인 고요한 수련 연못을 지나 아치형 나무다리와 둥근 나무가 선 작은 섬으로 이어집니다. 나무와 꽃, 갈대가 산들바람에 살랑이고, 주변의 떠 있는 섬들에서는 폭포가 아래 구름 속으로 쏟아집니다.",
+          "searchTerms": [
+            "로우폴리",
+            "구름바다",
+            "떠 있는 섬",
+            "정원",
+            "연못",
+            "다리",
+            "폭포",
+            "판타지"
+          ]
+        },
+        "zh-Hans": {
+          "title": "云上花园浮岛",
+          "description": "一座柔和的低多边形花园浮岛，飘浮在暖色晚霞映照的粉紫色云海之上。石板小径经过一池铺着踏石的静谧睡莲塘，通向一座拱形木桥和长着一棵圆冠树的小岛。树木、花朵和芦苇在微风中轻轻摇曳，四周的浮岛把一道道瀑布倾泻进下方的云海。",
+          "searchTerms": [
+            "低多边形",
+            "云海",
+            "浮岛",
+            "花园",
+            "池塘",
+            "木桥",
+            "瀑布",
+            "奇幻"
+          ]
+        },
+        "zh-Hant": {
+          "title": "雲上花園浮島",
+          "description": "一座柔和的低多邊形花園浮島，飄浮在暖色晚霞映照的粉紫色雲海之上。石板小徑經過一池鋪著踏石的靜謐睡蓮塘，通向一座拱形木橋和長著一棵圓冠樹的小島。樹木、花朵和蘆葦在微風中輕輕搖曳，四周的浮島把一道道瀑布傾瀉進下方的雲海。",
+          "searchTerms": [
+            "低多邊形",
+            "雲海",
+            "浮島",
+            "花園",
+            "池塘",
+            "木橋",
+            "瀑布",
+            "奇幻"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.cloud-garden-cabin",
+      "slug": "cloud-garden-cabin",
+      "type": "room",
+      "title": "Cloud Garden Cabin",
+      "description": "A small low-poly cabin of cream plaster and warm oak on a faceted stone plinth, under an open-rafter gable roof of sage shingles. A wide open gable frames the view from a writing desk, and a sage armchair sits by the window beside a reading lamp, a bookshelf and a small wood stove. A covered porch with a railing holds a bench, and stone steps lead down into the garden.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-5e7c639aa00090a6d07d9ae02e59eeeb88568b28cfcdca36d00a654a6df19893.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "5e7c639aa00090a6d07d9ae02e59eeeb88568b28cfcdca36d00a654a6df19893"
+      },
+      "access": "supporter",
+      "animated": false,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.0.6",
+      "addedAt": "2026-10-31T16:19:08Z",
+      "updatedAt": "2026-11-03T20:43:45Z",
+      "searchTerms": [
+        "Room",
+        "Cabin",
+        "Cottage",
+        "Low Poly",
+        "Garden",
+        "Porch",
+        "Desk",
+        "Cozy"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Wolkengarten-Hütte",
+          "description": "Eine kleine Low-Poly-Hütte aus cremefarbenem Putz und warmer Eiche auf einem facettierten Steinsockel, unter einem Satteldach mit offenen Sparren und salbeigrünen Schindeln. Der weit offene Giebel rahmt den Blick vom Schreibtisch; am Fenster steht ein salbeigrüner Sessel neben Leselampe, Bücherregal und einem kleinen Holzofen. Auf der überdachten Veranda mit Geländer steht eine Bank, und Steinstufen führen hinunter in den Garten.",
+          "searchTerms": [
+            "Raum",
+            "Hütte",
+            "Cottage",
+            "Low Poly",
+            "Garten",
+            "Veranda",
+            "Schreibtisch",
+            "Gemütlich"
+          ]
+        },
+        "en": {
+          "title": "Cloud Garden Cabin",
+          "description": "A small low-poly cabin of cream plaster and warm oak on a faceted stone plinth, under an open-rafter gable roof of sage shingles. A wide open gable frames the view from a writing desk, and a sage armchair sits by the window beside a reading lamp, a bookshelf and a small wood stove. A covered porch with a railing holds a bench, and stone steps lead down into the garden.",
+          "searchTerms": [
+            "Room",
+            "Cabin",
+            "Cottage",
+            "Low Poly",
+            "Garden",
+            "Porch",
+            "Desk",
+            "Cozy"
+          ]
+        },
+        "es": {
+          "title": "Cabaña del jardín de nubes",
+          "description": "Una pequeña cabaña low poly de yeso crema y cálido roble sobre un zócalo de piedra facetada, bajo un tejado a dos aguas con vigas vistas y tejas de madera verde salvia. El amplio hastial abierto enmarca la vista desde el escritorio; junto a la ventana hay un sillón verde salvia con una lámpara de lectura, una estantería y una pequeña estufa de leña. El porche cubierto, con barandilla, tiene un banco, y unos escalones de piedra bajan al jardín.",
+          "searchTerms": [
+            "Sala",
+            "Cabaña",
+            "Casa de campo",
+            "Low poly",
+            "Jardín",
+            "Porche",
+            "Escritorio",
+            "Acogedor"
+          ]
+        },
+        "fr": {
+          "title": "Cabane du jardin des nuages",
+          "description": "Une petite cabane low poly en enduit crème et chêne chaleureux, posée sur un socle de pierre à facettes, sous un toit à pignon aux chevrons apparents couvert de bardeaux vert sauge. Le large pignon ouvert cadre la vue depuis le bureau ; près de la fenêtre, un fauteuil vert sauge côtoie une lampe de lecture, une bibliothèque et un petit poêle à bois. Le porche couvert, bordé d’une balustrade, abrite un banc, et des marches de pierre descendent au jardin.",
+          "searchTerms": [
+            "Pièce",
+            "Cabane",
+            "Cottage",
+            "Low poly",
+            "Jardin",
+            "Porche",
+            "Bureau",
+            "Cosy"
+          ]
+        },
+        "ja": {
+          "title": "雲の庭のキャビン",
+          "description": "クリーム色の漆喰とあたたかなオーク材の小さなローポリのキャビン。多面体の石の基壇に建ち、セージ色のこけら葺きの切妻屋根は垂木が見える造りです。大きく開いた切妻が書き物机からの景色を切り取り、窓辺にはセージ色のアームチェア、そばには読書灯と本棚、小さな薪ストーブ。手すりのある屋根付きポーチにはベンチがあり、石段が庭へと下ります。",
+          "searchTerms": [
+            "ルーム",
+            "キャビン",
+            "コテージ",
+            "ローポリ",
+            "庭",
+            "ポーチ",
+            "デスク",
+            "くつろぎ"
+          ]
+        },
+        "ko": {
+          "title": "구름 정원 오두막",
+          "description": "크림색 회벽과 따뜻한 오크로 지은 작은 로우폴리 오두막이 다면 석재 기단 위에 서 있고, 서까래가 드러난 박공지붕에는 세이지색 너와가 덮여 있습니다. 활짝 열린 박공이 책상에서 보이는 풍경을 담아내고, 창가에는 세이지색 안락의자와 함께 독서등, 책장, 작은 장작 난로가 놓여 있습니다. 난간을 두른 지붕 덮인 현관에는 벤치가 있고, 돌계단이 정원으로 이어집니다.",
+          "searchTerms": [
+            "룸",
+            "오두막",
+            "코티지",
+            "로우폴리",
+            "정원",
+            "현관",
+            "책상",
+            "아늑함"
+          ]
+        },
+        "zh-Hans": {
+          "title": "云上花园小屋",
+          "description": "一间小巧的低多边形小屋，奶油色灰泥墙配温暖的橡木，立在多面切割的石砌基座上，开放椽架的山墙屋顶铺着鼠尾草绿的木瓦。宽阔的开放山墙从书桌前框出风景；窗边摆着一把鼠尾草绿扶手椅，旁边是阅读灯、书架和一只小柴炉。带栏杆的有顶门廊里放着一张长凳，石阶通向花园。",
+          "searchTerms": [
+            "房间",
+            "小屋",
+            "村舍",
+            "低多边形",
+            "花园",
+            "门廊",
+            "书桌",
+            "温馨"
+          ]
+        },
+        "zh-Hant": {
+          "title": "雲上花園小屋",
+          "description": "一間小巧的低多邊形小屋，奶油色灰泥牆配溫暖的橡木，立在多面切割的石砌基座上，開放椽架的山牆屋頂鋪著鼠尾草綠的木瓦。寬闊的開放山牆從書桌前框出風景；窗邊擺著一張鼠尾草綠扶手椅，旁邊是閱讀燈、書架和一座小柴爐。附欄杆的有頂門廊裡放著一張長凳，石階通向花園。",
+          "searchTerms": [
+            "房間",
+            "小屋",
+            "村舍",
+            "低多邊形",
+            "花園",
+            "門廊",
+            "書桌",
+            "溫馨"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.layered-lodge",
+      "slug": "layered-lodge",
+      "type": "room",
+      "title": "Layered Lodge",
+      "description": "A low-poly timber-and-glass lodge in four offset levels around a stepped waterfall. A window desk and a reading nook sit on the ground floor, a falls sofa and a hidden alcove share the terrace level, a library opens above, and a rooftop pergola with a swing looks out over the canopy. Stairs, planted decks and lanterns join the levels, and the falls drop from trough to trough into a garden pool.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-ef81af088c540050217d40a310d62f939f6224d3781d2a94a1103b7d095feaaa.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "ef81af088c540050217d40a310d62f939f6224d3781d2a94a1103b7d095feaaa"
+      },
+      "access": "supporter",
+      "animated": false,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.0.8",
+      "addedAt": "2026-11-02T17:11:52Z",
+      "updatedAt": "2026-11-03T20:43:45Z",
+      "searchTerms": [
+        "Room",
+        "Lodge",
+        "Low Poly",
+        "Jungle",
+        "Waterfall",
+        "Library",
+        "Desk",
+        "Rooftop"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Terrassenlodge",
+          "description": "Eine Low-Poly-Lodge aus Holz und Glas auf vier versetzten Ebenen um einen gestuften Wasserfall. Im Erdgeschoss liegen ein Fensterschreibtisch und eine Leseecke, auf der Terrassenebene ein Sofa am Wasserfall und ein versteckter Alkoven, darüber eine Bibliothek, und von der Dachpergola mit Schaukel blickt man über das Blätterdach. Treppen, bepflanzte Decks und Laternen verbinden die Ebenen; das Wasser fällt von Trog zu Trog in einen Gartenpool.",
+          "searchTerms": [
+            "Raum",
+            "Lodge",
+            "Low Poly",
+            "Dschungel",
+            "Wasserfall",
+            "Bibliothek",
+            "Schreibtisch",
+            "Dachterrasse"
+          ]
+        },
+        "en": {
+          "title": "Layered Lodge",
+          "description": "A low-poly timber-and-glass lodge in four offset levels around a stepped waterfall. A window desk and a reading nook sit on the ground floor, a falls sofa and a hidden alcove share the terrace level, a library opens above, and a rooftop pergola with a swing looks out over the canopy. Stairs, planted decks and lanterns join the levels, and the falls drop from trough to trough into a garden pool.",
+          "searchTerms": [
+            "Room",
+            "Lodge",
+            "Low Poly",
+            "Jungle",
+            "Waterfall",
+            "Library",
+            "Desk",
+            "Rooftop"
+          ]
+        },
+        "es": {
+          "title": "Refugio escalonado",
+          "description": "Un refugio low poly de madera y vidrio en cuatro niveles desplazados alrededor de una cascada escalonada. En la planta baja hay un escritorio junto a la ventana y un rincón de lectura; en el nivel de la terraza, un sofá frente a la cascada y una alcoba escondida; encima, una biblioteca; y la pérgola de la azotea, con un columpio, se asoma al dosel. Escaleras, terrazas con plantas y faroles unen los niveles, y el agua cae de pila en pila hasta una piscina.",
+          "searchTerms": [
+            "Sala",
+            "Refugio",
+            "Low poly",
+            "Jungla",
+            "Cascada",
+            "Biblioteca",
+            "Escritorio",
+            "Azotea"
+          ]
+        },
+        "fr": {
+          "title": "Lodge en terrasses",
+          "description": "Un lodge low poly de bois et de verre sur quatre niveaux décalés autour d’une cascade en gradins. Au rez-de-chaussée, un bureau à la fenêtre et un coin lecture ; au niveau terrasse, un canapé face à la cascade et une alcôve cachée ; au-dessus, une bibliothèque ; et sur le toit, une pergola avec balançoire domine la canopée. Escaliers, terrasses plantées et lanternes relient les niveaux, et l’eau tombe de bassin en bassin jusqu’à une piscine.",
+          "searchTerms": [
+            "Pièce",
+            "Lodge",
+            "Low poly",
+            "Jungle",
+            "Cascade",
+            "Bibliothèque",
+            "Bureau",
+            "Toit"
+          ]
+        },
+        "ja": {
+          "title": "段重ねのロッジ",
+          "description": "段々に流れ落ちる滝を囲んで、4つの階がずれて重なる木とガラスのローポリのロッジ。1階には窓辺のデスクと読書コーナー、テラス階には滝のソファと隠れアルコーブ、その上に図書室があり、屋上のパーゴラではブランコから樹冠を見渡せます。階段や緑のデッキ、ランタンが各階を結び、滝は水槽から水槽へと落ちて庭のプールに注ぎます。",
+          "searchTerms": [
+            "ルーム",
+            "ロッジ",
+            "ローポリ",
+            "ジャングル",
+            "滝",
+            "図書室",
+            "デスク",
+            "屋上"
+          ]
+        },
+        "ko": {
+          "title": "층층 로지",
+          "description": "계단식 폭포를 둘러싸고 네 개의 층이 엇갈려 쌓인 로우폴리 목재·유리 로지입니다. 1층에는 창가 책상과 독서 공간이, 테라스 층에는 폭포 소파와 숨은 알코브가 있고, 그 위로 서재가 열리며, 옥상 퍼걸러의 그네에서는 수관이 내려다보입니다. 계단과 식물이 자라는 데크, 랜턴이 층을 잇고, 폭포는 수조에서 수조로 떨어져 정원 수영장으로 흘러듭니다.",
+          "searchTerms": [
+            "룸",
+            "로지",
+            "로우폴리",
+            "정글",
+            "폭포",
+            "서재",
+            "책상",
+            "옥상"
+          ]
+        },
+        "zh-Hans": {
+          "title": "层叠小屋",
+          "description": "一座低多边形的木材与玻璃小屋，四个错落的楼层环绕着一道阶梯式瀑布。底层有窗边书桌和阅读角，露台层有瀑布沙发和隐秘的壁龛，上方是图书室，屋顶凉棚里挂着一架秋千，可以眺望林冠。楼梯、种满植物的平台和灯笼把各层连在一起，瀑布从一个水槽落到下一个，最后落入花园水池。",
+          "searchTerms": [
+            "房间",
+            "小屋",
+            "低多边形",
+            "丛林",
+            "瀑布",
+            "图书室",
+            "书桌",
+            "屋顶"
+          ]
+        },
+        "zh-Hant": {
+          "title": "層疊小屋",
+          "description": "一座低多邊形的木材與玻璃小屋，四個錯落的樓層環繞著一道階梯式瀑布。底層有窗邊書桌和閱讀角，露台層有瀑布沙發和隱密的壁龕，上方是圖書室，屋頂涼棚裡掛著一架鞦韆，可以眺望林冠。樓梯、種滿植物的平台和燈籠把各層連在一起，瀑布從一個水槽落到下一個，最後落入花園水池。",
+          "searchTerms": [
+            "房間",
+            "小屋",
+            "低多邊形",
+            "叢林",
+            "瀑布",
+            "圖書室",
+            "書桌",
+            "屋頂"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.root-library",
+      "slug": "root-library",
+      "type": "room",
+      "title": "Root Library",
+      "description": "A round low-poly library carved into the foot of a giant tree, under a ribbed wooden dome. Curved bookshelves with a rolling ladder wrap the back of the room, a writing desk faces a wide open arch, and a moss armchair sits by a round window under a glowing mushroom lamp. Outside, a deck of roots and flagstones with a twisting root rail holds a bench and a mushroom lantern. High up the trunk, a spiral stair rises to a reading loft whose balcony looks out over the forest.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934"
+      },
+      "access": "supporter",
+      "animated": false,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.1.6",
+      "addedAt": "2026-11-01T22:30:09Z",
+      "updatedAt": "2026-11-03T20:43:45Z",
+      "searchTerms": [
+        "Room",
+        "Library",
+        "Tree House",
+        "Low Poly",
+        "Forest",
+        "Books",
+        "Desk",
+        "Cozy",
+        "Loft"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Wurzelbibliothek",
+          "description": "Eine runde Low-Poly-Bibliothek im Fuß eines Baumriesen, unter einer gerippten Holzkuppel. Gebogene Regale mit Rollleiter umfassen den Raum, ein Schreibtisch blickt durch einen weiten offenen Bogen, und am Rundfenster steht ein moosgrüner Sessel unter einer leuchtenden Pilzlampe. Draußen trägt ein Deck aus Wurzeln und Steinplatten eine Bank und eine Pilzlaterne. Hoch im Stamm führt eine Wendeltreppe in eine Leseempore mit Balkon über dem Wald.",
+          "searchTerms": [
+            "Raum",
+            "Bibliothek",
+            "Baumhaus",
+            "Low Poly",
+            "Wald",
+            "Bücher",
+            "Schreibtisch",
+            "Gemütlich",
+            "Empore"
+          ]
+        },
+        "en": {
+          "title": "Root Library",
+          "description": "A round low-poly library carved into the foot of a giant tree, under a ribbed wooden dome. Curved bookshelves with a rolling ladder wrap the back of the room, a writing desk faces a wide open arch, and a moss armchair sits by a round window under a glowing mushroom lamp. Outside, a deck of roots and flagstones with a twisting root rail holds a bench and a mushroom lantern. High up the trunk, a spiral stair rises to a reading loft whose balcony looks out over the forest.",
+          "searchTerms": [
+            "Room",
+            "Library",
+            "Tree House",
+            "Low Poly",
+            "Forest",
+            "Books",
+            "Desk",
+            "Cozy",
+            "Loft"
+          ]
+        },
+        "es": {
+          "title": "Biblioteca de raíces",
+          "description": "Una biblioteca redonda low poly excavada al pie de un árbol gigante, bajo una cúpula de madera con nervaduras. Estanterías curvas con una escalera corrediza rodean la sala, un escritorio mira hacia un amplio arco abierto y un sillón verde musgo descansa junto a una ventana redonda bajo una lámpara de seta. Fuera, una terraza de raíces y losas acoge un banco y un farol de seta. Más arriba, una escalera de caracol sube a un altillo de lectura con balcón sobre el bosque.",
+          "searchTerms": [
+            "Sala",
+            "Biblioteca",
+            "Casa del árbol",
+            "Low poly",
+            "Bosque",
+            "Libros",
+            "Escritorio",
+            "Acogedor",
+            "Altillo"
+          ]
+        },
+        "fr": {
+          "title": "Bibliothèque des racines",
+          "description": "Une bibliothèque ronde low poly creusée au pied d’un arbre géant, sous une coupole de bois nervurée. Des étagères courbes et une échelle roulante entourent la pièce, un bureau fait face à une large arche ouverte, et un fauteuil vert mousse attend près d’une fenêtre ronde, sous une lampe-champignon. Dehors, une terrasse de racines et de dalles accueille un banc et une lanterne-champignon. Plus haut, un escalier en colimaçon mène à une mezzanine de lecture avec balcon sur la forêt.",
+          "searchTerms": [
+            "Pièce",
+            "Bibliothèque",
+            "Cabane dans les arbres",
+            "Low poly",
+            "Forêt",
+            "Livres",
+            "Bureau",
+            "Cosy",
+            "Mezzanine"
+          ]
+        },
+        "ja": {
+          "title": "根の図書館",
+          "description": "巨木の根元をくりぬいた丸いローポリの図書館。頭上にはリブのある木のドーム。曲線の本棚と移動式のはしごが部屋の奥をぐるりと囲み、書き物机は大きく開いたアーチに向かい、丸窓のそばには光るキノコのランプの下に苔色のアームチェア。外には根と敷石のデッキがあり、ねじれた根の手すりがベンチとキノコのランタンを囲みます。幹の高いところには、らせん階段が読書用のロフトへと続き、そのバルコニーから森を見渡せます。",
+          "searchTerms": [
+            "ルーム",
+            "図書館",
+            "ツリーハウス",
+            "ローポリ",
+            "森",
+            "本",
+            "デスク",
+            "くつろぎ",
+            "ロフト"
+          ]
+        },
+        "ko": {
+          "title": "뿌리 도서관",
+          "description": "거대한 나무 밑동을 파내어 만든 둥근 로우폴리 도서관으로, 머리 위에는 늑재가 드러난 나무 돔이 있습니다. 곡선 책장과 이동식 사다리가 방 뒤쪽을 감싸고, 책상은 넓게 열린 아치를 향하며, 둥근 창가에는 빛나는 버섯 램프 아래 이끼색 안락의자가 놓여 있습니다. 밖에는 뿌리와 판석으로 된 데크가 있고, 꼬인 뿌리 난간이 벤치와 버섯 랜턴을 두르고 있습니다. 줄기 높은 곳에는 나선 계단이 독서 다락으로 이어지고, 다락의 발코니에서 숲이 내려다보입니다.",
+          "searchTerms": [
+            "룸",
+            "도서관",
+            "트리하우스",
+            "로우폴리",
+            "숲",
+            "책",
+            "책상",
+            "아늑함",
+            "다락"
+          ]
+        },
+        "zh-Hans": {
+          "title": "树根图书馆",
+          "description": "一间凿在巨树根部的圆形低多边形图书馆，头顶是带肋条的木穹顶。弧形书架和一架可滑动的梯子环绕房间后半部，书桌正对宽大的敞开拱门，圆窗边一把苔绿扶手椅坐落在发光的蘑菇灯下。屋外是由树根和石板铺成的平台，扭曲的树根栏杆围着一张长凳和一盏蘑菇灯笼。树干高处，一道螺旋楼梯通向阅读阁楼，阁楼的阳台俯瞰整片森林。",
+          "searchTerms": [
+            "房间",
+            "图书馆",
+            "树屋",
+            "低多边形",
+            "森林",
+            "书籍",
+            "书桌",
+            "温馨",
+            "阁楼"
+          ]
+        },
+        "zh-Hant": {
+          "title": "樹根圖書館",
+          "description": "一間鑿在巨樹根部的圓形低多邊形圖書館，頭頂是帶肋條的木穹頂。弧形書架和一架可滑動的梯子環繞房間後半部，書桌正對寬大的敞開拱門，圓窗邊一張苔綠扶手椅坐落在發光的蘑菇燈下。屋外是由樹根和石板鋪成的平台，扭曲的樹根欄杆圍著一張長凳和一盞蘑菇燈籠。樹幹高處，一道螺旋樓梯通向閱讀閣樓，閣樓的陽台俯瞰整片森林。",
+          "searchTerms": [
+            "房間",
+            "圖書館",
+            "樹屋",
+            "低多邊形",
+            "森林",
+            "書籍",
+            "書桌",
+            "溫馨",
+            "閣樓"
+          ]
+        }
+      }
+    },
     {
       "id": "space.hilltop-villa",
       "slug": "hilltop-villa",
@@ -20,7 +914,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.7",
+      "contentVersion": "1.0.10",
       "addedAt": "2026-10-24T16:43:41Z",
       "updatedAt": "2026-10-29T04:47:01Z",
       "searchTerms": [
@@ -173,37 +1067,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-d492204d91a9a3be336ce94ebc73e7565d28291663d69f547c6814ac33e35155.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "d492204d91a9a3be336ce94ebc73e7565d28291663d69f547c6814ac33e35155",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-984b875602ef60a6801e1d8100d0388c09e1740853d58818518e918686b453bb.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "984b875602ef60a6801e1d8100d0388c09e1740853d58818518e918686b453bb",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "544179c745f161fc9d9b289618eb3ecad71e6459bd6a56bb59ddb3f017adad99",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-3e9eed75aa50a99c55412b4776d2516057ec57ca9bd071d1b13e8ceae20ddd89.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "3e9eed75aa50a99c55412b4776d2516057ec57ca9bd071d1b13e8ceae20ddd89",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.japanese-courtyard-mansion",
@@ -222,7 +1086,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.4",
+      "contentVersion": "1.0.5",
       "addedAt": "2026-10-28T12:29:56Z",
       "updatedAt": "2026-10-29T04:47:01Z",
       "searchTerms": [
@@ -393,37 +1257,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-72d99fee8677510f3aa806c713e9067f679052f84936ff39bec2f1eb28b68ffc.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "72d99fee8677510f3aa806c713e9067f679052f84936ff39bec2f1eb28b68ffc",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-ac85ad0bc6059934e9bf3c94f8aff416db10dc786198915701c63accdac01983.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ac85ad0bc6059934e9bf3c94f8aff416db10dc786198915701c63accdac01983",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-45c25b261ae569895dcefb6c13d89d76dc11ae6d2b0e01a63f73a4ff567b5ae3.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "45c25b261ae569895dcefb6c13d89d76dc11ae6d2b0e01a63f73a4ff567b5ae3",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-a37bc025f5441d03b88d3ec564fd8a39cfcbc1de8ae556a7a4cc9bcac3c4ab1b.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "a37bc025f5441d03b88d3ec564fd8a39cfcbc1de8ae556a7a4cc9bcac3c4ab1b",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.pacific-palapa-house",
@@ -442,7 +1276,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.4",
+      "contentVersion": "1.0.5",
       "addedAt": "2026-10-28T18:34:14Z",
       "updatedAt": "2026-10-29T03:24:26Z",
       "searchTerms": [
@@ -612,30 +1446,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-a003c74ab9a760426e5ed8b6cd16322a77bc71f67ae43747671397325ef20fe7.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "a003c74ab9a760426e5ed8b6cd16322a77bc71f67ae43747671397325ef20fe7",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-b00a1954cdde4200d066ff65a7797185d92bf1f90ec48c61ab4bc8038e813dc2.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "b00a1954cdde4200d066ff65a7797185d92bf1f90ec48c61ab4bc8038e813dc2",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-ad583c0ea0de460c1b799e3de67851e9875d3bcf44d4d53f403f3ec571cfdab0.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ad583c0ea0de460c1b799e3de67851e9875d3bcf44d4d53f403f3ec571cfdab0",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.aegean-terrace-estate",
@@ -654,7 +1465,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.6",
+      "contentVersion": "1.0.11",
       "addedAt": "2026-10-28T00:01:42Z",
       "updatedAt": "2026-10-29T03:06:45Z",
       "searchTerms": [
@@ -825,30 +1636,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-cc332e5f7f48119eb2ec9e1e4ea29d6eb302c81b1468e29b142011b42dc72dfc.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "cc332e5f7f48119eb2ec9e1e4ea29d6eb302c81b1468e29b142011b42dc72dfc",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-69e2d7e0df51ce30b7f21448e0b515b0b4166dfc7d5c82aebf0a6020191be31d.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "69e2d7e0df51ce30b7f21448e0b515b0b4166dfc7d5c82aebf0a6020191be31d",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-4957b4408758dfb89fa2a417805e88ad4f62c79f08726ee1fd73fd3d8c49dded.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "4957b4408758dfb89fa2a417805e88ad4f62c79f08726ee1fd73fd3d8c49dded",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.tropical-shallow-bay",
@@ -872,7 +1660,7 @@
         "creator": "Locus",
         "modification": "Adapted for use in Locus."
       },
-      "contentVersion": "1.0.13",
+      "contentVersion": "1.0.18",
       "addedAt": "2026-10-02T20:38:24Z",
       "updatedAt": "2026-10-20T17:46:24Z",
       "searchTerms": [
@@ -989,30 +1777,7 @@
             "日間"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-354236f44544533514930757b031720954c5d05c275aecc66a297a0791b0c939.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "354236f44544533514930757b031720954c5d05c275aecc66a297a0791b0c939",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-69c86fcbd9612b2666882440e63d56d2323b8e47f6dd21fba24b0cf09b423610.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "69c86fcbd9612b2666882440e63d56d2323b8e47f6dd21fba24b0cf09b423610",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-cdc0cdcde8cd8a7058370a02d91c91b72cec1831ddbe84cf72f63328d1a5acec.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "cdc0cdcde8cd8a7058370a02d91c91b72cec1831ddbe84cf72f63328d1a5acec",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.moonlit-silvergrass-ridge",
@@ -2572,7 +3337,7 @@
       "hasSound": false,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.4",
+      "contentVersion": "1.0.7",
       "addedAt": "2026-10-16T00:02:15Z",
       "updatedAt": "2026-10-16T14:57:00Z",
       "searchTerms": [
@@ -2680,30 +3445,7 @@
             "寫實"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-0bad764425de0f3a127038cd5141e3b9dc68184cf793a5155fc9377005192ece.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "0bad764425de0f3a127038cd5141e3b9dc68184cf793a5155fc9377005192ece",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-3fe62f1f70af6066b1515ac58ef38b685c884451088d866e5c6ea35f21924003.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "3fe62f1f70af6066b1515ac58ef38b685c884451088d866e5c6ea35f21924003",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-9eea6815254041e9af418b68943af101439c8567dcf8782771981eee301b246f.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "9eea6815254041e9af418b68943af101439c8567dcf8782771981eee301b246f",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.illustrated-harbor-cottage",
@@ -2722,7 +3464,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.9",
+      "contentVersion": "1.0.12",
       "addedAt": "2026-10-02T20:38:24Z",
       "updatedAt": "2026-10-12T22:46:59Z",
       "searchTerms": [
@@ -2848,37 +3590,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-9fa02e1008efe1b661b5f0b87965c8fdb322a394fbc808cb56713db0c15b220e.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "9fa02e1008efe1b661b5f0b87965c8fdb322a394fbc808cb56713db0c15b220e",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-27d880a59d583ac6cb54547e0c0d122ea2109bac2f05d4f6e4606b35d54fff4f.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "27d880a59d583ac6cb54547e0c0d122ea2109bac2f05d4f6e4606b35d54fff4f",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-9cdf4552c4e1721f91563ba39f3f8ae5f8cb82d0e0b2601c2b079ac1170c65da.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "9cdf4552c4e1721f91563ba39f3f8ae5f8cb82d0e0b2601c2b079ac1170c65da",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-71e3c8651c5c74ab1cde7afbb8088ec9a5326ce882d8240ca1caadb856165504.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "71e3c8651c5c74ab1cde7afbb8088ec9a5326ce882d8240ca1caadb856165504",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.tidal-veranda",
@@ -2897,7 +3609,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.8",
+      "contentVersion": "1.0.9",
       "addedAt": "2026-10-02T20:38:24Z",
       "updatedAt": "2026-10-12T22:46:58Z",
       "searchTerms": [
@@ -3014,30 +3726,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-906168244d3fee00fc891758015d8d54d5de4bf623f467a1b64bce965ec9803b.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "906168244d3fee00fc891758015d8d54d5de4bf623f467a1b64bce965ec9803b",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-b93c6c130df2c316af60d180bafbaad5476b47b959ea8c84538afc50d2ef4469.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "b93c6c130df2c316af60d180bafbaad5476b47b959ea8c84538afc50d2ef4469",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-c5717a7b6f48caf86f13f117ce6a3c1fdf436c471f98732be1118ac8d9ddd22c.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "c5717a7b6f48caf86f13f117ce6a3c1fdf436c471f98732be1118ac8d9ddd22c",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.silverpine-night-lake",
@@ -4427,17 +5116,17 @@
       "title": "Lakeside Cabin",
       "description": "Cozy timber cabin with glass walls, a writing desk, and stone fireplace. Warm wood floors and ceilings frame a compact lounge with a white sofa, armchair, round dining table, and tall bookcase. A desk lamp, floor lamp, pendant light, and deck seating support quiet work and relaxed reading.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-80a99877cf67e6d5687e89a2db35a7e5b55a76dcef72567a67547b2d28a1205f.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "80a99877cf67e6d5687e89a2db35a7e5b55a76dcef72567a67547b2d28a1205f"
+        "sha256": "2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.10",
+      "contentVersion": "1.0.17",
       "addedAt": "2026-09-25T17:43:20Z",
       "updatedAt": "2026-09-27T19:07:10Z",
       "searchTerms": [
@@ -4554,30 +5243,7 @@
             "火焰"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-5fb69be01fd4a7e0cf0b875c2467da7db9b910377b6246c9eab262f8eb9d1e9a.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "5fb69be01fd4a7e0cf0b875c2467da7db9b910377b6246c9eab262f8eb9d1e9a",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-1e500c85ff7de1c9c42de9745d04e025293477b788f4251d4b038caddd41def0.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "1e500c85ff7de1c9c42de9745d04e025293477b788f4251d4b038caddd41def0",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-6c808d4a9c7f370509caad8e24caae86f0b34a6e64f6b9526ad643234d21ed19.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "6c808d4a9c7f370509caad8e24caae86f0b34a6e64f6b9526ad643234d21ed19",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.alien-desert-ringed-planet",
@@ -4751,7 +5417,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.6",
+      "contentVersion": "1.0.7",
       "addedAt": "2026-09-25T18:03:52Z",
       "updatedAt": "2026-09-26T02:44:49Z",
       "searchTerms": [
@@ -4876,30 +5542,7 @@
             "休息區"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-8dbc95a75e98a0fa8df81159c8c8497b96b6500619630ff51ebb5bff25ef5508.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "8dbc95a75e98a0fa8df81159c8c8497b96b6500619630ff51ebb5bff25ef5508",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-ecdb85badecf5f842a9ee076103fd987b51bcb2cc02e554c2a232afb1e9cf298.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "ecdb85badecf5f842a9ee076103fd987b51bcb2cc02e554c2a232afb1e9cf298",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-d2043c661de66be0b8431c14bce964a5017502e0656ba2fda5da3c62d14736b2.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "d2043c661de66be0b8431c14bce964a5017502e0656ba2fda5da3c62d14736b2",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.graniteperch",
@@ -5055,7 +5698,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.10",
+      "contentVersion": "1.0.17",
       "addedAt": "2026-09-20T16:23:15Z",
       "updatedAt": "2026-09-21T05:25:44Z",
       "searchTerms": [
@@ -5172,30 +5815,7 @@
             "音樂"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-3db6152227c87d379639c13fd8e9e19da936aefee820d8f27f1497847f21d19c.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "3db6152227c87d379639c13fd8e9e19da936aefee820d8f27f1497847f21d19c",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-4e65a10036b6808bfbaf449348e2c4ed7a19ece0bbb7f648a487c1b64cd55d67.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "4e65a10036b6808bfbaf449348e2c4ed7a19ece0bbb7f648a487c1b64cd55d67",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-0754288e15196e8cb68f224b56d1dd64f59340d2051f7f6fb8f3e0f2d4acc1ab.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "0754288e15196e8cb68f224b56d1dd64f59340d2051f7f6fb8f3e0f2d4acc1ab",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.old-town-cafe",
@@ -5214,7 +5834,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.9",
+      "contentVersion": "1.0.10",
       "addedAt": "2026-09-20T04:21:30Z",
       "updatedAt": "2026-09-21T04:26:52Z",
       "searchTerms": [
@@ -5313,30 +5933,7 @@
             "卡座"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-b74cf8146ade9b3a0a54b34fa1c3ae9de99ec820e081017cd35f0bb763417637.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "b74cf8146ade9b3a0a54b34fa1c3ae9de99ec820e081017cd35f0bb763417637",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-b611a5f54e5c97bed1f862402100ffa706e5430377b0dd2e9c721f5b0056f581.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "b611a5f54e5c97bed1f862402100ffa706e5430377b0dd2e9c721f5b0056f581",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-4e779d47492799f52b43ffb3ae64546606fd706ea5dd5a3bf43804d859691a0f.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "4e779d47492799f52b43ffb3ae64546606fd706ea5dd5a3bf43804d859691a0f",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.sunlit-cafe",
@@ -5355,7 +5952,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.13",
+      "contentVersion": "1.0.14",
       "addedAt": "2026-09-19T00:00:00Z",
       "updatedAt": "2026-09-20T04:45:50Z",
       "searchTerms": [
@@ -5444,37 +6041,7 @@
             "休息區"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-7d84cb928e30d1d7069a9c3226f602d44d3a5b68d8cbcb2fa7cfa6e8eedc9103.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "7d84cb928e30d1d7069a9c3226f602d44d3a5b68d8cbcb2fa7cfa6e8eedc9103",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-636d279a86d14759a1bec2e7fc684d5aebdef4a1fc7e1b0a8f88d8d7e8d71f94.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "636d279a86d14759a1bec2e7fc684d5aebdef4a1fc7e1b0a8f88d8d7e8d71f94",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-510b5854ea7c0501b6e253d9b1c91c1395bf71c20de0bcac31e1ee00f46f31b7.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "510b5854ea7c0501b6e253d9b1c91c1395bf71c20de0bcac31e1ee00f46f31b7",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-68b3b034be66e0c78e5546b7edc6a03c38528d51672f4b837fd37e9151dc54a5.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "68b3b034be66e0c78e5546b7edc6a03c38528d51672f4b837fd37e9151dc54a5",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.rooftop-garden-breeze",
@@ -5493,7 +6060,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.14",
+      "contentVersion": "1.0.15",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T14:10:06Z",
       "searchTerms": [
@@ -5583,30 +6150,7 @@
             "微風"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-3bde1b14db2870378f749af699a958d315348d200b415dec6a4b61ffcca07ce4.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "3bde1b14db2870378f749af699a958d315348d200b415dec6a4b61ffcca07ce4",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-0f7772b8b600be34df8d67dc16cfc6040ba3d1514cd66dfae27debd0df8c7070.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "0f7772b8b600be34df8d67dc16cfc6040ba3d1514cd66dfae27debd0df8c7070",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-1c1d857faa3a502002c5345aff810cb3037c5632a33f8415751ce55fa868f433.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "1c1d857faa3a502002c5345aff810cb3037c5632a33f8415751ce55fa868f433",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.orbital-lounge-fan",
@@ -5625,7 +6169,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.12",
+      "contentVersion": "1.0.19",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T03:32:01Z",
       "searchTerms": [
@@ -5715,30 +6259,7 @@
             "風扇"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-a5a7f372ec9c08ec565e06276133ba4e1ffb62fc0f74bbe08d35d4a89fd78ec8.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "a5a7f372ec9c08ec565e06276133ba4e1ffb62fc0f74bbe08d35d4a89fd78ec8",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-f2eb9d8489ffb3eeed5426641358c15e48fdbdd0e42058b9ebbdcd51d82ba8ff.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "f2eb9d8489ffb3eeed5426641358c15e48fdbdd0e42058b9ebbdcd51d82ba8ff",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-01fc953a97fd245f7252680af05ac168c4f2cc5a008ccfaed2671dcc57b6fe42.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "01fc953a97fd245f7252680af05ac168c4f2cc5a008ccfaed2671dcc57b6fe42",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.winter-garden-breeze",
@@ -5757,7 +6278,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.10",
+      "contentVersion": "1.0.11",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T03:32:01Z",
       "searchTerms": [
@@ -5847,30 +6368,7 @@
             "微風"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-e2c6b7c5af7381515bece108edfc7d99753f6193c79ff14fe7fc89ee0078243c.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "e2c6b7c5af7381515bece108edfc7d99753f6193c79ff14fe7fc89ee0078243c",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-c9f201ca57e314390715a87e623f2507d0dcfc487e2882ff266b7dd9da5b741b.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "c9f201ca57e314390715a87e623f2507d0dcfc487e2882ff266b7dd9da5b741b",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-bb487558c4fdde4ab686541096ee813f1dbc843ca92c551637e2eb804e59dc72.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "bb487558c4fdde4ab686541096ee813f1dbc843ca92c551637e2eb804e59dc72",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.cloud-fan-pavilion",
@@ -5889,7 +6387,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.9",
+      "contentVersion": "1.0.17",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T02:25:36Z",
       "searchTerms": [
@@ -5979,30 +6477,7 @@
             "涼亭"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-e468d13f334a8b8c3f72f10b5ed118aa38d6f99ca541ff8a196f78ee03f2b329.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "e468d13f334a8b8c3f72f10b5ed118aa38d6f99ca541ff8a196f78ee03f2b329",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-d2bda21ca459af70b0e0eb39c4f5a52f4ffb718e9dc9e739fcbd517f4ba4a8d8.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "d2bda21ca459af70b0e0eb39c4f5a52f4ffb718e9dc9e739fcbd517f4ba4a8d8",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-86c499c09401c79b91a34e62113cfd7f6763dd7d38bca3a681d9ab5aab43a1ff.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "86c499c09401c79b91a34e62113cfd7f6763dd7d38bca3a681d9ab5aab43a1ff",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.cloudvault-retreat",
@@ -6011,17 +6486,17 @@
       "title": "Cloudvault Retreat",
       "description": "Cozy modern wood cabin with panoramic windows, desk, and lounge seating. Curved timber beams, wood floors, and white paneled walls shape the compact interior. A window-facing worktable, cushioned sofa, built-in cabinets, shelves, and counter provide places to work or relax. Warm wall lights, reading lamps, and a pendant fixture create a quiet, sheltered feel.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-ecef48a05c00aac0fc66d1e191540cd850fd86507ed8707e55f02e22383c861e.jpg",
-        "width": 1600,
-        "height": 900,
-        "sha256": "ecef48a05c00aac0fc66d1e191540cd850fd86507ed8707e55f02e22383c861e"
+        "url": "https://media.enterlocus.net/gallery/library-4850db1017b74c7dd75459f5a4b58f510a314c7055ca68d7fb3713c8bb429a19.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "4850db1017b74c7dd75459f5a4b58f510a314c7055ca68d7fb3713c8bb429a19"
       },
       "access": "free",
       "animated": false,
       "hasSound": false,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.6",
+      "contentVersion": "1.0.7",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T02:25:36Z",
       "searchTerms": [
@@ -6102,30 +6577,7 @@
             "靜居"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-d4adc6f86b8f8666e5c9038392bc2ec7703f5091343259f8db7712001ed1f051.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "d4adc6f86b8f8666e5c9038392bc2ec7703f5091343259f8db7712001ed1f051",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-e246a1198e53124e2eed99f581be76a5ff81b4d4e5a94094a2cc297039da225d.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "e246a1198e53124e2eed99f581be76a5ff81b4d4e5a94094a2cc297039da225d",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-f616c63385c912379c4ed55a04f9575ccd8854c47130bee1d414c5e85b737c53.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "f616c63385c912379c4ed55a04f9575ccd8854c47130bee1d414c5e85b737c53",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.mediterranean-loggia",
@@ -6144,7 +6596,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.9",
+      "contentVersion": "1.0.13",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T02:25:36Z",
       "searchTerms": [
@@ -6225,30 +6677,7 @@
             "涼廊"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-9673d059701bc9372cd2dc08b6f202ffdb346d40a89974ed39e1375e432b5917.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "9673d059701bc9372cd2dc08b6f202ffdb346d40a89974ed39e1375e432b5917",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-f2d350d4e62dfc60874bced8c624cb545127adc06c96541054866d486cf9e80a.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "f2d350d4e62dfc60874bced8c624cb545127adc06c96541054866d486cf9e80a",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-063f7a9c6ec2b3138e5d4051574cf7edc06d418f1958f0f946be95bc6881b779.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "063f7a9c6ec2b3138e5d4051574cf7edc06d418f1958f0f946be95bc6881b779",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.desert-canyon-oasis",
@@ -12066,6 +12495,88 @@
         "space.pacific-palapa-house"
       ],
       "type": "room"
+    },
+    {
+      "id": "low-poly-cabins",
+      "title": "Low Poly Cabins",
+      "description": "Cozy low-poly retreats, from a garden cabin and a tree library to a terraced jungle lodge, each made for its own companion landscape.",
+      "localizations": {
+        "de": {
+          "description": "Gemütliche Low-Poly-Rückzugsorte, von der Gartenhütte und der Baumbibliothek bis zur Dschungellodge auf Terrassen, jeder für seine eigene Landschaft gemacht.",
+          "title": "Low-Poly-Hütten"
+        },
+        "es": {
+          "description": "Acogedores refugios low poly, de una cabaña de jardín y una biblioteca en un árbol a un refugio escalonado en la jungla, cada uno hecho para su propio paisaje.",
+          "title": "Cabañas low poly"
+        },
+        "fr": {
+          "description": "Des refuges low poly douillets, de la cabane de jardin et la bibliothèque dans un arbre au lodge en terrasses dans la jungle, chacun pensé pour son propre paysage.",
+          "title": "Cabanes low poly"
+        },
+        "ja": {
+          "description": "庭の小屋や巨木の図書館から段重ねのジャングルのロッジまで、くつろげるローポリの隠れ家。それぞれに対になる風景があります。",
+          "title": "ローポリの小屋"
+        },
+        "ko": {
+          "description": "정원 오두막과 나무 속 도서관부터 층층이 쌓인 정글 로지까지, 아늑한 로우폴리 은신처. 각각 짝을 이루는 풍경이 있습니다.",
+          "title": "로우폴리 오두막"
+        },
+        "zh-Hans": {
+          "description": "温馨的低多边形栖居之所，从花园小屋、树中图书馆到层叠的丛林小屋，每一处都配有专属的风景。",
+          "title": "低多边形小屋"
+        },
+        "zh-Hant": {
+          "description": "溫馨的低多邊形棲居之所，從花園小屋、樹中圖書館到層疊的叢林小屋，每一處都配有專屬的風景。",
+          "title": "低多邊形小屋"
+        }
+      },
+      "members": [
+        "space.cloud-garden-cabin",
+        "space.root-library",
+        "space.layered-lodge"
+      ],
+      "type": "room"
+    },
+    {
+      "id": "low-poly-landscapes",
+      "title": "Low Poly Landscapes",
+      "description": "Low-poly outdoor places with real 3D ground, water and trees, from floating garden isles and an ancient forest to jungle terraces.",
+      "localizations": {
+        "de": {
+          "description": "Low-Poly-Orte im Freien mit echtem 3D-Boden, Wasser und Bäumen, von schwebenden Garteninseln und dem Urwald bis zu Dschungelterrassen.",
+          "title": "Low-Poly-Landschaften"
+        },
+        "es": {
+          "description": "Lugares low poly al aire libre con suelo, agua y árboles en 3D, desde islas jardín flotantes y un bosque ancestral hasta terrazas en la jungla.",
+          "title": "Paisajes low poly"
+        },
+        "fr": {
+          "description": "Des lieux low poly en plein air, avec un vrai sol, de l’eau et des arbres en 3D, des îles-jardins flottantes et la forêt ancienne aux terrasses de la jungle.",
+          "title": "Paysages low poly"
+        },
+        "ja": {
+          "description": "立体の地面や水、木々があるローポリの屋外の場所。浮かぶ庭の島や太古の森からジャングルの段丘まで。",
+          "title": "ローポリの風景"
+        },
+        "ko": {
+          "description": "입체적인 땅과 물, 나무가 있는 로우폴리 야외 공간. 떠 있는 정원 섬과 태고의 숲부터 정글 테라스까지.",
+          "title": "로우폴리 풍경"
+        },
+        "zh-Hans": {
+          "description": "低多边形的户外之地，有真正立体的地面、水和树木，从漂浮的花园岛屿、远古森林到丛林梯田。",
+          "title": "低多边形风景"
+        },
+        "zh-Hant": {
+          "description": "低多邊形的戶外之地，有真正立體的地面、水和樹木，從漂浮的花園島嶼、遠古森林到叢林梯田。",
+          "title": "低多邊形風景"
+        }
+      },
+      "members": [
+        "destination.cloud-garden-isles",
+        "destination.ancient-forest",
+        "destination.jungle-terraces"
+      ],
+      "type": "view"
     }
   ]
 }

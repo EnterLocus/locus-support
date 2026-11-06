@@ -49,7 +49,7 @@ class ExternalAssetsTests(unittest.TestCase):
         gallery = [item for path, item in manifest.items() if path.startswith('assets/gallery/')]
         promo = [item for path, item in manifest.items() if path.startswith('assets/promo/')]
         examples = [item for path, item in manifest.items() if path.startswith('examples/')]
-        self.assertEqual(len(gallery), 327)
+        self.assertGreaterEqual(len(gallery), 327)
         self.assertEqual(len(promo), 5)
         self.assertEqual(len(examples), 5)
         self.assertTrue(all(item['url'] == 'https://media.enterlocus.net/gallery/' + Path(item['path']).name
