@@ -1392,31 +1392,20 @@ class PublicSiteTests(unittest.TestCase):
         ]:
             self.assertIn(required, room_guide)
 
-    def test_room_workflow_uses_four_public_stages_and_real_device_feedback(self):
+    def test_room_workflow_uses_six_reader_steps(self):
         page = (ROOT / "make-a-room" / "index.html").read_text()
-        stages = ["concept", "layout", "build", "device"]
+        stages = ["concept", "layout", "build", "save", "device", "iterate"]
         positions = [page.index('id="' + stage + '"') for stage in stages]
         self.assertEqual(positions, sorted(positions))
         for stage in stages:
             self.assertIn('href="#' + stage + '"', page)
-        for promise in ["concept image and the layout", "leave the Room’s openings clear",
-                        "floor plan and seat layout",
-                        "Blender MCP is not required", "tools/check_room.py",
-                        "--current-app-version", "--renders", "MyRoom.locusplace",
-                        "screenshots and specific feedback", "revise the source"]:
-            self.assertIn(promise, page)
-        for url in ["https://polyhaven.com/models", "https://polyhaven.com/textures",
-                    "https://huggingface.co/datasets/nvidia/simready-assets",
-                    "https://huggingface.co/datasets/scenario-labs/3d-collection"]:
-            self.assertIn('href="' + url + '"', page)
-        for provider in ["TRIPO", "ChatGPT", "CC0", "CC BY 4.0"]:
-            self.assertIn(provider, page)
-        skill = (ROOT / ".agents/skills/build-original-locus-room/SKILL.md").read_text()
-        self.assertEqual(re.findall(r"^## (\d)\.", skill, re.MULTILINE), ["1", "2", "3", "4"])
-        for rule in ["Never\nmodel or export a skybox sphere", "neutral gray lighting scaffold"]:
-            self.assertIn(rule, skill)
+        self.assertIn("2. Plan the floor and seats (optional)", page)
+        self.assertIn("iCloud Drive/Locus", page)
+        self.assertIn("Show me the plan", page)
+        self.assertNotIn("python3 tools/check_room.py", page)
+        self.assertNotIn("Blender MCP is not required", page)
 
-    def test_room_tutorial_refresh_keeps_the_historical_record_and_public_routes(self):
+    def test_room_tutorial_has_followable_demo_prompts_and_public_routes(self):
         room = (ROOT / "make-a-room" / "index.html").read_text()
         example = (ROOT / "gothic-mountain-library" / "index.html").read_text()
         hub = (ROOT / "tutorials" / "index.html").read_text()
@@ -1427,21 +1416,24 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn(f'id="{anchor}"', room)
         for command in [
             "git clone https://github.com/EnterLocus/locus-support.git",
-            "cd locus-support", "python3 tools/check_room.py --current-app-version",
-            "--renders /absolute/path/to/renders /absolute/path/to/MyRoom.locusplace",
+            "cd locus-support",
         ]:
             self.assertIn(command, room)
-        for page in [room, example]:
-            self.assertNotIn("山中的一个大书库，很高的哥特式建筑。玻璃窗外是美丽的山景和远处的雪山。", page)
-            self.assertIn("A large library in the mountains, a very tall Gothic building, with a beautiful mountain landscape and distant snow-capped mountains outside the glass windows.", page)
-        for record in ["You are an independent public-only Locus Room author.",
-                       "For any View you choose to provide, use a full 2:1 panorama",
-                       "The creator asks for the closest practical match to the original concept"]:
-            self.assertIn(record, room)
+        self.assertLess(room.index('git clone https://github.com/EnterLocus/locus-support.git'),
+                        room.index('id="worked-example"'))
+        self.assertIn("Open this folder in Codex and start a session.", room)
+        self.assertIn("Other agents work too", room)
+        self.assertIn("Generate an interior concept image for a 3D room", room)
+        self.assertIn("Build a custom Locus Room from this concept image using the build-original-locus-room skill", room)
+        self.assertIn("ask your agent to generate a new one", room)
+        self.assertNotIn("Read the complete retained working prompts", room)
         for asset in ["original-concept.jpg", "blender-render.jpg", "vision-pro-desk.jpg", "vision-pro-dining.jpg"]:
             self.assertIn(asset, room)
-        self.assertIn("not proof of the paired Alpine View", room)
-        self.assertIn("lamp flicker", example.lower())
+        self.assertIn("GPT 6.1 Sol at high reasoning effort", room)
+        self.assertIn("The result took several iterations", room)
+        self.assertNotIn("Sol 1.1.1", room)
+        self.assertNotIn("not proof of the paired Alpine View", room)
+        self.assertIn("Some lamps flicker on Apple Vision Pro.", example)
 
         featured = hub[hub.index('class="tutorial-feature-grid"'):hub.index('</section>', hub.index('class="tutorial-feature-grid"'))]
         self.assertLess(featured.index('href="../make-a-room/"'), featured.index('href="../first-place/"'))

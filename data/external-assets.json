@@ -2088,6 +2088,18 @@
       "url": "https://media.enterlocus.net/gallery/library-a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934.jpg",
       "byteCount": 101238,
       "sha256": "a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934"
+    },
+    {
+      "path": "assets/tutorials/build-room/places-import-entry.png",
+      "url": "https://media.enterlocus.net/tutorials/build-room/places-import-47fb0781dcbf.png",
+      "byteCount": 5237433,
+      "sha256": "47fb0781dcbf776bad316b58d70787e6e6989604c743a8d4ab0023aefa6b6a3a"
+    },
+    {
+      "path": "assets/tutorials/build-room/room-files.png",
+      "url": "https://media.enterlocus.net/tutorials/build-room/room-files-f88cbf2bea16.png",
+      "byteCount": 4471729,
+      "sha256": "f88cbf2bea164f03fc4992ae460742a40e5ca709917d8d6c73c06163a7b7f9dd"
     }
   ]
 }
