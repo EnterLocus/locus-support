@@ -1465,6 +1465,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Allow Glide without opening Move.", page)
         self.assertIn("If this is off, open the Move panel before gliding.", page)
         self.assertIn("Glide is on by default", page)
+        self.assertIn("Settings → All Settings → Workspace, then scroll down to Glide.", page)
         self.assertIn("Release the pinch to stop.", page)
         self.assertIn("https://enterlocus.com/glide/", (ROOT / "sitemap.xml").read_text())
         for entry in ["tutorials/index.html", "first-place/index.html", "whats-new/1-4-6/index.html"]:
@@ -1472,7 +1473,7 @@ class PublicSiteTests(unittest.TestCase):
         manifest = external_assets.load_manifest()
         urls = {asset['url'] for asset in manifest.values()}
         remote = [image['src'] for image in parsed.images if image['src'].startswith('https://')]
-        self.assertEqual(len(remote), 2)
+        self.assertEqual(len(remote), 1)
         self.assertTrue(set(remote).issubset(urls))
 
     def test_refreshed_tutorial_pages_have_complete_localized_catalogs(self):
