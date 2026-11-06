@@ -1092,11 +1092,30 @@ class PublicSiteTests(unittest.TestCase):
                     with self.subTest(page=str(path), locale=locale, source=source):
                         self.assertTrue(localization.has_translation(source, catalog))
 
-    def test_released_1_4_6_is_latest_and_connected(self):
+    def test_released_1_4_7_is_latest_and_connected(self):
+        article = (ROOT / "whats-new/1-4-7/index.html").read_text()
+        self.assertIn("Places stays responsive.", article)
+        self.assertIn("After imports and updates", article)
+        self.assertIn("../1-4-6/", article)
+        previous = (ROOT / "whats-new/1-4-6/index.html").read_text()
+        self.assertIn("../1-4-7/", previous)
+        archive = (ROOT / "whats-new/index.html").read_text()
+        self.assertLess(archive.index('href="./1-4-7/"'), archive.index('href="./1-4-6/"'))
+        self.assertIn("Locus 1.4.7 · Latest", archive)
+        self.assertEqual(archive.count("· Latest"), 1)
+        homepage = (ROOT / "index.html").read_text()
+        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-7/"', homepage)
+        self.assertLess(homepage.index('class="whats-new-latest"'),
+                        homepage.index('id="whats-new-title"'))
+        self.assertIn("New in Locus 1.4.7", homepage)
+        self.assertIn("https://enterlocus.com/whats-new/1-4-7/", (ROOT / "sitemap.xml").read_text())
+
+    def test_released_1_4_6_is_connected(self):
         article = (ROOT / "whats-new/1-4-6/index.html").read_text()
         self.assertIn("Low Poly Cabins", article)
         self.assertIn("Move with Glide", article)
         self.assertIn("../1-4-4/", article)
+        self.assertIn("../1-4-7/", article)
         previous = (ROOT / "whats-new/1-4-4/index.html").read_text()
         self.assertIn("../1-4-6/", previous)
         archive = (ROOT / "whats-new/index.html").read_text()
@@ -1104,12 +1123,12 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_released_1_4_4_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-6/"', homepage)
+        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-7/"', homepage)
         self.assertLess(homepage.index('class="whats-new-latest"'),
                         homepage.index('id="whats-new-title"'))
-        self.assertIn("New in Locus 1.4.6", homepage)
+        self.assertIn("New in Locus 1.4.7", homepage)
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.4.6 · Latest", archive)
+        self.assertIn("Locus 1.4.7 · Latest", archive)
         self.assertLess(archive.index('href="./1-4-4/"'), archive.index('href="./1-4-3/"'))
         self.assertEqual(archive.count("· Latest"), 1)
         article = (ROOT / "whats-new/1-4-4/index.html").read_text()

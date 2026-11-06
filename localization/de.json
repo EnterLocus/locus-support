@@ -2594,6 +2594,18 @@
     "Send the agent the archive filename and hash, screenshots and specific feedback (with a recording for motion): which seat and viewing direction, what blocks the view, or which light flickers and when. For example, show a wall lamp that appears separated from the wall from more than one angle. Ask the agent to investigate the editable geometry, transforms, materials, and lighting as appropriate, revise the source, export a new USDZ, rebuild and recheck the package, then return it for comparison. Flicker can have several causes; a screenshot or checker pass alone does not establish the cause or prove the fix.": "Senden Sie dem Agenten den Archivdateinamen und den Hash, Screenshots sowie konkretes Feedback (mit einer Bildschirmaufnahme bei Bewegung): welcher Sitzplatz und welche Blickrichtung betroffen sind, was die Sicht verdeckt oder welche Leuchte wann flackert. Zeigen Sie zum Beispiel eine Wandleuchte, die aus mehreren Blickwinkeln von der Wand getrennt wirkt. Bitten Sie den Agenten, die bearbeitbare Geometrie, Transformationen, Materialien und Beleuchtung entsprechend zu untersuchen, die Quelle zu überarbeiten, ein neues USDZ zu exportieren, das Paket neu zu erstellen und zu prüfen und es anschließend zum Vergleich zurückzugeben. Flackern kann mehrere Ursachen haben; ein Screenshot oder ein bestandener Checker-Lauf allein belegt weder die Ursache noch die Behebung.",
     "For a candid worked record, see": "Einen offenen Erfahrungsbericht aus der Praxis finden Sie unter",
     "Alpine Scriptorium": "Alpine Scriptorium",
-    ": its original brief, source, creator Apple Vision Pro screenshots, preserved issues, and the distinction between checker evidence and device review.": ": mit dem ursprünglichen Briefing, der Quelle, Apple-Vision-Pro-Screenshots des Erstellers, dokumentierten Fehlern und dem Unterschied zwischen Checker-Nachweisen und der Prüfung auf dem Gerät."
+    ": its original brief, source, creator Apple Vision Pro screenshots, preserved issues, and the distinction between checker evidence and device review.": ": mit dem ursprünglichen Briefing, der Quelle, Apple-Vision-Pro-Screenshots des Erstellers, dokumentierten Fehlern und dem Unterschied zwischen Checker-Nachweisen und der Prüfung auf dem Gerät.",
+    "Locus 1.4.7: snappier Places": "Locus 1.4.7: Places reagiert schneller",
+    "Locus 1.4.7 improves Places responsiveness after importing or updating Rooms and Views.": "Locus 1.4.7 verbessert die Reaktionsgeschwindigkeit von Places nach dem Importieren oder Aktualisieren von Rooms und Views.",
+    "Opening Places, switching categories, and scrolling stay responsive after you import or update Rooms and Views.": "Places öffnen, Kategorien wechseln und Scrollen bleiben reaktionsschnell, nachdem du Rooms und Views importiert oder aktualisiert hast.",
+    "Places stays responsive.": "Places bleibt reaktionsschnell.",
+    "Locus 1.4.7 for Apple Vision Pro": "Locus 1.4.7 für Apple Vision Pro",
+    "After imports and updates": "Nach Import und Updates",
+    "Improves Places responsiveness after importing or updating Rooms and Views, including opening Places, switching categories, and scrolling.": "Verbessert die Reaktionsgeschwindigkeit von Places nach dem Importieren oder Aktualisieren von Rooms und Views, einschließlich Öffnen, Kategorienwechsel und Scrollen.",
+    "Locus 1.4.7 is available on the": "Locus 1.4.7 ist verfügbar im",
+    "Locus 1.4.7": "Locus 1.4.7",
+    "New in Locus 1.4.7": "Neu in Locus 1.4.7",
+    "Places stays responsive after imports and updates.": "Places bleibt nach Import und Updates reaktionsschnell.",
+    "Locus 1.4.7 · Latest": "Locus 1.4.7 · Neueste Version"
   }
 }
