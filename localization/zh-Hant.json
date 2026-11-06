@@ -2826,6 +2826,8 @@
     "Glide presentation and speed settings": "滑行的呈現方式和速度設定",
     "Glide movement and turning settings": "滑行的移動和轉向設定",
     "Choose the presentation and speed that suit you.": "選擇適合自己的呈現方式和速度。",
-    "Adjust movement, turning, and access outside the Move panel.": "調整移動、轉向，以及是否允許在移動面板外使用滑行。"
+    "Adjust movement, turning, and access outside the Move panel.": "調整移動、轉向，以及是否允許在移動面板外使用滑行。",
+    "Play the Glide demo video": "播放滑行示範影片",
+    "Glide in action": "滑行示範"
   }
 }

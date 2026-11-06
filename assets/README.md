@@ -497,3 +497,10 @@ All Settings window, with Workspace selected in the sidebar and every Glide
 control visible. It is cropped to the window, without content edits.
 The 1632 × 1258 PNG is hosted on R2 under `tutorials/glide/`; exact public
 bytes and SHA-256 are pinned in `data/external-assets.json`.
+
+## Glide tutorial video — November 5, 2026
+
+The owner’s public EnterLocus video `i_BRGaZ4Il0` is embedded at the start of
+`glide/` using the site’s existing YouTube player. The poster is the unmodified
+1280 × 720 YouTube thumbnail (`maxresdefault.jpg`) for the same video.
+It is hosted on R2 and pinned in `data/external-assets.json` (SHA-256 `65cdb657fd7bbef7d9c11d0aa829b1f4bb5b6f6712acd997fecb9ff2d4056871`).

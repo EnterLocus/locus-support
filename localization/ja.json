@@ -2824,6 +2824,8 @@
     "Glide presentation and speed settings": "グライドの表示方法と速度の設定",
     "Glide movement and turning settings": "グライドの移動と旋回の設定",
     "Choose the presentation and speed that suit you.": "自分に合った表示方法と速度を選びます。",
-    "Adjust movement, turning, and access outside the Move panel.": "移動や旋回、「移動」パネルを開かずに使えるかどうかを調整します。"
+    "Adjust movement, turning, and access outside the Move panel.": "移動や旋回、「移動」パネルを開かずに使えるかどうかを調整します。",
+    "Play the Glide demo video": "グライドのデモ動画を再生",
+    "Glide in action": "グライドの使用例"
   }
 }
