@@ -15,6 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 TOOLS = ROOT / "tools"
+sys.path.insert(0, str(TOOLS))
+import external_assets
 BUILD_EXAMPLES = ROOT / "examples" / "locusplace" / "build_examples.py"
 VALIDATE = TOOLS / "validate_locusplace.py"
 PACK = TOOLS / "pack_locusplace.py"
@@ -241,7 +243,7 @@ class FlatPackageCurrentContractTests(unittest.TestCase):
         validator = load_flat_validator()
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary)
-            with zipfile.ZipFile(ROOT / "examples" / "atrium-loft-room.zip") as source:
+            with zipfile.ZipFile(external_assets.hydrate("examples/atrium-loft-room.zip")) as source:
                 members = {info.filename: source.read(info) for info in source.infolist()}
             for version in range(7, 11):
                 with self.subTest(version=version):
@@ -261,7 +263,7 @@ class FlatPackageCurrentContractTests(unittest.TestCase):
 
     def write_feature_room(self, output, *, overlapping=False,
                            missing_particle_anchor=False, layer_sizes=(8, 8)):
-        with zipfile.ZipFile(ROOT / "examples" / "atrium-loft-room.zip") as source:
+        with zipfile.ZipFile(external_assets.hydrate("examples/atrium-loft-room.zip")) as source:
             members = {info.filename: source.read(info) for info in source.infolist()}
         manifest = json.loads(members["space.json"])
         manifest.pop("spatialAdaptation", None)

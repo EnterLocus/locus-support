@@ -24,7 +24,7 @@ the softer wood-floor finish; the other Rooms retain their floor designs.
 These ZIPs require a Locus build with Room v5 support. Locus 1.1.0 builds 1–3 do not
 support v5; build 4 and later, including Locus 1.1.1, do. Check the installed
 build in Settings → Help & About → About Locus. The download pages link the previous compatible ZIPs at the frozen
-[September 3 example revision](https://github.com/EnterLocus/locus-support/tree/4017745d9f3b6001f00d325ad2610da0a4e171cb/examples).
+[September 3 example revision](https://github.com/EnterLocus/locus-support/releases/download/site-downloads-2026-11-05/).
 These public ZIPs are the September 5, 2026 desk-seat packages. They do **not** include the Locus 1.1.5 sofa/lounge seats or `deskGroupEntitiesByTeleportID` Hide Desk roots, or the Locus 1.2.0 `seatGroups` groupings, that ship in the App Store built-ins and Library Room revisions. Keep them as the stable Room v5 study set; author lounge seats, hideable desks, and seat groups with the format reference on enterlocus.com.
 
 Public provenance retains the existing CC BY 4.0 and embedded-texture CC0

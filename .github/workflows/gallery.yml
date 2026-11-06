@@ -2,8 +2,6 @@ name: Refresh public Gallery
 
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '23 15 * * *'
 
 permissions:
   contents: write
@@ -31,11 +29,11 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
-          if git diff --quiet -- data/gallery.json assets/gallery; then exit 0; fi
+          if git diff --quiet -- data/gallery.json data/external-assets.json; then exit 0; fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git checkout -B automation/gallery
-          git add data/gallery.json assets/gallery
+          git add data/gallery.json data/external-assets.json
           git commit -m 'Refresh public Gallery from Production catalog'
           git push --force-with-lease origin automation/gallery
           if [ -z "$(gh pr list --head automation/gallery --state open --json number --jq '.[].number')" ]; then

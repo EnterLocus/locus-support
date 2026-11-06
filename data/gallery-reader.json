@@ -85,7 +85,7 @@
       "title": "Autumn Hill View",
       "description": "Autumn hilltop meadow overlooking forested valleys and rolling farmland. Dry grass and scattered green patches fill the foreground, with small houses and fields spread across the surrounding slopes. Golden and rust-colored trees mix with dark evergreens beneath a pale blue sky and thin clouds, while low sun creates soft, warm backlight. Calm and open.",
       "image": {
-        "url": "/assets/gallery/destination.autumn-hill-view.jpg",
+        "url": "https://media.enterlocus.net/gallery/destination.autumn-hill-view.jpg",
         "width": 1024,
         "height": 512,
         "sha256": "052e9b0a95e92fb3138b39b037a5117a0d05d56cca69100a5579553ff73f3780"
@@ -183,7 +183,7 @@
       "title": "Atrium Loft",
       "description": "Modern double-height loft with floor-to-ceiling glass and a mezzanine workspace. Warm wood floors and matching worktables contrast with pale walls, slim black window frames, and glass railings. A straight stair with metal handrails leads to the upper desk, while the open lower level includes a white sofa, pendant light, and potted plant. Calm and airy.",
       "image": {
-        "url": "/assets/gallery/space.atrium-loft.jpg",
+        "url": "https://media.enterlocus.net/gallery/space.atrium-loft.jpg",
         "width": 1600,
         "height": 900,
         "sha256": "02ad3ca505152eb8cd87903b0354a92d997887e19df2f78bad7765a7a5e6b148"
@@ -277,7 +277,7 @@
       "title": "Courtyard Gallery",
       "description": "Modern glass-walled courtyard gallery with a reflecting pool and rooftop terrace. Split-level rooms have pale plaster walls, wood floors, slim black metal frames, and simple wooden tables with chairs for working or dining. A central planted water court connects the spaces, while stairs, glass railings, and small pendant lights give the pavilion a calm, minimalist feel.",
       "image": {
-        "url": "/assets/gallery/space.courtyard-gallery.jpg",
+        "url": "https://media.enterlocus.net/gallery/space.courtyard-gallery.jpg",
         "width": 1600,
         "height": 900,
         "sha256": "824faae34b18b45326c44df2e9ec6dcd515b5ce6cbe94d392b16efab7455c8e1"
@@ -371,7 +371,7 @@
       "title": "Horizon Atelier",
       "description": "Modern glass-walled studio pavilion with wood floors, worktables, and a covered terrace. Black-framed floor-to-ceiling windows enclose a compact workspace with a wood desk, dining table, wall shelves, and two pendant lamps. A low upholstered lounge, round coffee table, potted plants, and a small outdoor table create a calm, minimalist setting.",
       "image": {
-        "url": "/assets/gallery/space.horizon-atelier.jpg",
+        "url": "https://media.enterlocus.net/gallery/space.horizon-atelier.jpg",
         "width": 1600,
         "height": 900,
         "sha256": "7e6c01cb2e30a5c5a511145c2dec273a460ba8cfcd844887470a0b9ce47b4eb0"

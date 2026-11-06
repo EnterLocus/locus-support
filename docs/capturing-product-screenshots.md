@@ -88,3 +88,9 @@ desktop and mobile sizes.
 The private source used a DEBUG-only launch fixture to stage the same session
 values as Quick Settings. That fixture was removed after capture. Source and
 web hashes are recorded in `assets/README.md`.
+
+## Locus 1.4.6 article frame
+
+`screenshots/locus-1.4.6-glide.jpg` is the owner-selected frame at 00:19.500
+from the Glide recording, resized without cropping to 1920 × 1080 for the
+release article. Its source and JPEG hashes are recorded in `assets/README.md`.

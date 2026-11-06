@@ -11,8 +11,13 @@ import io
 import json
 from pathlib import Path, PurePosixPath
 import re
+import sys
 from urllib.request import Request, urlopen
 import zipfile
+
+if str(Path(__file__).resolve().parent) not in sys.path:
+    sys.path.insert(0, str(Path(__file__).resolve().parent))
+import external_assets
 
 ROOT = Path(__file__).resolve().parents[1]
 ORIGIN = 'https://content.enterlocus.net/'
@@ -23,7 +28,8 @@ MAX_GALLERY_PHOTO_BYTES = 8 * 1024 * 1024
 MAX_GALLERY_PHOTO_DIMENSION = 8192
 MAX_GALLERY_PHOTO_PIXELS = 32 * 1024 * 1024
 PHOTO_LABELS = {'front', 'left', 'right', 'alternate-seat'}
-PHOTO_URL = re.compile(r'/assets/gallery/rendered-([a-f0-9]{64})\.(jpg|png)')
+GALLERY_BASE = 'https://media.enterlocus.net/gallery/'
+PHOTO_URL = re.compile(re.escape(GALLERY_BASE) + r'rendered-([a-f0-9]{64})\.(jpg|png)')
 PREVIEW_RELEASES_FORMAT = 1
 
 
@@ -105,7 +111,7 @@ def image_dimensions(data, suffix):
     return width, height
 
 
-def validate_photo_registry(registry, gallery_directory):
+def validate_photo_registry(registry, asset_source=None, manifest=None):
     """Validate public capture metadata and return only fields safe to export."""
     if not isinstance(registry, dict) or set(registry) != {'formatVersion', 'packages'}:
         raise ValueError('Invalid gallery photo registry')
@@ -141,7 +147,7 @@ def validate_photo_registry(registry, gallery_directory):
             if (not match or not isinstance(sha256, str)
                     or not re.fullmatch(r'[a-f0-9]{64}', sha256)
                     or match.group(1) != sha256):
-                raise ValueError('Gallery photo URL must be its local SHA-256 path')
+                raise ValueError('Gallery photo URL must be its immutable SHA-256 path')
             if not all(isinstance(photo[name], int) and not isinstance(photo[name], bool)
                        for name in ('width', 'height')):
                 raise ValueError('Invalid gallery photo dimensions')
@@ -153,10 +159,22 @@ def validate_photo_registry(registry, gallery_directory):
                 raise ValueError('Unsupported gallery photo capture kind')
             if 'label' in photo and photo['label'] not in PHOTO_LABELS:
                 raise ValueError('Unsupported gallery photo label')
-            asset = gallery_directory / ('rendered-' + sha256 + '.' + match.group(2))
-            if not asset.is_file() or asset.stat().st_size > MAX_GALLERY_PHOTO_BYTES:
+            filename = 'rendered-' + sha256 + '.' + match.group(2)
+            try:
+                if callable(asset_source):
+                    data = asset_source(filename)
+                elif asset_source is not None and (Path(asset_source) / filename).is_file():
+                    data = (Path(asset_source) / filename).read_bytes()
+                else:
+                    assets = external_assets.load_manifest() if manifest is None else manifest
+                    asset = external_assets.asset_for('assets/gallery/' + filename, assets)
+                    if asset['url'] != GALLERY_BASE + filename:
+                        raise ValueError('Gallery asset URL does not match its immutable path')
+                    data = external_assets.hydrate(asset['path'], manifest=assets).read_bytes()
+            except (OSError, ValueError) as exc:
+                raise ValueError('Gallery photo asset is missing or invalid') from exc
+            if len(data) > MAX_GALLERY_PHOTO_BYTES:
                 raise ValueError('Gallery photo asset is missing or exceeds the size limit')
-            data = asset.read_bytes()
             if hashlib.sha256(data).hexdigest() != sha256:
                 raise ValueError('Gallery photo asset hash mismatch')
             if image_dimensions(data, match.group(2)) != (photo['width'], photo['height']):
@@ -281,8 +299,40 @@ def image(ref, archive, images, prefix='thumbnails/'):
     suffix = '.png' if ref.get('mediaType') == 'image/png' else '.jpg'
     filename = 'library-' + ref['sha256'] + suffix
     images[filename] = checked(archive.read(path), ref)
-    return {'url': '/assets/gallery/' + filename, 'width': ref['width'], 'height': ref['height'],
+    return {'url': GALLERY_BASE + filename, 'width': ref['width'], 'height': ref['height'],
             'sha256': ref['sha256']}
+
+
+def stage_missing_images(images, manifest, asset_output, root=ROOT):
+    """Stage unknown immutable thumbnails and a candidate manifest outside Git.
+
+    This deliberately has no access to gallery.json: publishing metadata is a
+    second operation after upload and HTTPS readback of the candidate manifest.
+    """
+    directory = Path(asset_output).resolve()
+    scratch = (Path(root) / '.scratch').resolve()
+    if directory != scratch and scratch not in directory.parents:
+        raise ValueError('--asset-output must be inside the ignored .scratch directory')
+    missing = []
+    for name, data in images.items():
+        path = 'assets/gallery/' + name
+        if path in manifest:
+            continue
+        missing.append((path, name, data))
+    if not missing:
+        return None
+    directory.mkdir(parents=True, exist_ok=True)
+    candidate = list(manifest.values())
+    for path, name, data in missing:
+        destination = directory / name
+        if destination.exists() and destination.read_bytes() != data:
+            raise ValueError('Refusing to overwrite different immutable gallery bytes: ' + str(destination))
+        destination.write_bytes(data)
+        candidate.append({'path': path, 'url': GALLERY_BASE + name,
+                          'byteCount': len(data), 'sha256': hashlib.sha256(data).hexdigest()})
+    candidate_path = directory / 'external-assets.json'
+    candidate_path.write_text(json.dumps({'formatVersion': 1, 'assets': candidate}, indent=2) + '\n')
+    return candidate_path
 
 
 def recent_date(place):
@@ -377,11 +427,22 @@ def export(catalog, descriptor, archive, profile, images, photo_registry=None, r
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--check', action='store_true', help='Check if the committed snapshot is current')
+    parser.add_argument('--asset-output', type=Path,
+                        help='Ignored directory for new immutable catalog thumbnails; never use assets/gallery')
     args = parser.parse_args()
     profile = json.loads((ROOT / 'data/gallery-reader.json').read_text())
     release_previews = json.loads((ROOT / 'data/gallery-preview-releases.json').read_text())
+    manifest = external_assets.load_manifest()
+
+    def remote_gallery_asset(filename):
+        path = 'assets/gallery/' + filename
+        asset = external_assets.asset_for(path, manifest)
+        if asset['url'] != GALLERY_BASE + filename:
+            raise ValueError('Gallery asset URL does not match its immutable path')
+        return external_assets.download(asset)
+
     photo_registry = validate_photo_registry(
-        json.loads((ROOT / 'data/gallery-photos.json').read_text()), ROOT / 'assets/gallery')
+        json.loads((ROOT / 'data/gallery-photos.json').read_text()), remote_gallery_asset)
     result = json.loads(fetch(APP_LOOKUP, 2 * 1024 * 1024))['results']
     shipped = next(x['version'] for x in result if x.get('trackId') == 6802168265)
     if version(profile['appVersion']) > version(shipped):
@@ -402,21 +463,25 @@ def main():
                        release_previews)
     output = json.dumps(value, ensure_ascii=False, indent=2) + '\n'
     target = ROOT / 'data/gallery.json'
+    unpublished = [name for name in images if 'assets/gallery/' + name not in manifest]
+    for name, data in images.items():
+        path = 'assets/gallery/' + name
+        if path in manifest:
+            if remote_gallery_asset(name) != data:
+                raise SystemExit('Gallery preview HTTPS bytes differ from the verified catalog: ' + name)
+    if unpublished:
+        if args.asset_output is None:
+            raise SystemExit('New gallery preview requires --asset-output before metadata can be published: '
+                             + ', '.join(unpublished))
+        candidate = stage_missing_images(images, manifest, args.asset_output)
+        print('Gallery assets staged at {}. Upload them, run "python3 tools/external_assets.py '
+              '--manifest {} --verify", install that verified manifest, then rerun sync_gallery.'
+              .format(Path(args.asset_output).resolve(), candidate))
+        return
     if args.check:
         if not target.exists() or target.read_text() != output:
             raise SystemExit('Gallery snapshot needs refresh: run python3 tools/sync_gallery.py')
-        for name, data in images.items():
-            local = ROOT / 'assets/gallery' / name
-            if not local.exists() or local.read_bytes() != data:
-                raise SystemExit('Gallery preview needs refresh: ' + name)
     else:
-        directory = ROOT / 'assets/gallery'
-        directory.mkdir(parents=True, exist_ok=True)
-        for name, data in images.items():
-            (directory / name).write_bytes(data)
-        for previous in directory.glob('library-*'):
-            if re.fullmatch(r'library-[a-f0-9]{64}\.(jpg|png)', previous.name) and previous.name not in images:
-                previous.unlink()
         target.write_text(output)
     print('Gallery: {} Places, {} Series; reviewed reader {}, public App {}'.format(
         len(value['places']), len(value['series']), profile['appVersion'], shipped))
