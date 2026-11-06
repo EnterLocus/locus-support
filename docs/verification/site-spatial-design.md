@@ -8,7 +8,7 @@ The homepage keeps the original official App Store badge unchanged. Its film is 
 
 - `npm run build`: generated 1,088 HTML pages across eight languages, including 43 authored source pages and current Gallery Place/Series pages.
 - Python: 48 public-site tests and 23 localization/search/Gallery/Markdown-reference tests passed.
-- Browser: all 44 applicable Playwright cases have passing results. Passing unaffected results from the initial run were retained; changed or initially failing cases were rerun. Coverage includes menu focus and dismissal, language persistence and denied storage, localized search, FAQ anchors, Gallery filters and photo dialogs, Series return context, release navigation, Room examples, no-JavaScript links, release video fallback, and small-phone download actions.
+- Browser: all 46 applicable Playwright cases have passing results. Passing unaffected results from the initial run were retained; changed or initially failing cases were rerun. Coverage includes menu focus and dismissal, language persistence and denied storage, localized search, FAQ anchors, Gallery filters and photo dialogs, Series return context, release navigation, Room examples, no-JavaScript links, release video fallback, and small-phone download actions.
 - Visual review: default states for nine page families at 1440 and 390px; desktop German and mobile Simplified Chinese homepages; mobile menu and selected scenery. Gallery spacing was tightened to show the first image above 700px. Reference pages use one layer of top padding.
 - `git diff --check` and JavaScript syntax checks passed.
 
@@ -23,3 +23,11 @@ The design preview remains owner-private on Sites. These are local browser resul
 ## Public rollout
 
 The source change is prepared as a PR, with the complete site staged separately on Sites for review. The public enterlocus.com deployment is unchanged. A public rollout can use the existing Pages deployment after merge; reverting the PR restores the previous source and theme. The prior private Sites version remains available in version history.
+
+## Design follow-up
+
+The homepage closing section now uses neutral graphite with white headings and cool-neutral secondary text, replacing the olive cast. The release archive removes the narrow `16ch` title cap and gives every release a product-image cover. New Room cover images are representative current public catalog previews, not historical headset-capture evidence. Existing release copy, ordering, destination URLs and image provenance remain unchanged.
+
+Follow-up checks: six focused Python checks and five browser release checks passed, including all 17 covers loading on Chinese desktop and English mobile. The latest Chinese title fits one line at 1440px; narrower layouts wrap naturally. Desktop/mobile closing-section renders confirm a neutral graphite background and white heading text.
+
+[Graphite closing section](site-spatial-design/closing-desktop.jpg) · [Mobile closing section](site-spatial-design/closing-mobile.jpg) · [Illustrated archive](site-spatial-design/release-archive-desktop.jpg) · [Mobile archive](site-spatial-design/release-archive-mobile.jpg)

@@ -3256,6 +3256,12 @@
     "Real Objects settings show the active-object limit and the Import a Real Object button.": "Los ajustes de Objetos reales muestran el límite de objetos activos y el botón Importar un objeto real.",
     "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "El edificio, la planta animada y el clip de animación están incluidos en un único archivo USDZ autónomo.",
     "Leave out": "Omita",
-    "and the baker picks a brightness for you;": "y la herramienta elegirá el brillo automáticamente;"
+    "and the baker picks a brightness for you;": "y la herramienta elegirá el brillo automáticamente;",
+    "A physical keyboard aligned on a desk in Locus": "Un teclado físico alineado sobre un escritorio en Locus",
+    "Floating islands beyond the windows of a Locus Room": "Islas flotantes al otro lado de las ventanas de una Room de Locus",
+    "The Locus bar in front of a snowy View": "La barra de Locus frente a un paisaje nevado",
+    "Aegean Terrace Estate": "Finca de terrazas del Egeo",
+    "Hilltop Villa": "Villa en la colina",
+    "Old Town Café": "Café del casco antiguo"
   }
 }

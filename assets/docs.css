@@ -131,18 +131,14 @@ td { color: var(--muted); }
 .tutorial-pagination strong { margin-top: .35rem; font-weight: 500; }
 .release-index-header { margin-bottom: 4rem; }
 .release-list { display: grid; gap: 2rem; }
-.release-card { display: grid; grid-template-columns: minmax(280px, .9fr) minmax(0, 1.1fr); overflow: hidden; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; transition: border-color .2s ease; }
+.release-card { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(280px, .8fr); gap: clamp(1.5rem, 4vw, 3rem); overflow: hidden; border-bottom: 1px solid var(--line); color: inherit; text-decoration: none; transition: border-color .2s ease; }
 .release-card:hover, .release-card:focus-visible { border-color: var(--accent); }
 .release-card:focus-visible { outline: 2px solid var(--accent); outline-offset: .2rem; }
 .release-card img { display: block; width: 100%; height: 100%; min-height: 260px; border-radius: 4px; object-fit: cover; }
-.release-card-copy { display: flex; flex-direction: column; justify-content: center; padding: clamp(1.5rem, 4vw, 3rem); }
+.release-card-copy { display: flex; flex-direction: column; justify-content: center; padding: .5rem 0; }
 .release-card-copy .kicker { margin: 0 0 .8rem; }
-.release-card-copy strong { max-width: 16ch; font-size: clamp(1.9rem, 3.2vw, 3.2rem); font-weight: 400; line-height: 1.05; letter-spacing: -.05em; }
+.release-card-copy strong { font-size: clamp(1.9rem, 2.8vw, 2.5rem); font-weight: 400; line-height: 1.05; letter-spacing: -.05em; }
 .release-card-copy > span:last-child { max-width: 46ch; margin-top: 1rem; color: var(--muted); font-size: 1rem; line-height: 1.65; }
-.release-card-latest { grid-template-columns: minmax(0, 1.15fr) minmax(300px, .85fr); }
-.release-card-latest .release-card-copy { order: -1; }
-.release-card-text { grid-template-columns: 1fr; }
-.release-card-text .release-card-copy { order: initial; }
 .release-article { max-width: 900px; }
 .release-article .page-header { margin-bottom: 3rem; }
 .release-article .page-header h1 { max-width: 850px; }
@@ -171,8 +167,7 @@ td { color: var(--muted); }
   .tutorial-section-heading { grid-template-columns: 1fr; }
   .bar-closeup { background-size: cover; }
   .bar-icon-grid, .before-after { grid-template-columns: 1fr; }
-  .release-card, .release-card-latest { grid-template-columns: 1fr; }
-  .release-card-latest .release-card-copy { order: initial; }
+  .release-card { grid-template-columns: 1fr; gap: 0; }
   .release-card img { min-height: 0; aspect-ratio: 16 / 9; }
   table { display: block; overflow-x: auto; }
 }
