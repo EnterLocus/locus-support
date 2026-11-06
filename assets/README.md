@@ -483,7 +483,7 @@ publication changes no campaign media.
 The two 3840 × 2160 PNG captures show the actual Places `+ Import` entry and the
 Imports page's Room `Files` action. Captured in visionOS 27.0 Simulator from clean
 Locus Dev source `3892b23f953b83f7f44a34986461abd41e8aa848`, version 1.4.6 (1).
-The website frames the native window with CSS; the stored pixels are unchanged.
+The website frames the native window with CSS and circles the two controls with SVG overlays; the stored pixels are unchanged.
 They are hosted in the `locus-site-media` R2 bucket, under `tutorials/build-room/`,
 with immutable cache headers. The paths, byte counts and SHA-256 digests are pinned
 in `data/external-assets.json` and were verified through public HTTPS readback.
