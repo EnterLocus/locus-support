@@ -14,6 +14,9 @@ ROOT = Path(__file__).resolve().parents[1]
 spec = importlib.util.spec_from_file_location('sync_gallery', ROOT / 'tools/sync_gallery.py')
 sync = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(sync)
+external_spec = importlib.util.spec_from_file_location('external_assets', ROOT / 'tools/external_assets.py')
+external_assets = importlib.util.module_from_spec(external_spec)
+external_spec.loader.exec_module(external_assets)
 
 
 class GallerySyncTests(unittest.TestCase):
@@ -44,7 +47,7 @@ class GallerySyncTests(unittest.TestCase):
         sha256 = hashlib.sha256(data).hexdigest()
         path = Path(directory) / ('rendered-' + sha256 + '.png')
         path.write_bytes(data)
-        return {'url': '/assets/gallery/' + path.name, 'width': width, 'height': height,
+        return {'url': sync.GALLERY_BASE + path.name, 'width': width, 'height': height,
                 'sha256': sha256, 'label': 'front', 'captureKind': 'visionos-simulator'}
 
     def registry(self, package_id, content_version, photo):
@@ -149,12 +152,13 @@ class GallerySyncTests(unittest.TestCase):
         self.assertEqual(dates, sorted(dates, reverse=True))
 
     def test_every_static_preview_exists_and_matches_its_published_hash(self):
+        manifest = external_assets.load_manifest()
         for place in self.snapshot['places']:
             image = place['image']
-            self.assertTrue(image['url'].startswith('/assets/gallery/'))
-            asset = ROOT / image['url'].lstrip('/')
+            self.assertTrue(image['url'].startswith(sync.GALLERY_BASE))
+            asset = manifest['assets/gallery/' + image['url'].rsplit('/', 1)[1]]
             with self.subTest(place=place['id']):
-                self.assertEqual(hashlib.sha256(asset.read_bytes()).hexdigest(), image['sha256'])
+                self.assertEqual(asset['sha256'], image['sha256'])
 
     def test_photo_registry_enriches_only_matching_selected_revision(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -196,9 +200,35 @@ class GallerySyncTests(unittest.TestCase):
     def test_photo_registry_rejects_path_hash_mismatch(self):
         with tempfile.TemporaryDirectory() as directory:
             photo = self.write_png(directory)
-            photo['url'] = '/assets/gallery/rendered-' + '0' * 64 + '.png'
+            photo['url'] = sync.GALLERY_BASE + 'rendered-' + '0' * 64 + '.png'
             with self.assertRaises(ValueError):
                 sync.validate_photo_registry(self.registry('space.example', '1.0.0', photo), Path(directory))
+
+    def test_photo_registry_rejects_an_unpublished_remote_asset(self):
+        with tempfile.TemporaryDirectory() as directory:
+            photo = self.write_png(directory)
+            with self.assertRaisesRegex(ValueError, 'missing or invalid'):
+                sync.validate_photo_registry(self.registry('space.example', '1.0.0', photo),
+                                             Path(directory) / 'empty', manifest={})
+
+    def test_new_gallery_bytes_stage_candidate_manifest_without_public_metadata(self):
+        data = b'new immutable image'
+        name = 'library-' + hashlib.sha256(data).hexdigest() + '.jpg'
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            output = root / '.scratch' / 'gallery-upload'
+            candidate = sync.stage_missing_images({name: data}, {}, output, root=root)
+            self.assertEqual((output / name).read_bytes(), data)
+            staged = json.loads(candidate.read_text())
+            self.assertEqual(staged['assets'], [{
+                'path': 'assets/gallery/' + name,
+                'url': sync.GALLERY_BASE + name,
+                'byteCount': len(data),
+                'sha256': hashlib.sha256(data).hexdigest(),
+            }])
+            self.assertFalse((root / 'data' / 'gallery.json').exists())
+            with self.assertRaisesRegex(ValueError, 'ignored .scratch'):
+                sync.stage_missing_images({name: data}, {}, root / 'published', root=root)
 
     def test_series_covers_and_members_are_visible_same_kind(self):
         data = b'public thumbnail'

@@ -451,9 +451,17 @@ relighting or generative editing.
 | `promo/locus-1.4.2-move-poster.jpg` | frame at 5 s of the floor-move video | `5ec2def0e25de0ddb4ae4f13dc8d4d753bb2181f9b44bdbe9ad5224a5a1c8a93` |
 | `promo/locus-1.4.2-transition-poster.jpg` | frame at 25 s of the View-change video | `fc9dee506d5428afcaceebfeba157b7c77c3aa788fca5e6174a025eb4f298020` |
 
-## Gallery built-in previews — October 29, 2026
+## External media and Gallery previews — October 29, 2026
 
-The four `assets/gallery/` JPEGs are the unmodified catalog thumbnails extracted
+Large Gallery JPEGs and MP4s are external immutable objects, not repository
+files. Their former paths, public URLs, exact byte sizes and SHA-256 values are
+in `data/external-assets.json`. Gallery URLs use
+`https://media.enterlocus.net/gallery/<filename>` and MP4 URLs use
+`https://media.enterlocus.net/promo/<filename>`. Verify all published bytes with
+`python3 tools/external_assets.py --verify`; hydrate only a needed test fixture
+with `--hydrate <manifest path>`.
+
+The four former `assets/gallery/` JPEGs are the unmodified catalog thumbnails extracted
 from the verified `visionos-v1.4.3-build-1` bundled Place packages. They are static
 previews, not new Vision Pro captures or proof of physical rendering. Their exact
 SHA-256 values, dimensions, release versions and published credit metadata are
