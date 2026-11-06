@@ -66,6 +66,27 @@ class AuthoringLocalizationTests(unittest.TestCase):
             translated = build_site._translate_document(source, Path('make-a-room/index.html'), locale, catalog)
             self.assertEqual(code_text(translated), expected_code)
 
+    def test_tutorial_translation_preserves_commands_and_field_identifiers(self):
+        pages = ['first-place', 'tune-your-place', 'make-a-view', 'github-pages-skyboxes',
+                 'online-views', 'recline', 'experimental-mac-virtual-display',
+                 'experimental-room-animations', 'experimental-real-objects',
+                 'create-your-own-place', 'build-a-room', 'package-format',
+                 'asset-rights', 'make-a-black-hole-view']
+        for page in pages:
+            relative = Path(page) / 'index.html'
+            source = (ROOT / relative).read_text()
+            expected = code_text(source)
+            for locale in localization.TRANSLATED_LOCALES:
+                catalog = localization.load_catalog(ROOT, locale)
+                translated = build_site._translate_document(source, relative, locale, catalog)
+                with self.subTest(locale=locale, page=page):
+                    self.assertEqual(code_text(translated), expected)
+                for key in localization._sources_in_html(source):
+                    with self.subTest(locale=locale, page=page, source=key):
+                        self.assertTrue(localization.has_translation(key, catalog))
+                        self.assertEqual(Counter(PROTECTED.findall(key)),
+                                         Counter(PROTECTED.findall(catalog[key])))
+
     def test_touched_field_paragraphs_translate_connecting_prose(self):
         # These fragments sit between code spans in the expanded water reference.
         fragments = (') and', '), and', ', and it also\nrequires', ', radius is',

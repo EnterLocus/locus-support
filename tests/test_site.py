@@ -477,7 +477,7 @@ class PublicSiteTests(unittest.TestCase):
                 "Disc Brightness", "Doppler Beaming", "Turbulence Detail", "Disc Glow", "Flares",
                 "tools/black_hole", "NASA, ESA, CSA, and STScI", "aiGenerated", "Reduce Motion",
             ],
-            "make-a-room": ["1. Choose a concept image", "2. Plan the floor and seats", "3. Build and check the Room", "4. Import, review, and iterate", "Apple Vision Pro"],
+            "make-a-room": ["1. Generate a concept image", "2. Plan the floor and seats", "3. Build and check the Room", "4. Save the Room", "5. Import the Room", "6. Refine and import again", "Apple Vision Pro"],
             "github-pages-skyboxes": ["GitHub Pages", "image itself", "Save as View…"],
         }
 
@@ -1281,7 +1281,6 @@ class PublicSiteTests(unittest.TestCase):
             ROOT / "package-format" / "index.html",
             ROOT / "create-your-own-place" / "index.html",
             ROOT / "make-a-view" / "index.html",
-            ROOT / "make-a-room" / "index.html",
             ROOT / "build-a-room" / "index.html",
             ROOT / "faq" / "index.html",
             ROOT / "tutorials" / "index.html",
@@ -1323,7 +1322,7 @@ class PublicSiteTests(unittest.TestCase):
         ]:
             self.assertIn(field, guide + reference)
         for label in [
-            "View Brightness", "Contrast", "Color", "Room Lighting",
+            "View Brightness", "Contrast", "Color", "Ambient Light",
             "Add Sunlight", "Sun Position", "Sunlight Strength", "Turn the View",
         ]:
             self.assertIn(label, guide + faq)
@@ -1485,7 +1484,13 @@ class PublicSiteTests(unittest.TestCase):
         pages = ["index.html", "tutorials/index.html", "make-a-room/index.html",
                  "gothic-mountain-library/index.html", "first-place/index.html",
                  "tune-your-place/index.html", "glide/index.html",
-                 "whats-new/1-4-6/index.html"]
+                 "whats-new/1-4-6/index.html", "make-a-view/index.html",
+                 "github-pages-skyboxes/index.html", "online-views/index.html",
+                 "recline/index.html", "experimental-mac-virtual-display/index.html",
+                 "experimental-room-animations/index.html", "experimental-real-objects/index.html",
+                 "create-your-own-place/index.html", "build-a-room/index.html",
+                 "package-format/index.html", "asset-rights/index.html",
+                 "make-a-black-hole-view/index.html"]
         extracted = localization.extract_sources(ROOT)["pages"]
         for locale in localization.TRANSLATED_LOCALES:
             catalog = localization.load_catalog(ROOT, locale)
@@ -1756,8 +1761,9 @@ class PublicSiteTests(unittest.TestCase):
             ROOT / "package-format" / "index.html",
         ]:
             text = page.read_text()
-            self.assertIn("Requires Room v5 support.", text)
-            self.assertIn("1.1.0 builds (1–3)", text)
+            self.assertIn("Package v2", text)
+            self.assertIn("historical", text.lower())
+            self.assertNotIn("1.1.0 builds (1–3)", text)
             for filename in expected:
                 release = "https://github.com/EnterLocus/locus-support/releases/download/site-downloads-2026-11-05/"
                 self.assertIn(release + filename, text)
@@ -1837,7 +1843,7 @@ class PublicSiteTests(unittest.TestCase):
             "Room motion",
             "Motion → Room",
             "Cloud Fan Pavilion", "Plant Breeze", "0–0", "may change",
-            "Requires Locus 1.1.1 or later",
+            "historical",
             "https://github.com/EnterLocus/locus-support/releases/download/"
             f"site-downloads-2026-11-05/{filename}",
             "reserved-rights statement",

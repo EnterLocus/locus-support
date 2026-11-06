@@ -2124,6 +2124,48 @@
       "url": "https://media.enterlocus.net/tutorials/glide/video-poster-65cdb657fd7b.jpg",
       "byteCount": 173951,
       "sha256": "65cdb657fd7bbef7d9c11d0aa829b1f4bb5b6f6712acd997fecb9ff2d4056871"
+    },
+    {
+      "path": "assets/tutorials/places.png",
+      "url": "https://media.enterlocus.net/tutorials/places-5a8d592e5ac240418a809f101583b70a7d6254c5eb03add27652c70d6c9625bc.png",
+      "byteCount": 1208322,
+      "sha256": "5a8d592e5ac240418a809f101583b70a7d6254c5eb03add27652c70d6c9625bc"
+    },
+    {
+      "path": "assets/tutorials/seats.png",
+      "url": "https://media.enterlocus.net/tutorials/seats-bee51c18f9c8d2f60b16172e024f99a3418644035e0b90138b4d1c382dfd3bee.png",
+      "byteCount": 221964,
+      "sha256": "bee51c18f9c8d2f60b16172e024f99a3418644035e0b90138b4d1c382dfd3bee"
+    },
+    {
+      "path": "assets/tutorials/current-place.png",
+      "url": "https://media.enterlocus.net/tutorials/current-place-58c75c169a039447436634d18913006f47fbc20085dc63912efe55c0c352266e.png",
+      "byteCount": 361000,
+      "sha256": "58c75c169a039447436634d18913006f47fbc20085dc63912efe55c0c352266e"
+    },
+    {
+      "path": "assets/tutorials/move-seat.png",
+      "url": "https://media.enterlocus.net/tutorials/move-seat-0595a691ab3837898a78c3c989cc6252b8f555916b26e09810e2a12e04004e2c.png",
+      "byteCount": 248703,
+      "sha256": "0595a691ab3837898a78c3c989cc6252b8f555916b26e09810e2a12e04004e2c"
+    },
+    {
+      "path": "assets/tutorials/recline.png",
+      "url": "https://media.enterlocus.net/tutorials/recline-73f5f445a2fd3c3b58500a07601cfcb908afbdb8da31b2beb5eee3a03fe6eb07.png",
+      "byteCount": 251470,
+      "sha256": "73f5f445a2fd3c3b58500a07601cfcb908afbdb8da31b2beb5eee3a03fe6eb07"
+    },
+    {
+      "path": "assets/tutorials/real-objects.png",
+      "url": "https://media.enterlocus.net/tutorials/real-objects-77d5bb3f79c6e9e113a98b6875c46216710ae1a8a581d8f018621b09a9829e96.png",
+      "byteCount": 393512,
+      "sha256": "77d5bb3f79c6e9e113a98b6875c46216710ae1a8a581d8f018621b09a9829e96"
+    },
+    {
+      "path": "assets/tutorials/light-picture-view.png",
+      "url": "https://media.enterlocus.net/tutorials/light-picture-view-b7ae20240f3bb21780cf3f98731b2baae12053e3da0d16e49e038520b5c2d81a.png",
+      "byteCount": 144377,
+      "sha256": "b7ae20240f3bb21780cf3f98731b2baae12053e3da0d16e49e038520b5c2d81a"
     }
   ]
 }
