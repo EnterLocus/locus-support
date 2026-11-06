@@ -14,11 +14,16 @@ import hashlib
 import io
 import json
 import struct
+import sys
 import zipfile
 from pathlib import Path
 from typing import Any, Callable, Dict, List, Optional
 
 ROOT = Path(__file__).resolve().parents[1]
+TOOLS = ROOT / "tools"
+if str(TOOLS) not in sys.path:
+    sys.path.insert(0, str(TOOLS))
+import external_assets
 SPACE_ID = "space.minimal-reading-room"
 SEAT_ID = "seat.primary"
 
@@ -275,7 +280,7 @@ class Room:
         return usdz_bytes(layers)
 
     def thumbnail(self) -> bytes:
-        with zipfile.ZipFile(ROOT / "examples" / "atrium-loft-room.zip") as source:
+        with zipfile.ZipFile(external_assets.hydrate("examples/atrium-loft-room.zip")) as source:
             return source.read("thumbnail.jpg")
 
     # Flat compatibility ZIP -------------------------------------------------
