@@ -58,6 +58,12 @@ class ExternalAssetsTests(unittest.TestCase):
                             for item in promo))
         release = 'https://github.com/EnterLocus/locus-support/releases/download/site-downloads-2026-11-05/'
         self.assertTrue(all(item['url'] == release + Path(item['path']).name for item in examples))
+        legacy = {path: item for path, item in manifest.items() if path.startswith('legacy-examples/')}
+        self.assertEqual({path: (item['byteCount'], item['sha256']) for path, item in legacy.items()}, {
+            'legacy-examples/atrium-loft-room.zip': (8176551, '588c14c5b1226ec677fada112df1346bb105f0cbdb0344db9d1e1be03b3b9ff1'),
+            'legacy-examples/courtyard-gallery-room.zip': (8510411, '1d4be79f0c69c6d34e285729c02bd1870bf11133497277a1f1d94d7b0dd9f21f'),
+            'legacy-examples/horizon-atelier-room.zip': (8644903, 'dd3551316cae67c01a114a6130db37823f03dcebcec703f15a8fedf7dc291fe7'),
+        })
 
 
 if __name__ == '__main__':

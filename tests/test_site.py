@@ -719,6 +719,8 @@ class PublicSiteTests(unittest.TestCase):
                 "874810a5bfbd5f290a68220d6d797daa6a70fbd8054d6fd10581a4252b1ebb2f",
             "floating-islands-winter-garden-v120.jpg":
                 "e5129809db6f055ae36b78a8a6e0a1583e3edcfad4334496f014eb000305118c",
+            "locus-1.4.6-glide.jpg":
+                "3a6f55c7ba64646e6aa3c0e82acc10cbf00944d2dde13160f7bef8ac563a1c11",
         }
         screenshot_root = ROOT / "assets" / "screenshots"
         self.assertEqual(
