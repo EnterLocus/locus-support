@@ -97,13 +97,15 @@ def _translate_document(source: str, relative: Path, locale: str, catalog: dict[
             tag = tag.lower()
             if closing:
                 parts.append(part)
-                if stack and stack[-1] == tag:
+                if stack and stack[-1] in {tag, f'{tag}:skip'}:
                     stack.pop()
                 continue
             parts.append(_rewrite_tag(part, relative, locale, catalog))
             if tag not in VOID_TAGS and not part.rstrip().endswith('/>'):
-                stack.append(tag)
-        elif not any(tag in SKIPPED_TAGS for tag in stack):
+                attrs = {name.lower(): html.unescape(value)
+                         for name, _quote, value in _ATTR_RE.findall(part)}
+                stack.append(f'{tag}:skip' if attrs.get('data-locus-original') == 'true' else tag)
+        elif not any(tag in SKIPPED_TAGS or tag.endswith(':skip') for tag in stack):
             parts.append(_translated_value(part, catalog))
         else:
             parts.append(part)

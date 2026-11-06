@@ -10,6 +10,8 @@ import re
 LOCALES = ("en", "zh-Hans", "zh-Hant", "ja", "ko", "de", "fr", "es")
 TRANSLATED_LOCALES = LOCALES[1:]
 VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link", "meta", "param", "source", "track", "wbr"}
+# Historical source-language quotations remain verbatim; adjacent prose supplies
+# their localized meaning. The public site currently uses q only for that record.
 SKIPPED_TAGS = {"code", "pre", "script", "style"}
 ATTRIBUTE_NAMES = {"alt", "aria-label", "title", "placeholder"}
 
@@ -76,7 +78,7 @@ def _sources_in_html(source: str) -> set[str]:
             continue
         match = _TAG_RE.match(part)
         if not match:
-            if not any(tag in SKIPPED_TAGS for tag in stack):
+            if not any(tag in SKIPPED_TAGS or tag.endswith(':skip') for tag in stack):
                 key = _key(part)
                 if is_translatable_source(key):
                     strings.add(key)
@@ -84,18 +86,18 @@ def _sources_in_html(source: str) -> set[str]:
         closing, tag = match.groups()
         tag = tag.lower()
         if closing:
-            if stack and stack[-1] == tag:
+            if stack and stack[-1] in {tag, f'{tag}:skip'}:
                 stack.pop()
             continue
         attrs = {name.lower(): html.unescape(value) for name, _quote, value in _ATTR_RE.findall(part)}
-        if not any(parent in SKIPPED_TAGS for parent in stack):
+        if not any(parent in SKIPPED_TAGS or parent.endswith(':skip') for parent in stack):
             for name, value in attrs.items():
                 if _translatable_attribute(tag, attrs, name):
                     key = _key(value)
                     if is_translatable_source(key):
                         strings.add(key)
         if tag not in VOID_TAGS and not part.rstrip().endswith("/>"):
-            stack.append(tag)
+            stack.append(f'{tag}:skip' if attrs.get('data-locus-original') == 'true' else tag)
     return strings
 
 

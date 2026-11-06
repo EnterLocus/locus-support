@@ -96,3 +96,15 @@ class SiteLocalizationTests(unittest.TestCase):
         sources = localization._sources_in_html('''<p><span>↑</span><span>©</span><span>1.2.3</span>
             <span>Package v2</span><span>Locus</span><span>room-id_45</span><span>Words to translate</span><p>A legacy/simple flat ZIP preserves compatibility.</p><p>Download example-file.zip to begin.</p></p>''')
         self.assertEqual(sources, {'Words to translate', 'A legacy/simple flat ZIP preserves compatibility.', 'Download example-file.zip to begin.'})
+
+    def test_marked_historical_quote_stays_verbatim_but_normal_quotes_translate(self):
+        source = '''<!doctype html><html lang="en"><head><title>Quotes</title></head><body>
+        <header class="site-header"><nav aria-label="Primary navigation"></nav></header>
+        <main data-pagefind-body id="main"><q data-locus-original="true" lang="zh">原文</q><q>Ordinary quote</q></main></body></html>'''
+        catalog = {'Quotes': 'Citations', 'Ordinary quote': 'Citation ordinaire',
+                   'Language': 'Langue', 'Follow system': 'Suivre le système'}
+        self.assertNotIn('原文', localization._sources_in_html(source))
+        self.assertIn('Ordinary quote', localization._sources_in_html(source))
+        translated = build_site._translate_document(source, Path('quotes/index.html'), 'fr', catalog)
+        self.assertIn('>原文</q>', translated)
+        self.assertIn('>Citation ordinaire</q>', translated)
