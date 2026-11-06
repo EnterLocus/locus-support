@@ -455,7 +455,7 @@ class PublicSiteTests(unittest.TestCase):
             "first-place": [
                 "Choose a View and Room", "Virtual Space", "Room Portal",
                 "Know the Locus bar", "Open Browser", "Why did the virtual desk turn transparent?",
-                "Virtual Space buttons, left to right", "Windows &amp; Crown", "Hide desk",
+                "Core Virtual Space controls", "Windows &amp; Crown", "Hide desk",
                 "Customize Bar", "Add Seat", "Help &amp; About",
                 "Return to Places from Browser",
                 "Customize your Place",
@@ -1416,6 +1416,66 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(re.findall(r"^## (\d)\.", skill, re.MULTILINE), ["1", "2", "3", "4"])
         for rule in ["Never\nmodel or export a skybox sphere", "neutral gray lighting scaffold"]:
             self.assertIn(rule, skill)
+
+    def test_room_tutorial_refresh_keeps_the_historical_record_and_public_routes(self):
+        room = (ROOT / "make-a-room" / "index.html").read_text()
+        example = (ROOT / "gothic-mountain-library" / "index.html").read_text()
+        hub = (ROOT / "tutorials" / "index.html").read_text()
+        first_place = (ROOT / "first-place" / "index.html").read_text()
+
+        self.assertIn('href="https://enterlocus.com/make-a-room/"', room)
+        for anchor in ["basic", "five-files", "worked-example", "concept", "layout", "build", "device"]:
+            self.assertIn(f'id="{anchor}"', room)
+        for command in [
+            "git clone https://github.com/EnterLocus/locus-support.git",
+            "cd locus-support", "python3 tools/check_room.py --current-app-version",
+            "--renders /absolute/path/to/renders /absolute/path/to/MyRoom.locusplace",
+        ]:
+            self.assertIn(command, room)
+        self.assertIn("山中的一个大书库，很高的哥特式建筑。玻璃窗外是美丽的山景和远处的雪山。", room)
+        for record in ["You are an independent public-only Locus Room author.",
+                       "For any View you choose to provide, use a full 2:1 panorama",
+                       "The creator asks for the closest practical match to the original concept"]:
+            self.assertIn(record, room)
+        for asset in ["original-concept.jpg", "blender-render.jpg", "vision-pro-desk.jpg", "vision-pro-dining.jpg"]:
+            self.assertIn(asset, room)
+        self.assertIn("not proof of the paired Alpine View", room)
+        self.assertIn("lamp flicker", example.lower())
+
+        featured = hub[hub.index('class="tutorial-feature-grid"'):hub.index('</section>', hub.index('class="tutorial-feature-grid"'))]
+        self.assertLess(featured.index('href="../make-a-room/"'), featured.index('href="../first-place/"'))
+        self.assertNotIn('href="../online-views/"', featured)
+        self.assertLess(hub.index('Supplementary resource'), hub.index('href="../online-views/"'))
+        self.assertNotIn("at the left end of the Locus bar", first_place)
+        self.assertNotIn("Virtual Space buttons, left to right", first_place)
+        settings = first_place[first_place.index('id="settings"'):first_place.index('id="browser"')]
+        self.assertNotIn('<strong>Current Place</strong><span>', settings)
+        for module in ["Workspace", "Real Objects", "Browser Settings", "Setup &amp; Permissions",
+                       "Plans &amp; Purchases", "Help &amp; About"]:
+            self.assertIn(f'<strong>{module}</strong>', settings)
+
+    def test_refreshed_tutorial_pages_have_complete_localized_catalogs(self):
+        import localization
+
+        pages = ["index.html", "tutorials/index.html", "make-a-room/index.html",
+                 "gothic-mountain-library/index.html", "first-place/index.html",
+                 "tune-your-place/index.html"]
+        extracted = localization.extract_sources(ROOT)["pages"]
+        for locale in localization.TRANSLATED_LOCALES:
+            catalog = localization.load_catalog(ROOT, locale)
+            for page in pages:
+                with self.subTest(locale=locale, page=page):
+                    missing = [source for source in extracted[page]
+                               if not localization.has_translation(source, catalog)]
+                    self.assertEqual(missing, [])
+            for source in extracted['make-a-room/index.html']:
+                for identifier in ['reference.png', 'refs/textures', 'locus-support',
+                                   'build-original-locus-room', '.locusplace',
+                                   'STATUS.json', 'RESULT.md', 'contentVersion', 'pkill', 'PID']:
+                    if identifier in source:
+                        with self.subTest(locale=locale, identifier=identifier):
+                            self.assertIn(identifier, catalog[source])
+            self.assertEqual(catalog['CC BY-SA 3.0'], 'CC BY-SA 3.0')
 
     def test_sample_skill_references_are_portable_and_public_safe(self):
         source = ROOT / ".agents" / "skills" / "build-original-locus-room"

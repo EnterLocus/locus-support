@@ -12,6 +12,12 @@
 .doc-section p, .doc-section li { max-width: 70ch; color: #c3cdd2; line-height: 1.68; }
 .doc-section li + li { margin-top: .55rem; }
 .doc-section a, .callout a { color: var(--accent); }
+.doc-section details { margin: 1.5rem 0; padding: 1rem 1.15rem; border: 1px solid var(--line); border-radius: .9rem; background: rgba(255,255,255,.025); }
+.doc-section summary { cursor: pointer; color: var(--accent); font-weight: 700; }
+.doc-section details[open] summary { margin-bottom: 1rem; }
+.example-device-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1.5rem 0; }
+.example-device-grid .guide-figure { margin: 0; }
+.example-device-grid .guide-figure img { aspect-ratio: 16 / 9; object-fit: contain; background: #080d10; }
 .callout { margin: 1.5rem 0; padding: 1.2rem 1.3rem; border-left: 3px solid var(--accent); background: rgba(184,220,234,.07); border-radius: 0 .8rem .8rem 0; color: #dbe4e8; line-height: 1.55; }
 .callout.warning { border-left-color: var(--warm); background: rgba(239,173,154,.07); }
 .link-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
@@ -58,8 +64,8 @@ td { color: var(--muted); }
 .bar-closeup { min-height: clamp(180px, 30vw, 250px); background-image: url("./screenshots/bar-closeup-v120.jpg"); background-position: center; background-size: cover; }
 .bar-guide figcaption { padding: .9rem 1rem; color: var(--muted); font-size: .86rem; line-height: 1.5; }
 .bar-icon-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 1.1rem 0 1.8rem; }
-.bar-icon-card { position: relative; display: grid; grid-template-columns: 36px 1fr; gap: .8rem; align-items: center; min-height: 76px; padding: .85rem .9rem .85rem 2.4rem; border: 1px solid var(--line); border-radius: .9rem; background: rgba(255,255,255,.025); }
-.bar-icon-order { position: absolute; top: .48rem; left: .55rem; display: grid; width: 1.3rem; height: 1.3rem; place-items: center; border-radius: 50%; background: rgba(184,220,234,.11); color: var(--accent); font-size: .68rem; font-weight: 800; }
+.bar-icon-card { display: grid; grid-template-columns: 36px 1fr; gap: .8rem; align-items: center; min-height: 76px; padding: .85rem .9rem; border: 1px solid var(--line); border-radius: .9rem; background: rgba(255,255,255,.025); }
+.bar-icon-order { display: none; }
 .bar-icon { width: 32px; height: 32px; fill: none; stroke: var(--ink); stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.55; }
 .bar-icon-card strong { display: block; margin-bottom: .18rem; color: var(--ink); font-size: .96rem; }
 .bar-icon-card > span:last-child { color: var(--muted); font-size: .82rem; line-height: 1.4; }
@@ -84,7 +90,7 @@ td { color: var(--muted); }
 .tutorial-feature { display: flex; overflow: hidden; flex-direction: column; border: 1px solid var(--line); border-radius: 1.35rem; background: rgba(255,255,255,.03); text-decoration: none; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
 .tutorial-feature:hover, .tutorial-feature:focus-visible { border-color: rgba(184,220,234,.58); background: rgba(184,220,234,.055); transform: translateY(-2px); }
 .tutorial-feature:focus-visible, .tutorial-card:focus-visible, .tutorial-pagination a:focus-visible { outline: 2px solid var(--accent); outline-offset: .2rem; }
-.tutorial-feature img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.tutorial-feature img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
 .tutorial-feature-copy { display: flex; min-height: 184px; flex-direction: column; padding: 1.35rem; }
 .tutorial-feature-copy > strong { margin: .85rem 0 .5rem; font-size: clamp(1.35rem, 2.4vw, 2rem); letter-spacing: -.025em; }
 .tutorial-feature-copy > span:last-child { color: var(--muted); line-height: 1.55; }
@@ -144,7 +150,7 @@ td { color: var(--muted); }
   .page-main { padding-top: 3.5rem; }
   .page-header { margin-bottom: 3rem; }
   .page-header h1 { font-size: clamp(2.55rem, 11.5vw, 3.5rem); }
-  .link-grid { grid-template-columns: 1fr; }
+  .link-grid, .example-device-grid { grid-template-columns: 1fr; }
   .demo-grid { grid-template-columns: 1fr; }
   .try-view { grid-template-columns: 1fr; }
   .tutorial-header { grid-template-columns: 1fr; }
