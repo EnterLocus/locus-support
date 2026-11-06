@@ -2026,20 +2026,20 @@
     {
       "path": "legacy-examples/atrium-loft-room.zip",
       "url": "https://github.com/EnterLocus/locus-support/releases/download/site-downloads-2026-11-05/legacy-atrium-loft-room.zip",
-      "byteCount": 10091485,
-      "sha256": "9e448784ffe8814729b3eab5407173ed352b6dc1ca8d7451ee725c4fd6b74bf4"
+      "byteCount": 8176551,
+      "sha256": "588c14c5b1226ec677fada112df1346bb105f0cbdb0344db9d1e1be03b3b9ff1"
     },
     {
       "path": "legacy-examples/courtyard-gallery-room.zip",
       "url": "https://github.com/EnterLocus/locus-support/releases/download/site-downloads-2026-11-05/legacy-courtyard-gallery-room.zip",
-      "byteCount": 10670375,
-      "sha256": "6981d3e796d7844383aead0d842f3eb6cda6b88014cd4e87f9856875c3854fa3"
+      "byteCount": 8510411,
+      "sha256": "1d4be79f0c69c6d34e285729c02bd1870bf11133497277a1f1d94d7b0dd9f21f"
     },
     {
       "path": "legacy-examples/horizon-atelier-room.zip",
       "url": "https://github.com/EnterLocus/locus-support/releases/download/site-downloads-2026-11-05/legacy-horizon-atelier-room.zip",
-      "byteCount": 12897149,
-      "sha256": "cda45e58f29762a2e3a9eb44a2a3a1a824c33ec9e70531ef9fa33a7ecfa1bde9"
+      "byteCount": 8644903,
+      "sha256": "dd3551316cae67c01a114a6130db37823f03dcebcec703f15a8fedf7dc291fe7"
     }
   ]
 }
