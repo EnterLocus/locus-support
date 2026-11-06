@@ -1402,6 +1402,10 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("2. Plan the floor and seats (optional)", page)
         self.assertIn("iCloud Drive/Locus", page)
         self.assertIn("Show me the plan", page)
+        self.assertIn("Make a floor plan and seat layout", page)
+        self.assertNotIn("Draw a floor plan", page)
+        self.assertEqual(page.count('<strong class="prompt-label">Prompt for your agent</strong><q>'), 5)
+        self.assertIn("Copy them into your agent session and send them to the agent.", page)
         self.assertNotIn("python3 tools/check_room.py", page)
         self.assertNotIn("Blender MCP is not required", page)
 
@@ -1447,12 +1451,37 @@ class PublicSiteTests(unittest.TestCase):
                        "Plans &amp; Purchases", "Help &amp; About"]:
             self.assertIn(f'<strong>{module}</strong>', settings)
 
+    def test_glide_guide_is_connected_and_explains_actual_controls(self):
+        page = (ROOT / "glide/index.html").read_text()
+        parsed = PageParser()
+        parsed.feed(page)
+        self.assertIn('https://enterlocus.com/glide/', page)
+        for stage in ["start", "gesture", "compass", "toolbar", "settings"]:
+            self.assertIn('href="#' + stage + '"', page)
+            self.assertIn('id="' + stage + '"', page)
+        for setting in ["Presentation", "Speed", "Forward &amp; Back", "Up &amp; Down",
+                        "Turn", "Turn interval", "Allow Outside Move"]:
+            self.assertIn('<th scope="row">' + setting + '</th>', page)
+        self.assertIn("Allow Glide without opening Move.", page)
+        self.assertIn("If this is off, open the Move panel before gliding.", page)
+        self.assertIn("Glide is on by default", page)
+        self.assertIn("Release the pinch to stop.", page)
+        self.assertIn("https://enterlocus.com/glide/", (ROOT / "sitemap.xml").read_text())
+        for entry in ["tutorials/index.html", "first-place/index.html", "whats-new/1-4-6/index.html"]:
+            self.assertIn('glide/"', (ROOT / entry).read_text())
+        manifest = external_assets.load_manifest()
+        urls = {asset['url'] for asset in manifest.values()}
+        remote = [image['src'] for image in parsed.images if image['src'].startswith('https://')]
+        self.assertEqual(len(remote), 2)
+        self.assertTrue(set(remote).issubset(urls))
+
     def test_refreshed_tutorial_pages_have_complete_localized_catalogs(self):
         import localization
 
         pages = ["index.html", "tutorials/index.html", "make-a-room/index.html",
                  "gothic-mountain-library/index.html", "first-place/index.html",
-                 "tune-your-place/index.html"]
+                 "tune-your-place/index.html", "glide/index.html",
+                 "whats-new/1-4-6/index.html"]
         extracted = localization.extract_sources(ROOT)["pages"]
         for locale in localization.TRANSLATED_LOCALES:
             catalog = localization.load_catalog(ROOT, locale)

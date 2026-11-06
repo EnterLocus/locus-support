@@ -22,6 +22,12 @@
 .import-guide-crop { position: relative; overflow: hidden; aspect-ratio: 1.3; }
 .guide-figure .import-guide-crop > :is(img, svg) { position: absolute; width: 235%; max-width: none; height: auto; left: 50%; top: 50%; transform: translate(-50%, -55%); }
 .callout { margin: 1.5rem 0; padding: 1.2rem 1.3rem; border-left: 3px solid var(--accent); background: rgba(184,220,234,.07); border-radius: 0 .8rem .8rem 0; color: #dbe4e8; line-height: 1.55; }
+.prompt-label { display: block; margin-bottom: .65rem; color: var(--accent); font-size: .85rem; font-weight: 700; }
+.glide-compass-closeup { position: relative; overflow: hidden; aspect-ratio: 1.35; }
+.guide-figure .glide-compass-closeup img { position: absolute; width: 384%; max-width: none; height: auto; left: 50%; top: 50%; transform: translate(-69.3%, -82.9%); }
+.glide-settings-table { display: table; table-layout: fixed; }
+.glide-settings-table th:first-child { width: 30%; overflow-wrap: break-word; }
+.glide-settings-table td { overflow-wrap: break-word; }
 .callout.warning { border-left-color: var(--warm); background: rgba(239,173,154,.07); }
 .link-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
 .demo-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1rem; }
@@ -150,6 +156,7 @@ td { color: var(--muted); }
   .tutorial-card-grid, .tutorial-card-grid.tutorial-card-grid-three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 680px) {
+  .glide-settings-table th:first-child { width: 40%; }
   .import-guide-crop { aspect-ratio: 1.45; }
   .guide-figure .import-guide-crop > :is(img, svg) { width: 480%; }
   .guide-figure .import-guide-entry > :is(img, svg) { transform: translate(-64%, -36%); }
