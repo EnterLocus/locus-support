@@ -487,3 +487,13 @@ The website frames the native window with CSS and circles the two controls with 
 They are hosted in the `locus-site-media` R2 bucket, under `tutorials/build-room/`,
 with immutable cache headers. The paths, byte counts and SHA-256 digests are pinned
 in `data/external-assets.json` and were verified through public HTTPS readback.
+
+## Glide guide settings — November 5, 2026
+
+`glide/` reuses the owner-provided `screenshots/locus-1.4.6-glide.jpg`
+with a CSS close-up of the hand compass. The two settings images are real
+native Locus Dev (source `3892b23f`) visionOS 27 Simulator captures, cropped
+from 3840 × 2160 at x=1500, y=850, width=840, height=1200.
+They are hosted on R2 under `tutorials/glide/`; exact public bytes and hashes
+are pinned in `data/external-assets.json`. The settings fixture shows Medium
+speed; the article separately describes the shipped Slow default.
