@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
-  "appVersion": "1.4.4",
+  "appVersion": "1.4.7",
   "minimumOSVersion": "27.0.0",
-  "readerSource": "visionos-v1.4.4-build-1",
+  "readerSource": "visionos-v1.4.7-build-1",
   "capabilities": [
     "locus.view.media.v1",
     "locus.view.audio.v1",
@@ -19,12 +19,17 @@
     "locus.room.view-forward.v1",
     "locus.room.view-ground.v1",
     "locus.room.view-ground-keepout.v1",
+    "locus.room.view-ground-footprint.v1",
+    "locus.room.view-ground-footprint-height.v1",
     "locus.room.view-midground-visibility.v1",
     "locus.room.particle-effects.v1",
     "locus.room.lighting.baked-light-layers.v1",
+    "locus.room.texture-flow.v1",
     "locus.view.midground.v1",
     "locus.view.midground.wind-sway.v1",
     "locus.view.midground.wind-sway.wave.v1",
+    "locus.view.midground.texture-flow.v1",
+    "locus.view.midground.sky-anchor.v1",
     "locus.view.midground.water.v1",
     "locus.view.gpu-texture.v1",
     "locus.view.gpu-texture.v2",
@@ -46,6 +51,8 @@
     "locus.view.water.reflection-registration.v1",
     "locus.view.water.reflection-registration.layered.v1",
     "locus.view.water.bed-deepening.v1",
+    "locus.view.water.bed-deepening.macro.v1",
+    "locus.view.water.bed-deepening.open-water.v1",
     "locus.view.water.contact-calibration.v1",
     "locus.view.fireflies.v1",
     "locus.view.clouds.v1",
@@ -75,7 +82,8 @@
     "locus.view.water.v1",
     "locus.view.fireflies.v1",
     "locus.view.clouds.v1",
-    "locus.view.sun-path.v1"
+    "locus.view.sun-path.v1",
+    "locus.view.midground.texture-flow.v1"
   ],
   "builtIns": [
     {

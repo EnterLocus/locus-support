@@ -14,6 +14,25 @@ class GallerySiteTests(unittest.TestCase):
     def setUp(self):
         self.manifest = json.loads((ROOT / "data" / "gallery.json").read_text())
 
+    def test_lowpoly_pairs_are_exposed_in_their_public_series(self):
+        from tools import external_assets
+        groups = {
+            "low-poly-cabins": {"space.cloud-garden-cabin", "space.root-library", "space.layered-lodge"},
+            "low-poly-landscapes": {"destination.cloud-garden-isles", "destination.ancient-forest",
+                                    "destination.jungle-terraces"},
+        }
+        places = {place["id"]: place for place in self.manifest["places"]}
+        series = {group["id"]: group for group in self.manifest["series"]}
+        assets = external_assets.load_manifest()
+        by_url = {asset["url"]: asset for asset in assets.values()}
+        for group, members in groups.items():
+            self.assertEqual(set(series[group]["members"]), members)
+            for identity in members:
+                place = places[identity]
+                self.assertNotIn("previewRelease", place)
+                self.assertEqual(place["image"]["sha256"], by_url[place["image"]["url"]]["sha256"])
+                self.assertTrue(place["image"]["url"].startswith("https://media.enterlocus.net/gallery/"))
+
     def test_build_writes_localized_place_and_series_pages_with_seo(self):
         from tools import build_site, render_gallery
         with tempfile.TemporaryDirectory() as directory:
