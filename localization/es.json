@@ -3210,6 +3210,8 @@
     "Move the slider toward Lying down, or choose Reset to upright.": "Mueva el deslizador hacia Tumbado o elija Restablecer a erguido.",
     "Real Objects settings with Reveal Real Objects, active-object count, Import a Real Object, and object cards": "Ajustes de Objetos reales con Mostrar objetos reales, recuento de objetos activos, Importar un objeto real y tarjetas de objetos",
     "Real Objects settings show the active-object limit and the Import a Real Object button.": "Los ajustes de Objetos reales muestran el límite de objetos activos y el botón Importar un objeto real.",
-    "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "El edificio, la planta animada y el clip de animación están incluidos en un único archivo USDZ autónomo."
+    "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "El edificio, la planta animada y el clip de animación están incluidos en un único archivo USDZ autónomo.",
+    "Leave out": "Omita",
+    "and the baker picks a brightness for you;": "y la herramienta elegirá el brillo automáticamente;"
   }
 }

@@ -2857,7 +2857,7 @@
     ", and set": "，并设置",
     ", choose a photo on black space, or outpaint a margin.": "，请选择黑色背景的照片，或向外扩展边缘。",
     ", for example with": "，例如使用",
-    ", link the image page, and describe your changes in": "，链接图像页面，并在",
+    ", link the image page, and describe your changes in": "，链接图片页面，并将修改内容填写到",
     ", or set": "，或设置",
     ", then fades the photo to nothing toward its edges.": "，然后让照片朝边缘逐渐淡出。",
     ", then open": "，然后打开",
@@ -3171,7 +3171,7 @@
     "out and the baker picks a brightness for you;": "，烘焙工具就会自动选择亮度；",
     "picks the image row that sits at the centre, from 0 (top) to 1 (bottom); 0.5 centres it.": "选择图像中位于视野中央的行，范围从 0（顶部）到 1（底部）；0.5 表示居中。",
     "place the photo’s centre, in degrees. Yaw 0 is straight ahead and positive yaw turns right. Put the photo you want behind the hole at the hole’s own direction (yaw 0, elevation 12 in the example recipe), and a second one exactly opposite: yaw + 180°, elevation negated.": "以度数指定照片中心的位置。偏航角 0 表示正前方，正值向右转。把要放在黑洞后方的照片设为黑洞自身的方向（示例配方中偏航角为 0，仰角为 12），另一张则放在正对面：偏航角加 180°，仰角取负值。",
-    "plus NumPy and Pillow. On a Mac, install them with": "，以及 NumPy 和 Pillow。在 Mac 上可以通过以下命令安装：",
+    "plus NumPy and Pillow. On a Mac, install them with": "以及 NumPy 和 Pillow。在 Mac 上可以通过以下命令安装：",
     "profile. You sit still at a fixed distance from a non-spinning black hole, so everything about how gravity bends light can be worked out once, on your computer, before the View ever reaches Locus. Locus then only animates what changes over time: the gas orbiting in the disc, faster near the inner edge, a slow drift of the distant sky, short-lived flares and a soft glow. It never traces a ray on Apple Vision Pro.": "配置。你静止坐在距离非旋转黑洞固定的位置，因此在景观进入 Locus 之前，就能在电脑上一次性计算引力如何弯曲光线。Locus 只负责呈现随时间变化的部分：吸积盘中绕行的气体（内侧更快）、远处天空的缓慢漂移、短暂的耀斑与柔和辉光。Apple Vision Pro 无需进行光线追踪。",
     "renders 1920 × 1080 views centred on the hole at those seconds, into": "会在这些时间点渲染以黑洞为中心的 1920 × 1080 画面，并保存到",
     "scales it. The": "控制其缩放。",
@@ -3192,12 +3192,12 @@
     "weic2207b": "weic2207b",
     "weic2212a": "weic2212a",
     "weic2326a": "weic2326a",
-    "what was generated. Locus rejects": "生成了哪些内容。Locus 会拒绝",
+    "what was generated. Locus rejects": "中说明生成了哪些内容。Locus 会拒绝",
     "when you want to author that pair’s opening, orientation, exposure, title, or supported mode. The Experience refers to the View and Room by stable ID; without it, Locus derives its default pairings. Import the combined file once through": "，以设置该组合的开口、方向、曝光、标题或支持的模式。体验通过固定 ID 引用景观和房间；如果没有体验，Locus 会自动生成默认组合。通过以下入口一次性导入合并的文件：",
     "with the field to fix, and no archive is written. You can check an archive again at any time with": "，并指出需要修正的字段，同时不会生成归档文件。之后也可以随时用以下命令重新检查归档：",
     "with the settings below, or keep the example values for your first bake.": "，或者第一次烘焙时沿用示例数值。",
-    "without a provider.": "，无需使用生成服务。",
-    "writes a numbered PNG sequence, and": "会写出带编号的 PNG 序列，而",
+    "without a provider.": "但没有填写提供方的情况。",
+    "writes a numbered PNG sequence, and": "会输出带编号的 PNG 序列，也会生成",
     "you are allowed to use, such as images from": "，例如来自以下来源的图片：",
     "yourself; Disc Brightness in Edit View also helps.": "；“编辑景观”中的“吸积盘亮度”也可以帮助调整。",
     "“NASA, ESA, CSA, and STScI”": "“NASA, ESA, CSA, and STScI”",
@@ -3213,6 +3213,8 @@
     "Real Objects settings with Reveal Real Objects, active-object count, Import a Real Object, and object cards": "真实物品设置，包含显示真实物品、已启用物品数量、导入真实物品和物品卡片",
     "Real Objects settings show the active-object limit and the Import a Real Object button.": "真实物品设置中显示了启用数量上限和“导入真实物品”按钮。",
     "Cloud Fan Pavilion demonstrates this experimental field:": "云扇亭展示了这个实验性字段：",
-    "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "建筑、动态植物和动画片段一起封装在一个完整独立的 USDZ 中。"
+    "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "建筑、动态植物和动画片段一起封装在一个完整独立的 USDZ 中。",
+    "Leave out": "省略",
+    "and the baker picks a brightness for you;": "，烘焙工具就会自动选择亮度；"
   }
 }

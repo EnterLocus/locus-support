@@ -3210,6 +3210,8 @@
     "Real Objects settings with Reveal Real Objects, active-object count, Import a Real Object, and object cards": "実物の設定画面。実物を表示、有効な実物の数、実物を読み込むボタン、実物のカードが表示されている",
     "Real Objects settings show the active-object limit and the Import a Real Object button.": "実物の設定で、有効にできる数の上限と「実物を読み込む」ボタンを確認できます。",
     "Cloud Fan Pavilion demonstrates this experimental field:": "クラウドファンパビリオンは、この実験的なフィールドの使用例です：",
-    "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "建物、動く植物、アニメーションクリップを、外部ファイルが不要な 1 つの USDZ にまとめています。"
+    "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "建物、動く植物、アニメーションクリップを、外部ファイルが不要な 1 つの USDZ にまとめています。",
+    "Leave out": "省略するフィールド：",
+    "and the baker picks a brightness for you;": "。省略するとベイクツールが明るさを自動で選びます。"
   }
 }
