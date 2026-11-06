@@ -14,14 +14,14 @@ test('Gallery folds eligible Series, then unfolds matching Places for filters an
   await page.goto('/gallery/');
   await expect(page.getByRole('heading', { name: 'Find a place for what’s next.' })).toBeVisible();
   await expect(page.locator('[data-gallery-card]')).toHaveCount(placeCount);
-  await expect(page.locator('[data-gallery-series-card]')).toHaveCount(8);
+  await expect(page.locator('[data-gallery-series-card]')).toHaveCount(10);
   await expect(page.locator('[data-gallery-card][data-series-member]:visible')).toHaveCount(0);
   await expect(page.locator('[data-gallery-status]')).toHaveText(`${placeCount} places`);
   await expect(page.getByRole('button', { name: 'Series' })).toHaveCount(0);
   expect((await page.locator('.gallery-grid > :visible img').first().boundingBox()).y).toBeLessThan(700);
 
   await page.getByRole('button', { name: 'Views' }).click();
-  await expect(page.locator('[data-gallery-series-card][data-type="view"]:visible')).toHaveCount(5);
+  await expect(page.locator('[data-gallery-series-card][data-type="view"]:visible')).toHaveCount(6);
   await expect(page.locator('[data-gallery-card][data-series-member]:visible')).toHaveCount(0);
   await expect(page.locator('[data-gallery-status]')).toHaveText(`${viewCount} places`);
 
@@ -35,7 +35,7 @@ test('Gallery folds eligible Series, then unfolds matching Places for filters an
 
   await page.getByRole('button', { name: 'Reset filters' }).last().click();
   await expect(search).toHaveValue('');
-  await expect(page.locator('[data-gallery-series-card]:visible')).toHaveCount(8);
+  await expect(page.locator('[data-gallery-series-card]:visible')).toHaveCount(10);
   await page.getByRole('button', { name: 'Rooms' }).click();
   await expect(page.locator('[data-gallery-status]')).toHaveText(`${roomCount} places`);
   await page.getByRole('button', { name: 'With sound' }).click();
@@ -121,7 +121,8 @@ test('catalog thumbnails cover cards while Series context survives photo browsin
     const back = page.locator('[data-gallery-back]');
     await expect(back).toHaveAttribute('href', `${locale}/gallery/series/mansions/`);
     await expect(page.locator('[data-gallery-photo-thumb]')).toHaveCount(displayAlbum(place).length);
-    await page.locator('[data-gallery-photo-thumb]').nth(1).click();
+    // Current-revision Rooms may have only their catalog cover; never borrow older captures.
+    await page.locator('[data-gallery-photo-thumb]').nth(Math.min(1, displayAlbum(place).length - 1)).click();
     await page.locator('[data-gallery-photo-open]').click();
     await page.keyboard.press('Escape');
     await page.reload();
@@ -135,7 +136,7 @@ test('catalog thumbnails cover cards while Series context survives photo browsin
   }
 });
 
-test('the two approved new Rooms explain availability and retain native albums', async ({ page }) => {
+test('the two approved Rooms explain availability and show only their current-revision album', async ({ page }) => {
   const ids = ['space.japanese-courtyard-mansion', 'space.pacific-palapa-house'];
   const rooms = gallery.places.filter(place => ids.includes(place.id));
   expect(rooms).toHaveLength(ids.length);
@@ -151,6 +152,6 @@ test('the two approved new Rooms explain availability and retain native albums',
       await expect(page.locator('.gallery-cta')).toBeVisible();
     }
     await expect(page.locator('[data-gallery-photo-thumb]')).toHaveCount(displayAlbum(place).length);
-    expect(place.photos.length).toBeGreaterThanOrEqual(3);
+    await expect(page.locator('[data-gallery-photo-open]')).toHaveAttribute('aria-label', `打开第 1 张，共 ${displayAlbum(place).length} 张`);
   }
 });

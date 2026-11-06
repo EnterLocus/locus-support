@@ -8,7 +8,7 @@ for (const viewport of [{ width: 390, height: 844 }, { width: 1280, height: 900 
     // Long SHA-256 digests and model entity names must wrap rather than make
     // the entire article wider than a phone viewport.
     expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBeLessThanOrEqual(viewport.width);
-    await expect(page.locator('main img')).toHaveCount(4);
+    await expect(page.locator('main img')).toHaveCount(3);
     expect(await page.locator('main img').evaluateAll(images => images.every(img => img.complete && img.naturalWidth > 0))).toBe(true);
     await page.screenshot({ path: `.scratch/room-example-${viewport.width}-full.png`, fullPage: true });
     await page.screenshot({ path: `.scratch/room-example-${viewport.width}.png` });

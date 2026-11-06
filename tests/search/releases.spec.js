@@ -14,8 +14,8 @@ for (const width of [1440, 390, 320]) {
     await page.goto('/#whats-new', { waitUntil: 'domcontentloaded' });
     const entry = page.locator('.whats-new-latest');
     await expect(entry).toContainText('New in Locus 1.4.6');
-    await expect(page.locator('#whats-new-title')).toHaveText('Move your desk to outer space.');
-    await expect(page.locator('#whats-new [data-youtube-id="ZSZR2hGGOCk"], #whats-new iframe[src*="/embed/ZSZR2hGGOCk?"]')).toHaveCount(1);
+    await expect(page.locator('.hero .app-store-link')).toBeVisible();
+    await expect(page.locator('.hero iframe')).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
     await entry.scrollIntoViewIfNeeded();
     await page.screenshot({ path: `.scratch/release-home-${width}.png` });

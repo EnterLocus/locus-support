@@ -10,21 +10,11 @@ const releases = [
   ['/whats-new/1-0/', 'zg7WsyTJT4Q'],
 ];
 
-test('visible videos autoplay muted without stealing focus and retain blocked-provider fallback', async ({ page }) => {
+test('homepage offers an explicit film action without starting an embedded player', async ({ page }) => {
   await page.setViewportSize({ width: 390, height: 844 });
-  // Simulate an unavailable external provider, while running the real site.
-  await page.route('https://www.youtube-nocookie.com/**', route => route.abort());
   await page.goto('/');
-  const card = page.locator('.hero-video-card');
-  await card.scrollIntoViewIfNeeded();
-  const iframe = card.locator('iframe');
-  await expect(iframe).toHaveCount(1);
-  await expect(iframe).toHaveAttribute('src', /embed\/NJuKWTs2BRw\?autoplay=1&mute=1&playsinline=1/);
-  await expect(iframe).toHaveAttribute('title', 'Play Locus promotional video');
-  await expect(iframe).not.toBeFocused();
-  await expect(page.getByRole('link', { name: 'Watch on YouTube', exact: true }).first()).toHaveAttribute('href', 'https://www.youtube.com/watch?v=NJuKWTs2BRw');
-  // The second film is still below the viewport and has not connected.
-  await expect(page.getByRole('link', { name: 'Play the Locus 1.4 film', exact: true })).toHaveCount(1);
+  await expect(page.getByRole('link', { name: 'Play Locus promotional video', exact: true })).toHaveAttribute('href', 'https://www.youtube.com/watch?v=NJuKWTs2BRw');
+  await expect(page.locator('iframe')).toHaveCount(0);
 });
 
 test('mobile release films autoplay muted when scrolled into view and fit the viewport', async ({ page }) => {
@@ -42,15 +32,15 @@ test('mobile release films autoplay muted when scrolled into view and fit the vi
   }
 });
 
-test('without visibility observation, keyboard activation still loads a muted player', async ({ page }) => {
+test('without visibility observation, release-film keyboard activation still loads a muted player', async ({ page }) => {
   await page.addInitScript(() => { delete window.IntersectionObserver; });
   await page.route('https://www.youtube-nocookie.com/**', route => route.abort());
-  await page.goto('/');
+  await page.goto('/whats-new/1-4-0/');
   await expect(page.locator('.youtube-video iframe')).toHaveCount(0);
-  const play = page.getByRole('link', { name: 'Play Locus promotional video', exact: true });
+  const play = page.locator('a[data-youtube-id="ZSZR2hGGOCk"]');
   await play.focus();
   await page.keyboard.press('Enter');
-  await expect(page.locator('.hero-video-card iframe')).toHaveAttribute('src', /autoplay=1&mute=1/);
+  await expect(page.locator('.youtube-video iframe')).toHaveAttribute('src', /autoplay=1&mute=1/);
 });
 
 test('without JavaScript, posters remain direct YouTube links', async ({ browser }) => {
@@ -62,21 +52,17 @@ test('without JavaScript, posters remain direct YouTube links', async ({ browser
   await context.close();
 });
 
-test('the homepage films stay inside the page on small phones', async ({ page }) => {
-  await page.route('https://www.youtube-nocookie.com/**', route => route.abort());
-  // The 200px floor the player needs turns into a 356px minimum width through
-  // the 16:9 ratio; the hero grid must not let that widen the page.
+test('homepage download and film actions stay inside small phone viewports', async ({ page }) => {
   for (const width of [320, 360, 375, 390]) {
     await page.setViewportSize({ width, height: 800 });
     await page.goto('/');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `no sideways scroll at ${width}px`).toBeTruthy();
-    const main = await page.locator('main').boundingBox();
-    const card = await page.locator('.hero-video-card').boundingBox();
-    expect(card.x + card.width, `hero card ends with the page column at ${width}px`).toBeLessThanOrEqual(main.x + main.width + 0.5);
-    const featureCard = await page.locator('.whats-new-feature .whats-new-video-card').boundingBox();
-    expect(featureCard.x + featureCard.width, `Real Objects film ends with the page column at ${width}px`).toBeLessThanOrEqual(main.x + main.width + 0.5);
-    const video = await page.locator('.hero-video-card .youtube-video').boundingBox();
-    expect(video.width).toBeGreaterThanOrEqual(200);
-    expect(video.height).toBeGreaterThanOrEqual(200);
+    for (const selector of ['.hero .app-store-link', '.hero .film-link']) {
+      const action = page.locator(selector);
+      await expect(action).toBeInViewport();
+      const bounds = await action.boundingBox();
+      expect(bounds.x).toBeGreaterThanOrEqual(0);
+      expect(bounds.x + bounds.width).toBeLessThanOrEqual(width);
+    }
   }
 });
