@@ -18,6 +18,8 @@
 .example-device-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1.5rem 0; }
 .example-device-grid .guide-figure { margin: 0; }
 .example-device-grid .guide-figure img { aspect-ratio: 16 / 9; object-fit: contain; background: #080d10; }
+.import-guide-crop { position: relative; overflow: hidden; aspect-ratio: 1.3; }
+.guide-figure .import-guide-crop img { position: absolute; width: 235%; max-width: none; height: auto; left: 50%; top: 50%; transform: translate(-50%, -55%); }
 .callout { margin: 1.5rem 0; padding: 1.2rem 1.3rem; border-left: 3px solid var(--accent); background: rgba(184,220,234,.07); border-radius: 0 .8rem .8rem 0; color: #dbe4e8; line-height: 1.55; }
 .callout.warning { border-left-color: var(--warm); background: rgba(239,173,154,.07); }
 .link-grid { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 1rem; }
@@ -147,6 +149,10 @@ td { color: var(--muted); }
   .tutorial-card-grid, .tutorial-card-grid.tutorial-card-grid-three { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 680px) {
+  .import-guide-crop { aspect-ratio: 1.45; }
+  .guide-figure .import-guide-crop img { width: 480%; }
+  .guide-figure .import-guide-entry img { transform: translate(-64%, -36%); }
+  .guide-figure .import-guide-files img { transform: translate(-60%, -51%); }
   .page-main { padding-top: 3.5rem; }
   .page-header { margin-bottom: 3rem; }
   .page-header h1 { font-size: clamp(2.55rem, 11.5vw, 3.5rem); }
