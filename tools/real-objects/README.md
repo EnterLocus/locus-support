@@ -2,7 +2,7 @@
 
 Mac command-line tools for the [Real Objects tutorial](https://enterlocus.com/experimental-real-objects/):
 turn a scan of something you own into an ARKit `.referenceobject` that Locus can import. They sit
-between the iPhone capture and Locus Settings › Workspace › Experimental › Real Objects. Nothing
+between the iPhone capture and Locus Settings › All Settings › Real Objects. Nothing
 here ships inside the app.
 
 | Tool | Language | What it does |
@@ -84,8 +84,8 @@ Standard training took about 5.5 hours on an M4 Pro Mac mini. Create ML's extend
 best but takes several times longer, and needs at least 43 GB free on the Mac's **startup disk** —
 Create ML checks the system temporary volume for this, and setting `TMPDIR` does not move it.
 
-A reference object trained with Xcode 27 needs visionOS 27 or later; Locus itself keeps supporting
-earlier visionOS releases for everything else.
+A reference object trained with Xcode 27 needs visionOS 27 or later. The current Locus app runs on
+visionOS 27.
 
 ## Tests
 

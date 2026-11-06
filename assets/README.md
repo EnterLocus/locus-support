@@ -504,3 +504,21 @@ The owner’s public EnterLocus video `i_BRGaZ4Il0` is embedded at the start of
 `glide/` using the site’s existing YouTube player. The poster is the unmodified
 1280 × 720 YouTube thumbnail (`maxresdefault.jpg`) for the same video.
 It is hosted on R2 and pinned in `data/external-assets.json` (SHA-256 `65cdb657fd7bbef7d9c11d0aa829b1f4bb5b6f6712acd997fecb9ff2d4056871`).
+
+## Tutorial interface screenshots — November 6, 2026
+
+Seven accepted visionOS Simulator captures from Locus Dev source `3892b23f` replace
+the older tutorial figures for Places, Seats, Current Place, Move Seat, Light &amp;
+Picture, Recline, and Real Objects. They are unchanged PNGs stored as immutable
+objects in `locus-site-media/tutorials/`; their public HTTPS URLs, byte counts, and
+SHA-256 values are pinned in `data/external-assets.json`.
+
+| Tutorial image | Dimensions | SHA-256 |
+| --- | --- | --- |
+| Places | 1655 × 1265 | `5a8d592e5ac240418a809f101583b70a7d6254c5eb03add27652c70d6c9625bc` |
+| Seats | 620 × 800 | `bee51c18f9c8d2f60b16172e024f99a3418644035e0b90138b4d1c382dfd3bee` |
+| Current Place | 785 × 1030 | `58c75c169a039447436634d18913006f47fbc20085dc63912efe55c0c352266e` |
+| Move Seat | 690 × 980 | `0595a691ab3837898a78c3c989cc6252b8f555916b26e09810e2a12e04004e2c` |
+| Light &amp; Picture — View | 790 × 950 | `b7ae20240f3bb21780cf3f98731b2baae12053e3da0d16e49e038520b5c2d81a` |
+| Recline | 790 × 950 | `73f5f445a2fd3c3b58500a07601cfcb908afbdb8da31b2beb5eee3a03fe6eb07` |
+| Real Objects | 1655 × 1265 | `77d5bb3f79c6e9e113a98b6875c46216710ae1a8a581d8f018621b09a9829e96` |
