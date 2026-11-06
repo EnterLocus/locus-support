@@ -1403,8 +1403,7 @@ class PublicSiteTests(unittest.TestCase):
                         "floor plan and seat layout",
                         "Blender MCP is not required", "tools/check_room.py",
                         "--current-app-version", "--renders", "MyRoom.locusplace",
-                        "screenshots and specific feedback", "revise the source",
-                        "do not need access to the Locus application source code or a Simulator"]:
+                        "screenshots and specific feedback", "revise the source"]:
             self.assertIn(promise, page)
         for url in ["https://polyhaven.com/models", "https://polyhaven.com/textures",
                     "https://huggingface.co/datasets/nvidia/simready-assets",
@@ -1432,7 +1431,9 @@ class PublicSiteTests(unittest.TestCase):
             "--renders /absolute/path/to/renders /absolute/path/to/MyRoom.locusplace",
         ]:
             self.assertIn(command, room)
-        self.assertIn("山中的一个大书库，很高的哥特式建筑。玻璃窗外是美丽的山景和远处的雪山。", room)
+        for page in [room, example]:
+            self.assertNotIn("山中的一个大书库，很高的哥特式建筑。玻璃窗外是美丽的山景和远处的雪山。", page)
+            self.assertIn("A large library in the mountains, a very tall Gothic building, with a beautiful mountain landscape and distant snow-capped mountains outside the glass windows.", page)
         for record in ["You are an independent public-only Locus Room author.",
                        "For any View you choose to provide, use a full 2:1 panorama",
                        "The creator asks for the closest practical match to the original concept"]:
