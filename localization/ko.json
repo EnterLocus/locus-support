@@ -2824,6 +2824,8 @@
     "Glide presentation and speed settings": "글라이드 표시 방식과 속도 설정",
     "Glide movement and turning settings": "글라이드 이동과 회전 설정",
     "Choose the presentation and speed that suit you.": "자신에게 맞는 표시 방식과 속도를 선택하세요.",
-    "Adjust movement, turning, and access outside the Move panel.": "이동과 회전, 이동 패널을 열지 않고 글라이드를 사용할지 설정하세요."
+    "Adjust movement, turning, and access outside the Move panel.": "이동과 회전, 이동 패널을 열지 않고 글라이드를 사용할지 설정하세요.",
+    "Play the Glide demo video": "글라이드 시연 동영상 재생",
+    "Glide in action": "글라이드 시연"
   }
 }
