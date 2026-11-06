@@ -2856,7 +2856,7 @@
     ", choose a photo on black space, or outpaint a margin.": "，請選擇黑色背景的照片，或向外擴展邊緣。",
     ", for example with": "，例如使用",
     ", including": "，包括",
-    ", link the image page, and describe your changes in": "，連結影像頁面，並在",
+    ", link the image page, and describe your changes in": "，連結影像頁面，並將修改內容填寫到",
     ", or set": "，或設定",
     ", so it can be delivered, replaced, and removed independently. A combined Package v2 archive remains supported for content that intentionally shares one lifecycle, but is not the default Room workflow.": "，從而可以獨立交付、替換和移除。有意讓內容作為整體維護時，仍可使用合併的 Package v2 壓縮包；但常規房間製作流程預設分開打包。",
     ", then choose Cloud Fan Pavilion.": "，然後選擇雲扇亭。",
@@ -3092,7 +3092,7 @@
     "place the photo’s centre, in degrees. Yaw 0 is straight ahead and positive yaw turns right. Put the photo you want behind the hole at the hole’s own direction (yaw 0, elevation 12 in the example recipe), and a second one exactly opposite: yaw + 180°, elevation negated.": "以度數指定照片中心的位置。偏航角 0 表示正前方，正值向右轉。把要放在黑洞後方的照片設為黑洞自身的方向（示例配方中偏航角為 0，仰角為 12），另一張則放在正對面：偏航角加 180°，仰角取負值。",
     "Places → Import → Import a View": "空間 → 匯入 → 匯入景觀",
     "Places → Rooms": "空間 → 房間",
-    "plus NumPy and Pillow. On a Mac, install them with": "，以及 NumPy 和 Pillow。在 Mac 上可以通過以下命令安裝：",
+    "plus NumPy and Pillow. On a Mac, install them with": "以及 NumPy 和 Pillow。在 Mac 上可以透過以下指令安裝：",
     "Prefer nebulae on black space.": "優先選擇以黑色太空為背景的星雲。",
     "Preview frames": "預覽畫面",
     "profile. You sit still at a fixed distance from a non-spinning black hole, so everything about how gravity bends light can be worked out once, on your computer, before the View ever reaches Locus. Locus then only animates what changes over time: the gas orbiting in the disc, faster near the inner edge, a slow drift of the distant sky, short-lived flares and a soft glow. It never traces a ray on Apple Vision Pro.": "配置。你靜止坐在距離非旋轉黑洞固定的位置，因此在景觀進入 Locus 之前，就能在電腦上一次性計算引力如何彎曲光線。Locus 只負責呈現隨時間變化的部分：吸積盤中繞行的氣體（內側更快）、遠處天空的緩慢漂移、短暫的閃焰與柔和輝光。Apple Vision Pro 無需進行光線追蹤。",
@@ -3186,7 +3186,7 @@
     "weic2212a": "weic2212a",
     "weic2326a": "weic2326a",
     "What to record about rights when you publish your own work.": "發佈作品時需要記錄的權利資訊。",
-    "what was generated. Locus rejects": "生成了哪些內容。Locus 會拒絕",
+    "what was generated. Locus rejects": "中說明生成了哪些內容。Locus 會拒絕",
     "What you are making": "你將製作的內容",
     "When the whole sky turns, some people feel as if they are moving. Keep the drift slow: the example uses 0.3 °/s, a full turn every 20 minutes. Visitors can set Sky Drift to 0 in Edit View. When Reduce Motion is on, or Animated View is off, Locus stops all black-hole motion and shows your still panorama instead. Keep flares moderate too, since bright pulses can be tiring over a long session. Try your View on Apple Vision Pro for a while before you share it.": "整片天空轉動時，有些人會感覺自己也在移動。請保持緩慢漂移：示例使用 0.3 °/秒，每 20 分鐘轉一圈。使用者可以在“編輯景觀”中將“天空漂移”設為 0。開啓“減弱動態效果”或關閉“動態景觀”時，Locus 會停止所有黑洞動態，改為顯示靜態全景圖。閃焰也應適度，長時間觀看明亮脈衝可能令人疲勞。分享前，請先在 Apple Vision Pro 上體驗一段時間。",
     "when you want to author that pair’s opening, orientation, exposure, title, or supported mode. The Experience refers to the View and Room by stable ID; without it, Locus derives its default pairings. Import the combined file once through": "，以設定該組合的開口、方向、曝光、標題或支援的模式。體驗通過固定 ID 引用景觀和房間；如果沒有體驗，Locus 會自動生成預設組合。通過以下入口一次性匯入合併的檔案：",
@@ -3194,9 +3194,9 @@
     "WIDTH": "寬度",
     "with the field to fix, and no archive is written. You can check an archive again at any time with": "，並指出需要修正的字段，同時不會生成封存檔案。之後也可以隨時用以下命令重新檢查封存：",
     "with the settings below, or keep the example values for your first bake.": "，或者第一次烘焙時沿用示例數值。",
-    "without a provider.": "，無需使用生成服務。",
+    "without a provider.": "但未填寫提供方的情況。",
     "Write a recipe": "編寫配方",
-    "writes a numbered PNG sequence, and": "會寫出帶編號的 PNG 序列，而",
+    "writes a numbered PNG sequence, and": "會輸出帶編號的 PNG 序列，也會生成",
     "YAW, ELEVATION": "偏航角、仰角",
     "you are allowed to use, such as images from": "，例如來自以下來源的圖片：",
     "Your photos keep their own licences.": "照片仍遵循各自的許可。",
@@ -3212,6 +3212,8 @@
     "Real Objects settings with Reveal Real Objects, active-object count, Import a Real Object, and object cards": "真實物品設定，包含顯示真實物品、已啟用物品數量、匯入真實物品和物品卡片",
     "Real Objects settings show the active-object limit and the Import a Real Object button.": "真實物品設定中顯示了啟用數量上限和「匯入真實物品」按鈕。",
     "Cloud Fan Pavilion demonstrates this experimental field:": "雲扇亭展示了這個實驗性欄位：",
-    "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "建築、動態植物與動畫片段一起封裝在一個完整獨立的 USDZ 中。"
+    "The building, animated plant, and animation clip are packaged together in one self-contained USDZ.": "建築、動態植物與動畫片段一起封裝在一個完整獨立的 USDZ 中。",
+    "Leave out": "省略",
+    "and the baker picks a brightness for you;": "，烘焙工具就會自動選擇亮度；"
   }
 }
