@@ -19,6 +19,7 @@ import zlib
 ROOT = pathlib.Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import localization
+import external_assets
 COMMUNITY_URL = "https://www.reddit.com/r/EnterLocus/"
 DISCUSSIONS_URL = "https://github.com/EnterLocus/locus-support/discussions"
 BUG_URL = "https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml"
@@ -33,6 +34,10 @@ PROMO_1_1_3_POSTER_SHA256 = "4131719643adafa062d50174d6ba88247b739e14a2fdfbb14e9
 # The Locus 1.4 film on the EnterLocus YouTube channel.
 LOCUS_1_4_FILM_ID = "ZSZR2hGGOCk"
 LOCUS_1_4_POSTER_SHA256 = "f17d08e362e8ba7c54e875f22f6f63549da7d3a7e16855047633dd73c1d67faa"
+
+
+def external_fixture(path):
+    return external_assets.hydrate(path)
 
 
 class PageParser(html.parser.HTMLParser):
@@ -160,7 +165,7 @@ class PublicSiteTests(unittest.TestCase):
     def test_view_zip_does_not_inherit_the_direct_image_4k_minimum(self):
         with tempfile.TemporaryDirectory() as directory:
             archive = pathlib.Path(directory) / "small-view.zip"
-            with zipfile.ZipFile(ROOT / "examples/demo-room.zip") as source:
+            with zipfile.ZipFile(external_fixture("examples/demo-room.zip")) as source:
                 provenance = source.read("provenance.json")
             with zipfile.ZipFile(archive, "w") as output:
                 output.writestr("view.json", json.dumps({"formatVersion": 1,
@@ -186,7 +191,7 @@ class PublicSiteTests(unittest.TestCase):
         ]:
             self.assertIn(term, reference)
 
-        with zipfile.ZipFile(ROOT / "examples/demo-room.zip") as source:
+        with zipfile.ZipFile(external_fixture("examples/demo-room.zip")) as source:
             provenance = source.read("provenance.json")
 
         def build(path, sound, audio=("waterfall.m4a",)):
@@ -813,10 +818,9 @@ class PublicSiteTests(unittest.TestCase):
                 "fc9dee506d5428afcaceebfeba157b7c77c3aa788fca5e6174a025eb4f298020",
         }
         promo_root = ROOT / "assets" / "promo"
-        self.assertEqual(
-            {path.name for path in promo_root.iterdir() if path.is_file()},
-            set(expected),
-        )
+        self.assertEqual({path.name for path in promo_root.iterdir()
+                          if path.is_file() and path.suffix != '.mp4'},
+                         {name for name in expected if not name.endswith('.mp4')})
 
         homepage = (ROOT / "index.html").read_text()
         parser = PageParser()
@@ -853,7 +857,7 @@ class PublicSiteTests(unittest.TestCase):
             "locus-1.1.3-promo-24s.mp4",
         ]:
             with self.subTest(movie=movie_name):
-                movie = (promo_root / movie_name).read_bytes()
+                movie = external_fixture("assets/promo/" + movie_name).read_bytes()
                 avcc = movie.index(b"avcC")
                 self.assertEqual(movie[avcc + 4], 1)  # AVCDecoderConfigurationRecord
                 self.assertEqual(movie[avcc + 5], 100)  # High Profile
@@ -875,7 +879,8 @@ class PublicSiteTests(unittest.TestCase):
         for filename, digest in expected.items():
             with self.subTest(filename=filename):
                 self.assertEqual(
-                    hashlib.sha256((promo_root / filename).read_bytes()).hexdigest(),
+                    hashlib.sha256((external_fixture("assets/promo/" + filename)
+                                   if filename.endswith('.mp4') else promo_root / filename).read_bytes()).hexdigest(),
                     digest,
                 )
 
@@ -1478,7 +1483,7 @@ class PublicSiteTests(unittest.TestCase):
 
         with tempfile.TemporaryDirectory(prefix="locus-public-skill-test-") as directory:
             temporary = pathlib.Path(directory)
-            with zipfile.ZipFile(ROOT / "examples" / "atrium-loft-room.zip") as archive:
+            with zipfile.ZipFile(external_fixture("examples/atrium-loft-room.zip")) as archive:
                 scene = temporary / "source.usdz"
                 thumbnail = temporary / "source.jpg"
                 scene.write_bytes(archive.read("scene.usdz"))
@@ -1578,14 +1583,9 @@ class PublicSiteTests(unittest.TestCase):
                 "light_groups": 5,
             },
         }
-        examples = ROOT / "examples"
-        self.assertEqual(
-            {path.name for path in examples.glob("*.zip")},
-            set(expected) | {"demo-room.zip"},
-        )
-        readme = (examples / "README.md").read_text()
+        readme = (ROOT / "examples" / "README.md").read_text()
         for filename, details in expected.items():
-            demo = examples / filename
+            demo = external_fixture("examples/" + filename)
             with self.subTest(filename=filename):
                 self.assertEqual(demo.stat().st_size, details["size"])
                 self.assertEqual(
@@ -1659,8 +1659,8 @@ class PublicSiteTests(unittest.TestCase):
                 )
 
         self.assertEqual(
-            (examples / "demo-room.zip").read_bytes(),
-            (examples / "atrium-loft-room.zip").read_bytes(),
+            external_fixture("examples/demo-room.zip").read_bytes(),
+            external_fixture("examples/atrium-loft-room.zip").read_bytes(),
         )
         for page in [
             ROOT / "build-a-room" / "index.html",
@@ -1671,15 +1671,15 @@ class PublicSiteTests(unittest.TestCase):
             self.assertIn("Requires Room v5 support.", text)
             self.assertIn("1.1.0 builds (1–3)", text)
             for filename in expected:
-                self.assertIn(f"../examples/{filename}", text)
+                release = "https://github.com/EnterLocus/locus-support/releases/download/site-downloads-2026-11-05/"
+                self.assertIn(release + filename, text)
                 self.assertIn(
-                    "https://raw.githubusercontent.com/EnterLocus/locus-support/"
-                    f"4017745d9f3b6001f00d325ad2610da0a4e171cb/examples/{filename}", text,
+                    release + "legacy-" + filename, text,
                 )
 
     def test_free_animation_sample_is_pinned_complete_and_clearly_labeled(self):
         filename = "cloud-fan-pavilion.locusplace"
-        demo = ROOT / "examples" / filename
+        demo = external_fixture("examples/" + filename)
         self.assertEqual(demo.stat().st_size, 22_181_369)
         self.assertEqual(
             hashlib.sha256(demo.read_bytes()).hexdigest(),
@@ -1750,7 +1750,8 @@ class PublicSiteTests(unittest.TestCase):
             "Motion → Room",
             "Cloud Fan Pavilion", "Plant Breeze", "0–0", "may change",
             "Requires Locus 1.1.1 or later",
-            f"../examples/{filename}",
+            "https://github.com/EnterLocus/locus-support/releases/download/"
+            f"site-downloads-2026-11-05/{filename}",
             "reserved-rights statement",
             "Embedded Poly Haven textures retain CC0 1.0",
         ]:
@@ -1871,7 +1872,7 @@ class PublicSiteTests(unittest.TestCase):
 
 class PublicRoomBindingTests(unittest.TestCase):
     def make_room(self, root, layers):
-        with zipfile.ZipFile(ROOT / "examples/atrium-loft-room.zip") as source:
+        with zipfile.ZipFile(external_fixture("examples/atrium-loft-room.zip")) as source:
             files = {name: source.read(name) for name in source.namelist()}
         manifest = json.loads(files["space.json"])
         for key in ["spatialAdaptation", "lighting", "ambientAnimations", "rendering"]:
@@ -1926,7 +1927,7 @@ class PublicRoomBindingTests(unittest.TestCase):
             for name in ["validate_locus_asset.py", "content_localization.py", "point_lights.py", "package_sound.py", "room_bindings.py"]:
                 shutil.copyfile(ROOT / "tools" / name, root / name)
             shutil.copytree(ROOT / "tools" / "room-bindings", root / "room-bindings")
-            with zipfile.ZipFile(ROOT / "examples/atrium-loft-room.zip") as source:
+            with zipfile.ZipFile(external_fixture("examples/atrium-loft-room.zip")) as source:
                 files = {name: source.read(name) for name in source.namelist()}
             manifest = json.loads(files["space.json"])
             manifest["formatVersion"] = 5
@@ -1969,7 +1970,7 @@ def Xform "Root" {
             shutil.copytree(ROOT / "tools" / "room-bindings", root / "room-bindings")
             source = root / "room"
             source.mkdir()
-            with zipfile.ZipFile(ROOT / "examples/atrium-loft-room.zip") as archive:
+            with zipfile.ZipFile(external_fixture("examples/atrium-loft-room.zip")) as archive:
                 archive.extractall(source)
             manifest = json.loads((source / "space.json").read_text())
             manifest["formatVersion"] = 5

@@ -201,14 +201,43 @@ thumbnail remains the public catalog preview.
 Run `python3 tools/sync_gallery.py` to refresh the snapshot, or add `--check` to
 check for drift without writing. The command reads the marketed US App Store
 version, verifies the descriptor/archive byte count and SHA-256, checks Production
-snapshot identity, and verifies the chosen thumbnails inside that archive. Those
-selected public previews are copied byte for byte into `assets/gallery/` (the
-catalog's internal thumbnail paths are not independent HTTP endpoints). It
+snapshot identity, and verifies the chosen thumbnails inside that archive. Gallery
+previews are immutable objects at `https://media.enterlocus.net/gallery/`; their
+paths, URLs, sizes and SHA-256 values live in `data/external-assets.json`, not in
+this repository. It
 selects the App's newest visible revision using both audience/watermark and the
 reviewed reader's App, OS and capability requirements. Selected previews that
 would only offer “Update App” are omitted, without advertising a superseded
 download. It never reads the Dev catalog or downloads
 Place packages.
+
+When a Production refresh introduces a new catalog thumbnail, first stage it
+outside Git, for example
+`python3 tools/sync_gallery.py --asset-output .scratch/gallery-upload`. Upload
+each staged JPEG/PNG with Wrangler to `locus-site-media/gallery/<filename>` using
+immutable cache headers, for example `wrangler r2 object put
+locus-site-media/gallery/<filename> --file .scratch/gallery-upload/<filename>
+--remote --content-type image/jpeg --cache-control 'public, max-age=31536000,
+immutable'` (use `image/png` for PNG). The staged directory contains a candidate
+`external-assets.json`; run `python3 tools/external_assets.py --manifest
+.scratch/gallery-upload/external-assets.json --verify` for HTTPS size/SHA-256
+readback, install that verified manifest, then rerun `sync_gallery.py` to write
+metadata. Until that second run, `data/gallery.json` is unchanged. Never copy
+these objects back to `assets/gallery/`; the command accepts staging only below
+ignored `.scratch/`. Existing photo registry entries may be reviewed from a
+temporary local directory, but committed Gallery metadata always uses the remote
+immutable URL.
+
+`python3 tools/external_assets.py --verify` downloads and verifies every external
+asset, including Release downloads. `--hydrate examples/atrium-loft-room.zip`
+downloads only that declared fixture into ignored `.scratch/external-assets/` for
+local tools and tests. It never restores a binary to its old tracked path.
+
+The five current public example downloads use the immutable
+`site-downloads-2026-11-05` GitHub Release. The three frozen historical Room
+downloads use its `legacy-` assets. Source links were updated accordingly; GitHub
+Pages cannot provide HTTP redirects for removed binary URLs, and this site does
+not create HTML placeholders at those binary paths.
 
 An owner-reviewed `data/gallery-preview-releases.json` may name an exact future
 Room revision for an upcoming-release Gallery preview. Each entry pins the Place
@@ -228,8 +257,10 @@ older reviewed profile conservative until that update; an unpublished profile
 causes synchronization to fail. The website's normal build uses the committed
 snapshot, so a network outage does not remove the Gallery.
 
-The **Refresh public Gallery** workflow is currently disabled. When separately
-enabled, it checks Production daily and on manual request. Changes go to an
+The **Refresh public Gallery** workflow is manual-only. It must not be scheduled:
+a newly extracted immutable thumbnail requires the documented local upload and
+HTTPS readback before metadata publication. When manually run for an already
+published asset set, changes go to an
 `automation/gallery` pull request for review; the
 workflow never merges or publishes them. If repository policy disallows Actions
 from creating pull requests, the job retains the refreshed review branch and

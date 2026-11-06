@@ -129,17 +129,18 @@ class GallerySiteTests(unittest.TestCase):
     def test_photo_gallery_prepends_localized_cover_without_mutating_native_captures(self):
         from tools import render_gallery
         place = next(item for item in self.manifest["places"] if item["title"] == "Event Horizon: Ring").copy()
-        place["image"] = {"url": "/assets/gallery/cover.jpg", "width": 1200, "height": 800,
+        base = "https://media.enterlocus.net/gallery/"
+        place["image"] = {"url": base + "cover.jpg", "width": 1200, "height": 800,
                           "sha256": "c" * 64, "captureKind": "visionos-simulator"}
         place["photos"] = [
-            {"url": "/assets/gallery/capture-front.jpg", "width": 1000, "height": 800,
+            {"url": base + "capture-front.jpg", "width": 1000, "height": 800,
              "sha256": "a" * 64, "label": "front", "captureKind": "visionos-simulator"},
-            {"url": "/assets/gallery/capture-left.jpg", "width": 1000, "height": 800,
+            {"url": base + "capture-left.jpg", "width": 1000, "height": 800,
              "sha256": "b" * 64, "label": "left", "captureKind": "visionos-simulator"},
         ]
         album = render_gallery.display_album(place, "en")
         self.assertEqual([photo["url"] for photo in album], [
-            "/assets/gallery/cover.jpg", "/assets/gallery/capture-front.jpg", "/assets/gallery/capture-left.jpg"])
+            base + "cover.jpg", base + "capture-front.jpg", base + "capture-left.jpg"])
         self.assertEqual(album[0]["caption"], "Cover image")
         self.assertNotIn("captureKind", album[0])
         self.assertEqual(album[1]["captureKind"], "visionos-simulator")
@@ -148,17 +149,17 @@ class GallerySiteTests(unittest.TestCase):
         rendered = render_gallery.place_page(place, self.manifest, "en")
         self.assertIn('data-gallery-photos', rendered)
         self.assertIn('data-gallery-photo-caption>Cover image', rendered)
-        self.assertIn('/assets/gallery/capture-front.jpg', rendered)
+        self.assertIn(base + 'capture-front.jpg', rendered)
         self.assertIn('Rendered in Locus · Simulator', rendered)
         self.assertIn('data-gallery-photo-dialog', rendered)
         self.assertIn('data-template="Photo {current} of {total}"', rendered)
         self.assertIn('data-template="Open photo {current} of {total}"', rendered)
         card = render_gallery.place_card(place, "en")
         self.assertIn(place["image"]["url"], card)
-        self.assertNotIn('/assets/gallery/capture-front.jpg', card)
+        self.assertNotIn(base + 'capture-front.jpg', card)
         series_card = render_gallery.series_card({"id": "test", "title": "Test"}, [place], place["type"], "en")
         self.assertIn(place["image"]["url"], series_card)
-        self.assertNotIn('/assets/gallery/capture-front.jpg', series_card)
+        self.assertNotIn(base + 'capture-front.jpg', series_card)
         no_photos = place.copy()
         no_photos.pop("photos")
         self.assertEqual(len(render_gallery.display_album(no_photos, "en")), 1)
