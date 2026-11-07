@@ -1,0 +1,29 @@
+{
+  "generated_html": 1088,
+  "route_viewport_checks": 1496,
+  "viewport_widths": [
+    1440,
+    1024,
+    768,
+    390
+  ],
+  "english_routes_per_width": 136,
+  "all_localized_routes_at_390": 1088,
+  "failed_layouts": 0,
+  "missing_local_link_targets": 0,
+  "shared_shell_missing": 0,
+  "new_generic_social_cover_routes": 1024,
+  "retained_article_specific_cover_routes": 64,
+  "legacy_generic_cover_routes": 0,
+  "checks": {
+    "python_site_and_build": 24,
+    "authoring_localization": 5,
+    "focused_playwright": 10
+  },
+  "limits": [
+    "Only sampled routes have human screenshot review.",
+    "WhatsApp client cache refresh was not exercised.",
+    "Field-reference translation backlog remains.",
+    "Documentation is incompatible with the taste landing-page layout checker."
+  ]
+}

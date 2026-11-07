@@ -88,7 +88,7 @@ const document = `<!doctype html>
   <meta name="theme-color" content="#111111">
   <title>${escapeHtml(pageTitle)} — Locus</title>
   <meta name="description" content="The complete Locus Package v2 and legacy compatibility ZIP authoring reference.">
-  <meta property="og:title" content="${escapeHtml(pageTitle)}"><meta property="og:description" content="Exact Package v2 structure, capabilities, fields, limits, and compatibility formats."><meta property="og:type" content="website"><meta property="og:url" content="${canonical}"><meta property="og:image" content="https://enterlocus.com/assets/og.png"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/og.png">
+  <meta property="og:title" content="${escapeHtml(pageTitle)}"><meta property="og:description" content="Exact Package v2 structure, capabilities, fields, limits, and compatibility formats."><meta property="og:type" content="website"><meta property="og:url" content="${canonical}"><meta property="og:image" content="https://enterlocus.com/assets/social-preview-spatial-20261106.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/social-preview-spatial-20261106.jpg">
   <link rel="canonical" href="${canonical}"><link rel="icon" type="image/png" href="../../assets/favicon.png"><link rel="apple-touch-icon" href="../../assets/apple-touch-icon.png">
   <link rel="stylesheet" href="../../assets/site.css"><link rel="stylesheet" href="../../assets/docs.css"><link rel="stylesheet" href="../../assets/reference.css">
   <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>

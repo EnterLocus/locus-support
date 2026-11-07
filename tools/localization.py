@@ -65,7 +65,7 @@ def _translatable_attribute(tag: str, attrs: dict[str, str], name: str) -> bool:
     if tag != "meta" or name != "content":
         return False
     kind = (attrs.get("name") or attrs.get("property") or "").lower()
-    return kind in {"description", "og:title", "og:description", "twitter:title", "twitter:description"}
+    return kind in {"description", "og:title", "og:description", "og:image:alt", "twitter:title", "twitter:description", "twitter:image:alt"}
 
 
 def _sources_in_html(source: str) -> set[str]:

@@ -69,3 +69,19 @@ test('localized homepages keep their actions in the first screen', async ({ page
     await page.screenshot({ path: `.scratch/design/home-${locale}.png` });
   }
 });
+
+test('long document titles and asset filenames stay readable on narrow phones', async ({ page }) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const locale of ['', 'zh-Hans', 'zh-Hant', 'ja', 'ko', 'de', 'fr', 'es']) {
+      await page.goto(`${locale ? '/' + locale : ''}/asset-rights/`);
+      await page.evaluate(() => document.fonts.ready);
+      await expect(page.locator('#demo-room-notices')).toContainText('white_plaster_02_Diffuse_Subtle.jpg');
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+    }
+    await page.goto('/de/privacy/');
+    await page.evaluate(() => document.fonts.ready);
+    await expect(page.locator('h1')).toHaveText('Locus Datenschutzerklärung');
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+  }
+});

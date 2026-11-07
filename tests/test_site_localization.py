@@ -12,7 +12,7 @@ import localization
 
 
 PAGE = '''<!doctype html><!-- Translator note --><html lang="en"><head><title>Welcome</title>
-<meta name="description" content="A description"><link rel="canonical" href="https://enterlocus.com/"></head>
+<meta name="description" content="A description"><meta property="og:image:alt" content="A picture"><meta name="twitter:image:alt" content="A picture"><link rel="canonical" href="https://enterlocus.com/"></head>
 <body><header class="site-header"><nav aria-label="Primary navigation"><a href="./faq/">FAQ</a></nav></header>
 <main data-pagefind-body id="main"><p>Hello <strong>world</strong>.</p><img src="./assets/pic.png" alt="A picture">
 <a href="./.agents/skills/example.md">Skill</a><code>example-file.zip</code><pre>do not translate</pre></main></body></html>'''
@@ -52,6 +52,8 @@ class SiteLocalizationTests(unittest.TestCase):
         self.assertIn('<html lang="fr">', generated)
         self.assertIn('<title>Bienvenue</title>', generated)
         self.assertIn('content="Une description"', generated)
+        self.assertIn('property="og:image:alt" content="Une image"', generated)
+        self.assertIn('name="twitter:image:alt" content="Une image"', generated)
         self.assertIn('href="/fr/faq/"', generated)
         self.assertIn('src="/assets/pic.png"', generated)
         self.assertIn('href="/.agents/skills/example.md"', generated)
