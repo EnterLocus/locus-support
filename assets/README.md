@@ -1,5 +1,17 @@
 # Public-site asset record
 
+`social-preview-spatial-20261106.jpg` is the current 1200 x 630 social cover,
+composed from the same real Locus Winter Garden product image used by the
+homepage (`promo/locus-1.2-hero-poster.jpg`), with Onest typography. It was
+rendered from `tools/social-preview.html.in` in Chromium at 1200 x 630 and
+exported as JPEG on November 6, 2026. The centered branding also fits a square
+thumbnail crop. No generated scenery or invented product UI was added.
+SHA-256: `b121bf7d780b5ad1b13cf1d31f01dfca6b70534cc81047b8c420b41c3ba97a21`.
+The filename is versioned; keep older social images available for existing
+shares. To reproduce, serve the template with the repository's `/assets/`
+routes, wait for Onest and the photograph to load, and export its 1200 x 630
+frame as JPEG. The original source-image provenance below still applies.
+
 `og.png` is a 1200 x 630 social preview generated specifically for Locus with
 OpenAI ImageGen on August 24, 2026. It contains no third-party source image,
 private room capture, account data, or product screenshot. SHA-256:

@@ -9,6 +9,21 @@ const displayAlbum = place => [place.image, ...(place.photos || []).filter(photo
   photo.url !== place.image.url && (!place.image.sha256 || photo.sha256 !== place.image.sha256)
 )];
 
+test('long German Place titles keep the image and copy inside the phone viewport', async ({ page }) => {
+  for (const width of [320, 390]) {
+    await page.setViewportSize({ width, height: 844 });
+    for (const slug of ['dusk-mountain', 'jungle-terraces', 'moonlit-volcanic-lake', 'rainwashed-terraces', 'tropical-shallow-bay']) {
+      await page.goto(`/de/gallery/place/${slug}/`);
+      await page.evaluate(() => document.fonts.ready);
+      await expect(page.locator('h1')).toBeVisible();
+      expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+      const image = page.locator('.gallery-detail-media');
+      const frame = await image.boundingBox();
+      expect(frame.x + frame.width).toBeLessThanOrEqual(width);
+    }
+  }
+});
+
 test('Gallery folds eligible Series, then unfolds matching Places for filters and search', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/gallery/');

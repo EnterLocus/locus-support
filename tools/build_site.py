@@ -73,7 +73,7 @@ def _rewrite_tag(part: str, relative: Path, locale: str, catalog: dict[str, str]
         lower = name.lower()
         meta_copy = (attrs.get('name') or attrs.get('property') or '').lower()
         if lower in ATTRIBUTE_NAMES or (tag == 'meta' and lower == 'content' and meta_copy in {
-                'description', 'og:title', 'og:description', 'twitter:title', 'twitter:description'}):
+                'description', 'og:title', 'og:description', 'og:image:alt', 'twitter:title', 'twitter:description', 'twitter:image:alt'}):
             value = _translated_value(value, catalog)
         elif locale != 'en' and lower in {'href', 'src'}:
             value = _local_url(value, relative, locale)

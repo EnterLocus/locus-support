@@ -1,0 +1,17 @@
+<!doctype html>
+<!-- Render at 1200 x 630; export a JPEG. Uses the same real Locus image as the homepage. -->
+<html lang="en"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500&display=swap">
+<style>
+* { box-sizing: border-box; }
+html, body { width: 1200px; height: 630px; margin: 0; overflow: hidden; background: #191a1c; }
+body { position: relative; color: #f4f5f7; font-family: Onest, sans-serif; }
+img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; }
+body::after { content: ''; position: absolute; inset: 0; background: linear-gradient(180deg,rgba(0,0,0,.48),rgba(0,0,0,.14) 45%,transparent 70%); }
+.brand { position: absolute; z-index: 1; top: 56px; left: 285px; width: 630px; text-align: center; }
+h1 { margin: 0; font-size: 104px; font-weight: 500; letter-spacing: -.06em; line-height: 1.1; }
+p { margin: 13px 0 0; font-size: 27px; font-weight: 400; letter-spacing: -.025em; }
+</style></head><body>
+<img src="/assets/promo/locus-1.2-hero-poster.jpg" alt="Winter Garden overlooking a sunlit sea">
+<div class="brand"><h1>Locus</h1><p>A workspace. With a view.</p></div>
+</body></html>
