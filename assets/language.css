@@ -1,7 +1,7 @@
-.language-picker { position: relative; overflow: hidden; display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.75rem; height: 2.75rem; border: 1px solid var(--line); border-radius: .55rem; background: var(--surface); color: var(--ink); }
-.language-picker select { position: absolute; inset: 0; width: 100%; height: 100%; min-width: 0; max-width: 100%; margin: 0; padding: 0; border: 0; appearance: none; -webkit-appearance: none; opacity: 0; cursor: pointer; font: inherit; color: var(--ink); background: var(--surface); }
-.language-icon { display: block; width: 1.25rem; height: 1.25rem; fill: none; stroke: currentColor; stroke-width: 1.6; pointer-events: none; }
-.language-picker:hover { border-color: var(--muted); background: var(--surface-2); }
-.language-picker:focus-within { outline: 2px solid var(--accent); outline-offset: 3px; }
-.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-@media (max-width: 760px) { .language-picker { margin-left: auto; } }
+.language-picker { position:relative; display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; width:40px; height:40px; color:var(--ink); background:transparent; border:1px solid var(--line); border-radius:50%; }
+.language-picker select { position:absolute; inset:0; width:100%; height:100%; min-width:0; margin:0; padding:0; border:0; appearance:none; opacity:0; cursor:pointer; font:inherit; color:var(--ink); background:var(--surface); }
+.language-icon { display:block; width:18px; height:18px; fill:none; stroke:currentColor; stroke-width:1.4; pointer-events:none; }
+.language-picker:hover { border-color:var(--muted); }
+.language-picker:focus-within { outline:2px solid var(--accent); outline-offset:4px; }
+.visually-hidden { position:absolute; width:1px; height:1px; margin:-1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap; }
+@media(max-width:1100px) { .site-header.is-enhanced .language-picker { border:0; border-radius:0; justify-content:flex-start; width:100%; height:48px; margin-top:16px; gap:12px; } .site-header.is-enhanced .language-picker select { position:static; appearance:auto; opacity:1; padding:6px 0; width:100%; max-width:270px; font-size:16px; } .site-header.is-enhanced .language-icon { flex:none; order:-1; } }

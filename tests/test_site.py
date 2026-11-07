@@ -258,10 +258,7 @@ class PublicSiteTests(unittest.TestCase):
                 self.assertIn(COMMUNITY_URL, parser.links)
 
         home = (ROOT / "index.html").read_text()
-        self.assertGreaterEqual(home.count(COMMUNITY_URL), 3)
-        self.assertIn("Made with Locus", home)
-        self.assertIn("Share your skyboxes, spaces, and environments", home)
-        self.assertIn("Explore the Community", home)
+        self.assertGreaterEqual(home.count(COMMUNITY_URL), 2)
 
         readme = " ".join((ROOT / "README.md").read_text().split())
         self.assertIn(COMMUNITY_URL, readme)
@@ -401,6 +398,11 @@ class PublicSiteTests(unittest.TestCase):
                 self.assertIn('aria-label="Locus home"', page)
 
     def test_local_links_resolve_inside_the_published_tree(self):
+        gallery = json.loads((ROOT / 'data/gallery.json').read_text())
+        generated = {(ROOT / 'gallery/place' / item['slug'] / 'index.html').resolve()
+                     for item in gallery['places']}
+        generated.update((ROOT / 'gallery/series' / item['id'] / 'index.html').resolve()
+                         for item in gallery.get('series', []))
         for path in html_files():
             parser = PageParser()
             parser.feed(path.read_text())
@@ -413,7 +415,7 @@ class PublicSiteTests(unittest.TestCase):
                     target = target / "index.html"
                 with self.subTest(page=path.relative_to(ROOT), href=href):
                     self.assertTrue(target.is_relative_to(ROOT.resolve()))
-                    self.assertTrue(target.is_file(), target)
+                    self.assertTrue(target.is_file() or target in generated, target)
 
     def test_private_app_source_boundary_remains_explicit(self):
         self.assertFalse((ROOT / "LICENSE").exists())
@@ -552,7 +554,7 @@ class PublicSiteTests(unittest.TestCase):
         homepage = (ROOT / "index.html").read_text()
         faq = (ROOT / "faq" / "index.html").read_text()
 
-        for text in [guide, homepage, faq]:
+        for text in [guide, faq]:
             self.assertIn("4,096 × 2,048", text)
             self.assertIn("2:1", text)
 
@@ -584,7 +586,7 @@ class PublicSiteTests(unittest.TestCase):
             self.assertNotIn("Use as View", text)
         self.assertIn("Why does a 360° image not show the View prompt?", faq)
         self.assertIn("Command-N", faq)
-        self.assertIn('href="./online-views/"', homepage)
+        self.assertIn('href="../online-views/"', (ROOT / 'tutorials/index.html').read_text())
         self.assertIn('href="../online-views/"', faq)
         self.assertIn(
             "https://enterlocus.com/online-views/",
@@ -737,7 +739,10 @@ class PublicSiteTests(unittest.TestCase):
         homepage_sources = {
             pathlib.Path(image["src"]).name for image in screenshot_images
         }
-        self.assertEqual(homepage_sources, {"imports-v120.jpg", "saturn-winter-garden-v120.jpg", "milky-way-winter-garden-v120.jpg"})
+        # The new homepage loads alternate scenery through accessible tabs.
+        tabs = (ROOT / "assets/home.js").read_text()
+        for name in ["saturn-winter-garden-v120.jpg", "milky-way-winter-garden-v120.jpg"]:
+            self.assertIn(name, tabs)
         for image in screenshot_images:
             self.assertEqual(image.get("width"), "1920")
             self.assertEqual(image.get("height"), "1080")
@@ -830,13 +835,12 @@ class PublicSiteTests(unittest.TestCase):
         self.assertEqual(parser.videos, [])
         self.assertEqual(parser.sources, [])
         self.assertEqual(parser.tracks, [])
-        self.assertIn('data-youtube-id="NJuKWTs2BRw"', homepage)
+        self.assertIn('href="https://www.youtube.com/watch?v=NJuKWTs2BRw"', homepage)
         self.assertNotIn("q7mVdPEqJ2o", homepage)
         self.assertIn('aria-label="Play Locus promotional video"', homepage)
         self.assertIn("https://www.youtube.com/watch?v=NJuKWTs2BRw", parser.links)
         self.assertNotIn("./assets/promo/locus-promo-31s.mp4", homepage)
         self.assertNotIn("Watch the video directly.", homepage)
-        self.assertIn("Choose a place, sit where you like, and watch the View move", homepage)
         # The 1.2 hero film has no Apple Vision Pro desk section, so the
         # keyboard-passthrough note that belonged to it is gone.
         self.assertNotIn("Keyboard passthrough is provided by visionOS, not Locus.", homepage)
@@ -870,7 +874,7 @@ class PublicSiteTests(unittest.TestCase):
             image for image in parser.images
             if image["src"].startswith("./assets/promo/still-")
         ]
-        self.assertEqual(len(promo_images), 6)
+        self.assertEqual(len(promo_images), 2)
         for image in promo_images:
             self.assertEqual(image.get("width"), "1920")
             self.assertEqual(image.get("height"), "1080")
@@ -1104,9 +1108,7 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_released_1_4_4_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('class="whats-new-latest" href="./whats-new/1-4-6/"', homepage)
-        self.assertLess(homepage.index('class="whats-new-latest"'),
-                        homepage.index('id="whats-new-title"'))
+        self.assertIn('href="./whats-new/1-4-6/"', homepage)
         self.assertIn("New in Locus 1.4.6", homepage)
         archive = (ROOT / "whats-new/index.html").read_text()
         self.assertIn("Locus 1.4.6 · Latest", archive)
@@ -1186,31 +1188,12 @@ class PublicSiteTests(unittest.TestCase):
         parser = PageParser()
         parser.feed(homepage)
 
-        # Small releases use a latest strip while the 1.4 story remains featured.
+        # Release stories remain in the archive; the homepage leads with Places.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
-        self.assertIn("New in Locus 1.4.0", homepage)
-        self.assertIn("Move your desk to outer space.", homepage)
-        self.assertIn('href="./whats-new/1-4-0/"', homepage)
-        # Keep the 1.4 film and leading story below the compact latest strip.
-        for stale in ["New in Locus 1.3", 'href="./whats-new/1-3-0/"', "New in Locus 1.2",
-                      'href="./whats-new/1-2/"', 'data-youtube-id="nO2B7MP0uzI"',
-                      'data-youtube-id="bahHCqyB9M4"', "real-objects-cup-poster.jpg",
-                      "Browser"]:
-            self.assertNotIn(stale, homepage[homepage.index('id="whats-new"'):homepage.index('class="selection-section"')])
-        for highlight in ["Sit at the edge of a black hole.", "Head into space",
-                          "Places, in series", "Make your own", "visionOS 27",
-                          "<strong>Free:</strong> Event Horizon: Ring, Earth from Space and Low Orbit Earth.",
-                          "Recorded on Apple Vision Pro"]:
-            self.assertIn(highlight, homepage)
-        self.assertIn('href="./make-a-black-hole-view/"', homepage)
+        self.assertIn('href="./whats-new/1-4-6/"', homepage)
+        self.assertIn('id="places"', homepage)
         self.assertEqual(parser.videos, [])
-        self.assertIn(f'data-youtube-id="{LOCUS_1_4_FILM_ID}"', homepage)
-        self.assertIn(f"https://www.youtube.com/watch?v={LOCUS_1_4_FILM_ID}", parser.links)
-        self.assertIn('./assets/promo/locus-1.4-film-poster.jpg', homepage)
-        stylesheet = (ROOT / "assets" / "site.css").read_text()
-        self.assertIn(".whats-new-feature", stylesheet)
-        self.assertIn(".whats-new-grid", stylesheet)
 
         faq = (ROOT / "faq" / "index.html").read_text()
         for question in [

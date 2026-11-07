@@ -73,9 +73,11 @@ test('translated controls and language switching preserve the FAQ anchor on narr
   await page.getByRole('searchbox').fill('房间');
   await expect(page.locator('.search-results a[href^="/zh-Hans/"]')).not.toHaveCount(0);
   await page.getByRole('button', { name: '关闭搜索', exact: true }).click();
+  await page.getByRole('button', { name: '打开菜单', exact: true }).click();
   await page.locator('[data-language-select]').selectOption('de');
   await expect(page).toHaveURL(/\/de\/faq\/#lying-down$/);
   await expect(page.locator('#lying-down')).toBeInViewport();
+  await page.getByRole('button', { name: 'Menü öffnen', exact: true }).click();
   await expect(page.locator('[data-language-select]')).toHaveValue('de');
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
 });

@@ -14,8 +14,8 @@ for (const width of [1440, 390, 320]) {
     await page.goto('/#whats-new', { waitUntil: 'domcontentloaded' });
     const entry = page.locator('.whats-new-latest');
     await expect(entry).toContainText('New in Locus 1.4.6');
-    await expect(page.locator('#whats-new-title')).toHaveText('Move your desk to outer space.');
-    await expect(page.locator('#whats-new [data-youtube-id="ZSZR2hGGOCk"], #whats-new iframe[src*="/embed/ZSZR2hGGOCk?"]')).toHaveCount(1);
+    await expect(page.locator('.hero .app-store-link')).toBeVisible();
+    await expect(page.locator('.hero iframe')).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
     await entry.scrollIntoViewIfNeeded();
     await page.screenshot({ path: `.scratch/release-home-${width}.png` });
@@ -53,5 +53,28 @@ for (const locale of ['zh-Hans', 'zh-Hant', 'ja', 'ko', 'de', 'fr', 'es']) {
     await page.screenshot({ path: `.scratch/release-article-${locale}.png`, fullPage: true });
     await page.locator('.release-pagination a').first().click();
     await expect(page).toHaveURL(new RegExp(`/${locale}/whats-new/1-4-4/$`));
+  });
+}
+
+for (const [locale, width, height] of [['zh-Hans', 1440, 900], ['en', 390, 844]]) {
+  test(`release archive covers render and titles use the available space in ${locale}`, async ({ page }) => {
+    await page.setViewportSize({ width, height });
+    await page.goto(`${locale === 'en' ? '' : '/' + locale}/whats-new/`);
+    const cards = page.locator('.release-card');
+    await expect(cards).toHaveCount(17);
+    for (const card of await cards.all()) {
+      const image = card.locator('img');
+      await expect(image).toHaveCount(1);
+      await image.scrollIntoViewIfNeeded();
+      await expect.poll(() => image.evaluate(img => img.complete && img.naturalWidth > 0)).toBeTruthy();
+    }
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
+    if (width === 1440) {
+      const heading = cards.first().locator('strong');
+      const metrics = await heading.evaluate(el => ({ height: el.getBoundingClientRect().height, line: parseFloat(getComputedStyle(el).lineHeight) }));
+      expect(metrics.height).toBeLessThanOrEqual(metrics.line * 1.5);
+    }
+    await page.evaluate(() => scrollTo(0, 0));
+    await page.screenshot({ path: `.scratch/release-archive-covers-${locale}.png`, fullPage: true });
   });
 }

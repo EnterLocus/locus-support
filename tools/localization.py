@@ -13,11 +13,11 @@ VOID_TAGS = {"area", "base", "br", "col", "embed", "hr", "img", "input", "link",
 # Historical source-language quotations remain verbatim; adjacent prose supplies
 # their localized meaning. The public site currently uses q only for that record.
 SKIPPED_TAGS = {"code", "pre", "script", "style"}
-ATTRIBUTE_NAMES = {"alt", "aria-label", "title", "placeholder"}
+ATTRIBUTE_NAMES = {"data-image-alt", "data-image-label", "alt", "aria-label", "title", "placeholder"}
 
 # These strings originate in dynamically created UI rather than source HTML.
 RUNTIME_SOURCE_STRINGS = (
-    "Language", "Follow system", "Search", "Search Locus", "Close search", "Search results",
+    "Open menu", "Close menu", "Language", "Follow system", "Search", "Search Locus", "Close search", "Search results",
     "Search the website", "Search questions, guides, and more…",
     "Find answers across FAQ and guides.", "Searching…", "{count} result",
     "{count} results", "No results. Try another word, or browse the FAQ.",
