@@ -68,10 +68,10 @@ td { color: var(--muted); }
 .panorama-preview:hover, .panorama-preview:focus-visible { border-color: var(--accent); }
 .panorama-preview img, .guide-figure img { display: block; width: 100%; height: auto; }
 .guide-figure { margin: 1.75rem 0; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
-.guide-figure figcaption { padding: .85rem 0 0; color: var(--muted); font-size: .82rem; line-height: 1.5; }
+.guide-figure figcaption { padding: .8rem 1rem .9rem; color: var(--muted); font-size: .82rem; line-height: 1.5; }
 .bar-guide { margin: 1.75rem 0 2.25rem; overflow: hidden; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
 .bar-closeup { min-height: clamp(180px, 30vw, 250px); background-image: url("./screenshots/bar-closeup-v120.jpg"); background-position: center; background-size: cover; }
-.bar-guide figcaption { padding: .9rem 0 0; color: var(--muted); font-size: .82rem; line-height: 1.5; }
+.bar-guide figcaption { padding: .8rem 1rem .9rem; color: var(--muted); font-size: .82rem; line-height: 1.5; }
 .bar-icon-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; margin: 1.25rem 0 2rem; }
 .bar-icon-card { display: grid; grid-template-columns: 36px 1fr; gap: .8rem; align-items: center; min-height: 76px; padding: .85rem 0; border-bottom: 1px solid var(--line); }
 .bar-icon-order { display: none; }
@@ -81,7 +81,7 @@ td { color: var(--muted); }
 .before-after { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.25rem; margin: 1.5rem 0; }
 .before-after figure { position: relative; overflow: hidden; margin: 0; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
 .before-after img { display: block; width: 100%; height: auto; }
-.before-after figcaption { padding: .8rem 0 0; color: var(--muted); font-size: .82rem; line-height: 1.45; }
+.before-after figcaption { padding: .8rem 1rem .9rem; color: var(--muted); font-size: .82rem; line-height: 1.45; }
 .comparison-label { position: absolute; top: .7rem; left: .7rem; padding: .3rem .55rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface-2); color: var(--ink); font-size: .68rem; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }
 .comparison-note { margin-top: .6rem; }
 .tutorial-page p > code, .tutorial-page li > code { overflow-wrap: anywhere; }
@@ -145,7 +145,7 @@ td { color: var(--muted); }
 .release-back { display: inline-block; margin-bottom: 2.5rem; color: var(--accent); font-weight: 600; text-decoration: none; }
 .release-hero { overflow: hidden; margin: 0 0 4rem; border: 1px solid var(--line); border-radius: 4px; background: var(--surface); }
 .release-hero > img { display: block; width: 100%; height: auto; }
-.release-hero figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .35rem 1rem; padding: .75rem 0 0; color: var(--muted); font-size: .78rem; line-height: 1.45; }
+.release-hero figcaption { display: flex; flex-wrap: wrap; justify-content: space-between; gap: .35rem 1rem; padding: .75rem 1rem .85rem; color: var(--muted); font-size: .78rem; line-height: 1.45; }
 .release-hero figcaption a { color: var(--accent); font-weight: 600; }
 .release-lead { color: var(--muted) !important; font-size: 1.2rem !important; }
 .release-pagination { margin-top: 1rem; }
