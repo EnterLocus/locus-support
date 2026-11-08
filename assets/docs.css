@@ -171,3 +171,62 @@ td { color: var(--muted); }
   .release-card img { min-height: 0; aspect-ratio: 16 / 9; }
   table { display: block; overflow-x: auto; }
 }
+.plan-figure { max-width: 640px; margin-inline: auto; background: #191919; }
+.villa-plan { display: block; width: 100%; height: auto; font-family: inherit; }
+.villa-plan line { fill: none; }
+.villa-plan .terrace { fill: #22231f; }
+.villa-plan .floor { fill: #2d2822; }
+.villa-plan .wall, .villa-plan .column { fill: #e6e1d8; }
+.villa-plan .stone-wall { fill: #bfa88f; }
+.villa-plan .ledge { fill: #7d6d5c; }
+.villa-plan .firebox { fill: #3a2a20; }
+.villa-plan .niche { fill: #6d5f50; }
+.villa-plan .fire { stroke: #e58a3a; stroke-width: 9; stroke-linecap: round; }
+.villa-plan .water { fill: #2d5566; stroke: #8fc0d6; stroke-width: 3; }
+.villa-plan .water-deep { fill: #21424f; }
+.villa-plan .planter { fill: #2e3228; stroke: #5b6250; stroke-width: 3; }
+.villa-plan .tree { fill: #56664a; fill-opacity: .7; }
+.villa-plan .overhead { fill: none; stroke: #9a9b93; stroke-width: 3; stroke-dasharray: 16 12; }
+.villa-plan .rug { fill: #37332c; }
+.villa-plan .glass { stroke: #8fc0d6; stroke-width: 8; }
+.villa-plan .glass-thin { stroke: #8fc0d6; stroke-width: 3; }
+.villa-plan .guard { stroke: #8fc0d6; stroke-width: 5; }
+.villa-plan .tread { fill: #4a4036; stroke: #191919; stroke-width: 2; }
+.villa-plan .tread-faint { fill: none; stroke: #4a4a45; stroke-width: 2; }
+.villa-plan .stair-arrow { stroke: #d2bba4; stroke-width: 4; }
+.villa-plan .stair-head { fill: #d2bba4; }
+.villa-plan .furn { fill: #4b4b45; stroke: #a3a49b; stroke-width: 3; }
+.villa-plan .back { stroke: #d4d5cc; stroke-width: 9; }
+.villa-plan .stone { fill: #6f665a; stroke: #a3a49b; stroke-width: 3; }
+.villa-plan .dark { fill: #141414; stroke: #8a8b84; stroke-width: 3; }
+.villa-plan .cabinet { fill: #5a4836; stroke: #a3a49b; stroke-width: 3; }
+.villa-plan .void { fill: #121212; }
+.villa-plan .below { fill: none; stroke: #4a4b44; stroke-width: 3; stroke-dasharray: 10 8; }
+.villa-plan .art { fill: #8a7660; }
+.villa-plan .door { fill: #8a6a4a; }
+.villa-plan .seat circle { fill: #d2bba4; stroke: #111; stroke-width: 4; }
+.villa-plan .seat text { fill: #111; font-size: 30px; font-weight: 700; text-anchor: middle; dominant-baseline: central; }
+.villa-plan .lbl { fill: #f2f2f2; font-size: 50px; text-anchor: middle; dominant-baseline: central; paint-order: stroke; stroke: #191919; stroke-width: 12; stroke-linejoin: round; }
+.villa-plan .lbl-end { text-anchor: end; }
+.villa-plan .lbl-muted { fill: #c9cbc2; }
+.villa-plan .lbl-water { stroke: #2d5566; }
+.villa-plan .lbl-void { fill: #8a8b84; font-size: 60px; letter-spacing: .18em; stroke: #121212; }
+.villa-plan .north polygon { fill: #f2f2f2; }
+.villa-plan .north text { fill: #f2f2f2; font-size: 44px; font-weight: 600; text-anchor: middle; dominant-baseline: central; }
+.villa-plan .scale-fill { fill: #c9cbc2; }
+.villa-plan .scale-empty { fill: none; stroke: #c9cbc2; stroke-width: 3; }
+.villa-plan .scale text { fill: #c9cbc2; font-size: 38px; }
+.villa-plan .scale-start { text-anchor: start; }
+.villa-plan .scale-end { text-anchor: end; }
+.villa-seat-table :is(th, td) { overflow-wrap: normal; }
+.villa-seat-table td { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.page-header p a { color: var(--accent); }
+.faq-list > .faq-intro { max-width: 69ch; margin: 0 0 1rem; color: var(--muted); line-height: 1.72; }
+.faq-answer ul { margin: .9rem 0 0; padding-left: 1.2rem; }
+.faq-answer li { max-width: 66ch; color: var(--muted); line-height: 1.72; }
+.faq-answer li + li { margin-top: .55rem; }
+.faq-answer ul + p { margin-top: .9rem; }
+@media (max-width: 680px) {
+  .villa-plan .lbl { font-size: 55px; }
+  .villa-plan .seat text { font-size: 32px; }
+}
