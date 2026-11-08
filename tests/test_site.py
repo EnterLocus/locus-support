@@ -479,6 +479,12 @@ class PublicSiteTests(unittest.TestCase):
                 "Disc Brightness", "Doppler Beaming", "Turbulence Detail", "Disc Glow", "Flares",
                 "tools/black_hole", "NASA, ESA, CSA, and STScI", "aiGenerated", "Reduce Motion",
             ],
+            "hilltop-villa": [
+                "Prompt for your agent", "summarized from our real conversations",
+                "Turn these two reference images into a metric floor plan", "33 seats in 9 groups",
+                "13.2 × 8.2 m", "visionOS Simulator", "ChatGPT subscription",
+                "no Tripo, Meshy, Hunyuan3D or Trellis", "If you’re curious",
+            ],
             "make-a-room": ["1. Generate a concept image", "2. Plan the floor and seats", "3. Build and check the Room", "4. Save the Room", "5. Import the Room", "6. Refine and import again", "Apple Vision Pro"],
             "github-pages-skyboxes": ["GitHub Pages", "image itself", "Save as View…"],
         }
@@ -546,6 +552,44 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Locus 1.4 or later from the App Store", page)
         self.assertIn("1.3.4, which remains the package compatibility minimum", page)
         self.assertIn('href="../make-a-black-hole-view/"', (ROOT / "tutorials" / "index.html").read_text())
+
+    def test_hilltop_villa_case_study_is_public_safe(self):
+        page = (ROOT / "hilltop-villa" / "index.html").read_text()
+        parsed = PageParser()
+        parsed.feed(page)
+        for private in ["Dropbox", "TestFlight", "Dev Library", "#16", "#17", "claude/", "codex/",
+                        "model-preview", "Enes", "DEBUG", "ElevenLabs", "Villa Afternoon", "layout.py"]:
+            self.assertNotIn(private, page)
+        main = page[page.index("<main"):page.index("</main>")]
+        self.assertIsNone(re.search(r"#\d", main), "no issue or PR numbers")
+        # Prompts are summaries shown in every language, never kept as untranslated originals.
+        self.assertNotIn("data-locus-original", page)
+        self.assertGreaterEqual(page.count('<strong class="prompt-label">Prompt for your agent</strong><q>'), 8)
+        for image in ["reference-plan.jpg", "reference-interior.jpg"]:
+            self.assertIn("../assets/examples/hilltop-villa/" + image, page)
+            self.assertTrue((ROOT / "assets" / "examples" / "hilltop-villa" / image).is_file())
+        self.assertIn('href="../hilltop-villa/"><img', (ROOT / "make-a-room" / "index.html").read_text())
+        # The floor plans are inline SVG so their labels are localized with the page.
+        self.assertEqual(page.count('<svg class="villa-plan"'), 2)
+        for label in ["Living room", "Kitchen island", "Terrace lounge", "Outdoor dining", "Plunge pool",
+                      "Fireplace wall", "Stair", "Void", "North bridge", "Library gallery", "Sky Room"]:
+            self.assertIn(f">{label}</text>", page)
+        # Photos are the hosted Simulator captures and are labeled as such.
+        manifest_urls = {asset["url"] for asset in external_assets.load_manifest().values()}
+        remote = [image["src"] for image in parsed.images if image["src"].startswith("https://")]
+        self.assertEqual(len(remote), 3)
+        self.assertTrue(set(remote).issubset(manifest_urls))
+        self.assertEqual(page.count("captured in the visionOS Simulator"), 3)
+        # The FAQ-style details stay collapsed and keep stable anchors.
+        self.assertEqual(page.count('<details class="faq-item">'), 5)
+        self.assertNotIn("<details open", page)
+        for anchor in ["how-long-did-it-take", "what-did-it-cost", "did-locus-need-changes",
+                       "how-well-does-it-run", "what-went-wrong"]:
+            self.assertIn(f'id="{anchor}"', page)
+        self.assertIn('href="../gallery/place/hilltop-villa/"', page)
+        self.assertIn('href="../make-a-room/"', page)
+        self.assertNotIn("build-a-room", page)
+        self.assertIn('href="../hilltop-villa/"', (ROOT / "make-a-room" / "index.html").read_text())
 
     def test_online_view_guide_leads_with_the_direct_use_resolution_gate(self):
         guide_path = ROOT / "online-views" / "index.html"
@@ -1473,7 +1517,7 @@ class PublicSiteTests(unittest.TestCase):
                  "experimental-room-animations/index.html", "experimental-real-objects/index.html",
                  "create-your-own-place/index.html", "build-a-room/index.html",
                  "package-format/index.html", "asset-rights/index.html",
-                 "make-a-black-hole-view/index.html"]
+                 "make-a-black-hole-view/index.html", "hilltop-villa/index.html"]
         extracted = localization.extract_sources(ROOT)["pages"]
         for locale in localization.TRANSLATED_LOCALES:
             catalog = localization.load_catalog(ROOT, locale)
