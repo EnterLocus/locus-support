@@ -480,7 +480,7 @@ class PublicSiteTests(unittest.TestCase):
                 "tools/black_hole", "NASA, ESA, CSA, and STScI", "aiGenerated", "Reduce Motion",
             ],
             "hilltop-villa": [
-                "Prompt for your agent", "summarized from 15 days of real conversations",
+                "Prompt for your agent", "summarized from our real conversations",
                 "Turn these two reference images into a metric floor plan", "33 seats in 9 groups",
                 "13.2 × 8.2 m", "visionOS Simulator", "ChatGPT subscription",
                 "no Tripo, Meshy, Hunyuan3D or Trellis", "If you’re curious",
@@ -565,7 +565,10 @@ class PublicSiteTests(unittest.TestCase):
         # Prompts are summaries shown in every language, never kept as untranslated originals.
         self.assertNotIn("data-locus-original", page)
         self.assertGreaterEqual(page.count('<strong class="prompt-label">Prompt for your agent</strong><q>'), 8)
-        self.assertIn("not show ours here", page)
+        for image in ["reference-plan.jpg", "reference-interior.jpg"]:
+            self.assertIn("../assets/examples/hilltop-villa/" + image, page)
+            self.assertTrue((ROOT / "assets" / "examples" / "hilltop-villa" / image).is_file())
+        self.assertIn('href="../hilltop-villa/"><img', (ROOT / "make-a-room" / "index.html").read_text())
         # The floor plans are inline SVG so their labels are localized with the page.
         self.assertEqual(page.count('<svg class="villa-plan"'), 2)
         for label in ["Living room", "Kitchen island", "Terrace lounge", "Outdoor dining", "Plunge pool",
