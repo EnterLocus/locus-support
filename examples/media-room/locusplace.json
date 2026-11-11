@@ -1,0 +1,11 @@
+{
+  "contentVersion": "1.0.0",
+  "contents": {
+    "destinationIDs": [],
+    "experienceIDs": [],
+    "spaceIDs": ["space.example-media-room"]
+  },
+  "formatVersion": 1,
+  "minimumAppVersion": "1.4.9",
+  "packageID": "place.example-media-room"
+}

@@ -518,6 +518,36 @@ capability names in the field reference belong to Library offers; do not add a
 made-up `requiredCapabilities` field to `locusplace.json`. The complete package
 import path checks its minimum app version and the typed content itself.
 
+### Room TVs
+
+Room TVs require Locus 1.4.9 or later. A Room can declare up to four TVs, each
+naming one flat 16:9 screen mesh in its scene. A package with TVs must set its
+minimum app version to 1.4.9 or later:
+
+```json
+{
+  "tvs": [
+    {
+      "id": "living-tv",
+      "displayName": "Living Room TV",
+      "entityName": "TV_Screen_Living"
+    }
+  ]
+}
+```
+
+The field reference describes the screen rules under
+[Room TVs](locus-asset-format/#room-tvs-locus-149-or-later).
+
+To try it, build and check the Example Media Room, described in
+[its README](../examples/media-room/README.md):
+
+```sh
+python3 examples/media-room/build_media_room.py /absolute/path/to/media-room
+python3 tools/check_room.py --current-app-version 1.4.9 \
+  --renders /absolute/path/to/media-room-renders /absolute/path/to/media-room/media-room.locusplace
+```
+
 ## Required provenance
 
 Every imported Destination and Space points to a provenance JSON document.

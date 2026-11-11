@@ -1,0 +1,66 @@
+{
+  "formatVersion": 2,
+  "id": "space.example-media-room",
+  "title": "Example Media Room",
+  "caption": "A small media room with a 75-inch TV facing the sofa and a 55-inch art TV facing a reading chair.",
+  "scene": "scene.usdz",
+  "previewCamera": {
+    "yawDegrees": -30,
+    "pitchDegrees": -12,
+    "zoom": 0.9
+  },
+  "seatedOrigin": {
+    "translationMeters": [0, 0, 0],
+    "orientationXYZW": [0, 0, 0, 1]
+  },
+  "safeHeadVolume": {
+    "centerMeters": [0, 1.2, 0],
+    "sizeMeters": [1.2, 0.8, 1.2]
+  },
+  "destinationOpenings": [
+    {
+      "id": "front",
+      "transform": {
+        "translationMeters": [0, 1.35, -2.5],
+        "orientationXYZW": [0, 0, 0, 1]
+      },
+      "widthMeters": 6,
+      "heightMeters": 2.7
+    }
+  ],
+  "collision": {"mode": "embedded"},
+  "teleportCatalog": {
+    "path": "teleport-points.json",
+    "houseID": "space.example-media-room"
+  },
+  "tvs": [
+    {
+      "id": "living-tv",
+      "displayName": "Living Room TV",
+      "entityName": "TV_Screen_Living"
+    },
+    {
+      "id": "art-tv",
+      "displayName": "Art TV",
+      "entityName": "TV_Screen_Art"
+    }
+  ],
+  "localizations": {
+    "de": {
+      "title": "Beispiel-Medienzimmer",
+      "tvTitles": {"living-tv": "Wohnzimmer-TV", "art-tv": "Kunst-TV"}
+    },
+    "fr": {
+      "title": "Salle multimédia d’exemple",
+      "tvTitles": {"living-tv": "Téléviseur du salon", "art-tv": "Téléviseur-tableau"}
+    }
+  },
+  "quality": {
+    "status": "unverified",
+    "triangleCount": 0,
+    "materialCount": 0,
+    "entityCount": 0,
+    "maxTextureDimension": 0
+  },
+  "provenance": "provenance.json"
+}

@@ -13,6 +13,7 @@ The following paths are licensed under the Apache License, Version 2.0:
 - `tools/**`
 - `schemas/**`
 - `examples/locusplace/**` (generator source and its generated synthetic examples)
+- `examples/media-room/**` (Example Media Room generator, metadata, and the Room it generates)
 
 The full terms are in [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt).
 

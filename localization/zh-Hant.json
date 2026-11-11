@@ -3405,6 +3405,27 @@
     "Cutaway top-down render of a villa with a plunge pool, terrace lounge, outdoor dining, living room, kitchen island and stair": "帶泳池、露台休閒區、戶外餐廳、客廳、廚房中島和樓梯的別墅剖切俯視渲染圖",
     "Double-height living room at sunset with a travertine fireplace wall, an ivory sofa, bouclé chairs and glass tube pendants, opening onto a terrace above a city and bay": "日落時分的挑高客廳：石灰華壁爐牆、象牙色沙發、毛圈扶手椅和玻璃管吊燈，通往俯瞰城市與海灣的露台",
     "Our reference for the plan.": "我們用於平面的參考圖。",
-    "Our reference for the living room.": "我們用於客廳的參考圖。"
+    "Our reference for the living room.": "我們用於客廳的參考圖。",
+    "6. Add TVs": "6. 加入電視",
+    "Replace the fireplace painting with an art TV that shows the painting when it is off. Put a TV on the Sky Room’s solid wall, with a lounge chair facing it.": "把壁爐上方的畫換成藝術電視，關機時顯示這幅畫。在 Sky Room 的實牆上裝一台電視，並放一張面向它的休閒椅。",
+    "Requires Locus 1.4.9 or later.": "需要 Locus 1.4.9 或更新版本。",
+    "The fireplace painting became a 98-inch art TV in a slim bronze frame; while it is off, it shows the painting. The Sky Room got a 65-inch TV on its east wall and a lounge chair facing it, the Room’s 34th seat.": "壁爐上方的畫變成了一台裝在纖細青銅畫框裡的 98 吋藝術電視，關機時顯示這幅畫。Sky Room 東牆上加了一台 65 吋電視和一張面向它的休閒椅，也就是房間的第 34 個座位。",
+    "Room TVs": "房間電視",
+    "Room TVs require Locus 1.4.9 or later. A Room can declare up to four TVs, each\nnaming one flat 16:9 screen mesh in its scene. A package with TVs must set its\nminimum app version to 1.4.9 or later:": "房間電視需要 Locus 1.4.9 或更新版本。一個房間最多可以宣告四台電視，每台指向場景中一個平面 16:9 螢幕網格。包含電視的套件必須把最低 App 版本設為 1.4.9 或更新：",
+    "The field reference describes the screen rules under": "欄位參考中的以下部分說明了螢幕規則：",
+    "To try it, build and check the Example Media Room, described in": "想試試看，可以建置並檢查 Example Media Room，說明見",
+    "its README": "它的 README",
+    "A Room can have up to four TVs. Each TV shows a web page, such as a video site, on its screen. Every TV starts off: look at the screen and pinch to turn it on, and a remote appears under it.": "一個房間最多可以有四台電視。每台電視都在螢幕上顯示一個網頁，例如影片網站。電視一開始都是關著的：注視螢幕並捏合即可開啟，遙控器會出現在它下方。",
+    "Add a 65-inch TV on the wall facing the sofa, at seated eye level. Keep the area under the screen clear for the remote.": "在面向沙發的牆上加一台 65 吋電視，高度與坐著時的視線齊平。螢幕下方留空，給遙控器留位置。",
+    "Add a TV": "加入電視",
+    "Ask for a TV when you build the Room, or add one in a later round. Say how big it is and which seat faces it.": "可以在建置房間時就要求加電視，也可以在之後的修改中加入。說明電視的尺寸，以及哪個座位面向它。",
+    "Build a cosy media room as a Locus Room: a deep sofa facing a 75-inch TV on the opposite wall about three metres away, a low walnut console under the TV, warm wall lamps and a large window to one side.": "做一個溫馨的影音室作為 Locus 房間：一張深座沙發，面向約三公尺外對面牆上的 75 吋電視，電視下方是一個矮的胡桃木櫃，牆上有暖色壁燈，一側有一扇大窗。",
+    "On Apple Vision Pro, sit in each seat that faces a TV, turn it on, and tell the agent what to change.": "在 Apple Vision Pro 中，坐到每個面向電視的座位上，開啟電視，再告訴代理需要修改什麼。",
+    "Replace the painting above the fireplace with an art TV that shows the painting when it is off.": "把壁爐上方的畫換成藝術電視，關機時顯示這幅畫。",
+    "Read the Room TV rules.": "閱讀房間電視規則。",
+    "Room TVs require Locus 1.4.9 or later: a Room can turn up to four flat screens in its model into TVs.": "房間電視需要 Locus 1.4.9 或更新版本：一個房間可以把模型中最多四個平面螢幕變成電視。",
+    "A Room can declare up to four TVs. Each one names a screen in the USDZ: a flat 16:9 quad of its own, with its own UVs, not nested under another named entity. Its material is the TV’s off state, such as dark glass or artwork, and should not glow. When a visitor turns the TV on, Locus plays a web page within the quad’s bounds.": "一個房間最多可以宣告四台電視。每台電視指向 USDZ 中的一個螢幕：一個獨立的平面 16:9 四邊形，有自己的 UV，不巢狀在其他被引用的實體之下。它的材質就是電視關機時的樣子，例如深色玻璃或藝術畫，不應發光。訪客開啟電視後，Locus 會在這個四邊形的範圍內播放網頁。",
+    "Optional TVs": "可選的電視",
+    "Requires Locus 1.4.9 or later and complete Package v2; the flat compatibility format cannot carry TVs.": "需要 Locus 1.4.9 或更新版本以及完整 Package v2；扁平相容格式無法攜帶電視。"
   }
 }

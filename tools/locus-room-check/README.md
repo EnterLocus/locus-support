@@ -29,10 +29,15 @@ reduced check that could be mistaken for success.
   finite, nondegenerate bounds; nonempty seat list; nonzero upright seated
   quaternion (normalized up vector x/z < 0.0001 and y > 0.9999); desk basis,
   bounds and Hide Desk ancestry; authored positive emission and opacity of
-  illuminated/indirect surfaces; animation names in the loaded animation library.
+  illuminated/indirect surfaces; animation names in the loaded animation library;
+  each Room TV screen (`tvs`) is one mesh, one flat two-triangle quad, and not
+  nested in or around another entity the metadata names.
 * **W, risk:** seat eyes, 0.15 m eye-to-geometry-bounds clearance, horizontal
   span below 1.5 m, model spans above 80 m, double-sided USD declarations,
-  connected roughness/metallic texture risk, triangle/material/entity/texture budget usage, and isolated mesh centers more
+  connected roughness/metallic texture risk, triangle/material/entity/texture budget usage,
+  Room TV screens that are not 16:9, are under 0.3 m tall, lack UVs, are
+  emissive (unless listed in `bakedIndirect.entities`) or face no seat within
+  45°, and isolated mesh centers more
   than max(10 m, 8 times the median center distance) from the median geometry center. These are heuristics, not proof of rendering failure.
 * **R, render (when requested):** seat forward (`yaw-0`), seven other yaw
   directions, up/down and authored exterior preview, PNGs plus a contact sheet.
