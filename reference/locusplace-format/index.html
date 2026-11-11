@@ -867,7 +867,7 @@ import path checks its minimum app version and the typed content itself.</p>
 <h3 id="room-tvs" tabindex="-1">Room TVs</h3>
 <p>Room TVs require Locus 1.4.9 or later. A Room can declare up to four TVs, each
 naming one flat 16:9 screen mesh in its scene. A package with TVs must set its
-minimum app version to 1.4.9 or later:</p>
+minimum app version to 1.4.9 or later. The TVs belong in the Room manifest:</p>
 <pre><code class="language-json">{
   &quot;tvs&quot;: [
     {
@@ -878,14 +878,16 @@ minimum app version to 1.4.9 or later:</p>
   ]
 }
 </code></pre>
-<p>The field reference describes the screen rules under
-<a href="../locus-asset-format#room-tvs-locus-149-or-later">Room TVs</a>.</p>
-<p>To try it, build and check the Example Media Room, described in
-<a href="../../examples/media-room/README.md">its README</a>:</p>
+<p>For the screen rules, see
+<a href="../locus-asset-format#room-tvs-locus-149-or-later">Room TVs</a>
+in the field reference.</p>
+<p>To try it, build and check the Example Media Room with these commands:</p>
 <pre><code class="language-sh">python3 examples/media-room/build_media_room.py /absolute/path/to/media-room
 python3 tools/check_room.py --current-app-version 1.4.9 \
   --renders /absolute/path/to/media-room-renders /absolute/path/to/media-room/media-room.locusplace
 </code></pre>
+<p><a href="../../examples/media-room/README.md">The Example Media Room README</a> explains how
+it is made.</p>
 <h2 id="required-provenance" tabindex="-1">Required provenance</h2>
 <p>Every imported Destination and Space points to a provenance JSON document.
 It records the creator/agency, exactly one of a license or an

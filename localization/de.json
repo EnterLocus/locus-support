@@ -3415,10 +3415,6 @@
     "Requires Locus 1.4.9 or later.": "Erfordert Locus 1.4.9 oder neuer.",
     "The fireplace painting became a 98-inch art TV in a slim bronze frame; while it is off, it shows the painting. The Sky Room got a 65-inch TV on its east wall and a lounge chair facing it, the Room’s 34th seat.": "Aus dem Gemälde über dem Kamin wurde ein 98-Zoll-Kunst-Fernseher in einem schmalen Bronzerahmen; ausgeschaltet zeigt er das Gemälde. Der Sky Room bekam an seiner Ostwand einen 65-Zoll-Fernseher und einen Loungesessel davor, den 34. Sitzplatz des Raums.",
     "Room TVs": "Fernseher im Raum",
-    "Room TVs require Locus 1.4.9 or later. A Room can declare up to four TVs, each\nnaming one flat 16:9 screen mesh in its scene. A package with TVs must set its\nminimum app version to 1.4.9 or later:": "Fernseher im Raum erfordern Locus 1.4.9 oder neuer. Ein Raum kann bis zu vier Fernseher deklarieren, die jeweils ein flaches 16:9-Bildschirm-Mesh in seiner Szene benennen. Ein Paket mit Fernsehern muss als minimale App-Version 1.4.9 oder neuer angeben:",
-    "The field reference describes the screen rules under": "Die Feldreferenz beschreibt die Bildschirmregeln unter",
-    "To try it, build and check the Example Media Room, described in": "Zum Ausprobieren bauen und prüfen Sie den Example Media Room, beschrieben in",
-    "its README": "seiner README",
     "A Room can have up to four TVs. Each TV shows a web page, such as a video site, on its screen. Every TV starts off: look at the screen and pinch to turn it on, and a remote appears under it.": "Ein Raum kann bis zu vier Fernseher haben. Jeder zeigt auf seinem Bildschirm eine Webseite, etwa eine Videoseite. Alle Fernseher sind zunächst aus: Schauen Sie auf den Bildschirm und führen Sie eine Pinch-Geste aus, um ihn einzuschalten; darunter erscheint eine Fernbedienung.",
     "Add a 65-inch TV on the wall facing the sofa, at seated eye level. Keep the area under the screen clear for the remote.": "Hänge einen 65-Zoll-Fernseher an die Wand gegenüber dem Sofa, auf Augenhöhe im Sitzen. Lass den Bereich unter dem Bildschirm für die Fernbedienung frei.",
     "Add a TV": "Einen Fernseher hinzufügen",
@@ -3430,6 +3426,12 @@
     "Room TVs require Locus 1.4.9 or later: a Room can turn up to four flat screens in its model into TVs.": "Fernseher im Raum erfordern Locus 1.4.9 oder neuer: Ein Raum kann bis zu vier flache Bildschirme in seinem Modell zu Fernsehern machen.",
     "A Room can declare up to four TVs. Each one names a screen in the USDZ: a flat 16:9 quad of its own, with its own UVs, not nested under another named entity. Its material is the TV’s off state, such as dark glass or artwork, and should not glow. When a visitor turns the TV on, Locus plays a web page within the quad’s bounds.": "Ein Raum kann bis zu vier Fernseher deklarieren. Jeder benennt einen Bildschirm in der USDZ: ein eigenes, flaches 16:9-Viereck mit eigenen UVs, das nicht unter einer anderen benannten Entität verschachtelt ist. Sein Material ist der ausgeschaltete Zustand des Fernsehers, etwa dunkles Glas oder ein Kunstwerk, und sollte nicht leuchten. Schaltet ein Besucher den Fernseher ein, spielt Locus eine Webseite innerhalb der Grenzen dieses Vierecks ab.",
     "Optional TVs": "Optionale Fernseher",
-    "Requires Locus 1.4.9 or later and complete Package v2; the flat compatibility format cannot carry TVs.": "Erfordert Locus 1.4.9 oder neuer und vollständiges Package v2; das flache Kompatibilitätsformat kann keine Fernseher enthalten."
+    "Requires Locus 1.4.9 or later and complete Package v2; the flat compatibility format cannot carry TVs.": "Erfordert Locus 1.4.9 oder neuer und vollständiges Package v2; das flache Kompatibilitätsformat kann keine Fernseher enthalten.",
+    "Room TVs require Locus 1.4.9 or later. A Room can declare up to four TVs, each\nnaming one flat 16:9 screen mesh in its scene. A package with TVs must set its\nminimum app version to 1.4.9 or later. The TVs belong in the Room manifest:": "Fernseher im Raum erfordern Locus 1.4.9 oder neuer. Ein Raum kann bis zu vier Fernseher deklarieren, die jeweils ein flaches 16:9-Bildschirm-Mesh in seiner Szene benennen. Ein Paket mit Fernsehern muss als minimale App-Version 1.4.9 oder neuer angeben. Die Fernseher stehen im Raum-Manifest:",
+    "For the screen rules, see": "Die Bildschirmregeln finden Sie unter",
+    "in the field reference.": "in der Feldreferenz.",
+    "To try it, build and check the Example Media Room with these commands:": "Zum Ausprobieren bauen und prüfen Sie den Example Media Room mit diesen Befehlen:",
+    "The Example Media Room README": "Die README des Example Media Room",
+    "explains how\nit is made.": "erklärt, wie er entsteht."
   }
 }

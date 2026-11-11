@@ -522,7 +522,7 @@ import path checks its minimum app version and the typed content itself.
 
 Room TVs require Locus 1.4.9 or later. A Room can declare up to four TVs, each
 naming one flat 16:9 screen mesh in its scene. A package with TVs must set its
-minimum app version to 1.4.9 or later:
+minimum app version to 1.4.9 or later. The TVs belong in the Room manifest:
 
 ```json
 {
@@ -536,17 +536,20 @@ minimum app version to 1.4.9 or later:
 }
 ```
 
-The field reference describes the screen rules under
-[Room TVs](locus-asset-format/#room-tvs-locus-149-or-later).
+For the screen rules, see
+[Room TVs](locus-asset-format/#room-tvs-locus-149-or-later)
+in the field reference.
 
-To try it, build and check the Example Media Room, described in
-[its README](../examples/media-room/README.md):
+To try it, build and check the Example Media Room with these commands:
 
 ```sh
 python3 examples/media-room/build_media_room.py /absolute/path/to/media-room
 python3 tools/check_room.py --current-app-version 1.4.9 \
   --renders /absolute/path/to/media-room-renders /absolute/path/to/media-room/media-room.locusplace
 ```
+
+[The Example Media Room README](../examples/media-room/README.md) explains how
+it is made.
 
 ## Required provenance
 

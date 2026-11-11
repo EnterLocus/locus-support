@@ -121,7 +121,8 @@ ZIP cannot carry it.
 - One to four entries.
 - Set `minimumAppVersion` in `locusplace.json` to `1.4.9` or later.
 
-The [Example Media Room](../../../../examples/media-room/README.md) is a
+The [Example Media Room](https://github.com/EnterLocus/locus-support/tree/main/examples/media-room)
+is a
 complete, generated Room with two TVs.
 
 ## Check before device review

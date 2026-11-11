@@ -3409,10 +3409,6 @@
     "Requires Locus 1.4.9 or later.": "Requiere Locus 1.4.9 o posterior.",
     "The fireplace painting became a 98-inch art TV in a slim bronze frame; while it is off, it shows the painting. The Sky Room got a 65-inch TV on its east wall and a lounge chair facing it, the Room’s 34th seat.": "El cuadro sobre la chimenea se convirtió en un televisor artístico de 98 pulgadas con un fino marco de bronce; apagado, muestra el cuadro. La Sky Room recibió un televisor de 65 pulgadas en su pared este y un sillón lounge orientado hacia él, el asiento número 34 de la habitación.",
     "Room TVs": "Televisores de habitación",
-    "Room TVs require Locus 1.4.9 or later. A Room can declare up to four TVs, each\nnaming one flat 16:9 screen mesh in its scene. A package with TVs must set its\nminimum app version to 1.4.9 or later:": "Los televisores de habitación requieren Locus 1.4.9 o posterior. Una habitación puede declarar hasta cuatro televisores, cada uno con una malla de pantalla plana 16:9 de su escena. Un paquete con televisores debe fijar su versión mínima de la app en 1.4.9 o posterior:",
-    "The field reference describes the screen rules under": "La referencia de campos describe las reglas de pantalla en",
-    "To try it, build and check the Example Media Room, described in": "Para probarlo, compila y comprueba la Example Media Room, descrita en",
-    "its README": "su README",
     "A Room can have up to four TVs. Each TV shows a web page, such as a video site, on its screen. Every TV starts off: look at the screen and pinch to turn it on, and a remote appears under it.": "Una habitación puede tener hasta cuatro televisores. Cada uno muestra una página web, como un sitio de vídeos, en su pantalla. Todos empiezan apagados: mira la pantalla y pellizca para encenderla; aparecerá un mando debajo.",
     "Add a 65-inch TV on the wall facing the sofa, at seated eye level. Keep the area under the screen clear for the remote.": "Añade un televisor de 65 pulgadas en la pared frente al sofá, a la altura de los ojos sentado. Deja libre el espacio bajo la pantalla para el mando.",
     "Add a TV": "Añade un televisor",
@@ -3424,6 +3420,12 @@
     "Room TVs require Locus 1.4.9 or later: a Room can turn up to four flat screens in its model into TVs.": "Los televisores de habitación requieren Locus 1.4.9 o posterior: una habitación puede convertir hasta cuatro pantallas planas de su modelo en televisores.",
     "A Room can declare up to four TVs. Each one names a screen in the USDZ: a flat 16:9 quad of its own, with its own UVs, not nested under another named entity. Its material is the TV’s off state, such as dark glass or artwork, and should not glow. When a visitor turns the TV on, Locus plays a web page within the quad’s bounds.": "Una habitación puede declarar hasta cuatro televisores. Cada uno nombra una pantalla en el USDZ: un cuadrilátero plano 16:9 propio, con sus propias UV, sin anidar bajo otra entidad con nombre. Su material es el estado apagado del televisor, como cristal oscuro o una obra de arte, y no debe emitir luz. Cuando un visitante enciende el televisor, Locus reproduce una página web dentro de los límites del cuadrilátero.",
     "Optional TVs": "Televisores opcionales",
-    "Requires Locus 1.4.9 or later and complete Package v2; the flat compatibility format cannot carry TVs.": "Requiere Locus 1.4.9 o posterior y Package v2 completo; el formato de compatibilidad plano no puede contener televisores."
+    "Requires Locus 1.4.9 or later and complete Package v2; the flat compatibility format cannot carry TVs.": "Requiere Locus 1.4.9 o posterior y Package v2 completo; el formato de compatibilidad plano no puede contener televisores.",
+    "Room TVs require Locus 1.4.9 or later. A Room can declare up to four TVs, each\nnaming one flat 16:9 screen mesh in its scene. A package with TVs must set its\nminimum app version to 1.4.9 or later. The TVs belong in the Room manifest:": "Los televisores de habitación requieren Locus 1.4.9 o posterior. Una habitación puede declarar hasta cuatro televisores, cada uno con una malla de pantalla plana 16:9 de su escena. Un paquete con televisores debe fijar su versión mínima de la app en 1.4.9 o posterior. Los televisores se declaran en el manifiesto de la habitación:",
+    "For the screen rules, see": "Para las reglas de pantalla, consulta",
+    "in the field reference.": "en la referencia de campos.",
+    "To try it, build and check the Example Media Room with these commands:": "Para probarlo, compila y comprueba la Example Media Room con estos comandos:",
+    "The Example Media Room README": "El README de la Example Media Room",
+    "explains how\nit is made.": "explica cómo está hecha."
   }
 }
