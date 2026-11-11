@@ -772,7 +772,10 @@ adds explicit rendering roles and spotlight directions; Room v6 adds authored
 seat groups; Room v7 adds looping video surfaces; Room v8 adds illuminated
 surfaces and an explicit view-forward yaw; Room v9 adds particle effects;
 Room v10 adds per-lamp baked light layers. All of those compatibility
-versions use the same flat ZIP layout.</p>
+versions use the same flat ZIP layout. These <code>formatVersion</code> numbers apply only
+to a flat <code>space.json</code>: a complete Package v2 Room’s <code>space.json</code> keeps
+<code>formatVersion: 2</code> and declares the same fields directly, with the matching
+<code>minimumAppVersion</code> in <code>locusplace.json</code>.</p>
 <p>Locus 1.1.4 adds an optional <code>sound.json</code> sidecar: a Room or a View may carry
 its own audio, independently of everything above. An older Locus refuses the
 extra files rather than installing a place with its sound silently missing.</p>
@@ -863,8 +866,10 @@ guidance, not a schema field: it only affects how you choose <code>anchorXZ</cod
 sitter’s left and right.</p>
 <p><code>scene.usdz</code> is a self-contained, meter-scale, +Y-up USDZ. Its ZIP members are
 stored without compression and it must pass <code>usdchecker --arkit</code>.
-<code>thumbnail.jpg</code> is required and must decode as JPEG or PNG image data. Locus
-does not capture a missing thumbnail during import.</p>
+In a flat Room ZIP, <code>thumbnail.jpg</code> is required and must decode as JPEG or PNG
+image data. Locus does not capture a missing thumbnail during import. A
+complete Package v2 Room’s <code>thumbnail</code> field is optional; without it, the Room
+card shows a fallback glyph.</p>
 <h3 id="room-lighting-formatversion-2" tabindex="-1">Room lighting (formatVersion 2)</h3>
 <p>A Room without lighting keeps <code>formatVersion: 1</code> and omits <code>lighting</code>; Locus
 shows no light switch or Room lighting settings and builds no runtime rig. A

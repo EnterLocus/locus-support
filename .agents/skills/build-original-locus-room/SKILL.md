@@ -17,6 +17,12 @@ key, or a particular image-model vendor. Commands below are relative to the
 public repository root. Use Python 3.9 or later and pass the Locus version
 being targeted to `--current-app-version`.
 
+Headless Blender, its bundled Python, and the Swift tools that the validators
+and checker compile may fail to start, hang, or fail to write their module
+cache inside a restrictive agent sandbox. When that happens, run the same
+command outside the sandbox through whatever permission your environment
+provides for local tools; do not change the command or skip the check.
+
 Package a Room and a View as separate Package v2 import archives with separate
 stable `packageID` values. This is the default even when they are designed as a
 pair: each archive can then be replaced, removed, and iterated without changing
@@ -176,7 +182,7 @@ python3 tools/check_room.py --current-app-version <target-version> \
 
 Read every checker warning and inspect the complete render contact sheet. In
 `check_room.py` renders, clear windows and openings are expected to show the
-checker's neutral gray lighting scaffold rather than outdoor scenery; painted
+checker's plain dark, near-black background rather than outdoor scenery; painted
 mountains or sky through a window mean an exported backdrop mesh is blocking
 the View. `--current-app-version` and the explicit `--renders` directory are
 required evidence for this handoff. Correct the editable source, rebuild,

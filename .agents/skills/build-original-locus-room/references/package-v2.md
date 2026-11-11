@@ -58,6 +58,29 @@ are USD coordinates by default; pass `--frame blender` only when the input uses
 Blender's Z-up coordinates. The helper rejects seats outside the final X/Z
 bounds and prints the resulting eye points for review cameras.
 
+Wrap the entries in a `seats` array; a bare array is rejected:
+
+```json
+{
+  "seats": [
+    {
+      "id": "seat.sofa",
+      "title": "Sofa",
+      "eyeHeight": 1.15,
+      "floor": [-0.05, 0.0, 0.0],
+      "lookAt": [-2.95, 1.2, 0.0]
+    },
+    {
+      "id": "seat.reading-chair",
+      "title": "Reading Chair",
+      "eyeHeight": 1.15,
+      "eye": [1.8, 1.15, 0.2],
+      "yawRadians": 3.141593
+    }
+  ]
+}
+```
+
 To convert an existing flat `teleport-points.json` without altering point
 records, use:
 
@@ -74,7 +97,10 @@ an increased `contentVersion`.
 ## Pack the source directory
 
 Keep editable Blender files, scripts, source textures, and renders outside the
-Package v2 source directory. Set stable `packageID` and space ID values once,
+Package v2 source directory. A Package v2 Room's `space.json` always keeps
+`formatVersion: 2`; the Room v3–v10 numbers in the flat compatibility and
+lighting references apply only to a flat ZIP, so add those fields to the
+Package v2 manifest without changing its `formatVersion`. Set stable `packageID` and space ID values once,
 then increment `contentVersion` whenever an archive changes. Generate the
 archive with the public packer:
 

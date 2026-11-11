@@ -880,7 +880,10 @@ adds explicit rendering roles and spotlight directions; Room v6 adds authored
 seat groups; Room v7 adds looping video surfaces; Room v8 adds illuminated
 surfaces and an explicit view-forward yaw; Room v9 adds particle effects;
 Room v10 adds per-lamp baked light layers. All of those compatibility
-versions use the same flat ZIP layout.
+versions use the same flat ZIP layout. These `formatVersion` numbers apply only
+to a flat `space.json`: a complete Package v2 Room's `space.json` keeps
+`formatVersion: 2` and declares the same fields directly, with the matching
+`minimumAppVersion` in `locusplace.json`.
 
 Locus 1.1.4 adds an optional `sound.json` sidecar: a Room or a View may carry
 its own audio, independently of everything above. An older Locus refuses the
@@ -987,8 +990,10 @@ sitter's left and right.
 
 `scene.usdz` is a self-contained, meter-scale, +Y-up USDZ. Its ZIP members are
 stored without compression and it must pass `usdchecker --arkit`.
-`thumbnail.jpg` is required and must decode as JPEG or PNG image data. Locus
-does not capture a missing thumbnail during import.
+In a flat Room ZIP, `thumbnail.jpg` is required and must decode as JPEG or PNG
+image data. Locus does not capture a missing thumbnail during import. A
+complete Package v2 Room's `thumbnail` field is optional; without it, the Room
+card shows a fallback glyph.
 
 ### Room lighting (formatVersion 2)
 

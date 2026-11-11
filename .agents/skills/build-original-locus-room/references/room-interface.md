@@ -19,11 +19,14 @@ are in [Package v2 delivery](package-v2.md). The public reference at
   `scene.usdz`, and `thumbnail.jpg`. Each flat import receives a new UUID.
 - The USDZ is self-contained, stores its members without compression, and must
   pass `usdchecker --arkit`.
-- `thumbnail.jpg` must contain decodable JPEG or PNG image data.
+- In a flat ZIP, `thumbnail.jpg` is required and must contain decodable JPEG
+  or PNG image data. A Package v2 Room's `thumbnail` field is optional.
 - In a flat compatibility ZIP, `displayName` is user-facing text, not identity.
 
 The rest of this reference documents that retained flat route, including its
-Room v1-v10 additions. It is a compatibility appendix, not the default
+Room v1-v10 additions. Those `formatVersion` numbers belong to a flat
+`space.json` only; a Package v2 `space.json` keeps `formatVersion: 2` and
+carries the same fields directly. It is a compatibility appendix, not the default
 workflow. It does not turn a flat ZIP into Package v2 or make it carry
 complete-only View media, Room/View composition, Experiences, or stable
 package identity.

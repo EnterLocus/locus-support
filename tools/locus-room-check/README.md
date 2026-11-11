@@ -63,7 +63,10 @@ model space is `[sin(yaw), 0, -cos(yaw)]`.
 Resolution is 640 by 360, vertical field of view 75 degrees for seats and
 45 degrees for exterior preview. Lighting is fixed: a constant RGB 0.5 gray
 128 by 64 environment generated from source, IBL exponent +2, and a white
-1500-lux directional light aimed from (3,5,2) toward the origin. Contact-sheet
+1500-lux directional light aimed from (3,5,2) toward the origin. The
+environment lights the model but is not drawn: anything seen through a clear
+window or opening is the plain dark background (gray 0.18 before tone
+mapping), which looks near-black in the images. Contact-sheet
 labels explicitly say **scaffolded**. This is diagnostic lighting, not the
 Room's appearance with a selected View. Files in an existing output directory
 are overwritten; choose a fresh directory for each candidate.
