@@ -10,7 +10,7 @@ source.
 
 This repository uses scoped licenses rather than one blanket license:
 
-- the public Room authoring skill, tools, and schemas are available under
+- the public Room and skybox authoring skills, tools, and schemas are available under
   Apache License 2.0;
 - the Locus-authored parts of the three downloadable demo Rooms are available
   under Creative Commons Attribution 4.0 International;
@@ -269,3 +269,18 @@ Content changes do not require hand-editing Gallery pages;
 new reader capabilities and built-in assets still require release review. Site
 build, localization, Pagefind and browser checks apply to these pages as they do
 to the rest of the website.
+
+## Build a 12K skybox
+
+The public [build-a-view skill](.agents/skills/build-a-view/SKILL.md) and
+[skybox workflow](.agents/skills/build-a-view/references/skybox-workflow.md)
+cover full-sphere generation, pixel density, overlap faces, narrow blending,
+and local defect repair. Codex built-in image generation is the default;
+images from your preferred API or image editor use the same local Python tools.
+No private app source, provider account, Blender, or macOS is required for
+skybox authoring. Import the final panorama into Locus separately.
+
+The target is 12,288 × 6,144 SDR. That is an output size, not a guarantee of
+resolved detail: review the generated face sizes, enlargement factors, seams,
+and perspective crops before accepting a result. This first workflow covers
+static skyboxes only.
