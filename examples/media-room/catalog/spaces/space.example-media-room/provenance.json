@@ -1,0 +1,13 @@
+{
+  "aiGenerated": false,
+  "creatorOrAgency": "EnterLocus.com",
+  "formatVersion": 1,
+  "license": {
+    "identifier": "Apache-2.0",
+    "name": "Apache License 2.0",
+    "url": "https://www.apache.org/licenses/LICENSE-2.0"
+  },
+  "modificationNotes": "Generated from source by examples/media-room/build_media_room.py as a small Room TV example.",
+  "requestedCredit": "Example Media Room by EnterLocus.com",
+  "sourcePageURL": "https://enterlocus.com/reference/locusplace-format/"
+}

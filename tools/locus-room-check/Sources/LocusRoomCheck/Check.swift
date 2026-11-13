@@ -160,6 +160,7 @@ struct Report: Codable {
                 error("missingAnimation", "Entity '\(name)' has no animation '\(clip)'.")
             }
         }
+        checkTVs(space, report.seats, entity: entity, emissives: emissives, error: error, warn: warn)
         warn("deviceAcceptance", "macOS checks do not validate Vision Pro comfort, tracking, Room Portal, real desk alignment, lighting appearance, sound or frame rate.")
     }
 }

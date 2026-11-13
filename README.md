@@ -76,6 +76,10 @@ sky composer, a Schwarzschild lens and baker, and a complete Package v2 packer
 and validator for `locus.view.black-hole.v1` Views, which need Locus 1.3.4 or
 later. See its [README](tools/black_hole/README.md).
 
+`examples/media-room/` generates a small Package v2 Room with two Room TVs,
+which need Locus 1.4.9 or later. See its [README](examples/media-room/README.md)
+and the skill's [Room TVs reference](.agents/skills/build-original-locus-room/references/room-tvs.md).
+
 ## Community
 
 [Community](https://www.reddit.com/r/EnterLocus/) — Share creations, ask

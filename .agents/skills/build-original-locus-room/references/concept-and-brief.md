@@ -13,8 +13,8 @@ generation is optional: no provider, API key, or paid service is required.
 
 Use one clear design basis rather than contradictory image references. Record
 the Room's purpose, mood, main activity, architectural type, important
-materials, principal view, day/night state, and any optional animation or
-sound. If an image model contributes materially, record that truthfully in
+materials, principal view, day/night state, and any optional TVs, animation
+or sound. If an image model contributes materially, record that truthfully in
 provenance; a prompt alone does not prove authorship or redistribution rights.
 Keep a rights inventory for every supplied reference or incorporated asset.
 
@@ -54,7 +54,8 @@ For a desk-backed seat, identify the actual tabletop, its usable work area, and
 the group that **Hide Desk** must later hide. For lounge seating, define the
 relaxed view and access route. Also record the comparison camera's eye height,
 direction, framing, and field of view. State the seat count and purpose, which
-lamps a visitor can control, and a compact acceptance list: clear paths and
+lamps a visitor can control, each TV and the seats that watch it, and a
+compact acceptance list: clear paths and
 focal points, no floating or intersecting objects, sufficient visible-surface
 thickness, and readable usable desks.
 

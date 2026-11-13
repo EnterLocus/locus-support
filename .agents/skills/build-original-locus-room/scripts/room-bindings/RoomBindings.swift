@@ -120,6 +120,10 @@ struct RoomModelBindingContract: Decodable, Sendable {
     }
     struct Animation: Decodable, Sendable { let entityName: String }
     struct VideoSurface: Decodable, Sendable { let entityName: String }
+    /// Package v2 `tvs` (`locus.room.tv.v1`). Each `entityName` is a flat
+    /// screen quad: it must resolve to one renderable subtree, none inside
+    /// another, like a video surface's.
+    struct TV: Decodable, Sendable { let entityName: String }
     /// Only the anchor's position is used, so it resolves by name like a
     /// lighting proxy anchor; a transform-only Xform is enough.
     struct ParticleEffect: Decodable, Sendable { let anchorEntity: String }
@@ -133,6 +137,7 @@ struct RoomModelBindingContract: Decodable, Sendable {
     let videoSurfaces: [VideoSurface]?
     let particleEffects: [ParticleEffect]?
     let textureFlow: [TextureFlow]?
+    let tvs: [TV]?
 
     var textureFlowNames: [String] { (textureFlow ?? []).flatMap(\.entities) }
 
@@ -159,6 +164,7 @@ struct RoomModelBindingContract: Decodable, Sendable {
         names += (videoSurfaces ?? []).map(\.entityName)
         names += (particleEffects ?? []).map(\.anchorEntity)
         names += textureFlowNames
+        names += (tvs ?? []).map(\.entityName)
         return names
     }
 }
@@ -189,6 +195,9 @@ enum RoomModelBindingValidator {
         }
         if !contract.textureFlowNames.isEmpty {
             _ = try RoomEntityBindings.subtrees(named: contract.textureFlowNames, in: model)
+        }
+        if let tvs = contract.tvs, !tvs.isEmpty {
+            _ = try RoomEntityBindings.subtrees(named: tvs.map(\.entityName), in: model)
         }
         if let lighting = contract.lighting {
             try validateIlluminatedEntities(lighting, in: model)

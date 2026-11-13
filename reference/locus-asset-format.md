@@ -37,8 +37,8 @@ View, Room, or Experience IDs.
 
 Supported complete packages preserve View media and masks, View and Room
 sound, Room animations, video surfaces, illuminated surfaces, particle effects,
-baked light layers, seat groups, localized display text, provenance, and
-supported Experiences. They must pass manifest and file-inventory agreement,
+baked light layers, seat groups, Room TVs (Locus 1.4.9 or later), localized
+display text, provenance, and supported Experiences. They must pass manifest and file-inventory agreement,
 hashes, safe canonical paths, archive and decoded-resource limits, declared
 capabilities, and `minimumAppVersion`. If `locusplace.json` is present but the
 complete package is malformed, Locus rejects it; it does not reinterpret or
@@ -92,8 +92,8 @@ remain part of the manifest.
 Each language entry may provide non-empty `title`, `caption`, and
 `libraryCaption` strings; `searchTerms` arrays; and translated name maps
 for existing IDs: `seatTitles`, `seatGroupTitles`, `soundTitles`,
-`mediaTitles`, `lightTitles`, `animationTitles`, `videoTitles`, and
-`particleTitles`. All fields are optional, so missing fields fall back to the
+`mediaTitles`, `lightTitles`, `animationTitles`, `videoTitles`,
+`particleTitles`, and `tvTitles` (Room TVs, Locus 1.4.9 or later). All fields are optional, so missing fields fall back to the
 manifest's original text one field at a time. `libraryCaption` and
 `searchTerms` are Library-facing metadata; they do not replace the manifest
 caption or inject search terms into another language. A package supports at
@@ -880,7 +880,10 @@ adds explicit rendering roles and spotlight directions; Room v6 adds authored
 seat groups; Room v7 adds looping video surfaces; Room v8 adds illuminated
 surfaces and an explicit view-forward yaw; Room v9 adds particle effects;
 Room v10 adds per-lamp baked light layers. All of those compatibility
-versions use the same flat ZIP layout.
+versions use the same flat ZIP layout. These `formatVersion` numbers apply only
+to a flat `space.json`: a complete Package v2 Room's `space.json` keeps
+`formatVersion: 2` and declares the same fields directly, with the matching
+`minimumAppVersion` in `locusplace.json`.
 
 Locus 1.1.4 adds an optional `sound.json` sidecar: a Room or a View may carry
 its own audio, independently of everything above. An older Locus refuses the
@@ -987,8 +990,10 @@ sitter's left and right.
 
 `scene.usdz` is a self-contained, meter-scale, +Y-up USDZ. Its ZIP members are
 stored without compression and it must pass `usdchecker --arkit`.
-`thumbnail.jpg` is required and must decode as JPEG or PNG image data. Locus
-does not capture a missing thumbnail during import.
+In a flat Room ZIP, `thumbnail.jpg` is required and must decode as JPEG or PNG
+image data. Locus does not capture a missing thumbnail during import. A
+complete Package v2 Room's `thumbnail` field is optional; without it, the Room
+card shows a fallback glyph.
 
 ### Room lighting (formatVersion 2)
 
@@ -1558,6 +1563,57 @@ only units named by the selected View's `midground.terrainEntities`; `hidden`
 does not load the selected View's `midground.path` model or textures. It does
 not hide the panorama, View water, Room water, fireflies, or the Room's own
 geometry, and it is independent of `viewGroundKeepOut`.
+
+### Room TVs (Locus 1.4.9 or later)
+
+Requires Locus 1.4.9 or later. `tvs` is an optional top-level array in a
+complete Package v2 Room's `space.json`. Each entry turns one flat screen in
+`scene.usdz` into a TV that a visitor can play a web page on. Library offers
+use capability `locus.room.tv.v1`. The legacy/simple flat Room ZIP cannot carry
+this field.
+
+```json
+"tvs": [
+  {
+    "id": "living-tv",
+    "displayName": "Living Room TV",
+    "entityName": "TV_Screen_Living"
+  }
+]
+```
+
+A Room may declare 1 to 4 TVs, and each entry has exactly these three fields.
+`id` is 1–64 bytes of lowercase letters, digits, and hyphens, unique among the
+Room's TVs. `displayName` is non-blank and at most 200 UTF-8 bytes; it names
+the TV in the **Play on TV** menu, and `localizations.<language>.tvTitles`
+translates it by `id`. `entityName` is non-blank, at most 200 UTF-8 bytes, and
+unique among the Room's TVs. It must resolve to a mesh-bearing entity of
+`scene.usdz`, checked the same way as every other authored entity reference,
+and one TV's screen must not contain another's. A TV has no asset file. Any
+package that declares `tvs` must set `minimumAppVersion` to `"1.4.9"` or later;
+an earlier Locus refuses to import it.
+
+The screen entity is a flat 16:9 quad: its own named object holding one
+four-vertex mesh, not nested under another entity the Room metadata names,
+with its own 0–1 UVs (u to the watcher's right, v up). Locus reads the page
+rectangle from its bounds. The screen's authored material is the TV's off
+state, such as dark glass or, for an art TV, an artwork texture, and should not
+be emissive. Keep the screen a few millimetres in front of its frame and wall
+rather than coplanar with them.
+
+Every TV is off when a visitor arrives; there is no author setting for a
+default page or for starting on. In Virtual Space, a visitor looks at a screen
+and pinches to turn it on, and a remote appears under it. **Play on TV** in a
+Browser window moves a page to a TV, and **Open in Window** moves it back. TVs
+are not offered in Room Portal.
+
+The public validator checks the field, its version floor, and that every
+`entityName` is an entity of `scene.usdz`; the Room binding check resolves
+each screen in the loaded model. `tools/check_room.py` also reports a screen
+that is not one flat quad, is nested in or around another named entity, is not
+16:9, is emissive, or faces no seat. The
+[Example Media Room](../examples/media-room/README.md) generates a complete
+Room with two TVs.
 
 ## How Locus uses a Room
 
