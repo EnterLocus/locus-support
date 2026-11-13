@@ -50,3 +50,32 @@ models, pricing and interfaces are deliberately not pinned by the public CLI.
 The panorama/image audits are offline evidence. Locus import, physical Apple
 Vision Pro rendering, comfort and owner acceptance are NOT VERIFIED. This
 methodology publication does not require an app build or Simulator.
+
+## Final sparse trial review
+
+Five built-in image calls total: base, whole-panorama restoration, one detail
+face (`px`), one local patch, and one targeted `pz` repair. The final JPEG is
+12288×6144; only px/pz received generated face detail and four faces retain
+resampled base pixels. The patch experiment is separate from that panorama.
+
+Independent parent captures used the public audit tool on that exact final JPEG:
+contact sheet, cube-pz, cube-ny, edge-px-pz, edge-py-pz and edge-px-ny.
+
+- Output dimensions: PASS.
+- Uniform 12K resolved detail: FAIL, sparse enhancement and approximately
+  3.03× face normalization leave uneven density.
+- Seam quality: FAIL, a visible sharpness/texture boundary crosses the surf
+  in edge-px-ny; a center continuity concern remains in the repaired back face.
+- Nadir: FAIL, radial pinching/starburst in cube-ny.
+- Local patch integration: FAIL, reconstructed palm geometry and a sharp
+  rectangular patch boundary against softer neighboring pixels.
+- Uninspected native views, app import and physical device: NOT VERIFIED.
+
+The test candidate is rejected as a finished high-quality View. Publishing the
+method and tested deterministic tools does not promote this sample. The public
+workflow explains these rejection conditions; full-density multi-patch editing
+requires a separate bounded validation run before claiming equivalent quality.
+
+Source, prompts, trial output, full audit, metrics and parent review evidence are
+retained in the project Dropbox Workspace/build-a-view-maldives-20261112.
+The Dropbox path is project evidence storage, not a public download link.
