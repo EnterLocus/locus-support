@@ -275,10 +275,13 @@ to the rest of the website.
 The public [build-a-view skill](.agents/skills/build-a-view/SKILL.md) and
 [skybox workflow](.agents/skills/build-a-view/references/skybox-workflow.md)
 cover full-sphere generation, pixel density, overlap faces, narrow blending,
-and local defect repair. Codex built-in image generation is the default;
-images from your preferred API or image editor use the same local Python tools.
-No private app source, provider account, Blender, or macOS is required for
-skybox authoring. Import the final panorama into Locus separately.
+and local defect repair. The generated 12K route requires a high-resolution
+image API and its credentials; Nano Banana Pro at native 4K is the previously
+tested baseline. Other models need native-size, fidelity and seam validation.
+Codex built-in images may supply concepts or a low-resolution base, but the
+failed Maldives trial does not qualify them as the final enhancement route.
+No private app source, Blender, or macOS is required for skybox authoring.
+Import the final accepted panorama into Locus separately.
 
 The target is 12,288 × 6,144 SDR. That is an output size, not a guarantee of
 resolved detail: review the generated face sizes, enlargement factors, seams,

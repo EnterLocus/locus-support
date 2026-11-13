@@ -1,6 +1,6 @@
 ---
 name: build-a-view
-description: Create or repair a static full-sphere 12K skybox for Locus using built-in image generation or images from any provider, with local Python projection, overlap blending and visual audits. Excludes 3D midground, animated or computed water, celestial layers and procedural skies.
+description: Create or repair a static full-sphere 12K skybox for Locus using an explicitly configured high-resolution image API, native-size and fidelity checks, and local Python projection and visual audits. Excludes 3D midground, animated or computed water, celestial layers and procedural skies.
 ---
 
 # Build a View: static skybox
@@ -12,33 +12,44 @@ Commands run from a clone of the public `EnterLocus/locus-support` repository;
 no private Locus scripts, credentials, source, catalog or asset paths are used.
 
 Read [the workflow](references/skybox-workflow.md) for commands, prompts,
-pixel-density arithmetic and repair decisions. Default to Codex's built-in
-image generation/editing tool, then exchange actual image files with the
-local Python tools. The Python CLI does not invoke the built-in tool or ask
-for an API key. Inspect its actual output dimensions; prompt wording cannot
-guarantee a model's size or projection.
+pixel-density arithmetic and repair decisions. **A configured high-resolution
+image API and its credentials are required for the generated 12K route.**
+Nano Banana Pro at its native 4K output is the previously tested baseline.
+Another model is acceptable only after verifying its actual output sizes,
+layout preservation, fine detail and seams against an accepted baseline.
+An already accepted high-resolution panorama can skip generation.
 
-If built-in generation is unavailable, report that limitation. A creator can
-choose another image editor or API, including their own Nano Banana Pro key
-route. Models are interchangeable file producers; do not silently switch to
-a billable API, choose a paid budget, or assume built-in availability is free
-or unlimited. Never include keys in files, prompts, logs or reports.
+Codex built-in image generation may supply concepts or a low-resolution base.
+It is not the final restoration/enhancement route: the tested tool returned
+1774×887 panoramas and 1254×1254 faces and exposed no explicit size/model/
+quality controls. Do not enlarge these into a purported finished 12K View.
+The default has been corrected after the failed Maldives trial.
+
+Choose provider, model, explicit high-resolution settings and authorized budget
+before API calls. Never silently fall back to a smaller output or another
+model. Keep keys in the environment, never in files, prompts or logs. The local
+Python tools are provider-neutral; they do not submit generation requests.
 
 1. Generate a coherent full sphere. Review level horizon, world layout,
    wrap and poles before spending effort on resolution.
-2. Restore ambiguous AI regions across the complete panorama once, if needed.
+2. Restore a low-resolution AI base across the complete panorama at a verified
+   approximately 4K-wide native output before face enhancement.
    Roll the wrap into the image center for repair, then reverse the roll.
    Restoration may invent detail; do not use it to claim photographic fidelity.
 3. Split the accepted layout into six perspective faces with 6° context on
    each side. Enhance detailed faces one at a time with a preservation prompt.
-   Resample featureless sky instead of inventing texture. Inspect each result
+   Enhance every face with meaningful detail, including ground and clouds.
+   Only truly featureless faces may use resampling. Inspect each result
    for geometry and tone drift; preserve overlap and framing.
-4. Merge to 12,288 × 6,144 using a narrow 0.25° half-width transition. Broad
+4. Reject undersized, incomplete or visibly inconsistent face sets before
+   final export. Merge accepted faces to 12,288 × 6,144 using a narrow
+   0.25° half-width transition. Broad
    overlap supplies generation context; it is not a broad blending instruction.
 5. Audit perspective views, every cube join, ±180° wrap, zenith and nadir.
    Repair the smallest defective region and repeat the affected audit.
    Obtain an independent image review when another agent is available.
-6. Deliver the panorama, source, face metadata, prompts, generation dimensions,
+6. Deliver only an accepted panorama, with source, face metadata, prompts,
+   generation dimensions,
    checksums and honest review findings. Import the exact panorama through
    Locus Places → Import → Import a View, then check on Apple Vision Pro.
 
@@ -50,3 +61,8 @@ Perspective image review is distinct from Locus loading and headset acceptance.
 This phase includes painted sea or beach as static panorama pixels. It does
 not create water geometry, motion, parallax, sound or procedural lighting.
 Build those future View layers on the accepted skybox with their own contracts.
+
+The small-patch tool remains experimental. Its Maldives test failed integration;
+it is not an approved substitute for native high-resolution faces. Do not
+deliver partial enhancement as a finished 12K result. A failed trial remains a
+failed trial even when its dimensions are 12288×6144.
