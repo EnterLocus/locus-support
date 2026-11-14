@@ -270,7 +270,7 @@ new reader capabilities and built-in assets still require release review. Site
 build, localization, Pagefind and browser checks apply to these pages as they do
 to the rest of the website.
 
-## Build a 12K skybox
+## Build a skybox
 
 The public [build-a-view skill](.agents/skills/build-a-view/SKILL.md) and
 [skybox workflow](.agents/skills/build-a-view/references/skybox-workflow.md)
@@ -286,7 +286,9 @@ failed Maldives trial does not qualify them as the final enhancement route.
 No private app source, Blender, or macOS is required for skybox authoring.
 Import the final accepted panorama into Locus separately.
 
-The target is 12,288 × 6,144 SDR. That is an output size, not a guarantee of
-resolved detail: review the generated face sizes, enlargement factors, seams,
-and perspective crops before accepting a result. This first workflow covers
-static skyboxes only.
+The workflow first presents a panorama for visual acceptance, then asks for
+API credentials, cost and native-resolution approval. It confirms whether
+Nano Banana Pro should use slower, discounted Batch processing. Final SDR
+resolution follows actual face sizes and FOV rather than a forced 12K canvas;
+see the [sampling calculation](.agents/skills/build-a-view/references/resolution.md).
+This first workflow covers static skyboxes only.

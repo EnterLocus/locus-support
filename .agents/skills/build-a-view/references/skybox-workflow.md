@@ -1,4 +1,4 @@
-# A full-sphere skybox, from generation to 12K
+# A full-sphere skybox, from accepted base to native-resolution delivery
 
 ## Install and choose the image route
 
@@ -40,6 +40,12 @@ creator which API/model to use and the environment-variable name or secure
 credential reference for its key; never ask them to paste a secret. Read
 [models, per-View costs, bulk discounts and the quote contract](models-and-cost.md).
 The article gives dated output subtotals and separates them from billed cost.
+
+First show the Step 1 panorama in the host's available 360° preview and wait
+for visual confirmation. Freeze the accepted base and prompt with SHA-256.
+Only then ask the Step 2 model/key, budget and native output-resolution
+questions. Offer Standard versus Batch for Nano Banana Pro and confirm the
+creator's choice, unless already explicitly provided.
 
 Before **each** paid generation/edit submission, quote the specific requests
 and wait for explicit approval. A declared batch can be approved as one exact,
@@ -110,12 +116,38 @@ join just turns it into a soft vertical band. Reject large layout drift before
 proceeding. Fidelity measurements are diagnostic, especially when a successful
 repair is supposed to differ from a defective source.
 
+### Nano Banana Pro: full-panorama aspect context
+
+The documented 4K ratios include 21:9, but not exact 2:1. For the G whole-
+panorama restoration, use cyclic padding rather than guessing what an omitted
+aspect-ratio field will return:
+
+```sh
+python3 tools/skybox/erp_context.py pad source.png g-input.png --metadata g-context.json
+# Quote/approve one Nano Banana Pro edit: explicit 21:9, imageSize 4K.
+# Keep the raw model file as g-raw.png. For the comparative test, use Batch.
+python3 tools/skybox/erp_context.py unpad g-raw.png restored.png --metadata g-context.json
+```
+
+The tool rolls half a turn, wraps side context to 21:9, then crops the returned
+image by recorded input fractions and reverses the roll. Google documents
+6336×2688 for a 4K 21:9 output, whose ratio differs slightly from exact 21:9.
+The tool records that mismatch and permits at most 2% projection-aspect
+correction to exact 2:1, downsampling only. Larger drift is rejected. Preserve
+both the raw and derived outputs. This deterministic transform does not alter
+the frozen original and does not establish seam quality; inspect both seam
+families afterward. [Google's ratio reference](https://ai.google.dev/gemini-api/docs/image-generation#aspect_ratios_and_image_size)
+explains native sizes. Square F face edits remain explicit 1:1 at 4K.
+
 ## 3. Pixel density and splitting
 
-The output target is 12,288 × 6,144: about **34.13 pixels per degree** at the
-equator. A 90° ERP span therefore has 3,072 columns. A perspective face's
-pixels have nonuniform angular density: a 3,072-pixel core is a convenient
-working convention, not a claim of constant 34.13 px/degree in that face.
+Choose the output size from the model's actual returned face dimensions and
+[the native sampling calculation](resolution.md). Six 2880²/102° faces give
+about 7.3K-wide conservative ERP sampling; six 4096² faces about 10.4K. The
+common 4-core-width convention is about 9.3K/13.3K respectively, but it
+oversamples the face center. None of these numbers proves resolved detail.
+Six faces still cover the sphere; a higher target needs a separately quoted
+higher-density generation strategy.
 
 A 1,774-wide panorama provides only about 443 columns over 90°. Asking a
 preservation model for a single 7–8× leap often preserves the original blur.
@@ -152,7 +184,7 @@ in `enhanced/`. Every face with meaningful detail must be enhanced: vegetation,
 sea, clouds and sand are not featureless. Do not copy four detailed faces through
 as the Maldives trial did. A truly featureless sky face may remain a source
 projection; retain the reason for that exception. Square outputs at different sizes can be
-explicitly normalized by the merge command, with recorded enlargement factors.
+directly sampled by native merge, with actual sizes recorded. Do not enlarge them first.
 A nonsquare result or changed framing needs correction, not an automatic resize.
 Do not stretch or globally standardize contrast to hide structural disagreement.
 
@@ -175,12 +207,13 @@ small-patch route is not a recommended replacement for high-resolution faces.
 ## 4. Merge with a narrow transition
 
 ```sh
-python3 tools/skybox/skybox.py merge enhanced panorama.jpg --width 12288 --blend 0.25 --normalize-faces
+python3 tools/skybox/skybox.py merge enhanced panorama.jpg --native-resolution --blend 0.25
 python3 tools/skybox/skybox.py audit panorama.jpg review
 ```
 
 Only run this final export after every required face has passed its native
-resolution, fidelity and adjacency checks. Use lossless PNG checkpoints. The
+resolution, fidelity and adjacency checks. Native merge directly samples the
+actual returned faces without pre-enlargement; record its calculated dimensions. Use lossless PNG checkpoints. The
 current JPEG export uses quality 100 and 4:4:4 sampling; it preserves detail
 already present but cannot create detail. On the failed low-resolution trial
 it produced a roughly 43 MiB file without corresponding image quality. Do not

@@ -1,0 +1,18 @@
+{
+  "status": "preflight_complete_awaiting_generation_approval",
+  "source": {
+    "filename": "source.png",
+    "width": 1774,
+    "height": 887,
+    "sha256": "839693327e5ce645ec0c5be03be22e4123db47543168a823b26946eab8f27c9d",
+    "regenerated": false
+  },
+  "prompt": {
+    "path": "prompt.txt",
+    "sha256": "699b2e1c8794398d88d22c3aded0579bd8748b1e0ddb8f56025c3580c515e8d6"
+  },
+  "routes": {
+    "nano_banana_pro": {"mode": "batch", "returned_face_size": null, "final_size": null, "actual_cost_usd": null},
+    "gpt_image_2_6_sunburst": {"mode": "standard", "returned_face_size": null, "final_size": null, "actual_cost_usd": null}
+  }
+}

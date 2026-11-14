@@ -14,6 +14,8 @@ The following paths are licensed under the Apache License, Version 2.0:
 - `tools/**`
 - `tests/test_skybox.py`
 - `tests/test_skybox_tiles.py`
+- `tests/test_skybox_erp_context.py`
+- `examples/skybox-comparison/**` (text, recipes and comparison metadata)
 - `schemas/**`
 - `examples/locusplace/**` (generator source and its generated synthetic examples)
 

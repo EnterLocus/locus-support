@@ -148,6 +148,38 @@ def geometry(core_size, overlap):
     }
 
 
+def resolution_plan(face_size, overlap):
+    """Plan ERP sampling from a square cube-face pixel density.
+
+    This is deliberately a sampling bound, rather than an image-quality or
+    detail claim.  The common four-core grid convention and the conservative
+    face-centre-density limit answer different questions, so retain both.
+    """
+    if face_size <= 0:
+        raise ValueError("--face-size must be positive")
+    if not 0 <= overlap < 45:
+        raise ValueError("--overlap must be at least 0 and less than 45 degrees")
+    tangent_extent = math.tan(math.radians(45.0 + overlap))
+    conservative_width = int(math.floor(math.pi * face_size / tangent_extent))
+    # ERP widths must be even for the exact 2:1 output convention.
+    conservative_width -= conservative_width % 2
+    return {
+        "faceSize": face_size,
+        "overlapDegrees": overlap,
+        "tangentExtent": tangent_extent,
+        "commonGridWidth": int(round(4.0 * face_size / tangent_extent)),
+        "commonGridConvention": ("round(4 * faceSize / tangentExtent): the common four-core grid "
+                                 "oversamples face-center density by 4/pi"),
+        "conservativeWidth": conservative_width,
+        "conservativeHeight": conservative_width // 2,
+        "angularDensity": face_size / (2.0 * tangent_extent),
+        "angularDensityUnits": "pixels per radian at face center",
+        "conservativeSampling": "even_floor(pi * faceSize / tangentExtent)",
+        "warning": ("This is a conservative sampling limit derived from face-center angular density; "
+                    "it does not establish output quality or generated detail."),
+    }
+
+
 def write_metadata(outdir, data):
     (outdir / "metadata.json").write_text(json.dumps(data, indent=2, sort_keys=True) + "\n", encoding="utf-8")
 
@@ -179,7 +211,7 @@ def command_split(args):
     return {"outdir": str(outdir), "storedSize": data["storedSize"], "coreSize": args.core_size}
 
 
-def read_faces(facesdir, normalize):
+def read_faces(facesdir, normalize, native_resolution=False):
     facesdir = Path(facesdir)
     metadata_path = facesdir / "metadata.json"
     if not metadata_path.is_file():
@@ -189,10 +221,18 @@ def read_faces(facesdir, normalize):
     for key in ("storedSize", "coreSize"):
         if metadata.get(key) != expected[key]:
             raise ValueError("metadata geometry does not match its core size and overlap")
+    if native_resolution:
+        actual_fov = 2.0 * math.degrees(math.atan(metadata["storedSize"] / float(metadata["coreSize"])))
+        declared_fov = metadata.get("fieldOfViewDegrees")
+        if not isinstance(declared_fov, (float, int)) or not math.isclose(declared_fov, actual_fov,
+                                                                            rel_tol=0.0, abs_tol=1e-9):
+            raise ValueError("metadata field of view does not match its stored and core sizes")
     if metadata.get("bases") != FACE_BASES:
         raise ValueError("metadata cube bases do not match the Locus skybox contract")
     loaded, provenance = {}, {}
     files = metadata.get("faceFiles", {})
+    if native_resolution and (not isinstance(files, dict) or any(face not in files for face in FACES)):
+        raise ValueError("native-resolution requires metadata for all six face files")
     for face in FACES:
         file_name = files.get(face, face + ".png")
         path = facesdir / file_name
@@ -202,7 +242,7 @@ def read_faces(facesdir, normalize):
         original = dimensions(pixels)
         if pixels.shape[0] != pixels.shape[1]:
             raise ValueError("face %s must be square, got %sx%s" % (face, pixels.shape[1], pixels.shape[0]))
-        if pixels.shape[0] != metadata["storedSize"]:
+        if pixels.shape[0] != metadata["storedSize"] and not native_resolution:
             if not normalize:
                 raise ValueError("face %s is %s; expected square %s (use --normalize-faces explicitly)" %
                                  (face, pixels.shape[0], metadata["storedSize"]))
@@ -213,8 +253,9 @@ def read_faces(facesdir, normalize):
             "input": original,
             "output": dimensions(pixels),
             "normalized": pixels.shape[0] != original["width"],
-            "scale": float(pixels.shape[0]) / original["width"],
         }
+        if not native_resolution:
+            provenance[face]["scale"] = float(pixels.shape[0]) / original["width"]
     return metadata, loaded, provenance
 
 
@@ -223,9 +264,12 @@ def smoothstep(value):
     return value * value * (3.0 - 2.0 * value)
 
 
-def merged_pixels(faces, core_size, stored_size, overlap, blend, width, height):
+def merged_pixels(faces, core_size, stored_size, overlap, blend, width, height, native_resolution=False):
     result = np.empty((height, width, 3), dtype=np.uint8)
-    coverage = math.radians(45.0 + overlap)
+    tangent_extent = stored_size / float(core_size)
+    # Native sampling uses the actual FOV after split rounds stored size.  Keep
+    # the established requested-overlap coverage for legacy output unchanged.
+    coverage = math.atan(tangent_extent) if native_resolution else math.radians(45.0 + overlap)
     blend_radians = math.radians(blend)
     for start in range(0, height, 64):
         count = min(64, height - start)
@@ -248,8 +292,16 @@ def merged_pixels(faces, core_size, stored_size, overlap, blend, width, height):
             else:
                 weight = smoothstep((math.radians(45.0) + blend_radians - angle) / (2.0 * blend_radians))
             weight = (weight * valid)[..., None]
-            sx = x * core_size / 2.0 + stored_size / 2.0 - 0.5
-            sy = y * core_size / 2.0 + stored_size / 2.0 - 0.5
+            if native_resolution:
+                side = faces[face].shape[0]
+                # Each input can keep its own square native size.  It still
+                # spans the metadata's original tangent-plane FOV, so no face
+                # is resized.
+                sx = (x / tangent_extent + 1.0) * side / 2.0 - 0.5
+                sy = (y / tangent_extent + 1.0) * side / 2.0 - 0.5
+            else:
+                sx = x * core_size / 2.0 + stored_size / 2.0 - 0.5
+                sy = y * core_size / 2.0 + stored_size / 2.0 - 0.5
             total += bilinear_square(faces[face], sx, sy) * weight
             weights += weight
         if np.any(weights[..., 0] <= 0):
@@ -259,16 +311,28 @@ def merged_pixels(faces, core_size, stored_size, overlap, blend, width, height):
 
 
 def command_merge(args):
-    if args.width <= 0 or args.width % 2:
+    if args.native_resolution and (args.width is not None or args.normalize_faces):
+        raise ValueError("--native-resolution cannot be combined with --width or --normalize-faces")
+    if args.width is not None and (args.width <= 0 or args.width % 2):
         raise ValueError("--width must be a positive even equirectangular width")
     if args.blend < 0:
         raise ValueError("--blend is an angular half-width in degrees and cannot be negative")
-    metadata, faces, provenance = read_faces(args.facesdir, args.normalize_faces)
+    metadata, faces, provenance = read_faces(args.facesdir, args.normalize_faces, args.native_resolution)
     if args.blend > metadata["overlapDegrees"]:
         raise ValueError("--blend cannot exceed the stored overlap degrees")
-    height = args.width // 2
+    tangent_extent = metadata["storedSize"] / float(metadata["coreSize"])
+    if args.native_resolution:
+        native_size = min(face.shape[0] for face in faces.values())
+        width = int(math.floor(math.pi * native_size / tangent_extent))
+        width -= width % 2
+        if width <= 0:
+            raise ValueError("native face dimensions are too small for an equirectangular output")
+    else:
+        # Preserve the pre-native command's 12K default only for legacy merge.
+        width = 12288 if args.width is None else args.width
+    height = width // 2
     output = merged_pixels(faces, metadata["coreSize"], metadata["storedSize"],
-                           metadata["overlapDegrees"], args.blend, args.width, height)
+                           metadata["overlapDegrees"], args.blend, width, height, args.native_resolution)
     save_array(args.output, output)
     report = {
         "format": "locus-skybox-merge-v1",
@@ -278,6 +342,17 @@ def command_merge(args):
         "dimensionProvenance": provenance,
         "automaticToneCorrection": False,
     }
+    if args.native_resolution:
+        report["nativeResolution"] = True
+        report["nativeFaces"] = {
+            "inputOutputSame": all(item["input"] == item["output"] for item in provenance.values()),
+            "minimumInputFaceSize": native_size,
+            "tangentExtent": tangent_extent,
+            "sourceFieldOfViewDegrees": metadata["fieldOfViewDegrees"],
+            "formula": "even_floor(pi * minimumInputFaceSize / tangentExtent)",
+            "samplingLimit": ("The output uses the least dense input face at its center as a sampling limit; "
+                              "it does not establish output quality or generated detail."),
+        }
     write_path = Path(args.output).with_suffix(Path(args.output).suffix + ".merge.json")
     write_path.write_text(json.dumps(report, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     return report
@@ -385,6 +460,12 @@ def command_compare(args):
     return report
 
 
+def command_resolution(args):
+    report = resolution_plan(args.face_size, args.overlap)
+    sys.stdout.write(json.dumps(report, indent=2, sort_keys=True) + "\n")
+    return report
+
+
 def parser():
     root = argparse.ArgumentParser(description=__doc__)
     commands = root.add_subparsers(dest="command", required=True)
@@ -397,9 +478,17 @@ def parser():
     split.set_defaults(handler=command_split)
     merge = commands.add_parser("merge", help="merge six metadata-bound cube faces into equirectangular output")
     merge.add_argument("facesdir", type=Path); merge.add_argument("output", type=Path)
-    merge.add_argument("--width", type=int, default=12288); merge.add_argument("--blend", type=float, default=0.25)
+    merge.add_argument("--width", type=int, default=None,
+                       help="explicit equirectangular width (legacy default is 12288 when omitted)")
+    merge.add_argument("--native-resolution", action="store_true",
+                       help="keep raw square face dimensions and derive a conservative output width")
+    merge.add_argument("--blend", type=float, default=0.25)
     merge.add_argument("--normalize-faces", action="store_true", help="explicitly resize model-returned square faces to metadata size")
     merge.set_defaults(handler=command_merge)
+    resolution = commands.add_parser("resolution", help="plan equirectangular sampling from cube-face size")
+    resolution.add_argument("--face-size", type=int, required=True)
+    resolution.add_argument("--overlap", type=float, default=6.0)
+    resolution.set_defaults(handler=command_resolution)
     audit = commands.add_parser("audit", help="write an equirectangular diagnostic report and contact sheet")
     audit.add_argument("input", type=Path); audit.add_argument("outdir", type=Path)
     audit.add_argument("--review-size", type=int, default=1024,
