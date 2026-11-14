@@ -1,14 +1,36 @@
 {
   "currency": "USD",
-  "rate_date": "2026-11-13",
-  "paid_output_count": 18,
-  "creator_authorized_combined_cap_usd": 5,
+  "rate_dates": [
+    "2026-11-13",
+    "2026-11-14"
+  ],
+  "paid_output_count": 27,
   "provider_invoice_verified": false,
-  "gpt_usage_priced_usd": 1.614237,
-  "nano_if_unclassified_candidate_tokens_use_text_rate_usd": 1.471502,
-  "nano_conservative_accounted_usd": 1.587014,
-  "combined_conservative_accounted_usd": 3.201251,
-  "note": "Google candidate residual tokens have no returned modality classification and image input reports258 vs pricing-page560. The conservative amount reserves residual at image rate and input difference; it is not an invoice or predicted expected fee.",
+  "cohorts": {
+    "original_two_models_20261113": {
+      "paid_output_count": 18,
+      "creator_authorized_combined_cap_usd": 5,
+      "gpt_usage_priced_usd": 1.614237,
+      "nano_if_unclassified_candidate_tokens_use_text_rate_usd": 1.471502,
+      "nano_conservative_accounted_usd": 1.587014,
+      "combined_conservative_accounted_usd": 3.201251,
+      "note": "Google candidate residual tokens have no returned modality classification and image input reports258 vs pricing-page560. The conservative amount reserves residual at image rate and input difference; it is not an invoice or predicted expected fee.",
+      "cohort_id": "original_two_models_20261113",
+      "rate_date": "2026-11-13"
+    },
+    "nano21_20261114": {
+      "paid_output_count": 9,
+      "creator_authorized_cap_usd": 2,
+      "mode": "Standard",
+      "rate_date": "2026-11-14",
+      "image_output_subtotal_usd": 1.0206,
+      "known_classified_usd": 1.0643055,
+      "if_unclassified_candidate_tokens_use_text_rate_usd": 1.0942455,
+      "conservative_accounted_usd": 1.1840655,
+      "authorization": "Separate explicit full plan G1 F6 R0..2 under $2",
+      "note": "3992 candidate tokens lack modality classification; reserve them at image rate. Usage calculations are not invoices."
+    }
+  },
   "requests": [
     {
       "route": "gpt_image_2_6",
@@ -29,7 +51,8 @@
         "total_tokens": 7458
       },
       "usage_price_usd": 0.189872,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "gpt_image_2_6",
@@ -50,7 +73,8 @@
         "total_tokens": 7514
       },
       "usage_price_usd": 0.190152,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "gpt_image_2_6",
@@ -71,7 +95,8 @@
         "total_tokens": 7458
       },
       "usage_price_usd": 0.189872,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "gpt_image_2_6",
@@ -92,7 +117,8 @@
         "total_tokens": 7458
       },
       "usage_price_usd": 0.189872,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "gpt_image_2_6",
@@ -113,7 +139,8 @@
         "total_tokens": 7513
       },
       "usage_price_usd": 0.190147,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "gpt_image_2_6",
@@ -134,7 +161,8 @@
         "total_tokens": 7458
       },
       "usage_price_usd": 0.189872,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "gpt_image_2_6",
@@ -155,7 +183,8 @@
         "total_tokens": 4252
       },
       "usage_price_usd": 0.093134,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "gpt_image_2_6",
@@ -176,7 +205,8 @@
         "total_tokens": 7569
       },
       "usage_price_usd": 0.190658,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "gpt_image_2_6",
@@ -197,7 +227,8 @@
         "total_tokens": 7569
       },
       "usage_price_usd": 0.190658,
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -232,7 +263,8 @@
         "if_residual_text_rate_usd": 0.245316,
         "conservative_accounted_usd": 0.264712
       },
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -267,7 +299,8 @@
         "if_residual_text_rate_usd": 0.122217,
         "conservative_accounted_usd": 0.131051
       },
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -302,7 +335,8 @@
         "if_residual_text_rate_usd": 0.122349,
         "conservative_accounted_usd": 0.132749
       },
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -337,7 +371,8 @@
         "if_residual_text_rate_usd": 0.122343,
         "conservative_accounted_usd": 0.130367
       },
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -372,7 +407,8 @@
         "if_residual_text_rate_usd": 0.122501,
         "conservative_accounted_usd": 0.130093
       },
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -407,7 +443,8 @@
         "if_residual_text_rate_usd": 0.12285,
         "conservative_accounted_usd": 0.133466
       },
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -442,7 +479,8 @@
         "if_residual_text_rate_usd": 0.122932,
         "conservative_accounted_usd": 0.132738
       },
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -477,7 +515,8 @@
         "if_residual_text_rate_usd": 0.245346,
         "conservative_accounted_usd": 0.264634
       },
-      "invoice_verified": false
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
     },
     {
       "route": "nano_banana_pro",
@@ -511,6 +550,412 @@
         "unclassified_candidate_tokens": 194,
         "if_residual_text_rate_usd": 0.245648,
         "conservative_accounted_usd": 0.267204
+      },
+      "invoice_verified": false,
+      "approval_cohort": "original_two_models_20261113"
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-G-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "G",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "4a8f247b188cb51bb7847c53061de584f50c98c1baefca5c798e166d031f1c2d",
+      "prompt_sha256": "3a817ed582448c02a9adbc66c0e1239910a7230aede86a4c644d4a548eefb6f7",
+      "returned_size": [
+        6336,
+        2688
+      ],
+      "output_sha256": "f5acf0962a67c8183794b73d31cb0b5d098a6426c7c7829462fffe97bba76d98",
+      "usage": {
+        "promptTokenCount": 1318,
+        "candidatesTokenCount": 4269,
+        "totalTokenCount": 6173,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 198
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 586,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.119772,
+        "unclassified_candidate_tokens": 489,
+        "if_residual_text_rate_usd": 0.12343950000000001,
+        "conservative_accounted_usd": 0.134442
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-F-nz-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "F-nz",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "66898d224ccb2c99fe9370fc087063cf6228d4f22b3f36f584e699720a17ca2e",
+      "prompt_sha256": "4fd59b330d5923a617c2c017a88df549e3431044a03c4d7525071fe44815d136",
+      "returned_size": [
+        4096,
+        4096
+      ],
+      "output_sha256": "9b798351354831a2308d5272dc920c42660774917069eacb29f7139f32f194d4",
+      "usage": {
+        "promptTokenCount": 1207,
+        "candidatesTokenCount": 4235,
+        "totalTokenCount": 6028,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 87
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 586,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.1196055,
+        "unclassified_candidate_tokens": 455,
+        "if_residual_text_rate_usd": 0.123018,
+        "conservative_accounted_usd": 0.1332555
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-F-nx-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "F-nx",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "794074809bf6ae9a222aa0f4438fd0a96af15369076b1b435bdc8a5ae8241197",
+      "prompt_sha256": "4fd59b330d5923a617c2c017a88df549e3431044a03c4d7525071fe44815d136",
+      "returned_size": [
+        4096,
+        4096
+      ],
+      "output_sha256": "03b27e241d67a76742042f2f3e86870ab2b426926b8042e3e21365e7b61a804c",
+      "usage": {
+        "promptTokenCount": 1207,
+        "candidatesTokenCount": 4154,
+        "totalTokenCount": 5878,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 87
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 517,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.119088,
+        "unclassified_candidate_tokens": 374,
+        "if_residual_text_rate_usd": 0.121893,
+        "conservative_accounted_usd": 0.130308
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-F-px-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "F-px",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "747380f652a2e8a59ad0efa8a93a54c88b25cc1775d3e3c00e68be0a2b0f0789",
+      "prompt_sha256": "4fd59b330d5923a617c2c017a88df549e3431044a03c4d7525071fe44815d136",
+      "returned_size": [
+        4096,
+        4096
+      ],
+      "output_sha256": "bafce7fa959aa6607198ec05f3d3450f1c45e38a366d38795bb5f623ed4adfef",
+      "usage": {
+        "promptTokenCount": 1207,
+        "candidatesTokenCount": 4234,
+        "totalTokenCount": 5556,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 87
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 115,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.116073,
+        "unclassified_candidate_tokens": 454,
+        "if_residual_text_rate_usd": 0.119478,
+        "conservative_accounted_usd": 0.129693
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-F-pz-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "F-pz",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "51bc48bc4bae92b8d436d8120166524e54bbb8bfccffbfc0ae5bb3d8bae20b1e",
+      "prompt_sha256": "680f8b6dcf13a1f6c895dd21506e6b21c3e0b50aa96414950e8ccaf1c7ccce00",
+      "returned_size": [
+        4096,
+        4096
+      ],
+      "output_sha256": "acec26f79acde089abcfcacc620f8774cb15c80e60cfcbfad770015c77264331",
+      "usage": {
+        "promptTokenCount": 1239,
+        "candidatesTokenCount": 4226,
+        "totalTokenCount": 5644,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 119
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 179,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.116601,
+        "unclassified_candidate_tokens": 446,
+        "if_residual_text_rate_usd": 0.119946,
+        "conservative_accounted_usd": 0.12998099999999999
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-F-py-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "F-py",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "6655ca285b9fed4b757c2fa5c9a86bdf4bdcaf706728a89d3b54f13831f912dd",
+      "prompt_sha256": "fe8aab0187e7af6148a7d68fce54f2b0fed300d562e59977b3153eda69412c64",
+      "returned_size": [
+        4096,
+        4096
+      ],
+      "output_sha256": "b8bc48998e0e842f6ef741ce11f2e12a3f4992f0a1f32ee2e960603d7424b222",
+      "usage": {
+        "promptTokenCount": 1234,
+        "candidatesTokenCount": 4137,
+        "totalTokenCount": 5514,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 114
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 143,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.1163235,
+        "unclassified_candidate_tokens": 357,
+        "if_residual_text_rate_usd": 0.119001,
+        "conservative_accounted_usd": 0.1270335
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-F-ny-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "F-ny",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "56305a8287f67bad38d62f0be548a52cca2258a81f114cfb5a7682bfa27b6d26",
+      "prompt_sha256": "edb15f4aedaecf79547e9b177d3e36621d86c78919778758f259ed708b66d047",
+      "returned_size": [
+        4096,
+        4096
+      ],
+      "output_sha256": "14ada4a49e9c7c83ad2e17876cbc9c34914108b41042a31a537c9b9e43046563",
+      "usage": {
+        "promptTokenCount": 1238,
+        "candidatesTokenCount": 4549,
+        "totalTokenCount": 6426,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 118
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 639,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.1200495,
+        "unclassified_candidate_tokens": 769,
+        "if_residual_text_rate_usd": 0.125817,
+        "conservative_accounted_usd": 0.1431195
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-R1-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "R1",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "14ada4a49e9c7c83ad2e17876cbc9c34914108b41042a31a537c9b9e43046563",
+      "prompt_sha256": "638fdaadb3c63505d56023a063c5ca4347fe602a773a75129f16adace8537ea1",
+      "returned_size": [
+        4096,
+        4096
+      ],
+      "output_sha256": "2f5d941c0b572bade52cf27ca62bd91331040c14aac636c852a3913f12c74db2",
+      "usage": {
+        "promptTokenCount": 1289,
+        "candidatesTokenCount": 4101,
+        "totalTokenCount": 5554,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 169
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 164,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.1165635,
+        "unclassified_candidate_tokens": 321,
+        "if_residual_text_rate_usd": 0.118971,
+        "conservative_accounted_usd": 0.12619350000000001
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_2_1",
+      "id": "maldives-nb21-R2-01",
+      "approval_cohort": "nano21_20261114",
+      "stage": "R2",
+      "mode": "Standard",
+      "api_model": "gemini-nano-banana-2.1",
+      "input_sha256": "7c2dd29de3b12b2a914572714fdad11f9001ca6d08919465ac29db0655b9d864",
+      "prompt_sha256": "1b1ed7d6b0c3fd3d71fe10652a7dce24ee28c70bb61e56eb99559ad981a1d6de",
+      "returned_size": [
+        4096,
+        4096
+      ],
+      "output_sha256": "c4770eb933051a1abff306804646077dcd6e4f8566c4de64b1cf15358fe4d41c",
+      "usage": {
+        "promptTokenCount": 1278,
+        "candidatesTokenCount": 4107,
+        "totalTokenCount": 6040,
+        "promptTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 1120
+          },
+          {
+            "modality": "TEXT",
+            "tokenCount": 158
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 3780
+          }
+        ],
+        "thoughtsTokenCount": 655,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.1202295,
+        "unclassified_candidate_tokens": 327,
+        "if_residual_text_rate_usd": 0.122682,
+        "conservative_accounted_usd": 0.1300395
       },
       "invoice_verified": false
     }

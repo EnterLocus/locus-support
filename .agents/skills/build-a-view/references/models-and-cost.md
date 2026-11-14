@@ -1,8 +1,9 @@
 # Models, request counts and cost formulas
 
-Rates checked **2026-11-13**, USD, provider-direct APIs. Follow the two creator
+Baseline rates checked **2026-11-13**; Nano Banana 2.1 checked
+**2026-11-14**, USD, provider-direct APIs. Follow the two creator
 checkpoints: first show and confirm the panorama; then select API/key, mode,
-native resolution and cost. Confirm Nano Banana Pro Standard/Batch preference
+native resolution and cost. Confirm the selected Nano Banana model's Standard/Batch preference
 before production. Reuse an explicit choice. Never request a secret in chat.
 
 ## Models and native image sizes
@@ -10,6 +11,7 @@ before production. Reuse an explicit choice. Never request a secret in chat.
 | Route | API model | Key reference | Native detail work |
 | --- | --- | --- | --- |
 | Nano Banana Pro | `gemini-3-pro-image` (verify provider model ID) | Usually `GEMINI_API_KEY` | 4K square faces, 4096²; tested method baseline |
+| Nano Banana 2.1 | `gemini-nano-banana-2.1` | Usually `GEMINI_API_KEY` | 4K square faces, 4096²; candidate, owner headset review pending |
 | GPT Image 2.6 | `gpt-image-2.6-sunburst` | Usually `OPENAI_API_KEY` | Candidate: 3840×1920 G restoration and 2880² F faces, explicit high quality |
 
 With 6° context per side, six 102° faces cover the whole sphere. Smaller faces
@@ -27,7 +29,7 @@ assume Google/OpenAI rates or Batch discounts apply to a different endpoint.
 
 ## Measured complete example
 
-The same-base Maldives comparison produced **9 paid outputs per route**:
+The original two-model Maldives comparison produced **9 paid outputs per route**:
 B=0, G=1, F=6, R=2, E=0. GPT used Standard throughout; Nano Banana used
 Standard G/R and actual asynchronous Batch for all six F, including the probe.
 
@@ -45,6 +47,64 @@ charge or provider-enforced billing cap. Rejected paid repairs are included.
 Local authoring and reassembly add no image-API fees; agent/subscription time
 and storage are separate. This example does not guarantee a finished skybox
 for the same cost: observed defects, attempts and acceptance remain explicit.
+
+## Nano Banana 2.1: separate same-base trial
+
+The 2026-11-14 extension used the unchanged frozen source and original prompt,
+with a **separate $2 authorization** for B=0, G=1, F=6, R=0..2, E=0.
+All nine returned outputs were Standard; no 2.1 Batch generation was tested.
+G returned 6336×2688, unpadded to 5376×2688; six 4096² faces yielded
+10418×5209. This is a candidate pending owner Locus/headset review, with no
+change to the baseline or default.
+
+| Accounting component | USD |
+| --- | ---: |
+| Image-output subtotal, 9 × $0.1134 | $1.0206000 |
+| Classified usage subtotal | $1.0643055 |
+| Usage-priced total if residual candidate tokens are text | $1.0942455 |
+| Conservative accounting, residual reserved at image rate | $1.1840655 |
+
+The nine sanitized response counters are in [usage.json](../../../../examples/skybox-comparison/usage.json).
+These are usage calculations, not reconciled invoices. The original 18 outputs
+and $5 combined authorization remain a separate historical cohort; 27 outputs
+across both cohorts does not mean the original authorization covered the trial.
+Failed/insufficient R1 is included. Local donor healing, protected reinsertion
+and sky-tone correction cost no image-API fee.
+
+[Official 2.1 pricing](https://aistudio.google.com/docs/pricing#gemini-nano-banana-2.1)
+lists input $1.50/M, image output $30/M, and text/thinking output $7.50/M.
+Batch rates are half. A 4K image uses 3780 output tokens, giving **$0.1134
+Standard** or **$0.0567 Batch**. The model's read-only Models API capability
+check and pricing support Batch, but this trial establishes only Standard
+execution. Confirm the chosen account/endpoint and latency before using Batch.
+Using P/J/L/H and d as defined for Pro below:
+
+```text
+C_NB21(i) = d_i * (1.5*P_i + 30*J_i + 7.5*(L_i+H_i)) / 1,000,000
+C_NB21 = sum_i C_NB21(i)
+
+# Executed schedule: G/F/R Standard
+C_NB21_standard_image_output(R) = (7+R)*0.1134
+                                = $0.7938..$1.0206 for R=0..2
+
+# Modeled alternative only: G/R Standard, all six F Batch
+C_NB21_mixed_image_output(R) = (1+R)*0.1134 + 6*0.0567
+                             = 0.4536 + 0.1134*R
+                             = $0.4536..$0.6804 for R=0..2
+```
+
+Both formulas exclude actual input, returned text and thinking costs. Record
+prompt/candidate modality counters and thoughts separately; do not count all
+candidate tokens as images or count thinking twice. All nine outputs reported
+3780 IMAGE tokens; the combined 3992 unclassified candidate tokens remain an
+explicit assumption/reserve. Input counters are measured, not guessed from
+another model. Preserve any documentation/usage discrepancy until reconciled.
+
+In this one scene, independent static review found 2.1 close to Pro in foliage
+and water, with improved wrap and repaired nadir. GPT's candidate was crisper
+in foliage, water patterns and sand relief. 2.1 retains waxy/outlined leaves,
+soft sky, zenith cirrus convergence and a locally smoother/speckled sand repair.
+Different local repairs and one source prevent a universal model ranking.
 
 ## Count outputs before quoting money
 

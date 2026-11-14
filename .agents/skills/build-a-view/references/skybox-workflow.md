@@ -35,7 +35,9 @@ to lower resolution to complete a run.
 
 ### Model choice, costs and approval
 
-Offer Nano Banana Pro and GPT Image 2.6 Sunburst. Before generating, ask the
+Offer Nano Banana Pro, Nano Banana 2.1 and GPT Image 2.6 Sunburst. The 2.1
+trial is a lower-cost candidate close to Pro in this scene; it is not a new
+default while owner Locus/headset review is pending. Before generating, ask the
 creator which API/model to use and the environment-variable name or secure
 credential reference for its key; never ask them to paste a secret. Read
 [models, per-View costs, bulk discounts and the quote contract](models-and-cost.md).
@@ -44,7 +46,7 @@ The article gives dated output subtotals and separates them from billed cost.
 First show the Step 1 panorama in the host's available 360° preview and wait
 for visual confirmation. Freeze the accepted base and prompt with SHA-256.
 Only then ask the Step 2 model/key, budget and native output-resolution
-questions. Offer Standard versus Batch for Nano Banana Pro and confirm the
+questions. Offer Standard versus Batch for Nano Banana Pro or 2.1 and confirm the
 creator's choice, unless already explicitly provided.
 
 Before **each** paid generation/edit submission, quote the specific requests
@@ -56,7 +58,7 @@ approval to generate. Establish whether the initial base is supplied, built-in
 Show the full B/G/F/R run budget before the first per-submission quote. A low-
 resolution built-in base still needs paid whole-panorama restoration and up to
 six detailed face edits, plus any quoted repairs. Keep exact native-size and
-quality checks for both models. An explicit authorization for a declared full plan
+quality checks for each selected model. An explicit authorization for a declared full plan
 under a shared cap overrides repeated per-image approval within that scope;
 record it, maintain one ledger, and stop at the stated attempt/cost boundary.
 
@@ -134,7 +136,7 @@ repair a shifted cloud, sharpness mismatch or a broad regional color change.
 Do not sample distant sky regions to infer a local step: that can overcorrect
 an already continuous seam.
 
-### Nano Banana Pro: full-panorama aspect context
+### Nano Banana Pro and 2.1: full-panorama aspect context
 
 The documented 4K ratios include 21:9, but not exact 2:1. For the G whole-
 panorama restoration, use cyclic padding rather than guessing what an omitted
@@ -142,8 +144,8 @@ aspect-ratio field will return:
 
 ```sh
 python3 tools/skybox/erp_context.py pad source.png g-input.png --metadata g-context.json
-# Quote/approve one Nano Banana Pro edit: explicit 21:9, imageSize 4K.
-# Keep the raw model file as g-raw.png. This comparison used Standard G; F6 used Batch.
+# Quote/approve one selected Nano Banana model edit: explicit 21:9, imageSize 4K.
+# Keep g-raw.png. Pro used Standard G / Batch F6; the 2.1 trial used all Standard.
 python3 tools/skybox/erp_context.py unpad g-raw.png restored.png --metadata g-context.json
 ```
 

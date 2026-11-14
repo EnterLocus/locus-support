@@ -98,6 +98,67 @@
         "Zenithcirrusconvergence",
         "Centralnadirrelief smootherthansurrounding original sand"
       ]
+    },
+    "nano_banana_2_1": {
+      "api_model": "gemini-nano-banana-2.1",
+      "trial_date": "2026-11-14",
+      "approval_cohort": "nano21_20261114",
+      "G": {
+        "mode": "Standard",
+        "returned_size": [
+          6336,
+          2688
+        ],
+        "derived_ERP_size": [
+          5376,
+          2688
+        ]
+      },
+      "F": {
+        "mode": "Standard",
+        "count": 6,
+        "input_side": 1660,
+        "input_core": 1344,
+        "returned_side": 4096,
+        "actual_fov_degrees": 102.010069060699
+      },
+      "R": {
+        "mode": "Standard",
+        "count": 2,
+        "returned_side": 4096,
+        "first_attempt": "insufficient, retained and charged"
+      },
+      "paid_output_count": 9,
+      "final_size": [
+        10418,
+        5209
+      ],
+      "output_fee_subtotal_usd": 1.0206,
+      "known_classified_usd": 1.0643055,
+      "usage_price_if_residual_text_usd": 1.0942455,
+      "conservative_accounted_usd": 1.1840655,
+      "provider_invoice_usd": null,
+      "delivery_asset": "nano-banana-21-10418x5209.jpg",
+      "native_png_sha256": "7232c1e8f7b3beb25c5af39a95c5078a82d300083ac91cbfcaa1f5124636a0df",
+      "delivery_jpeg_sha256": "3f7b009726ccfe39c25af6794cce51520c9a5519cdf3b1dc46046ea0c21d2e71",
+      "static_review": "accepted_for_static_comparison_with_disclosed_limits",
+      "owner_headset_review": "PENDING",
+      "default_changed": false,
+      "batch": {
+        "capability_check": "read-only Models API and official pricing",
+        "generation_tested": false
+      },
+      "remaining_findings": [
+        "Waxy or outlined reconstructed leaves; partly soft sky",
+        "Zenith cirrus convergence",
+        "Repaired nadir has lower relief and speckled grain; shell protection patch is locally smoother"
+      ],
+      "local_repairs": [
+        "Native donor healing after insufficient R1",
+        "R2 grain localized with landmark protection",
+        "Tiny pre-R2 source patch removed generated leaf and grey ghost",
+        "Row-local sky-wrap tone correction"
+      ]
     }
   },
   "accounting": {
@@ -106,7 +167,8 @@
     "output_fee_subtotal_usd": 2.9442,
     "combined_conservative_accounted_usd": 3.201251,
     "provider_invoices_verified": false,
-    "key_values_in_public_artifacts": false
+    "key_values_in_public_artifacts": false,
+    "cohort_id": "original_two_models_20261113"
   },
   "encoding": "DeliveryJPEGquality95,4:4:4,optimize; no dimension change",
   "assets": {
@@ -174,8 +236,52 @@
       "bytes": 2687351,
       "sha256": "839693327e5ce645ec0c5be03be22e4123db47543168a823b26946eab8f27c9d",
       "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/source.png"
+    },
+    "nano-banana-21-comparison.jpg": {
+      "bytes": 524214,
+      "sha256": "17d8f14e3ccafb5f5e6da3933385bc448ba97f708568d0df53c1a9f5823f7c5d",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-comparison-17d8f14e3cca.jpg"
+    },
+    "nano-banana-21-panorama.jpg": {
+      "bytes": 162468,
+      "sha256": "b97fb63bb25e6f59f972c3776cbe19c0a19b9e293fe9e393dd4f45858ea77d7f",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-panorama-b97fb63bb25e.jpg"
+    },
+    "nano-banana-21-repairs.jpg": {
+      "bytes": 267475,
+      "sha256": "2359ac4202dc2095b140a62b03848bdb16bbd7ebc64053b627b316e1b376ccbb",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-repairs-2359ac4202dc.jpg"
+    },
+    "nano-banana-21-10418x5209.jpg": {
+      "bytes": 15620534,
+      "sha256": "3f7b009726ccfe39c25af6794cce51520c9a5519cdf3b1dc46046ea0c21d2e71",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-10418x5209-3f7b009726cc.jpg"
+    },
+    "nano-banana-21-intermediates.zip": {
+      "bytes": 147107298,
+      "sha256": "74e0d4babde491b6de8ca2350449946914e22a165da742cdfe1940d3fceb647a",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-intermediates-74e0d4babde4.zip"
+    },
+    "nano-banana-21-review-evidence.zip": {
+      "bytes": 169941755,
+      "sha256": "b1799ceb39bec975840d08326088fa3490b5144fadfa98594f7d4ba89cedde3d",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-review-evidence-b1799ceb39be.zip"
     }
   },
   "Locus_import": "NOT_VERIFIED",
-  "physical_headset": "NOT_VERIFIED"
+  "physical_headset": "NOT_VERIFIED",
+  "updated": "2026-11-14",
+  "separate_trial_accounting": {
+    "cohort_id": "nano21_20261114",
+    "creator_cap_usd": 2,
+    "paid_outputs": 9,
+    "output_fee_subtotal_usd": 1.0206,
+    "known_classified_usd": 1.0643055,
+    "usage_price_if_residual_text_usd": 1.0942455,
+    "conservative_accounted_usd": 1.1840655,
+    "provider_invoices_verified": false,
+    "authorization": "Explicit full plan G1 F6 R0..2 under $2; separate from original $5 cohort"
+  },
+  "paid_outputs_all_cohorts": 27,
+  "model_default_changed": false
 }

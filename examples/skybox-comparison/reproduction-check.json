@@ -23,5 +23,21 @@
     "python": "3.9.6",
     "numpy": "2.0.2",
     "pillow": "11.0.0"
+  },
+  "nano_banana_2_1": {
+    "date": "2026-11-14",
+    "apiCalls": 0,
+    "size": [
+      10418,
+      5209
+    ],
+    "native_png_sha256": "7232c1e8f7b3beb25c5af39a95c5078a82d300083ac91cbfcaa1f5124636a0df",
+    "decoded_rgb_sha256": "e7f885570c2eb2c6d8667e24698d2f840ab9d7cad41d74ffd13fbbedc95e53e8",
+    "exact_native_png_match": true,
+    "command": "python3 examples/skybox-comparison/reproduce_nano21.py --archive nano-banana-21-intermediates.zip --outdir maldives-nano21-reproduced",
+    "dependency_versions": {
+      "Python": "3.9.6"
+    },
+    "scope": "Local assembly from saved raw faces and selected nadir; no new API generation or headset acceptance"
   }
 }
