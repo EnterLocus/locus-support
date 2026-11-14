@@ -105,6 +105,73 @@ class SkyboxCliTests(unittest.TestCase):
         self.assertTrue(report["dimensionProvenance"]["px"]["normalized"])
         self.assertEqual(report["dimensionProvenance"]["px"]["input"], {"width": 80, "height": 80})
 
+    def test_native_merge_tracks_raw_face_sizes_without_resizing(self):
+        faces = self.split()
+        # Model outputs may have distinct native square sizes.  Native merging
+        # samples each one in its original FOV instead of upsampling it to the
+        # split storage size.
+        raw_sizes = {"px": 96, "nx": 104, "pz": 112, "nz": 120, "py": 128, "ny": 136}
+        for face, size in raw_sizes.items():
+            with Image.open(faces / (face + ".png")) as image:
+                image.resize((size, size)).save(faces / (face + ".png"))
+        output = self.tempdir / "native.png"
+        self.run_cli("merge", faces, output, "--native-resolution", "--blend", 0.25)
+        metadata = json.loads((faces / "metadata.json").read_text())
+        tangent_extent = metadata["storedSize"] / metadata["coreSize"]
+        expected_width = int(np.floor(np.pi * min(raw_sizes.values()) / tangent_extent))
+        expected_width -= expected_width % 2
+        with Image.open(output) as image:
+            self.assertEqual(image.size, (expected_width, expected_width // 2))
+        report = json.loads((Path(str(output) + ".merge.json")).read_text())
+        self.assertTrue(report["nativeFaces"]["inputOutputSame"])
+        self.assertEqual(report["nativeFaces"]["minimumInputFaceSize"], 96)
+        self.assertNotIn("scale", report["dimensionProvenance"]["px"])
+        self.assertEqual(report["dimensionProvenance"]["px"]["input"],
+                         report["dimensionProvenance"]["px"]["output"])
+
+    def test_native_merge_roundtrips_analytic_directions_with_original_face_fov(self):
+        faces = self.split()
+        output = self.tempdir / "native-roundtrip.png"
+        self.run_cli("merge", faces, output, "--native-resolution", "--blend", 0.25)
+        with Image.open(output) as image:
+            merged = np.asarray(image).astype(float)
+        expected = synthetic_sphere(merged.shape[1], merged.shape[0]).astype(float)
+        self.assertLess(np.abs(merged - expected).mean(), 4.5)
+        # Preserve the seam and both poles in addition to the all-image mean.
+        self.assertLess(np.abs(merged[:, 0] - expected[:, 0]).mean(), 5.0)
+        self.assertLess(np.abs(merged[0] - expected[0]).mean(), 5.0)
+        self.assertLess(np.abs(merged[-1] - expected[-1]).mean(), 5.0)
+
+    def test_native_merge_rejects_explicit_width_normalization_missing_and_nonsquare_faces(self):
+        faces = self.split()
+        output = self.tempdir / "native-invalid.png"
+        self.run_cli("merge", faces, output, "--native-resolution", "--width", 256, ok=False)
+        self.run_cli("merge", faces, output, "--native-resolution", "--normalize-faces", ok=False)
+        (faces / "ny.png").unlink()
+        self.run_cli("merge", faces, output, "--native-resolution", ok=False)
+        self.run_cli("split", self.input, faces, "--core-size", 128, "--overlap", 6)
+        with Image.open(faces / "py.png") as image:
+            image.resize((64, 80)).save(faces / "py.png")
+        self.run_cli("merge", faces, output, "--native-resolution", ok=False)
+        self.run_cli("split", self.input, faces, "--core-size", 128, "--overlap", 6)
+        metadata_path = faces / "metadata.json"
+        metadata = json.loads(metadata_path.read_text())
+        metadata["fieldOfViewDegrees"] += 1
+        metadata_path.write_text(json.dumps(metadata))
+        self.run_cli("merge", faces, output, "--native-resolution", ok=False)
+
+    def test_resolution_reports_analytic_sampling_plan(self):
+        report = json.loads(self.run_cli("resolution", "--face-size", 2880, "--overlap", 6).stdout)
+        self.assertEqual(report["commonGridWidth"], 9329)
+        self.assertEqual(report["conservativeWidth"], 7326)
+        self.assertEqual(report["conservativeHeight"], 3663)
+        self.assertAlmostEqual(report["angularDensity"], 2880 / (2.0 * np.tan(np.deg2rad(51))), places=12)
+        self.assertIn("does not establish", report["warning"])
+        larger = json.loads(self.run_cli("resolution", "--face-size", 4096, "--overlap", 6).stdout)
+        self.assertEqual(larger["commonGridWidth"], 13268)
+        self.assertEqual(larger["conservativeWidth"], 10420)
+        self.assertEqual(larger["conservativeHeight"], 5210)
+
     def test_audit_and_compare_write_limited_diagnostic_reports(self):
         audit = self.tempdir / "audit"
         self.run_cli("audit", self.input, audit, "--review-size", 64)

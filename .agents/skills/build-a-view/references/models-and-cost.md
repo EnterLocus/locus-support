@@ -1,8 +1,12 @@
-# Models, API keys and the cost of a 12K View
+# Models, API keys and the cost of a high-resolution View
 
 Prices checked **2026-11-13**, in USD. These are estimates for provider-direct
 APIs, not a quote for a reseller, a subscription allowance or a quality guarantee.
 Every submission still needs the creator's approval of its own estimate.
+First obtain visual acceptance of the Step 1 panorama. Ask API/key, cost,
+native final-resolution and Batch-preference questions only after that checkpoint.
+Nano Banana Pro Standard/Batch must be a conscious choice before production;
+reuse an explicit choice instead of asking it again.
 
 ## Choose one of two model routes
 
@@ -20,7 +24,11 @@ A reseller key uses that reseller's model IDs, rates and batch capabilities.
 GPT Image 2.6 is an offered route, not yet an accepted quality-equivalent skybox
 baseline. Its official calculator explicitly includes 2.6 and uses a maximum
 3840-pixel edge and 8,294,400-pixel budget. That permits 3840×1920 and 2880²,
-not 4096². The prose size-reference list still names 2/2.5; verify actual results
+not 4096². Six 2880² faces do not automatically justify a 12288-wide export;
+use [native sampling dimensions](resolution.md), approximately 7326×3663 for
+6° overlap (actual rounded metadata may differ). Six Nano Banana 4096² faces
+give approximately 10420×5210 by that same conservative rule. These dimensions
+are angular sample-density estimates, not model-quality guarantees. The prose size-reference list still names 2/2.5; verify actual results
 on the first approved request. API resolution support does not guarantee seam
 continuity or useful fine detail. Built-in image generation is not this API.
 
@@ -133,8 +141,11 @@ obtain the discount. Do not promise cache savings from reusing the same file.
 Bulk means the provider's discounted asynchronous **Batch API**, not six
 parallel standard requests or `n=6` in an ordinary request. Those ordinary
 requests have no automatic bulk discount. Both providers describe a roughly
-24-hour processing window for their Batch products; confirm current endpoint
-and model eligibility before quoting that mode.
+24-hour processing window per job for their Batch products; confirm current
+endpoint and model eligibility before quoting that mode. G restoration, a
+representative F probe, remaining F edits and repairs depend on earlier results;
+two or three successive Batch jobs can mean roughly 48–72 hours of waiting.
+Do not promise the entire workflow finishes inside one 24-hour window.
 
 1. Review and accept the base layout first. Restore it and inspect its native
    output before submitting dependent face edits. For a new provider, inspect
