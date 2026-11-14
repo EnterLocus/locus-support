@@ -277,7 +277,10 @@ The public [build-a-view skill](.agents/skills/build-a-view/SKILL.md) and
 cover full-sphere generation, pixel density, overlap faces, narrow blending,
 and local defect repair. The generated 12K route requires a high-resolution
 image API and its credentials; Nano Banana Pro at native 4K is the previously
-tested baseline. Other models need native-size, fidelity and seam validation.
+tested baseline, and GPT Image 2.6 Sunburst is a new model option. The
+[model and cost article](.agents/skills/build-a-view/references/models-and-cost.md)
+explains per-View estimates, Batch savings and the required approval before
+every paid submission. Both models need native-size, fidelity and seam checks.
 Codex built-in images may supply concepts or a low-resolution base, but the
 failed Maldives trial does not qualify them as the final enhancement route.
 No private app source, Blender, or macOS is required for skybox authoring.

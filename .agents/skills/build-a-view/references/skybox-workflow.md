@@ -33,27 +33,19 @@ do not automatically retry interrupted requests with unknown billing status.
 Never put credentials in source, manifests, prompts or logs. Do not fall back
 to lower resolution to complete a run.
 
-### OpenAI API alternative: what is verified
+### Model choice, costs and approval
 
-The internal OpenAI route specifies 3840×1920 for the full panorama and
-2880×2880 for square faces at explicit high quality. These are API requests,
-not instructions that the Codex built-in tool can enforce. At 8,294,400 pixels,
-a 4K UHD budget does **not** permit a 4096×4096 face. A 2880-square edit needs
-about 1.32× normalization to a 3794 stored face, rather than the failed trial's
-3.03×. Size alone does not establish quality equivalence to Nano Banana Pro.
+Offer Nano Banana Pro and GPT Image 2.6 Sunburst. Before generating, ask the
+creator which API/model to use and the environment-variable name or secure
+credential reference for its key; never ask them to paste a secret. Read
+[models, per-View costs, bulk discounts and the quote contract](models-and-cost.md).
+The article gives dated output subtotals and separates them from billed cost.
 
-As checked on 2026-11-13, OpenAI's [image generation guide](https://developers.openai.com/api/docs/guides/image-generation#customize-image-output)
-and [size reference](https://developers.openai.com/api/reference/resources/images/methods/generate)
-explicitly document custom sizes and the 3840-edge / 8,294,400-pixel budget for
-the GPT Image 2/2.5 route. Resolutions above 2560×1440 are experimental.
-[GPT Image 2.6 Sunburst](https://developers.openai.com/api/docs/models/gpt-image-2.6-sunburst)
-is documented for Images generation/edit endpoints. The size reference's
-explicit model list has not yet included 2.6 in that same custom-size paragraph;
-therefore this guide does not certify its 4K limits or panorama quality without
-a real, authorized high-resolution edit test. Do not infer size support from
-its model name. An [authenticated API call](https://developers.openai.com/api/reference/overview#authentication)
-requires API credentials; a ChatGPT/Codex built-in image tool is a different
-execution surface.
+Before **each** paid generation/edit submission, quote the specific requests
+and wait for explicit approval. A declared batch can be approved as one exact,
+itemized list; later stages, retries and repairs require fresh approval.
+Choosing a model, supplying a key or discussing an overall budget is not
+approval to generate. Keep exact native-size and quality checks for both models.
 
 ## 1. Generate the world before the detail
 
