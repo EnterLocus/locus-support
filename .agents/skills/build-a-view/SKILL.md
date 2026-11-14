@@ -47,8 +47,13 @@ Keep setup brief and reuse known answers. Load keys quietly; do not print,
 commit or persist secret values. A generated high-resolution route needs API
 credentials even when Step 1 did not.
 
-Present the full stage plan: G whole-panorama restoration if needed, up to six
-F detailed face edits, and a separately stated R repair/retry reserve. Quote
+Present the full stage plan and its formula: N_paid=B+G+F+R+E. For a frozen
+low-resolution base, B=0,G=1,F=6,R=0..2,E=0 means 7..9 outputs per model,
+14..18 for a two-model comparison. The accepted probe is one of the six F.
+Use [the written model-specific cost formulas](references/models-and-cost.md)
+and separate known output costs, unknown/actual input or thinking tokens,
+actual spent cost and the reserve. Do not guess overhead tokens or multiply
+one stage's unit price by all requests. Quote
 output **and image-input/text** charges, model, dimensions, quality and expected
 final native-sampling ERP size. State which number is calculated and which is
 still an unverified model capability/quality assumption. Do not promise 12K.
@@ -65,8 +70,10 @@ estimate and wait for explicit approval.** A listed Batch job may receive one
 approval covering that exact image list and total. Later stages, extra
 candidates, repairs, retries, changed size/quality/model and unknown-status
 replacement submissions need fresh quotes/approval. An overall planning
-budget or supplied key is not ongoing permission to generate. Free local
-preparation and read-only pricing checks can continue while waiting.
+budget or supplied key is not ongoing permission to generate. If the creator explicitly authorizes a declared full plan under a combined
+cap instead, record that override and execute only its listed scope without
+asking again for each image. Keep one shared cost ledger for parallel agents.
+Free local preparation and read-only pricing checks can continue while waiting.
 
 After approval, execute the following processing stages, preserving each
 checkpoint and returned native dimensions:

@@ -1,209 +1,222 @@
-# Models, API keys and the cost of a high-resolution View
+# Models, request counts and cost formulas
 
-Prices checked **2026-11-13**, in USD. These are estimates for provider-direct
-APIs, not a quote for a reseller, a subscription allowance or a quality guarantee.
-Every submission still needs the creator's approval of its own estimate.
-First obtain visual acceptance of the Step 1 panorama. Ask API/key, cost,
-native final-resolution and Batch-preference questions only after that checkpoint.
-Nano Banana Pro Standard/Batch must be a conscious choice before production;
-reuse an explicit choice instead of asking it again.
+Rates checked **2026-11-13**, USD, provider-direct APIs. Follow the two creator
+checkpoints: first show and confirm the panorama; then select API/key, mode,
+native resolution and cost. Confirm Nano Banana Pro Standard/Batch preference
+before production. Reuse an explicit choice. Never request a secret in chat.
 
-## Choose one of two model routes
+## Models and native image sizes
 
-| Route | API model | Credential reference | High-resolution work |
+| Route | API model | Key reference | Native detail work |
 | --- | --- | --- | --- |
-| Nano Banana Pro | Google Gemini 3 Pro Image (`gemini-3-pro-image`; verify the current model ID supported by the chosen API) | Usually `GEMINI_API_KEY` | Native 4K; previously tested with our skybox method |
-| GPT Image 2.6 | OpenAI `gpt-image-2.6-sunburst` | Usually `OPENAI_API_KEY` | Candidate: explicit high quality, 3840×1920 panorama and 2880×2880 square faces; verify returned sizes and quality before continuing |
+| Nano Banana Pro | `gemini-3-pro-image` (verify provider model ID) | Usually `GEMINI_API_KEY` | 4K square faces, 4096²; tested method baseline |
+| GPT Image 2.6 | `gpt-image-2.6-sunburst` | Usually `OPENAI_API_KEY` | Candidate: 3840×1920 G restoration and 2880² F faces, explicit high quality |
 
-Ask which API/model the creator wants and which environment variable or secure
-credential-file reference holds its key. Do not ask them to paste the key into
-chat. Existing compatible configuration is enough; no account-setup walkthrough
-is needed. Keys remain outside the repository and all prompt/report output.
-A reseller key uses that reseller's model IDs, rates and batch capabilities.
+With 6° context per side, six 102° faces cover the whole sphere. Smaller faces
+affect density, not coverage. Use the [native sampling calculation](resolution.md):
+2880² gives about 7326×3663 ERP, 4096² about 10420×5210, subject to actual
+rounded FOV and returned sizes. These are sample-density estimates, not proof
+of resolved detail. GPT's 8,294,400-pixel calculator budget is not 4096².
+The 2.6 native-size/fidelity route still needs a real accepted test.
 
-GPT Image 2.6 is an offered route, not yet an accepted quality-equivalent skybox
-baseline. Its official calculator explicitly includes 2.6 and uses a maximum
-3840-pixel edge and 8,294,400-pixel budget. That permits 3840×1920 and 2880²,
-not 4096². Six 2880² faces do not automatically justify a 12288-wide export;
-use [native sampling dimensions](resolution.md), approximately 7326×3663 for
-6° overlap (actual rounded metadata may differ). Six Nano Banana 4096² faces
-give approximately 10420×5210 by that same conservative rule. These dimensions
-are angular sample-density estimates, not model-quality guarantees. The prose size-reference list still names 2/2.5; verify actual results
-on the first approved request. API resolution support does not guarantee seam
-continuity or useful fine detail. Built-in image generation is not this API.
+Keys stay in the creator's named environment variable or secure credential
+reference. Use the selected provider's own pricing for a reseller; do not
+assume Google/OpenAI rates or Batch discounts apply to a different endpoint.
 
-## What one View costs
+## Count outputs before quoting money
 
-First select the base-image route, then count every required stage. Selecting
-GPT Image 2.6 or Nano Banana Pro for high-resolution enhancement does **not**
-automatically select that paid API for the initial concept/base image.
+Write these variables into the plan:
 
-| Stage | Role | Paid image-API requests |
-| --- | --- | --- |
-| B: initial full 360° base | Use a supplied image, a built-in generated base, or an explicitly selected paid API base | 0 for a supplied/built-in base; 1 only if paid API base generation was selected and approved |
-| G: whole-panorama restoration | Resolve a low-resolution or blurred base globally before splitting | Usually 1 for a low-resolution base; 0 only if the base already passes native-resolution and detail review |
-| F: directional detail | Enhance the six perspective faces | Up to 6; skip only truly featureless faces |
-| R: targeted repairs | Fix observed wrap/face/nadir defects after review | Plan an initial reserve for 0–2 outputs; larger repairs or failed attempts can require more |
+- B: paid base outputs. **0** when reusing a confirmed image or a built-in
+  generated panorama. A built-in base needs no external API key and adds $0
+  to the image-API bill; host subscription/usage limits still apply.
+- G: global restoration outputs. **1** for a low-resolution/blurred base;
+  **0** only for an accepted sufficiently detailed high-resolution base.
+- F: detailed face outputs. Normally **6**: px, nx, py, ny, pz, nz. A successful
+  representative face is included in these six, not a seventh face. Only a
+  documented genuinely featureless face may be skipped.
+- R: targeted repair outputs. Start with **0**, reserve capacity for **2**.
+  One wrap repair usually rerenders one face (1 output); a second independent
+  face/nadir defect can require another (2 total). Two repairs are a planning
+  allowance, not a promise of completion. A four-face seam-refinement pass
+  means **4** outputs and is outside a two-output repair allowance.
+- E: additional rejected attempts, replacements or rerolls. Start at **0**.
+  A paid rejected result still counts. Never silently rerun a timed-out request.
 
-The initial built-in base needs no external API key and adds **$0 to this
-image-API bill**. It may consume the host product's generation allowance;
-do not call it universally free or unlimited. Its low resolution is acceptable
-as an authoring base, never as the final 12K result. If unavailable, ask about
-a supplied base or an explicitly quoted paid base instead of silently changing
-routes.
+```text
+N_paid = B + G + F + R + E
 
-For the usual **built-in low-resolution base → G → six F → R** route, expect
-**7–9 paid image outputs**, plus any rejected attempts. Starting from an
-accepted high-resolution base can reduce that to **6–8**. A paid API base adds
-one request, but its accepted high-resolution result may make G unnecessary;
-do not automatically charge both paid base generation and restoration.
-A sample face used to validate the provider counts as one of the six F outputs,
-not a seventh face. If that sample is rejected, its replacement is an extra
-paid attempt and must be quoted separately.
+Same confirmed low-resolution base, per model:
+B=0, G=1, F=6, R=0..2, E=0
+N_paid = 7..9
 
-These counts assume six detailed faces and a 0–2-output repair allowance, not
-a guarantee that two repairs will finish the scene. Quote a four-face seam
-refinement as four outputs if that is what the actual repair requires. Local
-projection, masks, blending and audits have no image-provider charge. Agent
-time, host subscriptions, storage, taxes and third-party fees are excluded.
+Two-model comparison:
+N_paid_total = 14..18, excluding extra attempts E
+```
 
-Before asking approval for the first submission, show the **whole-run plan**
-with B/G/F/R counts, native dimensions, quality, estimated input charges and
-repair/retry reserve. Then quote the immediate submission separately. A $0.15
-base-only quote is not the total View budget. Whole-run planning does not waive
-per-submission approval.
+If a paid native base already passes G's purpose, do not automatically buy a
+second restoration. If a request outputs multiple images, count and price
+those outputs individually. Local split/pad/masks/merge/audit have no image-
+provider charge. Agent time, subscriptions, storage, tax and reseller fees
+are separate. Write the actual stage count and assumptions before the first
+submission; a one-image quote is not the whole-project budget.
 
-### Nano Banana Pro
+## Nano Banana Pro: Standard G/R, Batch F
 
-[Google's official pricing](https://ai.google.dev/gemini-api/docs/pricing#gemini-3-pro-image)
-lists **$0.24 per 4K image output** on the standard route. Input images,
-prompt/text and thinking tokens are additional. The [Batch API](https://ai.google.dev/gemini-api/docs/batch-api#image-generation)
-processes supported image requests at **50% of standard cost**; **$0.12 per
-4K output** below is calculated from that discount, rather than a separate
-per-image guarantee for every API route.
+[Official Google pricing](https://ai.google.dev/gemini-api/docs/pricing#gemini-3-pro-image)
+lists a 4K output as 2,000 image tokens at $120/M = **$0.24 Standard**.
+[Batch](https://ai.google.dev/gemini-api/docs/batch-api#image-generation) is
+50% of Standard: **$0.12** for that output. Standard input costs $2/M tokens;
+text/thinking output $12/M. Batch rates are half. One image input is 560
+tokens under this model's documented accounting; prompt text is additional.
 
-| Work | Standard image-output subtotal | Eligible Batch image-output subtotal |
-| --- | ---: | ---: |
-| Restoration + six faces (7 outputs) | $1.68 | $0.84 |
-| Built-in base + restoration + six faces + 0–2 repairs (7–9) | $1.68–2.16 | $0.84–1.08 |
-| Optional paid API base, if separately selected | +$0.24 | +$0.12 |
-| Each additional 4K reroll | +$0.24 | +$0.12 |
+For each request i, let P_i be all prompt-input tokens (including image input),
+J_i image-output tokens, L_i returned text-output tokens, H_i thinking tokens,
+and d_i=1 for Standard or 0.5 for Batch:
 
-A practical initial planning allowance is **about $3–5 per View** for a modest
-standard run with overhead and some rejected attempts. Batch can lower the
-output portion substantially, but an allowance is not a promise or automatic
-permission to spend it. Quote the selected requests and an explicit reserve.
-Do not reuse historical Replicate rates or assume a reseller passes through
-Google's Batch discount.
+```text
+C_NBP(i) = d_i * (2*P_i + 120*J_i + 12*(L_i+H_i)) / 1,000,000
+C_NBP = sum_i C_NBP(i)
+```
 
-### GPT Image 2.6 Sunburst
+For one input image, P_i = 560 + prompt_text_tokens_i. For the declared
+4K-output route, J_i=2000; verify returned metadata and image size. Do not
+charge all candidate tokens at the image rate. Read prompt/candidate modality
+details and thoughts separately from usageMetadata, avoiding double counting.
 
-[OpenAI pricing](https://developers.openai.com/api/docs/pricing#image-generation)
-lists standard image output at **$30 per million tokens**, image input at
-**$8/M** and text input at **$5/M**. There is no universal flat price per image.
-Dimensions and quality change output token consumption.
+For the useful mixed schedule G Standard, **all six F Batch**, R Standard:
 
-The following **output-only estimates** reproduce the official
-[image token calculator](https://developers.openai.com/api/docs/guides/image-generation#calculating-costs)
-for GPT Image 2.6, without making any billable request:
+```text
+C_NBP_image_output(R) = 0.24 + 6*0.12 + R*0.24
+                      = 0.96 + 0.24*R
+                      = $0.96..$1.44 for R=0..2
 
-| Quality | One 3840×1920 panorama | One 2880×2880 face | G + six F | Built-in base + G + six F + 0–2 face repairs |
+C_NBP_known_image_input(R) = 560 * (2 + 6*1 + R*2) / 1,000,000
+                         = $0.00448 + $0.00112*R
+
+C_NBP_total(R) = C_NBP_image_output(R)
+              + C_NBP_known_image_input(R)
+              + prompt_text_input_cost
+              + returned_text_and_thinking_cost
+```
+
+The six Batch faces include the accepted F probe. If the probe is submitted
+in its own Batch job and the remaining five in another, the paid face count
+is still six. If the creator instead selects Standard for the probe, explicitly
+change the output formula to 0.24 G + 0.24 probe + 5*0.12 + 0.24R.
+
+**Do not assume 4,096 or any other guessed thinking-token count.** Thinking
+and returned text are unknown until measured. Save usageMetadata including
+promptTokenCount, candidatesTokenCount, thoughtsTokenCount and modality
+details. Use actual G usage as an explicitly empirical planning observation;
+it does not guarantee F/R use the same tokens. Bounds/reserves are not expected
+usage and must be labeled separately. Never claim a model output-token limit
+is a provider-enforced dollar cap.
+
+## GPT Image 2.6: different G and F unit costs
+
+[OpenAI pricing](https://developers.openai.com/api/docs/pricing#image-generation):
+image input $8/M, text input $5/M, image output $30/M Standard. For an image-
+only raster response with I_i image-input tokens, T_i text-input tokens and
+O_i image-output tokens:
+
+```text
+C_GPT(i) = (8*I_i + 5*T_i + 30*O_i) / 1,000,000
+C_GPT = sum_i C_GPT(i)
+```
+
+Read the response's usage input/output modality details; retain the full JSON.
+Do not treat nonzero separately reported text output as free or invent its
+price: resolve that case against the selected model's actual billing. Assume
+no cache discount unless eligible cached-token details actually support it.
+Provider billing is the final charge; a usage calculation remains identified
+as such until reconciled.
+
+The official [output calculator](https://developers.openai.com/api/docs/guides/image-generation#calculating-costs)
+can forecast O_i. For quality q, k is 48 (high), 64 (xhigh), or 96 (max).
+Let a=max(W,H)/min(W,H), and round_even mean nearest-integer with ties to even:
+
+```text
+k_short = round_even(k/a)
+O_q(W,H) = ceil(k * k_short * (2,000,000 + W*H) / 4,000,000)
+```
+
+For 2.6 these three quality levels use multiplier 1. Do not reuse this
+expression for low/medium (their calculator multipliers differ), another
+model, or input-image tokens.
+
+| Quality | O_G at 3840×1920 | O_F/O_R at 2880² | G output fee | F/R output fee |
 | --- | ---: | ---: | ---: | ---: |
-| high | $0.081 (2,700 tokens) | $0.178 (5,930) | $1.15 | $1.15–1.50 |
-| xhigh | $0.144 (4,799 tokens) | $0.316 (10,542) | $2.04 | $2.04–2.67 |
-| max | $0.324 (10,798 tokens) | $0.712 (23,719) | $4.59 | $4.59–6.02 |
+| high | 2700 | 5930 | $0.08100 | $0.17790 |
+| xhigh | 4799 | 10542 | $0.14397 | $0.31626 |
+| max | 10798 | 23719 | $0.32394 | $0.71157 |
 
-These are output subtotals, **not full-run quotes**. A quote for G/F/R edits
-must include the submitted image-input charge; the text-only base quote has no
-image input and cannot be reused for face edits. Estimate from the actual
-submitted dimensions and current provider input-token rules, or state a
-conservative image-input reserve and the uncertainty. Do not set unknown image
-input to zero or treat the displayed planning allowance as a token calculation.
-Add input-image/text charges, rejected attempts and a stated reserve to these
-subtotals. For planning, allow **roughly $2–4 at high, $3–6 at xhigh, or
-$6–10 at max** for that example run, then replace the allowance with the actual
-per-submission quote. This is not measured scene cost or a claim that high
-matches Nano Banana Pro's quality. More expensive quality settings require a
-fresh estimate and approval. Do not default to max merely because it exists.
+For the chosen high-quality Standard route:
 
-OpenAI also publishes **Batch rates at half standard** for 2.6: $15/M image
-output, $4/M image input and $2.50/M text input. However, the current
-[2.6 model page](https://developers.openai.com/api/docs/models/gpt-image-2.6-sunburst)
-still marks Batch unsupported, while the [Batch guide](https://developers.openai.com/api/docs/guides/batch)
-explicitly documents image Batch for 2.5. These official sources are not yet
-consistent. Treat 2.6 Batch as **availability not verified**: quote standard
-pricing until the selected model/account/endpoint is confirmed eligible. If
-eligible, halve the output subtotals above; do not silently switch models to
-obtain the discount. Do not promise cache savings from reusing the same file.
+```text
+C_GPT_image_output(R) = 0.081 + (6+R)*0.1779
+                      = $1.1484..$1.5042 for R=0..2
 
-## How to use bulk processing without wasting money
+C_GPT_total(R) = C_GPT_image_output(R)
+              + (8*sum(I_i) + 5*sum(T_i)) / 1,000,000
+```
 
-Bulk means the provider's discounted asynchronous **Batch API**, not six
-parallel standard requests or `n=6` in an ordinary request. Those ordinary
-requests have no automatic bulk discount. Both providers describe a roughly
-24-hour processing window per job for their Batch products; confirm current
-endpoint and model eligibility before quoting that mode. G restoration, a
-representative F probe, remaining F edits and repairs depend on earlier results;
-two or three successive Batch jobs can mean roughly 48–72 hours of waiting.
-Do not promise the entire workflow finishes inside one 24-hour window.
+This is why a G estimate such as $0.166 cannot simply be multiplied by seven
+or nine: a square F output has a different token count, and editing inputs
+are different. Similarly, multiplying the smallest output-only fee hides costs.
 
-1. Review and accept the base layout first. Restore it and inspect its native
-   output before submitting dependent face edits. For a new provider, inspect
-   one approved representative face before committing the remaining faces.
-2. After that checkpoint, group independent remaining faces from one or several
-   accepted scenes into a batch. List each scene/face and cost in the approval
-   request. A batch cannot include a face whose restored input does not exist.
-3. Give each request a stable scene/stage/face ID. Save job ID, input hashes and
-   outputs after completion. Use JSONL/file inputs for large image batches;
-   Gemini inline batch bodies must stay under 20 MB.
-4. Reuse successful results; retry only failed or rejected faces after a new
-   quote and approval. An interrupted or unknown-status paid request is not
-   permission to resubmit. Check its saved job/status first.
-5. Run projection, blend, sky masks and audits locally. Skip only truly
-   featureless faces, never sand, foliage, clouds or water with visible detail.
+The official current [input-cost documentation](https://developers.openai.com/api/docs/guides/images-vision#calculating-costs)
+does **not** establish a deterministic GPT Image 2.6 editing-input token formula;
+vision-model tile rules and historical GPT Image 1 rules are not a substitute.
+Write unknown I_i/T_i as unknown, not zero or a guessed 10k/20k tokens. Make
+one explicitly bounded G request, record actual usage, then use an F probe
+(one of six) to measure the square-input case. Distinguish empirical remaining-
+run projections, known output subtotal, safety reserve and actual spent cost.
 
-For an established provider, one standard Nano Banana restoration plus six
-Batch face outputs has an output subtotal of **$0.24 + 6×$0.12 = $0.96**;
-with a built-in base and two standard repairs, it is **$1.44**, before
-input/text/thinking charges. For a new provider, one representative F face
-is first run standard and accepted, then the remaining **five** faces go to
-Batch: **$0.24 G + $0.24 F-probe + 5×$0.12 = $1.08**, or **$1.56** with
-two standard repairs. The accepted probe is reused, not generated again.
-This mixed schedule gives rapid layout/repair feedback and discounts independent
-faces. All submissions require their own approved quote.
+OpenAI publishes half-price 2.6 Batch rates, but its model page and Batch guide
+still conflict on availability. Until exact eligibility is confirmed, this
+comparison uses GPT Standard. Do not silently use 2.5 or assume a Batch discount.
 
-## Quote before every generation
+## Whole comparison: counts, known subtotal and cap
 
-Present a concrete quote, then wait for an explicit reply before any paid
-submission. A useful quote includes:
+For B=0, G=1, F=6 per model, and R_G/R_N=0..2:
 
-- API and exact model; stage or face IDs; input identities; requested native
-  dimensions, quality, count, and standard/Batch mode;
-- itemized output estimate, input/text estimate, expected total, conservative
-  reserve and proposed spending ceiling for **this submission**;
-- dated pricing source, expected turnaround, and anything still uncertain.
+```text
+N_total = 14 + R_G + R_N                 # 14..18 paid outputs
+C_known_image_outputs = 2.1084 + 0.1779*R_G + 0.24*R_N
+                      = $2.1084..$2.9442
+C_total = C_known_image_outputs
+        + GPT image/text input costs
+        + NBP image/text input and text/thinking output costs
+        + any explicitly allowed extra-attempt costs
+```
 
-The ceiling is an agent stop/reserve rule, not a provider-enforced billing cap;
-token-billed costs can vary. Explain how uncertain input usage is estimated.
-If reliable rates or a usable estimate are missing, resolve them before asking
-for approval or submitting. Never use an arbitrary historical price as a quote.
+**$2.1084..$2.9442 is not the all-in bill.** Do not invent a “likely” total by
+adding arbitrary overhead tokens. For a creator-approved $5 combined cap,
+maintain one shared ledger. Before each request, check actual spent + in-flight
+reservations + next reservation <= $5, allowing for unknown token costs. After
+the response, replace its reservation with usage-derived cost and update the
+remaining empirical forecast. If the planned work no longer fits, stop rather
+than silently exceed the cap, reduce resolution or claim unfinished work passed.
+An agent reservation is a stop rule, not a provider billing guarantee.
 
-An approval covers only the explicitly listed request, or the exact itemized
-batch the creator approved. It does not cover later stages, extra candidates,
-new seeds, rerolls, changed size/quality/model, or replacement submissions.
-A batch quote must show every image's estimate and the batch total so one
-explicit approval can cover that declared batch. Re-ask for missing credential
-information only when it is actually missing; reuse the chosen model and
-credential reference across the session.
+## Batch and approval policy
 
-A short example (replace these figures with the actual input estimate):
+Confirm Standard versus Batch after base acceptance and before paid work;
+reuse the creator's choice. Bulk savings require the actual provider Batch API,
+not n=6 or parallel Standard requests. G, a face probe, remaining F outputs and
+repairs have dependencies. Batch jobs may each take about 24 hours; separate
+probe/remaining-face jobs may mean multiple days. Standard G/R plus Batch F
+keeps layout and repair feedback quicker. Never retry an unknown-status job.
 
-> Nano Banana Pro, six listed 4K face edits in Google Batch. Output estimate:
-> 6×$0.12 = $0.72. Estimated input/text/thinking: $0.08. Expected total $0.80;
-> proposed reserve/ceiling $1.00. Turnaround up to about 24 hours. This approval
-> covers these six faces only; no retries or later repairs. Approve this batch?
+Default: quote each concrete paid submission (or exact itemized Batch list)
+and wait for approval. Show the full output-count formula, known costs, unknown
+input/thinking components, resolution and proposed reservation first. Reuse
+model/key answers; never ask for a key value in chat.
 
-After each completed submission, report estimated versus actual/usage-derived
-cost, returned native sizes, accepted/rejected outputs and remaining allowance.
-Use provider billing for final charges; do not label a calculator estimate as
-an actual bill. A visually rejected image may still be billable.
+If the creator explicitly overrides this default by approving a defined
+whole-run plan under a combined cap, record that authorization and proceed
+within its listed counts, model, quality, modes and cap without re-asking for
+every image. A bare account balance or key location does not grant that scope.
+Report each submission and actual costs. Changed models/quality, extra outputs
+beyond the plan or a needed higher cap require renewed approval.
