@@ -106,16 +106,19 @@ class BuildAViewArticleTests(unittest.TestCase):
         for internal in ['/Users/', '/Volumes/', 'LOCUS_SIGNING', 'creator_combined_cap']:
             self.assertNotIn(internal, self.source)
 
-    def test_tutorial_pair_make_order_home_and_contextual_routes(self):
+    def test_advanced_tutorial_placement_and_contextual_routes(self):
         hub = (ROOT / 'tutorials/index.html').read_text()
         featured = re.search(r'<section class="tutorial-feature-grid".*?</section>', hub, re.S).group()
         self.assertEqual(re.findall(r'class="tutorial-feature" href="([^"]+)"', featured),
-                         ['../make-a-room/', '../build-a-view/'])
+                         ['../make-a-room/', '../first-place/'])
         make = hub[hub.index('id="make-heading"'):hub.index('id="supplementary-heading"')]
-        self.assertEqual(re.findall(r'class="tutorial-card" href="([^"]+)"', make)[:2],
-                         ['../make-a-room/', '../build-a-view/'])
+        cards = re.findall(r'class="tutorial-card" href="([^"]+)"', make)
+        self.assertEqual(cards[0], '../make-a-room/')
+        self.assertEqual(cards[-1], '../build-a-view/')
+        view = re.search(r'<a class="tutorial-card" href="../build-a-view/".*?</a>', make).group()
+        self.assertIn('<span>Advanced</span>', view)
         self.assertIn('href="../first-place/"', hub[hub.index('id="start-heading"'):hub.index('id="make-heading"')])
-        self.assertIn('href="./build-a-view/"', (ROOT / 'index.html').read_text())
+        self.assertNotIn('href="./build-a-view/"', (ROOT / 'index.html').read_text())
         for page in ['make-a-room', 'make-a-view', 'build-a-room']:
             self.assertIn('href="../build-a-view/"', (ROOT / page / 'index.html').read_text())
         self.assertIn('https://enterlocus.com/build-a-view/', (ROOT / 'sitemap.xml').read_text())
