@@ -14,9 +14,11 @@ no private Locus scripts, credentials, source, catalog or asset paths are used.
 Read [the workflow](references/skybox-workflow.md) for commands, prompts,
 pixel-density arithmetic and repair decisions. **A configured high-resolution
 image API and its credentials are required for the generated 12K route.**
-Nano Banana Pro at its native 4K output is the previously tested baseline.
-Another model is acceptable only after verifying its actual output sizes,
-layout preservation, fine detail and seams against an accepted baseline.
+Offer **Nano Banana Pro** (previously tested native 4K baseline) and
+**GPT Image 2.6 Sunburst** (new candidate requiring native-size and quality
+validation). Read [models, costs and Batch](references/models-and-cost.md)
+before discussing a budget or making a paid request. Other models still need
+actual-size, fidelity and seam validation against an accepted baseline.
 An already accepted high-resolution panorama can skip generation.
 
 Codex built-in image generation may supply concepts or a low-resolution base.
@@ -25,10 +27,30 @@ It is not the final restoration/enhancement route: the tested tool returned
 quality controls. Do not enlarge these into a purported finished 12K View.
 The default has been corrected after the failed Maldives trial.
 
-Choose provider, model, explicit high-resolution settings and authorized budget
-before API calls. Never silently fall back to a smaller output or another
-model. Keep keys in the environment, never in files, prompts or logs. The local
-Python tools are provider-neutral; they do not submit generation requests.
+## Model, credential and approval conversation
+
+Before generation, ask which API/model the creator wants and where its key is
+configured: an environment variable name (for example `GEMINI_API_KEY` or
+`OPENAI_API_KEY`) or a secure credential-file reference. Never request the
+secret value in chat. Reuse answers already given; ask only missing details.
+Keep setup brief. Load credentials quietly and never print or commit them.
+
+**Before every image-generation/edit submission, give an itemized cost estimate
+and wait for explicit user approval.** State exact model, input/stage/face IDs,
+native dimensions, quality, image count, standard/Batch mode, output and input
+estimates, reserve/ceiling and expected turnaround. Read-only pricing and local
+image preparation can proceed while approval is pending; paid submission cannot.
+Follow the quote contract in [models and costs](references/models-and-cost.md#quote-before-every-generation).
+
+Approval applies only to that declared submission. For a Batch job, show every
+image estimate and the total; one explicit approval may cover that exact list.
+Later stages, retries, extra candidates, model/quality/size changes and repairs
+need fresh quotes and approvals. An overall budget is not standing permission
+to generate. Do not automatically retry an unknown-status paid request.
+Never silently switch providers or reduce native resolution to finish a run.
+The local Python tools do not submit generation requests.
+
+## Make and review the skybox
 
 1. Generate a coherent full sphere. Review level horizon, world layout,
    wrap and poles before spending effort on resolution.
@@ -37,7 +59,8 @@ Python tools are provider-neutral; they do not submit generation requests.
    Roll the wrap into the image center for repair, then reverse the roll.
    Restoration may invent detail; do not use it to claim photographic fidelity.
 3. Split the accepted layout into six perspective faces with 6° context on
-   each side. Enhance detailed faces one at a time with a preservation prompt.
+   each side. Validate a representative face with a preservation prompt, then enhance
+   independent remaining faces through an approved batch when eligible.
    Enhance every face with meaningful detail, including ground and clouds.
    Only truly featureless faces may use resampling. Inspect each result
    for geometry and tone drift; preserve overlap and framing.
