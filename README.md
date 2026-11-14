@@ -272,6 +272,9 @@ to the rest of the website.
 
 ## Build a skybox
 
+Follow the [Build a View tutorial](https://enterlocus.com/build-a-view/) for the
+original prompt, six-face workflow, model comparison and measured API costs.
+
 The public [build-a-view skill](.agents/skills/build-a-view/SKILL.md) and
 [skybox workflow](.agents/skills/build-a-view/references/skybox-workflow.md)
 cover full-sphere generation, pixel density, overlap faces, narrow blending,

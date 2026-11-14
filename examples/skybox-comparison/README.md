@@ -1,5 +1,9 @@
 # One Maldives base, two enhancement routes
 
+Read the [Build a View tutorial on enterlocus.com](https://enterlocus.com/build-a-view/)
+for the illustrated creation workflow. This page keeps the downloadable
+comparison outputs, detailed evidence and reproducible assembly.
+
 Two fresh GPT-6.1 Sol agents used the public repository, the same frozen input
 and official API documentation. GPT Image 2.6 returned six 2880-square faces;
 Nano Banana Pro returned six 4096-square faces. Their conservative native

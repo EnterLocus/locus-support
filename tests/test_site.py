@@ -1466,7 +1466,7 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Some lamps flicker on Apple Vision Pro.", example)
 
         featured = hub[hub.index('class="tutorial-feature-grid"'):hub.index('</section>', hub.index('class="tutorial-feature-grid"'))]
-        self.assertLess(featured.index('href="../make-a-room/"'), featured.index('href="../first-place/"'))
+        self.assertLess(featured.index('href="../make-a-room/"'), featured.index('href="../build-a-view/"'))
         self.assertNotIn('href="../online-views/"', featured)
         self.assertLess(hub.index('Supplementary resource'), hub.index('href="../online-views/"'))
         self.assertNotIn("at the left end of the Locus bar", first_place)
@@ -1517,7 +1517,8 @@ class PublicSiteTests(unittest.TestCase):
                  "experimental-room-animations/index.html", "experimental-real-objects/index.html",
                  "create-your-own-place/index.html", "build-a-room/index.html",
                  "package-format/index.html", "asset-rights/index.html",
-                 "make-a-black-hole-view/index.html", "hilltop-villa/index.html"]
+                 "make-a-black-hole-view/index.html", "hilltop-villa/index.html",
+                 "build-a-view/index.html"]
         extracted = localization.extract_sources(ROOT)["pages"]
         for locale in localization.TRANSLATED_LOCALES:
             catalog = localization.load_catalog(ROOT, locale)

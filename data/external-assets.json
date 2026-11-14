@@ -2166,6 +2166,48 @@
       "url": "https://media.enterlocus.net/tutorials/light-picture-view-b7ae20240f3bb21780cf3f98731b2baae12053e3da0d16e49e038520b5c2d81a.png",
       "byteCount": 144377,
       "sha256": "b7ae20240f3bb21780cf3f98731b2baae12053e3da0d16e49e038520b5c2d81a"
+    },
+    {
+      "path": "assets/tutorials/build-view/maldives-source-a719d3ed9455.jpg",
+      "url": "https://media.enterlocus.net/tutorials/build-view/maldives-source-a719d3ed9455.jpg",
+      "byteCount": 202958,
+      "sha256": "a719d3ed94559f0d54e350c9681a1320f1118f9bade24baa8bfcf80a3771603a"
+    },
+    {
+      "path": "assets/tutorials/build-view/maldives-restoration-c3f1b9272c02.jpg",
+      "url": "https://media.enterlocus.net/tutorials/build-view/maldives-restoration-c3f1b9272c02.jpg",
+      "byteCount": 128201,
+      "sha256": "c3f1b9272c0281c572ca81d0a26bf6aaa017b3bc10d224f8ef57094ea57ce35d"
+    },
+    {
+      "path": "assets/tutorials/build-view/maldives-final-56b14023577c.jpg",
+      "url": "https://media.enterlocus.net/tutorials/build-view/maldives-final-56b14023577c.jpg",
+      "byteCount": 142125,
+      "sha256": "56b14023577c8e9a3d20c9c5038c819a742544efde09de8fc1f61d151cd24ac2"
+    },
+    {
+      "path": "assets/tutorials/build-view/maldives-repairs-73938537cc81.jpg",
+      "url": "https://media.enterlocus.net/tutorials/build-view/maldives-repairs-73938537cc81.jpg",
+      "byteCount": 373248,
+      "sha256": "73938537cc816b196d056d293bc0b13a0119ef20a70cb3ba414eac3f3b6ac8d7"
+    },
+    {
+      "path": "assets/tutorials/build-view/maldives-comparison-462dce94d33c.jpg",
+      "url": "https://media.enterlocus.net/tutorials/build-view/maldives-comparison-462dce94d33c.jpg",
+      "byteCount": 687024,
+      "sha256": "462dce94d33cb9244bb535821608271383061f542101ca95592c55e3614972f4"
+    },
+    {
+      "path": "assets/tutorials/build-view/maldives-native-crops-e449d9c19e7e.jpg",
+      "url": "https://media.enterlocus.net/tutorials/build-view/maldives-native-crops-e449d9c19e7e.jpg",
+      "byteCount": 394063,
+      "sha256": "e449d9c19e7e13448243115b696336f6a8615fdd5399e6f1fcd43ea6a2666505"
+    },
+    {
+      "path": "assets/tutorials/build-view/maldives-cover-886ce941d735.jpg",
+      "url": "https://media.enterlocus.net/tutorials/build-view/maldives-cover-886ce941d735.jpg",
+      "byteCount": 337029,
+      "sha256": "886ce941d73518bb8439416160b7347a71432bf8d2d8b3600a947830f1d299a6"
     }
   ]
 }
