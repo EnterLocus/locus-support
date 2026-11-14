@@ -24,7 +24,7 @@ At 6° per-side overlap (102° total FOV):
 | Native stored square | Equivalent 90° core | Common 4C width | Conservative W×H |
 | --- | ---: | ---: | ---: |
 | GPT candidate 2880² | 2332.18 | 9328.71 | 7326×3663 |
-| Nano Banana Pro 4096² | 3316.88 | 13267.50 | 10420×5210 |
+| Nano Banana Pro / 2.1 4096² | 3316.88 | 13267.50 | 10420×5210 |
 
 These are sampling conventions, **not measured resolved detail**. Rectilinear
 pixels have nonuniform angular spacing; ERP also stretches pixels near poles.

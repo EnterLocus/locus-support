@@ -39,8 +39,10 @@ new base generations or different already-restored versions.
 
 ## Step 2 — select API, quote cost and resolution, then enhance
 
-After base acceptance, offer Nano Banana Pro (tested baseline) and GPT Image
-2.6 Sunburst (candidate requiring native-size/fidelity validation). Ask for
+After base acceptance, offer Nano Banana Pro (tested baseline), Nano Banana
+2.1 (lower-cost comparison candidate), and GPT Image 2.6 Sunburst. The 2.1
+trial passed independent static review with limits; owner Locus/headset review
+is pending, so it has not replaced the baseline or become the default. Ask for
 only missing API/model and credential-reference information: environment
 variable name or secure credential-file reference, never a key pasted in chat.
 Keep setup brief and reuse known answers. Load keys quietly; do not print,
@@ -58,7 +60,7 @@ output **and image-input/text** charges, model, dimensions, quality and expected
 final native-sampling ERP size. State which number is calculated and which is
 still an unverified model capability/quality assumption. Do not promise 12K.
 
-For Nano Banana Pro, explicitly offer Standard versus discounted Batch,
+For Nano Banana Pro and 2.1, explicitly offer Standard versus discounted Batch,
 including estimated savings, up-to-about-24-hour job latency and sequential
 stage dependency. Ask which the creator prefers **before production**; reuse
 an explicit choice already supplied. For GPT, offer Batch only when its exact
@@ -96,7 +98,7 @@ checkpoint and returned native dimensions:
 5. Deliver the accepted native-size panorama to the requested destination,
    together with prompt, frozen-base identity, raw/restored intermediates,
    face edits, costs, merge receipts and review evidence. For a public demo,
-   explain both model paths from the same base and show intermediate and final
+   explain the selected model paths from the same base and show intermediate and final
    results with actual dimensions/fees; do not replace pending rows with claims.
    Import the exact file in Locus for a separate device check.
 

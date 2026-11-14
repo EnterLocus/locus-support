@@ -2250,6 +2250,42 @@
       "url": "https://media.enterlocus.net/tutorials/build-view/maldives-cover-672-896e17ec5f17.jpg",
       "byteCount": 135181,
       "sha256": "896e17ec5f17b8f6c25d0c5e169104776d05b8d907d60fc436bd685daf5d0562"
+    },
+    {
+      "path": "assets/tutorials/build-view/nano-banana-21-comparison-17d8f14e3cca.jpg",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-comparison-17d8f14e3cca.jpg",
+      "byteCount": 524214,
+      "sha256": "17d8f14e3ccafb5f5e6da3933385bc448ba97f708568d0df53c1a9f5823f7c5d"
+    },
+    {
+      "path": "assets/tutorials/build-view/nano-banana-21-comparison-672-5a927f52b3ba.jpg",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-comparison-672-5a927f52b3ba.jpg",
+      "byteCount": 202323,
+      "sha256": "5a927f52b3badfadafba298d110da1d6c9c7314cea6aa58c7c4af18c2c2eb0b5"
+    },
+    {
+      "path": "assets/tutorials/build-view/nano-banana-21-panorama-b97fb63bb25e.jpg",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-panorama-b97fb63bb25e.jpg",
+      "byteCount": 162468,
+      "sha256": "b97fb63bb25e6f59f972c3776cbe19c0a19b9e293fe9e393dd4f45858ea77d7f"
+    },
+    {
+      "path": "assets/tutorials/build-view/nano-banana-21-panorama-672-03e185f05312.jpg",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-panorama-672-03e185f05312.jpg",
+      "byteCount": 55616,
+      "sha256": "03e185f0531205e8a637f889c59d00d5ac5746ce028b803627c1acd0c3b0b953"
+    },
+    {
+      "path": "assets/tutorials/build-view/nano-banana-21-repairs-2359ac4202dc.jpg",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-repairs-2359ac4202dc.jpg",
+      "byteCount": 267475,
+      "sha256": "2359ac4202dc2095b140a62b03848bdb16bbd7ebc64053b627b316e1b376ccbb"
+    },
+    {
+      "path": "assets/tutorials/build-view/nano-banana-21-repairs-672-7936001386c3.jpg",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-repairs-672-7936001386c3.jpg",
+      "byteCount": 91065,
+      "sha256": "7936001386c3cc4979bf57fb0e79bf923e6578f969fc4272e7aba8536cde69f0"
     }
   ]
 }
