@@ -1466,7 +1466,9 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Some lamps flicker on Apple Vision Pro.", example)
 
         featured = hub[hub.index('class="tutorial-feature-grid"'):hub.index('</section>', hub.index('class="tutorial-feature-grid"'))]
-        self.assertLess(featured.index('href="../make-a-room/"'), featured.index('href="../build-a-view/"'))
+        self.assertIn('href="../make-a-room/"', featured)
+        self.assertIn('href="../first-place/"', featured)
+        self.assertNotIn('href="../build-a-view/"', featured)
         self.assertNotIn('href="../online-views/"', featured)
         self.assertLess(hub.index('Supplementary resource'), hub.index('href="../online-views/"'))
         self.assertNotIn("at the left end of the Locus bar", first_place)
