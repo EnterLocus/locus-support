@@ -70,6 +70,11 @@ class BuildAViewArticleTests(unittest.TestCase):
                 self.assertGreater(int(image['width']), 0)
                 self.assertGreater(int(image['height']), 0)
                 self.assertTrue(image['alt'])
+                candidates = dict(part.strip().rsplit(' ', 1)[::-1]
+                                  for part in image['srcset'].split(','))
+                self.assertEqual(set(candidates), {'672w', image['width'] + 'w'})
+                self.assertTrue(set(candidates.values()).issubset(urls))
+                self.assertIn('calc(100vw - 48px)', image['sizes'])
         cover = self.parser.images[0]
         self.assertEqual(cover['fetchpriority'], 'high')
         self.assertNotIn('loading', cover)
