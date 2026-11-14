@@ -56,7 +56,9 @@ approval to generate. Establish whether the initial base is supplied, built-in
 Show the full B/G/F/R run budget before the first per-submission quote. A low-
 resolution built-in base still needs paid whole-panorama restoration and up to
 six detailed face edits, plus any quoted repairs. Keep exact native-size and
-quality checks for both models.
+quality checks for both models. An explicit authorization for a declared full plan
+under a shared cap overrides repeated per-image approval within that scope;
+record it, maintain one ledger, and stop at the stated attempt/cost boundary.
 
 ## 1. Generate the world before the detail
 
@@ -116,6 +118,22 @@ join just turns it into a soft vertical band. Reject large layout drift before
 proceeding. Fidelity measurements are diagnostic, especially when a successful
 repair is supposed to differ from a defective source.
 
+For an inspected small exposure line in an open-sky wrap, use the local
+two-pass helper before buying another content edit:
+
+```sh
+python3 tools/skybox/sky_wrap_tone.py restored.png wrap-toned.png wrap-mask.png
+```
+
+It samples immediately beside the wrap, cancels the row-local RGB step with
+a cosine ramp, then applies horizontal-only residual smoothing only where
+the nearby sky is smooth. Every pixel-scale parameter scales with ERP width.
+The default mask fades out before the horizon and keeps the lower sphere
+unchanged. Inspect both sides of the feather and cloud edges; this does not
+repair a shifted cloud, sharpness mismatch or a broad regional color change.
+Do not sample distant sky regions to infer a local step: that can overcorrect
+an already continuous seam.
+
 ### Nano Banana Pro: full-panorama aspect context
 
 The documented 4K ratios include 21:9, but not exact 2:1. For the G whole-
@@ -125,7 +143,7 @@ aspect-ratio field will return:
 ```sh
 python3 tools/skybox/erp_context.py pad source.png g-input.png --metadata g-context.json
 # Quote/approve one Nano Banana Pro edit: explicit 21:9, imageSize 4K.
-# Keep the raw model file as g-raw.png. For the comparative test, use Batch.
+# Keep the raw model file as g-raw.png. This comparison used Standard G; F6 used Batch.
 python3 tools/skybox/erp_context.py unpad g-raw.png restored.png --metadata g-context.json
 ```
 
@@ -155,16 +173,27 @@ A coherent restored panorama around 4K wide is required to reduce that leap. Alw
 actual model output dimensions: requesting 4K or writing “12K” does not produce
 that many independent samples.
 
+Project the G image at a source-sized working grid, rather than enlarging
+inputs to the model's desired output size. A useful inherited working rule is
+core-size ≈ restored ERP width / 4:
+
 ```sh
-python3 tools/skybox/skybox.py split restored.png faces --core-size 3072 --overlap 6
+# For a 3840-wide G image: 960 core, 1186 stored face pixels.
+python3 tools/skybox/skybox.py split restored.png faces --core-size 960 --overlap 6
+# For a 5376-wide G image, use --core-size 1344 (1660 stored pixels).
 ```
 
-The six files are `px`, `nx`, `py`, `ny`, `pz`, `nz`, plus geometry metadata.
-Each face sees 90° + 6° on either side = **102°**. In this grid a 3,072 core
-has roughly 3,794 stored pixels per side (`3072*tan(51°)`, rounded by the tool).
-Keep that whole stored frame for every model edit. Do not trim margins or
-change the field of view. `nz` looks forward; `pz` contains the original ERP
-wrap in its center; `py` and `ny` look up and down.
+The model then generates each face at its requested native output size
+(2880-square GPT / 4096-square Nano Banana in this comparison). Projecting an
+already enlarged 2880/4096 input adds no information and may waste input tokens.
+The model must preserve the full 102° input framing; retain the original
+metadata when its output pixel size changes.
+
+The six files are px, nx, py, ny, pz, nz. Each sees 90° + 6° per side = 102°,
+subject to subpixel rounding. Keep the full frame and context for every edit;
+do not trim margins or zoom. nz is forward, pz centers the ERP wrap, py/ny
+look up/down. Native merge maps each raw model output through that same FOV.
+The input core size is not the final panorama resolution.
 
 Enhance one detailed face at a time using it as the edit target:
 
@@ -218,7 +247,8 @@ current JPEG export uses quality 100 and 4:4:4 sampling; it preserves detail
 already present but cannot create detail. On the failed low-resolution trial
 it produced a roughly 43 MiB file without corresponding image quality. Do not
 export an oversized final as a workaround for missing native detail. Narrow blending uses 0.25° on either side of the geometric boundary:
-0.5° total, roughly **17 ERP pixels at the equator**. The 6° input context
+0.5° total: W×0.5/360 ERP pixels at the equator, roughly 10 pixels at
+7.3K width or 14.5 at 10.4K. The 6° input context
 and the 0.25° blend solve different problems. A broad cross-fade between
 inconsistent faces makes double palm trunks and ghost shorelines. A narrow
 join keeps detail, but it cannot align objects that the model moved.
@@ -231,9 +261,24 @@ outputs, and discard a candidate if repeated content drift remains.
 
 For sky dots or noise, prefer retaining the smooth source sky or an explicitly
 reviewed sky mask with a soft boundary. Do not apply a blanket blur that wipes
-cloud edges, palm fronds and roof silhouettes. Masked sky replacement and
-arbitrary rotated repair-face reinsertion are manual image-edit steps in this
-initial toolkit; the CLI does not claim to automate them.
+cloud edges, palm fronds and roof silhouettes. Masked sky replacement still requires an inspected scene-specific mask. The
+[Maldives demo](../../../../examples/skybox-comparison/README.md) includes its
+local sky and sand recipes; they are not universal segmentation algorithms.
+For an observed seam, the local patch helper projects a perspective edit
+centered on that direction and reinserts it with a bounded feather:
+
+```sh
+python3 tools/skybox/seam_patch.py extract panorama.png seam-input.png camera.json --yaw 135 --fov 60 --size 1536
+# Quote/approve one square API edit preserving this exact camera and full frame.
+python3 tools/skybox/seam_patch.py insert panorama.png seam-edited.png camera.json repaired.png repair-mask.png
+```
+
+Yaw follows the package convention: 0 is forward/-Z, +90 is +X, and ±180
+is the ERP wrap. The source hash and camera are bound in metadata. Reinsertion
+keeps the original ERP dimensions and exact pixels outside the zero-alpha
+mask in its PNG checkpoint. Inspect the returned edit for camera drift before
+insertion, then review the content and feather boundaries; a successful
+reprojection does not establish visual continuity.
 
 ## 5. Review and handoff
 
@@ -287,5 +332,8 @@ until its repaired center and new image edges both pass visual inspection.
 
 This correction restores the high-resolution API prerequisite and complete
 face/repair acceptance requirements. It does not claim a new accepted scene or
-validated replacement model. The failed trial and its original findings remain
+blanket-equivalent replacement model. The new same-base comparison records
+actual returned sizes, repairs, costs and residual limitations in the
+[demo](../../../../examples/skybox-comparison/README.md). The failed built-in trial
+and its original findings remain
 in the [verification record](../../../../docs/verification/build-a-view-skybox-20261112.md).

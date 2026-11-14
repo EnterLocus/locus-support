@@ -17,11 +17,34 @@ affect density, not coverage. Use the [native sampling calculation](resolution.m
 2880² gives about 7326×3663 ERP, 4096² about 10420×5210, subject to actual
 rounded FOV and returned sizes. These are sample-density estimates, not proof
 of resolved detail. GPT's 8,294,400-pixel calculator budget is not 4096².
-The 2.6 native-size/fidelity route still needs a real accepted test.
+The same-base [trial](../../../../examples/skybox-comparison/README.md) confirmed
+these returned native sizes. Its sharpness, repair effort and remaining defects
+must be judged separately; size does not establish quality equivalence.
 
 Keys stay in the creator's named environment variable or secure credential
 reference. Use the selected provider's own pricing for a reseller; do not
 assume Google/OpenAI rates or Batch discounts apply to a different endpoint.
+
+## Measured complete example
+
+The same-base Maldives comparison produced **9 paid outputs per route**:
+B=0, G=1, F=6, R=2, E=0. GPT used Standard throughout; Nano Banana used
+Standard G/R and actual asynchronous Batch for all six F, including the probe.
+
+| Route | Known image output subtotal | Usage-priced result | Conservative accounting |
+| --- | ---: | ---: | ---: |
+| GPT Image 2.6 high | $1.504200 | $1.614237 | $1.614237 |
+| Nano Banana Pro mixed mode | $1.440000 | $1.471502 if unclassified candidate tokens use text rate | $1.587014 |
+| Combined, 18 outputs | $2.944200 | $3.085739 under that Google assumption | **$3.201251** |
+
+These are calculations from saved response usage and dated list prices,
+**not reconciled provider invoices**. The Google residual/input discrepancies
+are explained below and retained in [every request's counters](../../../../examples/skybox-comparison/usage.json).
+The $5 authorization was a combined agent stop boundary, not an expected
+charge or provider-enforced billing cap. Rejected paid repairs are included.
+Local authoring and reassembly add no image-API fees; agent/subscription time
+and storage are separate. This example does not guarantee a finished skybox
+for the same cost: observed defects, attempts and acceptance remain explicit.
 
 ## Count outputs before quoting money
 
@@ -67,8 +90,9 @@ submission; a one-image quote is not the whole-project budget.
 lists a 4K output as 2,000 image tokens at $120/M = **$0.24 Standard**.
 [Batch](https://ai.google.dev/gemini-api/docs/batch-api#image-generation) is
 50% of Standard: **$0.12** for that output. Standard input costs $2/M tokens;
-text/thinking output $12/M. Batch rates are half. One image input is 560
-tokens under this model's documented accounting; prompt text is additional.
+text/thinking output $12/M. Batch rates are half. The pricing page describes one image input as 560 tokens; prompt text is
+additional. Our first measured requests reported 258 IMAGE input tokens instead.
+Retain that discrepancy rather than rewriting reported usage to match the page.
 
 For each request i, let P_i be all prompt-input tokens (including image input),
 J_i image-output tokens, L_i returned text-output tokens, H_i thinking tokens,
@@ -79,7 +103,9 @@ C_NBP(i) = d_i * (2*P_i + 120*J_i + 12*(L_i+H_i)) / 1,000,000
 C_NBP = sum_i C_NBP(i)
 ```
 
-For one input image, P_i = 560 + prompt_text_tokens_i. For the declared
+For preflight using the pricing-page example, P_i = 560 + prompt_text_tokens_i.
+For measured usage, retain its actual P_i and modality split; a 560-versus-258
+billing difference remains a named conservative reserve until reconciled. For the declared
 4K-output route, J_i=2000; verify returned metadata and image size. Do not
 charge all candidate tokens at the image rate. Read prompt/candidate modality
 details and thoughts separately from usageMetadata, avoiding double counting.
@@ -91,11 +117,11 @@ C_NBP_image_output(R) = 0.24 + 6*0.12 + R*0.24
                       = 0.96 + 0.24*R
                       = $0.96..$1.44 for R=0..2
 
-C_NBP_known_image_input(R) = 560 * (2 + 6*1 + R*2) / 1,000,000
+C_NBP_doc_example_image_input(R) = 560 * (2 + 6*1 + R*2) / 1,000,000
                          = $0.00448 + $0.00112*R
 
 C_NBP_total(R) = C_NBP_image_output(R)
-              + C_NBP_known_image_input(R)
+              + measured_image_input_cost
               + prompt_text_input_cost
               + returned_text_and_thinking_cost
 ```
@@ -177,6 +203,26 @@ OpenAI publishes half-price 2.6 Batch rates, but its model page and Batch guide
 still conflict on availability. Until exact eligibility is confirmed, this
 comparison uses GPT Standard. Do not silently use 2.5 or assume a Batch discount.
 
+## First measured checkpoints: formulas versus observations
+
+The comparison used the same frozen source; these are observed usage prices,
+not an invoice or a universal flat per-image price:
+
+```text
+GPT G: (1458*8 + 94*5 + 2700*30)/1e6 = $0.093134
+GPT F probe: (1444*8 + 84*5 + 5930*30)/1e6 = $0.189872
+```
+
+For the first Nano Banana G, usage reported P=456, J=2000 and H=193, plus
+174 candidate tokens not classified by modality. Known classified cost is
+(456*2 + 2000*120 + 193*12)/1e6 = $0.243228. Classifying the residual as text
+would give $0.245316; it is not established as the exact charge. Reserving that
+residual at the highest image rate, plus the documented-versus-measured input
+image difference, gives conservative accounting of $0.264712. The Batch F probe
+similarly has $0.122217 under a residual-at-text assumption and $0.131051
+conservative accounting. Preserve all counters, assumptions and discrepancies;
+do not call an unclassified token free or report a reserve as an invoice.
+
 ## Whole comparison: counts, known subtotal and cap
 
 For B=0, G=1, F=6 per model, and R_G/R_N=0..2:
@@ -208,6 +254,11 @@ not n=6 or parallel Standard requests. G, a face probe, remaining F outputs and
 repairs have dependencies. Batch jobs may each take about 24 hours; separate
 probe/remaining-face jobs may mean multiple days. Standard G/R plus Batch F
 keeps layout and repair feedback quicker. Never retry an unknown-status job.
+For file-based batches, preserve a unique key per image, the uploaded JSONL
+identity, job name and completion state; retrieve usage and native output for
+each key before settling the reservation. A successful F probe belongs to
+F6. Poll/resume the existing job rather than replacing it. Remove uploaded
+input files only after completed outputs and receipts have durable copies.
 
 Default: quote each concrete paid submission (or exact itemized Batch list)
 and wait for approval. Show the full output-count formula, known costs, unknown

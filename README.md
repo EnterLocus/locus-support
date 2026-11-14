@@ -275,12 +275,13 @@ to the rest of the website.
 The public [build-a-view skill](.agents/skills/build-a-view/SKILL.md) and
 [skybox workflow](.agents/skills/build-a-view/references/skybox-workflow.md)
 cover full-sphere generation, pixel density, overlap faces, narrow blending,
-and local defect repair. The generated 12K route requires a high-resolution
+and local defect repair. The generated high-resolution route requires a high-resolution
 image API and its credentials; Nano Banana Pro at native 4K is the previously
 tested baseline, and GPT Image 2.6 Sunburst is a new model option. The
 [model and cost article](.agents/skills/build-a-view/references/models-and-cost.md)
 explains per-View estimates, Batch savings and the required approval before
-every paid submission. Both models need native-size, fidelity and seam checks.
+the stated paid submissions or an explicitly authorized full plan. Both models
+need native-size, fidelity and seam checks.
 Codex built-in images may supply concepts or a low-resolution base, but the
 failed Maldives trial does not qualify them as the final enhancement route.
 No private app source, Blender, or macOS is required for skybox authoring.
@@ -291,4 +292,6 @@ API credentials, cost and native-resolution approval. It confirms whether
 Nano Banana Pro should use slower, discounted Batch processing. Final SDR
 resolution follows actual face sizes and FOV rather than a forced 12K canvas;
 see the [sampling calculation](.agents/skills/build-a-view/references/resolution.md).
-This first workflow covers static skyboxes only.
+The [same-base Maldives comparison](examples/skybox-comparison/README.md) includes
+the original prompt, native G/F/R outputs, actual token-based cost calculations,
+repairs and remaining defects. This first workflow covers static skyboxes only.

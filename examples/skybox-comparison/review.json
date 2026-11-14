@@ -1,0 +1,26 @@
+{
+  "scope": "Static image authoring review; no app/headset acceptance",
+  "gpt": {
+    "source_png_sha256": "d325f110f7a19dc0eee47df8773154d9abf8b4093d70ac2d631f1a48293f03cc",
+    "status": "accepted_for_static_comparison",
+    "checked": "Root6cube+12edge1024views, allv3cjoins; freshaffectedR1/R2edges/cubes; independentagentfresh60/30/72degree\u00b1135views",
+    "limitations": [
+      "Upper sky partly retains/interpolatesG3840x1920samples; AIreconstructed fine detail; no photographic fidelity guarantee."
+    ]
+  },
+  "nano": {
+    "source_png_sha256": "1e18cef882ba6acaa26f03f75a83cec5c2dccefcf81ee5cf5565dd566d61441b",
+    "status": "comparison_candidate_with_known_defects_not_production_pass",
+    "checked": "Root6cube+12edge1024views, raw/repairednadir andwrap; independentproducerfreshwrapcloud/equator/feather review",
+    "remaining": [
+      "Broadskytonaldifferenceatwrap",
+      "Zenithcirrusconvergence",
+      "Centralnadirrelief smootherthansurrounding original sand"
+    ]
+  },
+  "api_paid_outputs": 18,
+  "no_more_paid_calls": true,
+  "Locus_import": "NOT_VERIFIED",
+  "physical_headset": "NOT_VERIFIED",
+  "remote_icloud_sync": "NOT_VERIFIED"
+}

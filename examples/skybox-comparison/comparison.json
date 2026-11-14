@@ -1,5 +1,8 @@
 {
-  "status": "preflight_complete_awaiting_generation_approval",
+  "status": "comparison_complete_with_disclosed_candidate_limits",
+  "date": "2026-11-13",
+  "producer_agent_model": "gpt-6.1-sol",
+  "public_generation_recipe_revision": "d038b3c78bd83b69cc5408cf51f5066293f308f7",
   "source": {
     "filename": "source.png",
     "width": 1774,
@@ -12,7 +15,167 @@
     "sha256": "699b2e1c8794398d88d22c3aded0579bd8748b1e0ddb8f56025c3580c515e8d6"
   },
   "routes": {
-    "nano_banana_pro": {"mode": "batch", "returned_face_size": null, "final_size": null, "actual_cost_usd": null},
-    "gpt_image_2_6_sunburst": {"mode": "standard", "returned_face_size": null, "final_size": null, "actual_cost_usd": null}
-  }
+    "gpt_image_2_6_sunburst": {
+      "api_model": "gpt-image-2.6-sunburst",
+      "G": {
+        "mode": "Standard",
+        "returned_size": [
+          3840,
+          1920
+        ],
+        "quality": "high"
+      },
+      "F": {
+        "mode": "Standard",
+        "count": 6,
+        "input_side": 1186,
+        "input_core": 960,
+        "returned_side": 2880,
+        "actual_fov_degrees": 102.02357110379884
+      },
+      "R": {
+        "mode": "Standard",
+        "count": 2,
+        "returned_side": 2880,
+        "camera_fov_degrees": 60,
+        "yaw_degrees": [
+          135,
+          -135
+        ]
+      },
+      "paid_output_count": 9,
+      "final_size": [
+        7322,
+        3661
+      ],
+      "usage_price_usd": 1.614237,
+      "provider_invoice_usd": null,
+      "delivery_asset": "gpt-image26-7322x3661.jpg",
+      "native_png_sha256": "d325f110f7a19dc0eee47df8773154d9abf8b4093d70ac2d631f1a48293f03cc",
+      "remaining_findings": [
+        "Upper sky partly retains/interpolatesG3840x1920samples; AIreconstructed fine detail; no photographic fidelity guarantee."
+      ]
+    },
+    "nano_banana_pro": {
+      "api_model": "gemini-3-pro-image",
+      "G": {
+        "mode": "Standard",
+        "returned_size": [
+          6336,
+          2688
+        ],
+        "derived_ERP_size": [
+          5376,
+          2688
+        ]
+      },
+      "F": {
+        "mode": "Batch",
+        "count": 6,
+        "input_side": 1660,
+        "input_core": 1344,
+        "returned_side": 4096,
+        "actual_fov_degrees": 102.010069060699
+      },
+      "R": {
+        "mode": "Standard",
+        "count": 2,
+        "returned_side": 4096,
+        "first_attempt": "insufficient,retainedandcharged"
+      },
+      "paid_output_count": 9,
+      "final_size": [
+        10418,
+        5209
+      ],
+      "usage_price_if_residual_text_usd": 1.471502,
+      "conservative_accounted_usd": 1.587014,
+      "provider_invoice_usd": null,
+      "delivery_asset": "nano-banana-pro-10418x5209.jpg",
+      "native_png_sha256": "1e18cef882ba6acaa26f03f75a83cec5c2dccefcf81ee5cf5565dd566d61441b",
+      "remaining_findings": [
+        "Broadskytonaldifferenceatwrap",
+        "Zenithcirrusconvergence",
+        "Centralnadirrelief smootherthansurrounding original sand"
+      ]
+    }
+  },
+  "accounting": {
+    "creator_combined_cap_usd": 5,
+    "paid_outputs": 18,
+    "output_fee_subtotal_usd": 2.9442,
+    "combined_conservative_accounted_usd": 3.201251,
+    "provider_invoices_verified": false,
+    "key_values_in_public_artifacts": false
+  },
+  "encoding": "DeliveryJPEGquality95,4:4:4,optimize; no dimension change",
+  "assets": {
+    "compression-check.jpg": {
+      "bytes": 565185,
+      "sha256": "43570ed29d37de91a0a163142d9f74e1ebbe95e795f9f1c216b41053bdc0af35",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/compression-check.jpg"
+    },
+    "final-panorama.jpg": {
+      "bytes": 354015,
+      "sha256": "94032574ac90bd6930f502f131f258e0cda7712520973c75fdf5795af4aecaee",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/final-panorama.jpg"
+    },
+    "global-restoration.jpg": {
+      "bytes": 353185,
+      "sha256": "def3c3580e015f87086f76045c6fcce3b5a2ac45945262c3daf414021af911d3",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/global-restoration.jpg"
+    },
+    "gpt-image26-7322x3661.jpg": {
+      "bytes": 12819651,
+      "sha256": "f82e0b32684a6e07ff369bae769d6a2f298305ebea59c9162ac0a6b0787939e9",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/gpt-image26-7322x3661.jpg"
+    },
+    "gpt-image26-intermediates.zip": {
+      "bytes": 139577741,
+      "sha256": "2268df82de80d477e8a4c27c07c9c47798988b453c25d09056109d820a7bd60a",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/gpt-image26-intermediates.zip"
+    },
+    "nano-banana-pro-10418x5209.jpg": {
+      "bytes": 15452862,
+      "sha256": "0d8707653c8908b3164a23b3799c006510d16619b71b35fe257c1380bd33e391",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-pro-10418x5209.jpg"
+    },
+    "nano-banana-pro-intermediates.zip": {
+      "bytes": 197326370,
+      "sha256": "a8fb079be203b44748597b99e9d717e1889767e074e222d6d4bd91fe615f15cb",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-pro-intermediates.zip"
+    },
+    "native-face-crops.jpg": {
+      "bytes": 394063,
+      "sha256": "e449d9c19e7e13448243115b696336f6a8615fdd5399e6f1fcd43ea6a2666505",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/native-face-crops.jpg"
+    },
+    "prompt.txt": {
+      "bytes": 1597,
+      "sha256": "699b2e1c8794398d88d22c3aded0579bd8748b1e0ddb8f56025c3580c515e8d6",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/prompt.txt"
+    },
+    "repair-before-after.jpg": {
+      "bytes": 1049443,
+      "sha256": "499091e23055c4e674c23dd920c722f2fc8aadd7f99f3e9c004e159a35e7ca2a",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/repair-before-after.jpg"
+    },
+    "review-evidence.zip": {
+      "bytes": 83379466,
+      "sha256": "482d28090a4bf0a0867ebea9cfeee1b29ae2d712bcdbd2dbbb9b6ccadde5c154",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/review-evidence.zip"
+    },
+    "same-angle.jpg": {
+      "bytes": 2030565,
+      "sha256": "e0127c016c7e79b2589510cdbe55e5b36dcb9b74c526a53a0b01436dd4cfc679",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/same-angle.jpg"
+    },
+    "source.png": {
+      "bytes": 2687351,
+      "sha256": "839693327e5ce645ec0c5be03be22e4123db47543168a823b26946eab8f27c9d",
+      "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/source.png"
+    }
+  },
+  "Locus_import": "NOT_VERIFIED",
+  "physical_headset": "NOT_VERIFIED"
 }

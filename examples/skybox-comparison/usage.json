@@ -1,0 +1,518 @@
+{
+  "currency": "USD",
+  "rate_date": "2026-11-13",
+  "paid_output_count": 18,
+  "creator_authorized_combined_cap_usd": 5,
+  "provider_invoice_verified": false,
+  "gpt_usage_priced_usd": 1.614237,
+  "nano_if_unclassified_candidate_tokens_use_text_rate_usd": 1.471502,
+  "nano_conservative_accounted_usd": 1.587014,
+  "combined_conservative_accounted_usd": 3.201251,
+  "note": "Google candidate residual tokens have no returned modality classification and image input reports258 vs pricing-page560. The conservative amount reserves residual at image rate and input difference; it is not an invoice or predicted expected fee.",
+  "requests": [
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-F-nx-01",
+      "stage": "nx",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1528,
+        "input_tokens_details": {
+          "image_tokens": 1444,
+          "text_tokens": 84
+        },
+        "output_tokens": 5930,
+        "output_tokens_details": {
+          "image_tokens": 5930,
+          "text_tokens": 0
+        },
+        "total_tokens": 7458
+      },
+      "usage_price_usd": 0.189872,
+      "invoice_verified": false
+    },
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-F-ny-01",
+      "stage": "ny",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1584,
+        "input_tokens_details": {
+          "image_tokens": 1444,
+          "text_tokens": 140
+        },
+        "output_tokens": 5930,
+        "output_tokens_details": {
+          "image_tokens": 5930,
+          "text_tokens": 0
+        },
+        "total_tokens": 7514
+      },
+      "usage_price_usd": 0.190152,
+      "invoice_verified": false
+    },
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-F-nz-01",
+      "stage": "nz",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1528,
+        "input_tokens_details": {
+          "image_tokens": 1444,
+          "text_tokens": 84
+        },
+        "output_tokens": 5930,
+        "output_tokens_details": {
+          "image_tokens": 5930,
+          "text_tokens": 0
+        },
+        "total_tokens": 7458
+      },
+      "usage_price_usd": 0.189872,
+      "invoice_verified": false
+    },
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-F-px-01",
+      "stage": "px",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1528,
+        "input_tokens_details": {
+          "image_tokens": 1444,
+          "text_tokens": 84
+        },
+        "output_tokens": 5930,
+        "output_tokens_details": {
+          "image_tokens": 5930,
+          "text_tokens": 0
+        },
+        "total_tokens": 7458
+      },
+      "usage_price_usd": 0.189872,
+      "invoice_verified": false
+    },
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-F-py-01",
+      "stage": "py",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1583,
+        "input_tokens_details": {
+          "image_tokens": 1444,
+          "text_tokens": 139
+        },
+        "output_tokens": 5930,
+        "output_tokens_details": {
+          "image_tokens": 5930,
+          "text_tokens": 0
+        },
+        "total_tokens": 7513
+      },
+      "usage_price_usd": 0.190147,
+      "invoice_verified": false
+    },
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-F-pz-01",
+      "stage": "pz",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1528,
+        "input_tokens_details": {
+          "image_tokens": 1444,
+          "text_tokens": 84
+        },
+        "output_tokens": 5930,
+        "output_tokens_details": {
+          "image_tokens": 5930,
+          "text_tokens": 0
+        },
+        "total_tokens": 7458
+      },
+      "usage_price_usd": 0.189872,
+      "invoice_verified": false
+    },
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-G-01",
+      "stage": "G",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1552,
+        "input_tokens_details": {
+          "image_tokens": 1458,
+          "text_tokens": 94
+        },
+        "output_tokens": 2700,
+        "output_tokens_details": {
+          "image_tokens": 2700,
+          "text_tokens": 0
+        },
+        "total_tokens": 4252
+      },
+      "usage_price_usd": 0.093134,
+      "invoice_verified": false
+    },
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-R1-01",
+      "stage": "R1",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1639,
+        "input_tokens_details": {
+          "image_tokens": 1521,
+          "text_tokens": 118
+        },
+        "output_tokens": 5930,
+        "output_tokens_details": {
+          "image_tokens": 5930,
+          "text_tokens": 0
+        },
+        "total_tokens": 7569
+      },
+      "usage_price_usd": 0.190658,
+      "invoice_verified": false
+    },
+    {
+      "route": "gpt_image_2_6",
+      "id": "maldives-gpt26-R2-01",
+      "stage": "R2",
+      "mode": "Standard",
+      "usage": {
+        "input_tokens": 1639,
+        "input_tokens_details": {
+          "image_tokens": 1521,
+          "text_tokens": 118
+        },
+        "output_tokens": 5930,
+        "output_tokens_details": {
+          "image_tokens": 5930,
+          "text_tokens": 0
+        },
+        "total_tokens": 7569
+      },
+      "usage_price_usd": 0.190658,
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "G",
+      "mode": "Standard",
+      "usage": {
+        "promptTokenCount": 456,
+        "candidatesTokenCount": 2174,
+        "totalTokenCount": 2823,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 198
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 193,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.243228,
+        "unclassified_candidate_tokens": 174,
+        "if_residual_text_rate_usd": 0.245316,
+        "conservative_accounted_usd": 0.264712
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "F-nz",
+      "mode": "Batch",
+      "usage": {
+        "promptTokenCount": 345,
+        "candidatesTokenCount": 2158,
+        "totalTokenCount": 2657,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 87
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 154,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.121269,
+        "unclassified_candidate_tokens": 158,
+        "if_residual_text_rate_usd": 0.122217,
+        "conservative_accounted_usd": 0.131051
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "F-px",
+      "mode": "Batch",
+      "usage": {
+        "promptTokenCount": 345,
+        "candidatesTokenCount": 2187,
+        "totalTokenCount": 2679,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 87
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 147,
+        "serviceTier": "SERVICE_TIER_STANDARD"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.121227,
+        "unclassified_candidate_tokens": 187,
+        "if_residual_text_rate_usd": 0.122349,
+        "conservative_accounted_usd": 0.132749
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "F-nx",
+      "mode": "Batch",
+      "usage": {
+        "promptTokenCount": 345,
+        "candidatesTokenCount": 2143,
+        "totalTokenCount": 2678,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 87
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 190,
+        "serviceTier": "SERVICE_TIER_STANDARD"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.121485,
+        "unclassified_candidate_tokens": 143,
+        "if_residual_text_rate_usd": 0.122343,
+        "conservative_accounted_usd": 0.130367
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "F-pz",
+      "mode": "Batch",
+      "usage": {
+        "promptTokenCount": 377,
+        "candidatesTokenCount": 2135,
+        "totalTokenCount": 2731,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 119
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 219,
+        "serviceTier": "SERVICE_TIER_STANDARD"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.121691,
+        "unclassified_candidate_tokens": 135,
+        "if_residual_text_rate_usd": 0.122501,
+        "conservative_accounted_usd": 0.130093
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "F-py",
+      "mode": "Batch",
+      "usage": {
+        "promptTokenCount": 372,
+        "candidatesTokenCount": 2191,
+        "totalTokenCount": 2785,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 114
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 222,
+        "serviceTier": "SERVICE_TIER_STANDARD"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.121704,
+        "unclassified_candidate_tokens": 191,
+        "if_residual_text_rate_usd": 0.12285,
+        "conservative_accounted_usd": 0.133466
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "F-ny",
+      "mode": "Batch",
+      "usage": {
+        "promptTokenCount": 376,
+        "candidatesTokenCount": 2176,
+        "totalTokenCount": 2802,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 118
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 250,
+        "serviceTier": "SERVICE_TIER_STANDARD"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.121876,
+        "unclassified_candidate_tokens": 176,
+        "if_residual_text_rate_usd": 0.122932,
+        "conservative_accounted_usd": 0.132738
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "R-ny-rejected",
+      "mode": "Standard",
+      "usage": {
+        "promptTokenCount": 471,
+        "candidatesTokenCount": 2173,
+        "totalTokenCount": 2838,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 213
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 194,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.24327,
+        "unclassified_candidate_tokens": 173,
+        "if_residual_text_rate_usd": 0.245346,
+        "conservative_accounted_usd": 0.264634
+      },
+      "invoice_verified": false
+    },
+    {
+      "route": "nano_banana_pro",
+      "stage": "R-ny-texture",
+      "mode": "Standard",
+      "usage": {
+        "promptTokenCount": 466,
+        "candidatesTokenCount": 2194,
+        "totalTokenCount": 2859,
+        "promptTokensDetails": [
+          {
+            "modality": "TEXT",
+            "tokenCount": 208
+          },
+          {
+            "modality": "IMAGE",
+            "tokenCount": 258
+          }
+        ],
+        "candidatesTokensDetails": [
+          {
+            "modality": "IMAGE",
+            "tokenCount": 2000
+          }
+        ],
+        "thoughtsTokenCount": 199,
+        "serviceTier": "standard"
+      },
+      "cost_accounting": {
+        "known_classified_usd": 0.24332,
+        "unclassified_candidate_tokens": 194,
+        "if_residual_text_rate_usd": 0.245648,
+        "conservative_accounted_usd": 0.267204
+      },
+      "invoice_verified": false
+    }
+  ]
+}

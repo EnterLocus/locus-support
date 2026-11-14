@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "api_calls": 0,
+  "rows": [
+    {
+      "source": "gpt-final.png",
+      "reproduced": "gpt-native.png",
+      "original_sha256": "d325f110f7a19dc0eee47df8773154d9abf8b4093d70ac2d631f1a48293f03cc",
+      "reproduced_sha256": "d325f110f7a19dc0eee47df8773154d9abf8b4093d70ac2d631f1a48293f03cc",
+      "changed_pixels": 0,
+      "max_error": 0
+    },
+    {
+      "source": "nbp-final-wrapfix.png",
+      "reproduced": "nano-native.png",
+      "original_sha256": "1e18cef882ba6acaa26f03f75a83cec5c2dccefcf81ee5cf5565dd566d61441b",
+      "reproduced_sha256": "1e18cef882ba6acaa26f03f75a83cec5c2dccefcf81ee5cf5565dd566d61441b",
+      "changed_pixels": 0,
+      "max_error": 0
+    }
+  ],
+  "environment": {
+    "python": "3.9.6",
+    "numpy": "2.0.2",
+    "pillow": "11.0.0"
+  }
+}
