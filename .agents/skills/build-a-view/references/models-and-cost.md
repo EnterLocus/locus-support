@@ -26,17 +26,44 @@ continuity or useful fine detail. Built-in image generation is not this API.
 
 ## What one View costs
 
-Count requests, not the final panorama's file size. A representative run uses:
+First select the base-image route, then count every required stage. Selecting
+GPT Image 2.6 or Nano Banana Pro for high-resolution enhancement does **not**
+automatically select that paid API for the initial concept/base image.
 
-- one whole-panorama restoration (G);
-- six detailed face edits (F), fewer only for genuinely featureless directions;
-- optionally one new base generation and one or two targeted repair edits.
+| Stage | Role | Paid image-API requests |
+| --- | --- | --- |
+| B: initial full 360° base | Use a supplied image, a built-in generated base, or an explicitly selected paid API base | 0 for a supplied/built-in base; 1 only if paid API base generation was selected and approved |
+| G: whole-panorama restoration | Resolve a low-resolution or blurred base globally before splitting | Usually 1 for a low-resolution base; 0 only if the base already passes native-resolution and detail review |
+| F: directional detail | Enhance the six perspective faces | Up to 6; skip only truly featureless faces |
+| R: targeted repairs | Fix observed wrap/face/nadir defects after review | Plan an initial reserve for 0–2 outputs; larger repairs or failed attempts can require more |
 
-Thus G + six F is **7 image outputs**. Starting from scratch with a new base
-and up to two repairs is **8–10 outputs**. Each rejected result or reroll adds
-another paid output. Local projection, masks, merging and image audits have no
-image-provider charge. Creator/agent time, storage, taxes and third-party fees
-are outside these estimates.
+The initial built-in base needs no external API key and adds **$0 to this
+image-API bill**. It may consume the host product's generation allowance;
+do not call it universally free or unlimited. Its low resolution is acceptable
+as an authoring base, never as the final 12K result. If unavailable, ask about
+a supplied base or an explicitly quoted paid base instead of silently changing
+routes.
+
+For the usual **built-in low-resolution base → G → six F → R** route, expect
+**7–9 paid image outputs**, plus any rejected attempts. Starting from an
+accepted high-resolution base can reduce that to **6–8**. A paid API base adds
+one request, but its accepted high-resolution result may make G unnecessary;
+do not automatically charge both paid base generation and restoration.
+A sample face used to validate the provider counts as one of the six F outputs,
+not a seventh face. If that sample is rejected, its replacement is an extra
+paid attempt and must be quoted separately.
+
+These counts assume six detailed faces and a 0–2-output repair allowance, not
+a guarantee that two repairs will finish the scene. Quote a four-face seam
+refinement as four outputs if that is what the actual repair requires. Local
+projection, masks, blending and audits have no image-provider charge. Agent
+time, host subscriptions, storage, taxes and third-party fees are excluded.
+
+Before asking approval for the first submission, show the **whole-run plan**
+with B/G/F/R counts, native dimensions, quality, estimated input charges and
+repair/retry reserve. Then quote the immediate submission separately. A $0.15
+base-only quote is not the total View budget. Whole-run planning does not waive
+per-submission approval.
 
 ### Nano Banana Pro
 
@@ -50,8 +77,8 @@ per-image guarantee for every API route.
 | Work | Standard image-output subtotal | Eligible Batch image-output subtotal |
 | --- | ---: | ---: |
 | Restoration + six faces (7 outputs) | $1.68 | $0.84 |
-| New base + restoration + six faces (8) | $1.92 | $0.96 |
-| Above + two repairs (10) | $2.40 | $1.20 |
+| Built-in base + restoration + six faces + 0–2 repairs (7–9) | $1.68–2.16 | $0.84–1.08 |
+| Optional paid API base, if separately selected | +$0.24 | +$0.12 |
 | Each additional 4K reroll | +$0.24 | +$0.12 |
 
 A practical initial planning allowance is **about $3–5 per View** for a modest
@@ -72,12 +99,18 @@ The following **output-only estimates** reproduce the official
 [image token calculator](https://developers.openai.com/api/docs/guides/image-generation#calculating-costs)
 for GPT Image 2.6, without making any billable request:
 
-| Quality | One 3840×1920 panorama | One 2880×2880 face | G + six F | New base + G + six F + 0–2 face repairs |
+| Quality | One 3840×1920 panorama | One 2880×2880 face | G + six F | Built-in base + G + six F + 0–2 face repairs |
 | --- | ---: | ---: | ---: | ---: |
-| high | $0.081 (2,700 tokens) | $0.178 (5,930) | $1.15 | $1.23–1.59 |
-| xhigh | $0.144 (4,799) | $0.316 (10,542) | $2.04 | $2.19–2.82 |
-| max | $0.324 (10,798) | $0.712 (23,719) | $4.59 | $4.92–6.34 |
+| high | $0.081 (2,700 tokens) | $0.178 (5,930) | $1.15 | $1.15–1.50 |
+| xhigh | $0.144 (4,799 tokens) | $0.316 (10,542) | $2.04 | $2.04–2.67 |
+| max | $0.324 (10,798 tokens) | $0.712 (23,719) | $4.59 | $4.59–6.02 |
 
+These are output subtotals, **not full-run quotes**. A quote for G/F/R edits
+must include the submitted image-input charge; the text-only base quote has no
+image input and cannot be reused for face edits. Estimate from the actual
+submitted dimensions and current provider input-token rules, or state a
+conservative image-input reserve and the uncertainty. Do not set unknown image
+input to zero or treat the displayed planning allowance as a token calculation.
 Add input-image/text charges, rejected attempts and a stated reserve to these
 subtotals. For planning, allow **roughly $2–4 at high, $3–6 at xhigh, or
 $6–10 at max** for that example run, then replace the allowance with the actual
@@ -118,11 +151,15 @@ and model eligibility before quoting that mode.
 5. Run projection, blend, sky masks and audits locally. Skip only truly
    featureless faces, never sand, foliage, clouds or water with visible detail.
 
-For example, one standard Nano Banana restoration plus six Batch face outputs
-has an output subtotal of **$0.24 + 6×$0.12 = $0.96**. A new standard base and
-two standard repairs bring it to **$1.68**, before input/text/thinking charges.
-This mixed schedule gives rapid layout/repair feedback and discounts the
-independent face stage. All those submissions require their own approved quote.
+For an established provider, one standard Nano Banana restoration plus six
+Batch face outputs has an output subtotal of **$0.24 + 6×$0.12 = $0.96**;
+with a built-in base and two standard repairs, it is **$1.44**, before
+input/text/thinking charges. For a new provider, one representative F face
+is first run standard and accepted, then the remaining **five** faces go to
+Batch: **$0.24 G + $0.24 F-probe + 5×$0.12 = $1.08**, or **$1.56** with
+two standard repairs. The accepted probe is reused, not generated again.
+This mixed schedule gives rapid layout/repair feedback and discounts independent
+faces. All submissions require their own approved quote.
 
 ## Quote before every generation
 

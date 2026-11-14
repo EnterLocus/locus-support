@@ -34,6 +34,12 @@ configured: an environment variable name (for example `GEMINI_API_KEY` or
 `OPENAI_API_KEY`) or a secure credential-file reference. Never request the
 secret value in chat. Reuse answers already given; ask only missing details.
 Keep setup brief. Load credentials quietly and never print or commit them.
+Also establish the initial base route: supplied image, built-in generation
+(no external image-API key/charge), or explicitly chosen paid API generation.
+The selected enhancement API does not automatically select a paid base.
+Before the first submission quote, show the complete stage budget: base,
+whole-panorama restoration, up to six detailed faces, and repair/retry reserve.
+Include image-input charges for edits, not just their output-token subtotal.
 
 **Before every image-generation/edit submission, give an itemized cost estimate
 and wait for explicit user approval.** State exact model, input/stage/face IDs,
@@ -52,7 +58,7 @@ The local Python tools do not submit generation requests.
 
 ## Make and review the skybox
 
-1. Generate a coherent full sphere. Review level horizon, world layout,
+1. Obtain a coherent full sphere through the agreed base route. Review level horizon, world layout,
    wrap and poles before spending effort on resolution.
 2. Restore a low-resolution AI base across the complete panorama at a verified
    approximately 4K-wide native output before face enhancement.

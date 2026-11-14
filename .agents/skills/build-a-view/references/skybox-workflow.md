@@ -45,7 +45,12 @@ Before **each** paid generation/edit submission, quote the specific requests
 and wait for explicit approval. A declared batch can be approved as one exact,
 itemized list; later stages, retries and repairs require fresh approval.
 Choosing a model, supplying a key or discussing an overall budget is not
-approval to generate. Keep exact native-size and quality checks for both models.
+approval to generate. Establish whether the initial base is supplied, built-in
+(no external image-API key or API charge), or explicitly paid API generation.
+Show the full B/G/F/R run budget before the first per-submission quote. A low-
+resolution built-in base still needs paid whole-panorama restoration and up to
+six detailed face edits, plus any quoted repairs. Keep exact native-size and
+quality checks for both models.
 
 ## 1. Generate the world before the detail
 
