@@ -92,7 +92,7 @@ Publication validation added after authoring:
 
 - Fifteen focused checks passed: article4, accounting4, external-assets4,
   metadata/local links/localization3. All seven translated catalogs gained
-  27 keys each, with existing values unchanged; the eight-language build and
+  27 article keys plus one updated tutorial-card description each, with existing values unchanged; the eight-language build and
   1,104-page search index completed.
 - The new offline reproduction command made zero API calls and reproduced the
   selected native PNG byte-for-byte, SHA-256
