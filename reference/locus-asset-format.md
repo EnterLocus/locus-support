@@ -44,6 +44,10 @@ capabilities, and `minimumAppVersion`. If `locusplace.json` is present but the
 complete package is malformed, Locus rejects it; it does not reinterpret or
 fall back to the flat compatibility format.
 
+Free Rooms and selected free Views are also published as downloadable
+[worked examples](locusplace-format/#worked-examples-from-the-gallery), some
+with their Blender source, for studying how these fields are used.
+
 ### One pure-data capability contract
 
 Package v2 describes data, never executable code. Its JSON may select typed

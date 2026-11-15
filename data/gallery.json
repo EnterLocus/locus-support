@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "appVersion": "1.4.7",
-  "catalogGeneration": "2dc7c82a-2444-4d19-bfbc-dc07fbd10ac7",
+  "catalogGeneration": "296f043f-ffc5-45f2-96d3-a8d6ee156d3b",
   "places": [
     {
       "id": "destination.ancient-forest",
@@ -465,12 +465,12 @@
         "height": 720,
         "sha256": "5e7c639aa00090a6d07d9ae02e59eeeb88568b28cfcdca36d00a654a6df19893"
       },
-      "access": "supporter",
+      "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.6",
+      "contentVersion": "1.0.8",
       "addedAt": "2026-10-31T16:19:08Z",
       "updatedAt": "2026-11-03T20:43:45Z",
       "searchTerms": [
@@ -909,12 +909,12 @@
         "height": 720,
         "sha256": "1db98622df08132d88407fd6121ef486ac589e882db539af996a98ef019a8086"
       },
-      "access": "supporter",
+      "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.10",
+      "contentVersion": "1.0.14",
       "addedAt": "2026-10-24T16:43:41Z",
       "updatedAt": "2026-10-29T04:47:01Z",
       "searchTerms": [
@@ -3604,12 +3604,12 @@
         "height": 720,
         "sha256": "6ded6b1f8f2f342f2cf157ea49bbab36588e7c6e3e7616f0f7a9f29689a0e00d"
       },
-      "access": "supporter",
+      "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.9",
+      "contentVersion": "1.0.12",
       "addedAt": "2026-10-02T20:38:24Z",
       "updatedAt": "2026-10-12T22:46:58Z",
       "searchTerms": [
@@ -6273,12 +6273,12 @@
         "height": 720,
         "sha256": "7c87c149c8b0460d0ea1f09e3865c55b45906528374ee3e399f9674c257c8261"
       },
-      "access": "supporter",
+      "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.11",
+      "contentVersion": "1.0.14",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T03:32:01Z",
       "searchTerms": [

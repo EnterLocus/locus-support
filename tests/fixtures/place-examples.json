@@ -1,0 +1,160 @@
+{
+  "formatVersion": 1,
+  "licenses": {
+    "LicenseRef-EnterLocus-Example": "https://enterlocus.com/asset-rights/#example-license",
+    "CC-BY-4.0": "https://enterlocus.com/asset-rights/#demo-room-notices"
+  },
+  "examples": [
+    {
+      "packageID": "space.hilltop-villa",
+      "kind": "room",
+      "title": "Hilltop Villa",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "light-layers",
+        "music",
+        "generated-furniture"
+      ],
+      "package": {
+        "contentVersion": "1.0.14",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.hilltop-villa-1.0.14.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.0.14.locusplace",
+        "byteCount": 117800000,
+        "sha256": "1111111111111111111111111111111111111111111111111111111111111111"
+      },
+      "source": {
+        "sourceVersion": "1.0.17",
+        "blenderVersion": "5.0.1",
+        "fileName": "space.hilltop-villa-source-1.0.17.zip",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.17.zip",
+        "byteCount": 1432000000,
+        "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      }
+    },
+    {
+      "packageID": "space.lakeside-cabin",
+      "kind": "room",
+      "title": "Lakeside Cabin",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "light-layers",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.0.16",
+        "minimumAppVersion": "1.4.3",
+        "fileName": "space.lakeside-cabin-1.0.16.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-1.0.16.locusplace",
+        "byteCount": 64250000,
+        "sha256": "3333333333333333333333333333333333333333333333333333333333333333"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.desert-canyon-oasis",
+      "kind": "view",
+      "title": "Desert Canyon Oasis",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "video",
+        "water",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.10.3",
+        "minimumAppVersion": "1.4.0",
+        "fileName": "destination.desert-canyon-oasis-1.10.3.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.desert-canyon-oasis/destination.desert-canyon-oasis-1.10.3.locusplace",
+        "byteCount": 98700000,
+        "sha256": "4444444444444444444444444444444444444444444444444444444444444444"
+      },
+      "source": null
+    },
+    {
+      "packageID": "space.atrium-loft",
+      "kind": "room",
+      "title": "Atrium Loft",
+      "license": "CC-BY-4.0",
+      "features": [],
+      "package": {
+        "contentVersion": "1.0.14",
+        "minimumAppVersion": "1.2.1",
+        "fileName": "space.atrium-loft-1.0.14.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-1.0.14.locusplace",
+        "byteCount": 9800000,
+        "sha256": "5555555555555555555555555555555555555555555555555555555555555555"
+      },
+      "source": {
+        "sourceVersion": "1.0.14",
+        "blenderVersion": "4.5.3",
+        "fileName": "space.atrium-loft-source-1.0.14.zip",
+        "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-source-1.0.14.zip",
+        "byteCount": 21400000,
+        "sha256": "6666666666666666666666666666666666666666666666666666666666666666"
+      }
+    },
+    {
+      "packageID": "space.sunlit-cafe",
+      "kind": "room",
+      "title": "Sunlit Cafe",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "music"
+      ],
+      "package": {
+        "contentVersion": "9.0.0",
+        "minimumAppVersion": "1.4.0",
+        "fileName": "space.sunlit-cafe-9.0.0.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-9.0.0.locusplace",
+        "byteCount": 1000,
+        "sha256": "7777777777777777777777777777777777777777777777777777777777777777"
+      },
+      "source": null
+    },
+    {
+      "packageID": "space.cloudvault-retreat",
+      "kind": "room",
+      "title": "Cloudvault Retreat",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "room-animation"
+      ],
+      "package": {
+        "contentVersion": "1.0.7",
+        "minimumAppVersion": "9.0",
+        "fileName": "space.cloudvault-retreat-1.0.7.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-1.0.7.locusplace",
+        "byteCount": 1000,
+        "sha256": "8888888888888888888888888888888888888888888888888888888888888888"
+      },
+      "source": null
+    },
+    {
+      "packageID": "space.minimal-study",
+      "kind": "room",
+      "title": "Minimal Study",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "light-layers"
+      ],
+      "package": {
+        "contentVersion": "1.0.0",
+        "minimumAppVersion": "1.2.1",
+        "fileName": "space.minimal-study-1.0.0.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.minimal-study/space.minimal-study-1.0.0.locusplace",
+        "byteCount": 2300000,
+        "sha256": "9999999999999999999999999999999999999999999999999999999999999999"
+      },
+      "source": {
+        "sourceVersion": "1.0.0",
+        "blenderVersion": "4.5.3",
+        "fileName": "space.minimal-study-source-1.0.0.zip",
+        "url": "https://media.enterlocus.net/examples/space.minimal-study/space.minimal-study-source-1.0.0.zip",
+        "byteCount": 5100000,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"
+      },
+      "notes": "The source keeps the review cameras that the package omits."
+    }
+  ]
+}

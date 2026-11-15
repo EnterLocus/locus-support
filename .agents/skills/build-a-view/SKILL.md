@@ -115,3 +115,28 @@ The small-patch tool remains experimental. Its Maldives test failed integration;
 it is not an approved substitute for native high-resolution faces. Do not
 deliver partial enhancement as a finished high-resolution result. A failed trial remains a
 failed trial even when its dimensions are 12288×6144.
+
+## Worked examples
+
+Finished Locus Views are published as worked examples. The manifest is
+<https://enterlocus.com/data/place-examples.json> (in a clone,
+`data/place-examples.json`); people can browse the same files at
+<https://enterlocus.com/gallery/?examples>. Records with `kind: "view"` give
+`packageID`, `title`, `license`, `features`, a `package` (`contentVersion`,
+`minimumAppVersion`, `url`, `byteCount`, `sha256`), and usually `source: null`.
+View feature ids are `video` (looping video regions), `water`, `flowing-water`,
+`shore`, `midground` (3D midground USDZ), `day-night`, `procedural-sky`,
+`celestial`, `clouds` (animated cloud sea), `particles`, and `sound`. Most go beyond this static-skybox skill; use them to
+see how a finished View packages its panorama, thumbnail, appearance and
+`provenance.json`, not as a route this skill performs.
+
+Check `byteCount`, download into scratch space, compare `shasum -a 256` with
+`sha256`, validate with `python3 tools/validate_locusplace.py
+--current-app-version <target-version> <file>`, then unzip and read
+`locusplace.json` and `catalog/destinations/<destination-id>/destination.json`.
+
+Examples marked `LicenseRef-EnterLocus-Example` may be studied and used as
+reference context. Do not copy their panoramas, video, sound or other assets
+into the creator's View or deliverables, and do not redistribute them.
+Third-party components keep the terms in each `provenance.json`. Full terms:
+<https://enterlocus.com/asset-rights/#example-license>.

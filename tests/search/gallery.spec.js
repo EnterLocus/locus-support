@@ -170,3 +170,39 @@ test('the two approved Rooms explain availability and show only their current-re
     await expect(page.locator('[data-gallery-photo-open]')).toHaveAttribute('aria-label', `打开第 1 张，共 ${displayAlbum(place).length} 张`);
   }
 });
+
+const placeExamples = require('../../data/place-examples.json').examples;
+const exampleCards = () => document.querySelectorAll('[data-gallery-card][data-example="true"]').length;
+
+test('Examples filter opens from the URL, shows only downloadable Places and keeps the URL in sync', async ({ page }) => {
+  test.skip(placeExamples.length === 0, 'No example downloads are published yet');
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.goto('/gallery/?examples');
+  const filter = page.locator('[data-gallery-filter="example"]');
+  await expect(filter).toHaveAttribute('aria-pressed', 'true');
+  const expected = await page.evaluate(exampleCards);
+  await expect(page.locator('[data-gallery-card]:visible')).toHaveCount(expected);
+  await expect(page.locator('[data-gallery-card][data-example="false"]:visible')).toHaveCount(0);
+  await filter.click();
+  await expect(filter).toHaveAttribute('aria-pressed', 'false');
+  expect(new URL(page.url()).search).toBe('');
+  await filter.click();
+  expect(new URL(page.url()).search).toBe('?examples');
+
+  const card = page.locator('[data-gallery-card][data-example="true"] a').first();
+  if (await card.count()) {
+    await card.click();
+    const block = page.locator('.gallery-example');
+    await expect(block).toBeVisible();
+    for (const link of await block.locator('a.gallery-example-file').all()) {
+      expect(await link.getAttribute('href')).toMatch(/^https:\/\/media\.enterlocus\.net\/examples\//);
+    }
+  }
+});
+
+test('Gallery without published examples has no Examples filter', async ({ page }) => {
+  test.skip(placeExamples.length > 0, 'Examples are published');
+  await page.goto('/gallery/?examples');
+  await expect(page.locator('[data-gallery-filter="example"]')).toHaveCount(0);
+  await expect(page.locator('[data-gallery-card]:visible').first()).toBeVisible();
+});

@@ -26,13 +26,18 @@ The full terms are in [`LICENSES/Apache-2.0.txt`](LICENSES/Apache-2.0.txt).
 ## Creative Commons Attribution 4.0 International
 
 The Locus-authored geometry, arrangement, lighting artwork, and thumbnail in
-these Room archives are licensed under
+these Room archives, and the Locus-authored parts of their Blender source
+bundles, are licensed under
 [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/):
 
 - `examples/atrium-loft-room.zip`
 - `examples/courtyard-gallery-room.zip`
 - `examples/horizon-atelier-room.zip`
 - `examples/demo-room.zip` (a byte-identical alias of Atrium Loft)
+- the Atrium Loft, Courtyard Gallery, and Horizon Atelier example downloads
+  (Place package and Blender source bundle) that
+  [`data/place-examples.json`](data/place-examples.json) lists with
+  `"license": "CC-BY-4.0"`
 
 Attribute the applicable work as `<Room name> by EnterLocus.com`, include a
 link to CC BY 4.0, and indicate whether you made changes. The archives also
@@ -40,16 +45,37 @@ contain Poly Haven texture maps that retain their CC0 1.0 terms. Exact files,
 authors, and source links are published at
 <https://enterlocus.com/asset-rights/#demo-room-notices>.
 
+## Locus Example License
+
+The Locus example downloads that
+[`data/place-examples.json`](data/place-examples.json) lists with
+`"license": "LicenseRef-EnterLocus-Example"` are licensed under the Locus
+Example License. Each covers the Place package (`.locusplace`) and, where
+offered, the editable source bundle (Blender file, textures, and related
+source files) hosted under `https://media.enterlocus.net/examples/`.
+
+The full terms are in
+[`LICENSES/LicenseRef-EnterLocus-Example.txt`](LICENSES/LicenseRef-EnterLocus-Example.txt)
+and summarized at <https://enterlocus.com/asset-rights/#example-license>.
+In short: study, modify, and use an example in Locus; share substantially
+changed work free of charge with credit; do not redistribute the example or its
+individual assets, use them outside Locus, sell them, or use them to train AI
+models. Third-party components named in an example's `provenance.json`,
+README, or the Asset rights page keep their own terms.
+
+An example's `provenance.json` may still name
+`LicenseRef-EnterLocus-Proprietary` for the Library Place it was published
+from. For the downloaded example, the Locus Example License grants the
+additional rights above.
+
 ## Cloud Fan Pavilion animation sample
 
-`examples/cloud-fan-pavilion.locusplace` carries a `rights` statement for the
+`examples/cloud-fan-pavilion.locusplace` and any Cloud Fan Pavilion example
+download are licensed under the Locus Example License above. This covers the
 original Locus architecture, furnishings, lighting, plant, animation artwork,
-and thumbnail. Copyright and other applicable rights remain reserved by
-EnterLocus.com. The free Room may be used with the official Locus app as
-described at
-<https://enterlocus.com/experimental-room-animations/>. No separate permission
-is granted to redistribute, sublicense, sell, or reuse those Locus-authored
-parts elsewhere.
+and thumbnail. The archive's embedded `rights` statement predates this grant;
+the Locus Example License now applies to it. Playback is described at
+<https://enterlocus.com/experimental-room-animations/>.
 
 The embedded Poly Haven plywood, laminate floor, and white plaster texture maps
 retain their CC0 1.0 terms. Their works, creators, and source links are listed at
