@@ -9,6 +9,7 @@ from urllib.parse import quote
 import xml.etree.ElementTree as ET
 
 from localization import LOCALES
+import place_examples
 
 SITE = "https://enterlocus.com"
 APP_STORE = "https://apps.apple.com/app/id6802168265"
@@ -91,6 +92,69 @@ RELEASE_PREVIEW_COPY = {
     "de": {"badge": "Vorschau auf Locus {version}", "available": "Demnächst in Locus {version}."},
     "fr": {"badge": "Aperçu de Locus {version}", "available": "À venir dans Locus {version}."},
     "es": {"badge": "Avance de Locus {version}", "available": "Próximamente en Locus {version}."},
+}
+
+EXAMPLE_COPY = {
+    "en": {"for_version": "For version {version}", "filter": "Examples", "files": "Example files", "package": "Place package", "source": "Blender source",
+           "minimum": "Locus {version} or later", "more": "More examples", "license": "Locus Example License",
+           "mb": "MB", "gb": "GB"},
+    "zh-Hans": {"for_version": "对应 {version} 版", "filter": "示例", "files": "示例文件", "package": "地点包", "source": "Blender 源文件",
+                "minimum": "Locus {version} 或更高版本", "more": "更多示例", "license": "Locus 示例许可",
+                "mb": "MB", "gb": "GB"},
+    "zh-Hant": {"for_version": "對應 {version} 版", "filter": "範例", "files": "範例檔案", "package": "地點套件", "source": "Blender 原始檔",
+                "minimum": "Locus {version} 或更新版本", "more": "更多範例", "license": "Locus 範例授權",
+                "mb": "MB", "gb": "GB"},
+    "ja": {"for_version": "バージョン {version} 用", "filter": "サンプル", "files": "サンプルファイル", "package": "場所のパッケージ", "source": "Blender ソース",
+           "minimum": "Locus {version} 以降", "more": "その他のサンプル", "license": "Locus サンプルライセンス",
+           "mb": "MB", "gb": "GB"},
+    "ko": {"for_version": "버전 {version}용", "filter": "예제", "files": "예제 파일", "package": "장소 패키지", "source": "Blender 소스",
+           "minimum": "Locus {version} 이상", "more": "더 많은 예제", "license": "Locus 예제 라이선스",
+           "mb": "MB", "gb": "GB"},
+    "de": {"for_version": "Für Version {version}", "filter": "Beispiele", "files": "Beispieldateien", "package": "Ortspaket", "source": "Blender-Quelldatei",
+           "minimum": "Locus {version} oder neuer", "more": "Weitere Beispiele", "license": "Locus-Beispiellizenz",
+           "mb": "MB", "gb": "GB"},
+    "fr": {"for_version": "Pour la version {version}", "filter": "Exemples", "files": "Fichiers d’exemple", "package": "Paquet du lieu", "source": "Source Blender",
+           "minimum": "Locus {version} ou version ultérieure", "more": "Autres exemples",
+           "license": "Licence d’exemple Locus", "mb": "Mo", "gb": "Go"},
+    "es": {"for_version": "Para la versión {version}", "filter": "Ejemplos", "files": "Archivos de ejemplo", "package": "Paquete del lugar", "source": "Fuente de Blender",
+           "minimum": "Locus {version} o posterior", "more": "Más ejemplos", "license": "Licencia de ejemplo de Locus",
+           "mb": "MB", "gb": "GB"},
+}
+DECIMAL_COMMA = {"de", "fr", "es"}
+
+FEATURE_COPY = {
+    "en": {"video": "Video", "room-animation": "Room animation", "water": "Water", "flowing-water": "Flowing water",
+           "shore": "Shore", "midground": "3D midground", "day-night": "Day and night",
+           "procedural-sky": "Procedural sky", "celestial": "Celestial bodies", "sound": "Spatial sound",
+           "music": "Music", "light-layers": "Light layers", "generated-furniture": "Generated furniture"},
+    "zh-Hans": {"video": "视频", "room-animation": "Room 动画", "water": "水面", "flowing-water": "流水",
+                "shore": "海岸", "midground": "3D 中景", "day-night": "昼夜", "procedural-sky": "程序化天空",
+                "celestial": "天体", "sound": "空间音效", "music": "音乐", "light-layers": "光照层",
+                "generated-furniture": "AI 生成家具"},
+    "zh-Hant": {"video": "影片", "room-animation": "Room 動畫", "water": "水面", "flowing-water": "流水",
+                "shore": "海岸", "midground": "3D 中景", "day-night": "晝夜", "procedural-sky": "程序化天空",
+                "celestial": "天體", "sound": "空間音效", "music": "音樂", "light-layers": "光照層",
+                "generated-furniture": "AI 生成家具"},
+    "ja": {"video": "動画", "room-animation": "Room アニメーション", "water": "水面", "flowing-water": "流れる水",
+           "shore": "海岸", "midground": "3D ミッドグラウンド", "day-night": "昼と夜", "procedural-sky": "プロシージャルな空",
+           "celestial": "天体", "sound": "空間サウンド", "music": "音楽", "light-layers": "ライトレイヤー",
+           "generated-furniture": "AI 生成の家具"},
+    "ko": {"video": "동영상", "room-animation": "Room 애니메이션", "water": "수면", "flowing-water": "흐르는 물",
+           "shore": "해안", "midground": "3D 중경", "day-night": "낮과 밤", "procedural-sky": "절차적 하늘",
+           "celestial": "천체", "sound": "공간 사운드", "music": "음악", "light-layers": "조명 레이어",
+           "generated-furniture": "AI 생성 가구"},
+    "de": {"video": "Video", "room-animation": "Raumanimation", "water": "Wasser", "flowing-water": "Fließendes Wasser",
+           "shore": "Küste", "midground": "3D-Mittelgrund", "day-night": "Tag und Nacht",
+           "procedural-sky": "Prozeduraler Himmel", "celestial": "Himmelskörper", "sound": "Raumklang",
+           "music": "Musik", "light-layers": "Lichtebenen", "generated-furniture": "KI-generierte Möbel"},
+    "fr": {"video": "Vidéo", "room-animation": "Animation de Room", "water": "Eau", "flowing-water": "Eau courante",
+           "shore": "Rivage", "midground": "Plan intermédiaire 3D", "day-night": "Jour et nuit",
+           "procedural-sky": "Ciel procédural", "celestial": "Corps célestes", "sound": "Son spatial",
+           "music": "Musique", "light-layers": "Calques lumineux", "generated-furniture": "Mobilier généré par IA"},
+    "es": {"video": "Vídeo", "room-animation": "Animación de Room", "water": "Agua", "flowing-water": "Agua en movimiento",
+           "shore": "Orilla", "midground": "Plano medio 3D", "day-night": "Día y noche",
+           "procedural-sky": "Cielo procedural", "celestial": "Cuerpos celestes", "sound": "Sonido espacial",
+           "music": "Música", "light-layers": "Capas de luz", "generated-furniture": "Muebles generados con IA"},
 }
 
 SERIES_COPY = {
@@ -263,8 +327,61 @@ def credits_markup(place: dict, locale: str) -> str:
     return f'<section class="gallery-credits"><h2>{esc(c["heading"])}</h2><dl>{values}</dl></section>'
 
 
+DOWNLOAD_ICON = ('<svg class="gallery-example-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" '
+                 'stroke="currentColor" stroke-width="1.7" aria-hidden="true" focusable="false">'
+                 '<path d="M12 4v11m-4.5-4.5L12 15l4.5-4.5M5 19.5h14"/></svg>')
+
+
+def format_bytes(count: int, locale: str) -> str:
+    copy = EXAMPLE_COPY[locale]
+    value, unit = (count / 1e9, copy["gb"]) if count >= 1e9 else (max(count / 1e6, 0.1), copy["mb"])
+    text = f"{value:.1f}"
+    return f'{text.replace(".", ",") if locale in DECIMAL_COMMA else text} {unit}'
+
+
+def example_markup(example: dict, locale: str, heading: bool = True) -> str:
+    """Compact download block: package, optional Blender source, features, license."""
+    copy = EXAMPLE_COPY[locale]
+    package, source = example["package"], example.get("source")
+
+    def row(label: str, meta: list[str], record: dict) -> str:
+        details = " · ".join(meta)
+        return (f'<li><a class="gallery-example-file" href="{esc(record["url"])}" download="{esc(record["fileName"])}">'
+                f'<span class="gallery-example-name">{esc(label)}</span>'
+                f'<span class="gallery-example-meta">{esc(details)}</span>{DOWNLOAD_ICON}</a></li>')
+
+    rows = [row(copy["package"], [package["contentVersion"], format_bytes(package["byteCount"], locale),
+                                  copy["minimum"].format(version=package["minimumAppVersion"])], package)]
+    if source:
+        meta = ([] if source["sourceVersion"] == package["contentVersion"]
+                else [copy["for_version"].format(version=source["sourceVersion"])])
+        meta += [f'Blender {source["blenderVersion"]}', format_bytes(source["byteCount"], locale)]
+        rows.append(row(copy["source"], meta, source))
+    features = " · ".join(FEATURE_COPY[locale][feature] for feature in example["features"])
+    feature_markup = f'<p class="gallery-example-features">{esc(features)}</p>' if features else ""
+    note = f'<p class="gallery-example-note">{esc(example["notes"])}</p>' if example.get("notes") else ""
+    license_id = example["license"]
+    license_name = copy["license"] if license_id == "LicenseRef-EnterLocus-Example" else "Creative Commons CC BY 4.0"
+    license_link = (f'<a class="gallery-example-license" href="{locale_url(place_examples.LICENSE_PATHS[license_id], locale)}">'
+                    f'{esc(license_name)}</a>')
+    title = f'<h2 class="gallery-example-heading" id="example-files">{esc(copy["files"])}</h2>' if heading else ""
+    labelled = ' aria-labelledby="example-files"' if heading else ""
+    return (f'<section class="gallery-example" data-gallery-example="{esc(example["packageID"])}"{labelled}>{title}'
+            f'<ul class="gallery-example-files">{"".join(rows)}</ul>{note}{feature_markup}{license_link}</section>')
+
+
+def extra_example_card(example: dict, locale: str) -> str:
+    """An example whose Place is not in the Gallery, shown only with the Examples filter."""
+    kind = COPY[locale][example["kind"]]
+    search = " ".join([example["title"], kind, *(FEATURE_COPY[locale][feature] for feature in example["features"])]).lower()
+    return (f'<article class="gallery-example-card" data-gallery-example-extra data-type="{esc(example["kind"])}" '
+            f'data-access="free" data-animated="false" data-sound="false" data-example="true" data-search="{esc(search)}"><p class="gallery-preview-note">{esc(kind)}</p>'
+            f'<h3>{esc(example["title"])}</h3>{example_markup(example, locale, heading=False)}</article>')
+
+
 def place_card(place: dict, locale: str, series_titles: list[str] | None = None,
-               recent_order: int | None = None, return_series: str | None = None) -> str:
+               recent_order: int | None = None, return_series: str | None = None,
+               has_example: bool = False) -> str:
     c = COPY[locale]
     search = ' '.join(term for term in [place["title"], place.get("description", ""), *place.get("searchTerms", []), *(series_titles or [])] if term).lower()
     path = locale_url(f'/gallery/place/{quote(place["slug"])}/', locale)
@@ -272,7 +389,7 @@ def place_card(place: dict, locale: str, series_titles: list[str] | None = None,
         path += "?series=" + quote(return_series, safe="")
     membership = f' data-series-member="true"' if series_titles else ''
     recent = f' data-gallery-recent-order="{int(recent_order)}"' if recent_order is not None else ''
-    return f'''<article class="gallery-card" data-gallery-card{membership}{recent} data-type="{esc(place["type"])}" data-access="{esc(place["access"])}" data-animated="{str(bool(place.get("animated"))).lower()}" data-sound="{str(bool(place.get("hasSound"))).lower()}" data-search="{esc(search)}"><a href="{path}">{image_markup(place["image"], place["title"])}<div class="gallery-card-copy"><span class="gallery-preview-note">{esc(PREVIEW_COPY[locale]["still"])}</span><h3>{esc(place["title"])}</h3><p>{esc(place.get("description", ""))}</p><div class="gallery-badges">{badges(place, c, locale)}</div></div></a></article>'''
+    return f'''<article class="gallery-card" data-gallery-card{membership}{recent} data-type="{esc(place["type"])}" data-access="{esc(place["access"])}" data-animated="{str(bool(place.get("animated"))).lower()}" data-sound="{str(bool(place.get("hasSound"))).lower()}" data-example="{str(has_example).lower()}" data-search="{esc(search)}"><a href="{path}">{image_markup(place["image"], place["title"])}<div class="gallery-card-copy"><span class="gallery-preview-note">{esc(PREVIEW_COPY[locale]["still"])}</span><h3>{esc(place["title"])}</h3><p>{esc(place.get("description", ""))}</p><div class="gallery-badges">{badges(place, c, locale)}</div></div></a></article>'''
 
 
 def series_card(item: dict, members: list[dict], kind: str, locale: str) -> str:
@@ -283,8 +400,10 @@ def series_card(item: dict, members: list[dict], kind: str, locale: str) -> str:
     return f'''<article class="gallery-card gallery-series-card" data-gallery-series-card data-type="{esc(kind)}"><a href="{path}"><div class="gallery-series-collage" aria-hidden="true">{covers}</div><div class="gallery-card-copy"><span class="gallery-preview-note">{esc(c["series"])}</span><h3>{esc(item["title"])}</h3><p>{esc(item.get("description", c["series_intro"]))}</p></div></a></article>'''
 
 
-def gallery_page(manifest: dict, locale: str) -> str:
+def gallery_page(manifest: dict, locale: str, examples: dict | None = None) -> str:
     c = COPY[locale]
+    e = EXAMPLE_COPY[locale]
+    by_place, extras = place_examples.match(manifest, examples or place_examples.empty_manifest())
     places = [localize(place, locale) for place in manifest["places"]]
     series = [localize(item, locale) for item in manifest.get("series", [])]
     recent_order = {place["id"]: index for index, place in enumerate(newest_first(places))}
@@ -302,12 +421,23 @@ def gallery_page(manifest: dict, locale: str) -> str:
     for collection in collection_order(places, series):
         if collection["kind"] == "series":
             cards.append(series_card(collection["series"], collection["members"], collection["type"], locale))
-            cards.extend(place_card(member, locale, member_series.get(member["id"]), recent_order[member["id"]])
+            cards.extend(place_card(member, locale, member_series.get(member["id"]), recent_order[member["id"]],
+                                    has_example=member["id"] in by_place)
                          for member in collection["members"])
         else:
             place = collection["place"]
-            cards.append(place_card(place, locale, member_series.get(place["id"]), recent_order[place["id"]]))
-    body = f'''<div class="gallery-page" data-gallery><header class="gallery-header"><p class="kicker">{esc(c["eyebrow"])}</p><h1>{esc(c["title"])}</h1><p>{esc(c["intro"])}</p><nav class="gallery-mode-tabs" aria-label="{esc(c["filters"])}"><button type="button" data-gallery-mode data-value="all">{esc(c["all_places"])}</button><button type="button" data-gallery-mode data-value="view">{esc(c["views"])}</button><button type="button" data-gallery-mode data-value="room">{esc(c["rooms"])}</button></nav></header><div class="gallery-filters" data-gallery-filters aria-label="{esc(c["filters"])}"><label class="gallery-search-label">{esc(c["search"])}<input data-gallery-search type="search" placeholder="{esc(c["search_hint"])}" autocomplete="off"></label><div class="gallery-filter-group"><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="all">{esc(c["all_access"])}</button><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="free">{esc(c["free"])}</button><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="supporter">{esc(c["supporter"])}</button></div><div class="gallery-filter-group"><button class="gallery-filter" type="button" data-gallery-filter="animated" data-value="true">{esc(c["animated"])}</button><button class="gallery-filter" type="button" data-gallery-filter="sound" data-value="true">{esc(c["sound"])}</button></div><button class="gallery-reset" type="button" data-gallery-reset>{esc(c["reset"])}</button></div><section class="gallery-section" data-gallery-places aria-labelledby="places-heading"><div class="gallery-section-heading"><h2 id="places-heading">{esc(c["places"])}</h2><p data-gallery-status data-gallery-count="{esc(c["count"])}" aria-live="polite"></p></div><div class="gallery-grid">{"".join(cards)}</div><div class="gallery-empty" data-gallery-empty hidden><h2>{esc(c["empty_title"])}</h2><p>{esc(c["empty_copy"])}</p><button class="gallery-reset" type="button" data-gallery-reset>{esc(c["reset"])}</button></div></section></div>'''
+            cards.append(place_card(place, locale, member_series.get(place["id"]), recent_order[place["id"]],
+                                    has_example=place["id"] in by_place))
+    example_filter = (f'<button class="gallery-filter" type="button" data-gallery-filter="example" data-value="true">{esc(e["filter"])}</button>'
+                      if by_place or extras else '')
+    extra_section = ''
+    if extras:
+        extra_cards = ''.join(extra_example_card(example, locale)
+                              for example in sorted(extras, key=lambda item: item["title"].casefold()))
+        extra_section = (f'<section class="gallery-section gallery-more-examples" data-gallery-more-examples hidden '
+                         f'aria-labelledby="more-examples-heading"><div class="gallery-section-heading"><h2 id="more-examples-heading">'
+                         f'{esc(e["more"])}</h2></div><div class="gallery-example-grid">{extra_cards}</div></section>')
+    body = f'''<div class="gallery-page" data-gallery><header class="gallery-header"><p class="kicker">{esc(c["eyebrow"])}</p><h1>{esc(c["title"])}</h1><p>{esc(c["intro"])}</p><nav class="gallery-mode-tabs" aria-label="{esc(c["filters"])}"><button type="button" data-gallery-mode data-value="all">{esc(c["all_places"])}</button><button type="button" data-gallery-mode data-value="view">{esc(c["views"])}</button><button type="button" data-gallery-mode data-value="room">{esc(c["rooms"])}</button></nav></header><div class="gallery-filters" data-gallery-filters aria-label="{esc(c["filters"])}"><label class="gallery-search-label">{esc(c["search"])}<input data-gallery-search type="search" placeholder="{esc(c["search_hint"])}" autocomplete="off"></label><div class="gallery-filter-group"><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="all">{esc(c["all_access"])}</button><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="free">{esc(c["free"])}</button><button class="gallery-filter" type="button" data-gallery-filter="access" data-value="supporter">{esc(c["supporter"])}</button></div><div class="gallery-filter-group"><button class="gallery-filter" type="button" data-gallery-filter="animated" data-value="true">{esc(c["animated"])}</button><button class="gallery-filter" type="button" data-gallery-filter="sound" data-value="true">{esc(c["sound"])}</button>{example_filter}</div><button class="gallery-reset" type="button" data-gallery-reset>{esc(c["reset"])}</button></div><section class="gallery-section" data-gallery-places aria-labelledby="places-heading"><div class="gallery-section-heading"><h2 id="places-heading">{esc(c["places"])}</h2><p data-gallery-status data-gallery-count="{esc(c["count"])}" aria-live="polite"></p></div><div class="gallery-grid">{"".join(cards)}</div><div class="gallery-empty" data-gallery-empty hidden><h2>{esc(c["empty_title"])}</h2><p>{esc(c["empty_copy"])}</p><button class="gallery-reset" type="button" data-gallery-reset>{esc(c["reset"])}</button></div></section>{extra_section}</div>'''
     return document(locale, f'{c["gallery"]} — Locus', c["intro"], '/gallery/', body)
 
 
@@ -354,7 +484,7 @@ def photo_gallery(place: dict, locale: str) -> str:
 </section>'''
 
 
-def place_page(place: dict, manifest: dict, locale: str) -> str:
+def place_page(place: dict, manifest: dict, locale: str, example: dict | None = None) -> str:
     c = COPY[locale]
     description = place.get("description", "")
     meta = badges(place, c, locale)
@@ -372,7 +502,7 @@ def place_page(place: dict, manifest: dict, locale: str) -> str:
                     if place.get("previewRelease") else c["available"].format(version=version))
     cta = (f'<a class="gallery-cta" href="{APP_STORE}">{esc(c["get_app"])}</a>'
            if not place.get("previewRelease") else '')
-    body = f'''<div class="gallery-detail">{photo_gallery(place, locale)}<section class="gallery-detail-copy"><p class="kicker">{esc(c[place["type"]])}</p><h1>{esc(place["title"])}</h1><p>{esc(description)}</p><div class="gallery-meta">{meta}</div>{membership_markup}<p>{esc(availability)}</p>{cta}<a class="gallery-back" data-gallery-back data-gallery-return-options="{return_data}" href="{locale_url("/gallery/", locale)}">← {esc(c["back"])}</a></section></div>{credits_markup(place, locale)}'''
+    body = f'''<div class="gallery-detail">{photo_gallery(place, locale)}<section class="gallery-detail-copy"><p class="kicker">{esc(c[place["type"]])}</p><h1>{esc(place["title"])}</h1><p>{esc(description)}</p><div class="gallery-meta">{meta}</div>{membership_markup}<p>{esc(availability)}</p>{cta}<a class="gallery-back" data-gallery-back data-gallery-return-options="{return_data}" href="{locale_url("/gallery/", locale)}">← {esc(c["back"])}</a>{example_markup(example, locale) if example else ""}</section></div>{credits_markup(place, locale)}'''
     return document(locale, f'{place["title"]} — {c["gallery"]} — Locus', description, f'/gallery/place/{quote(place["slug"])}/', body)
 
 
@@ -409,10 +539,12 @@ def build(root: Path, output: Path, catalogs: dict | None = None, translator=Non
     manifest = json.loads(source.read_text(encoding='utf-8'))
     if manifest.get('formatVersion') != 1:
         raise ValueError('gallery.json must use formatVersion 1')
+    examples = place_examples.load(root / 'data' / 'place-examples.json')
+    by_place, _extras = place_examples.match(manifest, examples)
     paths = ['/gallery/']
     for locale in LOCALES:
         (output / ('' if locale == 'en' else locale) / 'gallery' / 'index.html').parent.mkdir(parents=True, exist_ok=True)
-        page = gallery_page(manifest, locale)
+        page = gallery_page(manifest, locale, examples)
         if translator:
             page = translator(page, Path('gallery/index.html'), locale, catalogs[locale])
         (output / ('' if locale == 'en' else locale) / 'gallery' / 'index.html').write_text(page, encoding='utf-8')
@@ -421,7 +553,7 @@ def build(root: Path, output: Path, catalogs: dict | None = None, translator=Non
             path = f'/gallery/place/{quote(place["slug"])}/'
             target = output / ('' if locale == 'en' else locale) / 'gallery' / 'place' / place['slug'] / 'index.html'
             target.parent.mkdir(parents=True, exist_ok=True)
-            page = place_page(place, manifest, locale)
+            page = place_page(place, manifest, locale, by_place.get(place['id']))
             if translator:
                 page = translator(page, Path('gallery/place') / place['slug'] / 'index.html', locale, catalogs[locale])
             target.write_text(page, encoding='utf-8')

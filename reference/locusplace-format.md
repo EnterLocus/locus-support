@@ -690,3 +690,24 @@ done
 The examples are generated from source without downloading private assets or
 calling a paid service. The builder and expected layouts are documented in
 [the example README](../examples/locusplace/README.md).
+
+### Worked examples from the Gallery
+
+Free Rooms and selected free Views are published as worked examples. Their
+machine-readable list is
+[`https://enterlocus.com/data/place-examples.json`](https://enterlocus.com/data/place-examples.json).
+
+Each record has these fields: `packageID`, `kind`, `title`, `features`,
+`license`, `package`, `source`. The package and the optional source each list
+`url`, `byteCount`, `sha256`.
+
+The package is the exact Package v2 archive that Locus installs. Validate it
+with `tools/validate_locusplace.py`, then unpack it to read real manifests. A
+source bundle is a ZIP with the Blender file, its textures and related source
+files. The [Gallery examples](../gallery/?examples) show the same downloads.
+
+Study and change the downloads, use them in Locus, and give them to an AI
+assistant as reference. Do not redistribute them, reuse their assets outside
+Locus, or train AI models on them. Atrium Loft, Courtyard Gallery and Horizon
+Atelier use CC BY 4.0; the others use the
+[Locus Example License](../asset-rights/#example-license).

@@ -1,0 +1,57 @@
+Locus Example License (LicenseRef-EnterLocus-Example), version 1.0
+
+Copyright 2026 EnterLocus.com. All rights not expressly granted are reserved.
+
+This license applies to the Locus example downloads that name
+LicenseRef-EnterLocus-Example: the downloadable Place package (.locusplace)
+and, where offered, its editable source bundle (Blender file, textures and
+related source files). "Example" means those files and every asset inside
+them. It does not apply to third-party components listed in the example's
+provenance.json, README or at https://enterlocus.com/asset-rights/; those keep
+their own terms (for example CC0 1.0, CC BY 4.0, MIT, or the NASA Images and
+Media Usage Guidelines), and nothing here restricts rights those terms grant.
+
+1. What you may do
+
+   a. Download, open, unpack and inspect the Example to learn how a Locus Room
+      or View is built.
+   b. Modify the Example and use it, or Places you make from it, in your own
+      copy of the official Locus app.
+   c. Share, free of charge, a Room or View you made from the Example with
+      other Locus users, if your work changes it substantially and you credit
+      it as "based on <Example name> by EnterLocus.com" with a link to
+      https://enterlocus.com/asset-rights/#example-license.
+   d. Give the Example to an AI assistant or coding agent as reference
+      context while you build your own Locus Places.
+   e. Show the Example, and Places you made from it, in screenshots, videos,
+      articles and tutorials.
+
+2. What you may not do
+
+   a. Redistribute the Example, or a substantially unchanged copy, in whole
+      or in part. Link to the official download page instead.
+   b. Extract any individual asset (model, texture, panorama, video, music,
+      sound or other file) and distribute it on its own.
+   c. Use the Example or its assets outside Locus, including in other apps,
+      games, websites, asset stores or NFTs.
+   d. Sell the Example or anything made from it, or charge for access to it,
+      without written permission from EnterLocus.com.
+   e. Use the Example as part of a dataset for training or fine-tuning an AI
+      model. Use as reference context under 1(d) is allowed.
+   f. Use Locus names, logos or app icons, or suggest that your work is an
+      official Locus product or is endorsed by EnterLocus.com.
+
+3. Versions and termination
+
+   This license covers the Example version you downloaded. Later versions may
+   be offered under different terms. Your permission ends automatically if
+   you break these terms; it is restored if you stop within 30 days of
+   learning of the breach.
+
+4. No warranty
+
+   The Example is provided "as is", without warranty of any kind. To the
+   extent permitted by law, EnterLocus.com is not liable for any damages
+   arising from its use.
+
+Questions and permission requests: support@enterlocus.com

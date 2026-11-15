@@ -199,6 +199,53 @@ target app version, checks performed, and every unavailable check as `not
 verified`. Do not infer device acceptance from a render, importer result,
 command exit code, or archive validation.
 
+## Worked examples
+
+Finished Locus Places are published as worked examples. Study one that matches
+the brief before building, to see how a real Room solves the same problem; do
+not start the creator's Room from a copy.
+
+- **Manifest:** <https://enterlocus.com/data/place-examples.json> (in a clone,
+  `data/place-examples.json`). Each record has `packageID`, `kind` (`room` or
+  `view`), `title`, `license`, `features`, `package`, and `source`, which is
+  `null` when no Blender source is offered. Both files list `url`,
+  `byteCount`, and `sha256`; the package adds `contentVersion` and
+  `minimumAppVersion`, the source adds `sourceVersion` and `blenderVersion`.
+  People can browse the same files at
+  <https://enterlocus.com/gallery/?examples>.
+- **Features:** pick examples by `features`. Room-relevant ids are
+  `light-layers` (baked, switchable lamp layers), `generated-furniture`
+  (image-to-3D furniture inside the Room), `room-animation` (authored USDZ
+  animation), `music`, `sound` (spatial ambient sources), `water`, and
+  `flowing-water`. View ids are listed in the build-a-view skill.
+- **Fetch and inspect:** check `byteCount` first (source bundles can exceed
+  1 GB) and download only what the brief needs, into scratch space outside the
+  creator's deliverable:
+
+  ```sh
+  curl -fL -o example.locusplace "<package.url>"
+  shasum -a 256 example.locusplace   # must equal package.sha256
+  python3 tools/validate_locusplace.py --current-app-version <target-version> example.locusplace
+  mkdir example && unzip -q example.locusplace -d example
+  ```
+
+  Read `locusplace.json`, then `catalog/spaces/<space-id>/space.json`,
+  `teleport-points.json`, and `provenance.json`. A source bundle is a ZIP with
+  the Blender file, its textures, and related source files; open it in
+  background Blender of the listed `blenderVersion` to inspect objects,
+  materials, light layers, and export settings. When `sourceVersion` differs
+  from the package `contentVersion`, the Blender file belongs to that other
+  revision.
+- **License limits:** examples marked `LicenseRef-EnterLocus-Example` may be
+  studied and used as reference context. Do not copy their models, textures,
+  panoramas, video, music, or sound into the creator's Room, package, or
+  source, and do not redistribute them; build original work and record real
+  inputs in `provenance.json`. Atrium Loft, Courtyard Gallery, and Horizon
+  Atelier are CC BY 4.0, so their Locus-authored parts may be reused with the
+  credit that license requires. Third-party components keep the terms named in
+  each example's `provenance.json`. Full terms:
+  <https://enterlocus.com/asset-rights/#example-license>.
+
 ## License
 
 This skill, its references, and bundled scripts are licensed under the

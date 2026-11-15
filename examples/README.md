@@ -49,8 +49,8 @@ broad-leaf Plant Breeze repeats immediately with a 0–0 second interval and can
 run from half speed to one-and-a-half speed. Animation metadata, playback
 controls, speed, and interval behavior are experimental and may change.
 
-The Locus Place carries a reserved-rights statement for its Locus-authored
-parts. It may be used with the official Locus app but is not
-licensed for redistribution or reuse elsewhere. Embedded Poly Haven textures
-remain CC0 1.0. See the
+Its Locus-authored parts are licensed under the
+[Locus Example License](https://enterlocus.com/asset-rights/#example-license),
+which replaces the reserved-rights statement inside the archive. Embedded Poly
+Haven textures remain CC0 1.0. See the
 [complete rights and component notices](https://enterlocus.com/asset-rights/#experimental-animation-demo-notices).

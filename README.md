@@ -12,10 +12,13 @@ This repository uses scoped licenses rather than one blanket license:
 
 - the public Room and skybox authoring skills, tools, and schemas are available under
   Apache License 2.0;
-- the Locus-authored parts of the three downloadable demo Rooms are available
-  under Creative Commons Attribution 4.0 International;
-- the Cloud Fan Pavilion animation sample keeps its Locus-authored parts
-  reserved under the statement published on the Asset rights page;
+- the Locus-authored parts of the three downloadable demo Rooms, including
+  their Blender source bundles, are available under Creative Commons
+  Attribution 4.0 International;
+- the other example downloads (free Rooms, selected free Views, and the Cloud
+  Fan Pavilion animation sample) are available under the Locus Example
+  License, `LICENSES/LicenseRef-EnterLocus-Example.txt`: study and modify them
+  for Locus, but do not redistribute them or reuse their assets elsewhere;
 - embedded Poly Haven textures retain their CC0 1.0 dedication; and
 - site content, Locus branding, and everything not expressly listed remain
   reserved.
@@ -176,9 +179,10 @@ checks complete-guide coverage and exact code/identifier preservation.
 `/gallery/` is generated from `data/gallery.json`; it does not contact the Library
 or App Store in a visitor's browser. Place titles, captions, translations, preview
 images and Series membership come from the public **Production** revision catalog.
-Only preview metadata is exported: no install artifacts, grant credentials or
-Place-package download links. Built-in Places are included separately using the
-reviewed App Store release's metadata and thumbnails.
+The catalog export carries only preview metadata: no install artifacts or grant
+credentials. Built-in Places are included separately using the reviewed App
+Store release's metadata and thumbnails. Download links come only from the
+separate example manifest described below.
 
 Place cards are newest first using `max(addedAt, updatedAt)` from Production,
 matching the Library's Recent semantics. Substantive revisions rise naturally;
@@ -269,6 +273,42 @@ Content changes do not require hand-editing Gallery pages;
 new reader capabilities and built-in assets still require release review. Site
 build, localization, Pagefind and browser checks apply to these pages as they do
 to the rest of the website.
+
+## Place example downloads
+
+Free Rooms and selected free Views are offered as teaching examples: the final
+Place package and, where one exists, a sanitized Blender source bundle.
+`data/place-examples.json` lists them and is published unchanged at
+<https://enterlocus.com/data/place-examples.json> for people and coding
+agents. Each record names its `packageID`, `kind`, `title`, `license`,
+`features`, `package` (`contentVersion`, `minimumAppVersion`, `fileName`,
+`url`, `byteCount`, `sha256`), `source` (`sourceVersion`, `blenderVersion`
+and the same file fields, or `null`) and an optional one-line English `notes`.
+Files live in R2 at `locus-site-media/examples/<packageID>/<fileName>` and are
+served from `https://media.enterlocus.net/examples/<packageID>/<fileName>`;
+they are not registered in `data/external-assets.json`.
+
+`features` uses only these ids, which the Gallery translates: `video`,
+`room-animation`, `water`, `flowing-water`, `shore`, `midground`, `day-night`,
+`procedural-sky`, `celestial`, `sound`, `music`, `light-layers`,
+`generated-furniture`. `license` is `LicenseRef-EnterLocus-Example`, or
+`CC-BY-4.0` for Atrium Loft, Courtyard Gallery and Horizon Atelier only.
+
+A Gallery Place page shows the example whose `packageID` equals the Place ID
+when the example package is the Gallery's displayed revision or an older one,
+and its `minimumAppVersion` is no newer than the Gallery reader's App version.
+An example newer than the Gallery snapshot stays hidden until the next
+`sync_gallery.py` refresh. Examples whose Place is not in the Gallery appear
+under **More examples** when the Gallery's **Examples** filter is on;
+`/gallery/?examples` opens that filter directly. A missing manifest or an empty
+`examples` list publishes no download UI.
+
+After changing the manifest, run `python3 tools/place_examples.py` to validate
+it and see where each example appears, `python3 tools/place_examples.py
+--verify` to check every URL and byte count over HTTPS (add `--hash` to compare
+SHA-256), then `python3 -m unittest tests.test_place_examples` and
+`npm run build`. A `notes` sentence needs a translation in every
+`localization/<tag>.json` catalog.
 
 ## Build a skybox
 

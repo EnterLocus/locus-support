@@ -14,8 +14,12 @@
     const resetters = [...app.querySelectorAll('[data-gallery-reset]')];
     const buttons = [...app.querySelectorAll('[data-gallery-filter]')];
     const modeButtons = [...app.querySelectorAll('[data-gallery-mode]')];
+    const extras = [...app.querySelectorAll('[data-gallery-example-extra]')];
+    const moreExamples = app.querySelector('[data-gallery-more-examples]');
+    const placesSection = app.querySelector('[data-gallery-places]');
+    const toggles = new Set(['animated', 'sound', 'example']);
     const groups = new Map();
-    const active = { type: 'all', access: 'all', animated: false, sound: false };
+    const active = { type: 'all', access: 'all', animated: false, sound: false, example: false };
 
     for (const button of buttons) {
       const group = button.dataset.galleryFilter;
@@ -23,7 +27,8 @@
       groups.get(group).push(button);
       button.addEventListener('click', () => {
         const value = button.dataset.value;
-        active[group] = group === 'animated' || group === 'sound' ? !active[group] : value;
+        active[group] = toggles.has(group) ? !active[group] : value;
+        if (group === 'example') syncExampleURL();
         render();
       });
     }
@@ -32,10 +37,21 @@
     }
     search?.addEventListener('input', render);
     resetters.forEach(button => button.addEventListener('click', reset));
+    // `?examples` opens the Gallery with only downloadable examples shown.
+    if (groups.has('example') && new URLSearchParams(location.search).has('examples')) active.example = true;
+
+    function syncExampleURL() {
+      const params = new URLSearchParams(location.search);
+      if (active.example) params.set('examples', ''); else params.delete('examples');
+      const query = params.toString().replace(/(^|&)examples=(?=&|$)/, '$1examples');
+      history.replaceState(history.state, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+    }
 
     function reset() {
-      active.type = 'all'; active.access = 'all'; active.animated = false; active.sound = false;
+      const hadExample = active.example;
+      active.type = 'all'; active.access = 'all'; active.animated = false; active.sound = false; active.example = false;
       if (search) search.value = '';
+      if (hadExample) syncExampleURL();
       render(); search?.focus();
     }
 
@@ -45,11 +61,12 @@
       if (active.type !== 'all' && card.dataset.type !== active.type) return false;
       if (active.access !== 'all' && card.dataset.access !== active.access) return false;
       if (active.animated && card.dataset.animated !== 'true') return false;
+      if (active.example && card.dataset.example !== 'true') return false;
       return !(active.sound && card.dataset.sound !== 'true');
     }
 
     function render() {
-      const narrowed = Boolean((search?.value || '').trim()) || active.access !== 'all' || active.animated || active.sound;
+      const narrowed = Boolean((search?.value || '').trim()) || active.access !== 'all' || active.animated || active.sound || active.example;
       if (narrowed !== previousNarrowed) {
         // Move the actual nodes so visual order and keyboard order agree.
         grid.replaceChildren(...(narrowed ? [...recentOrder, ...seriesCards] : foldedOrder));
@@ -61,18 +78,26 @@
         card.hidden = narrowed ? !show : Boolean(card.dataset.seriesMember) || !show;
         if (show) visible += 1;
       });
+      let extrasVisible = 0;
+      extras.forEach(card => {
+        const show = active.example && matches(card);
+        card.hidden = !show;
+        if (show) extrasVisible += 1;
+      });
+      if (moreExamples) moreExamples.hidden = extrasVisible === 0;
       seriesCards.forEach(card => {
         card.hidden = narrowed || (active.type !== 'all' && card.dataset.type !== active.type);
       });
       for (const [group, groupButtons] of groups) {
         groupButtons.forEach(button => {
-          const selected = group === 'animated' || group === 'sound'
-            ? active[group] : active[group] === button.dataset.value;
+          const selected = toggles.has(group) ? active[group] : active[group] === button.dataset.value;
           button.setAttribute('aria-pressed', String(selected));
         });
       }
       modeButtons.forEach(button => button.setAttribute('aria-pressed', String(active.type === button.dataset.value)));
-      empty.hidden = visible !== 0;
+      empty.hidden = visible !== 0 || extrasVisible !== 0;
+      // Only off-Gallery examples match: show them without an empty Places grid above.
+      placesSection.hidden = visible === 0 && extrasVisible !== 0;
       status.textContent = status.dataset.galleryCount.replace('{count}', String(visible));
     }
     render();
