@@ -3547,6 +3547,10 @@
     "Use the example to train or fine-tune an AI model. Using it as reference context is fine.": "예제로 AI 모델을 학습시키거나 미세 조정하기. 참고 컨텍스트로 사용하는 것은 괜찮습니다.",
     "You may": "할 수 있는 일",
     "You may not": "할 수 없는 일",
-    "terms; the Locus Example License does not replace those terms.": "조건을 유지합니다. Locus 예제 라이선스가 이 조건을 대체하지 않습니다."
+    "terms; the Locus Example License does not replace those terms.": "조건을 유지합니다. Locus 예제 라이선스가 이 조건을 대체하지 않습니다.",
+    "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft.": "이 패키지는 ID space.atrium-loft-example를 사용하므로 기본 제공 Atrium Loft과 함께 가져올 수 있습니다.",
+    "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery.": "이 패키지는 ID space.courtyard-gallery-example를 사용하므로 기본 제공 Courtyard Gallery과 함께 가져올 수 있습니다.",
+    "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "이 패키지는 ID space.horizon-atelier-example를 사용하므로 기본 제공 Horizon Atelier과 함께 가져올 수 있습니다.",
+    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender 소스는 1.0.9 제작 파일입니다. 패키지 1.0.13은 나중에 내보낸 로우폴리 백스플래시 타일을 사용합니다."
   }
 }

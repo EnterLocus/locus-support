@@ -3547,6 +3547,10 @@
     "Use the example to train or fine-tune an AI model. Using it as reference context is fine.": "サンプルを AI モデルの学習や微調整に使うこと。参考コンテキストとして使うのは問題ありません。",
     "You may": "できること",
     "You may not": "できないこと",
-    "terms; the Locus Example License does not replace those terms.": "の条件が引き続き適用されます。Locus サンプルライセンスはこれらの条件に代わるものではありません。"
+    "terms; the Locus Example License does not replace those terms.": "の条件が引き続き適用されます。Locus サンプルライセンスはこれらの条件に代わるものではありません。",
+    "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft.": "このパッケージは ID space.atrium-loft-example を使うため、内蔵の Atrium Loft と並べてインポートできます。",
+    "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery.": "このパッケージは ID space.courtyard-gallery-example を使うため、内蔵の Courtyard Gallery と並べてインポートできます。",
+    "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "このパッケージは ID space.horizon-atelier-example を使うため、内蔵の Horizon Atelier と並べてインポートできます。",
+    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender ソースは 1.0.9 の制作ファイルです。パッケージ 1.0.13 では、後から書き出したローポリのバックスプラッシュタイルを使っています。"
   }
 }

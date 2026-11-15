@@ -3549,6 +3549,10 @@
     "Use the example to train or fine-tune an AI model. Using it as reference context is fine.": "用範例訓練或微調 AI 模型。將它用作參考脈絡是可以的。",
     "You may": "你可以",
     "You may not": "你不可以",
-    "terms; the Locus Example License does not replace those terms.": "條款；Locus 範例授權不取代這些條款。"
+    "terms; the Locus Example License does not replace those terms.": "條款；Locus 範例授權不取代這些條款。",
+    "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft.": "這個套件使用 ID space.atrium-loft-example，因此可以與內建的 Atrium Loft 並存匯入。",
+    "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery.": "這個套件使用 ID space.courtyard-gallery-example，因此可以與內建的 Courtyard Gallery 並存匯入。",
+    "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "這個套件使用 ID space.horizon-atelier-example，因此可以與內建的 Horizon Atelier 並存匯入。",
+    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender 原始檔是 1.0.9 的製作檔案；1.0.13 套件使用了之後匯出的低多邊形防濺牆磁磚。"
   }
 }

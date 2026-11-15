@@ -216,8 +216,8 @@ not start the creator's Room from a copy.
 - **Features:** pick examples by `features`. Room-relevant ids are
   `light-layers` (baked, switchable lamp layers), `generated-furniture`
   (image-to-3D furniture inside the Room), `room-animation` (authored USDZ
-  animation), `music`, `sound` (spatial ambient sources), `water`, and
-  `flowing-water`. View ids are listed in the build-a-view skill.
+  animation), `music`, `sound` (spatial ambient sources), `particles` (fire or
+  fireflies), `water`, and `flowing-water`. View ids are listed in the build-a-view skill.
 - **Fetch and inspect:** check `byteCount` first (source bundles can exceed
   1 GB) and download only what the brief needs, into scratch space outside the
   creator's deliverable:

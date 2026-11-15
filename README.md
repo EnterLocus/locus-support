@@ -291,14 +291,16 @@ they are not registered in `data/external-assets.json`.
 `features` uses only these ids, which the Gallery translates: `video`,
 `room-animation`, `water`, `flowing-water`, `shore`, `midground`, `day-night`,
 `procedural-sky`, `celestial`, `sound`, `music`, `light-layers`,
-`generated-furniture`. `license` is `LicenseRef-EnterLocus-Example`, or
+`generated-furniture`, `clouds`, `particles`. `license` is `LicenseRef-EnterLocus-Example`, or
 `CC-BY-4.0` for Atrium Loft, Courtyard Gallery and Horizon Atelier only.
 
 A Gallery Place page shows the example whose `packageID` equals the Place ID
-when the example package is the Gallery's displayed revision or an older one,
-and its `minimumAppVersion` is no newer than the Gallery reader's App version.
-An example newer than the Gallery snapshot stays hidden until the next
-`sync_gallery.py` refresh. Examples whose Place is not in the Gallery appear
+when its `minimumAppVersion` is no newer than the Gallery reader's App version
+and, for a Library Place, the example package is the Gallery's displayed
+revision or an older one. An example newer than the Gallery snapshot stays
+hidden until the next `sync_gallery.py` refresh. Built-in Places ship inside
+the App, so their examples are separately imported packages (for example
+`space.atrium-loft-example`) and only the App-version check applies. Examples whose Place is not in the Gallery appear
 under **More examples** when the Gallery's **Examples** filter is on;
 `/gallery/?examples` opens that filter directly. A missing manifest or an empty
 `examples` list publishes no download UI.

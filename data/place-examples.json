@@ -4,5 +4,647 @@
     "LicenseRef-EnterLocus-Example": "https://enterlocus.com/asset-rights/#example-license",
     "CC-BY-4.0": "https://enterlocus.com/asset-rights/#demo-room-notices"
   },
-  "examples": []
+  "examples": [
+    {
+      "packageID": "space.atrium-loft",
+      "kind": "room",
+      "title": "Atrium Loft",
+      "license": "CC-BY-4.0",
+      "features": [],
+      "package": {
+        "contentVersion": "1.0.24",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.atrium-loft-example-1.0.24.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-example-1.0.24.locusplace",
+        "byteCount": 10095434,
+        "sha256": "1f7b4f6e5736c2f046bbcc702c5286032e313deb755d902bd17d30ac04833a05"
+      },
+      "source": {
+        "sourceVersion": "1.0.24",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.atrium-loft-source-1.0.24.zip",
+        "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-source-1.0.24.zip",
+        "byteCount": 9833618,
+        "sha256": "74c1670bd63eb361943be443a917975406122dd2975499bf702854aa22347d26"
+      },
+      "notes": "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft."
+    },
+    {
+      "packageID": "space.courtyard-gallery",
+      "kind": "room",
+      "title": "Courtyard Gallery",
+      "license": "CC-BY-4.0",
+      "features": [
+        "water"
+      ],
+      "package": {
+        "contentVersion": "1.0.24",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.courtyard-gallery-example-1.0.24.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.courtyard-gallery/space.courtyard-gallery-example-1.0.24.locusplace",
+        "byteCount": 12095634,
+        "sha256": "ec6dd1823a07c56a113cb39b72157ee55b1c8077f9c8987531d22615abf7be84"
+      },
+      "source": {
+        "sourceVersion": "1.0.24",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.courtyard-gallery-source-1.0.24.zip",
+        "url": "https://media.enterlocus.net/examples/space.courtyard-gallery/space.courtyard-gallery-source-1.0.24.zip",
+        "byteCount": 11396534,
+        "sha256": "f4595b559a2d24d9fe04b6df0f54601e0870fe0cbad228551ad93838f7a1e972"
+      },
+      "notes": "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery."
+    },
+    {
+      "packageID": "space.horizon-atelier",
+      "kind": "room",
+      "title": "Horizon Atelier",
+      "license": "CC-BY-4.0",
+      "features": [
+        "water"
+      ],
+      "package": {
+        "contentVersion": "1.0.30",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.horizon-atelier-example-1.0.30.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.horizon-atelier/space.horizon-atelier-example-1.0.30.locusplace",
+        "byteCount": 12945766,
+        "sha256": "e22b61576f2bbd9f3ef1ae83cdd6da916bb98bec9f5de1f7426ff555f5f9f4b9"
+      },
+      "source": {
+        "sourceVersion": "1.0.30",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.horizon-atelier-source-1.0.30.zip",
+        "url": "https://media.enterlocus.net/examples/space.horizon-atelier/space.horizon-atelier-source-1.0.30.zip",
+        "byteCount": 12352305,
+        "sha256": "eb1aba9fa4d78a8ac9b09675976a33cd271ccbb6fb7036b9ef77e025f153f1cb"
+      },
+      "notes": "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier."
+    },
+    {
+      "packageID": "space.cloud-fan-pavilion",
+      "kind": "room",
+      "title": "Cloud Fan Pavilion",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "room-animation",
+        "music"
+      ],
+      "package": {
+        "contentVersion": "1.0.17",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.cloud-fan-pavilion-1.0.17.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-1.0.17.locusplace",
+        "byteCount": 31571526,
+        "sha256": "4f21abfce3ea04b4ef8ad467c66820489c712d5f4b671121048db8f9659f90db"
+      },
+      "source": {
+        "sourceVersion": "1.0.17",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.cloud-fan-pavilion-source-1.0.17.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-source-1.0.17.zip",
+        "byteCount": 17580394,
+        "sha256": "f579708e2eca61673c939eca6628fc3f738aab85ac0b9c7c7ee3c0c280918698"
+      }
+    },
+    {
+      "packageID": "space.winter-garden-breeze",
+      "kind": "room",
+      "title": "Winter Garden",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "room-animation",
+        "music"
+      ],
+      "package": {
+        "contentVersion": "1.0.14",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.winter-garden-breeze-1.0.14.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-1.0.14.locusplace",
+        "byteCount": 53827911,
+        "sha256": "35f374c2ae903ce9f9e60776ae3408577bd5d4a80ac01d7759ff6880503af933"
+      },
+      "source": {
+        "sourceVersion": "1.0.14",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.winter-garden-breeze-source-1.0.14.zip",
+        "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-source-1.0.14.zip",
+        "byteCount": 38704499,
+        "sha256": "ccd1a9b6456eed9c1e52be2748066eb392a7bcdceb485be1ab5fcd49085462d7"
+      }
+    },
+    {
+      "packageID": "space.cloudvault-retreat",
+      "kind": "room",
+      "title": "Cloudvault Retreat",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [],
+      "package": {
+        "contentVersion": "1.0.7",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.cloudvault-retreat-1.0.7.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-1.0.7.locusplace",
+        "byteCount": 31217056,
+        "sha256": "6e3fca1e2ee052eccf38c8edeb008b08a4fc67076b8c44386ede8d099984120a"
+      },
+      "source": {
+        "sourceVersion": "1.0.7",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.cloudvault-retreat-source-1.0.7.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-source-1.0.7.zip",
+        "byteCount": 28587643,
+        "sha256": "7c72e952d91abb55394529369fc8d1ad119aa61aa372ffba537a069af7122a83"
+      }
+    },
+    {
+      "packageID": "space.mediterranean-loggia",
+      "kind": "room",
+      "title": "Mediterranean Loggia",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "music"
+      ],
+      "package": {
+        "contentVersion": "1.0.13",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.mediterranean-loggia-1.0.13.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-1.0.13.locusplace",
+        "byteCount": 35375327,
+        "sha256": "315b34f030154268c6ea19e74f35db3f1bde7c8af5cad153fec3b4a206532ca9"
+      },
+      "source": {
+        "sourceVersion": "1.0.9",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.mediterranean-loggia-source-1.0.9.zip",
+        "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-source-1.0.9.zip",
+        "byteCount": 44832782,
+        "sha256": "456287076850d1a5f048cba76e8da2afe65a386b065309de79a1df4beec09c2b"
+      },
+      "notes": "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles."
+    },
+    {
+      "packageID": "space.sunlit-cafe",
+      "kind": "room",
+      "title": "Olive & Oak Café",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "sound",
+        "music"
+      ],
+      "package": {
+        "contentVersion": "1.0.14",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.sunlit-cafe-1.0.14.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-1.0.14.locusplace",
+        "byteCount": 32652017,
+        "sha256": "edb6edceb71d07b96934b4300e3761b4470d8d5b619ef2209c8e04aa0d6bb3f8"
+      },
+      "source": {
+        "sourceVersion": "1.0.14",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.sunlit-cafe-source-1.0.14.zip",
+        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-source-1.0.14.zip",
+        "byteCount": 16663680,
+        "sha256": "9832c9063fed472123a764aea1ada6fabfb68dc7d54cac85a701c607c0e4a085"
+      }
+    },
+    {
+      "packageID": "space.lakeside-cabin",
+      "kind": "room",
+      "title": "Lakeside Cabin",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "particles",
+        "sound",
+        "music",
+        "light-layers",
+        "generated-furniture"
+      ],
+      "package": {
+        "contentVersion": "1.0.17",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.lakeside-cabin-1.0.17.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-1.0.17.locusplace",
+        "byteCount": 84626200,
+        "sha256": "a6f4674303bd5fe1d0ecfe09e77cae16cfb1ec08863324e02f92d4cc09895d26"
+      },
+      "source": {
+        "sourceVersion": "1.0.17",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.lakeside-cabin-source-1.0.17.zip",
+        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-source-1.0.17.zip",
+        "byteCount": 40924407,
+        "sha256": "a042f9c42f823ceeb3f50dda5400807b19dd6dcadcc9680243765c1c68d3fbc3"
+      }
+    },
+    {
+      "packageID": "space.free-capsule",
+      "kind": "room",
+      "title": "Free Capsule",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "light-layers"
+      ],
+      "package": {
+        "contentVersion": "1.0.7",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.free-capsule-1.0.7.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-1.0.7.locusplace",
+        "byteCount": 28160446,
+        "sha256": "8279dd96009ba72eb2f5167080482953af456155a78cb6a2398098e7bf8ff6a1"
+      },
+      "source": {
+        "sourceVersion": "1.0.7",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.free-capsule-source-1.0.7.zip",
+        "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-source-1.0.7.zip",
+        "byteCount": 10129979,
+        "sha256": "a8ccc3ac6b77bb724c1499dc6801a1708a5b6dcc236b95f25e4c108472305188"
+      }
+    },
+    {
+      "packageID": "space.hilltop-villa",
+      "kind": "room",
+      "title": "Hilltop Villa",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "water",
+        "particles",
+        "music",
+        "light-layers",
+        "generated-furniture"
+      ],
+      "package": {
+        "contentVersion": "1.0.14",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.hilltop-villa-1.0.14.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.0.14.locusplace",
+        "byteCount": 117828986,
+        "sha256": "3b1d9b0fde60cab98eeafacd283c70887110427585c2f9ab05c10f44ea148c84"
+      },
+      "source": {
+        "sourceVersion": "1.0.14",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.hilltop-villa-source-1.0.14.zip",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.14.zip",
+        "byteCount": 37400464,
+        "sha256": "94cc641093c32f938b7e311d4df4e9ba7ea1f5083b941679fc6abfcd55139f82"
+      }
+    },
+    {
+      "packageID": "space.cloud-garden-cabin",
+      "kind": "room",
+      "title": "Cloud Garden Cabin",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "music",
+        "light-layers"
+      ],
+      "package": {
+        "contentVersion": "1.0.8",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.cloud-garden-cabin-1.0.8.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-1.0.8.locusplace",
+        "byteCount": 18783851,
+        "sha256": "771c1ae34b9c3565504b5d6a051de35b1ed898a2767c80c7ef32e831ee1573af"
+      },
+      "source": {
+        "sourceVersion": "1.0.8",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.cloud-garden-cabin-source-1.0.8.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-source-1.0.8.zip",
+        "byteCount": 3283733,
+        "sha256": "929508e18edb00b766f1c0d6f50df6b847a7a757052f601db3ade506fb8d1f8a"
+      }
+    },
+    {
+      "packageID": "space.tidal-veranda",
+      "kind": "room",
+      "title": "Tidal Veranda",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "music",
+        "light-layers"
+      ],
+      "package": {
+        "contentVersion": "1.0.12",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "space.tidal-veranda-1.0.12.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-1.0.12.locusplace",
+        "byteCount": 62454083,
+        "sha256": "c1e0832d03e040ba0cc42c0778c1ea4c53eb6a81aa77a43ca650e38703c9b56c"
+      },
+      "source": {
+        "sourceVersion": "1.0.12",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.tidal-veranda-source-1.0.12.zip",
+        "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-source-1.0.12.zip",
+        "byteCount": 34370970,
+        "sha256": "89cea2f61f51095cf784fcc131de8616e796f81ccc9d6abd1c6bb9526039a3bb"
+      }
+    },
+    {
+      "packageID": "destination.emerald-grotto",
+      "kind": "view",
+      "title": "Emerald Grotto",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "video",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.8.1",
+        "minimumAppVersion": "1.1.4",
+        "fileName": "destination.emerald-grotto-1.8.1.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.emerald-grotto/destination.emerald-grotto-1.8.1.locusplace",
+        "byteCount": 45393120,
+        "sha256": "72cd05d20718e1cecac272a0e926c75388b7f49899b82f2e89b508dbe5dc2056"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.desert-canyon-oasis",
+      "kind": "view",
+      "title": "Hidden Oasis in a Desert Canyon",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "video",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.10.3",
+        "minimumAppVersion": "1.1.4",
+        "fileName": "destination.desert-canyon-oasis-1.10.3.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.desert-canyon-oasis/destination.desert-canyon-oasis-1.10.3.locusplace",
+        "byteCount": 85681341,
+        "sha256": "148901689be214b4c8be59428a236147ca94dab050914fbb6c1eaa10a21dd9df"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.graniteperch",
+      "kind": "view",
+      "title": "Granite Perch",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "video"
+      ],
+      "package": {
+        "contentVersion": "1.0.13",
+        "minimumAppVersion": "1.1.3",
+        "fileName": "destination.graniteperch-1.0.13.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.graniteperch/destination.graniteperch-1.0.13.locusplace",
+        "byteCount": 34291070,
+        "sha256": "1b5a6d1c53a91f56233f1b18768b4942334e4c91b4e4875eadc4de0004f72191"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.bioluminescent-mangrove-lagoon",
+      "kind": "view",
+      "title": "Bioluminescent Mangrove Lagoon",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "water",
+        "particles"
+      ],
+      "package": {
+        "contentVersion": "1.2.10",
+        "minimumAppVersion": "1.3.1",
+        "fileName": "destination.bioluminescent-mangrove-lagoon-1.2.10.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.bioluminescent-mangrove-lagoon/destination.bioluminescent-mangrove-lagoon-1.2.10.locusplace",
+        "byteCount": 63724903,
+        "sha256": "ed73a7770744d41478b5c827cc7bcfc9c94bf6fe15d20f1dc7ee9e3e26f0cf73"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.tropical-shallow-bay",
+      "kind": "view",
+      "title": "Tropical Shallow Bay",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "water",
+        "day-night",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.0.18",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "destination.tropical-shallow-bay-1.0.18.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.tropical-shallow-bay/destination.tropical-shallow-bay-1.0.18.locusplace",
+        "byteCount": 180594139,
+        "sha256": "5798df65d135e700e22dbcd133f2a44cca06110f919f960f2e4ed2ef97a05383"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.cloud-garden-isles",
+      "kind": "view",
+      "title": "Cloud Garden Isles",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "water",
+        "midground",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.1.6",
+        "minimumAppVersion": "1.4.5",
+        "fileName": "destination.cloud-garden-isles-1.1.6.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.cloud-garden-isles/destination.cloud-garden-isles-1.1.6.locusplace",
+        "byteCount": 37768532,
+        "sha256": "9c476f6968361c496876f9df910741f199c087dec443c0aa505a54c9e1e29d00"
+      },
+      "source": {
+        "sourceVersion": "1.1.6",
+        "blenderVersion": "5.2.1",
+        "fileName": "destination.cloud-garden-isles-source-1.1.6.zip",
+        "url": "https://media.enterlocus.net/examples/destination.cloud-garden-isles/destination.cloud-garden-isles-source-1.1.6.zip",
+        "byteCount": 622195,
+        "sha256": "11306a317fe8293b5d27aa4f9c06bd963963fe3acb045d9393b657eea6857b15"
+      }
+    },
+    {
+      "packageID": "destination.ancient-forest",
+      "kind": "view",
+      "title": "Ancient Forest",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "midground",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.1.9",
+        "minimumAppVersion": "1.4.6",
+        "fileName": "destination.ancient-forest-1.1.9.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.ancient-forest/destination.ancient-forest-1.1.9.locusplace",
+        "byteCount": 48073100,
+        "sha256": "ea09c70983a6f5d2b6f6ae63da2946d351fd577ec962d55ec438e406255ec9bc"
+      },
+      "source": {
+        "sourceVersion": "1.1.9",
+        "blenderVersion": "5.2.1",
+        "fileName": "destination.ancient-forest-source-1.1.9.zip",
+        "url": "https://media.enterlocus.net/examples/destination.ancient-forest/destination.ancient-forest-source-1.1.9.zip",
+        "byteCount": 2624615,
+        "sha256": "78689f9f1513ac0976a64035a988ec380c5a971bd42a93a132745f339248edbc"
+      }
+    },
+    {
+      "packageID": "destination.jungle-terraces",
+      "kind": "view",
+      "title": "Jungle Terraces",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "midground",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.0.9",
+        "minimumAppVersion": "1.4.6",
+        "fileName": "destination.jungle-terraces-1.0.9.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.jungle-terraces/destination.jungle-terraces-1.0.9.locusplace",
+        "byteCount": 45175170,
+        "sha256": "f22ba1b5b4ecef399f734cb96419762c3b652d493849cbf493d12857fe6f9e5d"
+      },
+      "source": {
+        "sourceVersion": "1.0.9",
+        "blenderVersion": "5.2.1",
+        "fileName": "destination.jungle-terraces-source-1.0.9.zip",
+        "url": "https://media.enterlocus.net/examples/destination.jungle-terraces/destination.jungle-terraces-source-1.0.9.zip",
+        "byteCount": 1141404,
+        "sha256": "f4bcec3869fd95f8c5fbdd724227a3de5bd476138f914e2cb3cc6191444579e8"
+      }
+    },
+    {
+      "packageID": "destination.sunlit-cloud-walkway",
+      "kind": "view",
+      "title": "Sunlit Cloud Walkway",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "clouds",
+        "sound"
+      ],
+      "package": {
+        "contentVersion": "1.4.4",
+        "minimumAppVersion": "1.3.0",
+        "fileName": "destination.sunlit-cloud-walkway-1.4.4.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.sunlit-cloud-walkway/destination.sunlit-cloud-walkway-1.4.4.locusplace",
+        "byteCount": 64206155,
+        "sha256": "3b36c7424df3c54d7967197b3379019d4e8ed8aa326505be879ba99485883c2a"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.earth-from-space",
+      "kind": "view",
+      "title": "Earth from Space",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "procedural-sky",
+        "celestial"
+      ],
+      "package": {
+        "contentVersion": "1.1.7",
+        "minimumAppVersion": "1.3.2",
+        "fileName": "destination.earth-from-space-1.1.7.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.earth-from-space/destination.earth-from-space-1.1.7.locusplace",
+        "byteCount": 70295757,
+        "sha256": "5fa14a0c54b7bcc0be8465ea42e742ffafbee3efa3fdecb176102e038ea6bf5e"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.low-orbit-earth",
+      "kind": "view",
+      "title": "Low Orbit Earth",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "celestial"
+      ],
+      "package": {
+        "contentVersion": "2.1.2",
+        "minimumAppVersion": "1.3.2",
+        "fileName": "destination.low-orbit-earth-2.1.2.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.low-orbit-earth/destination.low-orbit-earth-2.1.2.locusplace",
+        "byteCount": 282177375,
+        "sha256": "c33abd6e09a3aa11c669f499b329d53ecbdd67e82b0b9aa4234b106517a041e1"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.black-hole-ring",
+      "kind": "view",
+      "title": "Event Horizon: Ring",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "celestial"
+      ],
+      "package": {
+        "contentVersion": "1.0.6",
+        "minimumAppVersion": "1.3.4",
+        "fileName": "destination.black-hole-ring-1.0.6.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.black-hole-ring/destination.black-hole-ring-1.0.6.locusplace",
+        "byteCount": 27374947,
+        "sha256": "0dfbb680c8339161deec2898f9758f0bd366a9adfaf3ebf68939c4948efadb54"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.galactic-ledge",
+      "kind": "view",
+      "title": "Galactic Ledge",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "procedural-sky"
+      ],
+      "package": {
+        "contentVersion": "1.0.4",
+        "minimumAppVersion": "1.3.0",
+        "fileName": "destination.galactic-ledge-1.0.4.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.galactic-ledge/destination.galactic-ledge-1.0.4.locusplace",
+        "byteCount": 45016227,
+        "sha256": "78376e01500b90d98c807b461a9ae546e4a336b56e00ea5c35eaa2be53d3c716"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.aurora-black-ice-shore",
+      "kind": "view",
+      "title": "Black Ice Shore Under the Aurora",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "procedural-sky"
+      ],
+      "package": {
+        "contentVersion": "1.1.4",
+        "minimumAppVersion": "1.3.0",
+        "fileName": "destination.aurora-black-ice-shore-1.1.4.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.aurora-black-ice-shore/destination.aurora-black-ice-shore-1.1.4.locusplace",
+        "byteCount": 41997512,
+        "sha256": "df43ea1d1680896471e29c88d2a1b407286cffdbf9998b8f68514615d18e366e"
+      },
+      "source": null
+    },
+    {
+      "packageID": "destination.moonlit-silvergrass-ridge",
+      "kind": "view",
+      "title": "Moonlit Silvergrass Ridge",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "midground",
+        "procedural-sky"
+      ],
+      "package": {
+        "contentVersion": "1.0.3",
+        "minimumAppVersion": "1.3.4",
+        "fileName": "destination.moonlit-silvergrass-ridge-1.0.3.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.moonlit-silvergrass-ridge/destination.moonlit-silvergrass-ridge-1.0.3.locusplace",
+        "byteCount": 35410298,
+        "sha256": "2d297d725aa56047f7061cbe28338998831db8282f483a788a9ffa5ee5817a89"
+      },
+      "source": null
+    }
+  ]
 }

@@ -139,6 +139,16 @@ class MatchRuleTests(unittest.TestCase):
         self.assertNotIn('space.cloudvault-retreat', by_place)
         self.assertEqual([item['packageID'] for item in extras], ['space.minimal-study'])
 
+    def test_built_in_places_only_check_installability(self):
+        # A built-in Place ships in the App; its example is a separate package.
+        demo = example(self.manifest, 'space.atrium-loft')
+        demo['package']['contentVersion'] = '9.9.9'
+        by_place, _extras = place_examples.match(self.gallery, self.manifest)
+        self.assertIn('space.atrium-loft', by_place)
+        demo['package']['minimumAppVersion'] = '9.0'
+        by_place, _extras = place_examples.match(self.gallery, self.manifest)
+        self.assertNotIn('space.atrium-loft', by_place)
+
     def test_version_comparison_is_numeric(self):
         self.assertGreater(place_examples.version('1.10.3'), place_examples.version('1.9.9'))
         self.assertEqual(place_examples.version('1.4'), place_examples.version('1.4.0'))

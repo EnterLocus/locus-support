@@ -3548,6 +3548,10 @@
     "Use the example to train or fine-tune an AI model. Using it as reference context is fine.": "Utiliser l’exemple pour entraîner ou affiner un modèle d’IA. L’utiliser comme contexte de référence est autorisé.",
     "You may": "Vous pouvez",
     "You may not": "Vous ne pouvez pas",
-    "terms; the Locus Example License does not replace those terms.": "conditions ; la Licence d’exemple Locus ne remplace pas ces conditions."
+    "terms; the Locus Example License does not replace those terms.": "conditions ; la Licence d’exemple Locus ne remplace pas ces conditions.",
+    "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft.": "Le paquet utilise l’ID space.atrium-loft-example pour pouvoir être importé à côté de la Room intégrée Atrium Loft.",
+    "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery.": "Le paquet utilise l’ID space.courtyard-gallery-example pour pouvoir être importé à côté de la Room intégrée Courtyard Gallery.",
+    "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "Le paquet utilise l’ID space.horizon-atelier-example pour pouvoir être importé à côté de la Room intégrée Horizon Atelier.",
+    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "La source Blender est le fichier de travail 1.0.9 ; le paquet 1.0.13 utilise un export ultérieur, plus léger en polygones, des carreaux de crédence."
   }
 }

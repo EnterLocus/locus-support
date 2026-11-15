@@ -42,7 +42,7 @@ CC_BY_ROOMS = ('atrium-loft', 'courtyard-gallery', 'horizon-atelier')
 FEATURES = (
     'video', 'room-animation', 'water', 'flowing-water', 'shore', 'midground',
     'day-night', 'procedural-sky', 'celestial', 'sound', 'music', 'light-layers',
-    'generated-furniture',
+    'generated-furniture', 'clouds', 'particles',
 )
 KINDS = {'room', 'view'}
 EXAMPLE_KEYS = {'packageID', 'kind', 'title', 'license', 'features', 'package', 'source'}
@@ -150,9 +150,11 @@ def installable(example: dict, app_version: str) -> bool:
 def match(gallery: dict, manifest: dict) -> tuple[dict[str, dict], list[dict]]:
     """Return examples by Gallery Place ID, plus installable examples outside the Gallery.
 
-    A Place shows its example when the example package is the Gallery's
-    displayed revision or an older one, and the reviewed public App can install
-    it. An example newer than the Gallery snapshot waits for the next refresh.
+    A Place shows its example when the reviewed public App can install it and,
+    for a Library Place, the example package is the Gallery's displayed
+    revision or an older one; an example newer than the Gallery snapshot waits
+    for the next refresh. A built-in Place ships inside the App, so its example
+    is a separately imported package and only installability applies.
     """
     app_version = gallery.get('appVersion', '0.0')
     places = {place['id']: place for place in gallery.get('places', [])}
@@ -164,7 +166,8 @@ def match(gallery: dict, manifest: dict) -> tuple[dict[str, dict], list[dict]]:
         place = places.get(example['packageID'])
         if place is None:
             extras.append(example)
-        elif version(example['package']['contentVersion']) <= version(place['contentVersion']):
+        elif (place.get('builtIn')
+              or version(example['package']['contentVersion']) <= version(place['contentVersion'])):
             by_place[place['id']] = example
     return by_place, extras
 

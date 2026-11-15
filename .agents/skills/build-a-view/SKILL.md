@@ -126,7 +126,7 @@ Finished Locus Views are published as worked examples. The manifest is
 `minimumAppVersion`, `url`, `byteCount`, `sha256`), and usually `source: null`.
 View feature ids are `video` (looping video regions), `water`, `flowing-water`,
 `shore`, `midground` (3D midground USDZ), `day-night`, `procedural-sky`,
-`celestial`, and `sound`. Most go beyond this static-skybox skill; use them to
+`celestial`, `clouds` (animated cloud sea), `particles`, and `sound`. Most go beyond this static-skybox skill; use them to
 see how a finished View packages its panorama, thumbnail, appearance and
 `provenance.json`, not as a route this skill performs.
 
