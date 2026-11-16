@@ -672,6 +672,25 @@
         "sha256": "2d297d725aa56047f7061cbe28338998831db8282f483a788a9ffa5ee5817a89"
       },
       "source": null
+    },
+    {
+      "packageID": "destination.chalk-dune-dawn",
+      "kind": "view",
+      "title": "Chalk Dune Dawn",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "midground",
+        "day-night"
+      ],
+      "package": {
+        "contentVersion": "1.4.0",
+        "minimumAppVersion": "1.4.10",
+        "fileName": "destination.chalk-dune-dawn-1.4.0.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.chalk-dune-dawn/destination.chalk-dune-dawn-1.4.0.locusplace",
+        "byteCount": 123901511,
+        "sha256": "8a8fa5e92366f01bca2cc5cd4ca5edc63793aa246538b83c9f66e538605c915d"
+      },
+      "source": null
     }
   ]
 }
