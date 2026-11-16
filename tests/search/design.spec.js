@@ -43,7 +43,7 @@ test('mobile navigation retains search, keyboard dismissal and language selectio
 test('page families use the shared responsive shell without horizontal overflow', async ({ page }) => {
   for (const width of [1440, 390]) {
     await page.setViewportSize({ width, height: width === 390 ? 844 : 900 });
-    for (const path of ['/', '/gallery/', '/tutorials/', '/first-place/', '/faq/', '/whats-new/1-4-6/', '/support/', '/privacy/', '/reference/locusplace-format/']) {
+    for (const path of ['/', '/gallery/', '/tutorials/', '/first-place/', '/faq/', '/whats-new/1-5-0/', '/support/', '/privacy/', '/reference/locusplace-format/']) {
       await page.goto(path);
       await expect(page.locator('.site-header .brand')).toBeVisible();
       await expect(page.locator('.search-trigger')).toBeVisible();

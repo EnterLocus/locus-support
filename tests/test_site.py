@@ -1140,22 +1140,22 @@ class PublicSiteTests(unittest.TestCase):
                     with self.subTest(page=str(path), locale=locale, source=source):
                         self.assertTrue(localization.has_translation(source, catalog))
 
-    def test_released_1_4_6_is_latest_and_connected(self):
-        article = (ROOT / "whats-new/1-4-6/index.html").read_text()
-        self.assertIn("Low Poly Cabins", article)
-        self.assertIn("Move with Glide", article)
-        self.assertIn("../1-4-4/", article)
-        previous = (ROOT / "whats-new/1-4-4/index.html").read_text()
-        self.assertIn("../1-4-6/", previous)
+    def test_released_1_5_0_is_latest_and_connected(self):
+        article = (ROOT / "whats-new/1-5-0/index.html").read_text()
+        self.assertIn("Watch TV in your Room", article)
+        self.assertIn("From day into night", article)
+        self.assertIn("../1-4-6/", article)
+        previous = (ROOT / "whats-new/1-4-6/index.html").read_text()
+        self.assertIn("../1-5-0/", previous)
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertLess(archive.index('href="./1-4-6/"'), archive.index('href="./1-4-4/"'))
+        self.assertLess(archive.index('href="./1-5-0/"'), archive.index('href="./1-4-6/"'))
 
     def test_released_1_4_4_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('href="./whats-new/1-4-6/"', homepage)
-        self.assertIn("New in Locus 1.4.6", homepage)
+        self.assertIn('href="./whats-new/1-5-0/"', homepage)
+        self.assertIn("New in Locus 1.5.0", homepage)
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.4.6 · Latest", archive)
+        self.assertIn("Locus 1.5.0 · Latest", archive)
         self.assertLess(archive.index('href="./1-4-4/"'), archive.index('href="./1-4-3/"'))
         self.assertEqual(archive.count("· Latest"), 1)
         article = (ROOT / "whats-new/1-4-4/index.html").read_text()
@@ -1235,7 +1235,7 @@ class PublicSiteTests(unittest.TestCase):
         # Release stories remain in the archive; the homepage leads with Places.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
-        self.assertIn('href="./whats-new/1-4-6/"', homepage)
+        self.assertIn('href="./whats-new/1-5-0/"', homepage)
         self.assertIn('id="places"', homepage)
         self.assertEqual(parser.videos, [])
 
