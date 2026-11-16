@@ -363,4 +363,9 @@ resolution follows actual face sizes and FOV rather than a forced 12K canvas;
 see the [sampling calculation](.agents/skills/build-a-view/references/resolution.md).
 The [same-base Maldives comparison](examples/skybox-comparison/README.md) includes
 the original prompt, native G/F/R outputs, actual token-based cost calculations,
-repairs and remaining defects. This first workflow covers static skyboxes only.
+repairs and remaining defects. Alongside static skyboxes,
+`.agents/skills/build-a-view/` now also covers complete Package v2 View
+capabilities: 3D midground and flowing water, realtime water and computed surf
+(`shore`), procedural skies, painted clouds, 24-hour `sunPath` day/night blends,
+panorama video, fireflies, point lights, spatial sound, and `celestial`,
+`nearOrbit`, and `blackHole` Views.
