@@ -701,6 +701,11 @@ Each record has these fields: `packageID`, `kind`, `title`, `features`,
 `license`, `package`, `source`. The package and the optional source each list
 `url`, `byteCount`, `sha256`.
 
+A record may also have an `upcoming` revision that needs a Locus version that
+is not public yet. It has the same fields as the main entry plus `appVersion`,
+the release it needs. Use the main package with the current public App;
+check an upcoming package with the tools published for its release.
+
 The package is the exact Package v2 archive that Locus installs. Validate it
 with `tools/validate_locusplace.py`, then unpack it to read real manifests. A
 source bundle is a ZIP with the Blender file, its textures and related source

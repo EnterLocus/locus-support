@@ -30,6 +30,32 @@
         "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.17.zip",
         "byteCount": 1432000000,
         "sha256": "2222222222222222222222222222222222222222222222222222222222222222"
+      },
+      "upcoming": {
+        "appVersion": "1.5.0",
+        "package": {
+          "contentVersion": "1.0.17",
+          "minimumAppVersion": "1.4.9",
+          "fileName": "space.hilltop-villa-1.0.17.locusplace",
+          "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.0.17.locusplace",
+          "byteCount": 118258514,
+          "sha256": "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        },
+        "source": {
+          "sourceVersion": "1.0.17",
+          "blenderVersion": "5.2.1",
+          "fileName": "space.hilltop-villa-source-1.0.17-up.zip",
+          "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.17-up.zip",
+          "byteCount": 37500000,
+          "sha256": "cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc"
+        },
+        "features": [
+          "light-layers",
+          "music",
+          "generated-furniture",
+          "room-tv"
+        ],
+        "notes": "Adds two Room TVs."
       }
     },
     {
