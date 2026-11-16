@@ -53,7 +53,7 @@ class PublishedManifestTests(unittest.TestCase):
                 self.assertIn(item['kind'], {'room', 'view'})
                 self.assertIn(item['license'], place_examples.LICENSES)
                 self.assertTrue(set(item['features']) <= set(place_examples.FEATURES))
-                files = [item['package']] + ([item['source']] if item['source'] else [])
+                files = place_examples.files(item)
                 for record in files:
                     self.assertTrue(record['url'].startswith(
                         f'https://media.enterlocus.net/examples/{item["packageID"]}/'))
@@ -68,8 +68,23 @@ class PublishedManifestTests(unittest.TestCase):
             with self.subTest(place=place_id):
                 self.assertEqual(places[place_id]['access'], 'free')
 
+    def test_upcoming_revisions_still_wait_for_their_app(self):
+        # At release closeout the upcoming revision becomes the main entry.
+        reader = place_examples.version(gallery()['appVersion'])
+        for item in self.manifest['examples']:
+            if item.get('upcoming'):
+                with self.subTest(example=item['packageID']):
+                    self.assertGreater(place_examples.version(item['upcoming']['appVersion']), reader,
+                                       'promote the upcoming revision to the main entry')
+
+    def test_no_placeholder_hashes(self):
+        for item in self.manifest['examples']:
+            for record in place_examples.files(item):
+                with self.subTest(url=record['url']):
+                    self.assertNotEqual(set(record['sha256']), {'0'}, 'replace the placeholder SHA-256')
+
     def test_notes_are_translated_in_every_catalog(self):
-        notes = [item['notes'] for item in self.manifest['examples'] if item.get('notes')]
+        notes = place_examples.all_notes(self.manifest)
         for locale in localization.TRANSLATED_LOCALES:
             catalog = localization.load_catalog(ROOT, locale)
             for note in notes:
@@ -115,6 +130,22 @@ class ValidationTests(unittest.TestCase):
     def test_rejects_kind_mismatch_and_duplicates(self):
         self.assert_rejected(lambda m: m['examples'][0].__setitem__('kind', 'view'), 'does not match')
         self.assert_rejected(lambda m: m['examples'].append(copy.deepcopy(m['examples'][0])), 'Duplicate')
+
+    def test_upcoming_revision_rules(self):
+        def upcoming(m):
+            return example(m, 'space.hilltop-villa')['upcoming']
+        self.assert_rejected(lambda m: upcoming(m).__setitem__('appVersion', '1.4.5'), 'appVersion must be newer')
+        self.assert_rejected(lambda m: upcoming(m)['package'].__setitem__('contentVersion', '1.0.14'),
+                             'contentVersion must be newer')
+        self.assert_rejected(lambda m: upcoming(m)['package'].__setitem__('minimumAppVersion', '1.5.1'),
+                             'newer App than its appVersion')
+        self.assert_rejected(lambda m: upcoming(m)['package'].__setitem__('url', 'https://example.com/x.locusplace'),
+                             'url must be')
+        self.assert_rejected(lambda m: upcoming(m)['package'].__setitem__('sha256', 'X' * 64), 'sha256')
+        self.assert_rejected(lambda m: upcoming(m)['features'].append('fog'), 'features')
+        self.assert_rejected(lambda m: upcoming(m).__setitem__('contentVersion', '1.0.17'), 'upcoming must have')
+        self.assert_rejected(lambda m: upcoming(m).__setitem__('source', example(m, 'space.hilltop-villa')['source']),
+                             'differ from the current')
 
     def test_missing_manifest_means_no_examples(self):
         with tempfile.TemporaryDirectory() as directory:
@@ -165,10 +196,32 @@ class RenderingTests(unittest.TestCase):
         page = render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, 'en', item)
         self.assertIn(item['package']['url'], page)
         self.assertIn(item['source']['url'], page)
-        self.assertIn('1.0.14 · ZIP file (.locusplace) · 117.8 MB · Locus 1.4.5 or later', page)
+        self.assertIn('1.0.14 · ZIP file (.locusplace) · 117.8 MB · Locus\u00a01.4.5 or later', page)
         self.assertIn('For version 1.0.17 · Blender 5.0.1 · 1.4 GB', page)
         self.assertIn('Light layers', page)
         self.assertIn('href="/asset-rights/#example-license">Locus Example License</a>', page)
+
+    def test_upcoming_revision_shows_before_its_app_is_public(self):
+        item = example(self.manifest, 'space.hilltop-villa')
+        self.assertLess(place_examples.version(self.gallery['appVersion']), place_examples.version('1.5.0'))
+        page = render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, 'en', item)
+        self.assertIn('>Coming in Locus 1.5.0</h3>', page)
+        self.assertIn('1.0.17 · ZIP file (.locusplace) · 118.3 MB · Locus\u00a01.5.0 or later', page)
+        self.assertIn(item['upcoming']['source']['url'], page)
+        self.assertIn('Adds two Room TVs.', page)
+        self.assertIn('Room TV', page)
+        # The current revision stays first and keeps its own floor.
+        self.assertLess(page.index(item['package']['url']), page.index(item['upcoming']['package']['url']))
+        self.assertIn('Locus\u00a01.4.5 or later', page)
+        zh = render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, 'zh-Hans', item)
+        self.assertIn('将在 Locus 1.5.0 推出', zh)
+        self.assertIn('Room 电视', zh)
+
+    def test_upcoming_feature_line_only_when_features_differ(self):
+        item = copy.deepcopy(example(self.manifest, 'space.hilltop-villa'))
+        item['upcoming']['features'] = list(item['features'])
+        page = render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, 'en', item)
+        self.assertEqual(page.count('class="gallery-example-features"'), 1)
 
     def test_detail_with_package_only_and_matching_source_revision(self):
         lakeside = render_gallery.place_page(self.places['space.lakeside-cabin'], self.gallery, 'en',
@@ -264,7 +317,7 @@ class GuideTests(unittest.TestCase):
                 text = (ROOT / '.agents' / 'skills' / skill / 'SKILL.md').read_text()
                 for term in ['https://enterlocus.com/data/place-examples.json', 'features', 'sha256',
                              'validate_locusplace.py', 'LicenseRef-EnterLocus-Example', 'template',
-                             'including commercially', 're-upload',
+                             'including commercially', 're-upload', 'room-tv', '`upcoming`',
                              'https://enterlocus.com/asset-rights/#example-license']:
                     self.assertIn(term, text)
 

@@ -231,11 +231,20 @@ use it freely as a template for the creator's own Room.
   `minimumAppVersion`, the source adds `sourceVersion` and `blenderVersion`.
   People can browse the same files at
   <https://enterlocus.com/gallery/?examples>.
+- **Upcoming revisions:** a record may also have `upcoming`, a newer revision
+  that needs a Locus version not yet public. It gives that `appVersion` plus
+  its own `package`, `source` (or `null`), `features`, and optional `notes`.
+  The current public App cannot install it; use the main `package` unless the
+  creator targets that `appVersion`. Check an upcoming revision with that
+  release's public tools; the current `tools/validate_locusplace.py` may not
+  know its newest fields yet. At release closeout the upcoming revision becomes
+  the main entry.
 - **Features:** pick examples by `features`. Room-relevant ids are
   `light-layers` (baked, switchable lamp layers), `generated-furniture`
   (image-to-3D furniture inside the Room), `room-animation` (authored USDZ
   animation), `music`, `sound` (spatial ambient sources), `particles` (fire or
-  fireflies), `water`, and `flowing-water`. View ids are listed in the build-a-view skill.
+  fireflies), `room-tv` (Room TVs, Locus 1.5.0), `water`, and
+  `flowing-water`. View ids are listed in the build-a-view skill.
 - **Fetch and inspect:** check `byteCount` first (source bundles can exceed
   1 GB) and download only what the brief needs, into scratch space outside the
   creator's deliverable:

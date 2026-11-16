@@ -42,11 +42,12 @@ CC_BY_ROOMS = ('atrium-loft', 'courtyard-gallery', 'horizon-atelier')
 FEATURES = (
     'video', 'room-animation', 'water', 'flowing-water', 'shore', 'midground',
     'day-night', 'procedural-sky', 'celestial', 'sound', 'music', 'light-layers',
-    'generated-furniture', 'clouds', 'particles',
+    'generated-furniture', 'clouds', 'particles', 'room-tv',
 )
 KINDS = {'room', 'view'}
 EXAMPLE_KEYS = {'packageID', 'kind', 'title', 'license', 'features', 'package', 'source'}
-OPTIONAL_EXAMPLE_KEYS = {'notes'}
+OPTIONAL_EXAMPLE_KEYS = {'notes', 'upcoming'}
+UPCOMING_KEYS = {'appVersion', 'package', 'source', 'features'}
 PACKAGE_KEYS = {'contentVersion', 'minimumAppVersion', 'fileName', 'url', 'byteCount', 'sha256'}
 SOURCE_KEYS = {'sourceVersion', 'blenderVersion', 'fileName', 'url', 'byteCount', 'sha256'}
 _PACKAGE_ID = re.compile(r'[a-z0-9]+(?:[.-][a-z0-9]+)*')
@@ -116,23 +117,68 @@ def validate(manifest: object) -> dict:
             raise ValueError(f'{package_id}: license {license_id!r} is not listed in licenses')
         if license_id == 'CC-BY-4.0' and not package_id.endswith(CC_BY_ROOMS):
             raise ValueError(f'{package_id}: CC-BY-4.0 is reserved for the three demo Rooms')
-        features = example['features']
-        if (not isinstance(features, list) or len(set(features)) != len(features)
-                or any(feature not in FEATURES for feature in features)):
-            raise ValueError(f'{package_id}: features must be unique ids from {FEATURES}')
-        package = _file(example['package'], PACKAGE_KEYS, package_id, 'package', ('.locusplace', '.zip'))
-        version(package['contentVersion'])
-        version(package['minimumAppVersion'])
-        if example['source'] is not None:
-            source = _file(example['source'], SOURCE_KEYS, package_id, 'source', ('.zip',))
-            version(source['sourceVersion'])
-            version(source['blenderVersion'])
-            if source['url'] == package['url']:
-                raise ValueError(f'{package_id}: source and package must be separate files')
-        notes = example.get('notes')
-        if notes is not None and (not isinstance(notes, str) or not notes.strip() or '\n' in notes):
-            raise ValueError(f'{package_id}: notes must be one non-empty line')
+        package = _files(example, package_id, '')
+        if 'upcoming' in example:
+            _upcoming(example['upcoming'], example, package_id)
     return manifest
+
+
+def _files(record: dict, package_id: str, label: str) -> dict:
+    """Validate the features, package, source and notes shared by an example and its upcoming revision."""
+    features = record['features']
+    if (not isinstance(features, list) or len(set(features)) != len(features)
+            or any(feature not in FEATURES for feature in features)):
+        raise ValueError(f'{package_id}: {label}features must be unique ids from {FEATURES}')
+    package = _file(record['package'], PACKAGE_KEYS, package_id, label + 'package', ('.locusplace', '.zip'))
+    version(package['contentVersion'])
+    version(package['minimumAppVersion'])
+    if record['source'] is not None:
+        source = _file(record['source'], SOURCE_KEYS, package_id, label + 'source', ('.zip',))
+        version(source['sourceVersion'])
+        version(source['blenderVersion'])
+        if source['url'] == package['url']:
+            raise ValueError(f'{package_id}: {label}source and package must be separate files')
+    notes = record.get('notes')
+    if notes is not None and (not isinstance(notes, str) or not notes.strip() or '\n' in notes):
+        raise ValueError(f'{package_id}: {label}notes must be one non-empty line')
+    return package
+
+
+def _upcoming(upcoming: object, example: dict, package_id: str) -> None:
+    """An upcoming revision needs a future App; it is shown before that App is public."""
+    current = example['package']
+    if not isinstance(upcoming, dict) or not UPCOMING_KEYS <= set(upcoming) <= UPCOMING_KEYS | {'notes'}:
+        raise ValueError(f'{package_id}: upcoming must have {sorted(UPCOMING_KEYS)} and optional notes')
+    package = _files(upcoming, package_id, 'upcoming ')
+    app = version(upcoming['appVersion'])
+    if app <= version(current['minimumAppVersion']):
+        raise ValueError(f'{package_id}: upcoming appVersion must be newer than the current package minimumAppVersion')
+    if version(package['minimumAppVersion']) > app:
+        raise ValueError(f'{package_id}: upcoming package needs a newer App than its appVersion')
+    if version(package['contentVersion']) <= version(current['contentVersion']):
+        raise ValueError(f'{package_id}: upcoming package contentVersion must be newer than the current one')
+    urls = [record['url'] for record in files(example)]
+    if len(set(urls)) != len(urls):
+        raise ValueError(f'{package_id}: upcoming files must differ from the current files')
+
+
+def files(example: dict) -> list[dict]:
+    """Every downloadable file of an example, including its upcoming revision."""
+    records = [example['package'], example['source']]
+    upcoming = example.get('upcoming')
+    if upcoming:
+        records += [upcoming['package'], upcoming['source']]
+    return [record for record in records if record]
+
+
+def all_notes(manifest: dict) -> list[str]:
+    """Every English note the site shows, for translation checks."""
+    result = []
+    for example in manifest['examples']:
+        for record in (example, example.get('upcoming') or {}):
+            if record.get('notes'):
+                result.append(record['notes'])
+    return result
 
 
 def load(path: Path = MANIFEST_PATH) -> dict:
@@ -205,14 +251,14 @@ def main(argv: list[str] | None = None) -> int:
     for example in manifest['examples']:
         where = ('Gallery place page' if example['packageID'] in by_place
                  else 'Gallery examples list' if example['packageID'] in shown else 'HIDDEN')
-        print(f'{example["packageID"]} {example["package"]["contentVersion"]}: {where}')
+        upcoming = example.get('upcoming')
+        later = (f' (+ {upcoming["package"]["contentVersion"]} for Locus {upcoming["appVersion"]})'
+                 if upcoming else '')
+        print(f'{example["packageID"]} {example["package"]["contentVersion"]}{later}: {where}')
     failures = 0
     if args.verify:
         for example in manifest['examples']:
-            for label in ('package', 'source'):
-                record = example[label]
-                if record is None:
-                    continue
+            for record in files(example):
                 problem = _check_remote(record, args.hash)
                 print(f'{"FAIL" if problem else "ok"} {record["url"]} {problem}'.rstrip())
                 failures += bool(problem)

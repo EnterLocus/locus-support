@@ -1186,6 +1186,10 @@ machine-readable list is
 <p>Each record has these fields: <code>packageID</code>, <code>kind</code>, <code>title</code>, <code>features</code>,
 <code>license</code>, <code>package</code>, <code>source</code>. The package and the optional source each list
 <code>url</code>, <code>byteCount</code>, <code>sha256</code>.</p>
+<p>A record may also have an <code>upcoming</code> revision that needs a Locus version that
+is not public yet. It has the same fields as the main entry plus <code>appVersion</code>,
+the release it needs. Use the main package with the current public App;
+check an upcoming package with the tools published for its release.</p>
 <p>The package is the exact Package v2 archive that Locus installs. Validate it
 with <code>tools/validate_locusplace.py</code>, then unpack it to read real manifests. A
 source bundle is a ZIP with the Blender file, its textures and related source

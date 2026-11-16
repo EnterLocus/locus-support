@@ -95,28 +95,28 @@ RELEASE_PREVIEW_COPY = {
 }
 
 EXAMPLE_COPY = {
-    "en": {"zip": "ZIP file (.locusplace)", "for_version": "For version {version}", "filter": "Examples", "files": "Example files", "package": "Place package", "source": "Blender source",
+    "en": {"upcoming": "Coming in Locus {version}", "zip": "ZIP file (.locusplace)", "for_version": "For version {version}", "filter": "Examples", "files": "Example files", "package": "Place package", "source": "Blender source",
            "minimum": "Locus {version} or later", "more": "More examples", "license": "Locus Example License",
            "mb": "MB", "gb": "GB"},
-    "zh-Hans": {"zip": "ZIP 文件（.locusplace）", "for_version": "对应 {version} 版", "filter": "示例", "files": "示例文件", "package": "地点包", "source": "Blender 源文件",
+    "zh-Hans": {"upcoming": "将在 Locus {version} 推出", "zip": "ZIP 文件（.locusplace）", "for_version": "对应 {version} 版", "filter": "示例", "files": "示例文件", "package": "地点包", "source": "Blender 源文件",
                 "minimum": "Locus {version} 或更高版本", "more": "更多示例", "license": "Locus 示例许可",
                 "mb": "MB", "gb": "GB"},
-    "zh-Hant": {"zip": "ZIP 檔案（.locusplace）", "for_version": "對應 {version} 版", "filter": "範例", "files": "範例檔案", "package": "地點套件", "source": "Blender 原始檔",
+    "zh-Hant": {"upcoming": "將在 Locus {version} 推出", "zip": "ZIP 檔案（.locusplace）", "for_version": "對應 {version} 版", "filter": "範例", "files": "範例檔案", "package": "地點套件", "source": "Blender 原始檔",
                 "minimum": "Locus {version} 或更新版本", "more": "更多範例", "license": "Locus 範例授權",
                 "mb": "MB", "gb": "GB"},
-    "ja": {"zip": "ZIP ファイル（.locusplace）", "for_version": "バージョン {version} 用", "filter": "サンプル", "files": "サンプルファイル", "package": "場所のパッケージ", "source": "Blender ソース",
+    "ja": {"upcoming": "Locus {version} で登場予定", "zip": "ZIP ファイル（.locusplace）", "for_version": "バージョン {version} 用", "filter": "サンプル", "files": "サンプルファイル", "package": "場所のパッケージ", "source": "Blender ソース",
            "minimum": "Locus {version} 以降", "more": "その他のサンプル", "license": "Locus サンプルライセンス",
            "mb": "MB", "gb": "GB"},
-    "ko": {"zip": "ZIP 파일(.locusplace)", "for_version": "버전 {version}용", "filter": "예제", "files": "예제 파일", "package": "장소 패키지", "source": "Blender 소스",
+    "ko": {"upcoming": "Locus {version}에서 출시 예정", "zip": "ZIP 파일(.locusplace)", "for_version": "버전 {version}용", "filter": "예제", "files": "예제 파일", "package": "장소 패키지", "source": "Blender 소스",
            "minimum": "Locus {version} 이상", "more": "더 많은 예제", "license": "Locus 예제 라이선스",
            "mb": "MB", "gb": "GB"},
-    "de": {"zip": "ZIP-Datei (.locusplace)", "for_version": "Für Version {version}", "filter": "Beispiele", "files": "Beispieldateien", "package": "Ortspaket", "source": "Blender-Quelldatei",
+    "de": {"upcoming": "Demnächst in Locus {version}", "zip": "ZIP-Datei (.locusplace)", "for_version": "Für Version {version}", "filter": "Beispiele", "files": "Beispieldateien", "package": "Ortspaket", "source": "Blender-Quelldatei",
            "minimum": "Locus {version} oder neuer", "more": "Weitere Beispiele", "license": "Locus-Beispiellizenz",
            "mb": "MB", "gb": "GB"},
-    "fr": {"zip": "Fichier ZIP (.locusplace)", "for_version": "Pour la version {version}", "filter": "Exemples", "files": "Fichiers d’exemple", "package": "Paquet du lieu", "source": "Source Blender",
+    "fr": {"upcoming": "À venir dans Locus {version}", "zip": "Fichier ZIP (.locusplace)", "for_version": "Pour la version {version}", "filter": "Exemples", "files": "Fichiers d’exemple", "package": "Paquet du lieu", "source": "Source Blender",
            "minimum": "Locus {version} ou version ultérieure", "more": "Autres exemples",
            "license": "Licence d’exemple Locus", "mb": "Mo", "gb": "Go"},
-    "es": {"zip": "Archivo ZIP (.locusplace)", "for_version": "Para la versión {version}", "filter": "Ejemplos", "files": "Archivos de ejemplo", "package": "Paquete del lugar", "source": "Fuente de Blender",
+    "es": {"upcoming": "Próximamente en Locus {version}", "zip": "Archivo ZIP (.locusplace)", "for_version": "Para la versión {version}", "filter": "Ejemplos", "files": "Archivos de ejemplo", "package": "Paquete del lugar", "source": "Fuente de Blender",
            "minimum": "Locus {version} o posterior", "more": "Más ejemplos", "license": "Licencia de ejemplo de Locus",
            "mb": "MB", "gb": "GB"},
 }
@@ -135,35 +135,35 @@ WITHHELD_COPY = {
 }
 
 FEATURE_COPY = {
-    "en": {"clouds": "Cloud sea", "particles": "Particles", "video": "Video", "room-animation": "Room animation", "water": "Water", "flowing-water": "Flowing water",
+    "en": {"room-tv": "Room TV", "clouds": "Cloud sea", "particles": "Particles", "video": "Video", "room-animation": "Room animation", "water": "Water", "flowing-water": "Flowing water",
            "shore": "Shore", "midground": "3D midground", "day-night": "Day and night",
            "procedural-sky": "Procedural sky", "celestial": "Celestial bodies", "sound": "Spatial sound",
            "music": "Music", "light-layers": "Light layers", "generated-furniture": "Generated furniture"},
-    "zh-Hans": {"clouds": "云海", "particles": "粒子效果", "video": "视频", "room-animation": "Room 动画", "water": "水面", "flowing-water": "流水",
+    "zh-Hans": {"room-tv": "Room 电视", "clouds": "云海", "particles": "粒子效果", "video": "视频", "room-animation": "Room 动画", "water": "水面", "flowing-water": "流水",
                 "shore": "海岸", "midground": "3D 中景", "day-night": "昼夜", "procedural-sky": "程序化天空",
                 "celestial": "天体", "sound": "空间音效", "music": "音乐", "light-layers": "光照层",
                 "generated-furniture": "AI 生成家具"},
-    "zh-Hant": {"clouds": "雲海", "particles": "粒子效果", "video": "影片", "room-animation": "Room 動畫", "water": "水面", "flowing-water": "流水",
+    "zh-Hant": {"room-tv": "Room 電視", "clouds": "雲海", "particles": "粒子效果", "video": "影片", "room-animation": "Room 動畫", "water": "水面", "flowing-water": "流水",
                 "shore": "海岸", "midground": "3D 中景", "day-night": "晝夜", "procedural-sky": "程序化天空",
                 "celestial": "天體", "sound": "空間音效", "music": "音樂", "light-layers": "光照層",
                 "generated-furniture": "AI 生成家具"},
-    "ja": {"clouds": "雲海", "particles": "パーティクル", "video": "動画", "room-animation": "Room アニメーション", "water": "水面", "flowing-water": "流れる水",
+    "ja": {"room-tv": "Room テレビ", "clouds": "雲海", "particles": "パーティクル", "video": "動画", "room-animation": "Room アニメーション", "water": "水面", "flowing-water": "流れる水",
            "shore": "海岸", "midground": "3D ミッドグラウンド", "day-night": "昼と夜", "procedural-sky": "プロシージャルな空",
            "celestial": "天体", "sound": "空間サウンド", "music": "音楽", "light-layers": "ライトレイヤー",
            "generated-furniture": "AI 生成の家具"},
-    "ko": {"clouds": "운해", "particles": "파티클", "video": "동영상", "room-animation": "Room 애니메이션", "water": "수면", "flowing-water": "흐르는 물",
+    "ko": {"room-tv": "Room TV", "clouds": "운해", "particles": "파티클", "video": "동영상", "room-animation": "Room 애니메이션", "water": "수면", "flowing-water": "흐르는 물",
            "shore": "해안", "midground": "3D 중경", "day-night": "낮과 밤", "procedural-sky": "절차적 하늘",
            "celestial": "천체", "sound": "공간 사운드", "music": "음악", "light-layers": "조명 레이어",
            "generated-furniture": "AI 생성 가구"},
-    "de": {"clouds": "Wolkenmeer", "particles": "Partikel", "video": "Video", "room-animation": "Raumanimation", "water": "Wasser", "flowing-water": "Fließendes Wasser",
+    "de": {"room-tv": "Raum-TV", "clouds": "Wolkenmeer", "particles": "Partikel", "video": "Video", "room-animation": "Raumanimation", "water": "Wasser", "flowing-water": "Fließendes Wasser",
            "shore": "Küste", "midground": "3D-Mittelgrund", "day-night": "Tag und Nacht",
            "procedural-sky": "Prozeduraler Himmel", "celestial": "Himmelskörper", "sound": "Raumklang",
            "music": "Musik", "light-layers": "Lichtebenen", "generated-furniture": "KI-generierte Möbel"},
-    "fr": {"clouds": "Mer de nuages", "particles": "Particules", "video": "Vidéo", "room-animation": "Animation de Room", "water": "Eau", "flowing-water": "Eau courante",
+    "fr": {"room-tv": "TV de Room", "clouds": "Mer de nuages", "particles": "Particules", "video": "Vidéo", "room-animation": "Animation de Room", "water": "Eau", "flowing-water": "Eau courante",
            "shore": "Rivage", "midground": "Plan intermédiaire 3D", "day-night": "Jour et nuit",
            "procedural-sky": "Ciel procédural", "celestial": "Corps célestes", "sound": "Son spatial",
            "music": "Musique", "light-layers": "Calques lumineux", "generated-furniture": "Mobilier généré par IA"},
-    "es": {"clouds": "Mar de nubes", "particles": "Partículas", "video": "Vídeo", "room-animation": "Animación de Room", "water": "Agua", "flowing-water": "Agua en movimiento",
+    "es": {"room-tv": "TV de Room", "clouds": "Mar de nubes", "particles": "Partículas", "video": "Vídeo", "room-animation": "Animación de Room", "water": "Agua", "flowing-water": "Agua en movimiento",
            "shore": "Orilla", "midground": "Plano medio 3D", "day-night": "Día y noche",
            "procedural-sky": "Cielo procedural", "celestial": "Cuerpos celestes", "sound": "Sonido espacial",
            "music": "Música", "light-layers": "Capas de luz", "generated-furniture": "Muebles generados con IA"},
@@ -362,16 +362,30 @@ def example_markup(example: dict, locale: str, heading: bool = True) -> str:
                 f'<span class="gallery-example-name">{esc(label)}</span>'
                 f'<span class="gallery-example-meta">{esc(details)}</span>{DOWNLOAD_ICON}</a></li>')
 
-    rows = [row(copy["package"], [package["contentVersion"], copy["zip"], format_bytes(package["byteCount"], locale),
-                                  copy["minimum"].format(version=package["minimumAppVersion"])], package)]
-    if source:
-        meta = ([] if source["sourceVersion"] == package["contentVersion"]
-                else [copy["for_version"].format(version=source["sourceVersion"])])
-        meta += [f'Blender {source["blenderVersion"]}', format_bytes(source["byteCount"], locale)]
-        rows.append(row(copy["source"], meta, source))
-    features = " · ".join(FEATURE_COPY[locale][feature] for feature in example["features"])
-    feature_markup = f'<p class="gallery-example-features">{esc(features)}</p>' if features else ""
-    note = f'<p class="gallery-example-note">{esc(example["notes"])}</p>' if example.get("notes") else ""
+    def group(record: dict, app_version: str, show_features: bool = True) -> str:
+        package, source = record["package"], record.get("source")
+        rows = [row(copy["package"], [package["contentVersion"], copy["zip"], format_bytes(package["byteCount"], locale),
+                                      copy["minimum"].format(version=app_version).replace("Locus ", "Locus\u00a0")], package)]
+        if source:
+            meta = ([] if source["sourceVersion"] == package["contentVersion"]
+                    else [copy["for_version"].format(version=source["sourceVersion"])])
+            meta += [f'Blender {source["blenderVersion"]}', format_bytes(source["byteCount"], locale)]
+            rows.append(row(copy["source"], meta, source))
+        features = " · ".join(FEATURE_COPY[locale][feature] for feature in record["features"]) if show_features else ""
+        feature_markup = f'<p class="gallery-example-features">{esc(features)}</p>' if features else ""
+        note = f'<p class="gallery-example-note">{esc(record["notes"])}</p>' if record.get("notes") else ""
+        return f'<ul class="gallery-example-files">{"".join(rows)}</ul>{note}{feature_markup}'
+
+    current = group(example, package["minimumAppVersion"])
+    upcoming = example.get("upcoming")
+    later = ""
+    if upcoming:
+        # Shown before that App is public; release closeout promotes it to the main entry.
+        heading_id = f'example-upcoming-{esc(example["packageID"]).replace(".", "-")}'
+        later = (f'<div class="gallery-example-upcoming" role="group" aria-labelledby="{heading_id}" '
+                 f'data-gallery-example-upcoming="{esc(upcoming["appVersion"])}">'
+                 f'<h3 class="gallery-example-heading" id="{heading_id}">{esc(copy["upcoming"].format(version=upcoming["appVersion"]))}</h3>'
+                 f'{group(upcoming, upcoming["appVersion"], upcoming["features"] != example["features"])}</div>')
     license_id = example["license"]
     license_name = copy["license"] if license_id == "LicenseRef-EnterLocus-Example" else "Creative Commons CC BY 4.0"
     license_link = (f'<a class="gallery-example-license" href="{locale_url(place_examples.LICENSE_PATHS[license_id], locale)}">'
@@ -379,7 +393,7 @@ def example_markup(example: dict, locale: str, heading: bool = True) -> str:
     title = f'<h2 class="gallery-example-heading" id="example-files">{esc(copy["files"])}</h2>' if heading else ""
     labelled = ' aria-labelledby="example-files"' if heading else ""
     return (f'<section class="gallery-example" data-gallery-example="{esc(example["packageID"])}"{labelled}>{title}'
-            f'<ul class="gallery-example-files">{"".join(rows)}</ul>{note}{feature_markup}{license_link}</section>')
+            f'{current}{later}{license_link}</section>')
 
 
 def withheld_markup(place: dict, manifest: dict, locale: str) -> str:

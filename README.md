@@ -261,7 +261,12 @@ record wins and the upcoming-release marker is omitted.
 `data/gallery-reader.json` pins the reviewed public reader profile and four built-in
 Places. Update it from the next immutable release tag during release closeout,
 including that tag's exact supported/Animated capability sets, bundled metadata,
-translations and thumbnails. Do not derive a reader profile from development main
+translations and thumbnails. In the same closeout, promote every
+`data/place-examples.json` `upcoming` revision whose `appVersion` is now public:
+move its `package`, `source`, `features` and `notes` into the main entry, with
+the package's real `minimumAppVersion`, and delete `upcoming`.
+`tests.test_place_examples` fails while an upcoming `appVersion` is no newer than
+the Gallery reader's App version. Do not derive a reader profile from development main
 or raise its App version before public availability. A newer public App leaves the
 older reviewed profile conservative until that update; an unpublished profile
 causes synchronization to fail. The website's normal build uses the committed
@@ -297,7 +302,7 @@ they are not registered in `data/external-assets.json`.
 `features` uses only these ids, which the Gallery translates: `video`,
 `room-animation`, `water`, `flowing-water`, `shore`, `midground`, `day-night`,
 `procedural-sky`, `celestial`, `sound`, `music`, `light-layers`,
-`generated-furniture`, `clouds`, `particles`. `license` is `LicenseRef-EnterLocus-Example`, or
+`generated-furniture`, `clouds`, `particles`, `room-tv`. `license` is `LicenseRef-EnterLocus-Example`, or
 `CC-BY-4.0` for Atrium Loft, Courtyard Gallery and Horizon Atelier only.
 
 A Gallery Place page shows the example whose `packageID` equals the Place ID
@@ -310,6 +315,19 @@ the App, so their examples are separately imported packages (for example
 under **More examples** when the Gallery's **Examples** filter is on;
 `/gallery/?examples` opens that filter directly. A missing manifest or an empty
 `examples` list publishes no download UI.
+
+An example may also carry an optional `upcoming` object for a revision that
+needs a Locus version not yet on the App Store: `appVersion` (the public
+release to show, for example `1.5.0` even when the package floor is `1.4.9`),
+`package` and `source` (or `null`) with the same fields as the main entry,
+`features`, and optional `notes`. Its `appVersion` must be newer than the main
+package's `minimumAppVersion`, its package `contentVersion` newer than the
+main one, and its package floor no newer than `appVersion`. The Place page
+shows it below the current files under **Coming in Locus {version}**,
+regardless of the Gallery reader version; the current entry stays the main
+download because it installs today. The public `tools/validate_locusplace.py`
+may reject an upcoming package until that release's format changes are
+published, so check it with the matching release's tools.
 
 After changing the manifest, run `python3 tools/place_examples.py` to validate
 it and see where each example appears, `python3 tools/place_examples.py
