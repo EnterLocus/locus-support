@@ -29,6 +29,8 @@ ENTITY_REFERENCE_FIELDS = (
     "videoSurfaces",
     "particleEffects",
     "textureFlow",
+    "flowingWater",
+    "tvs",
 )
 
 

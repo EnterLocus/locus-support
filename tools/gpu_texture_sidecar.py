@@ -408,7 +408,8 @@ def build_gpu_textures_field(
 ) -> "list[dict[str, Any]]":
     """Build the v2 `gpuTextures` array for every eligible source this
     destination's manifest actually declares: the sky panorama (required),
-    plus any `celestial` background/day/night/cloud texture it carries, and
+    an authored `environment.sunPath.panoramaBlend` night panorama when
+    present, plus any `celestial` background/day/night/cloud texture it carries, and
     for near-orbit v2 its globals, every day tile and every surface tile
     (linear). Each sidecar is written next to its source as `<stem>.ktx`.
 
@@ -424,6 +425,17 @@ def build_gpu_textures_field(
     sources: "list[tuple[str, int, int, bool, str]]" = [
         (panorama_relative, panorama["width"], panorama["height"], False, WRAP_FULL_EQUIRECT)
     ]
+    sun_path = ((manifest.get("environment") or {}).get("sunPath") or {})
+    panorama_blend = sun_path.get("panoramaBlend") if isinstance(sun_path, dict) else None
+    if isinstance(panorama_blend, dict):
+        relative = panorama_blend.get("path")
+        if isinstance(relative, str) and relative:
+            source_path = destination_dir / relative
+            width, height = _measure_image(source_path, relative)
+            if (width, height) != (panorama["width"], panorama["height"]):
+                raise GpuTextureError(
+                    "panoramaBlend dimensions must match panorama dimensions")
+            sources.append((relative, width, height, False, WRAP_FULL_EQUIRECT))
     celestial = manifest.get("celestial")
     if isinstance(celestial, dict):
         for field in CELESTIAL_GPU_TEXTURE_FIELDS:

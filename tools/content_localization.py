@@ -30,6 +30,7 @@ TEXT_FIELDS = ("title", "caption", "libraryCaption")
 LABEL_FIELDS = (
     "seatTitles", "seatGroupTitles", "soundTitles", "mediaTitles",
     "lightTitles", "animationTitles", "videoTitles", "particleTitles",
+    "tvTitles",
 )
 LOCALIZATION_FIELDS = frozenset(TEXT_FIELDS + ("searchTerms",) + LABEL_FIELDS)
 MAX_LOCALIZATIONS = 32

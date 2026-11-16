@@ -115,6 +115,47 @@ class EntryConditions(unittest.TestCase):
         self.assert_code(r, 'nonOpaqueEmission')
 
 
+    # Room TVs: a 55-inch screen on the left wall, facing the desk seat.
+    def tv_room(self, **screen):
+        r = Room()
+        r.materials['Screen_Glass'] = ((.012, .012, .015), .12, None, 1)
+        r.boxes.append({'name': 'TV_Screen', 'shape': 'screen', 'center': (-1.896, 1.3, .45),
+                        'size': (0, .685, 1.218), 'material': 'Screen_Glass', **screen})
+        r.space['tvs'] = [{'id': 'tv', 'displayName': 'TV', 'entityName': 'TV_Screen'}]
+        return r
+
+    def tv_codes(self, room):
+        report = self.check(room)
+        return ([e['code'] for e in report['errors']],
+                [w['code'] for w in report['warnings'] if w['code'].startswith('tvScreen')])
+
+    def test_tv_screen_quad_facing_a_seat_passes(self):
+        self.assertEqual(self.tv_codes(self.tv_room()), ([], []))
+
+    def test_tv_screen_inside_a_named_wall(self):
+        errors, _ = self.tv_codes(self.tv_room(parent='Left_Wall'))
+        self.assertIn('tvScreenNested', errors)
+
+    def test_tv_screen_box_is_not_a_flat_quad(self):
+        errors, _ = self.tv_codes(self.tv_room(shape='box', size=(.05, .685, 1.218)))
+        self.assertIn('tvScreenNotQuad', errors)
+
+    def test_tv_screen_risks_warn_without_failing(self):
+        for screen, code in (({'material': 'Lamp_Glow'}, 'tvScreenEmissive'),
+                             ({'size': (0, 1.0, 1.0)}, 'tvScreenAspect'),
+                             ({'size': (0, .2, .356)}, 'tvScreenSmall')):
+            with self.subTest(code=code):
+                errors, warnings = self.tv_codes(self.tv_room(**screen))
+                self.assertEqual(errors, [])
+                self.assertIn(code, warnings)
+
+    def test_tv_screen_facing_no_seat_warns(self):
+        r = self.tv_room(shape='plane', center=(0, 2.55, -1.5), size=(1.218, 0, .685))
+        errors, warnings = self.tv_codes(r)
+        self.assertEqual(errors, [])
+        self.assertIn('tvScreenNoSeat', warnings)
+
+
 class CommandInterface(unittest.TestCase):
     def test_requires_installed_version(self):
         result = subprocess.run(['python3', str(ROOT / 'tools/check_room.py'), 'room.zip'], capture_output=True, text=True)

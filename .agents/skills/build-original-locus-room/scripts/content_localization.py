@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validation helpers for optional Package-v2 display text.
+"""Validation and staging helpers for optional Package-v2 display text.
 
 Localized text deliberately has no effect on a package's capabilities or
 minimum-app requirement.  It is authoring metadata: a reader which does not
@@ -7,7 +7,10 @@ understand it continues to use the package's English fields.
 """
 from __future__ import annotations
 
+import copy
+import json
 import re
+from pathlib import Path
 from typing import Any, Mapping
 
 
@@ -27,11 +30,58 @@ TEXT_FIELDS = ("title", "caption", "libraryCaption")
 LABEL_FIELDS = (
     "seatTitles", "seatGroupTitles", "soundTitles", "mediaTitles",
     "lightTitles", "animationTitles", "videoTitles", "particleTitles",
+    "tvTitles",
 )
 LOCALIZATION_FIELDS = frozenset(TEXT_FIELDS + ("searchTerms",) + LABEL_FIELDS)
 MAX_LOCALIZATIONS = 32
 MAX_SEARCH_TERMS = 64
 MAX_LABELS = 256
+
+
+def official_offer_records(repo: Path, source=None) -> dict[str, dict[str, Any]]:
+    """Read the explicit official/Dev audit scope without changing publication.
+
+    Main offers remain authoritative. Dev-only records supplement them; older
+    overlays must not replace current main metadata. Missing overlays are valid
+    in small fixtures and older checkouts. Never scan historical offer files.
+    """
+    if source is None:
+        source = json.loads((repo / "catalog/library-offers.json").read_text(encoding="utf-8"))
+    documents = [("library-offers.json", source)]
+    for name in ("weekly-coastal-dev-offers.json", "dev-view-updates-20261007-offers.json"):
+        path = repo / "catalog" / name
+        if path.is_file():
+            documents.append((name, json.loads(path.read_text(encoding="utf-8"))))
+    records = {}
+    for name, document in documents:
+        require(isinstance(document, dict) and isinstance(document.get("offers"), list),
+                name + " must contain an offers list")
+        for offer in document["offers"]:
+            require(isinstance(offer, dict), name + " offer must be an object")
+            package_id = offer.get("packageID")
+            _identifier(package_id, name + " package")
+            records.setdefault(package_id, copy.deepcopy(offer))
+    bundled_ids = set(source.get("legacyIncludedPackageIDs", []))
+    for name in ("development.json", "release.json"):
+        path = repo / "catalog" / name
+        if path.is_file():
+            document = json.loads(path.read_text(encoding="utf-8"))
+            bundled_ids.update(item["id"] for item in document.get("packages", [])
+                               if isinstance(item, dict) and isinstance(item.get("id"), str))
+    for package_id in sorted(bundled_ids):
+        records.setdefault(package_id, {"packageID": package_id, "access": "included",
+                                        "searchTerms": []})
+    return records
+
+
+def selected_package_ids(official_ids, requested=None):
+    """Limit resource coverage only, rejecting typos instead of hiding them."""
+    if requested is None:
+        return set(official_ids)
+    selected = set(requested)
+    unknown = sorted(selected - set(official_ids))
+    require(not unknown, "unknown requested package ID: " + ", ".join(unknown))
+    return selected
 
 
 def require(condition: bool, message: str) -> None:
@@ -141,3 +191,47 @@ def validate_localizations(
         result[canonical] = copy_value
     return result
 
+
+def load_registry(path: Path) -> dict[str, dict[str, dict[str, Any]]]:
+    try:
+        document = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError) as error:
+        raise LocalizationError("cannot read localization registry %s: %s" % (path, error)) from error
+    require(isinstance(document, dict) and set(document) == {"formatVersion", "packages"}
+            and document["formatVersion"] == 1, "invalid localization registry")
+    packages = document["packages"]
+    require(isinstance(packages, dict), "localization registry packages must be an object")
+    result: dict[str, dict[str, dict[str, Any]]] = {}
+    for package_id, localizations in packages.items():
+        _identifier(package_id, "localization registry package")
+        result[package_id] = validate_localizations(
+            localizations, context="localization registry." + package_id)
+    return result
+
+
+def merge_localizations(
+    manifest: Mapping[str, Any],
+    registry_localizations: Mapping[str, Mapping[str, Any]] | None,
+    *,
+    references: Mapping[str, set[str]] | None = None,
+    context: str = "localizations",
+) -> dict[str, Any]:
+    """Return a copy with registry values merged into optional manifest text.
+
+    Registry translations intentionally replace equal-language source entries:
+    it is the reviewed official source of truth.  No registry entry means the
+    input manifest is preserved after strict validation.
+    """
+    result = copy.deepcopy(dict(manifest))
+    existing = result.get("localizations", {})
+    existing_checked = validate_localizations(existing, references=references,
+                                               context=context) if existing else {}
+    registry_checked = validate_localizations(
+        registry_localizations or {}, references=references, context=context)
+    merged = dict(existing_checked)
+    merged.update(registry_checked)
+    if merged:
+        result["localizations"] = merged
+    elif "localizations" in result:
+        del result["localizations"]
+    return result

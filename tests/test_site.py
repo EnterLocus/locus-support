@@ -486,6 +486,8 @@ class PublicSiteTests(unittest.TestCase):
                 "no Tripo, Meshy, Hunyuan3D or Trellis", "If you’re curious",
             ],
             "make-a-room": ["1. Generate a concept image", "2. Plan the floor and seats", "3. Build and check the Room", "4. Save the Room", "5. Import the Room", "6. Refine and import again", "Apple Vision Pro"],
+            "add-a-tv": ["How Room TVs work", "TV_Screen_Living", "1.4.9", "Play on TV", "Open in Window", "tools/check_room.py"],
+            "make-a-day-night-view": ["environment.sunPath", "daySky", "panoramaGrade", "panoramaBlend", "gpuTextures", "astc-6x6-srgb", "sunFreeSky"],
             "github-pages-skyboxes": ["GitHub Pages", "image itself", "Save as View…"],
         }
 
@@ -1430,7 +1432,10 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Show me the plan", page)
         self.assertIn("Make a floor plan and seat layout", page)
         self.assertNotIn("Draw a floor plan", page)
-        self.assertEqual(page.count('<strong class="prompt-label">Prompt for your agent</strong><q>'), 5)
+        # Five step prompts, then three in the optional Add a TV section.
+        self.assertEqual(page.count('<strong class="prompt-label">Prompt for your agent</strong><q>'), 8)
+        self.assertLess(page.index('id="iterate"'), page.index('id="tv"'))
+        self.assertIn('href="#tv"', page)
         self.assertIn("Copy them into your agent session and send them to the agent.", page)
         self.assertNotIn("python3 tools/check_room.py", page)
         self.assertNotIn("Blender MCP is not required", page)
@@ -1520,7 +1525,8 @@ class PublicSiteTests(unittest.TestCase):
                  "create-your-own-place/index.html", "build-a-room/index.html",
                  "package-format/index.html", "asset-rights/index.html",
                  "make-a-black-hole-view/index.html", "hilltop-villa/index.html",
-                 "build-a-view/index.html"]
+                 "build-a-view/index.html", "add-a-tv/index.html",
+                 "make-a-day-night-view/index.html"]
         extracted = localization.extract_sources(ROOT)["pages"]
         for locale in localization.TRANSLATED_LOCALES:
             catalog = localization.load_catalog(ROOT, locale)
@@ -2107,6 +2113,36 @@ def Xform "Root" {
             self.assertIn("was not found", result.stderr)
             self.assertFalse(output.exists())
             self.assertFalse(list(root.glob(".*.packing-*")))
+
+    def test_public_specs_cover_145_to_150_view_and_room_capabilities(self):
+        complete = (ROOT / "reference" / "locusplace-format.md").read_text()
+        fields = (ROOT / "reference" / "locus-asset-format.md").read_text()
+        for token in [
+            "midground.skyEntities", "midground.textureFlow", "midground.flowingWater",
+            "shore", "environment.sunPath", "panoramaBlend", "media.dayNight",
+            "tvs", "viewGroundFootprint", "textureFlow", "flowingWater",
+        ]:
+            with self.subTest(doc="locusplace-format.md", token=token):
+                self.assertIn(token, complete)
+        for token in [
+            "locus.view.midground.sky-anchor.v1",
+            "locus.view.midground.texture-flow.v1",
+            "locus.view.midground.flowing-water.v1",
+            "locus.view.water.surf.v1",
+            "locus.view.water.surf.wet-band.v1",
+            "locus.view.water.surf.panorama-blend.v1",
+            "locus.view.sun-path.day-night.v1",
+            "locus.view.sun-path.panorama-blend.v1",
+            "locus.view.media.day-night.v1",
+            "locus.room.view-ground-footprint.v1",
+            "locus.room.view-ground-footprint-height.v1",
+            "locus.room.texture-flow.v1",
+            "locus.room.flowing-water.v1",
+            "locus.room.tv.v1",
+            "formatVersion: 11", "formatVersion: 12", "formatVersion: 13",
+        ]:
+            with self.subTest(doc="locus-asset-format.md", token=token):
+                self.assertIn(token, fields)
 
 
 if __name__ == "__main__":

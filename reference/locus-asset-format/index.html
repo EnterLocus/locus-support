@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a href="../../gallery/">Gallery</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
-  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#localized-display-text">Localized display text</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-3"><a href="#locus-14-view-additions">Locus 1.4 View additions</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-3"><a href="#complete-package-roomview-composition-supporting-build-144-or-later">Complete-package Room/View composition (supporting build 1.4.4 or later)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#check-a-room-before-device-preview">Check a Room before device preview</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="public-locus-package-v2-and-compatibility-zip-formats" tabindex="-1">Public Locus Package v2 and compatibility ZIP formats</h1><div class="reference-tools"><a class="reference-download" href="../locus-asset-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#complete-package-v2--canonical-import-format">Complete Package v2 — canonical import format</a></li><li class="reference-toc-level-3"><a href="#one-pure-data-capability-contract">One pure-data capability contract</a></li><li class="reference-toc-level-3"><a href="#localized-display-text">Localized display text</a></li><li class="reference-toc-level-3"><a href="#complete-view-source-and-midground-data-locus-121">Complete View source and midground data (Locus 1.2.1)</a></li><li class="reference-toc-level-3"><a href="#locus-130-view-effects-and-orbital-profiles">Locus 1.3.0 View effects and orbital profiles</a></li><li class="reference-toc-level-3"><a href="#locus-14-view-additions">Locus 1.4 View additions</a></li><li class="reference-toc-level-2"><a href="#legacysimple-flat-zip-compatibility">Legacy/simple flat ZIP compatibility</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-room-zip">Flat compatibility Room ZIP</a></li><li class="reference-toc-level-3"><a href="#room-lighting-formatversion-2">Room lighting (formatVersion 2)</a></li><li class="reference-toc-level-3"><a href="#room-indirect-lighting-formatversion-3">Room indirect lighting (formatVersion 3)</a></li><li class="reference-toc-level-3"><a href="#authored-rendering-and-spotlight-direction-formatversion-5">Authored rendering and spotlight direction (formatVersion 5)</a></li><li class="reference-toc-level-3"><a href="#ambient-animations-formatversion-4">Ambient animations (formatVersion 4)</a></li><li class="reference-toc-level-3"><a href="#how-desk-alignment-identifies-a-desk">How desk alignment identifies a desk</a></li><li class="reference-toc-level-3"><a href="#lounge-seats-and-hideable-desks">Lounge seats and hideable desks</a></li><li class="reference-toc-level-3"><a href="#seat-groups-formatversion-6">Seat groups (formatVersion 6)</a></li><li class="reference-toc-level-3"><a href="#room-video-surfaces-formatversion-7">Room video surfaces (formatVersion 7)</a></li><li class="reference-toc-level-3"><a href="#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8">Room illuminated surfaces and view-forward yaw (formatVersion 8)</a></li><li class="reference-toc-level-3"><a href="#room-particle-effects-formatversion-9">Room particle effects (formatVersion 9)</a></li><li class="reference-toc-level-3"><a href="#room-baked-light-layers-formatversion-10">Room baked light layers (formatVersion 10)</a></li><li class="reference-toc-level-3"><a href="#complete-package-roomview-composition-supporting-build-144-or-later">Complete-package Room/View composition (supporting build 1.4.4 or later)</a></li><li class="reference-toc-level-3"><a href="#room-view-ground-footprint-locus-145-or-later">Room View-ground footprint (Locus 1.4.5 or later)</a></li><li class="reference-toc-level-3"><a href="#room-texture-flow-locus-145-or-later">Room texture flow (Locus 1.4.5 or later)</a></li><li class="reference-toc-level-3"><a href="#room-flowing-water-locus-149-or-later">Room flowing water (Locus 1.4.9 or later)</a></li><li class="reference-toc-level-3"><a href="#room-tvs-locus-149-or-later">Room TVs (Locus 1.4.9 or later)</a></li><li class="reference-toc-level-2"><a href="#how-locus-uses-a-room">How Locus uses a Room</a></li><li class="reference-toc-level-3"><a href="#collision-and-quality-internal-fields-not-additional-author-inputs">Collision and quality: internal fields, not additional author inputs</a></li><li class="reference-toc-level-3"><a href="#model-and-texture-budgets">Model and texture budgets</a></li><li class="reference-toc-level-2"><a href="#flat-compatibility-view-zip">Flat compatibility View ZIP</a></li><li class="reference-toc-level-2"><a href="#sound">Sound</a></li><li class="reference-toc-level-3"><a href="#placement-and-randomized-playback-version-2">Placement and randomized playback (version: 2)</a></li><li class="reference-toc-level-2"><a href="#provenance">Provenance</a></li><li class="reference-toc-level-2"><a href="#pack-and-validate-a-flat-compatibility-zip">Pack and validate a flat compatibility ZIP</a></li><li class="reference-toc-level-3"><a href="#check-a-room-before-device-preview">Check a Room before device preview</a></li><li class="reference-toc-level-3"><a href="#inspect-the-delivered-model-before-packaging">Inspect the delivered model before packaging</a></li><li class="reference-toc-level-3"><a href="#build-an-independent-material-example">Build an independent material example</a></li></ol></details>
 <h2 id="complete-package-v2--canonical-import-format" tabindex="-1">Complete Package v2 — canonical import format</h2>
 <p>Locus 1.2.1 and later accepts a complete Package v2 ZIP from Files or a direct
 public HTTPS URL through both <strong>Import a View</strong> and <strong>Import a Room</strong>. Use an
@@ -45,8 +45,8 @@ Changed bytes for the same <code>packageID</code> require a strictly newer
 View, Room, or Experience IDs.</p>
 <p>Supported complete packages preserve View media and masks, View and Room
 sound, Room animations, video surfaces, illuminated surfaces, particle effects,
-baked light layers, seat groups, localized display text, provenance, and
-supported Experiences. They must pass manifest and file-inventory agreement,
+baked light layers, seat groups, Room TVs (Locus 1.4.9 or later), localized
+display text, provenance, and supported Experiences. They must pass manifest and file-inventory agreement,
 hashes, safe canonical paths, archive and decoded-resource limits, declared
 capabilities, and <code>minimumAppVersion</code>. If <code>locusplace.json</code> is present but the
 complete package is malformed, Locus rejects it; it does not reinterpret or
@@ -94,8 +94,8 @@ remain part of the manifest.</p>
 <p>Each language entry may provide non-empty <code>title</code>, <code>caption</code>, and
 <code>libraryCaption</code> strings; <code>searchTerms</code> arrays; and translated name maps
 for existing IDs: <code>seatTitles</code>, <code>seatGroupTitles</code>, <code>soundTitles</code>,
-<code>mediaTitles</code>, <code>lightTitles</code>, <code>animationTitles</code>, <code>videoTitles</code>, and
-<code>particleTitles</code>. All fields are optional, so missing fields fall back to the
+<code>mediaTitles</code>, <code>lightTitles</code>, <code>animationTitles</code>, <code>videoTitles</code>,
+<code>particleTitles</code>, and <code>tvTitles</code> (Room TVs, Locus 1.4.9 or later). All fields are optional, so missing fields fall back to the
 manifest’s original text one field at a time. <code>libraryCaption</code> and
 <code>searchTerms</code> are Library-facing metadata; they do not replace the manifest
 caption or inject search terms into another language. A package supports at
@@ -552,10 +552,11 @@ single <code>gpuTexture</code> field.</p>
 mip count must match both the actual source and KTX header; <code>sourceSHA256</code> is
 the lowercase SHA-256 of that source’s raw packaged bytes. Use
 <code>astc-6x6-srgb</code> for colour images and <code>astc-6x6-linear</code> only for a cloud
-texture. Eligible sources are <code>panorama.path</code>, celestial background/day/night/
-cloud textures, and near-orbit v2 day/night/cloud/fallback/galaxy textures and
-declared tiles. Other masks, cloud fills and arbitrary images do not gain
-sidecar support by being listed here. Full-sphere sources are 2:1 and bake
+texture. Eligible sources are <code>panorama.path</code>, <code>environment.sunPath.panoramaBlend.path</code>
+(both required in <code>astc-6x6-srgb</code> when <code>panoramaBlend</code> is declared), celestial
+background/day/night/cloud textures, and near-orbit v2
+day/night/cloud/fallback/galaxy textures and declared tiles. Other masks, cloud
+fills and arbitrary images do not gain sidecar support by being listed here. Full-sphere sources are 2:1 and bake
 with repeating edges; near-orbit
 tiles are square and bake with clamped edges. The renderer prefers a valid
 sidecar, then falls back to its JPEG/PNG unchanged if the sidecar cannot load.
@@ -757,6 +758,135 @@ versions of Locus ignore it.</li>
 <li><code>oceanGlint</code>, an experimental block in two Library revisions that never
 shipped publicly, is not part of the public format; Locus rejects it.</li>
 </ul>
+<h4 id="midground-sky-anchors-texture-flow-and-flowing-water-locus-145149" tabindex="-1">Midground sky anchors, texture flow, and flowing water (Locus 1.4.5–1.4.9)</h4>
+<ul>
+<li><strong><code>midground.skyEntities</code></strong> (Locus 1.4.6 or later, Library capability
+<code>locus.view.midground.sky-anchor.v1</code>): optional list of 1–16 unique,
+non-empty unit-name prefixes in <code>midground.path</code> (none may be a prefix of
+another). Each prefix must match at least one non-terrain prim of the USDZ
+and must not match any <code>terrainEntities</code> unit. Matched props stay anchored in
+the View’s sky-local frame so distant silhouettes remain aligned to the
+panorama when a Room adjusts View-ground height. It adds no motion.</li>
+<li><strong><code>midground.textureFlow</code></strong> (Locus 1.4.5 or later, Library capability
+<code>locus.view.midground.texture-flow.v1</code>): optional list of 1–16 entries
+<code>{&quot;entities&quot;: [...], &quot;uvVelocity&quot;: [u, v]}</code> scrolling <code>UsdPreviewSurface</code>
+textures with <code>repeat</code> addressing. Prefixes must be unique, non-overlapping,
+and match non-terrain prims of <code>midground.path</code>. Each <code>uvVelocity</code> component
+is finite within <code>-2...2</code> and not both <code>0</code>. Terrain units never flow. Counts
+as an Animated View.</li>
+<li><strong><code>midground.flowingWater</code></strong> (Locus 1.4.9 or later, Library capability
+<code>locus.view.midground.flowing-water.v1</code>): optional list of 1–16 entries for
+streams, cascades, and waterfalls on midground prop units (disjoint from
+<code>textureFlow</code> prefixes). Each entry requires <code>entities</code> (1+ prefixes) and
+accepts optional <code>whiteness</code> (<code>0...1.5</code>, default <code>0.65</code>), <code>shells</code> (<code>0...2</code>,
+default <code>2</code>), <code>color</code> (linear RGB <code>0...1</code>, default <code>[0.094, 0.329, 0.306]</code>),
+<code>ripple</code> (<code>0...1</code>, default <code>0.5</code>), <code>speed</code> (<code>0.25...2</code>, default <code>1</code>),
+<code>brightness</code> (<code>0...4</code>, default <code>1</code>), <code>mist</code> (<code>0...2</code>, default <code>1</code>), <code>spray</code>
+(<code>0...2</code>, default <code>1</code>), and up to 8 <code>plunges</code> (<code>{&quot;position&quot;: [x, y, z], &quot;width&quot;: 0.2...20, &quot;height&quot;: 0.3...30, &quot;yawDegrees&quot;: -360...360}</code>). Matched
+meshes carry <code>primvars:st</code> = <code>(acrossMeters, tauSeconds)</code> and
+vertex-interpolated <code>primvars:displayColor</code> = <code>(white, steep, edge)</code> in
+<code>0...1</code>, with at most 400,000 vertices and outward normals. Counts as an
+Animated View.</li>
+</ul>
+<h4 id="view-shore-locus-1491411" tabindex="-1">View shore (Locus 1.4.9–1.4.11)</h4>
+<p>Root <code>shore</code> renders computed surf over a 64 m shallow-water solver strip
+continued analytically to the horizon (<code>locus.view.water.surf.v1</code>, requires
+<code>minimumAppVersion &gt;= &quot;1.4.9&quot;</code>). It draws only water and newly wetted sand,
+leaving dry ground to <code>midground</code> and the panorama. It cannot coexist with root
+<code>water</code>, <code>midground.water</code>, <code>celestial</code>, <code>nearOrbit</code>, <code>blackHole</code>, or any Room
+ocean region, and counts as an Animated View.</p>
+<pre><code class="language-json">&quot;shore&quot;: {
+  &quot;version&quot;: 1,
+  &quot;frame&quot;: {&quot;translationMeters&quot;: [0, -0.62, 0], &quot;yawDegrees&quot;: 0},
+  &quot;bed&quot;: {&quot;path&quot;: &quot;shore-bed.png&quot;, &quot;sizeMeters&quot;: [200, 200], &quot;centerMeters&quot;: [0, -40], &quot;heightRangeMeters&quot;: [-8, 8]},
+  &quot;swell&quot;: {&quot;height&quot;: 0.74, &quot;period&quot;: 1.05, &quot;windChop&quot;: 1.0, &quot;curl&quot;: 1.18},
+  &quot;light&quot;: {&quot;azimuthDegrees&quot;: 0, &quot;elevationDegrees&quot;: 13, &quot;color&quot;: [0.30, 0.36, 0.48], &quot;night&quot;: 1, &quot;follow&quot;: &quot;moon&quot;},
+  &quot;sky&quot;: {&quot;zenith&quot;: [0.006, 0.014, 0.040], &quot;horizon&quot;: [0.030, 0.056, 0.108]},
+  &quot;water&quot;: {&quot;deep&quot;: [0.00628, 0.0208, 0.0363], &quot;shallowScatter&quot;: [0.01864, 0.03275, 0.036],
+            &quot;crestScatter&quot;: [0.0058, 0.01364, 0.01482], &quot;absorption&quot;: [1.5, 0.55, 0.96], &quot;clarity&quot;: 1.0},
+  &quot;sand&quot;: {&quot;dry&quot;: [0.190, 0.172, 0.158], &quot;wet&quot;: [0.074, 0.070, 0.072], &quot;wetBand&quot;: true},
+  &quot;foam&quot;: 0.96, &quot;sparkle&quot;: 1.45, &quot;exposure&quot;: 1.14
+}
+</code></pre>
+<p>Every field except <code>frame</code>, <code>bed</code>, <code>light.follow</code> (<code>&quot;none&quot;</code>, <code>&quot;moon&quot;</code>, or
+<code>&quot;sun&quot;</code>), and <code>sand.wetBand</code> is required, and unknown keys or nulls are
+rejected:</p>
+<ul>
+<li><code>frame</code>: <code>translationMeters</code> (<code>x</code>, <code>z</code> in <code>-150...150</code>; <code>y</code> in <code>-200...0.5</code>)
+and <code>yawDegrees</code> (<code>-180...180</code>).</li>
+<li><code>bed</code>: optional 16-bit grayscale PNG (<code>2...2048</code> px per side), <code>sizeMeters</code>
+(<code>8...4000</code>), <code>centerMeters</code> (<code>-4000...4000</code>), <code>heightRangeMeters</code> (<code>[low, high]</code> in <code>-200...200</code>, <code>low &lt; high</code>).</li>
+<li><code>swell</code>: <code>height</code> (<code>0.35...1.65</code>), <code>period</code> (<code>0.85...1.15</code>), <code>windChop</code>
+(<code>0...1.6</code>), <code>curl</code> (<code>0...1.6</code>).</li>
+<li><code>light</code>: <code>azimuthDegrees</code> (<code>-180...180</code>), <code>elevationDegrees</code> (<code>5...75</code>),
+linear RGB <code>color</code> (<code>0...2</code>), <code>night</code> (<code>0...1</code>), optional <code>follow</code> (<code>&quot;moon&quot;</code>
+requires <code>sky.moon</code>; <code>&quot;sun&quot;</code> requires <code>environment.sunPath</code> or an enabled
+<code>environment.directSun</code>).</li>
+<li><code>sky</code> (<code>zenith</code>, <code>horizon</code> linear RGB <code>0...1</code>), <code>water</code> (<code>deep</code>,
+<code>shallowScatter</code>, <code>crestScatter</code> linear RGB <code>0...1</code>; <code>absorption</code> <code>0...10</code>;
+<code>clarity</code> <code>0.5...1.6</code>), <code>sand</code> (<code>dry</code>, <code>wet</code> linear RGB <code>0...1</code>), <code>foam</code>
+(<code>0.25...1.6</code>), <code>sparkle</code> (<code>0...1.8</code>), <code>exposure</code> (<code>0.5...2</code>).</li>
+<li><code>sand.wetBand</code> (Locus 1.4.10 or later, capability
+<code>locus.view.water.surf.wet-band.v1</code>): optional boolean controlling whether the
+exposed recently-wetted sand band is drawn; presence (even <code>true</code>) requires
+<code>1.4.10</code>.</li>
+<li>Pairing <code>shore</code> with <code>environment.sunPath.panoramaBlend</code> requires Locus
+1.4.11 or later (<code>locus.view.water.surf.panorama-blend.v1</code>).</li>
+</ul>
+<h4 id="daynight-sun-path-and-paired-panoramas-locus-1491411" tabindex="-1">Day/night sun path and paired panoramas (Locus 1.4.9–1.4.11)</h4>
+<p><code>environment.sunPath</code> (base <code>1.3.0</code>) gains an opt-in full-day extension:</p>
+<pre><code class="language-json">&quot;environment&quot;: {
+  &quot;sunPath&quot;: {
+    &quot;sunFreeSky&quot;: true,
+    &quot;daySky&quot;: {&quot;haze&quot;: 0.3, &quot;exposure&quot;: 1},
+    &quot;panoramaGrade&quot;: {&quot;stops&quot;: [
+      {&quot;elevationDegrees&quot;: -18, &quot;color&quot;: [0.05, 0.07, 0.12]},
+      {&quot;elevationDegrees&quot;: 55, &quot;color&quot;: [1, 1, 1]}
+    ]},
+    &quot;light&quot;: {&quot;stops&quot;: [
+      {&quot;elevationDegrees&quot;: -18, &quot;color&quot;: [0, 0, 0], &quot;ambientEV&quot;: -2},
+      {&quot;elevationDegrees&quot;: 14, &quot;color&quot;: [1.5, 1.2, 0.85], &quot;ambientEV&quot;: 0.6},
+      {&quot;elevationDegrees&quot;: 55, &quot;color&quot;: [1, 1, 1], &quot;ambientEV&quot;: 0}
+    ], &quot;midground&quot;: true},
+    &quot;panoramaBlend&quot;: {
+      &quot;path&quot;: &quot;panorama-night.jpg&quot;,
+      &quot;dayElevationDegrees&quot;: -1,
+      &quot;nightElevationDegrees&quot;: -12,
+      &quot;nightGrade&quot;: [1, 1, 1]
+    }
+  }
+}
+</code></pre>
+<ul>
+<li><strong><code>daySky</code></strong>, <strong><code>panoramaGrade</code></strong>, and <strong><code>light</code></strong> (Locus 1.4.9 or later,
+<code>locus.view.sun-path.day-night.v1</code>): <code>daySky</code> renders a clear-sky atmosphere
+(<code>haze</code> <code>0...1</code> default <code>0.3</code>, <code>exposure</code> <code>0.25...4</code> default <code>1</code>) screened
+with the procedural night sky through <code>sky.mask</code>. <code>panoramaGrade</code> tints and
+dims the painted panorama across 2–16 strictly increasing <code>elevationDegrees</code>
+(<code>-90...90</code>) stops with linear RGB <code>color</code> (<code>0...4</code>). <code>light</code> supplies 2–16
+stops (<code>color</code> <code>0...16</code>, optional <code>ambientEV</code> <code>-6...6</code> default <code>0</code>) for the
+Room sun and IBL; <code>light.midground: true</code> also lights <code>midground.path</code>.
+<code>daySky</code> and <code>panoramaGrade</code> require root <code>sky</code> with <code>sky.mask</code>. These
+fields exclude <code>clouds</code>, <code>media</code> (unless paired via <code>media.dayNight</code>), root
+<code>water</code>, <code>midground.water</code>, <code>midground.flowingWater</code>, and <code>sky.aurora</code>.</li>
+<li><strong><code>panoramaBlend</code></strong> (Locus 1.4.10 or later,
+<code>locus.view.sun-path.panorama-blend.v1</code>): blends a distinct full-frame 2:1
+night panorama (<code>path</code>, exact same dimensions as <code>panorama.path</code>) over the
+root daylight panorama between <code>dayElevationDegrees</code> and
+<code>nightElevationDegrees</code> (<code>-18...10</code>, <code>night &lt; day</code>, defaults <code>-1</code> and <code>-12</code>),
+scaled by <code>nightGrade</code> (three <code>0...4</code> values, default <code>[1, 1, 1]</code>). Requires
+<code>daySky</code>, root <code>sky</code>, and <code>gpuTextures</code> v2 <code>astc-6x6-srgb</code> sidecars for both
+<code>panorama.path</code> and <code>panoramaBlend.path</code> (legacy <code>gpuTexture</code> is rejected).
+Pairing with <code>shore</code> requires <code>1.4.11</code>.</li>
+<li><strong><code>media.dayNight</code></strong> (Locus 1.4.11 or later,
+<code>locus.view.media.day-night.v1</code>): the sole <code>media</code> shape allowed with a
+day/night sun path. Valid only alongside <code>sunPath.panoramaBlend</code>, <code>daySky</code>,
+<code>sky.mask</code>, and both <code>gpuTextures</code> v2 sidecars. Requires <code>version: 1</code>,
+<code>nightPanoramaSHA256</code> (SHA-256 of <code>panoramaBlend.path</code>), and <code>sources</code>
+covering every video source in <code>media.sources</code> exactly once with 8-bit RGB
+PNGs (no alpha, &lt;= <code>4096×2048</code>) for linear <code>lighting</code> and sRGB <code>emission</code>,
+within an aggregate decode budget of <code>4096×2048×30.1</code>.</li>
+</ul>
 <p>Two-eye depth, shimmer, performance and comfort for these effects still need
 review on Apple Vision Pro for each new View; Simulator captures do not
 establish them.</p>
@@ -774,8 +904,17 @@ animations with saved playback speed and randomized replay intervals; Room v5
 adds explicit rendering roles and spotlight directions; Room v6 adds authored
 seat groups; Room v7 adds looping video surfaces; Room v8 adds illuminated
 surfaces and an explicit view-forward yaw; Room v9 adds particle effects;
-Room v10 adds per-lamp baked light layers. All of those compatibility
-versions use the same flat ZIP layout.</p>
+Room v10 adds per-lamp baked light layers; Room v11 (Locus 1.4.5) allows
+omitting or declaring multiple <code>viewOpenings</code>; Room v12 (Locus 1.4.5) adds
+<code>viewGroundFootprint</code>; and Room v13 (Locus 1.4.5) adds
+<code>viewGroundFootprint.bottomHeightsMeters</code>. All of those compatibility
+versions use the same flat ZIP layout. These <code>formatVersion</code> numbers apply only
+to a flat <code>space.json</code>: a complete Package v2 Room’s <code>space.json</code> keeps
+<code>formatVersion: 2</code> and declares the same fields directly, with the matching
+<code>minimumAppVersion</code> in <code>locusplace.json</code>. Package-v2-only Room fields such as
+<code>water</code>, <code>viewGroundFloorOffsetMeters</code>, <code>viewGroundKeepOut</code>,
+<code>viewMidgroundVisibility</code>, <code>textureFlow</code>, <code>flowingWater</code>, and <code>tvs</code> cannot be
+carried by a flat Room ZIP.</p>
 <p>Locus 1.1.4 adds an optional <code>sound.json</code> sidecar: a Room or a View may carry
 its own audio, independently of everything above. An older Locus refuses the
 extra files rather than installing a place with its sound silently missing.</p>
@@ -839,8 +978,10 @@ ID:</p>
   }
 }
 </code></pre>
-<p><code>caption</code>, <code>previewCamera</code>, and <code>spatialAdaptation</code> are optional. Every Room
-must have exactly one View opening and at least one teleport point. Coordinates
+<p><code>caption</code>, <code>previewCamera</code>, and <code>spatialAdaptation</code> are optional. Before
+<code>formatVersion: 11</code> (Locus 1.4.5), every Room must have exactly one View
+opening; from <code>formatVersion: 11</code>, <code>viewOpenings</code> may be omitted or declare
+multiple unique openings. Every Room needs at least one teleport point. Coordinates
 are right-handed meters with +Y up and -Z forward. Quaternions are
 <code>[x, y, z, w]</code>. <code>anchorXZ</code> values are normalized into the Room bounds.</p>
 <p><code>teleport-points.json</code> has this shape:</p>
@@ -866,8 +1007,10 @@ guidance, not a schema field: it only affects how you choose <code>anchorXZ</cod
 sitter’s left and right.</p>
 <p><code>scene.usdz</code> is a self-contained, meter-scale, +Y-up USDZ. Its ZIP members are
 stored without compression and it must pass <code>usdchecker --arkit</code>.
-<code>thumbnail.jpg</code> is required and must decode as JPEG or PNG image data. Locus
-does not capture a missing thumbnail during import.</p>
+In a flat Room ZIP, <code>thumbnail.jpg</code> is required and must decode as JPEG or PNG
+image data. Locus does not capture a missing thumbnail during import. A
+complete Package v2 Room’s <code>thumbnail</code> field is optional; without it, the Room
+card shows a fallback glyph.</p>
 <h3 id="room-lighting-formatversion-2" tabindex="-1">Room lighting (formatVersion 2)</h3>
 <p>A Room without lighting keeps <code>formatVersion: 1</code> and omits <code>lighting</code>; Locus
 shows no light switch or Room lighting settings and builds no runtime rig. A
@@ -1380,6 +1523,80 @@ only units named by the selected View’s <code>midground.terrainEntities</code>
 does not load the selected View’s <code>midground.path</code> model or textures. It does
 not hide the panorama, View water, Room water, fireflies, or the Room’s own
 geometry, and it is independent of <code>viewGroundKeepOut</code>.</p>
+<h3 id="room-view-ground-footprint-locus-145-or-later" tabindex="-1">Room View-ground footprint (Locus 1.4.5 or later)</h3>
+<p><code>viewGroundFootprint</code> replaces the whole-bounds View-ground keep-out box with
+the union of 1–32 simple X/Z polygons in Room-local metres (<code>[-200, 200]</code>,
+3–128 vertices each, at most 512 vertices total, nonzero area, no repeated
+vertices or self-intersections). Optional <code>bottomHeightsMeters</code> provides one
+lower Y bound (<code>[-200, 200]</code>) per polygon so water below raised geometry
+remains visible. In Package v2 this requires <code>minimumAppVersion &gt;= &quot;1.4.5&quot;</code>
+(<code>locus.room.view-ground-footprint.v1</code> and
+<code>locus.room.view-ground-footprint-height.v1</code>). In the flat compatibility Room
+format, <code>viewGroundFootprint</code> requires <code>formatVersion: 12</code> and
+<code>bottomHeightsMeters</code> requires <code>formatVersion: 13</code>.</p>
+<h3 id="room-texture-flow-locus-145-or-later" tabindex="-1">Room texture flow (Locus 1.4.5 or later)</h3>
+<p>Requires Locus 1.4.5 or later (<code>locus.room.texture-flow.v1</code>), Package v2 only.
+<code>textureFlow</code> is an optional top-level <code>space.json</code> array of 1–16 entries
+<code>{&quot;entities&quot;: [...], &quot;uvVelocity&quot;: [u, v]}</code> that scrolls <code>UsdPreviewSurface</code>
+repeat textures on the named <code>scene.usdz</code> subtrees. Unlike a View’s prefix
+matching, every entry in <code>entities</code> is an exact, unique <code>scene.usdz</code> entity
+name with renderable geometry, none nested inside another. <code>uvVelocity</code> values
+are finite in <code>-2...2</code> and not both <code>0</code>. The motion runs only while the
+selected View’s Animated View switch is on, the scene is active, and Reduce
+Motion is off.</p>
+<h3 id="room-flowing-water-locus-149-or-later" tabindex="-1">Room flowing water (Locus 1.4.9 or later)</h3>
+<p>Requires Locus 1.4.9 or later (<code>locus.room.flowing-water.v1</code>), Package v2 only.
+<code>flowingWater</code> is an optional top-level <code>space.json</code> array of 1–16 entries
+with the same fields, ranges, defaults, and <code>primvars:st</code> /
+<code>primvars:displayColor</code> mesh contract as <code>midground.flowingWater</code>, except
+<code>entities</code> lists exact, unique <code>scene.usdz</code> entity names (with renderable
+geometry, none nested inside another, and none also named in Room
+<code>textureFlow</code>), and <code>plunges[].position</code> uses <code>scene.usdz</code> coordinates. Virtual
+Space only, following the same motion gate as <code>textureFlow</code>, with per-Room
+<strong>Flowing Water</strong> controls saved in Motion settings.</p>
+<h3 id="room-tvs-locus-149-or-later" tabindex="-1">Room TVs (Locus 1.4.9 or later)</h3>
+<p>Requires Locus 1.4.9 or later. <code>tvs</code> is an optional top-level array in a
+complete Package v2 Room’s <code>space.json</code>. Each entry turns one flat screen in
+<code>scene.usdz</code> into a TV that a visitor can play a web page on. Library offers
+use capability <code>locus.room.tv.v1</code>. The legacy/simple flat Room ZIP cannot carry
+this field.</p>
+<pre><code class="language-json">&quot;tvs&quot;: [
+  {
+    &quot;id&quot;: &quot;living-tv&quot;,
+    &quot;displayName&quot;: &quot;Living Room TV&quot;,
+    &quot;entityName&quot;: &quot;TV_Screen_Living&quot;
+  }
+]
+</code></pre>
+<p>A Room may declare 1 to 4 TVs, and each entry has exactly these three fields.
+<code>id</code> is 1–64 bytes of lowercase letters, digits, and hyphens, unique among the
+Room’s TVs. <code>displayName</code> is non-blank and at most 200 UTF-8 bytes; it names
+the TV in the <strong>Play on TV</strong> menu, and <code>localizations.&lt;language&gt;.tvTitles</code>
+translates it by <code>id</code>. <code>entityName</code> is non-blank, at most 200 UTF-8 bytes, and
+unique among the Room’s TVs. It must resolve to a mesh-bearing entity of
+<code>scene.usdz</code>, checked the same way as every other authored entity reference,
+and one TV’s screen must not contain another’s. A TV has no asset file. Any
+package that declares <code>tvs</code> must set <code>minimumAppVersion</code> to <code>&quot;1.4.9&quot;</code> or later;
+an earlier Locus refuses to import it.</p>
+<p>The screen entity is a flat 16:9 quad: its own named object holding one
+four-vertex mesh, not nested under another entity the Room metadata names,
+with its own 0–1 UVs (u to the watcher’s right, v up). Locus reads the page
+rectangle from its bounds. The screen’s authored material is the TV’s off
+state, such as dark glass or, for an art TV, an artwork texture, and should not
+be emissive. Keep the screen a few millimetres in front of its frame and wall
+rather than coplanar with them.</p>
+<p>Every TV is off when a visitor arrives; there is no author setting for a
+default page or for starting on. In Virtual Space, a visitor looks at a screen
+and pinches to turn it on, and a remote appears under it. <strong>Play on TV</strong> in a
+Browser window moves a page to a TV, and <strong>Open in Window</strong> moves it back. TVs
+are not offered in Room Portal.</p>
+<p>The public validator checks the field, its version floor, and that every
+<code>entityName</code> is an entity of <code>scene.usdz</code>; the Room binding check resolves
+each screen in the loaded model. <code>tools/check_room.py</code> also reports a screen
+that is not one flat quad, is nested in or around another named entity, is not
+16:9, is emissive, or faces no seat. The
+<a href="../../examples/media-room/README.md">Example Media Room</a> generates a complete
+Room with two TVs.</p>
 <h2 id="how-locus-uses-a-room" tabindex="-1">How Locus uses a Room</h2>
 <p>The authoring interface and the runtime rules are both documented here. Public
 Room ZIPs are converted into Locus’s internal Package v2 representation during

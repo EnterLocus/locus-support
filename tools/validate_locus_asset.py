@@ -60,6 +60,9 @@ VIEW_OPTIONAL_FILES = {"lighting.jpg", "point-lights.json"}
 USDZ_EXTENSIONS = {
     "usd", "usda", "usdc", "png", "jpg", "jpeg", "exr", "m4a", "wav", "mp3"
 }
+# First Room formatVersion (App 1.4.5) whose `viewOpenings` may be omitted or
+# declare any number of openings. Earlier Room versions keep exactly one.
+OPTIONAL_VIEW_OPENINGS_FORMAT_VERSION = 11
 
 
 class ValidationError(ValueError):
@@ -1010,18 +1013,18 @@ def validate_room(
         value,
         required={
             "formatVersion", "displayName", "seatedOrigin", "safeHeadVolume",
-            "viewOpenings",
         },
         optional={
-            "caption", "previewCamera", "spatialAdaptation", "lighting",
+            "viewOpenings", "caption", "previewCamera", "spatialAdaptation", "lighting",
             "ambientAnimations", "videoSurfaces", "rendering", "seatGroups",
             "viewForwardYawRadians", "particleEffects", "localizations",
+            "viewGroundFootprint",
         },
         context="space.json",
     )
     require(type(value["formatVersion"]) is int
-            and value["formatVersion"] in {1, 2, 3, 4, 5, 6, 7, 8, 9, 10},
-            "space.json.formatVersion must be 1, 2, 3, 4, 5, 6, 7, 8, 9, or 10")
+            and value["formatVersion"] in {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
+            "space.json.formatVersion must be 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, or 13")
     require(value["formatVersion"] >= 2 or "lighting" not in value,
             "space.json.lighting requires formatVersion 2")
     require(value["formatVersion"] >= 4 or "ambientAnimations" not in value,
@@ -1037,6 +1040,17 @@ def validate_room(
             "space.json.viewForwardYawRadians requires formatVersion 8")
     require(value["formatVersion"] >= 9 or "particleEffects" not in value,
             "space.json.particleEffects requires formatVersion 9")
+    require(value["formatVersion"] >= 12 or "viewGroundFootprint" not in value,
+            "space.json.viewGroundFootprint requires formatVersion 12")
+    if "viewGroundFootprint" in value:
+        from view_ground_footprint import FootprintValidationError, validate as validate_footprint
+        try:
+            validate_footprint(value["viewGroundFootprint"], "space.json.viewGroundFootprint")
+        except FootprintValidationError as error:
+            raise ValidationError(str(error)) from error
+        require(value["formatVersion"] >= 13
+                or "bottomHeightsMeters" not in value["viewGroundFootprint"],
+                "space.json.viewGroundFootprint.bottomHeightsMeters requires formatVersion 13")
     if "particleEffects" in value:
         validate_particle_effects(value["particleEffects"])
     if "viewForwardYawRadians" in value:
@@ -1083,22 +1097,35 @@ def validate_room(
     require_number_list(volume["sizeMeters"], 3, "safeHeadVolume.sizeMeters")
     require(all(number > 0 for number in volume["sizeMeters"]),
             "safeHeadVolume.sizeMeters must be positive")
-    openings = value["viewOpenings"]
-    require(isinstance(openings, list) and len(openings) == 1,
-            "space.json.viewOpenings must contain exactly one opening")
-    opening = openings[0]
-    require(isinstance(opening, dict), "viewOpenings[0] must be an object")
-    exact_keys(
-        opening,
-        required={"id", "transform", "widthMeters", "heightMeters"},
-        context="viewOpenings[0]",
+    # Readers before App 1.4.5 decode `viewOpenings` as required and reject
+    # anything but exactly one opening, so a Room relying on the optional
+    # rule must declare formatVersion 11, which those readers reject cleanly.
+    openings = value.get("viewOpenings", [])
+    require(isinstance(openings, list), "space.json.viewOpenings must be an array")
+    require(
+        value["formatVersion"] >= OPTIONAL_VIEW_OPENINGS_FORMAT_VERSION
+        or ("viewOpenings" in value and len(openings) == 1),
+        "space.json.viewOpenings must contain exactly one opening before formatVersion "
+        + str(OPTIONAL_VIEW_OPENINGS_FORMAT_VERSION),
     )
-    require(valid_identifier(opening["id"]), "viewOpenings[0].id is invalid")
-    validate_pose(opening["transform"], "viewOpenings[0].transform")
-    require(finite(opening["widthMeters"]) and opening["widthMeters"] > 0,
-            "viewOpenings[0].widthMeters must be positive")
-    require(finite(opening["heightMeters"]) and opening["heightMeters"] > 0,
-            "viewOpenings[0].heightMeters must be positive")
+    opening_ids: set[str] = set()
+    for index, opening in enumerate(openings):
+        context = "viewOpenings[%d]" % index
+        require(isinstance(opening, dict), context + " must be an object")
+        exact_keys(
+            opening,
+            required={"id", "transform", "widthMeters", "heightMeters"},
+            context=context,
+        )
+        require(valid_identifier(opening["id"]), context + ".id is invalid")
+        require(opening["id"] not in opening_ids,
+                "space.json.viewOpenings contains duplicate id " + opening["id"])
+        opening_ids.add(opening["id"])
+        validate_pose(opening["transform"], context + ".transform")
+        require(finite(opening["widthMeters"]) and opening["widthMeters"] > 0,
+                context + ".widthMeters must be positive")
+        require(finite(opening["heightMeters"]) and opening["heightMeters"] > 0,
+                context + ".heightMeters must be positive")
     teleports = validate_teleports(root / "teleport-points.json")
     if "seatGroups" in value:
         validate_seat_groups(value["seatGroups"], teleports)

@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111111">
+  <title>Add a TV to your Room — Locus Tutorial</title>
+  <meta name="description" content="Turn a flat 16:9 screen mesh in a complete Package v2 Room into a playable Locus TV using the Room skill or your own 3D workflow.">
+  <meta property="og:title" content="Add a TV to your Room — Locus Tutorial"><meta property="og:description" content="Add up to four playable TVs to a Locus Room with a 16:9 screen quad, Package v2 metadata, and check_room.py."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/add-a-tv/"><meta property="og:image" content="https://enterlocus.com/assets/social-preview-spatial-20261106.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/social-preview-spatial-20261106.jpg">
+  <link rel="canonical" href="https://enterlocus.com/add-a-tv/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+  <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
+<script src="/assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../whats-new/">What’s New</a><a href="../gallery/">Gallery</a><a aria-current="page" href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main tutorial-page">
+    <header class="page-header"><p class="kicker">Room guide · About 15 minutes</p><h1>Add a TV to your Room.</h1><p>Turn a flat screen in your Room model into a TV that visitors can look at, pinch to wake, and watch web pages on—either with the Room-building skill or in your own 3D tool.</p><span class="status">Needs Locus 1.4.9 or later · Complete Package v2</span></header>
+
+    <nav class="tutorial-toc" aria-label="On this page"><strong>On this page</strong><a href="#how-it-works">How Room TVs work</a><a href="#ai-route">Option 1 · Ask your AI agent</a><a href="#screen">Option 2 · Model the screen</a><a href="#declare">Declare TVs in Package v2</a><a href="#check">Check, pack, and test</a><a href="#tips">Design tips and limits</a></nav>
+
+    <section class="doc-section" id="how-it-works"><h2>How Room TVs work</h2><p>A Room can declare up to four TVs in complete Package v2 (the legacy flat Room ZIP format cannot carry <code>tvs</code>). Each TV turns one flat 16:9 screen quad in <code>scene.usdz</code> into an interactive surface in Virtual Space.</p><ul class="check-list"><li><strong>Every TV starts off.</strong> There is no author setting to start a TV on or load a default URL.</li><li><strong>Look and pinch to turn on.</strong> A visitor looks at the screen in Virtual Space and pinches to open the TV and its remote below the screen.</li><li><strong>Send pages from Locus Browser.</strong> Use <strong>Play on TV</strong> in a Browser window to play a page on a named TV, and <strong>Open in Window</strong> to bring it back.</li><li><strong>Virtual Space only.</strong> Room TVs are part of the 3D Room model and are not shown in Room Portal.</li></ul><div class="callout"><strong>Two ways to use a TV.</strong> Give the screen dark glass for a classic wall or console TV, or map a painting texture onto the quad for an art TV that blends into the room until you turn it on.</div></section>
+
+    <section class="doc-section" id="ai-route"><p class="lesson-label">Option 1 · AI workflow</p><h2>Ask your AI agent with the Room skill</h2><p>If you build Rooms with <a href="../make-a-room/">Make your own Room</a> and the public <a href="https://github.com/EnterLocus/locus-support/tree/main/.agents/skills/build-original-locus-room">Room-building skill (<code>build-original-locus-room</code>)</a>, the skill already includes the screen geometry, seat alignment, and validation steps for TVs.</p><ol class="step-list"><li><strong>Clone the public repository</strong> and open it in an agent session that can run Blender and Xcode’s command-line tools.</li><li><strong>Name the TV’s size, room placement, and viewing seat.</strong> Tell the agent whether you want a wall screen, a console TV, or a fireplace art TV, and keep the space under the screen clear for the remote.</li><li><strong>Let the agent build, check, and package</strong> the Room as a complete <code>.locusplace</code> archive.</li></ol><div class="callout agent-prompt"><strong class="prompt-label">Prompt for your agent</strong><q>Build a cosy media room with the build-original-locus-room skill: a deep sofa facing a 75-inch TV on the opposite wall about three metres away, a low walnut console under the TV, warm wall lamps, and a large window to one side.</q></div><div class="callout agent-prompt"><strong class="prompt-label">Prompt for your agent</strong><q>Add a 65-inch art TV above the fireplace facing the main seating area, showing an oil painting when it is off, and keep the mantle below clear for the remote.</q></div><p>To inspect a working reference before making your own, run the <a href="https://github.com/EnterLocus/locus-support/tree/main/examples/media-room">Example Media Room</a> generator:</p><pre><code>python3 examples/media-room/build_media_room.py /tmp/media-room
+python3 tools/check_room.py --current-app-version 1.4.9 \
+  --renders /tmp/media-room-renders /tmp/media-room/media-room.locusplace</code></pre></section>
+
+    <section class="doc-section" id="screen"><p class="lesson-label">Option 2 · Manual 3D</p><h2>Model the screen quad in your 3D scene</h2><p>In Blender or any USDZ pipeline, each TV screen is a separate, clearly named mesh object:</p><ul class="check-list"><li><strong>One flat 16:9 quad.</strong> Model the screen as its own named object holding a single four-vertex, two-triangle flat plane at least 0.3 m tall.</li><li><strong>Clean 0–1 UVs.</strong> Map <code>u</code> from left to right when seated in front of the screen and <code>v</code> from bottom to top, with normals facing the viewer.</li><li><strong>Keep it separate from other bindings.</strong> Do not nest the screen inside an entity named in <code>lighting</code>, <code>ambientAnimations</code>, <code>videoSurfaces</code>, <code>spatialAdaptation</code>, or another TV.</li><li><strong>Avoid coplanar overlap.</strong> Place the screen quad a few millimetres in front of its bezel, backing plate, or wall so there is no z-fighting.</li><li><strong>Author the off-state material.</strong> Use dark glass or an artwork image on a non-emissive <code>UsdPreviewSurface</code> (zero emission, so it looks off when you arrive).</li><li><strong>Leave room for the remote and a seat.</strong> Place at least one teleport seat in front of the TV (within roughly 45° of the screen’s normal) and keep shelves or tall props out of the space just under the screen.</li></ul></section>
+
+    <section class="doc-section" id="declare"><p class="lesson-label">Package v2</p><h2>Declare <code>tvs</code> in <code>space.json</code></h2><p>Set <code>"minimumAppVersion": "1.4.9"</code> (or later) in <code>locusplace.json</code>, then add a top-level <code>tvs</code> array to <code>space.json</code> with 1 to 4 entries:</p><pre><code>{
+  "tvs": [
+    {
+      "id": "living-tv",
+      "displayName": "Living Room TV",
+      "entityName": "TV_Screen_Living"
+    },
+    {
+      "id": "art-tv",
+      "displayName": "Fireplace Art TV",
+      "entityName": "TV_Screen_Art"
+    }
+  ],
+  "localizations": {
+    "zh-Hans": {
+      "tvTitles": {
+        "living-tv": "客厅电视",
+        "art-tv": "壁炉画框电视"
+      }
+    }
+  }
+}</code></pre><table><thead><tr><th>Field</th><th>Rule</th></tr></thead><tbody><tr><td><code>id</code></td><td>Required, unique in <code>tvs</code>, 1–64 bytes of lowercase letters, digits, and hyphens (<code>[a-z0-9-]</code>).</td></tr><tr><td><code>displayName</code></td><td>Required, non-blank, at most 200 UTF-8 bytes. Shown in the <strong>Play on TV</strong> menu.</td></tr><tr><td><code>entityName</code></td><td>Required, unique across <code>tvs</code>, non-blank, at most 200 UTF-8 bytes. Must match the exact mesh-bearing object in <code>scene.usdz</code>.</td></tr><tr><td><code>localizations.<wbr>&lt;lang&gt;.<wbr>tvTitles</code></td><td>Optional translations keyed by each TV’s <code>id</code>.</td></tr></tbody></table></section>
+
+    <section class="doc-section" id="check"><p class="lesson-label">Verify</p><h2>Pack, check, and test on Apple Vision Pro</h2><p>Pack your complete Package v2 directory and run both the package validator and the macOS Room checker with <code>--current-app-version 1.4.9</code> (or later):</p><pre><code>python3 tools/pack_locusplace.py --current-app-version 1.4.9 \
+  /absolute/path/to/MyRoomDir /absolute/path/to/MyRoom.locusplace
+
+python3 tools/check_room.py --current-app-version 1.4.9 \
+  --renders /absolute/path/to/my-room-renders \
+  /absolute/path/to/MyRoom.locusplace</code></pre><p><code>tools/check_room.py</code> verifies that every screen is one flat two-triangle quad, is not nested inside another bound entity, has 16:9 proportions, non-emissive off-state materials, clean UVs, and a nearby facing seat. Fix any errors or warnings in the 3D source before importing.</p><ol class="step-list"><li><strong>Transfer the packed <code>.locusplace</code></strong> to iCloud Drive or AirDrop it to Apple Vision Pro.</li><li><strong>Import via Places → Import → Import a Room → Files</strong>, then open it in Virtual Space.</li><li><strong>Sit in every TV-facing seat.</strong> Look at the screen, pinch to turn it on, test <strong>Play on TV</strong> from Locus Browser and <strong>Open in Window</strong>, and verify remote reach and viewing comfort.</li></ol></section>
+
+    <section class="doc-section" id="tips"><h2>Design tips and limits</h2><ul><li><strong>Maximum 4 TVs per Room.</strong> Each TV needs a distinct <code>id</code> and a distinct <code>entityName</code>.</li><li><strong>No audio or video asset files are needed.</strong> Unlike <code>videoSurfaces</code> (which loop a packaged <code>.mp4</code>), TVs stream live web content and have no <code>luminaireGroupID</code>.</li><li><strong>Size against the viewing distance.</strong> At a 2.5–3 m sofa distance, a 65–75 inch diagonal screen feels natural without crowding the room’s proportions.</li></ul><div class="link-grid"><a class="link-card" href="../reference/locus-asset-format/#room-tvs-locus-149-or-later"><strong>Room TV field specification</strong><span>Exact schema rules, entity bindings, and checker behavior.</span></a><a class="link-card" href="../reference/locusplace-format/"><strong>Complete Package v2 guide</strong><span>Archive layout, packing, and validation commands.</span></a><a class="link-card" href="../make-a-room/#tv"><strong>Make your own Room</strong><span>Six-step AI Room workflow with TV prompts.</span></a><a class="link-card" href="https://github.com/EnterLocus/locus-support/tree/main/.agents/skills/build-original-locus-room/references/room-tvs.md"><strong>Room skill TV reference</strong><span>The exact contract followed by the build-original-locus-room skill.</span></a></div></section>
+
+    <nav class="tutorial-pagination" aria-label="Tutorial navigation"><a href="../make-a-room/"><span>Previous</span><strong>Make your own Room</strong></a><a href="../make-a-day-night-view/"><span>Next</span><strong>Make a day-and-night View</strong></a></nav>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../whats-new/">What’s New</a><a href="../gallery/">Gallery</a><a href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>
