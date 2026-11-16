@@ -240,6 +240,7 @@ class BuildAViewSkillTests(unittest.TestCase):
                 "validate_locusplace.py",
                 "--current-app-version",
                 "sunFreeSky",
+                "sun-sky-mask.png",
                 "panoramaBlend",
                 "gpuTextures",
                 "shore",
@@ -669,6 +670,10 @@ class CleanRoomViewEndToEndTests(unittest.TestCase):
             "startHour": 9,
             "dayDurationSeconds": 3600,
             "maxElevationDegrees": 60,
+            "disc": {
+                "skyMask": "sun-sky-mask.png",
+                "angularSizeDegrees": 0.53,
+            },
             "daySky": {"haze": 0.25, "exposure": 1.0},
             "panoramaGrade": {
                 "stops": [
@@ -699,6 +704,52 @@ class CleanRoomViewEndToEndTests(unittest.TestCase):
             },
             require,
             minimum=(1, 4, 11),
+        )
+
+        # Validate the two-mask cloud-preserving daylight View contract without numpy.
+        two_mask_assets = {
+            "sky-mask.png": _gray8_png(32, 16, 255),
+            "sun-sky-mask.png": _gray8_png(32, 16, 128),
+        }
+
+        def check_gray_mask(rel: str, field: str, *, grayscale: bool = False) -> None:
+            require(grayscale, f"{field} must require grayscale=True")
+            raw = two_mask_assets.get(rel)
+            require(raw is not None and raw.startswith(b"\x89PNG\r\n\x1a\n"), f"{field}: missing PNG {rel}")
+            width, height, bit_depth, color_type, *_ = struct.unpack(">IIBBBBB", raw[16:29])
+            require((bit_depth, color_type) == (8, 0) and width == height * 2, f"{field}: invalid 2:1 gray8 PNG")
+
+        two_mask_sun_path = {
+            "sunFreeSky": True,
+            "startHour": 9,
+            "dayDurationSeconds": 3600,
+            "maxElevationDegrees": 32,
+            "disc": {"skyMask": "sun-sky-mask.png", "angularSizeDegrees": 0.53},
+            "daySky": {"haze": 0.25, "exposure": 1.0},
+            "panoramaGrade": {
+                "stops": [
+                    {"elevationDegrees": -18, "color": [0.005, 0.008, 0.013]},
+                    {"elevationDegrees": 0, "color": [0.56, 0.35, 0.22]},
+                    {"elevationDegrees": 32, "color": [1.0, 1.0, 1.0]},
+                ]
+            },
+            "light": {
+                "stops": [
+                    {"elevationDegrees": -18, "color": [0.01, 0.015, 0.025], "ambientEV": -3.0},
+                    {"elevationDegrees": 0, "color": [1.0, 0.58, 0.32], "ambientEV": -0.8},
+                    {"elevationDegrees": 32, "color": [1.0, 1.0, 1.0], "ambientEV": 0.0},
+                ]
+            },
+        }
+        check_gray_mask("sky-mask.png", "sky.mask", grayscale=True)
+        sun_path_contract.validate_definition(two_mask_sun_path, require, check_gray_mask)
+        sun_path_contract.validate_day_night_destination(
+            {
+                "sky": {"mask": "sky-mask.png", "stars": {"twinkle": 0.8}},
+                "environment": {"sunPath": two_mask_sun_path},
+            },
+            require,
+            minimum=(1, 4, 9),
         )
 
     def test_clean_room_midground_usdz_with_flowing_water_and_motion(self):

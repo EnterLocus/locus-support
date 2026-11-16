@@ -114,6 +114,34 @@ Contract: `tools/sun_path_contract.py` (`1.3.0+`).
   retaining required `sky` and `daySky` blocks; Locus hides procedural stars,
   Moon, and blue sky while preserving the 24-hour clock, `panoramaBlend`,
   `panoramaGrade`, and dynamic Room/midground light.
+- **Preserving painted clouds with procedural sky & variable sun behind clouds (`1.4.9+`)**:
+  to retain painted clouds (and reflections on matching scenes) while letting
+  clear sky gaps shift from blue daylight to stars and the Milky Way—and letting
+  the solar disc and glare shine faintly through clouds according to cloud
+  thickness—split the two masks (`2:1` 8-bit grayscale PNGs, `color_type == 0`,
+  max width `4096`, periodic across `±180°`):
+  - **`sky.mask`**: set white (`255`) **only** in open clear-sky blue gaps and
+    black (`0`) inside painted clouds and terrain/horizon silhouettes. Drive the
+    blue-sky transition with a conservative clearness ramp (for example
+    `smoothstep(0.36, 0.90) ** 1.15` with ~`0.3–0.5 px` Gaussian feathering and
+    a horizon haze taper) so procedural `daySky` and night sky blend cleanly
+    without dark cutout halos around wispy cloud borders.
+  - **`environment.sunPath.disc.skyMask`**: encode continuous cloud optical
+    thickness transmittance (`transmittance = exp(-k * optical ** p)`, for
+    example `k = 2.5`, `p = 1.2`)—`255` in open clear sky, mid-high grays
+    (`~115–215`) across thin cloud wisps so the sun disc shines softly through,
+    low grays (`~20–50`) behind thick cloud cores so only muted diffuse warmth
+    comes through, and `0` on solid terrain/horizon ridges with a `2–3 px`
+    upward ridge feather. Both solar disc opacity and glare multiply
+    continuously by `disc.skyMask`.
+  - **Golden-hour warmth, night clouds & heuristic check**: author warm
+    amber/golden stops across `0°..8°` in both `light` and `panoramaGrade`, and
+    keep deep-night `-12°..-18°` `panoramaGrade` stops low and cool (for example
+    around linear `[0.005, 0.008, 0.013]`) so retained clouds read as calm dark
+    silhouettes occluding stars instead of glowing bright grey. When retaining a
+    bright sunlit daytime panorama triggers `tools/sun_free_sky_check.py`,
+    visually confirm every finding is a sunlit cumulus top rather than a
+    painted sun before recording `sunFreeSky: true`.
 - **Worked example**: `destination.chalk-dune-dawn` (`1.4.0`, includes Blender
   source bundle in `data/place-examples.json`).
 
@@ -126,6 +154,10 @@ Contract: `tools/sun_path_contract.py` (`1.3.0+`).
       "startHour": 9,
       "dayDurationSeconds": 3600,
       "maxElevationDegrees": 60,
+      "disc": {
+        "skyMask": "sun-sky-mask.png",
+        "angularSizeDegrees": 0.53
+      },
       "daySky": {"haze": 0.25, "exposure": 1.0},
       "panoramaGrade": {
         "stops": [
