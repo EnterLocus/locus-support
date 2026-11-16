@@ -706,8 +706,10 @@ with `tools/validate_locusplace.py`, then unpack it to read real manifests. A
 source bundle is a ZIP with the Blender file, its textures and related source
 files. The [Gallery examples](../gallery/?examples) show the same downloads.
 
-Study and change the downloads, use them in Locus, and give them to an AI
-assistant as reference. Do not redistribute them, reuse their assets outside
-Locus, or train AI models on them. Atrium Loft, Courtyard Gallery and Horizon
-Atelier use CC BY 4.0; the others use the
+Study and change the downloads, and use them as templates, by hand or with an
+AI assistant, for your own Rooms and Views; what you make may be used anywhere,
+including commercially. Do not use an example's assets as they are or with only
+small changes in a commercial product or service, and do not re-upload the
+original files. Atrium Loft, Courtyard Gallery and Horizon Atelier use CC BY
+4.0; the others use the
 [Locus Example License](../asset-rights/#example-license).

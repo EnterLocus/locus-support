@@ -135,8 +135,13 @@ Check `byteCount`, download into scratch space, compare `shasum -a 256` with
 --current-app-version <target-version> <file>`, then unzip and read
 `locusplace.json` and `catalog/destinations/<destination-id>/destination.json`.
 
-Examples marked `LicenseRef-EnterLocus-Example` may be studied and used as
-reference context. Do not copy their panoramas, video, sound or other assets
-into the creator's View or deliverables, and do not redistribute them.
+Examples marked `LicenseRef-EnterLocus-Example` (version 1.1) may be studied,
+changed and used freely as templates for the creator's own Views, and what the
+creator makes may be used anywhere, including commercially. When the result
+will be part of a commercial product or service, or sold, replace the example's
+panoramas, video and sound with the creator's own: renamed, recoloured,
+rearranged or partly swapped example assets still count as the example. Never
+re-upload the original files (link to the Gallery page instead), and do not use
+Locus names, logos or app icons or imply endorsement by EnterLocus.com.
 Third-party components keep the terms in each `provenance.json`. Full terms:
 <https://enterlocus.com/asset-rights/#example-license>.

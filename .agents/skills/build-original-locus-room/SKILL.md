@@ -202,8 +202,8 @@ command exit code, or archive validation.
 ## Worked examples
 
 Finished Locus Places are published as worked examples. Study one that matches
-the brief before building, to see how a real Room solves the same problem; do
-not start the creator's Room from a copy.
+the brief before building, to see how a real Room solves the same problem, and
+use it freely as a template for the creator's own Room.
 
 - **Manifest:** <https://enterlocus.com/data/place-examples.json> (in a clone,
   `data/place-examples.json`). Each record has `packageID`, `kind` (`room` or
@@ -236,11 +236,19 @@ not start the creator's Room from a copy.
   materials, light layers, and export settings. When `sourceVersion` differs
   from the package `contentVersion`, the Blender file belongs to that other
   revision.
-- **License limits:** examples marked `LicenseRef-EnterLocus-Example` may be
-  studied and used as reference context. Do not copy their models, textures,
-  panoramas, video, music, or sound into the creator's Room, package, or
-  source, and do not redistribute them; build original work and record real
-  inputs in `provenance.json`. Atrium Loft, Courtyard Gallery, and Horizon
+- **License limits:** examples marked `LicenseRef-EnterLocus-Example` (version
+  1.1) may be studied, changed, and used as templates, by hand or by an agent,
+  for the creator's own Rooms and Views; what the creator makes may be used
+  anywhere, including commercially.
+  - When the result will be part of a commercial product or service, or sold,
+    replace the example's models, textures, panoramas, video, music, and sound
+    with the creator's own. Renamed, recoloured, rearranged, or partly swapped
+    example assets are only small changes and still count as the example.
+  - Never re-upload the original example files; link to the Gallery page.
+  - Do not use Locus names, logos, or app icons, or imply that the work is
+    official or endorsed by EnterLocus.com.
+  - Record the real inputs, including any example assets, in
+    `provenance.json`. Atrium Loft, Courtyard Gallery, and Horizon
   Atelier are CC BY 4.0, so their Locus-authored parts may be reused with the
   credit that license requires. Third-party components keep the terms named in
   each example's `provenance.json`. Full terms:
