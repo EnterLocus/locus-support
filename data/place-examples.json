@@ -371,6 +371,33 @@
       }
     },
     {
+      "packageID": "space.crossbeam-house",
+      "kind": "room",
+      "title": "Crossbeam House",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "water",
+        "flowing-water",
+        "light-layers"
+      ],
+      "package": {
+        "contentVersion": "1.0.4",
+        "minimumAppVersion": "1.4.9",
+        "fileName": "space.crossbeam-house-1.0.4.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.crossbeam-house/space.crossbeam-house-1.0.4.locusplace",
+        "byteCount": 48350699,
+        "sha256": "7b6449fc7e715dde157aeeb3d0ae8ad5a05df31f4f62fa6491eff9060b6faa28"
+      },
+      "source": {
+        "sourceVersion": "1.0.4",
+        "blenderVersion": "5.2.1",
+        "fileName": "space.crossbeam-house-source-1.0.4.zip",
+        "url": "https://media.enterlocus.net/examples/space.crossbeam-house/space.crossbeam-house-source-1.0.4.zip",
+        "byteCount": 22715893,
+        "sha256": "3ce5d23688ebc3faf367a52d9c6ddf83a40f7a307035e411852b794621cbcc56"
+      }
+    },
+    {
       "packageID": "destination.emerald-grotto",
       "kind": "view",
       "title": "Emerald Grotto",
@@ -671,7 +698,14 @@
         "byteCount": 35410298,
         "sha256": "2d297d725aa56047f7061cbe28338998831db8282f483a788a9ffa5ee5817a89"
       },
-      "source": null
+      "source": {
+        "sourceVersion": "1.0.3",
+        "blenderVersion": "5.2.1",
+        "fileName": "destination.moonlit-silvergrass-ridge-source-1.0.3.zip",
+        "url": "https://media.enterlocus.net/examples/destination.moonlit-silvergrass-ridge/destination.moonlit-silvergrass-ridge-source-1.0.3.zip",
+        "byteCount": 17125624,
+        "sha256": "7989bff31314ff1ab00fee06bda892917ffa40ea275b59564b90d556a45ea37a"
+      }
     },
     {
       "packageID": "destination.chalk-dune-dawn",
@@ -690,7 +724,14 @@
         "byteCount": 123901511,
         "sha256": "8a8fa5e92366f01bca2cc5cd4ca5edc63793aa246538b83c9f66e538605c915d"
       },
-      "source": null
+      "source": {
+        "sourceVersion": "1.4.0",
+        "blenderVersion": "5.2.1",
+        "fileName": "destination.chalk-dune-dawn-source-1.4.0.zip",
+        "url": "https://media.enterlocus.net/examples/destination.chalk-dune-dawn/destination.chalk-dune-dawn-source-1.4.0.zip",
+        "byteCount": 20333533,
+        "sha256": "70fe9af47fac1cdaa61b18687636aefa54d7ec422a3f1cdf6f79f14fd4868662"
+      }
     }
   ]
 }
