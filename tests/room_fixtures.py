@@ -103,6 +103,20 @@ def _plane_mesh(box: dict) -> str:
     return _mesh_body(points, [4], [0, 1, 2, 3])
 
 
+def _screen_mesh(box: dict) -> str:
+    """A Room TV screen: one zero-thickness quad in the YZ plane, facing +X,
+    with 0-1 UVs (u toward -Z, the watcher's right; v up)."""
+    cx, cy, cz = box["center"]
+    _, sy, sz = box["size"]
+    points = ["(%s, %s, %s)" % (_number(cx), _number(cy + v * sy / 2), _number(cz - u * sz / 2))
+              for u, v in ((-1, -1), (1, -1), (1, 1), (-1, 1))]
+    return _mesh_body(points, [4], [0, 1, 2, 3]) + (
+        "            texCoord2f[] primvars:st = [(0, 0), (1, 0), (1, 1), (0, 1)] (\n"
+        '                interpolation = "vertex"\n'
+        "            )\n"
+    )
+
+
 def _mesh_body(points, counts, indices) -> str:
     return (
         "            int[] faceVertexCounts = [%s]\n"
@@ -146,7 +160,8 @@ def _prim(box: dict, boxes: List[dict], depth: int) -> str:
                      % ((pad,) + tuple(map(_number, box["translate"]))))
         lines.append('%s    uniform token[] xformOpOrder = ["xformOp:translate"]' % pad)
     if shape != "group":
-        body = _plane_mesh(box) if shape == "plane" else _box_mesh(box)
+        body = (_plane_mesh(box) if shape == "plane"
+                else _screen_mesh(box) if shape == "screen" else _box_mesh(box))
         material = box.get("material")
         header = '%s    def Mesh "%s_Geometry"' % (pad, box["name"])
         if material is not None:
@@ -170,8 +185,8 @@ def room_usda(boxes: List[dict], materials: Optional[Dict[str, tuple]] = None,
               extra: str = "") -> bytes:
     """A Y-up, meter-scale stage shaped like Blender's export: `/root` holds
     one Xform per object with a `<name>_Geometry` mesh child. A box may set
-    `parent` (nest inside another Xform), `shape` ("box", "plane" or
-    "group" for an Xform without a mesh) and `doubleSided`."""
+    `parent` (nest inside another Xform), `shape` ("box", "plane", "screen"
+    or "group" for an Xform without a mesh) and `doubleSided`."""
     materials = MATERIALS if materials is None else materials
     parts = [
         '#usda 1.0\n(\n    defaultPrim = "root"\n    metersPerUnit = 1\n'

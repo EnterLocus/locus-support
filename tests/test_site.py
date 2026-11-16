@@ -1430,7 +1430,10 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("Show me the plan", page)
         self.assertIn("Make a floor plan and seat layout", page)
         self.assertNotIn("Draw a floor plan", page)
-        self.assertEqual(page.count('<strong class="prompt-label">Prompt for your agent</strong><q>'), 5)
+        # Five step prompts, then three in the optional Add a TV section.
+        self.assertEqual(page.count('<strong class="prompt-label">Prompt for your agent</strong><q>'), 8)
+        self.assertLess(page.index('id="iterate"'), page.index('id="tv"'))
+        self.assertIn('href="#tv"', page)
         self.assertIn("Copy them into your agent session and send them to the agent.", page)
         self.assertNotIn("python3 tools/check_room.py", page)
         self.assertNotIn("Blender MCP is not required", page)

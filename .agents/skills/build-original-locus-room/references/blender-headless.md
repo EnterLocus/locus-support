@@ -3,7 +3,9 @@
 Use this route when a coding agent creates a Room from the selected concept
 image and metric layout without an explicitly chosen authoring tool. It
 requires an installed Blender executable, permission to run local scripts, and
-an image-capable tool to inspect saved renders. It does not require an open
+an image-capable tool to inspect saved renders. If Blender fails to start or
+hangs inside a restrictive agent sandbox, run the same command outside it. It
+does not require an open
 Blender window, an MCP server, or a person operating the viewport. Preserve a
 creator's explicit choice of another tool.
 

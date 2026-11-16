@@ -17,6 +17,12 @@ key, or a particular image-model vendor. Commands below are relative to the
 public repository root. Use Python 3.9 or later and pass the Locus version
 being targeted to `--current-app-version`.
 
+Headless Blender, its bundled Python, and the Swift tools that the validators
+and checker compile may fail to start, hang, or fail to write their module
+cache inside a restrictive agent sandbox. When that happens, run the same
+command outside the sandbox through whatever permission your environment
+provides for local tools; do not change the command or skip the check.
+
 Package a Room and a View as separate Package v2 import archives with separate
 stable `packageID` values. This is the default even when they are designed as a
 pair: each archive can then be replaced, removed, and iterated without changing
@@ -41,7 +47,7 @@ the canonical online contracts.
 | --- | --- | --- |
 | 1. Choose a concept image | The creator supplies or selects one clear visual target. | [Concept and brief](references/concept-and-brief.md) and [design language](references/design-language.md) |
 | 2. Derive a metric layout | The agent turns that image into a buildable floor plan and seat layout before modeling. | [Concept and brief](references/concept-and-brief.md) and [larger Rooms](references/larger-rooms.md) |
-| 3. Build, review, and package | The agent models from both inputs, repairs the editable source, and produces a checked Room-only Package v2 archive plus portable editable source. | [Headless Blender](references/blender-headless.md), [materials and export](references/materials-and-export.md), [lighting and glass](references/lighting-and-glass.md), and [Package v2 delivery](references/package-v2.md) |
+| 3. Build, review, and package | The agent models from both inputs, repairs the editable source, and produces a checked Room-only Package v2 archive plus portable editable source. | [Headless Blender](references/blender-headless.md), [materials and export](references/materials-and-export.md), [lighting and glass](references/lighting-and-glass.md), [Room TVs](references/room-tvs.md), and [Package v2 delivery](references/package-v2.md) |
 | 4. Check on Apple Vision Pro and iterate | The creator checks the exact archive on the physical device and sends screenshots and concrete findings back to the agent for revisions. | [Device preview and report](references/device-preview-and-report.md) |
 
 ## 1. Choose a concept image
@@ -60,7 +66,7 @@ model or export a skybox sphere, curved backdrop/cyclorama, scenery card, or
 distant terrain mesh inside the Room's `scene.usdz`.
 
 Record the Room's intended purpose, each seat and its purpose, desk-backed
-seats, visitor-controlled lamps, optional animation or sound, and a rights
+seats, visitor-controlled lamps, optional TVs, animation or sound, and a rights
 inventory for every supplied or incorporated asset. Record material AI use
 truthfully in `provenance.json`: `aiGenerated: true` names every materially
 contributing generative provider in `aiProvider`; a DCC, renderer, exporter,
@@ -83,6 +89,12 @@ lounge seat, define the relaxed view and circulation around it. Include the
 principal comparison camera's eye height, direction, framing, and field of
 view. The plan must make each path, seat surround, ceiling height, and opening
 reviewable before detail work begins.
+
+When the Room has a natural place to sit and watch, such as a living room
+sofa, media room, den or bedroom, offer a TV; Room TVs require Locus 1.4.9 or
+later. Plan each TV with the seats that watch it: size it by viewing distance,
+face it toward its main seat, keep its center near seated eye level, and leave
+the area under it clear for the remote. See [Room TVs](references/room-tvs.md).
 
 ## 3. Build from the image and layout, then package the result
 
@@ -122,6 +134,11 @@ nearby architecture: bake its contribution into intentional opaque receiving
 surfaces. Use one baked layer per independently switchable, dimmable, or
 recolorable luminaire group; a single shared atlas is only appropriate for
 light that is controlled solely by Room master/overall EV.
+
+Model each TV screen as one flat 16:9 quad of its own, with its own UVs and a
+non-emissive off-state material, set a few millimetres in front of its frame.
+Declare it in `tvs` and set `minimumAppVersion` to `1.4.9` or later, as
+described in [Room TVs](references/room-tvs.md).
 
 Before delivery, follow [Flicker prevention](references/flicker-prevention.md):
 avoid duplicate and near-coplanar surfaces, run the public geometry audit on
@@ -165,7 +182,7 @@ python3 tools/check_room.py --current-app-version <target-version> \
 
 Read every checker warning and inspect the complete render contact sheet. In
 `check_room.py` renders, clear windows and openings are expected to show the
-checker's neutral gray lighting scaffold rather than outdoor scenery; painted
+checker's plain dark, near-black background rather than outdoor scenery; painted
 mountains or sky through a window mean an exported backdrop mesh is blocking
 the View. `--current-app-version` and the explicit `--renders` directory are
 required evidence for this handoff. Correct the editable source, rebuild,
@@ -185,6 +202,7 @@ focal point, clipping, facing direction, and usable path. For every desk-backed
 seat, check tabletop alignment and **Hide Desk** when declared; its group must
 contain the table and everything resting on it. Try every light control and,
 if present, each experimental animation switch, speed, and replay interval.
+Turn on every TV from the seats that watch it, using Locus 1.4.9 or later.
 
 The creator sends the archive hash, screenshots or recordings, and concrete
 observations to the agent. For example, record when a lamp flickers or show a

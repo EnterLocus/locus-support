@@ -18,6 +18,7 @@ Simulator.
    declared. Confirm that the hidden group contains all table-top objects.
 6. Try every light control and, if present, every experimental animation
    switch, speed, and replay interval.
+   For each TV, follow the device review in [Room TVs](room-tvs.md).
 7. Check actual appearance, scale, reach, readability, material appearance,
    comfort, and lighting in the conditions the Room is designed for.
 
@@ -56,7 +57,7 @@ Include:
 - archive filename and SHA-256;
 - `packageID`, space ID, `contentVersion`, and target app version;
 - exact `check_room.py` result and retained render contact sheet;
-- evidence for import, Preview in 3D, each seat, each lamp, and Hide Desk;
+- evidence for import, Preview in 3D, each seat, each lamp, each TV, and Hide Desk;
 - device model and conditions for physical checks; and
 - every warning, unavailable test, or `not verified` item with the next action.
 

@@ -178,6 +178,11 @@ VIEW_MIDGROUND_VISIBILITIES = {"all", "terrainOnly", "hidden"}
 # or with several unless an authored virtual-space Experience names one, and
 # require every virtual-space Experience to name an opening.
 OPTIONAL_VIEW_OPENINGS_MINIMUM_APP = (1, 4, 5)
+# Room `tvs` (`locus.room.tv.v1`), mirrored by SpacePackage.tvMinimumAppVersion
+# and PackageV2Store's `validate(_ tvs:)`. Takes precedence over every earlier
+# floor (`videoSurfaces` 1.2.1, seat groups 1.2.0, sound 1.1.4).
+ROOM_TV_MINIMUM_APP = (1, 4, 9)
+ROOM_TV_MAXIMUM = 4
 
 
 def requires_optional_view_openings_reader(spaces, experiences) -> bool:
@@ -1417,6 +1422,41 @@ def validate_video_surfaces(
     return videos
 
 
+def validate_room_tvs(
+    base: str, tvs: Any, *, minimum_app: tuple[int, int, int],
+) -> list[str]:
+    """A Room's `tvs` ("Room TVs" in the field reference): a screen-quad
+    entity per TV, no asset files. Returns every `entityName`, for the caller
+    to resolve against `scene.usdz`."""
+    context = f"{base}.tvs"
+    require(
+        minimum_app >= ROOM_TV_MINIMUM_APP,
+        "tvs requires minimumAppVersion >= 1.4.9",
+    )
+    require(
+        isinstance(tvs, list) and 0 < len(tvs) <= ROOM_TV_MAXIMUM,
+        f"{context} must contain 1 to {ROOM_TV_MAXIMUM} TVs",
+    )
+    ids: set[str] = set()
+    names: set[str] = set()
+    for index, tv in enumerate(tvs):
+        tv_context = f"{context}[{index}]"
+        require(isinstance(tv, dict), f"{tv_context} must be an object")
+        exact_keys(
+            tv, required={"id", "displayName", "entityName"}, optional=set(),
+            context=tv_context,
+        )
+        require(valid_video_surface_identifier(tv["id"]), f"{tv_context}.id is invalid")
+        require(tv["id"] not in ids, f"{context}.id contains duplicate value {tv['id']}")
+        ids.add(tv["id"])
+        require_text(tv["displayName"], f"{tv_context}.displayName", 200)
+        require_text(tv["entityName"], f"{tv_context}.entityName", 200)
+        require(tv["entityName"] not in names,
+                f"{context}.entityName contains duplicate value {tv['entityName']}")
+        names.add(tv["entityName"])
+    return [tv["entityName"] for tv in tvs]
+
+
 def validate_baked_light_layers(
     value: Any, luminaire_group_ids: set[str], context: str
 ) -> set[str]:
@@ -2370,6 +2410,7 @@ def validate_payload(
             "animationTitles": title_ids(destination.get("ambientAnimations")),
             "videoTitles": title_ids(destination.get("videoSurfaces")),
             "particleTitles": title_ids(destination.get("particleEffects")),
+            "tvTitles": set(),
         })
         for field in ("depthLayers", "splat", "audio"):
             require(
@@ -3538,6 +3579,13 @@ def validate_payload(
             )
             validate_particle_effects(
                 space["particleEffects"], f"{base}.particleEffects")
+        tv_names: list[str] = []
+        if "tvs" in space:
+            tv_names = validate_room_tvs(
+                base, space["tvs"],
+                minimum_app=parse_version(
+                    manifest["minimumAppVersion"], "minimumAppVersion"),
+            )
         if "spatialAdaptation" in space:
             validate_spatial_adaptation(
                 space["spatialAdaptation"], teleport_ids,
@@ -3552,8 +3600,18 @@ def validate_payload(
             "animationTitles": title_ids(space.get("ambientAnimations")),
             "videoTitles": title_ids(space.get("videoSurfaces")),
             "particleTitles": title_ids(space.get("particleEffects")),
+            "tvTitles": title_ids(space.get("tvs")),
         })
-        actual = validate_usdz(archive, infos[scene], scene)
+        scene_prim_names: set[str] | None = set() if tv_names else None
+        actual = validate_usdz(archive, infos[scene], scene, scene_prim_names)
+        # A mistyped screen name would leave the TV unplayable: every `tvs`
+        # entityName is an entity of `scene.usdz`. That it is mesh-bearing
+        # is the Room binding check's (`tools/room-bindings/`).
+        for name in tv_names:
+            require(
+                name in (scene_prim_names or set()),
+                f"{base}.tvs entity {name!r} is not an entity of {scene}",
+            )
         if room_bindings.references_entities(space):
             binding_rooms.append((f"{base}/space.json", scene))
         if collision_asset is not None:
@@ -3576,7 +3634,8 @@ def validate_payload(
         validate_display_localizations(experience, base, {
             field: set() for field in (
                 "seatTitles", "seatGroupTitles", "soundTitles", "mediaTitles",
-                "lightTitles", "animationTitles", "videoTitles", "particleTitles")
+                "lightTitles", "animationTitles", "videoTitles", "particleTitles",
+                "tvTitles")
         })
         destination_id = experience.get("destinationID")
         require(valid_identifier(destination_id), f"{base}.destinationID is invalid")
