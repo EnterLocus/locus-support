@@ -159,7 +159,9 @@ class MatchRuleTests(unittest.TestCase):
 
     def test_shows_current_or_older_installable_revisions_only(self):
         places = {place['id']: place for place in self.gallery['places']}
-        by_place, extras = place_examples.match(self.gallery, self.manifest)
+        manifest = copy.deepcopy(self.manifest)
+        example(manifest, 'space.hilltop-villa')['package']['contentVersion'] = places['space.hilltop-villa']['contentVersion']
+        by_place, extras = place_examples.match(self.gallery, manifest)
         # Hilltop Villa's package is the Gallery revision; Lakeside Cabin's is older.
         self.assertEqual(by_place['space.hilltop-villa']['package']['contentVersion'],
                          places['space.hilltop-villa']['contentVersion'])
@@ -203,8 +205,10 @@ class RenderingTests(unittest.TestCase):
 
     def test_upcoming_revision_shows_before_its_app_is_public(self):
         item = example(self.manifest, 'space.hilltop-villa')
-        self.assertLess(place_examples.version(self.gallery['appVersion']), place_examples.version('1.5.0'))
-        page = render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, 'en', item)
+        prior_gallery = copy.deepcopy(self.gallery)
+        prior_gallery['appVersion'] = '1.4.7'
+        self.assertLess(place_examples.version(prior_gallery['appVersion']), place_examples.version('1.5.0'))
+        page = render_gallery.place_page(self.places['space.hilltop-villa'], prior_gallery, 'en', item)
         self.assertIn('>Coming in Locus 1.5.0</h3>', page)
         self.assertIn('1.0.17 · ZIP file (.locusplace) · 118.3 MB · Locus\u00a01.5.0 or later', page)
         self.assertIn(item['upcoming']['source']['url'], page)

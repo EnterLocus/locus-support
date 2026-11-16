@@ -2286,6 +2286,36 @@
       "url": "https://github.com/EnterLocus/locus-support/releases/download/skybox-comparison-2026-11-13/nano-banana-21-repairs-672-7936001386c3.jpg",
       "byteCount": 91065,
       "sha256": "7936001386c3cc4979bf57fb0e79bf923e6578f969fc4272e7aba8536cde69f0"
+    },
+    {
+      "path": "assets/gallery/library-8036062ee7303a5b3d45ff8fd0b660979a8f9393e55daf418c70e90546128c33.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-8036062ee7303a5b3d45ff8fd0b660979a8f9393e55daf418c70e90546128c33.jpg",
+      "byteCount": 76782,
+      "sha256": "8036062ee7303a5b3d45ff8fd0b660979a8f9393e55daf418c70e90546128c33"
+    },
+    {
+      "path": "assets/gallery/library-38b9c4fa5ee0f93c1b4ba70346e95ed44bb6d44dafa7e9cd9314f4a2fe6a94a2.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-38b9c4fa5ee0f93c1b4ba70346e95ed44bb6d44dafa7e9cd9314f4a2fe6a94a2.jpg",
+      "byteCount": 214082,
+      "sha256": "38b9c4fa5ee0f93c1b4ba70346e95ed44bb6d44dafa7e9cd9314f4a2fe6a94a2"
+    },
+    {
+      "path": "assets/gallery/library-22bd52b0ff37cdbe2cdcf89957248b8e2793f5d4f49a3c45b72cb0e2f3fe5541.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-22bd52b0ff37cdbe2cdcf89957248b8e2793f5d4f49a3c45b72cb0e2f3fe5541.jpg",
+      "byteCount": 221457,
+      "sha256": "22bd52b0ff37cdbe2cdcf89957248b8e2793f5d4f49a3c45b72cb0e2f3fe5541"
+    },
+    {
+      "path": "assets/gallery/library-a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85.jpg",
+      "byteCount": 187127,
+      "sha256": "a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85"
+    },
+    {
+      "path": "assets/gallery/library-84c7cdc9fcc80d665ced3fab0466b033067755ef95b70eaaa892a0fc73d94c8d.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-84c7cdc9fcc80d665ced3fab0466b033067755ef95b70eaaa892a0fc73d94c8d.jpg",
+      "byteCount": 194020,
+      "sha256": "84c7cdc9fcc80d665ced3fab0466b033067755ef95b70eaaa892a0fc73d94c8d"
     }
   ]
 }
