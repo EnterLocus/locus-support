@@ -248,11 +248,12 @@ use it freely as a template for the creator's own Room.
   - Do not use Locus names, logos, or app icons, or imply that the work is
     official or endorsed by EnterLocus.com.
   - Record the real inputs, including any example assets, in
-    `provenance.json`. Atrium Loft, Courtyard Gallery, and Horizon
-  Atelier are CC BY 4.0, so their Locus-authored parts may be reused with the
-  credit that license requires. Third-party components keep the terms named in
-  each example's `provenance.json`. Full terms:
-  <https://enterlocus.com/asset-rights/#example-license>.
+    `provenance.json`.
+  - Atrium Loft, Courtyard Gallery, and Horizon Atelier are CC BY 4.0, so
+    their Locus-authored parts may be reused with the credit that license
+    requires. Third-party components keep the terms named in each example's
+    `provenance.json`.
+  - Full terms: <https://enterlocus.com/asset-rights/#example-license>.
 
 ## License
 
