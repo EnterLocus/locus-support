@@ -165,7 +165,7 @@ class RenderingTests(unittest.TestCase):
         page = render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, 'en', item)
         self.assertIn(item['package']['url'], page)
         self.assertIn(item['source']['url'], page)
-        self.assertIn('1.0.14 · 117.8 MB · Locus 1.4.5 or later', page)
+        self.assertIn('1.0.14 · ZIP file (.locusplace) · 117.8 MB · Locus 1.4.5 or later', page)
         self.assertIn('For version 1.0.17 · Blender 5.0.1 · 1.4 GB', page)
         self.assertIn('Light layers', page)
         self.assertIn('href="/asset-rights/#example-license">Locus Example License</a>', page)
@@ -186,7 +186,7 @@ class RenderingTests(unittest.TestCase):
             with self.subTest(locale=locale):
                 page = render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, locale, item)
                 copy_ = render_gallery.EXAMPLE_COPY[locale]
-                for key in ('files', 'package', 'source', 'license'):
+                for key in ('files', 'package', 'zip', 'source', 'license'):
                     self.assertIn(copy_[key], page)
                 self.assertIn(render_gallery.FEATURE_COPY[locale]['generated-furniture'], page)
                 prefix = '' if locale == 'en' else f'/{locale}'
