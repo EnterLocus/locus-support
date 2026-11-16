@@ -25,7 +25,7 @@ import urllib.parse
 import zipfile
 import zlib
 from pathlib import Path, PurePosixPath
-from typing import Any, BinaryIO
+from typing import Any, BinaryIO, Callable
 
 from content_localization import LocalizationError, validate_localizations
 
@@ -170,6 +170,7 @@ def valid_identifier(value: Any) -> bool:
 # authored floor-offset range, mirrored by SpacePackage in the viewer.
 VIEW_GROUND_MINIMUM_APP = (1, 4, 4)
 VIEW_GROUND_MAXIMUM_FLOOR_OFFSET_METERS = 100
+VIEW_GROUND_FOOTPRINT_MINIMUM_APP = (1, 4, 5)
 VIEW_MIDGROUND_VISIBILITY_MINIMUM_APP = (1, 4, 4)
 VIEW_MIDGROUND_VISIBILITIES = {"all", "terrainOnly", "hidden"}
 # Optional Room `destinationOpenings` and Experience `destinationOpeningID`,
@@ -178,11 +179,36 @@ VIEW_MIDGROUND_VISIBILITIES = {"all", "terrainOnly", "hidden"}
 # or with several unless an authored virtual-space Experience names one, and
 # require every virtual-space Experience to name an opening.
 OPTIONAL_VIEW_OPENINGS_MINIMUM_APP = (1, 4, 5)
+# Room `textureFlow` (`locus.room.texture-flow.v1`), mirrored by
+# SpacePackage.textureFlowMinimumAppVersion and PackageV2Store's
+# `validate(_ textureFlow:)`. Count and speed limits are the View field's.
+ROOM_TEXTURE_FLOW_MINIMUM_APP = (1, 4, 5)
 # Room `tvs` (`locus.room.tv.v1`), mirrored by SpacePackage.tvMinimumAppVersion
 # and PackageV2Store's `validate(_ tvs:)`. Takes precedence over every earlier
 # floor (`videoSurfaces` 1.2.1, seat groups 1.2.0, sound 1.1.4).
 ROOM_TV_MINIMUM_APP = (1, 4, 9)
 ROOM_TV_MAXIMUM = 4
+# Flowing water, a View's `midground.flowingWater` and a Room's
+# `flowingWater` (`locus.view.midground.flowing-water.v1`,
+# `locus.room.flowing-water.v1`). Mirrors FlowingWaterDefinition in
+# viewer/LocusViewer/Models/FlowingWaterDefinition.swift; keep both in sync.
+FLOWING_WATER_MINIMUM_APP = (1, 4, 9)
+FLOWING_WATER_MAXIMUM_ENTRIES = 16
+FLOWING_WATER_MAXIMUM_WHITENESS = 1.5
+FLOWING_WATER_MAXIMUM_SHELLS = 2
+# Optional author multipliers of one entry: (field, lower, upper).
+FLOWING_WATER_AMOUNTS = (
+    ("ripple", 0.0, 1.0),
+    ("speed", 0.25, 2.0),
+    ("brightness", 0.0, 4.0),
+    ("mist", 0.0, 2.0),
+    ("spray", 0.0, 2.0),
+)
+FLOWING_WATER_MAXIMUM_PLUNGES = 8
+FLOWING_WATER_PLUNGE_WIDTH_RANGE = (0.2, 20.0)
+FLOWING_WATER_PLUNGE_HEIGHT_RANGE = (0.3, 30.0)
+FLOWING_WATER_MAXIMUM_COORDINATE = 10000
+FLOWING_WATER_MAXIMUM_YAW_DEGREES = 360
 
 
 def requires_optional_view_openings_reader(spaces, experiences) -> bool:
@@ -1070,6 +1096,47 @@ def require_media_video_pixel_format(
     require_limited_range_color(entry_payload, path)
 
 
+def media_video_dimensions(archive: zipfile.ZipFile, info: zipfile.ZipInfo, path: str) -> tuple[int, int]:
+    """Return the stored display extent for a validated media-video track.
+
+    `media.dayNight` uses the decoded video extent as the exact image-pair
+    extent. The media profile already admits only one H.264/HEVC visual track;
+    reject a rotated track rather than silently swapping its authored maps.
+    """
+    moov = mp4_moov_payload(archive, info, path)
+    for box_type, trak in mp4_child_boxes(moov, path):
+        if box_type != b"trak":
+            continue
+        mdia = mp4_first_child(trak, b"mdia", path)
+        minf = mp4_first_child(mdia, b"minf", path)
+        stbl = mp4_first_child(minf, b"stbl", path)
+        stsd = mp4_first_child(stbl, b"stsd", path)
+        if stsd is None or len(stsd) < 8:
+            continue
+        visual = next((entry for entry in mp4_child_boxes(stsd[8:], path)
+                       if entry[0] in VISUAL_SAMPLE_ENTRY_TYPES), None)
+        if visual is None:
+            continue
+        entry = visual[1]
+        require(len(entry) >= VISUAL_SAMPLE_ENTRY_FIXED_BYTES,
+                f"malformed MP4 visual sample entry: {path}")
+        width, height = struct.unpack_from(">HH", entry, 24)
+        require(width > 0 and height > 0,
+                f"media video dimensions are unavailable: {path}")
+        tkhd = mp4_first_child(trak, b"tkhd", path)
+        require(tkhd is not None and len(tkhd) >= 4,
+                f"media video track header is missing: {path}")
+        version = tkhd[0]
+        matrix_offset = 40 if version == 0 else 52 if version == 1 else -1
+        require(matrix_offset >= 0 and len(tkhd) >= matrix_offset + 36,
+                f"media video track transform is malformed: {path}")
+        a, b, _, c, d, _, _, _, _ = struct.unpack_from(">9i", tkhd, matrix_offset)
+        require((a, b, c, d) == (0x10000, 0, 0, 0x10000),
+                f"media.dayNight video must have a nonrotated preferred transform: {path}")
+        return width, height
+    raise ValidationError(f"media video dimensions are unavailable: {path}")
+
+
 def require_https(value: Any, field: str) -> None:
     require(isinstance(value, str), f"{field} must be an HTTPS URL")
     parsed = urllib.parse.urlsplit(value)
@@ -1425,7 +1492,7 @@ def validate_video_surfaces(
 def validate_room_tvs(
     base: str, tvs: Any, *, minimum_app: tuple[int, int, int],
 ) -> list[str]:
-    """A Room's `tvs` ("Room TVs" in the field reference): a screen-quad
+    """A Room's `tvs` (docs/package-spec-v2.md "Room TVs"): a screen-quad
     entity per TV, no asset files. Returns every `entityName`, for the caller
     to resolve against `scene.usdz`."""
     context = f"{base}.tvs"
@@ -1505,6 +1572,24 @@ def light_layer_png_info(data: bytes, path: str) -> tuple[int, int, int, int]:
     width, height = png_dimensions(io.BytesIO(data), len(data), path)
     _, _, bit_depth, color_type, _, _, _ = struct.unpack(">IIBBBBB", data[16:29])
     return width, height, bit_depth, color_type
+
+
+def png_has_transparency_chunk(data: bytes) -> bool:
+    """Whether an otherwise-RGB PNG carries a tRNS alpha key.
+
+    Call only after `light_layer_png_info`, which has fully checked chunk
+    structure, lengths and checksums. RGB colour type alone is not enough:
+    tRNS adds per-colour alpha without changing the IHDR colour type.
+    """
+    offset = 8
+    while offset + 8 <= len(data):
+        length, kind = struct.unpack_from(">I4s", data, offset)
+        offset += 8 + length + 4
+        if kind == b"tRNS":
+            return True
+        if kind == b"IEND":
+            return False
+    return False
 
 
 PARTICLE_EFFECT_PRESETS = {"fire"}
@@ -1848,6 +1933,12 @@ MIDGROUND_TEXTURE_FLOW_MINIMUM_APP = (1, 4, 5)
 MIDGROUND_TEXTURE_FLOW_MAXIMUM_ENTRIES = 16
 MIDGROUND_TEXTURE_FLOW_MAXIMUM_SPEED = 2.0
 
+# `destination.midground.skyEntities` keeps selected distant props in the
+# sky-local frame. Earlier readers ignore this unknown midground key and would
+# leave those props floor-anchored, so it must raise the package floor.
+MIDGROUND_SKY_ENTITIES_MINIMUM_APP = (1, 4, 6)
+MIDGROUND_SKY_ENTITIES_MAXIMUM_PREFIXES = 16
+
 
 def validate_midground_texture_flow(
     base: str, flows: Any, *, has_path: bool, minimum_app: tuple[int, int, int],
@@ -1904,6 +1995,273 @@ def validate_midground_texture_flow(
             any(name.startswith(prefix) for name in candidates),
             f"{context} prefix {prefix!r} matches no non-terrain prim in the midground USDZ",
         )
+
+
+def validate_midground_sky_entities(
+    base: str, prefixes: Any, *, has_path: bool,
+    minimum_app: tuple[int, int, int], prim_names: set[str],
+    terrain_names: set[str],
+) -> None:
+    """Validate sky-local midground prop prefixes against the actual USDZ."""
+    context = f"{base}.midground.skyEntities"
+    require(has_path, f"{context} is only valid alongside path")
+    require(
+        minimum_app >= MIDGROUND_SKY_ENTITIES_MINIMUM_APP,
+        "midground.skyEntities requires minimumAppVersion >= 1.4.6",
+    )
+    require(
+        isinstance(prefixes, list)
+        and 0 < len(prefixes) <= MIDGROUND_SKY_ENTITIES_MAXIMUM_PREFIXES
+        and all(isinstance(prefix, str) and prefix for prefix in prefixes),
+        f"{context} must be a non-empty list of at most "
+        f"{MIDGROUND_SKY_ENTITIES_MAXIMUM_PREFIXES} non-empty prefixes",
+    )
+    require(
+        len(set(prefixes)) == len(prefixes)
+        and not any(other != prefix and other.startswith(prefix)
+                    for prefix in prefixes for other in prefixes),
+        f"{context} prefixes must be unique and none may be a prefix of another",
+    )
+    for prefix in prefixes:
+        require(
+            not any(name.startswith(prefix) for name in terrain_names),
+            f"{context} prefix {prefix!r} must not match a terrain prim",
+        )
+        require(
+            any(name.startswith(prefix) for name in prim_names - terrain_names),
+            f"{context} prefix {prefix!r} matches no non-terrain prim in the midground USDZ",
+        )
+
+
+def validate_flowing_water_entries(
+    context: str, flows: Any, *, entity_name: Callable[[Any], bool],
+    entity_message: str,
+) -> list[str]:
+    """The shape every `flowingWater` list shares, View or Room: 1-16
+    entries, non-empty `entities` (each accepted by `entity_name`), and the
+    optional `whiteness`, `shells`, `plunges`, `color`, `speed`,
+    `brightness`, `mist` and `spray` within their ranges.
+    Returns every entity string in declaration order."""
+    require(
+        isinstance(flows, list)
+        and 0 < len(flows) <= FLOWING_WATER_MAXIMUM_ENTRIES
+        and all(isinstance(flow, dict) for flow in flows),
+        f"{context} must be a non-empty list of at most "
+        f"{FLOWING_WATER_MAXIMUM_ENTRIES} objects",
+    )
+    names: list[str] = []
+    for index, flow in enumerate(flows):
+        entry = f"{context}[{index}]"
+        exact_keys(
+            flow, required={"entities"},
+            optional={"whiteness", "shells", "plunges", "color"}
+            | {field for field, _, _ in FLOWING_WATER_AMOUNTS},
+            context=entry,
+        )
+        entities = flow["entities"]
+        require(
+            isinstance(entities, list) and len(entities) > 0
+            and all(entity_name(name) for name in entities),
+            f"{entry}.entities must be a non-empty list of {entity_message}",
+        )
+        names.extend(entities)
+        if "whiteness" in flow:
+            whiteness = flow["whiteness"]
+            require(
+                is_finite_number(whiteness)
+                and 0 <= whiteness <= FLOWING_WATER_MAXIMUM_WHITENESS,
+                f"{entry}.whiteness must be a finite number within "
+                f"0...{FLOWING_WATER_MAXIMUM_WHITENESS:g}",
+            )
+        if "color" in flow:
+            color = flow["color"]
+            require(
+                isinstance(color, list) and len(color) == 3
+                and all(is_finite_number(value) and 0 <= value <= 1 for value in color),
+                f"{entry}.color must be three finite numbers within 0...1",
+            )
+        for field, lower, upper in FLOWING_WATER_AMOUNTS:
+            if field in flow:
+                require(
+                    is_finite_number(flow[field]) and lower <= flow[field] <= upper,
+                    f"{entry}.{field} must be a finite number within {lower:g}...{upper:g}",
+                )
+        if "shells" in flow:
+            shells = flow["shells"]
+            require(
+                type(shells) is int
+                and 0 <= shells <= FLOWING_WATER_MAXIMUM_SHELLS,
+                f"{entry}.shells must be an integer within "
+                f"0...{FLOWING_WATER_MAXIMUM_SHELLS}",
+            )
+        if "plunges" in flow:
+            plunges = flow["plunges"]
+            require(
+                isinstance(plunges, list)
+                and len(plunges) <= FLOWING_WATER_MAXIMUM_PLUNGES
+                and all(isinstance(plunge, dict) for plunge in plunges),
+                f"{entry}.plunges must be a list of at most "
+                f"{FLOWING_WATER_MAXIMUM_PLUNGES} objects",
+            )
+            for plunge_index, plunge in enumerate(plunges):
+                validate_flowing_water_plunge(
+                    f"{entry}.plunges[{plunge_index}]", plunge)
+    return names
+
+
+def validate_flowing_water_plunge(context: str, plunge: dict[str, Any]) -> None:
+    exact_keys(
+        plunge, required={"position", "width", "height"},
+        optional={"yawDegrees"}, context=context,
+    )
+    position = plunge["position"]
+    require(
+        isinstance(position, list) and len(position) == 3
+        and all(is_finite_number(value)
+                and abs(value) <= FLOWING_WATER_MAXIMUM_COORDINATE
+                for value in position),
+        f"{context}.position must be three finite numbers within "
+        f"±{FLOWING_WATER_MAXIMUM_COORDINATE}",
+    )
+    for field, (lower, upper) in (
+        ("width", FLOWING_WATER_PLUNGE_WIDTH_RANGE),
+        ("height", FLOWING_WATER_PLUNGE_HEIGHT_RANGE),
+    ):
+        require(
+            is_finite_number(plunge[field]) and lower <= plunge[field] <= upper,
+            f"{context}.{field} must be a finite number within {lower:g}...{upper:g}",
+        )
+    if "yawDegrees" in plunge:
+        yaw = plunge["yawDegrees"]
+        require(
+            is_finite_number(yaw) and abs(yaw) <= FLOWING_WATER_MAXIMUM_YAW_DEGREES,
+            f"{context}.yawDegrees must be a finite number within "
+            f"±{FLOWING_WATER_MAXIMUM_YAW_DEGREES}",
+        )
+
+
+def validate_midground_flowing_water(
+    base: str, flows: Any, *, has_path: bool, minimum_app: tuple[int, int, int],
+    prim_names: set[str], terrain_names: set[str], texture_flow: Any,
+) -> None:
+    """`midground.flowingWater` (docs/package-spec-v2.md): prefix entries
+    matched like `textureFlow`'s. Every prefix must name a non-terrain prim
+    of the actual midground USDZ, and none may overlap a `textureFlow`
+    prefix: a surface either flows as water or scrolls its texture."""
+    context = f"{base}.midground.flowingWater"
+    require(has_path, f"{context} is only valid alongside path")
+    require(
+        minimum_app >= FLOWING_WATER_MINIMUM_APP,
+        "midground.flowingWater requires minimumAppVersion >= 1.4.9",
+    )
+    prefixes = validate_flowing_water_entries(
+        context, flows,
+        entity_name=lambda name: isinstance(name, str) and bool(name),
+        entity_message="non-empty prefixes",
+    )
+    require(
+        len(set(prefixes)) == len(prefixes)
+        and not any(other != prefix and other.startswith(prefix)
+                    for prefix in prefixes for other in prefixes),
+        f"{context} prefixes must be unique and none may be a prefix of another",
+    )
+    scrolling = [
+        name for flow in (texture_flow if isinstance(texture_flow, list) else [])
+        if isinstance(flow, dict)
+        for name in (flow.get("entities") if isinstance(flow.get("entities"), list) else [])
+        if isinstance(name, str)
+    ]
+    for prefix in prefixes:
+        require(
+            not any(other.startswith(prefix) or prefix.startswith(other)
+                    for other in scrolling),
+            f"{context} prefix {prefix!r} overlaps a midground.textureFlow prefix",
+        )
+    candidates = prim_names - terrain_names
+    for prefix in prefixes:
+        require(
+            any(name.startswith(prefix) for name in candidates),
+            f"{context} prefix {prefix!r} matches no non-terrain prim in the midground USDZ",
+        )
+
+
+def validate_room_flowing_water(
+    base: str, flows: Any, *, minimum_app: tuple[int, int, int],
+    texture_flow_names: list[str],
+) -> list[str]:
+    """A Room's `flowingWater` (docs/package-spec-v2.md "Room flowing
+    water"): exact entity-name entries, none also a `textureFlow` entity.
+    Returns every name, for the caller to resolve against `scene.usdz`."""
+    context = f"{base}.flowingWater"
+    require(
+        minimum_app >= FLOWING_WATER_MINIMUM_APP,
+        "flowingWater requires minimumAppVersion >= 1.4.9",
+    )
+    names = validate_flowing_water_entries(
+        context, flows,
+        entity_name=lambda name: isinstance(name, str) and bool(name.strip())
+        and len(name.encode("utf-8")) <= 200,
+        entity_message="entity names",
+    )
+    require(
+        len(set(names)) == len(names),
+        f"{context} entity names must be unique across every entry",
+    )
+    for name in names:
+        require(
+            name not in texture_flow_names,
+            f"{context} entity {name!r} is also a textureFlow entity",
+        )
+    return names
+
+
+def validate_room_texture_flow(
+    base: str, flows: Any, *, minimum_app: tuple[int, int, int],
+) -> list[str]:
+    """A Room's `textureFlow` (docs/package-spec-v2.md "Room texture
+    flow"): exact entity-name entries with the View field's UV velocity.
+    Returns every name, for the caller to resolve against `scene.usdz`."""
+    context = f"{base}.textureFlow"
+    require(
+        minimum_app >= ROOM_TEXTURE_FLOW_MINIMUM_APP,
+        "textureFlow requires minimumAppVersion >= 1.4.5",
+    )
+    require(
+        isinstance(flows, list)
+        and 0 < len(flows) <= MIDGROUND_TEXTURE_FLOW_MAXIMUM_ENTRIES
+        and all(isinstance(flow, dict) for flow in flows),
+        f"{context} must be a non-empty list of at most "
+        f"{MIDGROUND_TEXTURE_FLOW_MAXIMUM_ENTRIES} objects",
+    )
+    names: list[str] = []
+    for index, flow in enumerate(flows):
+        exact_keys(
+            flow, required={"entities", "uvVelocity"}, optional=set(),
+            context=f"{context}[{index}]",
+        )
+        entities = flow["entities"]
+        require(
+            isinstance(entities, list) and len(entities) > 0
+            and all(isinstance(name, str) and name.strip()
+                    and len(name.encode("utf-8")) <= 200 for name in entities),
+            f"{context}[{index}].entities must be a non-empty list of entity names",
+        )
+        names.extend(entities)
+        velocity = flow["uvVelocity"]
+        require(
+            isinstance(velocity, list) and len(velocity) == 2
+            and all(is_finite_number(value)
+                    and abs(value) <= MIDGROUND_TEXTURE_FLOW_MAXIMUM_SPEED
+                    for value in velocity)
+            and any(value != 0 for value in velocity),
+            f"{context}[{index}].uvVelocity must be two finite numbers within "
+            f"±{MIDGROUND_TEXTURE_FLOW_MAXIMUM_SPEED:g}, not both zero",
+        )
+    require(
+        len(set(names)) == len(names),
+        f"{context} entity names must be unique across every entry",
+    )
+    return names
 
 
 # `destination.midground.water` numeric ranges. Mirrors
@@ -2395,6 +2753,14 @@ def validate_payload(
                 for raw in validate_definition(sound_package['sound'], require, 'view' if collection == 'destinations' else 'room'):
                     asset = referenced_asset(f'catalog/{collection}/{sound_id}', raw, 'sound.path')
                     require(0 < infos[asset].file_size <= 128 * 1024 * 1024, 'sound asset byte limit')
+    if any("shore" in destination for destination in packages["destinations"].values()):
+        # The shore solver and an FFT ocean are the two active-animation
+        # compute exceptions; a package never runs both.
+        from shore_contract import has_ocean_region
+        require(not any(has_ocean_region(package.get("water"))
+                        for collection in ("destinations", "spaces")
+                        for package in packages[collection].values()),
+                "shore cannot coexist with an ocean water region")
     for destination_id, destination in packages["destinations"].items():
         for profile_name in ("celestial", "nearOrbit"):
             profile = destination.get(profile_name)
@@ -2432,15 +2798,39 @@ def validate_payload(
         panorama_path = referenced_asset(base, panorama.get("path"), "panorama.path")
         dimensions = archive_image_dimensions(
             archive, infos[panorama_path], panorama_path, allow_exr=False)
+        panorama_dimensions = dimensions
         require(dimensions == (width, height), f"{panorama_path} dimensions do not match manifest")
         total_pixels = add_pixels(
             total_pixels, dimensions, panorama_path,
             maximum_dimension=IMAGE_DIMENSION, maximum_total=TOTAL_IMAGE_PIXELS,
         )
+        # #2096's root panorama remains the daylight source. Its second
+        # full-frame night source must be a real, same-sized equirectangular
+        # image and joins the exact same archive/pixel closure before its v2
+        # ASTC sidecar can be registered below.
+        panorama_blend_gpu_source = None
+        sun_path_value = (destination.get("environment") or {}).get("sunPath")
+        if isinstance(sun_path_value, dict) and "panoramaBlend" in sun_path_value:
+            from sun_path_contract import validate_panorama_blend
+            blend = validate_panorama_blend(sun_path_value["panoramaBlend"], require)
+            require(blend["path"] != panorama["path"],
+                    "sunPath.panoramaBlend.path must be distinct from panorama.path")
+            blend_asset = referenced_asset(base, blend["path"], "environment.sunPath.panoramaBlend.path")
+            blend_dimensions = archive_image_dimensions(archive, infos[blend_asset], blend_asset, allow_exr=False)
+            require(blend_dimensions == dimensions,
+                    "sunPath.panoramaBlend dimensions must match panorama dimensions")
+            require(blend_dimensions[0] == 2 * blend_dimensions[1],
+                    "sunPath.panoramaBlend must be equirectangular 2:1")
+            total_pixels = add_pixels(
+                total_pixels, blend_dimensions, blend_asset,
+                maximum_dimension=IMAGE_DIMENSION, maximum_total=TOTAL_IMAGE_PIXELS,
+            )
+            panorama_blend_gpu_source = (blend["path"], blend_dimensions, blend_asset)
         require(not (destination.get("clouds") is not None and destination.get("media") is not None), "clouds cannot coexist with media in v1")
         media = destination.get("media")
         if media is not None:
-            from panorama_media import validate_definition, MINIMUM_APP
+            from panorama_media import (validate_definition, MINIMUM_APP,
+                                        DAY_NIGHT_MINIMUM_APP)
             require(parse_version(manifest["minimumAppVersion"], "minimumAppVersion") >= MINIMUM_APP,
                     "panorama media requires minimumAppVersion >= 1.1.2")
             paths = validate_definition(media, require)
@@ -2464,6 +2854,45 @@ def validate_payload(
                     require(raw.lower().endswith('.mp3') and (signature[:3] == b'ID3' or
                             (len(signature) >= 2 and signature[0] == 255 and signature[1] & 224 == 224)),
                             "media requires MP3 or M4A audio")
+            day_night = media.get("dayNight")
+            if day_night is not None:
+                require(parse_version(manifest["minimumAppVersion"], "minimumAppVersion") >= DAY_NIGHT_MINIMUM_APP,
+                        "media.dayNight requires minimumAppVersion >= 1.4.11")
+                sun_path = (destination.get("environment") or {}).get("sunPath")
+                blend = sun_path.get("panoramaBlend") if isinstance(sun_path, dict) else None
+                require(isinstance(blend, dict),
+                        "media.dayNight requires sunPath.panoramaBlend")
+                night_path = referenced_asset(base, blend.get("path"),
+                                              "environment.sunPath.panoramaBlend.path")
+                require(hashlib.sha256(archive.read(night_path)).hexdigest()
+                        == day_night["nightPanoramaSHA256"],
+                        "media.dayNight night panorama hash mismatch")
+                video_sources = {source["id"]: source["video"] for source in media["sources"]
+                                 if "video" in source}
+                decode_pixels = 0
+                for index, pair in enumerate(day_night["sources"]):
+                    video_path = referenced_asset(base, video_sources[pair["source"]],
+                                                   "media.video")
+                    video_size = media_video_dimensions(archive, infos[video_path], video_path)
+                    require(video_size[0] <= 4096 and video_size[1] <= 2048,
+                            "media.dayNight video dimensions exceed 4096x2048")
+                    decode_pixels += video_size[0] * video_size[1]
+                    for kind in ("lighting", "emission"):
+                        image_path = referenced_asset(
+                            base, pair[kind], f"media.dayNight.sources[{index}].{kind}")
+                        map_dimensions = archive_image_dimensions(
+                            archive, infos[image_path], image_path, allow_exr=False)
+                        image_data = archive.read(image_path)
+                        _, _, depth, color = light_layer_png_info(image_data, image_path)
+                        require(depth == 8 and color == 2 and not png_has_transparency_chunk(image_data),
+                                f"{image_path} must be an 8-bit RGB PNG without alpha")
+                        require(map_dimensions == video_size,
+                                f"{image_path} dimensions must match its media video")
+                        total_pixels = add_pixels(total_pixels, map_dimensions, image_path,
+                                                  maximum_dimension=4096,
+                                                  maximum_total=TOTAL_IMAGE_PIXELS)
+                require(decode_pixels <= 4096 * 2048,
+                        "media.dayNight aggregate decode budget exceeds 4096x2048x30.1")
         near_orbit = destination.get("nearOrbit")
         # v2 only: global fields and tile paths that are eligible
         # `gpuTextures` sources, `source -> (field, dimensions, asset)`, plus
@@ -2702,6 +3131,32 @@ def validate_payload(
             require(destination.get("celestial") is None,
                     "fireflies cannot coexist with celestial")
             validate_fireflies(destination["fireflies"], require, field=base + ".fireflies")
+        if "shore" in destination:
+            # docs/package-spec-v2.md "View shore": the computed beach and surf
+            # (`locus.view.water.surf.v1`), mirrored by ShoreDefinition.
+            from shore_contract import (MINIMUM_APP as SHORE_MINIMUM_APP,
+                                        WET_BAND_MINIMUM_APP, has_wet_band,
+                                        PANORAMA_BLEND_MINIMUM_APP as SHORE_PANORAMA_BLEND_MINIMUM_APP)
+            from shore_contract import validate_destination as validate_shore
+            from sun_path_contract import uses_panorama_blend
+            require(parse_version(manifest["minimumAppVersion"], "minimumAppVersion") >= SHORE_MINIMUM_APP,
+                    "shore requires minimumAppVersion >= 1.4.9")
+            validate_shore(destination, require, field=base + ".shore")
+            if has_wet_band(destination["shore"]):
+                require(parse_version(manifest["minimumAppVersion"], "minimumAppVersion") >= WET_BAND_MINIMUM_APP,
+                        "shore.sand.wetBand requires minimumAppVersion >= 1.4.10")
+            if uses_panorama_blend((destination.get("environment") or {}).get("sunPath")):
+                require(parse_version(manifest["minimumAppVersion"], "minimumAppVersion") >= SHORE_PANORAMA_BLEND_MINIMUM_APP,
+                        "sunPath.panoramaBlend with shore requires minimumAppVersion >= 1.4.11")
+            bed = destination["shore"].get("bed")
+            if bed is not None:
+                from shore_contract import validate_bed_image
+                bed_path = referenced_asset(base, bed["path"], "shore.bed.path")
+                validate_bed_image(*png_ihdr(archive, infos[bed_path], bed_path), require,
+                                   field=base + ".shore")
+                bed_dimensions = archive_image_dimensions(archive, infos[bed_path], bed_path, allow_exr=False)
+                total_pixels = add_pixels(total_pixels, bed_dimensions, bed_path,
+                    maximum_dimension=2048, maximum_total=TOTAL_IMAGE_PIXELS)
         gpu_texture = destination.get("gpuTexture")
         if gpu_texture is not None:
             from gpu_texture_sidecar import MINIMUM_APP as GPU_TEXTURE_MINIMUM_APP
@@ -2731,7 +3186,7 @@ def validate_payload(
             )
             require(
                 (header.pixel_width, header.pixel_height)
-                == (gpu_texture["width"], gpu_texture["height"]) == dimensions,
+                == (gpu_texture["width"], gpu_texture["height"]) == panorama_dimensions,
                 f"{ktx_path} dimensions do not match gpuTexture manifest and panorama",
             )
             require(
@@ -2777,7 +3232,10 @@ def validate_payload(
             # the sky panorama (always sRGB) plus any eligible celestial
             # texture (linear only for cloudTexture, matching the `.raw`
             # RealityKit semantic it is sampled with).
-            allowed_sources = {panorama["path"]: (GPU_TEXTURE_FORMAT_SRGB, dimensions, panorama_path)}
+            allowed_sources = {panorama["path"]: (GPU_TEXTURE_FORMAT_SRGB, panorama_dimensions, panorama_path)}
+            if panorama_blend_gpu_source is not None:
+                source, source_dimensions, source_asset = panorama_blend_gpu_source
+                allowed_sources[source] = (GPU_TEXTURE_FORMAT_SRGB, source_dimensions, source_asset)
             for source_path, (field, source_dimensions, source_asset_path) in celestial_gpu_texture_sources.items():
                 fmt = GPU_TEXTURE_FORMAT_LINEAR if field in ("cloudTexture", "oceanGlint.mask") else GPU_TEXTURE_FORMAT_SRGB
                 allowed_sources[source_path] = (fmt, source_dimensions, source_asset_path)
@@ -2830,6 +3288,15 @@ def validate_payload(
                     hashlib.sha256(archive.read(source_asset)).hexdigest() == entry["sourceSHA256"],
                     f"gpuTextures[{index}] source hash mismatch",
                 )
+        if panorama_blend_gpu_source is not None:
+            blend_source = panorama_blend_gpu_source[0]
+            require(gpu_texture is None,
+                    "sunPath.panoramaBlend requires gpuTextures v2, not legacy gpuTexture")
+            require(gpu_textures is not None,
+                    "sunPath.panoramaBlend requires gpuTextures sidecars for both panoramas")
+            declared_sidecar_sources = {entry["source"] for entry in gpu_textures}
+            require(panorama["path"] in declared_sidecar_sources and blend_source in declared_sidecar_sources,
+                    "sunPath.panoramaBlend requires gpuTextures sidecars for both panoramas")
         if near_orbit_v2:
             # Every streamed tile must ship its ASTC sidecar; globals count at
             # their sidecar size when they have one (docs/package-spec-v2.md
@@ -2953,6 +3420,9 @@ def validate_payload(
                     require(dimensions[0] == 2 * dimensions[1] and depth == 8 and color == 0,
                             name + " must be an 8-bit grayscale 2:1 PNG")
                 validate_sun_path(environment["sunPath"], require, sun_asset)
+                from sun_path_contract import validate_day_night_destination
+                validate_day_night_destination(
+                    destination, require, parse_version(manifest["minimumAppVersion"], "minimumAppVersion"))
             if "directSun" in environment:
                 direct_sun = environment["directSun"]
                 require(
@@ -3112,6 +3582,27 @@ def validate_payload(
                 terrain_names = midground.get("terrainEntities")
                 validate_midground_texture_flow(
                     base, midground["textureFlow"],
+                    has_path=path is not None,
+                    minimum_app=parse_version(
+                        manifest["minimumAppVersion"], "minimumAppVersion"),
+                    prim_names=midground_prim_names,
+                    terrain_names=set(terrain_names) if isinstance(terrain_names, list) else set(),
+                )
+            if "flowingWater" in midground:
+                terrain_names = midground.get("terrainEntities")
+                validate_midground_flowing_water(
+                    base, midground["flowingWater"],
+                    has_path=path is not None,
+                    minimum_app=parse_version(
+                        manifest["minimumAppVersion"], "minimumAppVersion"),
+                    prim_names=midground_prim_names,
+                    terrain_names=set(terrain_names) if isinstance(terrain_names, list) else set(),
+                    texture_flow=midground.get("textureFlow"),
+                )
+            if "skyEntities" in midground:
+                terrain_names = midground.get("terrainEntities")
+                validate_midground_sky_entities(
+                    base, midground["skyEntities"],
                     has_path=path is not None,
                     minimum_app=parse_version(
                         manifest["minimumAppVersion"], "minimumAppVersion"),
@@ -3560,6 +4051,20 @@ def validate_payload(
                 type(space["viewGroundKeepOut"]) is bool,
                 f"{base}.viewGroundKeepOut must be a boolean",
             )
+        if "viewGroundFootprint" in space:
+            require(
+                parse_version(manifest["minimumAppVersion"], "minimumAppVersion")
+                >= VIEW_GROUND_FOOTPRINT_MINIMUM_APP,
+                "viewGroundFootprint requires minimumAppVersion >= 1.4.5",
+            )
+            from view_ground_footprint import FootprintValidationError, validate as validate_footprint
+            try:
+                validate_footprint(
+                    space["viewGroundFootprint"],
+                    f"{base}.viewGroundFootprint",
+                )
+            except FootprintValidationError as error:
+                raise ValidationError(str(error)) from error
         if "viewMidgroundVisibility" in space:
             require(
                 parse_version(manifest["minimumAppVersion"], "minimumAppVersion")
@@ -3586,6 +4091,21 @@ def validate_payload(
                 minimum_app=parse_version(
                     manifest["minimumAppVersion"], "minimumAppVersion"),
             )
+        texture_flow_names: list[str] = []
+        if "textureFlow" in space:
+            texture_flow_names = validate_room_texture_flow(
+                base, space["textureFlow"],
+                minimum_app=parse_version(
+                    manifest["minimumAppVersion"], "minimumAppVersion"),
+            )
+        flowing_water_names: list[str] = []
+        if "flowingWater" in space:
+            flowing_water_names = validate_room_flowing_water(
+                base, space["flowingWater"],
+                minimum_app=parse_version(
+                    manifest["minimumAppVersion"], "minimumAppVersion"),
+                texture_flow_names=texture_flow_names,
+            )
         if "spatialAdaptation" in space:
             validate_spatial_adaptation(
                 space["spatialAdaptation"], teleport_ids,
@@ -3602,18 +4122,33 @@ def validate_payload(
             "particleTitles": title_ids(space.get("particleEffects")),
             "tvTitles": title_ids(space.get("tvs")),
         })
-        scene_prim_names: set[str] | None = set() if tv_names else None
+        scene_prim_names: set[str] | None = (
+            set() if texture_flow_names or flowing_water_names or tv_names else None)
         actual = validate_usdz(archive, infos[scene], scene, scene_prim_names)
+        if room_bindings.references_entities(space):
+            binding_rooms.append((f"{base}/space.json", scene))
         # A mistyped screen name would leave the TV unplayable: every `tvs`
         # entityName is an entity of `scene.usdz`. That it is mesh-bearing
-        # is the Room binding check's (`tools/room-bindings/`).
+        # is the import binding check's (`RoomModelBindingValidator`).
         for name in tv_names:
             require(
                 name in (scene_prim_names or set()),
                 f"{base}.tvs entity {name!r} is not an entity of {scene}",
             )
-        if room_bindings.references_entities(space):
-            binding_rooms.append((f"{base}/space.json", scene))
+        # A typo freezes nothing quietly: every flowing name is an entity of
+        # `scene.usdz`. Uniqueness, nesting and geometry need the loaded
+        # hierarchy and are the import binding check's
+        # (`RoomModelBindingValidator`).
+        for name in texture_flow_names:
+            require(
+                name in (scene_prim_names or set()),
+                f"{base}.textureFlow entity {name!r} is not an entity of {scene}",
+            )
+        for name in flowing_water_names:
+            require(
+                name in (scene_prim_names or set()),
+                f"{base}.flowingWater entity {name!r} is not an entity of {scene}",
+            )
         if collision_asset is not None:
             collision_actual = validate_usdz(
                 archive, infos[collision_asset], collision_asset

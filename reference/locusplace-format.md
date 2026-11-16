@@ -269,11 +269,16 @@ numbers), `orientationXYZW` (four finite numbers with non-zero length), and
 | `midground.path` | no | Runtime midground USDZ rendered in both Experience Modes; it follows the same member allowlist, structure and resource budgets for bundled, Library and imported packages. See the [midground reference](locus-asset-format/#complete-view-source-and-midground-data-locus-121). |
 | `midground.transform` | no | Optional finite transform for `midground.path`. |
 | `midground.terrainEntities` | no | Unique non-empty names of ground units in `midground.path`; the runtime uses them to grade terrain beneath the Room footprint. |
+| `midground.skyEntities` | no | 1–16 unique non-empty unit-name prefixes in `midground.path` anchored in the View's sky-local frame instead of the floor frame; requires `1.4.6`. |
+| `midground.textureFlow` | no | 1–16 UV-scroll entries (`entities` prefixes and `uvVelocity`) on midground props; requires `1.4.5`. |
+| `midground.flowingWater` | no | 1–16 flowing-water entries on midground props carrying `primvars:st` and `primvars:displayColor`; requires `1.4.9`. |
 | `midground.water` | no | App-rendered water declaration, including validated mask/normal-map and optional shore data described in the [field reference](locus-asset-format/). |
+| `media` | no | Panorama-mapped video/audio regions (`media.dayNight` adds per-video `lighting` and `emission` PNG maps bound to `sunPath.panoramaBlend`, requiring `1.4.11`). |
 | `sky` | no | App-rendered procedural night sky (stars, Milky Way, optional aurora) shown through a validated 2:1 grayscale `sky.mask`; requires `minimumAppVersion >= 1.2.4`. See the [sky reference](locus-asset-format/#procedural-sky-celestial-bodies-and-near-orbit). |
 | `gpuTexture`, `gpuTextures` | no | Validated ASTC KTX1 sidecars available to user ZIPs and Library packages alike. The v1 panorama sidecar requires `1.2.3`; the v2 source-image array requires `1.3.0`. Source hashes, dimensions and mip levels must match. |
 | `water`, `clouds`, `fireflies` | no | Runtime water (including glow), painted-cloud motion and firefly declarations; require `minimumAppVersion >= 1.3.0`. Their referenced assets and resource budgets follow the common Package-v2 contract. |
-| `environment.sunPath` | no | Authored sun-free sky and optional masked solar disc; requires `1.3.0` and its authoring attestation. |
+| `shore` | no | Computed breaking surf and open sea over the built-in or an authored 16-bit grayscale `bed`; requires `1.4.9` (`sand.wetBand` requires `1.4.10`; pairing with `sunPath.panoramaBlend` requires `1.4.11`). |
+| `environment.sunPath` | no | Authored sun-free sky and optional masked solar disc (`1.3.0`); `daySky`, `panoramaGrade`, and `light` require `1.4.9`, and `panoramaBlend` requires `1.4.10` (`1.4.11` with `shore`) with `gpuTextures` v2 sidecars for both panoramas. |
 | `celestial` | no | Animated celestial body and referenced textures; requires `1.2.4`, or the newer floor declared by its optional features (cloud-shell motion/evolution requires `1.3.0`). |
 | `nearOrbit` | no | Near-orbit profiles, texture assets and content-bound fallback proof. v1 and v2 require `1.3.0`; v2 includes the tile manifest, tile images and their GPU sidecars. |
 | `splat.variants`, `splat.ply` | no in Package v2; unsupported in public ZIP imports | Reserved future asset references. The splat backend has been removed, so public import rejects the entire field. |
@@ -403,7 +408,7 @@ allowed USDZ texture format for Room assets and is validated inside the model.
 | `seatedOrigin.orientationXYZW` | yes | Four finite normalized quaternion components; the seated frame must remain upright (no pitch or roll). |
 | `safeHeadVolume.centerMeters` | yes | Three finite meters in Room coordinates. |
 | `safeHeadVolume.sizeMeters` | yes | Three finite, strictly positive dimensions. |
-| `destinationOpenings` | yes | Rectangular opening array. A standalone Room-only import needs exactly one; zero or multiple openings require an authored `virtual-space` Experience in the same archive. |
+| `destinationOpenings` | before `1.4.5` | Rectangular opening array. Before `1.4.5`, a standalone Room-only import needs exactly one; zero or multiple openings require an authored `virtual-space` Experience in the same archive. From `1.4.5`, `destinationOpenings` is optional and may list any number of openings. |
 | `destinationOpenings[].id` | per entry | Unique package ID used by Experience composition. |
 | `destinationOpenings[].transform` | per entry | Required position/quaternion pose. |
 | `destinationOpenings[].widthMeters`, `heightMeters` | per entry | Finite, strictly positive dimensions. |
@@ -495,15 +500,19 @@ IDs; unresolved references fail the whole import.
 
 Add optional fields to their owning View or Room manifest, and include every
 referenced asset beside that manifest. The [field reference](locus-asset-format/)
-covers media and masks, sound and Room music, midground and wind, water, sky,
-clouds, sun path, celestial bodies, near orbit, black holes, point lights,
-GPU texture sidecars, seats and groups, lights, animations, video surfaces,
-particles and baked light layers. It also defines `localizations`,
-`provenanceDetail`, and the Room's `viewGroundFloorOffsetMeters`,
-`viewGroundKeepOut`, and `viewMidgroundVisibility` controls.
+covers media and masks (including `media.dayNight`), sound and Room music, midground
+(`skyEntities`, `windSway`, `textureFlow`, `flowingWater`), water, computed `shore`, sky,
+clouds, sun path (`daySky`, `panoramaGrade`, `light`, `panoramaBlend`), celestial bodies,
+near orbit, black holes, point lights, GPU texture sidecars, seats and groups, lights,
+animations, video surfaces, particles, baked light layers, Room `textureFlow`, Room
+`flowingWater`, and `tvs`. It also defines `localizations`, `provenanceDetail`, and the
+Room's `viewGroundFloorOffsetMeters`, `viewGroundKeepOut`, `viewGroundFootprint`, and
+`viewMidgroundVisibility` controls.
 
 For example, these optional fields belong in an otherwise complete Room
-manifest, and require envelope `minimumAppVersion: "1.4.4"` or later:
+manifest, and require envelope `minimumAppVersion: "1.4.4"` or later (with
+`viewGroundFootprint` and `textureFlow` requiring `"1.4.5"` or later, and
+`flowingWater` requiring `"1.4.9"` or later):
 
 ```json
 {

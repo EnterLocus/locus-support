@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#111111">
+  <title>Make a day-and-night View — Locus Tutorial</title>
+  <meta name="description" content="Author a Locus View that transitions smoothly from day into night with environment.sunPath, daySky, panoramaGrade, light, and paired panoramaBlend panoramas.">
+  <meta property="og:title" content="Make a day-and-night View — Locus Tutorial"><meta property="og:description" content="Set up a 24-hour sun path, clear-sky atmosphere, painted-land grading, Room lighting stops, and paired day/night panoramas in Package v2."><meta property="og:type" content="website"><meta property="og:url" content="https://enterlocus.com/make-a-day-night-view/"><meta property="og:image" content="https://enterlocus.com/assets/social-preview-spatial-20261106.jpg"><meta name="twitter:card" content="summary_large_image"><meta name="twitter:image" content="https://enterlocus.com/assets/social-preview-spatial-20261106.jpg">
+  <link rel="canonical" href="https://enterlocus.com/make-a-day-night-view/"><link rel="icon" type="image/png" href="../assets/favicon.png"><link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+  <link rel="stylesheet" href="../assets/site.css"><link rel="stylesheet" href="../assets/docs.css">
+  <link rel="stylesheet" href="/assets/search.css"><script type="module" src="/assets/search.js"></script>
+<script src="/assets/site.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header"><a class="brand" href="../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../whats-new/">What’s New</a><a href="../gallery/">Gallery</a><a aria-current="page" href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
+  <main data-pagefind-body id="main" class="page-main tutorial-page">
+    <header class="page-header"><p class="kicker">Advanced · Package v2</p><h1>Make a day-and-night View.</h1><p>Turn a sun-free 360° panorama into a full 24-hour Place: moving sunlight and sky atmosphere, stars and the Moon at night, graded terrain, and an optional full-frame night panorama that blends in after sunset.</p><span class="status">Needs Locus 1.4.9 – 1.4.11 or later · Complete Package v2</span></header>
+
+    <nav class="tutorial-toc" aria-label="On this page"><strong>On this page</strong><a href="#overview">Choose your approach</a><a href="#assets">1 · Prepare the images</a><a href="#manifest">2 · Write destination.json</a><a href="#stops">3 · Tune stops and blend</a><a href="#pack">4 · Pack, validate, and test</a><a href="#limits">Coexistence and limits</a></nav>
+
+    <section class="doc-section" id="overview"><h2>Choose your approach</h2><p>Day-and-night Views build on <code>environment.sunPath</code> inside a complete Package v2 archive (the flat compatibility <code>view.json</code> ZIP does not support these fields). Pick the tier that matches what you want to author:</p><table><thead><tr><th>Approach</th><th>Minimum App</th><th>What you author</th></tr></thead><tbody><tr><td><strong>Atmosphere + graded land</strong> (<code>daySky</code>, <code>panoramaGrade</code>, <code>light</code>)</td><td><code>1.4.9</code></td><td>One sun-free daytime panorama, a <code>sky.mask</code> separating sky from foreground, plus elevation stops that tint the painted land and drive Room sunlight.</td></tr><tr><td><strong>Full-frame day/night panorama pair</strong> (+ <code>panoramaBlend</code>)</td><td><code>1.4.10</code></td><td>Adds an aligned full-frame night panorama and <code>astc-6x6-srgb</code> KTX1 <code>gpuTextures</code> v2 sidecars for both panoramas so mountains, snow, or distant shorelines shift to real night lighting.</td></tr><tr><td><strong>With computed <code>shore</code> or <code>media.dayNight</code></strong></td><td><code>1.4.11</code></td><td>Lets a computed surf beach or video region maps follow the same day/night blend.</td></tr></tbody></table><div class="callout"><strong>Why <code>sky</code> and <code>daySky</code> are part of the contract.</strong> In the current Package v2 specification, <code>panoramaBlend</code> requires both <code>environment.sunPath.daySky</code> and root <code>sky</code> (with <code>sky.mask</code> and <code>stars</code> or <code>moon</code>). White pixels in <code>sky.mask</code> show the rendered day atmosphere and night stars/Milky Way; black pixels show your blended day and night panorama images.</div></section>
+
+    <section class="doc-section" id="assets"><p class="lesson-label">1 · Prepare</p><h2>Prepare the images and masks</h2><ul class="check-list"><li><strong>Daytime panorama (<code>panorama.path</code>):</strong> A 2:1 equirectangular JPEG or PNG (for example <code>8192×4096</code> or <code>12288×6144</code>), lit for clear daylight and completely <strong>free of a painted sun or sun glare</strong>.</li><li><strong>Sun-free Room lighting image (<code>environment.imageBasedLight</code>):</strong> A separate 2:1 JPEG or PNG (<code>1024×512</code> recommended), also free of a painted sun.</li><li><strong>Sky mask (<code>sky.mask</code>):</strong> A 2:1 8-bit grayscale PNG (PNG colour type 0) aligned to the panorama. Paint the open sky white (<code>255</code>) and land, trees, and buildings black (<code>0</code>), with clean anti-aliased edges along horizons and branches.</li><li><strong>Optional sun-disc mask (<code>environment.sunPath.disc.skyMask</code>):</strong> A 2:1 8-bit grayscale PNG (max width <code>4096</code>) where white admits the moving solar disc behind foreground edges.</li><li><strong>Aligned night panorama (<code>panoramaBlend.path</code>, for 1.4.10+):</strong> A separate 2:1 JPEG or PNG with the <strong>exact same pixel width and height</strong> as <code>panorama.path</code>, keeping the identical horizon, mountains, and structures under night relighting.</li><li><strong>ASTC GPU sidecars (<code>gpuTextures</code> v2, required for <code>panoramaBlend</code>):</strong> Convert both <code>panorama.path</code> and <code>panoramaBlend.path</code> to <code>astc-6x6-srgb</code> KTX1 files (<code>.ktx</code>) with full mipmaps and repeating horizontal wrap. Record each file’s <code>sourceSHA256</code>, dimensions, and <code>mipmapLevels</code>. Legacy singular <code>gpuTexture</code> is rejected when <code>panoramaBlend</code> is present.</li></ul></section>
+
+    <section class="doc-section" id="manifest"><p class="lesson-label">2 · Manifest</p><h2>Write <code>destination.json</code> and provenance</h2><p>Set <code>minimumAppVersion</code> in <code>locusplace.json</code> to <code>"1.4.9"</code> (without <code>panoramaBlend</code>), <code>"1.4.10"</code> (with <code>panoramaBlend</code>), or <code>"1.4.11"</code> (when pairing <code>panoramaBlend</code> with <code>shore</code> or <code>media.dayNight</code>).</p><p>In <code>destination.json</code>, every <code>sunPath</code> View must set <code>"sunFreeSky": true</code> and include a <code>"sun-free-sky"</code> component in <code>provenanceDetail</code>:</p><pre><code>{
+  "formatVersion": 2,
+  "id": "destination.example-day-night",
+  "title": "Alpine Ridge",
+  "panorama": {
+    "path": "panorama.jpg",
+    "projection": "equirectangular",
+    "width": 8192,
+    "height": 4096,
+    "initialYawDegrees": 0
+  },
+  "thumbnail": "thumbnail.jpg",
+  "provenance": "provenance.json",
+  "provenanceDetail": {
+    "version": 1,
+    "components": [
+      {
+        "component": "picture",
+        "aiGenerated": false,
+        "notes": "Equirectangular landscape photograph."
+      },
+      {
+        "component": "sun-free-sky",
+        "aiGenerated": false,
+        "notes": "Sun disc and solar glare removed from panorama and IBL."
+      }
+    ]
+  },
+  "sky": {
+    "mask": "sky-mask.png",
+    "stars": {
+      "twinkle": 1,
+      "milkyWay": {"style": "realistic"}
+    },
+    "moon": {}
+  },
+  "gpuTextures": [
+    {
+      "source": "panorama.jpg",
+      "path": "panorama.ktx",
+      "format": "astc-6x6-srgb",
+      "width": 8192,
+      "height": 4096,
+      "mipmapLevels": 14,
+      "sourceSHA256": "&lt;64-char sha256 of panorama.jpg&gt;"
+    },
+    {
+      "source": "panorama-night.jpg",
+      "path": "panorama-night.ktx",
+      "format": "astc-6x6-srgb",
+      "width": 8192,
+      "height": 4096,
+      "mipmapLevels": 14,
+      "sourceSHA256": "&lt;64-char sha256 of panorama-night.jpg&gt;"
+    }
+  ],
+  "environment": {
+    "imageBasedLight": "lighting-ibl.jpg",
+    "sunPath": {
+      "sunFreeSky": true,
+      "startHour": 9,
+      "dayDurationSeconds": 3600,
+      "maxElevationDegrees": 60,
+      "peakIlluminanceLux": 60000,
+      "nightIlluminanceLux": 200,
+      "disc": {
+        "skyMask": "sky-mask.png",
+        "angularSizeDegrees": 0.53,
+        "intensity": 1
+      },
+      "daySky": {"haze": 0.3, "exposure": 1},
+      "panoramaGrade": {
+        "stops": [
+          {"elevationDegrees": -18, "color": [0.08, 0.10, 0.16]},
+          {"elevationDegrees": 6,   "color": [0.85, 0.72, 0.62]},
+          {"elevationDegrees": 55,  "color": [1.0, 1.0, 1.0]}
+        ]
+      },
+      "light": {
+        "stops": [
+          {"elevationDegrees": -18, "color": [0, 0, 0],        "ambientEV": -2},
+          {"elevationDegrees": 14,  "color": [1.5, 1.2, 0.85], "ambientEV": 0.6},
+          {"elevationDegrees": 55,  "color": [1, 1, 1],        "ambientEV": 0}
+        ]
+      },
+      "panoramaBlend": {
+        "path": "panorama-night.jpg",
+        "dayElevationDegrees": -1,
+        "nightElevationDegrees": -12,
+        "nightGrade": [1, 1, 1]
+      }
+    }
+  }
+}</code></pre></section>
+
+    <section class="doc-section" id="stops"><p class="lesson-label">3 · Calibrate</p><h2>Tune elevation stops and blend thresholds</h2><ul><li><strong><code>daySky</code>:</strong> <code>haze</code> (<code>0...1</code>, default <code>0.3</code>) raises aerosol glow near the horizon and sun; <code>exposure</code> (<code>0.25...4</code>, default <code>1</code>) scales the day-sky adaptation curve.</li><li><strong><code>panoramaGrade.stops</code>:</strong> 2 to 16 stops with strictly increasing <code>elevationDegrees</code> (<code>-90...90</code>) and linear RGB <code>color</code> multipliers (<code>0...4</code>). Use it to dim and warm painted terrain at sunrise/sunset before the night panorama takes over.</li><li><strong><code>light.stops</code>:</strong> 2 to 16 stops driving the Room’s directional sun (<code>color</code> <code>0...16</code> multiplying <code>peakIlluminanceLux</code>) and Room/glass IBL exposure (<code>ambientEV</code> <code>-6...6</code>, default <code>0</code>). Add <code>"midground": true</code> when the View also carries a 3D <code>midground.path</code> model that should receive the same directional sunlight.</li><li><strong><code>panoramaBlend</code>:</strong> Cross-fades smoothly from <code>panorama.path</code> at or above <code>dayElevationDegrees</code> (default <code>-1</code>) to <code>panoramaBlend.path</code> at or below <code>nightElevationDegrees</code> (default <code>-12</code>; both in <code>-18...10</code> with <code>night &lt; day</code>), tinted by linear RGB <code>nightGrade</code> (<code>0...4</code>).</li></ul></section>
+
+    <section class="doc-section" id="pack"><p class="lesson-label">4 · Verify</p><h2>Pack, validate, and inspect across hours</h2><pre><code>python3 tools/pack_locusplace.py --current-app-version 1.4.11 \
+  /absolute/path/to/MyDayNightView /absolute/path/to/MyDayNightView.locusplace
+
+python3 tools/validate_locusplace.py --current-app-version 1.4.11 \
+  /absolute/path/to/MyDayNightView.locusplace</code></pre><p>The validator checks every manifest constraint, verifies both <code>gpuTextures</code> v2 KTX1 headers and SHA-256 digests, and runs <code>sun_free_sky_check</code> to catch bright solar discs left in the day panorama or IBL.</p><ol class="step-list"><li><strong>Import on Apple Vision Pro</strong> via <strong>Places → Import → Import a View → Files</strong> and pair the View with a Room.</li><li><strong>Scrub Sun Position in Edit View</strong> through morning, noon, golden hour, twilight, and midnight to check horizon silhouettes, Room glass reflections, and painted-to-sky edge masks.</li><li><strong>Check Motion Off / Reduce Motion:</strong> confirm the View freezes cleanly at <code>startHour</code>.</li></ol></section>
+
+    <section class="doc-section" id="limits"><h2>Coexistence rules and limits</h2><ul><li><strong>Excluded effects:</strong> <code>daySky</code>, <code>panoramaGrade</code>, <code>light</code>, and <code>panoramaBlend</code> cannot coexist with <code>clouds</code>, <code>sky.aurora</code>, root <code>water</code>, <code>midground.water</code>, <code>midground.flowingWater</code>, or legacy video <code>media</code>.</li><li><strong>Allowed pairings in 1.4.11+:</strong> Computed <code>shore</code> surf (<code>locus.view.water.surf.panorama-blend.v1</code>) and <code>media.dayNight</code> video maps (<code>locus.view.media.day-night.v1</code>, providing per-video 8-bit RGB <code>lighting</code> and <code>emission</code> PNGs) are supported alongside <code>panoramaBlend</code>.</li><li><strong>Both panoramas must match dimensions exactly.</strong> Even a one-pixel difference between <code>panorama.path</code> and <code>panoramaBlend.path</code> is rejected.</li></ul><div class="link-grid"><a class="link-card" href="../reference/locus-asset-format/#daynight-sun-path-and-paired-panoramas-locus-1491411"><strong>Day/night sun-path field specification</strong><span>Complete ranges, defaults, and media.dayNight details.</span></a><a class="link-card" href="../reference/locusplace-format/"><strong>Complete Package v2 guide</strong><span>Archive layout, packing, and validation commands.</span></a><a class="link-card" href="../make-a-view/"><strong>Make your own View</strong><span>Panorama basics, coordinate conventions, and Edit View.</span></a><a class="link-card" href="../add-a-tv/"><strong>Add a TV to your Room</strong><span>Author interactive 16:9 screens for Virtual Space Rooms.</span></a></div></section>
+
+    <nav class="tutorial-pagination" aria-label="Tutorial navigation"><a href="../add-a-tv/"><span>Previous</span><strong>Add a TV to your Room</strong></a><a href="../tutorials/"><span>All tutorials</span><strong>Back to Tutorials</strong></a></nav>
+  </main>
+  <footer><div><span class="brand-footer">Locus</span><span>Locus for Apple Vision Pro.</span></div><nav aria-label="Footer navigation"><a href="../whats-new/">What’s New</a><a href="../gallery/">Gallery</a><a href="../tutorials/">Tutorials</a><a href="../faq/">FAQ</a><a href="../support/">Support</a><a href="../privacy/">Privacy</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><a href="https://github.com/EnterLocus/locus-support/issues/new?template=bug.yml">Report a Bug</a></nav></footer>
+</body>
+</html>

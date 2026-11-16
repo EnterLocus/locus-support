@@ -130,6 +130,9 @@ struct RoomModelBindingContract: Decodable, Sendable {
     /// Package v2 Room `textureFlow`: every name across every entry resolves
     /// as one renderable subtree, none inside another.
     struct TextureFlow: Decodable, Sendable { let entities: [String] }
+    /// Package v2 Room `flowingWater`: every name across every entry resolves
+    /// as one renderable subtree, none inside another.
+    struct FlowingWater: Decodable, Sendable { let entities: [String] }
     let spatialAdaptation: Adaptation?
     let rendering: Rendering?
     let lighting: Lighting?
@@ -137,9 +140,11 @@ struct RoomModelBindingContract: Decodable, Sendable {
     let videoSurfaces: [VideoSurface]?
     let particleEffects: [ParticleEffect]?
     let textureFlow: [TextureFlow]?
+    let flowingWater: [FlowingWater]?
     let tvs: [TV]?
 
     var textureFlowNames: [String] { (textureFlow ?? []).flatMap(\.entities) }
+    var flowingWaterNames: [String] { (flowingWater ?? []).flatMap(\.entities) }
 
     var names: [String] {
         var names: [String] = []
@@ -164,6 +169,7 @@ struct RoomModelBindingContract: Decodable, Sendable {
         names += (videoSurfaces ?? []).map(\.entityName)
         names += (particleEffects ?? []).map(\.anchorEntity)
         names += textureFlowNames
+        names += flowingWaterNames
         names += (tvs ?? []).map(\.entityName)
         return names
     }
@@ -195,6 +201,9 @@ enum RoomModelBindingValidator {
         }
         if !contract.textureFlowNames.isEmpty {
             _ = try RoomEntityBindings.subtrees(named: contract.textureFlowNames, in: model)
+        }
+        if !contract.flowingWaterNames.isEmpty {
+            _ = try RoomEntityBindings.subtrees(named: contract.flowingWaterNames, in: model)
         }
         if let tvs = contract.tvs, !tvs.isEmpty {
             _ = try RoomEntityBindings.subtrees(named: tvs.map(\.entityName), in: model)

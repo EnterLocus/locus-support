@@ -626,10 +626,11 @@ Every entry has a unique source path and a KTX1 sidecar. Its dimensions and
 mip count must match both the actual source and KTX header; `sourceSHA256` is
 the lowercase SHA-256 of that source's raw packaged bytes. Use
 `astc-6x6-srgb` for colour images and `astc-6x6-linear` only for a cloud
-texture. Eligible sources are `panorama.path`, celestial background/day/night/
-cloud textures, and near-orbit v2 day/night/cloud/fallback/galaxy textures and
-declared tiles. Other masks, cloud fills and arbitrary images do not gain
-sidecar support by being listed here. Full-sphere sources are 2:1 and bake
+texture. Eligible sources are `panorama.path`, `environment.sunPath.panoramaBlend.path`
+(both required in `astc-6x6-srgb` when `panoramaBlend` is declared), celestial
+background/day/night/cloud textures, and near-orbit v2
+day/night/cloud/fallback/galaxy textures and declared tiles. Other masks, cloud
+fills and arbitrary images do not gain sidecar support by being listed here. Full-sphere sources are 2:1 and bake
 with repeating edges; near-orbit
 tiles are square and bake with clamped edges. The renderer prefers a valid
 sidecar, then falls back to its JPEG/PNG unchanged if the sidecar cannot load.
@@ -863,6 +864,144 @@ in the package; earlier versions of Locus keep the land at its authored size.
 - `oceanGlint`, an experimental block in two Library revisions that never
   shipped publicly, is not part of the public format; Locus rejects it.
 
+#### Midground sky anchors, texture flow, and flowing water (Locus 1.4.5–1.4.9)
+
+- **`midground.skyEntities`** (Locus 1.4.6 or later, Library capability
+  `locus.view.midground.sky-anchor.v1`): optional list of 1–16 unique,
+  non-empty unit-name prefixes in `midground.path` (none may be a prefix of
+  another). Each prefix must match at least one non-terrain prim of the USDZ
+  and must not match any `terrainEntities` unit. Matched props stay anchored in
+  the View's sky-local frame so distant silhouettes remain aligned to the
+  panorama when a Room adjusts View-ground height. It adds no motion.
+- **`midground.textureFlow`** (Locus 1.4.5 or later, Library capability
+  `locus.view.midground.texture-flow.v1`): optional list of 1–16 entries
+  `{"entities": [...], "uvVelocity": [u, v]}` scrolling `UsdPreviewSurface`
+  textures with `repeat` addressing. Prefixes must be unique, non-overlapping,
+  and match non-terrain prims of `midground.path`. Each `uvVelocity` component
+  is finite within `-2...2` and not both `0`. Terrain units never flow. Counts
+  as an Animated View.
+- **`midground.flowingWater`** (Locus 1.4.9 or later, Library capability
+  `locus.view.midground.flowing-water.v1`): optional list of 1–16 entries for
+  streams, cascades, and waterfalls on midground prop units (disjoint from
+  `textureFlow` prefixes). Each entry requires `entities` (1+ prefixes) and
+  accepts optional `whiteness` (`0...1.5`, default `0.65`), `shells` (`0...2`,
+  default `2`), `color` (linear RGB `0...1`, default `[0.094, 0.329, 0.306]`),
+  `ripple` (`0...1`, default `0.5`), `speed` (`0.25...2`, default `1`),
+  `brightness` (`0...4`, default `1`), `mist` (`0...2`, default `1`), `spray`
+  (`0...2`, default `1`), and up to 8 `plunges` (`{"position": [x, y, z],
+  "width": 0.2...20, "height": 0.3...30, "yawDegrees": -360...360}`). Matched
+  meshes carry `primvars:st` = `(acrossMeters, tauSeconds)` and
+  vertex-interpolated `primvars:displayColor` = `(white, steep, edge)` in
+  `0...1`, with at most 400,000 vertices and outward normals. Counts as an
+  Animated View.
+
+#### View shore (Locus 1.4.9–1.4.11)
+
+Root `shore` renders computed surf over a 64 m shallow-water solver strip
+continued analytically to the horizon (`locus.view.water.surf.v1`, requires
+`minimumAppVersion >= "1.4.9"`). It draws only water and newly wetted sand,
+leaving dry ground to `midground` and the panorama. It cannot coexist with root
+`water`, `midground.water`, `celestial`, `nearOrbit`, `blackHole`, or any Room
+ocean region, and counts as an Animated View.
+
+```json
+"shore": {
+  "version": 1,
+  "frame": {"translationMeters": [0, -0.62, 0], "yawDegrees": 0},
+  "bed": {"path": "shore-bed.png", "sizeMeters": [200, 200], "centerMeters": [0, -40], "heightRangeMeters": [-8, 8]},
+  "swell": {"height": 0.74, "period": 1.05, "windChop": 1.0, "curl": 1.18},
+  "light": {"azimuthDegrees": 0, "elevationDegrees": 13, "color": [0.30, 0.36, 0.48], "night": 1, "follow": "moon"},
+  "sky": {"zenith": [0.006, 0.014, 0.040], "horizon": [0.030, 0.056, 0.108]},
+  "water": {"deep": [0.00628, 0.0208, 0.0363], "shallowScatter": [0.01864, 0.03275, 0.036],
+            "crestScatter": [0.0058, 0.01364, 0.01482], "absorption": [1.5, 0.55, 0.96], "clarity": 1.0},
+  "sand": {"dry": [0.190, 0.172, 0.158], "wet": [0.074, 0.070, 0.072], "wetBand": true},
+  "foam": 0.96, "sparkle": 1.45, "exposure": 1.14
+}
+```
+
+Every field except `frame`, `bed`, `light.follow` (`"none"`, `"moon"`, or
+`"sun"`), and `sand.wetBand` is required, and unknown keys or nulls are
+rejected:
+
+- `frame`: `translationMeters` (`x`, `z` in `-150...150`; `y` in `-200...0.5`)
+  and `yawDegrees` (`-180...180`).
+- `bed`: optional 16-bit grayscale PNG (`2...2048` px per side), `sizeMeters`
+  (`8...4000`), `centerMeters` (`-4000...4000`), `heightRangeMeters` (`[low,
+  high]` in `-200...200`, `low < high`).
+- `swell`: `height` (`0.35...1.65`), `period` (`0.85...1.15`), `windChop`
+  (`0...1.6`), `curl` (`0...1.6`).
+- `light`: `azimuthDegrees` (`-180...180`), `elevationDegrees` (`5...75`),
+  linear RGB `color` (`0...2`), `night` (`0...1`), optional `follow` (`"moon"`
+  requires `sky.moon`; `"sun"` requires `environment.sunPath` or an enabled
+  `environment.directSun`).
+- `sky` (`zenith`, `horizon` linear RGB `0...1`), `water` (`deep`,
+  `shallowScatter`, `crestScatter` linear RGB `0...1`; `absorption` `0...10`;
+  `clarity` `0.5...1.6`), `sand` (`dry`, `wet` linear RGB `0...1`), `foam`
+  (`0.25...1.6`), `sparkle` (`0...1.8`), `exposure` (`0.5...2`).
+- `sand.wetBand` (Locus 1.4.10 or later, capability
+  `locus.view.water.surf.wet-band.v1`): optional boolean controlling whether the
+  exposed recently-wetted sand band is drawn; presence (even `true`) requires
+  `1.4.10`.
+- Pairing `shore` with `environment.sunPath.panoramaBlend` requires Locus
+  1.4.11 or later (`locus.view.water.surf.panorama-blend.v1`).
+
+#### Day/night sun path and paired panoramas (Locus 1.4.9–1.4.11)
+
+`environment.sunPath` (base `1.3.0`) gains an opt-in full-day extension:
+
+```json
+"environment": {
+  "sunPath": {
+    "sunFreeSky": true,
+    "daySky": {"haze": 0.3, "exposure": 1},
+    "panoramaGrade": {"stops": [
+      {"elevationDegrees": -18, "color": [0.05, 0.07, 0.12]},
+      {"elevationDegrees": 55, "color": [1, 1, 1]}
+    ]},
+    "light": {"stops": [
+      {"elevationDegrees": -18, "color": [0, 0, 0], "ambientEV": -2},
+      {"elevationDegrees": 14, "color": [1.5, 1.2, 0.85], "ambientEV": 0.6},
+      {"elevationDegrees": 55, "color": [1, 1, 1], "ambientEV": 0}
+    ], "midground": true},
+    "panoramaBlend": {
+      "path": "panorama-night.jpg",
+      "dayElevationDegrees": -1,
+      "nightElevationDegrees": -12,
+      "nightGrade": [1, 1, 1]
+    }
+  }
+}
+```
+
+- **`daySky`**, **`panoramaGrade`**, and **`light`** (Locus 1.4.9 or later,
+  `locus.view.sun-path.day-night.v1`): `daySky` renders a clear-sky atmosphere
+  (`haze` `0...1` default `0.3`, `exposure` `0.25...4` default `1`) screened
+  with the procedural night sky through `sky.mask`. `panoramaGrade` tints and
+  dims the painted panorama across 2–16 strictly increasing `elevationDegrees`
+  (`-90...90`) stops with linear RGB `color` (`0...4`). `light` supplies 2–16
+  stops (`color` `0...16`, optional `ambientEV` `-6...6` default `0`) for the
+  Room sun and IBL; `light.midground: true` also lights `midground.path`.
+  `daySky` and `panoramaGrade` require root `sky` with `sky.mask`. These
+  fields exclude `clouds`, `media` (unless paired via `media.dayNight`), root
+  `water`, `midground.water`, `midground.flowingWater`, and `sky.aurora`.
+- **`panoramaBlend`** (Locus 1.4.10 or later,
+  `locus.view.sun-path.panorama-blend.v1`): blends a distinct full-frame 2:1
+  night panorama (`path`, exact same dimensions as `panorama.path`) over the
+  root daylight panorama between `dayElevationDegrees` and
+  `nightElevationDegrees` (`-18...10`, `night < day`, defaults `-1` and `-12`),
+  scaled by `nightGrade` (three `0...4` values, default `[1, 1, 1]`). Requires
+  `daySky`, root `sky`, and `gpuTextures` v2 `astc-6x6-srgb` sidecars for both
+  `panorama.path` and `panoramaBlend.path` (legacy `gpuTexture` is rejected).
+  Pairing with `shore` requires `1.4.11`.
+- **`media.dayNight`** (Locus 1.4.11 or later,
+  `locus.view.media.day-night.v1`): the sole `media` shape allowed with a
+  day/night sun path. Valid only alongside `sunPath.panoramaBlend`, `daySky`,
+  `sky.mask`, and both `gpuTextures` v2 sidecars. Requires `version: 1`,
+  `nightPanoramaSHA256` (SHA-256 of `panoramaBlend.path`), and `sources`
+  covering every video source in `media.sources` exactly once with 8-bit RGB
+  PNGs (no alpha, <= `4096×2048`) for linear `lighting` and sRGB `emission`,
+  within an aggregate decode budget of `4096×2048×30.1`.
+
 Two-eye depth, shimmer, performance and comfort for these effects still need
 review on Apple Vision Pro for each new View; Simulator captures do not
 establish them.
@@ -883,11 +1022,17 @@ animations with saved playback speed and randomized replay intervals; Room v5
 adds explicit rendering roles and spotlight directions; Room v6 adds authored
 seat groups; Room v7 adds looping video surfaces; Room v8 adds illuminated
 surfaces and an explicit view-forward yaw; Room v9 adds particle effects;
-Room v10 adds per-lamp baked light layers. All of those compatibility
+Room v10 adds per-lamp baked light layers; Room v11 (Locus 1.4.5) allows
+omitting or declaring multiple `viewOpenings`; Room v12 (Locus 1.4.5) adds
+`viewGroundFootprint`; and Room v13 (Locus 1.4.5) adds
+`viewGroundFootprint.bottomHeightsMeters`. All of those compatibility
 versions use the same flat ZIP layout. These `formatVersion` numbers apply only
 to a flat `space.json`: a complete Package v2 Room's `space.json` keeps
 `formatVersion: 2` and declares the same fields directly, with the matching
-`minimumAppVersion` in `locusplace.json`.
+`minimumAppVersion` in `locusplace.json`. Package-v2-only Room fields such as
+`water`, `viewGroundFloorOffsetMeters`, `viewGroundKeepOut`,
+`viewMidgroundVisibility`, `textureFlow`, `flowingWater`, and `tvs` cannot be
+carried by a flat Room ZIP.
 
 Locus 1.1.4 adds an optional `sound.json` sidecar: a Room or a View may carry
 its own audio, independently of everything above. An older Locus refuses the
@@ -962,8 +1107,10 @@ ID:
 }
 ```
 
-`caption`, `previewCamera`, and `spatialAdaptation` are optional. Every Room
-must have exactly one View opening and at least one teleport point. Coordinates
+`caption`, `previewCamera`, and `spatialAdaptation` are optional. Before
+`formatVersion: 11` (Locus 1.4.5), every Room must have exactly one View
+opening; from `formatVersion: 11`, `viewOpenings` may be omitted or declare
+multiple unique openings. Every Room needs at least one teleport point. Coordinates
 are right-handed meters with +Y up and -Z forward. Quaternions are
 `[x, y, z, w]`. `anchorXZ` values are normalized into the Room bounds.
 
@@ -1567,6 +1714,43 @@ only units named by the selected View's `midground.terrainEntities`; `hidden`
 does not load the selected View's `midground.path` model or textures. It does
 not hide the panorama, View water, Room water, fireflies, or the Room's own
 geometry, and it is independent of `viewGroundKeepOut`.
+
+### Room View-ground footprint (Locus 1.4.5 or later)
+
+`viewGroundFootprint` replaces the whole-bounds View-ground keep-out box with
+the union of 1–32 simple X/Z polygons in Room-local metres (`[-200, 200]`,
+3–128 vertices each, at most 512 vertices total, nonzero area, no repeated
+vertices or self-intersections). Optional `bottomHeightsMeters` provides one
+lower Y bound (`[-200, 200]`) per polygon so water below raised geometry
+remains visible. In Package v2 this requires `minimumAppVersion >= "1.4.5"`
+(`locus.room.view-ground-footprint.v1` and
+`locus.room.view-ground-footprint-height.v1`). In the flat compatibility Room
+format, `viewGroundFootprint` requires `formatVersion: 12` and
+`bottomHeightsMeters` requires `formatVersion: 13`.
+
+### Room texture flow (Locus 1.4.5 or later)
+
+Requires Locus 1.4.5 or later (`locus.room.texture-flow.v1`), Package v2 only.
+`textureFlow` is an optional top-level `space.json` array of 1–16 entries
+`{"entities": [...], "uvVelocity": [u, v]}` that scrolls `UsdPreviewSurface`
+repeat textures on the named `scene.usdz` subtrees. Unlike a View's prefix
+matching, every entry in `entities` is an exact, unique `scene.usdz` entity
+name with renderable geometry, none nested inside another. `uvVelocity` values
+are finite in `-2...2` and not both `0`. The motion runs only while the
+selected View's Animated View switch is on, the scene is active, and Reduce
+Motion is off.
+
+### Room flowing water (Locus 1.4.9 or later)
+
+Requires Locus 1.4.9 or later (`locus.room.flowing-water.v1`), Package v2 only.
+`flowingWater` is an optional top-level `space.json` array of 1–16 entries
+with the same fields, ranges, defaults, and `primvars:st` /
+`primvars:displayColor` mesh contract as `midground.flowingWater`, except
+`entities` lists exact, unique `scene.usdz` entity names (with renderable
+geometry, none nested inside another, and none also named in Room
+`textureFlow`), and `plunges[].position` uses `scene.usdz` coordinates. Virtual
+Space only, following the same motion gate as `textureFlow`, with per-Room
+**Flowing Water** controls saved in Motion settings.
 
 ### Room TVs (Locus 1.4.9 or later)
 

@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "sourceCommit": "61cbb33e25378a4b83bc4ee35606fe6ea48189cc",
+  "sourceCommit": "cd4ed5cc3b6e3dc1a0dedd1933a22ff0f126e833",
   "files": [
     {
       "source": "scripts/pack_locusplace.py",
@@ -10,9 +10,9 @@
     {
       "source": "scripts/validate_locusplace.py",
       "target": "tools/validate_locusplace.py",
-      "sourceSHA256": "179c02c0759b35b279b2da1a66e28f33633a7da8382652d6795c5db0ec01cae5",
-      "publicSHA256": "911f26140c78287613fd6bb6f6fca4d609db3279d6fb201c266a9978b3954830",
-      "adaptation": "Reject retired publisher-only oceanGlint data"
+      "sourceSHA256": "b3a737a0452f03e8571b44355d237da2d370a1f16bf7e642c898942251ffaa32",
+      "publicSHA256": "799d54af3298130cfaba820c4e9214a9326898d98b6ef0ec490c2c3144516d6f",
+      "adaptation": "Reject retired publisher-only oceanGlint data, enforce nonzero seatedOrigin quaternion, and run public room_bindings check"
     },
     {
       "source": "scripts/black_hole_view.py",
@@ -42,7 +42,7 @@
     {
       "source": "scripts/content_localization.py",
       "target": "tools/content_localization.py",
-      "sourceSHA256": "a6cc0d7d814713fa789a0e9b9e7d2281cb6ecec54e9f72d7447bc3e80e331a8f"
+      "sourceSHA256": "482b23253a22737eb826bb3399a511670924e665d9d8a3110f9f572281b8068b"
     },
     {
       "source": "scripts/fireflies_contract.py",
@@ -52,7 +52,7 @@
     {
       "source": "scripts/gpu_texture_sidecar.py",
       "target": "tools/gpu_texture_sidecar.py",
-      "sourceSHA256": "a4a8d74dbb75b56d6bde5d20843a5632693894cc2fe6a32a8fef5684e8a62bce"
+      "sourceSHA256": "a833aa91257e589af98de4a9eb0ad6a706b8cdbc0df071d4ede32f08fb346751"
     },
     {
       "source": "scripts/ktx1.py",
@@ -77,7 +77,7 @@
     {
       "source": "scripts/panorama_media.py",
       "target": "tools/panorama_media.py",
-      "sourceSHA256": "ddc9a07f50f98acbb68905144678a658ee4a693aaa3a90b794447eb8416c360f"
+      "sourceSHA256": "cacfe0d67aaaad2ade04426eb226dd2b0a67f9616d7718a606c059bf890bc3dc"
     },
     {
       "source": "scripts/point_lights.py",
@@ -90,6 +90,11 @@
       "sourceSHA256": "2863e30fddd5f7393189840ca43df5c72c97ae25e98e16ad30833b45d3584c14"
     },
     {
+      "source": "scripts/shore_contract.py",
+      "target": "tools/shore_contract.py",
+      "sourceSHA256": "064c99eefd7224f9457d484c5082adf5a16b7e484ce7904bca5e61ba95d44a15"
+    },
+    {
       "source": "scripts/sun_free_sky_check.py",
       "target": "tools/sun_free_sky_check.py",
       "sourceSHA256": "510ffab3528b6f48d627297cc22c13ae6edbb1ccb132e4a7e5046c1f6f8708d1"
@@ -97,7 +102,7 @@
     {
       "source": "scripts/sun_path_contract.py",
       "target": "tools/sun_path_contract.py",
-      "sourceSHA256": "0afe8f8326d80945abf1c1f295399070634779f13673b1cbff734dd1f7a2c888"
+      "sourceSHA256": "504015a8b513537760562cde373314e42af77d5fbd8e4d828039bd57be718d03"
     },
     {
       "source": "scripts/water_contact_proxy.py",
@@ -118,6 +123,11 @@
       "source": "scripts/water_reflection_mask.py",
       "target": "tools/water_reflection_mask.py",
       "sourceSHA256": "daf1235187f493402a80274205ca2e0cf06762c68cfe9c4b09a1bfb210de11af"
+    },
+    {
+      "source": "scripts/view_ground_footprint.py",
+      "target": "tools/view_ground_footprint.py",
+      "sourceSHA256": "6f4666ece770e6da9101950fc7583420f6aeabbba931ac184a33cee43cd4e3be"
     },
     {
       "source": "docs/schemas/locusplace-v1.schema.json",
@@ -157,8 +167,8 @@
     {
       "source": "scripts/validate_locus_asset.py",
       "target": "tools/validate_locus_asset.py",
-      "sourceSHA256": "f039bbf486ef80c76e3a1198725aacb6452d5c18bf7931805fc8de986d139d1d",
-      "publicSHA256": "e5a8fb5db67416bd476471ce649ea18bbf02beee8455114cd09ef532f512280b",
+      "sourceSHA256": "662ceb16f930c49294985044568500130160ad48aa345973c007810befb9a546",
+      "publicSHA256": "b03e89c4aacefd68a7e7dc86c8b5ecc1b6e31d12137192190c53de0cd480c07a",
       "adaptation": "Standalone public Swift USD binding inspection"
     }
   ]

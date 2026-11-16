@@ -7,11 +7,51 @@ import math
 
 CAPABILITY = 'locus.view.media.v1'
 MINIMUM_APP = (1, 1, 2)
+DAY_NIGHT_CAPABILITY = 'locus.view.media.day-night.v1'
+DAY_NIGHT_MINIMUM_APP = (1, 4, 11)
+
+
+def _safe_png_path(value):
+    return (isinstance(value, str) and value and value.lower().endswith('.png')
+            and not value.startswith('/') and not any(ord(char) < 32 for char in value)
+            and all(part not in ('', '.', '..') for part in value.split('/')))
+
+
+def validate_day_night(value, video_ids, require):
+    """Validate the opt-in full-day media-pair declaration.
+
+    Image bytes and dimensions need archive context, so this only establishes
+    the closed JSON shape and binds each pair to exactly one video source.
+    """
+    require(isinstance(value, dict) and set(value) == {
+        'version', 'nightPanoramaSHA256', 'sources'}, 'invalid media.dayNight fields')
+    require(type(value['version']) is int and value['version'] == 1,
+            'unsupported media.dayNight version')
+    digest = value['nightPanoramaSHA256']
+    require(isinstance(digest, str) and len(digest) == 64
+            and all(c in '0123456789abcdef' for c in digest),
+            'invalid media.dayNight night panorama hash')
+    sources = value['sources']
+    require(isinstance(sources, list) and len(sources) == len(video_ids),
+            'media.dayNight sources must cover every video source exactly once')
+    seen = set()
+    for source in sources:
+        require(isinstance(source, dict) and set(source) == {'source', 'lighting', 'emission'},
+                'invalid media.dayNight source fields')
+        source_id = source['source']
+        require(isinstance(source_id, str) and source_id in video_ids and source_id not in seen,
+                'media.dayNight source must name each video source exactly once')
+        seen.add(source_id)
+        require(_safe_png_path(source['lighting']), 'media.dayNight lighting must be a safe PNG path')
+        require(_safe_png_path(source['emission']), 'media.dayNight emission must be a safe PNG path')
+    require(seen == video_ids, 'media.dayNight sources must cover every video source exactly once')
+    return sources
 
 
 def validate_definition(value, require):
-    require(isinstance(value, dict) and set(value) == {
-        'version', 'sourcePanoramaSHA256', 'mask', 'sources', 'regions'}, 'invalid media fields')
+    require(isinstance(value, dict) and set(value) in ({
+        'version', 'sourcePanoramaSHA256', 'mask', 'sources', 'regions'}, {
+        'version', 'sourcePanoramaSHA256', 'mask', 'sources', 'regions', 'dayNight'}), 'invalid media fields')
     require(type(value['version']) is int and value['version'] == 1, 'unsupported media version')
     digest = value['sourcePanoramaSHA256']
     require(isinstance(digest, str) and len(digest) == 64 and all(c in '0123456789abcdef' for c in digest), 'invalid media panorama hash')
@@ -54,4 +94,6 @@ def validate_definition(value, require):
             b = other['bounds']
             overlap = max(a[2], b[2]) < min(a[3], b[3])-1e-10 and any(max(x[0],y[0]) < min(x[1],y[1])-1e-10 for x in spans(a) for y in spans(b))
             require(not overlap, 'overlapping media regions')
+    if 'dayNight' in value:
+        validate_day_night(value['dayNight'], videos, require)
     return paths
