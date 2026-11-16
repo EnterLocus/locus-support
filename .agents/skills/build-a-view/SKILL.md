@@ -28,6 +28,8 @@ Read only the references needed for the capabilities the creator asks for:
 | Panorama looping video (`media` + `media.dayNight`), `fireflies`, `pointLights`, and View spatial `sound` | [Video, atmosphere, and sound](references/video-atmosphere-and-sound.md) |
 | Space and orbital profiles (`blackHole`, `celestial` v1/v2, `nearOrbit` v1/v2) | [Space and black hole Views](references/space-and-black-hole.md) |
 
+A clone of `EnterLocus/locus-support` also carries complete offline format specs (`reference/locusplace-format.md` and `reference/locus-asset-format.md`), JSON Schemas (`schemas/locusplace-v1.schema.json`, `schemas/provenance-v1.schema.json`, `schemas/view-celestial-v1.schema.json`, `schemas/view-celestial-v2.schema.json`, `schemas/view-near-orbit-v1.schema.json`, `schemas/view-near-orbit-v2.schema.json`, `schemas/view-black-hole-v1.schema.json`), and a stdlib package-builder reference (`examples/locusplace/build_examples.py`). See [Package v2 delivery](references/package-v2-delivery.md) for which scripts under `tools/` are CLIs versus importable Python helpers.
+
 For a static skybox, use exactly two creator checkpoints below. Read
 [the workflow](references/skybox-workflow.md) for image processing,
 [models and costs](references/models-and-cost.md) for quotes, and

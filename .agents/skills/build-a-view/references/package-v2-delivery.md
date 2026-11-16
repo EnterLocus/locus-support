@@ -1,10 +1,40 @@
 # Package v2 delivery for Views
 
 Package v2 (`.locusplace` / `.zip`) is the canonical feature-complete import
-format for Locus 1.2.1 and later. See the public
+format for Locus 1.2.1 and later. See the offline specs in this repository
+(`reference/locusplace-format.md` and `reference/locus-asset-format.md`), the
+JSON Schemas (`schemas/locusplace-v1.schema.json`,
+`schemas/provenance-v1.schema.json`), and `examples/locusplace/build_examples.py`,
+or the published
 [complete Package v2 guide](https://enterlocus.com/reference/locusplace-format/)
-and [field reference](https://enterlocus.com/reference/locus-asset-format/) for
-every field and constraint.
+and [field reference](https://enterlocus.com/reference/locus-asset-format/).
+
+## Public CLIs vs Python contract modules
+
+Most validator files under `tools/` are importable Python libraries with no
+`__main__` CLI; `tools/validate_locusplace.py` invokes them automatically when
+checking a `.locusplace` archive:
+
+- **Command-line tools**: `tools/pack_locusplace.py`,
+  `tools/validate_locusplace.py`, `tools/pack_locus_asset.py`,
+  `tools/validate_locus_asset.py`, `tools/skybox/skybox.py`,
+  `tools/skybox/seam_patch.py`, `tools/black_hole/compose_sky.py`,
+  `tools/black_hole/outpaint_fal.py`, `tools/black_hole/bake_view.py`,
+  `tools/black_hole/pack_view.py`, `tools/black_hole/validate_view.py`,
+  `tools/sun_free_sky_check.py` (requires `numpy` + `PIL`),
+  `tools/audit_coplanar_surfaces.py` (runs inside Blender with `--python`),
+  `tools/place_examples.py`, and `tools/external_assets.py`.
+- **Importable Python modules** (import with `sys.path.insert(0, "tools")`):
+  `tools/gpu_texture_sidecar.py`, `tools/ktx1.py`, `tools/water_contract.py`,
+  `tools/water_reflection_mask.py`, `tools/water_layered_reflection_mask.py`,
+  `tools/water_contact_proxy.py`, `tools/shore_contract.py`,
+  `tools/procedural_sky.py`, `tools/clouds_contract.py`,
+  `tools/sun_path_contract.py`, `tools/panorama_media.py`,
+  `tools/fireflies_contract.py`, `tools/point_lights.py`,
+  `tools/package_sound.py`, `tools/celestial_view.py`,
+  `tools/celestial_rings.py`, `tools/celestial_advection.py`,
+  `tools/near_orbit_profile.py`, `tools/black_hole_view.py`, and
+  `tools/content_localization.py`.
 
 ## Archive layout and independent packaging
 
@@ -51,18 +81,48 @@ my-view.locusplace
 
 ## ASTC KTX1 GPU texture sidecars
 
-Contract: `tools/gpu_texture_sidecar.py`. Requires macOS with Xcode's
-`TextureConverter`.
+Contract: `tools/gpu_texture_sidecar.py` (Python library module; requires macOS
+with Xcode's `TextureConverter`).
 
 - `gpuTexture` (`1.2.3+`): single object for `panorama.path` (`astc-6x6-srgb`
   `.ktx` with full mipmaps and `Repeat` horizontal wrap).
 - `gpuTextures` (`1.3.0+`): array of sidecar objects (`source`, `path`, `format`,
-  `width`, `height`, `mipmapLevels`, `sourceSHA256`). Required for
-  `sunPath.panoramaBlend`, `celestial`, and `nearOrbit`. Never declare both
+  `width`, `height`, `mipmapLevels`, `sourceSHA256`). Never declare both
   `gpuTexture` and `gpuTextures`.
-- Use `astc-6x6-srgb` for visible color images and `astc-6x6-linear` for linear
-  data maps (`celestial.cloudTexture`, `nearOrbit` `cloudTexture` & `surface`
-  tiles).
+  - **Mandatory**: both `panorama.path` and `sunPath.panoramaBlend.path` when
+    `sunPath.panoramaBlend` is declared (`astc-6x6-srgb`, `Repeat`), plus every
+    declared `nearOrbit` v2 `tiles` entry (`astc-6x6-srgb`, `Clamp`) and
+    `surface` tile (`astc-6x6-linear`, `Clamp`).
+  - **Optional / recommended**: standalone `panorama.path`, `celestial`
+    (`backgroundPanorama`, `dayTexture`, `nightTexture` as `astc-6x6-srgb`;
+    `cloudTexture` as `astc-6x6-linear`, `Repeat`), and `nearOrbit` v2 globals
+    (`dayTexture`, `nightTexture`, `fallbackPanorama`, `galaxyTexture` as
+    `astc-6x6-srgb`; `cloudTexture` as `astc-6x6-linear`, `Repeat`; `skyMask`
+    never takes a sidecar).
+- Generate `<stem>.ktx` files and the exact `destination.json` field via Python
+  instead of hand-writing metadata:
+  ```python
+  import json, pathlib, sys
+
+  sys.path.insert(0, "tools")
+  from gpu_texture_sidecar import build_gpu_textures_field
+
+  dest_dir = pathlib.Path("MyEditableView/catalog/destinations/destination.example-view")
+  manifest = json.loads((dest_dir / "destination.json").read_text(encoding="utf-8"))
+  manifest["gpuTextures"] = build_gpu_textures_field(
+      destination_dir=dest_dir, manifest=manifest
+  )
+  (dest_dir / "destination.json").write_text(json.dumps(manifest, indent=2) + "\n")
+  ```
+  (For `1.2.3+` single-panorama `gpuTexture`, call
+  `build_gpu_texture_field(panorama_jpg=..., output_ktx=..., panorama_width=..., panorama_height=...)`.)
+- **Direct `TextureConverter` flag-order trap**: if you invoke Xcode's
+  `TextureConverter` outside `tools/gpu_texture_sidecar.py`, every `--long_flag`
+  (`--compression_format=ASTC6x6`, optional `--srgb_format`,
+  `--file_format=KTX`, `--max_mipmaps=15`, `--wrap_mode=Repeat|Clamp`,
+  `--output=<out.ktx>`) **must precede** the positional `<source_image>`
+  argument; placing flags after the input makes `TextureConverter` fall back to a
+  legacy parser and reject long options.
 
 ## Provenance and localized display text
 

@@ -5,10 +5,25 @@ Covers `midground` USDZ scenery (`1.2.1+`) and dynamic midground capabilities
 See the public
 [field reference](https://enterlocus.com/reference/locus-asset-format/).
 
-## Coordinate contract and budgets
+## Coordinate contract, USDZ packaging, and budgets
 
-- Export one self-contained `midground.usdz` in meters, `+Y` up, `-Z` forward,
-  with origin `(0, 0, 0)` at the View ground level under a Room's first seat.
+- Export one self-contained `midground.usdz` in meters (`metersPerUnit = 1`,
+  `upAxis = "Y"`), `-Z` forward, with origin `(0, 0, 0)` at the View ground
+  level under a Room's first seat.
+- **Blender-to-USD axis mapping**: Blender `(bx, by, bz)` exports to `+Y`-up
+  USD / RealityKit `(rx, ry, rz) = (bx, bz, -by)` (Blender `+Y` becomes `-Z`
+  forward; runtime `(rx, ry, rz)` corresponds to Blender `(rx, -rz, ry)`).
+- **USDZ archive rules**: include a root `.usd`/`.usda`/`.usdc` layer, store
+  every member **uncompressed (`ZIP_STORED`)** with 64-byte alignment
+  (`pxr.UsdUtils.CreateNewUsdzPackage` handles this automatically), avoid USD
+  native instances (`instanceable = true`), procedural primitives
+  (`PointInstancer`, `Sphere`, `Capsule`, `Cylinder`, `Cone`), and time-sampled
+  topology, and verify with `xcrun usdchecker --arkit midground.usdz`.
+- **Coplanar z-fighting audit**: inspect the exported USDZ for overlapping
+  coplanar triangles with Blender before packaging:
+  ```sh
+  blender -b --python tools/audit_coplanar_surfaces.py -- --usdz midground.usdz --json coplanar-report.json
+  ```
 - Keep all geometry inside the `80 m` sky sphere with margin (`<= 76 m`), and
   target near land within `~25 m` and props within `~27 m` unless paired with
   known Rooms.
@@ -49,16 +64,68 @@ Rooms grade `terrainEntities` and hide overlapping non-terrain units using
   both `0`; `[0, -v]` flows downward on upright textures; e.g.
   `destination.jungle-terraces`).
 - `flowingWater` (`1.4.9+`): `1..16` entries for static waterfall/stream meshes
-  (disjoint from `textureFlow` and `terrainEntities`, `<= 400,000` vertices,
-  optional up to 8 `plunges` per entry, excluded by `sunPath.daySky`):
-  - Author **vertex-interpolated** `primvars:st` (`texCoord2f[]`:
-    `(acrossMeters, tauSeconds)` where `tauSeconds` increases downstream) and
-    `primvars:displayColor` (`color3f[]`: `(white, steep, edge)` in `0..1`),
-    plus outward `normals` and a plain dark-water `UsdPreviewSurface` fallback.
-  - Because Blender writes UVs and color attributes as `faceVarying` by
-    default, convert `primvars:st` and `primvars:displayColor` to `vertex`
-    interpolation in USD (`pxr`) after exporting and validate with
-    `tools/validate_locusplace.py`.
+  (disjoint from `textureFlow` and `terrainEntities`, total USD vertex count
+  bounded cleanly, optional `whiteness` `0..1.5`, `color` `[r, g, b]`,
+  `ripple` `0..1`, `speed` `0.25..2`, `brightness` `0..4`, `mist` `0..2`,
+  `spray` `0..2`, `shells` `0..2`, and up to `8` `plunges` per entry
+  `{"position": [x, y, z], "width": 0.2..20, "height": 0.3..30, "yawDegrees": -360..360}`;
+  excluded by `sunPath.daySky`):
+  ```json
+  {
+    "flowingWater": [
+      {
+        "entities": ["Waterfall_Main"],
+        "whiteness": 1.0,
+        "speed": 1.0,
+        "brightness": 1.0,
+        "mist": 1.0,
+        "spray": 1.0,
+        "shells": 1,
+        "plunges": [
+          {"position": [0.0, 0.2, -12.0], "width": 2.4, "height": 1.8, "yawDegrees": 0}
+        ]
+      }
+    ]
+  }
+  ```
+  - **Vertex attributes along downstream arc length `s`** (local slope angle `theta`):
+    - Integrate flow speed `v` (m/s) downstream with acceleration `0.7 * 9.81 * sin(theta)`
+      relaxing toward `1.0 m/s` at `4.0 /s`, keeping `v >= 0.5 m/s`.
+    - `primvars:st` (`TexCoord2fArray`): `(acrossMeters, tauSeconds)` where
+      `acrossMeters` spans width in meters across the ribbon and
+      `tauSeconds = integral(ds / v)` starts at `0` at the head and strictly
+      increases downstream.
+    - `primvars:displayColor` (`Color3fArray`): `(white, steep, edge)` in `0..1`
+      where `steep = smoothstep(0.25, 0.85, sin(theta))`,
+      `white = max(smoothstep(1.4, 2.9, v), prev_white - max(dt / 3.0, ds / 5.0))`,
+      and `edge` ramps `0` at side banks to `1` ~`1 m` inward.
+    - Author outward `normals` and a plain dark-water `UsdPreviewSurface`
+      fallback.
+  - **Blender `pxr` post-export fix (must remove `:indices`)**: Blender exports
+    UVs and color attributes as `faceVarying` with `:indices` arrays. Run this
+    with Blender's bundled Python `pxr` after exporting `.usdc`/`.usda`, then
+    repackage into `.usdz`:
+    ```python
+    from pathlib import Path
+    from pxr import Gf, Sdf, Usd, UsdGeom, UsdUtils, Vt
+
+    stage = Usd.Stage.Open("midground_raw.usdc")
+    for prim in stage.Traverse():
+        if prim.IsA(UsdGeom.Mesh) and prim.GetName().startswith("Waterfall_Main"):
+            mesh = UsdGeom.Mesh(prim)
+            mesh.SetNormalsInterpolation(UsdGeom.Tokens.vertex)
+            api = UsdGeom.PrimvarsAPI(prim)
+            for name, vtype, vals in (
+                ("st", Sdf.ValueTypeNames.TexCoord2fArray, Vt.Vec2fArray([Gf.Vec2f(*uv) for uv in vertex_uvs])),
+                ("displayColor", Sdf.ValueTypeNames.Color3fArray, Vt.Vec3fArray([Gf.Vec3f(*c) for c in vertex_colors])),
+            ):
+                pv = api.CreatePrimvar(name, vtype, UsdGeom.Tokens.vertex)
+                pv.Set(vals)
+                prim.RemoveProperty(f"primvars:{name}:indices")
+    stage.GetRootLayer().Save()
+    UsdUtils.CreateNewUsdzPackage(Sdf.AssetPath("midground_raw.usdc"), "midground.usdz")
+    ```
+    Validate with `tools/validate_locusplace.py`.
 
 ## Downloadable Blender source examples
 
