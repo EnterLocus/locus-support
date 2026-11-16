@@ -12,6 +12,7 @@ The following paths are licensed under the Apache License, Version 2.0:
 - `.agents/skills/build-original-locus-room/**`
 - `.agents/skills/build-a-view/**`
 - `tools/**`
+- `tests/test_view_skill.py`
 - `tests/test_skybox.py`
 - `tests/test_skybox_tiles.py`
 - `tests/test_skybox_erp_context.py`

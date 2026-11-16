@@ -1,19 +1,37 @@
 ---
 name: build-a-view
-description: Create or repair a static full-sphere skybox at native sampling density for Locus using an explicitly configured high-resolution image API, native-size and fidelity checks, and local Python projection and visual audits. Excludes 3D midground, animated or computed water, celestial layers and procedural skies.
+description: Create, repair, and package a Locus View — from native-density full-sphere static skyboxes to complete Package v2 Views with 3D midground and flowing water, realtime water and computed surf (`shore`), procedural night skies, painted clouds, 24-hour `sunPath` day/night blends, looping panorama video, fireflies, point lights, spatial sound, and `celestial`, `nearOrbit`, and `blackHole` profiles. Excludes Room-only authoring (`build-original-locus-room`).
 ---
 
-# Build a View: static skybox
+# Build a View
 
-Create a complete 360° × 180° SDR equirectangular panorama. Start with the
-creator's brief or a licensed full panorama; preserve the source and save
-edits separately. This public skill and `tools/skybox/` are Apache-2.0.
-Commands run from a clone of the public `EnterLocus/locus-support` repository;
-no private Locus scripts, credentials, source, catalog or asset paths are used.
+Create a complete 360° × 180° SDR equirectangular panorama and, when needed,
+layer 3D midground, water or surf, dynamic sky/daylight, video, spatial sound,
+or orbital/black-hole profiles into a checked Package v2 `.locusplace` archive.
+Start with the creator's brief, a licensed full panorama, or an existing View
+template; preserve the source and save edits separately. This public skill,
+`tools/skybox/`, and the public authoring tools are Apache-2.0. Commands run
+from a clone of the public `EnterLocus/locus-support` repository; no private
+app source, internal tools, Simulator, or private catalog paths are used.
 
-Use exactly two creator checkpoints. Read [the workflow](references/skybox-workflow.md)
-for image processing, [models and costs](references/models-and-cost.md) for
-quotes, and [native resolution](references/resolution.md) before promising size.
+## Choose the workflow / capability reference
+
+Read only the references needed for the capabilities the creator asks for:
+
+| View capability / stage | Read next |
+|---|---|
+| Static full-sphere skybox generation, restoration, 6-face enhancement & cost quotes | [Skybox workflow](references/skybox-workflow.md), [models and costs](references/models-and-cost.md), and [native resolution](references/resolution.md) |
+| Complete Package v2 archive (`.locusplace`), `thumbnail.jpg` vs `lighting-ibl.jpg`, `gpuTextures` KTX1 sidecars, `localizations`, validation & Apple Vision Pro iteration | [Package v2 delivery](references/package-v2-delivery.md) |
+| Procedural night `sky` (`stars`, `milkyWay`, `moon`, `aurora`), painted `clouds`, and 24h `environment.sunPath` (`daySky`, `panoramaGrade`, `light`, `panoramaBlend`) | [Sky, clouds, and daylight](references/sky-clouds-and-daylight.md) |
+| Realtime `water` (`ocean`/`still`, `optics`, `bed.deepening`, `reflectionRegistration`, `contactCalibration`, `glow`) and computed surf `shore` (`1.4.9–1.4.11`) | [Water and shore](references/water-and-shore.md) |
+| 3D `midground` (`midground.usdz`, Room keep-out / hideable units, `skyEntities`, `windSway`, `textureFlow`, `flowingWater`) | [3D midground](references/midground-3d.md) |
+| Panorama looping video (`media` + `media.dayNight`), `fireflies`, `pointLights`, and View spatial `sound` | [Video, atmosphere, and sound](references/video-atmosphere-and-sound.md) |
+| Space and orbital profiles (`blackHole`, `celestial` v1/v2, `nearOrbit` v1/v2) | [Space and black hole Views](references/space-and-black-hole.md) |
+
+For a static skybox, use exactly two creator checkpoints below. Read
+[the workflow](references/skybox-workflow.md) for image processing,
+[models and costs](references/models-and-cost.md) for quotes, and
+[native resolution](references/resolution.md) before promising size.
 
 ## Step 1 — make the panorama and obtain visual confirmation
 
@@ -107,9 +125,11 @@ received generated detail, their actual returned dimensions and any enlargement.
 Metrics diagnose change; neither seam ratios nor sharpness scores prove quality.
 Perspective image review is distinct from Locus loading and headset acceptance.
 
-This phase includes painted sea or beach as static panorama pixels. It does
-not create water geometry, motion, parallax, sound or procedural lighting.
-Build those future View layers on the accepted skybox with their own contracts.
+The static skybox steps above create painted scenery as panorama pixels; they do
+not add water geometry, motion, parallax, sound or procedural lighting on their
+own. When the creator wants those capabilities, build them onto the accepted
+skybox using the capability references in the table above and package everything
+via [Package v2 delivery](references/package-v2-delivery.md).
 
 The small-patch tool remains experimental. Its Maldives test failed integration;
 it is not an approved substitute for native high-resolution faces. Do not
@@ -126,10 +146,11 @@ Finished Locus Views are published as worked examples. The manifest is
 `minimumAppVersion`, `url`, `byteCount`, `sha256`), and usually `source: null`.
 View feature ids are `video` (looping video regions), `water`, `flowing-water`,
 `shore`, `midground` (3D midground USDZ), `day-night`, `procedural-sky`,
-`celestial`, `clouds` (animated cloud sea), `particles`, and `sound`. Most go beyond this static-skybox skill; use them to
-see how a finished View packages its panorama, thumbnail, appearance and
-`provenance.json`, not as a route this skill performs. Room-only ids such as
-`room-tv` (Room TVs) are explained in the build-original-locus-room skill.
+`celestial`, `clouds` (animated cloud sea), `particles`, and `sound`. Those
+features correspond directly to the capability references in this skill; use
+these packages to study how a finished View structures its assets, `destination.json`,
+thumbnail, appearance, and `provenance.json`. Room-only ids such as `room-tv`
+(Room TVs) are explained in the build-original-locus-room skill.
 
 A record may also have `upcoming`: a newer revision for a Locus `appVersion`
 that is not public yet, with its own `package`, `source`, `features` and
