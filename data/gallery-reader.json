@@ -1,10 +1,11 @@
 {
   "formatVersion": 1,
-  "appVersion": "1.4.7",
+  "appVersion": "1.5.0",
   "minimumOSVersion": "27.0.0",
-  "readerSource": "visionos-v1.4.7-build-1",
+  "readerSource": "visionos-v1.5.0-build-1",
   "capabilities": [
     "locus.view.media.v1",
+    "locus.view.media.day-night.v1",
     "locus.view.audio.v1",
     "locus.room.audio.v1",
     "locus.view.audio.v2",
@@ -25,6 +26,9 @@
     "locus.room.particle-effects.v1",
     "locus.room.lighting.baked-light-layers.v1",
     "locus.room.texture-flow.v1",
+    "locus.room.tv.v1",
+    "locus.room.flowing-water.v1",
+    "locus.view.midground.flowing-water.v1",
     "locus.view.midground.v1",
     "locus.view.midground.wind-sway.v1",
     "locus.view.midground.wind-sway.wave.v1",
@@ -54,9 +58,14 @@
     "locus.view.water.bed-deepening.macro.v1",
     "locus.view.water.bed-deepening.open-water.v1",
     "locus.view.water.contact-calibration.v1",
+    "locus.view.water.surf.v1",
+    "locus.view.water.surf.wet-band.v1",
+    "locus.view.water.surf.panorama-blend.v1",
     "locus.view.fireflies.v1",
     "locus.view.clouds.v1",
     "locus.view.sun-path.v1",
+    "locus.view.sun-path.day-night.v1",
+    "locus.view.sun-path.panorama-blend.v1",
     "locus.room.water.v1",
     "locus.preview.card.v1",
     "locus.install.view.v1",
@@ -83,7 +92,9 @@
     "locus.view.fireflies.v1",
     "locus.view.clouds.v1",
     "locus.view.sun-path.v1",
-    "locus.view.midground.texture-flow.v1"
+    "locus.view.midground.texture-flow.v1",
+    "locus.view.water.surf.v1",
+    "locus.view.midground.flowing-water.v1"
   ],
   "builtIns": [
     {

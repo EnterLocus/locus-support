@@ -272,50 +272,24 @@
         "particles",
         "music",
         "light-layers",
-        "generated-furniture"
+        "generated-furniture",
+        "room-tv"
       ],
       "package": {
-        "contentVersion": "1.0.14",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.hilltop-villa-1.0.14.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.0.14.locusplace",
-        "byteCount": 117828986,
-        "sha256": "3b1d9b0fde60cab98eeafacd283c70887110427585c2f9ab05c10f44ea148c84"
+        "contentVersion": "1.0.17",
+        "minimumAppVersion": "1.4.9",
+        "fileName": "space.hilltop-villa-1.0.17.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.0.17.locusplace",
+        "byteCount": 118258514,
+        "sha256": "8d1df44d464b1dc6ef6868de7d5eca9ee9603f14e36c7479fabb82b4a1118bef"
       },
       "source": {
-        "sourceVersion": "1.0.14",
+        "sourceVersion": "1.0.17",
         "blenderVersion": "5.2.1",
-        "fileName": "space.hilltop-villa-source-1.0.14-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.14-r2.zip",
-        "byteCount": 37400306,
-        "sha256": "b29aa955202a3e2230c93aa7635770c8a4d45b946f223856b0c42f2073e771e4"
-      },
-      "upcoming": {
-        "appVersion": "1.5.0",
-        "package": {
-          "contentVersion": "1.0.17",
-          "minimumAppVersion": "1.4.9",
-          "fileName": "space.hilltop-villa-1.0.17.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.0.17.locusplace",
-          "byteCount": 118258514,
-          "sha256": "8d1df44d464b1dc6ef6868de7d5eca9ee9603f14e36c7479fabb82b4a1118bef"
-        },
-        "source": {
-          "sourceVersion": "1.0.17",
-          "blenderVersion": "5.2.1",
-          "fileName": "space.hilltop-villa-source-1.0.17.zip",
-          "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.17.zip",
-          "byteCount": 37414192,
-          "sha256": "59deae881fdbefb217282e92b6432a5a53debefa3655b863dab22c543bc04559"
-        },
-        "features": [
-          "water",
-          "particles",
-          "music",
-          "light-layers",
-          "generated-furniture",
-          "room-tv"
-        ]
+        "fileName": "space.hilltop-villa-source-1.0.17.zip",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.17.zip",
+        "byteCount": 37414192,
+        "sha256": "59deae881fdbefb217282e92b6432a5a53debefa3655b863dab22c543bc04559"
       }
     },
     {

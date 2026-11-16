@@ -1,8 +1,838 @@
 {
   "formatVersion": 1,
-  "appVersion": "1.4.7",
-  "catalogGeneration": "296f043f-ffc5-45f2-96d3-a8d6ee156d3b",
+  "appVersion": "1.5.0",
+  "catalogGeneration": "dfb5a1d0-b59e-4533-abb1-a3d5fe7c7e65",
   "places": [
+    {
+      "id": "space.cascade-house",
+      "slug": "cascade-house",
+      "type": "room",
+      "title": "Cascade House",
+      "description": "A limestone hillside mansion stepping up in six half-levels around an open-air water stair, where five waterfalls drop from basalt basin to basin into an infinity pool. Lower levels hold a Pool House bar, a sunlit Studio beside the falls, a Dining Room with an oak wine wall, a Fire Terrace, and a Kitchen island. Above, a double-height Great Hall with a linear fireplace and grand piano rises beneath a Library Gallery and Sky Terrace spa.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-38b9c4fa5ee0f93c1b4ba70346e95ed44bb6d44dafa7e9cd9314f4a2fe6a94a2.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "38b9c4fa5ee0f93c1b4ba70346e95ed44bb6d44dafa7e9cd9314f4a2fe6a94a2"
+      },
+      "access": "supporter",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.0.7",
+      "addedAt": "2026-11-12T19:57:00Z",
+      "updatedAt": "2026-11-16T00:00:00Z",
+      "searchTerms": [
+        "Room",
+        "House",
+        "Villa",
+        "Mansion",
+        "Waterfall",
+        "Pool",
+        "Terrace",
+        "Library",
+        "Fireplace",
+        "Piano",
+        "Hillside",
+        "Fire"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Kaskadenhaus",
+          "description": "Eine Kalksteinvilla am Hang, die sich in sechs Halbgeschossen um eine offene Wassertreppe staffelt, über die fünf Kaskaden von Basaltbecken zu Basaltbecken in einen Infinity-Pool fließen. Unten liegen Poolbar, Studio direkt an den Fällen, Esszimmer mit Weinwand, Feuerterrasse und Kücheninsel; darüber erhebt sich die zweigeschossige Große Halle mit Kamin und Flügel unter Bibliotheksgalerie und Dachterrassen-Spa.",
+          "searchTerms": [
+            "Raum",
+            "Haus",
+            "Villa",
+            "Anwesen",
+            "Wasserfall",
+            "Pool",
+            "Terrasse",
+            "Bibliothek",
+            "Kamin",
+            "Flügel",
+            "Hanglage",
+            "Feuer"
+          ]
+        },
+        "en": {
+          "title": "Cascade House",
+          "description": "A limestone hillside mansion stepping up in six half-levels around an open-air water stair, where five waterfalls drop from basalt basin to basin into an infinity pool. Lower levels hold a Pool House bar, a sunlit Studio beside the falls, a Dining Room with an oak wine wall, a Fire Terrace, and a Kitchen island. Above, a double-height Great Hall with a linear fireplace and grand piano rises beneath a Library Gallery and Sky Terrace spa.",
+          "searchTerms": [
+            "Room",
+            "House",
+            "Villa",
+            "Mansion",
+            "Waterfall",
+            "Pool",
+            "Terrace",
+            "Library",
+            "Fireplace",
+            "Piano",
+            "Hillside",
+            "Fire"
+          ]
+        },
+        "es": {
+          "title": "Casa Cascada",
+          "description": "Una mansión de piedra caliza escalonada en seis medios niveles en torno a una escalera de agua al aire libre, donde cinco cascadas caen de estanque en estanque de basalto hasta una piscina infinita. Abajo se disponen bar de piscina, estudio junto a las caídas, comedor con cava mural, terraza con brasero e isla de cocina; arriba se alza un Gran Salón con chimenea y piano de cola bajo una galería-biblioteca y terraza con spa.",
+          "searchTerms": [
+            "Sala",
+            "Casa",
+            "Villa",
+            "Mansión",
+            "Cascada",
+            "Piscina",
+            "Terraza",
+            "Biblioteca",
+            "Chimenea",
+            "Piano",
+            "Ladera",
+            "Fuego"
+          ]
+        },
+        "fr": {
+          "title": "Maison Cascade",
+          "description": "Une demeure en pierre calcaire étagée sur six demi-niveaux autour d’un escalier d’eau à ciel ouvert, où cinq cascades tombent de bassin en bassin jusqu’à une piscine à débordement. Les niveaux bas réunissent bar de piscine, atelier près des chutes, salle à manger avec cave murale, terrasse brasero et cuisine ; au-dessus s’élève une Grande Salle avec cheminée et piano à queue sous une galerie-bibliothèque et un spa en terrasse.",
+          "searchTerms": [
+            "Pièce",
+            "Maison",
+            "Villa",
+            "Demeure",
+            "Cascade",
+            "Piscine",
+            "Terrasse",
+            "Bibliothèque",
+            "Cheminée",
+            "Piano",
+            "Colline",
+            "Feu"
+          ]
+        },
+        "ja": {
+          "title": "カスケード・ハウス",
+          "description": "露天の水の階段を挟んで6つのスキップフロアが重なるライムストーンの丘陵邸宅。5段の滝が玄武岩の水盤から水盤へと落ち、ガラスエッジのインフィニティプールへ注ぎます。下層にはプールバーとビリヤード室、滝のそばの明るいスタジオデスク、オーク材のワインウォールを備えたダイニング、ファイアテラス、植栽に囲まれたブレックファストテラスへ続くキッチンアイランドを配置。上層にはリニア暖炉とグランドピアノのある吹き抜けのグレートホールが広がり、その上にライブラリーギャラリーとスパ付きのスカイテラスが重なります。",
+          "searchTerms": [
+            "ルーム",
+            "邸宅",
+            "ヴィラ",
+            "滝",
+            "カスケード",
+            "プール",
+            "テラス",
+            "書斎",
+            "暖炉",
+            "ピアノ",
+            "丘陵",
+            "炎"
+          ]
+        },
+        "ko": {
+          "title": "캐스케이드 하우스",
+          "description": "야외 협곡 수경 계단 양쪽으로 여섯 개의 스킵 플로어가 계단식으로 펼쳐지는 라임스톤 언덕 저택입니다. 다섯 단의 폭포가 현무암 수반을 따라 흘러내려 유리 엣지 인피니티 풀로 이어집니다. 아래층에는 풀 바 및 당구장, 폭포 옆 채광 좋은 스튜디오 책상, 오크 와인 월이 있는 다이닝룸, 파이어 테라스 라운지, 조경된 브렉퍼스트 테라스로 열리는 키친 아일랜드가 자리합니다. 위층에는 리니어 석조 벽난로와 그랜드 피아노 공간이 있는 복층 그레이트 홀 위로 라이브러리 갤러리와 스파를 갖춘 스카이 테라스가 펼쳐집니다.",
+          "searchTerms": [
+            "공간",
+            "주택",
+            "빌라",
+            "저택",
+            "폭포",
+            "수경",
+            "수영장",
+            "테라스",
+            "서재",
+            "벽난로",
+            "피아노",
+            "언덕",
+            "불꽃"
+          ]
+        },
+        "zh-Hans": {
+          "title": "叠水山居",
+          "description": "一座沿露天峡谷叠水长阶分六错层拾级而上的石灰岩山坡大宅，五级水帘自玄武岩水池层层跌落，汇入无边际泳池。下层分布着泳池吧台与台球室、紧邻跌水的阳光工作室书桌、带橡木酒墙的餐厅、火炉露台休闲区，以及通向绿植早餐露台的厨房岛台。上层为配有线性石材壁炉与三角钢琴湾的通高大厅，其上悬挑着书廊阁楼与带下沉泡池的天空露台。",
+          "searchTerms": [
+            "房间",
+            "住宅",
+            "别墅",
+            "豪宅",
+            "瀑布",
+            "叠水",
+            "泳池",
+            "露台",
+            "书房",
+            "壁炉",
+            "钢琴",
+            "山坡",
+            "火焰"
+          ]
+        },
+        "zh-Hant": {
+          "title": "疊水山居",
+          "description": "一座沿露天峽谷疊水長階分六錯層拾級而上的石灰岩山坡大宅，五級水簾自玄武岩水池層層跌落，匯入無邊際泳池。下層分佈著泳池吧台與撞球室、緊鄰跌水的陽光工作室書桌、帶橡木酒牆的餐廳、火爐露台休閒區，以及通向綠植早餐露台的廚房中島。上層為配有線性石材壁爐與平台鋼琴灣的挑高大廳，其上懸挑著書廊閣樓與帶下沉泡池的天空露台。",
+          "searchTerms": [
+            "房間",
+            "住宅",
+            "別墅",
+            "豪宅",
+            "瀑布",
+            "疊水",
+            "泳池",
+            "露台",
+            "書房",
+            "壁爐",
+            "鋼琴",
+            "山坡",
+            "火焰"
+          ]
+        }
+      }
+    },
+    {
+      "id": "destination.chalk-dune-dawn",
+      "slug": "chalk-dune-dawn",
+      "type": "view",
+      "title": "Chalk Dune Dawn",
+      "description": "White gypsum dunes under an open sky. The sun rises over distant mountains, crosses the day and sets into a night of stars and the Milky Way.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-8036062ee7303a5b3d45ff8fd0b660979a8f9393e55daf418c70e90546128c33.jpg",
+        "width": 1024,
+        "height": 512,
+        "sha256": "8036062ee7303a5b3d45ff8fd0b660979a8f9393e55daf418c70e90546128c33"
+      },
+      "access": "free",
+      "animated": true,
+      "hasSound": false,
+      "builtIn": false,
+      "credits": {
+        "aiGenerated": true,
+        "aiProvider": "Google Gemini and OpenAI",
+        "creator": "Locus",
+        "modification": "Adapted for use in Locus."
+      },
+      "contentVersion": "1.4.0",
+      "addedAt": "2026-11-11T22:57:06Z",
+      "updatedAt": "2026-11-15T05:06:00Z",
+      "searchTerms": [
+        "White Sand",
+        "Dunes",
+        "Desert",
+        "Sunrise",
+        "Day and Night",
+        "Sun Path",
+        "Stars",
+        "Milky Way"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Morgen an weißen Dünen",
+          "description": "Weiße Gipsdünen unter weitem Himmel. Die Sonne geht über fernen Bergen auf, zieht über den Tag hinweg und sinkt in eine Nacht voller Sterne und der Milchstraße.",
+          "searchTerms": [
+            "Weißer Sand",
+            "Dünen",
+            "Wüste",
+            "Sonnenaufgang",
+            "Tag und Nacht",
+            "Sonnenbahn",
+            "Sterne",
+            "Milchstraße"
+          ]
+        },
+        "en": {
+          "title": "Chalk Dune Dawn",
+          "description": "White gypsum dunes under an open sky. The sun rises over distant mountains, crosses the day and sets into a night of stars and the Milky Way.",
+          "searchTerms": [
+            "White Sand",
+            "Dunes",
+            "Desert",
+            "Sunrise",
+            "Day and Night",
+            "Sun Path",
+            "Stars",
+            "Milky Way"
+          ]
+        },
+        "es": {
+          "title": "Amanecer en las dunas blancas",
+          "description": "Dunas de yeso blanco bajo un cielo abierto. El sol sale sobre montañas lejanas, cruza el día y se pone en una noche de estrellas y Vía Láctea.",
+          "searchTerms": [
+            "Arena blanca",
+            "Dunas",
+            "Desierto",
+            "Amanecer",
+            "Día y noche",
+            "Trayectoria solar",
+            "Estrellas",
+            "Vía Láctea"
+          ]
+        },
+        "fr": {
+          "title": "Aube sur les dunes blanches",
+          "description": "Des dunes de gypse blanc sous un ciel ouvert. Le soleil se lève sur les montagnes lointaines, traverse le jour et se couche dans une nuit d’étoiles et de Voie lactée.",
+          "searchTerms": [
+            "Sable blanc",
+            "Dunes",
+            "Désert",
+            "Lever du soleil",
+            "Jour et nuit",
+            "Trajectoire du soleil",
+            "Étoiles",
+            "Voie lactée"
+          ]
+        },
+        "ja": {
+          "title": "白い砂丘の夜明け",
+          "description": "広い空の下に広がる白い石膏の砂丘。太陽は遠くの山から昇り、昼の空を渡り、星と天の川が輝く夜へと沈みます。",
+          "searchTerms": [
+            "白い砂",
+            "砂丘",
+            "砂漠",
+            "日の出",
+            "昼と夜",
+            "太陽の軌道",
+            "星",
+            "天の川"
+          ]
+        },
+        "ko": {
+          "title": "하얀 사구의 새벽",
+          "description": "넓은 하늘 아래 펼쳐진 하얀 석고 사구. 태양은 먼 산 위로 떠올라 낮 하늘을 지나 별과 은하수가 빛나는 밤으로 저뭅니다.",
+          "searchTerms": [
+            "하얀 모래",
+            "사구",
+            "사막",
+            "일출",
+            "낮과 밤",
+            "태양의 궤적",
+            "별",
+            "은하수"
+          ]
+        },
+        "zh-Hans": {
+          "title": "白丘晨光",
+          "description": "开阔天空下的白色石膏沙丘。太阳从远山升起，穿过白昼，落入繁星与银河交织的夜空。",
+          "searchTerms": [
+            "白沙",
+            "沙丘",
+            "沙漠",
+            "日出",
+            "昼夜",
+            "太阳轨迹",
+            "星空",
+            "银河"
+          ]
+        },
+        "zh-Hant": {
+          "title": "白丘晨光",
+          "description": "開闊天空下的白色石膏沙丘。太陽從遠山升起，穿過白晝，落入繁星與銀河交織的夜空。",
+          "searchTerms": [
+            "白沙",
+            "沙丘",
+            "沙漠",
+            "日出",
+            "晝夜",
+            "太陽軌跡",
+            "星空",
+            "銀河"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.crossbeam-house",
+      "slug": "crossbeam-house",
+      "type": "room",
+      "title": "Crossbeam House",
+      "description": "Three cedar bars are stacked crosswise on a stone plinth: a studio bridges the pool, a library lounge opens above it, and a roof deck sits beneath a pergola. A single stream falls from the roof to the pool in three drops past the windows.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-22bd52b0ff37cdbe2cdcf89957248b8e2793f5d4f49a3c45b72cb0e2f3fe5541.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "22bd52b0ff37cdbe2cdcf89957248b8e2793f5d4f49a3c45b72cb0e2f3fe5541"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.0.4",
+      "addedAt": "2026-11-12T19:56:20Z",
+      "updatedAt": "2026-11-14T08:48:00Z",
+      "searchTerms": [
+        "Room",
+        "House",
+        "Modern",
+        "Cedar",
+        "Pool",
+        "Waterfall",
+        "Library",
+        "Studio",
+        "Roof Deck"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Haus der Kreuzbalken",
+          "description": "Drei Zedernholzriegel kreuzen sich auf einem Steinsockel: Ein Studio überbrückt den Pool, darüber liegt eine Bibliothekslounge, und unter einer Pergola befindet sich das Dachdeck. Ein Bach fällt vom Dach in drei Kaskaden an den Fenstern vorbei in den Pool.",
+          "searchTerms": [
+            "Raum",
+            "Haus",
+            "Zeder",
+            "Balken",
+            "Kreuzung",
+            "Wasserfall",
+            "Pool",
+            "Studio",
+            "Bibliothek",
+            "Dachdeck"
+          ]
+        },
+        "en": {
+          "title": "Crossbeam House",
+          "description": "Three cedar bars are stacked crosswise on a stone plinth: a studio bridges the pool, a library lounge opens above it, and a roof deck sits beneath a pergola. A single stream falls from the roof to the pool in three drops past the windows.",
+          "searchTerms": [
+            "Room",
+            "House",
+            "Modern",
+            "Cedar",
+            "Pool",
+            "Waterfall",
+            "Library",
+            "Studio",
+            "Roof Deck"
+          ]
+        },
+        "es": {
+          "title": "Casa de vigas cruzadas",
+          "description": "Tres volúmenes de cedro se cruzan sobre un zócalo de piedra: un estudio salva la piscina, sobre él hay un salón-biblioteca y bajo una pérgola se abre una terraza en la azotea. Un arroyo cae del tejado a la piscina en tres cascadas junto a las ventanas.",
+          "searchTerms": [
+            "Sala",
+            "Casa",
+            "Cedro",
+            "Viga",
+            "Cruzado",
+            "Cascada",
+            "Piscina",
+            "Estudio",
+            "Biblioteca",
+            "Azotea"
+          ]
+        },
+        "fr": {
+          "title": "Maison aux poutres croisées",
+          "description": "Trois volumes de cèdre se croisent sur un socle de pierre : un studio enjambe la piscine, un salon-bibliothèque le surplombe et une terrasse de toit se glisse sous une pergola. Un ruisseau tombe du toit à la piscine en trois cascades devant les fenêtres.",
+          "searchTerms": [
+            "Pièce",
+            "Maison",
+            "Cèdre",
+            "Poutre",
+            "Croisé",
+            "Cascade",
+            "Piscine",
+            "Studio",
+            "Bibliothèque",
+            "Toit-terrasse"
+          ]
+        },
+        "ja": {
+          "title": "交差梁の家",
+          "description": "石の基壇に交差して積み重なる三つの杉材の棟。プールをまたぐスタジオ、その上のライブラリーラウンジ、パーゴラ下の屋上デッキを、一筋の流れが窓辺を通って三段の滝となり、プールへ落ちます。",
+          "searchTerms": [
+            "ルーム",
+            "住宅",
+            "杉",
+            "梁",
+            "交差",
+            "滝",
+            "プール",
+            "スタジオ",
+            "図書室",
+            "屋上デッキ"
+          ]
+        },
+        "ko": {
+          "title": "교차 보의 집",
+          "description": "석재 기단 위에 세 개의 삼나무 동이 교차해 쌓여 있습니다. 수영장을 가로지르는 스튜디오 위에는 도서 라운지가 있고, 퍼걸러 아래에는 옥상 데크가 있습니다. 한 줄기 물이 창가를 지나 지붕에서 수영장까지 세 번의 폭포로 떨어집니다.",
+          "searchTerms": [
+            "룸",
+            "주택",
+            "삼나무",
+            "보",
+            "교차",
+            "폭포",
+            "수영장",
+            "스튜디오",
+            "도서관",
+            "옥상 데크"
+          ]
+        },
+        "zh-Hans": {
+          "title": "叠梁居",
+          "description": "三条雪松木长盒交叉叠放在石砌基座上：书房横跨泳池，其上是藏书客厅，顶层凉棚下设屋顶平台。一道水流从屋顶沿窗而下，经三重瀑布落入泳池。",
+          "searchTerms": [
+            "房间",
+            "住宅",
+            "雪松",
+            "横梁",
+            "交错",
+            "瀑布",
+            "泳池",
+            "书房",
+            "图书室",
+            "屋顶平台"
+          ]
+        },
+        "zh-Hant": {
+          "title": "疊梁居",
+          "description": "三條雪松木長盒交叉疊放在石砌基座上：書房橫跨泳池，其上是藏書客廳，頂層涼棚下設屋頂平台。一道水流從屋頂沿窗而下，經三重瀑布落入泳池。",
+          "searchTerms": [
+            "房間",
+            "住宅",
+            "雪松",
+            "橫樑",
+            "交錯",
+            "瀑布",
+            "泳池",
+            "書房",
+            "圖書室",
+            "屋頂平台"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.starship-observation-deck",
+      "slug": "starship-observation-deck",
+      "type": "room",
+      "title": "Observation Deck",
+      "description": "The bow observation rotunda of a starship: a panoramic window thirteen metres tall sweeps around a round command dais and a sunken lounge with two reclining chairs at a bronze table. A console station, a wall-mounted TV and an upper gallery with catwalks complete the interior.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-84c7cdc9fcc80d665ced3fab0466b033067755ef95b70eaaa892a0fc73d94c8d.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "84c7cdc9fcc80d665ced3fab0466b033067755ef95b70eaaa892a0fc73d94c8d"
+      },
+      "access": "supporter",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.0.1",
+      "addedAt": "2026-11-11T22:57:22Z",
+      "updatedAt": "2026-11-12T18:54:36Z",
+      "searchTerms": [
+        "Room",
+        "Space",
+        "Science Fiction",
+        "Starship",
+        "Observation Deck",
+        "Bridge",
+        "Black Hole",
+        "Desk",
+        "Lounge",
+        "Photo Realistic"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Aussichtsdeck",
+          "description": "Die Aussichtsrotunde im Bug eines Sternenschiffs: Ein dreizehn Meter hohes Panoramafenster umschließt ein rundes Kommandopodest und eine abgesenkte Lounge mit zwei Liegesesseln an einem Bronzetisch. Ein Konsolenplatz, ein Wandfernseher und eine obere Galerie mit Laufstegen ergänzen den Innenraum.",
+          "searchTerms": [
+            "Raum",
+            "Weltraum",
+            "Science-Fiction",
+            "Raumschiff",
+            "Aussichtsdeck",
+            "Brücke",
+            "Schwarzes Loch",
+            "Schreibtisch",
+            "Lounge",
+            "Fotorealistisch"
+          ]
+        },
+        "en": {
+          "title": "Observation Deck",
+          "description": "The bow observation rotunda of a starship: a panoramic window thirteen metres tall sweeps around a round command dais and a sunken lounge with two reclining chairs at a bronze table. A console station, a wall-mounted TV and an upper gallery with catwalks complete the interior.",
+          "searchTerms": [
+            "Room",
+            "Space",
+            "Science Fiction",
+            "Starship",
+            "Observation Deck",
+            "Bridge",
+            "Black Hole",
+            "Desk",
+            "Lounge",
+            "Photo Realistic"
+          ]
+        },
+        "es": {
+          "title": "Cubierta de observación",
+          "description": "La rotonda de observación en la proa de una nave estelar: un ventanal panorámico de trece metros de altura envuelve un estrado de mando redondo y un salón hundido con dos sillones reclinables junto a una mesa de bronce. Un puesto de consola, un televisor de pared y una galería superior con pasarelas completan el interior.",
+          "searchTerms": [
+            "Habitación",
+            "Espacio",
+            "Ciencia ficción",
+            "Nave estelar",
+            "Cubierta de observación",
+            "Puente",
+            "Agujero negro",
+            "Escritorio",
+            "Salón",
+            "Realista de foto"
+          ]
+        },
+        "fr": {
+          "title": "Pont d'observation",
+          "description": "La rotonde d'observation à la proue d'un vaisseau : une baie panoramique de treize mètres de haut enveloppe une estrade de commandement ronde et un salon en contrebas, avec deux fauteuils inclinables autour d'une table en bronze. Un poste de console, un téléviseur mural et une galerie haute avec passerelles complètent l’intérieur.",
+          "searchTerms": [
+            "Pièce",
+            "Espace",
+            "Science-fiction",
+            "Vaisseau",
+            "Pont d'observation",
+            "Passerelle",
+            "Trou noir",
+            "Bureau",
+            "Salon",
+            "Photoréaliste"
+          ]
+        },
+        "ja": {
+          "title": "展望デッキ",
+          "description": "宇宙船の船首にある円形の展望ホール。高さ13メートルのパノラマウィンドウが、円形のコマンドデッキと、ブロンズのテーブルを囲む2脚のリクライニングチェアが置かれた一段低いラウンジを包み込みます。室内にはコンソールステーション、壁掛けテレビ、キャットウォーク付きの上階ギャラリーがあります。",
+          "searchTerms": [
+            "ルーム",
+            "宇宙",
+            "SF",
+            "宇宙船",
+            "展望デッキ",
+            "ブリッジ",
+            "ブラックホール",
+            "デスク",
+            "ラウンジ",
+            "写真的リアリスティック"
+          ]
+        },
+        "ko": {
+          "title": "전망 갑판",
+          "description": "우주선 선수의 원형 전망 홀. 높이 13미터의 파노라마 창이 둥근 지휘 단상과, 청동 테이블을 사이에 둔 리클라이너 두 개가 놓인 낮은 라운지를 감쌉니다. 실내에는 콘솔 스테이션과 벽걸이 TV, 캣워크가 이어진 상층 갤러리가 있습니다.",
+          "searchTerms": [
+            "룸",
+            "우주",
+            "SF",
+            "우주선",
+            "전망 갑판",
+            "함교",
+            "블랙홀",
+            "책상",
+            "라운지",
+            "사진 리얼리즘"
+          ]
+        },
+        "zh-Hans": {
+          "title": "观景甲板",
+          "description": "星舰船首的圆形观景大厅：十三米高的全景弧窗环抱着圆形指挥台和下沉休息区，休息区里两把躺椅围着一张铜色圆桌。室内设有控制台工位、壁挂电视和带挑台的上层回廊。",
+          "searchTerms": [
+            "房间",
+            "太空",
+            "科幻",
+            "星舰",
+            "观景甲板",
+            "舰桥",
+            "黑洞",
+            "书桌",
+            "休息区",
+            "写实"
+          ]
+        },
+        "zh-Hant": {
+          "title": "觀景甲板",
+          "description": "星艦船首的圓形觀景大廳：十三公尺高的全景弧窗環抱著圓形指揮台和下沉休息區，休息區裡兩把躺椅圍著一張銅色圓桌。室內設有控制台工位、壁掛電視和帶挑台的上層迴廊。",
+          "searchTerms": [
+            "房間",
+            "太空",
+            "科幻",
+            "星艦",
+            "觀景甲板",
+            "艦橋",
+            "黑洞",
+            "書桌",
+            "休息區",
+            "寫實"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.hilltop-villa",
+      "slug": "hilltop-villa",
+      "type": "room",
+      "title": "Hilltop Villa",
+      "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.0.17",
+      "addedAt": "2026-10-24T16:43:41Z",
+      "updatedAt": "2026-11-12T01:26:17Z",
+      "searchTerms": [
+        "Room",
+        "Villa",
+        "Luxury",
+        "Living Room",
+        "Fireplace",
+        "Pool",
+        "Terrace",
+        "Hilltop",
+        "Modern",
+        "Fire",
+        "Music"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Villa auf dem Hügel",
+          "description": "Zweigeschossiger Wohnraum einer Villa auf dem Hügel mit Kaminwand aus Travertin und langem Kamin, einem langen elfenbeinfarbenen Sofa, cremefarbenen Bouclé-Drehsesseln und einer Kaskade gläserner Röhrenleuchten. Schiebetüren aus Glas öffnen sich zur Terrasse mit Lounge am Feuertisch, Essplatz für acht und Infinity-Pool. Oben blicken eine verglaste Brücke, eine Galeriebibliothek und der auskragende gläserne Sky Room mit Schreibtisch auf die Aussicht.",
+          "searchTerms": [
+            "Raum",
+            "Villa",
+            "Luxus",
+            "Wohnzimmer",
+            "Kamin",
+            "Pool",
+            "Terrasse",
+            "Hügel",
+            "Modern",
+            "Feuer",
+            "Musik"
+          ]
+        },
+        "en": {
+          "title": "Hilltop Villa",
+          "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
+          "searchTerms": [
+            "Room",
+            "Villa",
+            "Luxury",
+            "Living Room",
+            "Fireplace",
+            "Pool",
+            "Terrace",
+            "Hilltop",
+            "Modern",
+            "Fire",
+            "Music"
+          ]
+        },
+        "es": {
+          "title": "Villa en la colina",
+          "description": "Salón de doble altura de una villa en la colina: pared de chimenea de travertino con hogar lineal, un largo sofá marfil, sillones giratorios de bouclé crema y una cascada de lámparas de tubos de vidrio. Las puertas correderas de vidrio se abren a una terraza con zona de estar junto a una mesa de fuego, comedor exterior para ocho y piscina infinita. Arriba, un puente acristalado, una biblioteca en galería y la Sky Room de vidrio en voladizo, con escritorio, miran al paisaje.",
+          "searchTerms": [
+            "Sala",
+            "Villa",
+            "Lujo",
+            "Salón",
+            "Chimenea",
+            "Piscina",
+            "Terraza",
+            "Colina",
+            "Moderno",
+            "Fuego",
+            "Música"
+          ]
+        },
+        "fr": {
+          "title": "Villa sur la colline",
+          "description": "Séjour en double hauteur d’une villa sur la colline : mur de cheminée en travertin et foyer linéaire, long canapé ivoire, fauteuils pivotants en bouclette crème et cascade de suspensions à tubes de verre. Les baies coulissantes s’ouvrent sur une terrasse avec salon autour d’une table à feu, table pour huit et piscine à débordement. À l’étage, une passerelle vitrée, une bibliothèque en galerie et la Sky Room vitrée en porte-à-faux, avec bureau, regardent la vue.",
+          "searchTerms": [
+            "Pièce",
+            "Villa",
+            "Luxe",
+            "Salon",
+            "Cheminée",
+            "Piscine",
+            "Terrasse",
+            "Colline",
+            "Moderne",
+            "Feu",
+            "Musique"
+          ]
+        },
+        "ja": {
+          "title": "丘の上のヴィラ",
+          "description": "吹き抜けの丘の上のヴィラのリビング。トラバーチンの暖炉壁と横長の暖炉、長いアイボリーのソファ、クリーム色のブークレ生地のスイベルチェア、ガラス管のペンダントライトの連なり。引き戸のガラスを開けると、ファイヤーテーブルのラウンジ、8人掛けの屋外ダイニング、インフィニティプールのあるテラスへ。上階にはガラス張りのブリッジ、ギャラリーの書庫、デスクのある張り出したガラスのスカイルームがあり、眺めに向いています。",
+          "searchTerms": [
+            "ルーム",
+            "ヴィラ",
+            "高級",
+            "リビング",
+            "暖炉",
+            "プール",
+            "テラス",
+            "丘",
+            "モダン",
+            "火",
+            "音楽"
+          ]
+        },
+        "ko": {
+          "title": "언덕 위의 빌라",
+          "description": "층고가 높은 언덕 위 빌라의 거실. 트래버틴 벽난로 벽과 가로로 긴 벽난로, 긴 아이보리 소파, 크림색 부클레 회전 의자, 유리관 펜던트 조명이 늘어져 있습니다. 슬라이딩 유리문을 열면 파이어 테이블 라운지, 8인용 야외 다이닝, 인피니티 풀이 있는 테라스로 이어집니다. 위층에는 유리 브리지, 갤러리 서재, 책상이 있는 돌출된 유리 스카이 룸이 풍경을 향해 있습니다.",
+          "searchTerms": [
+            "룸",
+            "빌라",
+            "럭셔리",
+            "거실",
+            "벽난로",
+            "수영장",
+            "테라스",
+            "언덕",
+            "모던",
+            "불",
+            "음악"
+          ]
+        },
+        "zh-Hans": {
+          "title": "山顶别墅",
+          "description": "通高的山顶别墅客厅：石灰华壁炉墙与线性壁炉、长长的象牙色沙发、奶油色羊羔绒旋转椅和一簇玻璃管吊灯。推拉玻璃门通向露台，那里有火炉休闲区、八人户外餐桌和无边泳池。楼上的玻璃天桥、书廊和悬挑的玻璃房配有书桌，面朝远景。",
+          "searchTerms": [
+            "房间",
+            "别墅",
+            "豪宅",
+            "客厅",
+            "壁炉",
+            "泳池",
+            "露台",
+            "山顶",
+            "现代",
+            "火",
+            "音乐"
+          ]
+        },
+        "zh-Hant": {
+          "title": "山頂別墅",
+          "description": "挑高的山頂別墅客廳：石灰華壁爐牆與線性壁爐、長長的象牙色沙發、奶油色羔羊絨旋轉椅和一簇玻璃管吊燈。橫拉玻璃門通往露台，那裡有火爐休閒區、八人戶外餐桌和無邊際泳池。樓上的玻璃天橋、書廊和懸挑的玻璃屋配有書桌，面向遠景。",
+          "searchTerms": [
+            "房間",
+            "別墅",
+            "豪宅",
+            "客廳",
+            "壁爐",
+            "泳池",
+            "露台",
+            "山頂",
+            "現代",
+            "火",
+            "音樂"
+          ]
+        }
+      }
+    },
     {
       "id": "destination.ancient-forest",
       "slug": "ancient-forest",
@@ -893,178 +1723,6 @@
             "書桌",
             "溫馨",
             "閣樓"
-          ]
-        }
-      }
-    },
-    {
-      "id": "space.hilltop-villa",
-      "slug": "hilltop-villa",
-      "type": "room",
-      "title": "Hilltop Villa",
-      "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
-      "image": {
-        "url": "https://media.enterlocus.net/gallery/library-1db98622df08132d88407fd6121ef486ac589e882db539af996a98ef019a8086.jpg",
-        "width": 1280,
-        "height": 720,
-        "sha256": "1db98622df08132d88407fd6121ef486ac589e882db539af996a98ef019a8086"
-      },
-      "access": "free",
-      "animated": false,
-      "hasSound": true,
-      "builtIn": false,
-      "credits": {},
-      "contentVersion": "1.0.14",
-      "addedAt": "2026-10-24T16:43:41Z",
-      "updatedAt": "2026-10-29T04:47:01Z",
-      "searchTerms": [
-        "Room",
-        "Villa",
-        "Luxury",
-        "Living Room",
-        "Fireplace",
-        "Pool",
-        "Terrace",
-        "Hilltop",
-        "Modern",
-        "Fire",
-        "Music"
-      ],
-      "localizations": {
-        "de": {
-          "title": "Villa auf dem Hügel",
-          "description": "Zweigeschossiger Wohnraum einer Villa auf dem Hügel mit Kaminwand aus Travertin und langem Kamin, einem langen elfenbeinfarbenen Sofa, cremefarbenen Bouclé-Drehsesseln und einer Kaskade gläserner Röhrenleuchten. Schiebetüren aus Glas öffnen sich zur Terrasse mit Lounge am Feuertisch, Essplatz für acht und Infinity-Pool. Oben blicken eine verglaste Brücke, eine Galeriebibliothek und der auskragende gläserne Sky Room mit Schreibtisch auf die Aussicht.",
-          "searchTerms": [
-            "Raum",
-            "Villa",
-            "Luxus",
-            "Wohnzimmer",
-            "Kamin",
-            "Pool",
-            "Terrasse",
-            "Hügel",
-            "Modern",
-            "Feuer",
-            "Musik"
-          ]
-        },
-        "en": {
-          "title": "Hilltop Villa",
-          "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
-          "searchTerms": [
-            "Room",
-            "Villa",
-            "Luxury",
-            "Living Room",
-            "Fireplace",
-            "Pool",
-            "Terrace",
-            "Hilltop",
-            "Modern",
-            "Fire",
-            "Music"
-          ]
-        },
-        "es": {
-          "title": "Villa en la colina",
-          "description": "Salón de doble altura de una villa en la colina: pared de chimenea de travertino con hogar lineal, un largo sofá marfil, sillones giratorios de bouclé crema y una cascada de lámparas de tubos de vidrio. Las puertas correderas de vidrio se abren a una terraza con zona de estar junto a una mesa de fuego, comedor exterior para ocho y piscina infinita. Arriba, un puente acristalado, una biblioteca en galería y la Sky Room de vidrio en voladizo, con escritorio, miran al paisaje.",
-          "searchTerms": [
-            "Sala",
-            "Villa",
-            "Lujo",
-            "Salón",
-            "Chimenea",
-            "Piscina",
-            "Terraza",
-            "Colina",
-            "Moderno",
-            "Fuego",
-            "Música"
-          ]
-        },
-        "fr": {
-          "title": "Villa sur la colline",
-          "description": "Séjour en double hauteur d’une villa sur la colline : mur de cheminée en travertin et foyer linéaire, long canapé ivoire, fauteuils pivotants en bouclette crème et cascade de suspensions à tubes de verre. Les baies coulissantes s’ouvrent sur une terrasse avec salon autour d’une table à feu, table pour huit et piscine à débordement. À l’étage, une passerelle vitrée, une bibliothèque en galerie et la Sky Room vitrée en porte-à-faux, avec bureau, regardent la vue.",
-          "searchTerms": [
-            "Pièce",
-            "Villa",
-            "Luxe",
-            "Salon",
-            "Cheminée",
-            "Piscine",
-            "Terrasse",
-            "Colline",
-            "Moderne",
-            "Feu",
-            "Musique"
-          ]
-        },
-        "ja": {
-          "title": "丘の上のヴィラ",
-          "description": "吹き抜けの丘の上のヴィラのリビング。トラバーチンの暖炉壁と横長の暖炉、長いアイボリーのソファ、クリーム色のブークレ生地のスイベルチェア、ガラス管のペンダントライトの連なり。引き戸のガラスを開けると、ファイヤーテーブルのラウンジ、8人掛けの屋外ダイニング、インフィニティプールのあるテラスへ。上階にはガラス張りのブリッジ、ギャラリーの書庫、デスクのある張り出したガラスのスカイルームがあり、眺めに向いています。",
-          "searchTerms": [
-            "ルーム",
-            "ヴィラ",
-            "高級",
-            "リビング",
-            "暖炉",
-            "プール",
-            "テラス",
-            "丘",
-            "モダン",
-            "火",
-            "音楽"
-          ]
-        },
-        "ko": {
-          "title": "언덕 위의 빌라",
-          "description": "층고가 높은 언덕 위 빌라의 거실. 트래버틴 벽난로 벽과 가로로 긴 벽난로, 긴 아이보리 소파, 크림색 부클레 회전 의자, 유리관 펜던트 조명이 늘어져 있습니다. 슬라이딩 유리문을 열면 파이어 테이블 라운지, 8인용 야외 다이닝, 인피니티 풀이 있는 테라스로 이어집니다. 위층에는 유리 브리지, 갤러리 서재, 책상이 있는 돌출된 유리 스카이 룸이 풍경을 향해 있습니다.",
-          "searchTerms": [
-            "룸",
-            "빌라",
-            "럭셔리",
-            "거실",
-            "벽난로",
-            "수영장",
-            "테라스",
-            "언덕",
-            "모던",
-            "불",
-            "음악"
-          ]
-        },
-        "zh-Hans": {
-          "title": "山顶别墅",
-          "description": "通高的山顶别墅客厅：石灰华壁炉墙与线性壁炉、长长的象牙色沙发、奶油色羊羔绒旋转椅和一簇玻璃管吊灯。推拉玻璃门通向露台，那里有火炉休闲区、八人户外餐桌和无边泳池。楼上的玻璃天桥、书廊和悬挑的玻璃房配有书桌，面朝远景。",
-          "searchTerms": [
-            "房间",
-            "别墅",
-            "豪宅",
-            "客厅",
-            "壁炉",
-            "泳池",
-            "露台",
-            "山顶",
-            "现代",
-            "火",
-            "音乐"
-          ]
-        },
-        "zh-Hant": {
-          "title": "山頂別墅",
-          "description": "挑高的山頂別墅客廳：石灰華壁爐牆與線性壁爐、長長的象牙色沙發、奶油色羔羊絨旋轉椅和一簇玻璃管吊燈。橫拉玻璃門通往露台，那裡有火爐休閒區、八人戶外餐桌和無邊際泳池。樓上的玻璃天橋、書廊和懸挑的玻璃屋配有書桌，面向遠景。",
-          "searchTerms": [
-            "房間",
-            "別墅",
-            "豪宅",
-            "客廳",
-            "壁爐",
-            "泳池",
-            "露台",
-            "山頂",
-            "現代",
-            "火",
-            "音樂"
           ]
         }
       }
