@@ -3551,6 +3551,18 @@
     "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft.": "このパッケージは ID space.atrium-loft-example を使うため、内蔵の Atrium Loft と並べてインポートできます。",
     "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery.": "このパッケージは ID space.courtyard-gallery-example を使うため、内蔵の Courtyard Gallery と並べてインポートできます。",
     "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "このパッケージは ID space.horizon-atelier-example を使うため、内蔵の Horizon Atelier と並べてインポートできます。",
-    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender ソースは 1.0.9 の制作ファイルです。パッケージ 1.0.13 では、後から書き出したローポリのバックスプラッシュタイルを使っています。"
+    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender ソースは 1.0.9 の制作ファイルです。パッケージ 1.0.13 では、後から書き出したローポリのバックスプラッシュタイルを使っています。",
+    "Browse and watch on a Room TV. Try the Sky Room TV in Hilltop Villa, and the living room painting above the fireplace—it’s a TV too.": "Room のテレビでブラウズして視聴できます。Hilltop Villa の Sky Room のテレビと、暖炉の上にあるリビングルームの絵も試してみてください。あれもテレビです。",
+    "From day into night": "昼から夜へ",
+    "Locus 1.5.0": "Locus 1.5.0",
+    "Locus 1.5.0 for Apple Vision Pro": "Apple Vision Pro 向け Locus 1.5.0",
+    "Locus 1.5.0: TV and changing light": "Locus 1.5.0：テレビと移り変わる光",
+    "Locus 1.5.0 · Latest": "Locus 1.5.0 · 最新",
+    "New in Locus 1.5.0": "Locus 1.5.0の新機能",
+    "Press play in your Room.": "あなたの Room で再生を始めよう。",
+    "Watch TV in your Room": "Room でテレビを観よう",
+    "Watch TV in your Room, then explore a View from day into night.": "Room でテレビを観てから、昼から夜へ移り変わる View を探索しましょう。",
+    "Watch TV in your Room, then explore a View from day into night in Locus 1.5.0.": "Locus 1.5.0 では、Room でテレビを観てから、昼から夜へ移り変わる View を探索しましょう。",
+    "Watch the light and sky change throughout the day in supported Views.": "対応する View で、一日の光と空の移り変わりを見てみましょう。"
   }
 }

@@ -3551,6 +3551,18 @@
     "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft.": "이 패키지는 ID space.atrium-loft-example를 사용하므로 기본 제공 Atrium Loft과 함께 가져올 수 있습니다.",
     "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery.": "이 패키지는 ID space.courtyard-gallery-example를 사용하므로 기본 제공 Courtyard Gallery과 함께 가져올 수 있습니다.",
     "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "이 패키지는 ID space.horizon-atelier-example를 사용하므로 기본 제공 Horizon Atelier과 함께 가져올 수 있습니다.",
-    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender 소스는 1.0.9 제작 파일입니다. 패키지 1.0.13은 나중에 내보낸 로우폴리 백스플래시 타일을 사용합니다."
+    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender 소스는 1.0.9 제작 파일입니다. 패키지 1.0.13은 나중에 내보낸 로우폴리 백스플래시 타일을 사용합니다.",
+    "Browse and watch on a Room TV. Try the Sky Room TV in Hilltop Villa, and the living room painting above the fireplace—it’s a TV too.": "Room TV에서 찾아보고 시청하세요. Hilltop Villa의 Sky Room TV와 거실 벽난로 위의 그림도 TV입니다.",
+    "From day into night": "낮에서 밤으로",
+    "Locus 1.5.0": "Locus 1.5.0",
+    "Locus 1.5.0 for Apple Vision Pro": "Apple Vision Pro용 Locus 1.5.0",
+    "Locus 1.5.0: TV and changing light": "Locus 1.5.0: TV와 변화하는 빛",
+    "Locus 1.5.0 · Latest": "Locus 1.5.0 · 최신",
+    "New in Locus 1.5.0": "Locus 1.5.0의 새로운 기능",
+    "Press play in your Room.": "내 Room에서 재생하세요.",
+    "Watch TV in your Room": "Room에서 TV 보기",
+    "Watch TV in your Room, then explore a View from day into night.": "Room에서 TV를 보고 낮에서 밤으로 이어지는 View를 둘러보세요.",
+    "Watch TV in your Room, then explore a View from day into night in Locus 1.5.0.": "Locus 1.5.0에서 Room에서 TV를 보고 낮에서 밤으로 이어지는 View를 둘러보세요.",
+    "Watch the light and sky change throughout the day in supported Views.": "지원되는 View에서 하루 동안 빛과 하늘이 변하는 모습을 보세요."
   }
 }

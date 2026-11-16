@@ -3553,6 +3553,18 @@
     "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft.": "這個套件使用 ID space.atrium-loft-example，因此可以與內建的 Atrium Loft 並存匯入。",
     "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery.": "這個套件使用 ID space.courtyard-gallery-example，因此可以與內建的 Courtyard Gallery 並存匯入。",
     "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "這個套件使用 ID space.horizon-atelier-example，因此可以與內建的 Horizon Atelier 並存匯入。",
-    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender 原始檔是 1.0.9 的製作檔案；1.0.13 套件使用了之後匯出的低多邊形防濺牆磁磚。"
+    "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.": "Blender 原始檔是 1.0.9 的製作檔案；1.0.13 套件使用了之後匯出的低多邊形防濺牆磁磚。",
+    "Browse and watch on a Room TV. Try the Sky Room TV in Hilltop Villa, and the living room painting above the fireplace—it’s a TV too.": "在房間的電視上瀏覽與觀看。試試 Hilltop Villa 的 Sky Room 電視，以及客廳壁爐上方的畫作——那也是一台電視。",
+    "From day into night": "從白天到夜晚",
+    "Locus 1.5.0": "Locus 1.5.0",
+    "Locus 1.5.0 for Apple Vision Pro": "適用於 Apple Vision Pro 的 Locus 1.5.0",
+    "Locus 1.5.0: TV and changing light": "Locus 1.5.0：電視與光線的變化",
+    "Locus 1.5.0 · Latest": "Locus 1.5.0 · 最新",
+    "New in Locus 1.5.0": "Locus 1.5.0 中的新功能",
+    "Press play in your Room.": "在你的房間裡按下播放。",
+    "Watch TV in your Room": "在房間裡看電視",
+    "Watch TV in your Room, then explore a View from day into night.": "在房間裡看電視，然後從白天到夜晚探索景觀。",
+    "Watch TV in your Room, then explore a View from day into night in Locus 1.5.0.": "在 Locus 1.5.0 中，在房間裡看電視，然後從白天到夜晚探索景觀。",
+    "Watch the light and sky change throughout the day in supported Views.": "在支援的景觀中，觀看一天裡光線與天空的變化。"
   }
 }
