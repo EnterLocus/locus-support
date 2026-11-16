@@ -3879,6 +3879,17 @@
     "video maps (": "비디오 맵(",
     "when the View also carries a 3D": "View가 동일한 방향성 태양광을 받을 3D",
     "with": "및",
-    "with 1 to 4 entries:": "(1~4개 항목):"
+    "with 1 to 4 entries:": "(1~4개 항목):",
+    "Using your own painted sky instead of Locus’s procedural sky.": "Locus의 절차적 하늘 대신 직접 그린 하늘 사용하기.",
+    "Paint": "다음을 칠합니다:",
+    "completely black (": "전체 영역을 검은색(",
+    ") while keeping root": ")으로 칠하고, 루트의",
+    "declared as required. Because black in": "선언은 규칙대로 유지합니다. 검은색은",
+    "keeps your panoramas opaque, Locus hides the rendered blue sky, stars, and Moon while preserving the 24-hour clock, Edit View Sun Position scrubbing,": "에서 파노라마를 완전히 불투명하게 유지하므로 Locus는 절차적 푸른 하늘·별·달을 숨기면서도 24시간 시계, Edit View 태양 위치 스크러빙,",
+    "transitions,": "전환,",
+    ", and dynamic Room/midground lighting. Omit": "및 Room/중경의 동적 조명 변화를 그대로 유지합니다. 다음을 생략하거나",
+    "(or pass the all-black mask to": "(또는 전체 검은색 마스크를",
+    ") to hide the solar disc and glare as well, or supply a separate white-sky": "에 전달)하면 태양 원반과 눈부심도 숨겨지며, 움직이는 태양 원반을 유지하려면 하늘을 흰색으로 칠한 별도의",
+    "if you still want the moving sun disc.": "마스크를 따로 지정하세요."
   }
 }

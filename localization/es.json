@@ -3879,6 +3879,17 @@
     "video maps (": "mapas de vídeo (",
     "when the View also carries a 3D": "cuando la View también incluya un modelo 3D",
     "with": "con",
-    "with 1 to 4 entries:": "con de 1 a 4 entradas:"
+    "with 1 to 4 entries:": "con de 1 a 4 entradas:",
+    "Using your own painted sky instead of Locus’s procedural sky.": "Usar tu propio cielo pintado en lugar del cielo procedural de Locus.",
+    "Paint": "Pinta",
+    "completely black (": "completamente en negro (",
+    ") while keeping root": ") mientras mantienes en la raíz",
+    "declared as required. Because black in": "declarados según lo exigido. Como el negro en",
+    "keeps your panoramas opaque, Locus hides the rendered blue sky, stars, and Moon while preserving the 24-hour clock, Edit View Sun Position scrubbing,": "mantiene opacos tus panoramas, Locus oculta el cielo azul, las estrellas y la Luna renderizados mientras conserva el reloj de 24 horas, el ajuste de posición del sol en Edit View,",
+    "transitions,": "transiciones,",
+    ", and dynamic Room/midground lighting. Omit": "y la iluminación dinámica de Room y primer plano medio. Omite",
+    "(or pass the all-black mask to": "(o pasa la máscara totalmente negra a",
+    ") to hide the solar disc and glare as well, or supply a separate white-sky": ") para ocultar también el disco solar y el resplandor, o proporciona un",
+    "if you still want the moving sun disc.": "independiente con el cielo blanco si aún quieres mostrar el disco solar móvil."
   }
 }

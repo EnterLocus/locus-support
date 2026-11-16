@@ -3879,6 +3879,17 @@
     "video maps (": "ビデオマップ（",
     "when the View also carries a 3D": "View に同じ指向性太陽光を受ける 3D",
     "with": "と",
-    "with 1 to 4 entries:": "（1〜4 件）："
+    "with 1 to 4 entries:": "（1〜4 件）：",
+    "Using your own painted sky instead of Locus’s procedural sky.": "Locus のプロシージャルな空の代わりに独自に描いた空を使う。",
+    "Paint": "次を塗ります：",
+    "completely black (": "を完全に黒（",
+    ") while keeping root": "）で塗り、ルートの",
+    "declared as required. Because black in": "を仕様どおり宣言します。黒は",
+    "keeps your panoramas opaque, Locus hides the rendered blue sky, stars, and Moon while preserving the 24-hour clock, Edit View Sun Position scrubbing,": "ではパノラマを完全に不透明に保つため、Locus はプロシージャルな青空・星・月を隠しつつ、24 時間時計、Edit View の太陽位置スクラブ、",
+    "transitions,": "の遷移、",
+    ", and dynamic Room/midground lighting. Omit": "および Room と中景の動的ライティングはそのまま動作します。省略するか、",
+    "(or pass the all-black mask to": "（または全黒マスクを",
+    ") to hide the solar disc and glare as well, or supply a separate white-sky": "に指定）すると太陽円盤とグレアも非表示になります。移動する太陽円盤を表示したい場合は、空を白く塗った別の",
+    "if you still want the moving sun disc.": "を別途指定してください。"
   }
 }

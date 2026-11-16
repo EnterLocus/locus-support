@@ -3882,6 +3882,17 @@
     "video maps (": "视频贴图（",
     "when the View also carries a 3D": "当 View 同时携带需要接收相同定向太阳光的 3D",
     "with": "与",
-    "with 1 to 4 entries:": "，包含 1 至 4 条记录："
+    "with 1 to 4 entries:": "，包含 1 至 4 条记录：",
+    "Using your own painted sky instead of Locus’s procedural sky.": "使用自己绘制的天空，替代 Locus 的程序化天空。",
+    "Paint": "将",
+    "completely black (": "涂成全黑（",
+    ") while keeping root": "），同时保留根级的",
+    "declared as required. Because black in": "按要求声明完整。由于黑色在",
+    "keeps your panoramas opaque, Locus hides the rendered blue sky, stars, and Moon while preserving the 24-hour clock, Edit View Sun Position scrubbing,": "中表示全景图完全不透明，Locus 会隐藏程序化渲染的蓝天、星空和月亮，同时完整保留 24 小时时钟、Edit View 太阳位置拖动、",
+    "transitions,": "过渡、",
+    ", and dynamic Room/midground lighting. Omit": "、以及 Room／中景的动态光照变化。省略",
+    "(or pass the all-black mask to": "（或把全黑遮罩传给",
+    ") to hide the solar disc and glare as well, or supply a separate white-sky": "）即可同时隐藏太阳圆盘与眩光；如果仍希望在你绘制的天空上显示移动的太阳圆盘，则单独提供一张天空部分为白色的",
+    "if you still want the moving sun disc.": "。"
   }
 }

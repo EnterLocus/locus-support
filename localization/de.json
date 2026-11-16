@@ -3885,6 +3885,17 @@
     "video maps (": "Videokarten (",
     "when the View also carries a 3D": "wenn die View auch ein 3D-",
     "with": "mit",
-    "with 1 to 4 entries:": "mit 1 bis 4 Einträgen:"
+    "with 1 to 4 entries:": "mit 1 bis 4 Einträgen:",
+    "Using your own painted sky instead of Locus’s procedural sky.": "Einen eigenen gemalten Himmel statt Locus’ prozeduralem Himmel verwenden.",
+    "Paint": "Färben Sie",
+    "completely black (": "vollständig schwarz (",
+    ") while keeping root": "), während das Root-Feld",
+    "declared as required. Because black in": "wie vorgeschrieben deklariert bleibt. Da Schwarz in",
+    "keeps your panoramas opaque, Locus hides the rendered blue sky, stars, and Moon while preserving the 24-hour clock, Edit View Sun Position scrubbing,": "Ihre Panoramen deckend hält, blendet Locus den gerenderten blauen Himmel, Sterne und Mond aus und behält 24-Stunden-Uhr, Edit-View-Sonnenpositions-Scrubbing,",
+    "transitions,": "-Übergänge,",
+    ", and dynamic Room/midground lighting. Omit": "sowie die dynamische Room-/Mittelgrund-Beleuchtung bei. Lassen Sie",
+    "(or pass the all-black mask to": "weg (oder übergeben Sie die komplett schwarze Maske an",
+    ") to hide the solar disc and glare as well, or supply a separate white-sky": "), um auch Sonnenscheibe und Blendung auszublenden, oder stellen Sie eine separate",
+    "if you still want the moving sun disc.": "mit weißem Himmel bereit, falls die bewegliche Sonnenscheibe sichtbar bleiben soll."
   }
 }
