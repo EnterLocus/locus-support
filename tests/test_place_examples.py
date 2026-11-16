@@ -193,6 +193,19 @@ class RenderingTests(unittest.TestCase):
                 self.assertIn(f'href="{prefix}/asset-rights/#example-license"', page)
         self.assertIn('117,8 Mo', render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, 'fr', item))
 
+    def test_withheld_example_explains_and_links_related_place(self):
+        self.assertEqual(set(render_gallery.WITHHELD_COPY), set(render_gallery.LOCALES))
+        for locale in render_gallery.LOCALES:
+            with self.subTest(locale=locale):
+                self.assertIn('{link}', render_gallery.WITHHELD_COPY[locale])
+                page = render_gallery.place_page(self.places['destination.lakeshore-water-lab'], self.gallery, locale)
+                self.assertIn('data-gallery-example-withheld="destination.lakeshore-water-lab"', page)
+                prefix = '' if locale == 'en' else f'/{locale}'
+                self.assertIn(f'href="{prefix}/gallery/place/cloud-garden-isles/"', page)
+                self.assertNotIn('media.enterlocus.net/examples/', page)
+        other = render_gallery.place_page(self.places['destination.toposcope-sunset'], self.gallery, 'en')
+        self.assertNotIn('data-gallery-example-withheld', other)
+
     def test_every_locale_has_every_example_string_and_feature(self):
         for locale in render_gallery.LOCALES:
             with self.subTest(locale=locale):
