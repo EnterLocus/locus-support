@@ -47,7 +47,7 @@ the canonical online contracts.
 | --- | --- | --- |
 | 1. Choose a concept image | The creator supplies or selects one clear visual target. | [Concept and brief](references/concept-and-brief.md) and [design language](references/design-language.md) |
 | 2. Derive a metric layout | The agent turns that image into a buildable floor plan and seat layout before modeling. | [Concept and brief](references/concept-and-brief.md) and [larger Rooms](references/larger-rooms.md) |
-| 3. Build, review, and package | The agent models from both inputs, repairs the editable source, and produces a checked Room-only Package v2 archive plus portable editable source. | [Headless Blender](references/blender-headless.md), [materials and export](references/materials-and-export.md), [lighting and glass](references/lighting-and-glass.md), [Room TVs](references/room-tvs.md), and [Package v2 delivery](references/package-v2.md) |
+| 3. Build, review, and package | The agent models from both inputs, repairs the editable source, and produces a checked Room-only Package v2 archive plus portable editable source. | [Headless Blender](references/blender-headless.md), [materials and export](references/materials-and-export.md), [lighting and glass](references/lighting-and-glass.md), [Room TVs](references/room-tvs.md), [special features](references/room-special-features.md), [Room interface](references/room-interface.md), and [Package v2 delivery](references/package-v2.md) |
 | 4. Check on Apple Vision Pro and iterate | The creator checks the exact archive on the physical device and sends screenshots and concrete findings back to the agent for revisions. | [Device preview and report](references/device-preview-and-report.md) |
 
 ## 1. Choose a concept image
@@ -139,6 +139,14 @@ Model each TV screen as one flat 16:9 quad of its own, with its own UVs and a
 non-emissive off-state material, set a few millimetres in front of its frame.
 Declare it in `tvs` and set `minimumAppVersion` to `1.4.9` or later, as
 described in [Room TVs](references/room-tvs.md).
+
+When the brief calls for fireplace flames (`particleEffects`), a Room pool or
+basin (`water`), waterfalls or cascades (`flowingWater`), UV-scrolling streams
+(`textureFlow`), spatial sound or music (`sound.json`), looping `.mp4` surfaces
+(`videoSurfaces`), custom outdoor View-ground clipping (`viewGroundFootprint`), or
+experimental `ambientAnimations`, read [Special features](references/room-special-features.md)
+before modeling so those anchors, empty pool basins, flow UVs, and bindings are
+authored cleanly in Blender and declared in Package v2.
 
 Before delivery, follow [Flicker prevention](references/flicker-prevention.md):
 avoid duplicate and near-coplanar surfaces, run the public geometry audit on

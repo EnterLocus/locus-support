@@ -85,15 +85,20 @@ actual tabletop entity.
 **Do not place a terrain base under the Room.** A large ground plane hides the
 paired View's water and makes the USDZ visual bounds much larger than the Room.
 That shifts every normalized `anchorXZ` seat. The Room floor and architecture
-should be only what the visitor needs to see and occupy.
+should be only what the visitor needs to see and occupy; use
+`viewGroundFootprint` instead when an irregular patio or terrace needs custom
+View-ground clipping (see
+[Special features](room-special-features.md#6-outdoor-view-ground-keep-out-and-forward-yaw-viewground-viewforwardyawradians)).
 
-**Do not export a skybox, cyclorama, or window backdrop mesh.** Distant
-mountains, water, clouds, and sky belong to the paired Locus View, not the
+**Do not export a skybox, cyclorama, flat pool water mesh, or window backdrop mesh.** Distant
+mountains, oceans, clouds, and sky belong to the paired Locus View, not the
 Room's `scene.usdz`. A curved image backdrop, scenery plane, or skydome outside
 the windows blocks every 360° View the visitor selects in Locus and inflates
-the Room's visual bounds. Leave architectural openings unobstructed and glass
-transmissive; keep any preview environment in Blender's World shader or an
-unexported collection.
+the Room's visual bounds. Likewise, leave Room-owned pool basins open without a
+static water sheet and declare `water` or `flowingWater` in `space.json`
+([Special features](room-special-features.md)). Leave architectural openings
+unobstructed and glass transmissive; keep any preview environment in Blender's
+World shader or an unexported collection.
 
 **Do not center a seat eye point inside the chair.** Put it in front of the
 backrest and above the cushion. Exported bounds and the eye-point helper make
