@@ -128,7 +128,16 @@ View feature ids are `video` (looping video regions), `water`, `flowing-water`,
 `shore`, `midground` (3D midground USDZ), `day-night`, `procedural-sky`,
 `celestial`, `clouds` (animated cloud sea), `particles`, and `sound`. Most go beyond this static-skybox skill; use them to
 see how a finished View packages its panorama, thumbnail, appearance and
-`provenance.json`, not as a route this skill performs.
+`provenance.json`, not as a route this skill performs. Room-only ids such as
+`room-tv` (Room TVs) are explained in the build-original-locus-room skill.
+
+A record may also have `upcoming`: a newer revision for a Locus `appVersion`
+that is not public yet, with its own `package`, `source`, `features` and
+optional `notes`. The current public App cannot install it; use the main
+`package` unless the creator targets that version, and check an upcoming
+revision with that release's public tools: the current validator may not know
+its newest fields yet. At release closeout the upcoming revision becomes the
+main entry.
 
 Check `byteCount`, download into scratch space, compare `shasum -a 256` with
 `sha256`, validate with `python3 tools/validate_locusplace.py

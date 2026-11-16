@@ -3561,6 +3561,9 @@
     "Watch TV in your Room": "Mira TV en tu Room",
     "Watch TV in your Room, then explore a View from day into night.": "Mira TV en tu Room y después explora una View desde el día hasta la noche.",
     "Watch TV in your Room, then explore a View from day into night in Locus 1.5.0.": "En Locus 1.5.0, mira TV en tu Room y después explora una View desde el día hasta la noche.",
-    "Watch the light and sky change throughout the day in supported Views.": "Observa cómo cambian la luz y el cielo a lo largo del día en las Views compatibles."
+    "Watch the light and sky change throughout the day in supported Views.": "Observa cómo cambian la luz y el cielo a lo largo del día en las Views compatibles.",
+    "A record may also have an": "Un registro también puede tener una revisión",
+    "revision that needs a Locus version that\nis not public yet. It has the same fields as the main entry plus": "que necesita una versión de Locus aún no publicada. Tiene los mismos campos que la entrada principal, más",
+    ",\nthe release it needs. Use the main package with the current public App;\ncheck an upcoming package with the tools published for its release.": ", la versión que necesita. Con la app pública actual, usa el paquete principal; comprueba un paquete futuro con las herramientas publicadas para su versión."
   }
 }
