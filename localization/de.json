@@ -3926,6 +3926,19 @@
     "Two-level architecture, 34 seats, light layers, and two TVs in practice.": "Zweistöckige Architektur, 34 Sitze, Lichtebenen und zwei Fernseher in der Praxis.",
     "View-ground footprint & optional openings": "View-Boden-Footprint & optionale Öffnungen",
     "Worked Gallery example: Hilltop Villa.": "Ausgearbeitetes Gallery-Beispiel: Hilltop Villa.",
-    "ZIP does not support these fields). The manifest below follows": "ZIP diese Felder nicht unterstützt). Das folgende Manifest orientiert sich an"
+    "ZIP does not support these fields). The manifest below follows": "ZIP diese Felder nicht unterstützt). Das folgende Manifest orientiert sich an",
+    "For authors": "Für Autor:innen",
+    "Complete Package v2 Rooms can declare up to four interactive TVs with": "Vollständige Package-v2-Rooms können mit",
+    "(requiring Locus 1.4.9 or later), and Views can combine": "bis zu vier interaktive Fernseher deklarieren (erfordert Locus 1.4.9 oder neuer), und Views können",
+    "or per-video": "oder Video-spezifischen",
+    "lighting and emission maps (requiring Locus 1.4.11 or later). Follow the": "Beleuchtungs- und Emissions-Maps kombinieren (erfordert Locus 1.4.11 oder neuer). Siehe die",
+    "Add a TV guide": "Anleitung zum Hinzufügen eines TVs",
+    "Day-and-night View guide": "Anleitung für Tag-und-Nacht-Views",
+    ", or read the": ", oder lies die",
+    "format specification": "Formatspezifikation",
+    "(and its": "(sowie das zugehörige",
+    "Package v2 archive plus Blender source listed on that page). It pairs two contrasting TVs in one Room: a 98-inch living-room fireplace painting art TV (": "Package-v2-Archiv samt Blender-Quelle auf derselben Seite). Es kombiniert zwei gegensätzliche Fernseher in einem Room: einen 98-Zoll-Gemälde-Art-TV über dem Wohnzimmerkamin (",
+    "). Needs Locus 1.4.10 / 1.5.0 or later, and see": "). Erfordert Locus 1.4.10 / 1.5.0 oder neuer; siehe auch",
+    "Chalk Dune Dawn in the Gallery": "Chalk Dune Dawn in der Gallery"
   }
 }

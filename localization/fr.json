@@ -3921,6 +3921,19 @@
     "Two-level architecture, 34 seats, light layers, and two TVs in practice.": "Architecture sur deux niveaux, 34 sièges, calques lumineux et deux téléviseurs en pratique.",
     "View-ground footprint & optional openings": "Emprise au sol de View et ouvertures facultatives",
     "Worked Gallery example: Hilltop Villa.": "Exemple concret dans la Gallery : Hilltop Villa.",
-    "ZIP does not support these fields). The manifest below follows": "ZIP ne prend pas ces champs en charge). Le manifeste ci-dessous suit"
+    "ZIP does not support these fields). The manifest below follows": "ZIP ne prend pas ces champs en charge). Le manifeste ci-dessous suit",
+    "For authors": "Pour les créateurs",
+    "Complete Package v2 Rooms can declare up to four interactive TVs with": "Les Rooms au format Package v2 complet peuvent déclarer jusqu’à quatre téléviseurs interactifs avec",
+    "(requiring Locus 1.4.9 or later), and Views can combine": "(nécessite Locus 1.4.9 ou ultérieur), et les Views peuvent combiner",
+    "or per-video": "ou par vidéo avec des cartes",
+    "lighting and emission maps (requiring Locus 1.4.11 or later). Follow the": "d’éclairage et d’émission (nécessite Locus 1.4.11 ou ultérieur). Suivez le",
+    "Add a TV guide": "guide Ajouter un téléviseur",
+    "Day-and-night View guide": "guide des Views jour/nuit",
+    ", or read the": ", ou consultez le",
+    "format specification": "la spécification du format",
+    "(and its": "(ainsi que sa version",
+    "Package v2 archive plus Blender source listed on that page). It pairs two contrasting TVs in one Room: a 98-inch living-room fireplace painting art TV (": "Package v2 et source Blender indiqués sur cette page). Il associe deux téléviseurs contrastés dans un même Room : un téléviseur tableau de 98 pouces au-dessus de la cheminée du salon (",
+    "). Needs Locus 1.4.10 / 1.5.0 or later, and see": "). Nécessite Locus 1.4.10 / 1.5.0 ou ultérieur ; voir aussi",
+    "Chalk Dune Dawn in the Gallery": "Chalk Dune Dawn dans la Gallery"
   }
 }

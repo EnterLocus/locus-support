@@ -3920,6 +3920,19 @@
     "Two-level architecture, 34 seats, light layers, and two TVs in practice.": "2 層構造の建築、34 の座席、ライトレイヤー、2 台のテレビの実践例。",
     "View-ground footprint & optional openings": "View 地面フットプリントと任意の開口部",
     "Worked Gallery example: Hilltop Villa.": "Gallery の実例：Hilltop Villa。",
-    "ZIP does not support these fields). The manifest below follows": "ZIP ではこれらのフィールドを使用できません）。以下のマニフェストは"
+    "ZIP does not support these fields). The manifest below follows": "ZIP ではこれらのフィールドを使用できません）。以下のマニフェストは",
+    "For authors": "制作者向け",
+    "Complete Package v2 Rooms can declare up to four interactive TVs with": "完全な Package v2 の Room では",
+    "(requiring Locus 1.4.9 or later), and Views can combine": "で最大 4 台のインタラクティブ TV を宣言でき（Locus 1.4.9 以降が必要）、View では",
+    "or per-video": "や動画ごとの",
+    "lighting and emission maps (requiring Locus 1.4.11 or later). Follow the": "ライティング／エミッションマップと組み合わせられます（Locus 1.4.11 以降が必要）。詳しくは",
+    "Add a TV guide": "テレビ追加ガイド",
+    "Day-and-night View guide": "昼夜 View ガイド",
+    ", or read the": "をご覧ください。あわせて",
+    "format specification": "フォーマット仕様",
+    "(and its": "（および同ページ掲載の",
+    "Package v2 archive plus Blender source listed on that page). It pairs two contrasting TVs in one Room: a 98-inch living-room fireplace painting art TV (": "Package v2 アーカイブと Blender ソースも掲載）。1 つの Room に対照的な 2 台のテレビを配置しています：リビング暖炉上の 98 インチ絵画風アート TV（",
+    "). Needs Locus 1.4.10 / 1.5.0 or later, and see": "にも掲載）。Locus 1.4.10 / 1.5.0 以降が必要です。",
+    "Chalk Dune Dawn in the Gallery": "Gallery の白い砂丘の夜明け（Chalk Dune Dawn）"
   }
 }

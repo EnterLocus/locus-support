@@ -3922,6 +3922,19 @@
     "Two-level architecture, 34 seats, light layers, and two TVs in practice.": "雙層大宅建築、34 個座位、光照層與兩台電視的實戰拆解。",
     "View-ground footprint & optional openings": "View 地面裁剪邊界與可選開口",
     "Worked Gallery example: Hilltop Villa.": "Gallery 實景範例：Hilltop Villa。",
-    "ZIP does not support these fields). The manifest below follows": "ZIP 不支援這些欄位）。下方設定基於"
+    "ZIP does not support these fields). The manifest below follows": "ZIP 不支援這些欄位）。下方設定基於",
+    "For authors": "給創作者",
+    "Complete Package v2 Rooms can declare up to four interactive TVs with": "完整 Package v2 的 Room 可透過",
+    "(requiring Locus 1.4.9 or later), and Views can combine": "宣告最多四台互動式電視（需要 Locus 1.4.9 或更新版本），View 可將",
+    "or per-video": "或逐影片",
+    "lighting and emission maps (requiring Locus 1.4.11 or later). Follow the": "光照與自發光貼圖搭配使用（需要 Locus 1.4.11 或更新版本）。請查看",
+    "Add a TV guide": "新增電視指南",
+    "Day-and-night View guide": "晝夜景觀指南",
+    ", or read the": "，或閱讀",
+    "format specification": "格式規範",
+    "(and its": "（以及該頁面上列出的",
+    "Package v2 archive plus Blender source listed on that page). It pairs two contrasting TVs in one Room: a 98-inch living-room fireplace painting art TV (": "Package v2 安裝套件與 Blender 原始檔）。它在同一個 Room 中配置了兩台不同風格的電視：客廳壁爐上方 98 吋的畫框藝術電視（",
+    "). Needs Locus 1.4.10 / 1.5.0 or later, and see": "）。需要 Locus 1.4.10 / 1.5.0 或更新版本，另見",
+    "Chalk Dune Dawn in the Gallery": "Gallery 中的白丘晨光"
   }
 }
