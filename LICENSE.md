@@ -58,11 +58,15 @@ source files) hosted under `https://media.enterlocus.net/examples/`.
 The full terms are in
 [`LICENSES/LicenseRef-EnterLocus-Example.txt`](LICENSES/LicenseRef-EnterLocus-Example.txt)
 and summarized at <https://enterlocus.com/asset-rights/#example-license>.
-In short: study, modify, and use an example in Locus; share substantially
-changed work free of charge with credit; do not redistribute the example or its
-individual assets, use them outside Locus, sell them, or use them to train AI
-models. Third-party components named in an example's `provenance.json`,
-README, or the Asset rights page keep their own terms.
+In short (version 1.1): change an example and use it as a template, by hand or
+with an AI assistant, for your own Rooms and Views, and use what you make
+anywhere, including commercially; share Places made from it. Do not use the
+example or its assets as they are or with only small changes in a commercial
+product or service, do not sell them, and do not re-upload the original files;
+link to the example's Gallery page instead. Version 1.1 replaces version 1.0
+for every copy, including earlier downloads. Third-party components named in
+an example's `provenance.json`, README, or the Asset rights page keep their
+own terms.
 
 An example's `provenance.json` may still name
 `LicenseRef-EnterLocus-Proprietary` for the Library Place it was published
