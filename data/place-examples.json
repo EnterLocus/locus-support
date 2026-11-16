@@ -101,10 +101,10 @@
       "source": {
         "sourceVersion": "1.0.17",
         "blenderVersion": "5.2.1",
-        "fileName": "space.cloud-fan-pavilion-source-1.0.17.zip",
-        "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-source-1.0.17.zip",
-        "byteCount": 17580394,
-        "sha256": "f579708e2eca61673c939eca6628fc3f738aab85ac0b9c7c7ee3c0c280918698"
+        "fileName": "space.cloud-fan-pavilion-source-1.0.17-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-source-1.0.17-r2.zip",
+        "byteCount": 17580236,
+        "sha256": "aab55951ca88c6428cbacc9a03725ea23a2271ae4a95b00b279c48435b831e0a"
       }
     },
     {
@@ -127,10 +127,10 @@
       "source": {
         "sourceVersion": "1.0.14",
         "blenderVersion": "5.2.1",
-        "fileName": "space.winter-garden-breeze-source-1.0.14.zip",
-        "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-source-1.0.14.zip",
-        "byteCount": 38704499,
-        "sha256": "ccd1a9b6456eed9c1e52be2748066eb392a7bcdceb485be1ab5fcd49085462d7"
+        "fileName": "space.winter-garden-breeze-source-1.0.14-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-source-1.0.14-r2.zip",
+        "byteCount": 38704341,
+        "sha256": "0babc4e37e98b83bcdfa2e92236d1d7519ff5e9b5cc59877f05276310cdf6777"
       }
     },
     {
@@ -150,10 +150,10 @@
       "source": {
         "sourceVersion": "1.0.7",
         "blenderVersion": "5.2.1",
-        "fileName": "space.cloudvault-retreat-source-1.0.7.zip",
-        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-source-1.0.7.zip",
-        "byteCount": 28587643,
-        "sha256": "7c72e952d91abb55394529369fc8d1ad119aa61aa372ffba537a069af7122a83"
+        "fileName": "space.cloudvault-retreat-source-1.0.7-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-source-1.0.7-r2.zip",
+        "byteCount": 28587485,
+        "sha256": "2ddb22de5f9825950040a4536f28f8bda28829d32e2394c22e68f22c042505ac"
       }
     },
     {
@@ -175,10 +175,10 @@
       "source": {
         "sourceVersion": "1.0.9",
         "blenderVersion": "5.2.1",
-        "fileName": "space.mediterranean-loggia-source-1.0.9.zip",
-        "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-source-1.0.9.zip",
-        "byteCount": 44832782,
-        "sha256": "456287076850d1a5f048cba76e8da2afe65a386b065309de79a1df4beec09c2b"
+        "fileName": "space.mediterranean-loggia-source-1.0.9-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-source-1.0.9-r2.zip",
+        "byteCount": 44832624,
+        "sha256": "5494bdb743d5e0908ddb7e7ebdc9bc690872565f5a0ecf6f60c60594e54216f4"
       },
       "notes": "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles."
     },
@@ -202,10 +202,10 @@
       "source": {
         "sourceVersion": "1.0.14",
         "blenderVersion": "5.2.1",
-        "fileName": "space.sunlit-cafe-source-1.0.14.zip",
-        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-source-1.0.14.zip",
-        "byteCount": 16663680,
-        "sha256": "9832c9063fed472123a764aea1ada6fabfb68dc7d54cac85a701c607c0e4a085"
+        "fileName": "space.sunlit-cafe-source-1.0.14-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-source-1.0.14-r2.zip",
+        "byteCount": 16663522,
+        "sha256": "bc6eddc88a07576b9f9052e04650deb025a15719a61d1c3745101d07136fd222"
       }
     },
     {
@@ -231,10 +231,10 @@
       "source": {
         "sourceVersion": "1.0.17",
         "blenderVersion": "5.2.1",
-        "fileName": "space.lakeside-cabin-source-1.0.17.zip",
-        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-source-1.0.17.zip",
-        "byteCount": 40924407,
-        "sha256": "a042f9c42f823ceeb3f50dda5400807b19dd6dcadcc9680243765c1c68d3fbc3"
+        "fileName": "space.lakeside-cabin-source-1.0.17-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-source-1.0.17-r2.zip",
+        "byteCount": 40924249,
+        "sha256": "44ecf98dbcc882e5b42721d148bbe05d421ff3ba0db489a639d44136d16a3f73"
       }
     },
     {
@@ -256,10 +256,10 @@
       "source": {
         "sourceVersion": "1.0.7",
         "blenderVersion": "5.2.1",
-        "fileName": "space.free-capsule-source-1.0.7.zip",
-        "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-source-1.0.7.zip",
-        "byteCount": 10129979,
-        "sha256": "a8ccc3ac6b77bb724c1499dc6801a1708a5b6dcc236b95f25e4c108472305188"
+        "fileName": "space.free-capsule-source-1.0.7-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-source-1.0.7-r2.zip",
+        "byteCount": 10129821,
+        "sha256": "15e927bafda43f72c6d251b4d05febe7dbc893987bfd0f6153474cbda7b94ba5"
       }
     },
     {
@@ -285,10 +285,10 @@
       "source": {
         "sourceVersion": "1.0.14",
         "blenderVersion": "5.2.1",
-        "fileName": "space.hilltop-villa-source-1.0.14.zip",
-        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.14.zip",
-        "byteCount": 37400464,
-        "sha256": "94cc641093c32f938b7e311d4df4e9ba7ea1f5083b941679fc6abfcd55139f82"
+        "fileName": "space.hilltop-villa-source-1.0.14-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.14-r2.zip",
+        "byteCount": 37400306,
+        "sha256": "b29aa955202a3e2230c93aa7635770c8a4d45b946f223856b0c42f2073e771e4"
       }
     },
     {
@@ -311,10 +311,10 @@
       "source": {
         "sourceVersion": "1.0.8",
         "blenderVersion": "5.2.1",
-        "fileName": "space.cloud-garden-cabin-source-1.0.8.zip",
-        "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-source-1.0.8.zip",
-        "byteCount": 3283733,
-        "sha256": "929508e18edb00b766f1c0d6f50df6b847a7a757052f601db3ade506fb8d1f8a"
+        "fileName": "space.cloud-garden-cabin-source-1.0.8-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-source-1.0.8-r2.zip",
+        "byteCount": 3283575,
+        "sha256": "2092e60017f48ade531375a0efc0ba03e464e95d75398b1a2cc101a61c8c6666"
       }
     },
     {
@@ -337,10 +337,10 @@
       "source": {
         "sourceVersion": "1.0.12",
         "blenderVersion": "5.2.1",
-        "fileName": "space.tidal-veranda-source-1.0.12.zip",
-        "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-source-1.0.12.zip",
-        "byteCount": 34370970,
-        "sha256": "89cea2f61f51095cf784fcc131de8616e796f81ccc9d6abd1c6bb9526039a3bb"
+        "fileName": "space.tidal-veranda-source-1.0.12-r2.zip",
+        "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-source-1.0.12-r2.zip",
+        "byteCount": 34370812,
+        "sha256": "8f2425c4f7b3e3d3039a5a78f46044ba83a3831f8b70433b8c1df9d722125a23"
       }
     },
     {
@@ -459,10 +459,10 @@
       "source": {
         "sourceVersion": "1.1.6",
         "blenderVersion": "5.2.1",
-        "fileName": "destination.cloud-garden-isles-source-1.1.6.zip",
-        "url": "https://media.enterlocus.net/examples/destination.cloud-garden-isles/destination.cloud-garden-isles-source-1.1.6.zip",
-        "byteCount": 622195,
-        "sha256": "11306a317fe8293b5d27aa4f9c06bd963963fe3acb045d9393b657eea6857b15"
+        "fileName": "destination.cloud-garden-isles-source-1.1.6-r2.zip",
+        "url": "https://media.enterlocus.net/examples/destination.cloud-garden-isles/destination.cloud-garden-isles-source-1.1.6-r2.zip",
+        "byteCount": 622037,
+        "sha256": "b3108f2ce947b41062fde7416567cbf6f2aef15ce06d8a842e4db359aac9205f"
       }
     },
     {
@@ -485,10 +485,10 @@
       "source": {
         "sourceVersion": "1.1.9",
         "blenderVersion": "5.2.1",
-        "fileName": "destination.ancient-forest-source-1.1.9.zip",
-        "url": "https://media.enterlocus.net/examples/destination.ancient-forest/destination.ancient-forest-source-1.1.9.zip",
-        "byteCount": 2624615,
-        "sha256": "78689f9f1513ac0976a64035a988ec380c5a971bd42a93a132745f339248edbc"
+        "fileName": "destination.ancient-forest-source-1.1.9-r2.zip",
+        "url": "https://media.enterlocus.net/examples/destination.ancient-forest/destination.ancient-forest-source-1.1.9-r2.zip",
+        "byteCount": 2624457,
+        "sha256": "c33d73c1ea5c97939d884863f83ca8fb23f830f90761d69460875135402041cd"
       }
     },
     {
@@ -511,10 +511,10 @@
       "source": {
         "sourceVersion": "1.0.9",
         "blenderVersion": "5.2.1",
-        "fileName": "destination.jungle-terraces-source-1.0.9.zip",
-        "url": "https://media.enterlocus.net/examples/destination.jungle-terraces/destination.jungle-terraces-source-1.0.9.zip",
-        "byteCount": 1141404,
-        "sha256": "f4bcec3869fd95f8c5fbdd724227a3de5bd476138f914e2cb3cc6191444579e8"
+        "fileName": "destination.jungle-terraces-source-1.0.9-r2.zip",
+        "url": "https://media.enterlocus.net/examples/destination.jungle-terraces/destination.jungle-terraces-source-1.0.9-r2.zip",
+        "byteCount": 1141246,
+        "sha256": "55a61eb045df7aa89016a2e0a50a18ecd041f99884836a0f4f3312cb5d377fc7"
       }
     },
     {

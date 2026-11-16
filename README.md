@@ -17,8 +17,10 @@ This repository uses scoped licenses rather than one blanket license:
   Attribution 4.0 International;
 - the other example downloads (free Rooms, selected free Views, and the Cloud
   Fan Pavilion animation sample) are available under the Locus Example
-  License, `LICENSES/LicenseRef-EnterLocus-Example.txt`: study and modify them
-  for Locus, but do not redistribute them or reuse their assets elsewhere;
+  License 1.1, `LICENSES/LicenseRef-EnterLocus-Example.txt`: use them as
+  templates for your own Rooms and Views, including commercially, but do not
+  use their assets as they are or lightly changed in a commercial product or
+  service, do not sell them, and do not re-upload the original files;
 - embedded Poly Haven textures retain their CC0 1.0 dedication; and
 - site content, Locus branding, and everything not expressly listed remain
   reserved.

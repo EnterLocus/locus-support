@@ -193,6 +193,19 @@ class RenderingTests(unittest.TestCase):
                 self.assertIn(f'href="{prefix}/asset-rights/#example-license"', page)
         self.assertIn('117,8 Mo', render_gallery.place_page(self.places['space.hilltop-villa'], self.gallery, 'fr', item))
 
+    def test_withheld_example_explains_and_links_related_place(self):
+        self.assertEqual(set(render_gallery.WITHHELD_COPY), set(render_gallery.LOCALES))
+        for locale in render_gallery.LOCALES:
+            with self.subTest(locale=locale):
+                self.assertIn('{link}', render_gallery.WITHHELD_COPY[locale])
+                page = render_gallery.place_page(self.places['destination.lakeshore-water-lab'], self.gallery, locale)
+                self.assertIn('data-gallery-example-withheld="destination.lakeshore-water-lab"', page)
+                prefix = '' if locale == 'en' else f'/{locale}'
+                self.assertIn(f'href="{prefix}/gallery/place/cloud-garden-isles/"', page)
+                self.assertNotIn('media.enterlocus.net/examples/', page)
+        other = render_gallery.place_page(self.places['destination.toposcope-sunset'], self.gallery, 'en')
+        self.assertNotIn('data-gallery-example-withheld', other)
+
     def test_every_locale_has_every_example_string_and_feature(self):
         for locale in render_gallery.LOCALES:
             with self.subTest(locale=locale):
@@ -250,17 +263,26 @@ class GuideTests(unittest.TestCase):
             with self.subTest(skill=skill):
                 text = (ROOT / '.agents' / 'skills' / skill / 'SKILL.md').read_text()
                 for term in ['https://enterlocus.com/data/place-examples.json', 'features', 'sha256',
-                             'validate_locusplace.py', 'LicenseRef-EnterLocus-Example', 'Do not copy',
+                             'validate_locusplace.py', 'LicenseRef-EnterLocus-Example', 'template',
+                             'including commercially', 're-upload',
                              'https://enterlocus.com/asset-rights/#example-license']:
                     self.assertIn(term, text)
 
     def test_license_surfaces_agree(self):
         text = (ROOT / 'LICENSES' / 'LicenseRef-EnterLocus-Example.txt').read_text()
-        self.assertTrue(text.startswith('Locus Example License (LicenseRef-EnterLocus-Example), version 1.0'))
+        self.assertTrue(text.startswith('Locus Example License (LicenseRef-EnterLocus-Example), version 1.1'))
         rights = (ROOT / 'asset-rights' / 'index.html').read_text()
         self.assertIn('id="example-license"', rights)
         self.assertIn('href="../LICENSES/LicenseRef-EnterLocus-Example.txt"', rights)
         self.assertNotIn('not licensed for redistribution, sublicensing, sale, or reuse elsewhere', rights)
+        # Version 1.1 dropped the AI-training and outside-Locus bans; no surface may still state them.
+        for path in ['asset-rights/index.html', 'LICENSE.md', 'README.md', 'reference/locusplace-format.md',
+                     '.agents/skills/build-original-locus-room/SKILL.md', '.agents/skills/build-a-view/SKILL.md']:
+            text = (ROOT / path).read_text()
+            with self.subTest(path=path):
+                self.assertNotRegex(text, r'(?i)train(?:ing)? (?:or fine-tune )?(?:an )?AI models?|outside Locus')
+        self.assertIn('Use what you make anywhere, including commercially.', rights)
+        self.assertIn('Re-upload the original example files.', rights)
         license_map = (ROOT / 'LICENSE.md').read_text()
         self.assertIn('## Locus Example License', license_map)
         self.assertIn('LICENSES/LicenseRef-EnterLocus-Example.txt', license_map)
