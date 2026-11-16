@@ -95,28 +95,28 @@ RELEASE_PREVIEW_COPY = {
 }
 
 EXAMPLE_COPY = {
-    "en": {"for_version": "For version {version}", "filter": "Examples", "files": "Example files", "package": "Place package", "source": "Blender source",
+    "en": {"zip": "ZIP file (.locusplace)", "for_version": "For version {version}", "filter": "Examples", "files": "Example files", "package": "Place package", "source": "Blender source",
            "minimum": "Locus {version} or later", "more": "More examples", "license": "Locus Example License",
            "mb": "MB", "gb": "GB"},
-    "zh-Hans": {"for_version": "对应 {version} 版", "filter": "示例", "files": "示例文件", "package": "地点包", "source": "Blender 源文件",
+    "zh-Hans": {"zip": "ZIP 文件（.locusplace）", "for_version": "对应 {version} 版", "filter": "示例", "files": "示例文件", "package": "地点包", "source": "Blender 源文件",
                 "minimum": "Locus {version} 或更高版本", "more": "更多示例", "license": "Locus 示例许可",
                 "mb": "MB", "gb": "GB"},
-    "zh-Hant": {"for_version": "對應 {version} 版", "filter": "範例", "files": "範例檔案", "package": "地點套件", "source": "Blender 原始檔",
+    "zh-Hant": {"zip": "ZIP 檔案（.locusplace）", "for_version": "對應 {version} 版", "filter": "範例", "files": "範例檔案", "package": "地點套件", "source": "Blender 原始檔",
                 "minimum": "Locus {version} 或更新版本", "more": "更多範例", "license": "Locus 範例授權",
                 "mb": "MB", "gb": "GB"},
-    "ja": {"for_version": "バージョン {version} 用", "filter": "サンプル", "files": "サンプルファイル", "package": "場所のパッケージ", "source": "Blender ソース",
+    "ja": {"zip": "ZIP ファイル（.locusplace）", "for_version": "バージョン {version} 用", "filter": "サンプル", "files": "サンプルファイル", "package": "場所のパッケージ", "source": "Blender ソース",
            "minimum": "Locus {version} 以降", "more": "その他のサンプル", "license": "Locus サンプルライセンス",
            "mb": "MB", "gb": "GB"},
-    "ko": {"for_version": "버전 {version}용", "filter": "예제", "files": "예제 파일", "package": "장소 패키지", "source": "Blender 소스",
+    "ko": {"zip": "ZIP 파일(.locusplace)", "for_version": "버전 {version}용", "filter": "예제", "files": "예제 파일", "package": "장소 패키지", "source": "Blender 소스",
            "minimum": "Locus {version} 이상", "more": "더 많은 예제", "license": "Locus 예제 라이선스",
            "mb": "MB", "gb": "GB"},
-    "de": {"for_version": "Für Version {version}", "filter": "Beispiele", "files": "Beispieldateien", "package": "Ortspaket", "source": "Blender-Quelldatei",
+    "de": {"zip": "ZIP-Datei (.locusplace)", "for_version": "Für Version {version}", "filter": "Beispiele", "files": "Beispieldateien", "package": "Ortspaket", "source": "Blender-Quelldatei",
            "minimum": "Locus {version} oder neuer", "more": "Weitere Beispiele", "license": "Locus-Beispiellizenz",
            "mb": "MB", "gb": "GB"},
-    "fr": {"for_version": "Pour la version {version}", "filter": "Exemples", "files": "Fichiers d’exemple", "package": "Paquet du lieu", "source": "Source Blender",
+    "fr": {"zip": "Fichier ZIP (.locusplace)", "for_version": "Pour la version {version}", "filter": "Exemples", "files": "Fichiers d’exemple", "package": "Paquet du lieu", "source": "Source Blender",
            "minimum": "Locus {version} ou version ultérieure", "more": "Autres exemples",
            "license": "Licence d’exemple Locus", "mb": "Mo", "gb": "Go"},
-    "es": {"for_version": "Para la versión {version}", "filter": "Ejemplos", "files": "Archivos de ejemplo", "package": "Paquete del lugar", "source": "Fuente de Blender",
+    "es": {"zip": "Archivo ZIP (.locusplace)", "for_version": "Para la versión {version}", "filter": "Ejemplos", "files": "Archivos de ejemplo", "package": "Paquete del lugar", "source": "Fuente de Blender",
            "minimum": "Locus {version} o posterior", "more": "Más ejemplos", "license": "Licencia de ejemplo de Locus",
            "mb": "MB", "gb": "GB"},
 }
@@ -350,7 +350,7 @@ def example_markup(example: dict, locale: str, heading: bool = True) -> str:
                 f'<span class="gallery-example-name">{esc(label)}</span>'
                 f'<span class="gallery-example-meta">{esc(details)}</span>{DOWNLOAD_ICON}</a></li>')
 
-    rows = [row(copy["package"], [package["contentVersion"], format_bytes(package["byteCount"], locale),
+    rows = [row(copy["package"], [package["contentVersion"], copy["zip"], format_bytes(package["byteCount"], locale),
                                   copy["minimum"].format(version=package["minimumAppVersion"])], package)]
     if source:
         meta = ([] if source["sourceVersion"] == package["contentVersion"]
