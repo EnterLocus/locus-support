@@ -121,6 +121,18 @@ EXAMPLE_COPY = {
            "mb": "MB", "gb": "GB"},
 }
 DECIMAL_COMMA = {"de", "fr", "es"}
+# Free Places deliberately not offered as examples, with the localized reason and a related example.
+WITHHELD_EXAMPLES = {"destination.lakeshore-water-lab": "destination.cloud-garden-isles"}
+WITHHELD_COPY = {
+    "en": "Not available for download. Its 3D shoreline uses licensed assets that can’t be redistributed. For a lake with a 3D shore, see {link}.",
+    "zh-Hans": "不提供下载。它的 3D 湖岸使用了获授权的素材，这些素材不允许再分发。想看带 3D 岸边的湖面示例，请参考{link}。",
+    "zh-Hant": "不提供下載。它的 3D 湖岸使用了獲授權的素材，這些素材不允許再散布。想看帶 3D 岸邊的湖面範例，請參考{link}。",
+    "ja": "ダウンロードはできません。3D の湖岸に、再配布できないライセンス素材を使っています。3D の岸辺がある湖の例は{link}をご覧ください。",
+    "ko": "다운로드할 수 없습니다. 3D 호숫가에 재배포할 수 없는 라이선스 에셋을 사용했습니다. 3D 물가가 있는 호수 예제는 {link}에서 볼 수 있습니다.",
+    "de": "Nicht zum Download verfügbar. Das 3D-Ufer verwendet lizenzierte Assets, die nicht weitergegeben werden dürfen. Ein Beispiel für einen See mit 3D-Ufer ist {link}.",
+    "fr": "Non disponible au téléchargement. Sa rive en 3D utilise des ressources sous licence qui ne peuvent pas être redistribuées. Pour un lac avec une rive en 3D, voir {link}.",
+    "es": "No disponible para descargar. Su orilla 3D usa recursos con licencia que no se pueden redistribuir. Para ver un lago con orilla 3D, consulta {link}.",
+}
 
 FEATURE_COPY = {
     "en": {"clouds": "Cloud sea", "particles": "Particles", "video": "Video", "room-animation": "Room animation", "water": "Water", "flowing-water": "Flowing water",
@@ -370,6 +382,21 @@ def example_markup(example: dict, locale: str, heading: bool = True) -> str:
             f'<ul class="gallery-example-files">{"".join(rows)}</ul>{note}{feature_markup}{license_link}</section>')
 
 
+def withheld_markup(place: dict, manifest: dict, locale: str) -> str:
+    """Explain why a free Place offers no example download."""
+    related_id = WITHHELD_EXAMPLES.get(place["id"])
+    related = next((item for item in manifest.get("places", []) if item["id"] == related_id), None)
+    if related is None:
+        return ""
+    related = localize(related, locale)
+    link = (f'<a href="{locale_url("/gallery/place/" + quote(related["slug"]) + "/", locale)}">'
+            f'{esc(related["title"])}</a>')
+    text = esc(WITHHELD_COPY[locale]).replace("{link}", link)
+    return (f'<section class="gallery-example" data-gallery-example-withheld="{esc(place["id"])}" aria-labelledby="example-files">'
+            f'<h2 class="gallery-example-heading" id="example-files">{esc(EXAMPLE_COPY[locale]["files"])}</h2>'
+            f'<p class="gallery-example-withheld">{text}</p></section>')
+
+
 def extra_example_card(example: dict, locale: str) -> str:
     """An example whose Place is not in the Gallery, shown only with the Examples filter."""
     kind = COPY[locale][example["kind"]]
@@ -502,7 +529,7 @@ def place_page(place: dict, manifest: dict, locale: str, example: dict | None = 
                     if place.get("previewRelease") else c["available"].format(version=version))
     cta = (f'<a class="gallery-cta" href="{APP_STORE}">{esc(c["get_app"])}</a>'
            if not place.get("previewRelease") else '')
-    body = f'''<div class="gallery-detail">{photo_gallery(place, locale)}<section class="gallery-detail-copy"><p class="kicker">{esc(c[place["type"]])}</p><h1>{esc(place["title"])}</h1><p>{esc(description)}</p><div class="gallery-meta">{meta}</div>{membership_markup}<p>{esc(availability)}</p>{cta}<a class="gallery-back" data-gallery-back data-gallery-return-options="{return_data}" href="{locale_url("/gallery/", locale)}">← {esc(c["back"])}</a>{example_markup(example, locale) if example else ""}</section></div>{credits_markup(place, locale)}'''
+    body = f'''<div class="gallery-detail">{photo_gallery(place, locale)}<section class="gallery-detail-copy"><p class="kicker">{esc(c[place["type"]])}</p><h1>{esc(place["title"])}</h1><p>{esc(description)}</p><div class="gallery-meta">{meta}</div>{membership_markup}<p>{esc(availability)}</p>{cta}<a class="gallery-back" data-gallery-back data-gallery-return-options="{return_data}" href="{locale_url("/gallery/", locale)}">← {esc(c["back"])}</a>{example_markup(example, locale) if example else withheld_markup(place, manifest, locale)}</section></div>{credits_markup(place, locale)}'''
     return document(locale, f'{place["title"]} — {c["gallery"]} — Locus', description, f'/gallery/place/{quote(place["slug"])}/', body)
 
 
