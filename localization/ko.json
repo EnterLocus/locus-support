@@ -3920,6 +3920,19 @@
     "Two-level architecture, 34 seats, light layers, and two TVs in practice.": "2층 구조 건축, 34개 좌석, 조명 레이어 및 TV 2대의 실전 사례.",
     "View-ground footprint & optional openings": "View 지면 풋프린트 및 선택적 개구부",
     "Worked Gallery example: Hilltop Villa.": "Gallery 실전 예제: Hilltop Villa.",
-    "ZIP does not support these fields). The manifest below follows": "ZIP에서는 이 필드들을 지원하지 않습니다). 아래 매니페스트는"
+    "ZIP does not support these fields). The manifest below follows": "ZIP에서는 이 필드들을 지원하지 않습니다). 아래 매니페스트는",
+    "For authors": "제작자를 위해",
+    "Complete Package v2 Rooms can declare up to four interactive TVs with": "완전한 Package v2 Room은",
+    "(requiring Locus 1.4.9 or later), and Views can combine": "로 최대 4개의 대화형 TV를 선언할 수 있고(Locus 1.4.9 이상 필요), View에서는",
+    "or per-video": "또는 동영상별",
+    "lighting and emission maps (requiring Locus 1.4.11 or later). Follow the": "조명 및 발광 맵과 함께 사용할 수 있습니다(Locus 1.4.11 이상 필요).",
+    "Add a TV guide": "TV 추가 가이드",
+    "Day-and-night View guide": "낮과 밤 View 가이드",
+    ", or read the": "를 참고하거나,",
+    "format specification": "형식 사양",
+    "(and its": "(및 해당 페이지에 안내된",
+    "Package v2 archive plus Blender source listed on that page). It pairs two contrasting TVs in one Room: a 98-inch living-room fireplace painting art TV (": "Package v2 아카이브와 Blender 소스 포함). 한 Room 안에 대비되는 두 대의 TV를 배치했습니다: 거실 벽난로 위의 98인치 액자형 아트 TV(",
+    "). Needs Locus 1.4.10 / 1.5.0 or later, and see": "에도 등록). Locus 1.4.10 / 1.5.0 이상이 필요하며,",
+    "Chalk Dune Dawn in the Gallery": "Gallery의 하얀 사구의 새벽(Chalk Dune Dawn)"
   }
 }

@@ -1146,11 +1146,22 @@ class PublicSiteTests(unittest.TestCase):
         article = (ROOT / "whats-new/1-5-0/index.html").read_text()
         self.assertIn("Watch TV in your Room", article)
         self.assertIn("From day into night", article)
+        self.assertIn("For authors", article)
+        self.assertIn("../../add-a-tv/", article)
+        self.assertIn("../../make-a-day-night-view/", article)
+        self.assertIn("../../reference/locusplace-format/#room-tvs", article)
+        self.assertIn("../../reference/locus-asset-format/#daynight-sun-path-and-paired-panoramas-locus-1491411", article)
         self.assertIn("../1-4-6/", article)
         previous = (ROOT / "whats-new/1-4-6/index.html").read_text()
         self.assertIn("../1-5-0/", previous)
         archive = (ROOT / "whats-new/index.html").read_text()
         self.assertLess(archive.index('href="./1-5-0/"'), archive.index('href="./1-4-6/"'))
+        release_sources = localization._sources_in_html(article)
+        for locale in localization.TRANSLATED_LOCALES:
+            catalog = localization.load_catalog(ROOT, locale)
+            for source in release_sources:
+                with self.subTest(locale=locale, source=source):
+                    self.assertTrue(localization.has_translation(source, catalog))
 
     def test_released_1_4_4_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
