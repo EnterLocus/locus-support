@@ -188,6 +188,14 @@ ROOM_TEXTURE_FLOW_MINIMUM_APP = (1, 4, 5)
 # floor (`videoSurfaces` 1.2.1, seat groups 1.2.0, sound 1.1.4).
 ROOM_TV_MINIMUM_APP = (1, 4, 9)
 ROOM_TV_MAXIMUM = 4
+# Room `interactiveStates` (`locus.room.interactive-states.v1`), mirrored by
+# SpacePackage.interactiveStatesMinimumAppVersion and runtime validation.
+ROOM_INTERACTIVE_STATES_MINIMUM_APP = (1, 5, 1)
+ROOM_INTERACTIVE_STATES_MAXIMUM_CONTROLS = 16
+ROOM_INTERACTIVE_STATES_MAXIMUM_STATES = 8
+ROOM_INTERACTIVE_STATES_KINDS = frozenset({"opening", "fire", "louvers", "mechanism"})
+ROOM_INTERACTIVE_STATES_TIMINGS = frozenset({"easeInOut", "easeOut", "linear"})
+ROOM_INTERACTIVE_IDENTIFIER_RE = re.compile(r"^[a-z0-9][a-z0-9._-]{0,63}\Z")
 # Flowing water, a View's `midground.flowingWater` and a Room's
 # `flowingWater` (`locus.view.midground.flowing-water.v1`,
 # `locus.room.flowing-water.v1`). Mirrors FlowingWaterDefinition in
@@ -1524,6 +1532,327 @@ def validate_room_tvs(
     return [tv["entityName"] for tv in tvs]
 
 
+def _validate_interactive_translation(values: Any, context: str) -> None:
+    require(
+        isinstance(values, list) and len(values) == 3
+        and all(type(v) in {int, float} and math.isfinite(v) and -20.0 <= v <= 20.0 for v in values),
+        f"{context} must contain 3 finite numbers in [-20, 20]",
+    )
+
+
+def _validate_interactive_rotation(rotation: Any, context: str) -> None:
+    require(isinstance(rotation, dict), f"{context} must be an object")
+    exact_keys(
+        rotation,
+        required={"axis", "angleDegrees"},
+        optional=set(),
+        context=context,
+    )
+    axis = rotation["axis"]
+    require(
+        isinstance(axis, list) and len(axis) == 3
+        and all(type(v) in {int, float} and math.isfinite(v) for v in axis),
+        f"{context}.axis must contain 3 finite numbers",
+    )
+    norm_sq = sum(v * v for v in axis)
+    require(
+        math.isfinite(norm_sq) and 1e-12 <= norm_sq <= 1e12,
+        f"{context}.axis norm must be in [1e-6, 1e6]",
+    )
+    angle = rotation["angleDegrees"]
+    require(
+        type(angle) in {int, float} and math.isfinite(angle) and -720.0 <= angle <= 720.0,
+        f"{context}.angleDegrees must be finite in [-720, 720]",
+    )
+
+
+def _valid_interactive_id(value: Any) -> bool:
+    return isinstance(value, str) and bool(ROOM_INTERACTIVE_IDENTIFIER_RE.fullmatch(value))
+
+
+def interactive_state_title_ids(controls: Any) -> set[str]:
+    result: set[str] = set()
+    if not isinstance(controls, list):
+        return result
+    for control in controls:
+        if not isinstance(control, dict):
+            continue
+        cid = control.get("id")
+        if isinstance(cid, str) and cid:
+            result.add(cid)
+            for state in control.get("states") or []:
+                if isinstance(state, dict) and isinstance(state.get("id"), str) and state["id"]:
+                    result.add(f"{cid}.{state['id']}")
+    return result
+
+
+def validate_room_interactive_states(
+    base: str,
+    controls: Any,
+    *,
+    minimum_app: tuple[int, int, int],
+    lighting: Any = None,
+    tvs: Any = None,
+    particle_effects: Any = None,
+    require_known_particles: bool = True,
+) -> list[str]:
+    """Validate Room `interactiveStates` (`locus.room.interactive-states.v1`).
+
+    Returns all referenced USDZ entity names (`targetEntities`,
+    `poses[].entityName`, `emissives[].entityName`) for scene presence checking.
+    """
+    context = f"{base}.interactiveStates"
+    require(
+        minimum_app >= ROOM_INTERACTIVE_STATES_MINIMUM_APP,
+        "interactiveStates requires minimumAppVersion >= 1.5.1",
+    )
+    require(
+        isinstance(controls, list) and 1 <= len(controls) <= ROOM_INTERACTIVE_STATES_MAXIMUM_CONTROLS,
+        f"{context} must contain 1 to {ROOM_INTERACTIVE_STATES_MAXIMUM_CONTROLS} controls",
+    )
+
+    tv_names = {
+        tv["entityName"] for tv in (tvs or [])
+        if isinstance(tv, dict) and isinstance(tv.get("entityName"), str)
+    }
+    luminaire_groups = (lighting or {}).get("luminaireGroups") or [] if isinstance(lighting, dict) else []
+    luminaire_entities = {
+        name for group in luminaire_groups if isinstance(group, dict)
+        for name in (group.get("entities") or []) if isinstance(name, str)
+    }
+    illuminated_entities = {
+        name for group in luminaire_groups if isinstance(group, dict)
+        for name in (group.get("illuminatedEntities") or []) if isinstance(name, str)
+    }
+    baked_entities = (
+        {
+            name for name in ((lighting.get("bakedIndirect") or {}).get("entities") or [])
+            if isinstance(name, str)
+        }
+        if isinstance(lighting, dict) else set()
+    )
+    protected_targets = tv_names | luminaire_entities
+    protected_emissives = luminaire_entities | illuminated_entities | baked_entities
+    valid_particle_ids = {
+        effect["id"] for effect in (particle_effects or [])
+        if isinstance(effect, dict) and isinstance(effect.get("id"), str)
+    }
+
+    control_ids: set[str] = set()
+    global_targets: set[str] = set()
+    global_pose_entities: set[str] = set()
+    global_emissive_entities: set[str] = set()
+    global_particle_ids: set[str] = set()
+    referenced_entities: list[str] = []
+
+    for c_idx, control in enumerate(controls):
+        ctrl_ctx = f"{context}[{c_idx}]"
+        require(isinstance(control, dict), f"{ctrl_ctx} must be an object")
+        exact_keys(
+            control,
+            required={"id", "displayName", "kind", "targetEntities", "defaultStateID", "states"},
+            optional=set(),
+            context=ctrl_ctx,
+        )
+        require(_valid_interactive_id(control["id"]), f"{ctrl_ctx}.id is invalid")
+        require(control["id"] not in control_ids, f"{context}.id contains duplicate {control['id']}")
+        control_ids.add(control["id"])
+        require_text(control["displayName"], f"{ctrl_ctx}.displayName", 200)
+        require(
+            isinstance(control["kind"], str) and control["kind"] in ROOM_INTERACTIVE_STATES_KINDS,
+            f"{ctrl_ctx}.kind must be one of {sorted(ROOM_INTERACTIVE_STATES_KINDS)}",
+        )
+        targets = control["targetEntities"]
+        require(
+            isinstance(targets, list) and 1 <= len(targets) <= 16,
+            f"{ctrl_ctx}.targetEntities must contain 1 to 16 entries",
+        )
+        ctrl_targets: set[str] = set()
+        for t_idx, name in enumerate(targets):
+            target_ctx = f"{ctrl_ctx}.targetEntities[{t_idx}]"
+            require_text(name, target_ctx, 200)
+            require(name not in ctrl_targets, f"{target_ctx} is duplicated within control")
+            require(name not in protected_targets, f"{target_ctx} overlaps tvs or luminaireGroups")
+            require(name not in global_targets, f"{target_ctx} overlaps another control's targetEntities")
+            ctrl_targets.add(name)
+            global_targets.add(name)
+            referenced_entities.append(name)
+
+        states = control["states"]
+        require(
+            isinstance(states, list) and 2 <= len(states) <= ROOM_INTERACTIVE_STATES_MAXIMUM_STATES,
+            f"{ctrl_ctx}.states must contain 2 to {ROOM_INTERACTIVE_STATES_MAXIMUM_STATES} states",
+        )
+        state_ids: set[str] = set()
+        for s_idx, state in enumerate(states):
+            st_ctx = f"{ctrl_ctx}.states[{s_idx}]"
+            require(isinstance(state, dict), f"{st_ctx} must be an object")
+            exact_keys(
+                state,
+                required={"id", "displayName"},
+                optional={"poses", "emissives", "particleEffects"},
+                context=st_ctx,
+            )
+            require(_valid_interactive_id(state["id"]), f"{st_ctx}.id is invalid")
+            require(state["id"] not in state_ids, f"{ctrl_ctx}.states.id contains duplicate {state['id']}")
+            state_ids.add(state["id"])
+            require_text(state["displayName"], f"{st_ctx}.displayName", 200)
+
+        require(
+            isinstance(control["defaultStateID"], str) and control["defaultStateID"] in state_ids,
+            f"{ctrl_ctx}.defaultStateID must match a state id",
+        )
+
+        owned_poses: set[str] = set()
+        owned_emissives: set[str] = set()
+        owned_particles: set[str] = set()
+        has_effectful_state = False
+
+        for s_idx, state in enumerate(states):
+            st_ctx = f"{ctrl_ctx}.states[{s_idx}]"
+            if "poses" in state:
+                poses = state["poses"]
+                require(isinstance(poses, list) and 1 <= len(poses) <= 32,
+                        f"{st_ctx}.poses must contain 1 to 32 entries")
+                has_effectful_state = True
+                st_poses: set[str] = set()
+                for p_idx, pose in enumerate(poses):
+                    pose_ctx = f"{st_ctx}.poses[{p_idx}]"
+                    require(isinstance(pose, dict), f"{pose_ctx} must be an object")
+                    exact_keys(
+                        pose,
+                        required={"entityName"},
+                        optional={"translationMeters", "rotation", "durationSeconds", "delaySeconds", "timing", "keyframes"},
+                        context=pose_ctx,
+                    )
+                    require_text(pose["entityName"], f"{pose_ctx}.entityName", 200)
+                    require(pose["entityName"] not in st_poses, f"{pose_ctx}.entityName is duplicated within state")
+                    st_poses.add(pose["entityName"])
+                    owned_poses.add(pose["entityName"])
+                    referenced_entities.append(pose["entityName"])
+                    if "translationMeters" in pose:
+                        _validate_interactive_translation(pose["translationMeters"], f"{pose_ctx}.translationMeters")
+                    if "rotation" in pose:
+                        _validate_interactive_rotation(pose["rotation"], f"{pose_ctx}.rotation")
+                    if "durationSeconds" in pose:
+                        dur = pose["durationSeconds"]
+                        require(type(dur) in {int, float} and math.isfinite(dur) and 0.05 <= dur <= 15.0,
+                                f"{pose_ctx}.durationSeconds must be in [0.05, 15.0]")
+                    if "delaySeconds" in pose:
+                        delay = pose["delaySeconds"]
+                        require(type(delay) in {int, float} and math.isfinite(delay) and 0.0 <= delay <= 10.0,
+                                f"{pose_ctx}.delaySeconds must be in [0.0, 10.0]")
+                    if "timing" in pose:
+                        require(isinstance(pose["timing"], str) and pose["timing"] in ROOM_INTERACTIVE_STATES_TIMINGS,
+                                f"{pose_ctx}.timing is invalid")
+                    if "keyframes" in pose:
+                        kfs = pose["keyframes"]
+                        require(isinstance(kfs, list) and 1 <= len(kfs) <= 8,
+                                f"{pose_ctx}.keyframes must contain 1 to 8 entries")
+                        prev_at = 0.0
+                        for k_idx, kf in enumerate(kfs):
+                            kf_ctx = f"{pose_ctx}.keyframes[{k_idx}]"
+                            require(isinstance(kf, dict), f"{kf_ctx} must be an object")
+                            exact_keys(
+                                kf,
+                                required={"at"},
+                                optional={"fromStateIDs", "translationMeters", "rotation"},
+                                context=kf_ctx,
+                            )
+                            at = kf["at"]
+                            require(type(at) in {int, float} and math.isfinite(at) and prev_at < at < 1.0,
+                                    f"{kf_ctx}.at must be strictly increasing in (0, 1)")
+                            prev_at = at
+                            if "fromStateIDs" in kf:
+                                fids = kf["fromStateIDs"]
+                                require(isinstance(fids, list) and 1 <= len(fids) <= 8,
+                                        f"{kf_ctx}.fromStateIDs must contain 1 to 8 state ids")
+                                seen_fids: set[str] = set()
+                                for fid in fids:
+                                    require(isinstance(fid, str) and fid in state_ids and fid not in seen_fids,
+                                            f"{kf_ctx}.fromStateIDs contains invalid or duplicate id")
+                                    seen_fids.add(fid)
+                            require("translationMeters" in kf or "rotation" in kf,
+                                    f"{kf_ctx} must declare translationMeters and/or rotation")
+                            if "translationMeters" in kf:
+                                _validate_interactive_translation(kf["translationMeters"], f"{kf_ctx}.translationMeters")
+                            if "rotation" in kf:
+                                _validate_interactive_rotation(kf["rotation"], f"{kf_ctx}.rotation")
+
+            if "emissives" in state:
+                emissives = state["emissives"]
+                require(isinstance(emissives, list) and 1 <= len(emissives) <= 16,
+                        f"{st_ctx}.emissives must contain 1 to 16 entries")
+                has_effectful_state = True
+                st_emissives: set[str] = set()
+                for e_idx, em in enumerate(emissives):
+                    em_ctx = f"{st_ctx}.emissives[{e_idx}]"
+                    require(isinstance(em, dict), f"{em_ctx} must be an object")
+                    exact_keys(
+                        em,
+                        required={"entityName", "scale"},
+                        optional={"durationSeconds"},
+                        context=em_ctx,
+                    )
+                    require_text(em["entityName"], f"{em_ctx}.entityName", 200)
+                    require(em["entityName"] not in st_emissives, f"{em_ctx}.entityName is duplicated within state")
+                    require(em["entityName"] not in protected_emissives,
+                            f"{em_ctx}.entityName overlaps lighting entities")
+                    st_emissives.add(em["entityName"])
+                    owned_emissives.add(em["entityName"])
+                    referenced_entities.append(em["entityName"])
+                    scale = em["scale"]
+                    require(type(scale) in {int, float} and math.isfinite(scale) and 0.0 <= scale <= 4.0,
+                            f"{em_ctx}.scale must be in [0.0, 4.0]")
+                    if "durationSeconds" in em:
+                        edur = em["durationSeconds"]
+                        require(type(edur) in {int, float} and math.isfinite(edur) and 0.0 <= edur <= 10.0,
+                                f"{em_ctx}.durationSeconds must be in [0.0, 10.0]")
+
+            if "particleEffects" in state:
+                targets_pf = state["particleEffects"]
+                require(isinstance(targets_pf, list) and 1 <= len(targets_pf) <= 4,
+                        f"{st_ctx}.particleEffects must contain 1 to 4 entries")
+                has_effectful_state = True
+                st_particles: set[str] = set()
+                for pt_idx, pt in enumerate(targets_pf):
+                    pt_ctx = f"{st_ctx}.particleEffects[{pt_idx}]"
+                    require(isinstance(pt, dict), f"{pt_ctx} must be an object")
+                    exact_keys(
+                        pt,
+                        required={"particleEffectID", "intensity"},
+                        optional={"durationSeconds"},
+                        context=pt_ctx,
+                    )
+                    pid = pt["particleEffectID"]
+                    known_ok = (pid in valid_particle_ids) if require_known_particles else _valid_interactive_id(pid)
+                    require(isinstance(pid, str) and known_ok and pid not in st_particles,
+                            f"{pt_ctx}.particleEffectID is unknown or duplicated within state")
+                    st_particles.add(pid)
+                    owned_particles.add(pid)
+                    intensity = pt["intensity"]
+                    require(type(intensity) in {int, float} and math.isfinite(intensity) and 0.0 <= intensity <= 2.0,
+                            f"{pt_ctx}.intensity must be in [0.0, 2.0]")
+                    if "durationSeconds" in pt:
+                        pdur = pt["durationSeconds"]
+                        require(type(pdur) in {int, float} and math.isfinite(pdur) and 0.0 <= pdur <= 10.0,
+                                f"{pt_ctx}.durationSeconds must be in [0.0, 10.0]")
+
+        require(has_effectful_state and bool(owned_poses or owned_emissives or owned_particles),
+                f"{ctrl_ctx}.states must drive at least one pose, emissive, or particleEffect")
+        require(global_pose_entities.isdisjoint(owned_poses),
+                f"{ctrl_ctx} owns a pose entity already owned by another control")
+        global_pose_entities.update(owned_poses)
+        require(global_emissive_entities.isdisjoint(owned_emissives),
+                f"{ctrl_ctx} owns an emissive entity already owned by another control")
+        global_emissive_entities.update(owned_emissives)
+        require(global_particle_ids.isdisjoint(owned_particles),
+                f"{ctrl_ctx} owns a particleEffectID already owned by another control")
+        global_particle_ids.update(owned_particles)
+
+    return referenced_entities
+
+
 def validate_baked_light_layers(
     value: Any, luminaire_group_ids: set[str], context: str
 ) -> set[str]:
@@ -2777,6 +3106,7 @@ def validate_payload(
             "videoTitles": title_ids(destination.get("videoSurfaces")),
             "particleTitles": title_ids(destination.get("particleEffects")),
             "tvTitles": set(),
+            "interactiveTitles": set(),
         })
         for field in ("depthLayers", "splat", "audio"):
             require(
@@ -4099,6 +4429,16 @@ def validate_payload(
                 minimum_app=parse_version(
                     manifest["minimumAppVersion"], "minimumAppVersion"),
             )
+        interactive_names: list[str] = []
+        if "interactiveStates" in space:
+            interactive_names = validate_room_interactive_states(
+                base, space["interactiveStates"],
+                minimum_app=parse_version(
+                    manifest["minimumAppVersion"], "minimumAppVersion"),
+                lighting=space.get("lighting"),
+                tvs=space.get("tvs"),
+                particle_effects=space.get("particleEffects"),
+            )
         texture_flow_names: list[str] = []
         if "textureFlow" in space:
             texture_flow_names = validate_room_texture_flow(
@@ -4129,9 +4469,10 @@ def validate_payload(
             "videoTitles": title_ids(space.get("videoSurfaces")),
             "particleTitles": title_ids(space.get("particleEffects")),
             "tvTitles": title_ids(space.get("tvs")),
+            "interactiveTitles": interactive_state_title_ids(space.get("interactiveStates")),
         })
         scene_prim_names: set[str] | None = (
-            set() if texture_flow_names or flowing_water_names or tv_names else None)
+            set() if texture_flow_names or flowing_water_names or tv_names or interactive_names else None)
         actual = validate_usdz(archive, infos[scene], scene, scene_prim_names)
         if room_bindings.references_entities(space):
             binding_rooms.append((f"{base}/space.json", scene))
@@ -4142,6 +4483,11 @@ def validate_payload(
             require(
                 name in (scene_prim_names or set()),
                 f"{base}.tvs entity {name!r} is not an entity of {scene}",
+            )
+        for name in interactive_names:
+            require(
+                name in (scene_prim_names or set()),
+                f"{base}.interactiveStates entity {name!r} is not an entity of {scene}",
             )
         # A typo freezes nothing quietly: every flowing name is an entity of
         # `scene.usdz`. Uniqueness, nesting and geometry need the loaded
@@ -4178,7 +4524,7 @@ def validate_payload(
             field: set() for field in (
                 "seatTitles", "seatGroupTitles", "soundTitles", "mediaTitles",
                 "lightTitles", "animationTitles", "videoTitles", "particleTitles",
-                "tvTitles")
+                "tvTitles", "interactiveTitles")
         })
         destination_id = experience.get("destinationID")
         require(valid_identifier(destination_id), f"{base}.destinationID is invalid")

@@ -161,6 +161,7 @@ struct Report: Codable {
             }
         }
         checkTVs(space, report.seats, entity: entity, emissives: emissives, error: error, warn: warn)
+        checkInteractiveStates(space, entity: entity, emissives: emissives, error: error)
         warn("deviceAcceptance", "macOS checks do not validate Vision Pro comfort, tracking, Room Portal, real desk alignment, lighting appearance, sound or frame rate.")
     }
 }

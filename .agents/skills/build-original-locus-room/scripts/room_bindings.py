@@ -31,6 +31,7 @@ ENTITY_REFERENCE_FIELDS = (
     "textureFlow",
     "flowingWater",
     "tvs",
+    "interactiveStates",
 )
 
 

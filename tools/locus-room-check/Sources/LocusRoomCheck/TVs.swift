@@ -38,6 +38,17 @@ extension Check {
         }
         names.formUnion((space["particleEffects"] as? [[String: Any]] ?? []).compactMap { $0["anchorEntity"] as? String })
         for flow in space["textureFlow"] as? [[String: Any]] ?? [] { names.formUnion(strings(flow["entities"])) }
+        for control in space["interactiveStates"] as? [[String: Any]] ?? [] {
+            names.formUnion(strings(control["targetEntities"]))
+            for state in control["states"] as? [[String: Any]] ?? [] {
+                for pose in state["poses"] as? [[String: Any]] ?? [] {
+                    if let name = pose["entityName"] as? String { names.insert(name) }
+                }
+                for emissive in state["emissives"] as? [[String: Any]] ?? [] {
+                    if let name = emissive["entityName"] as? String { names.insert(name) }
+                }
+            }
+        }
         return names
     }
 

@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a href="../../gallery/">Gallery</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
-  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="complete-locus-package-v2-authoring" tabindex="-1">Complete Locus Package v2 authoring</h1><div class="reference-tools"><a class="reference-download" href="../locusplace-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#start-with-a-working-complete-package">Start with a working complete package</a></li><li class="reference-toc-level-2"><a href="#archive-layout">Archive layout</a></li><li class="reference-toc-level-2"><a href="#locusplacejson">locusplace.json</a></li><li class="reference-toc-level-3"><a href="#envelope-field-reference">Envelope field reference</a></li><li class="reference-toc-level-2"><a href="#remove-an-imported-package">Remove an imported package</a></li><li class="reference-toc-level-2"><a href="#package-v2-metadata-inside-the-zip">Package-v2 metadata inside the ZIP</a></li><li class="reference-toc-level-3"><a href="#view-destinationjson">View: destination.json</a></li><li class="reference-toc-level-3"><a href="#room-spacejson">Room: space.json</a></li><li class="reference-toc-level-3"><a href="#experience-experiencejson">Experience: experience.json</a></li><li class="reference-toc-level-2"><a href="#optional-capabilities-and-translated-labels">Optional capabilities and translated labels</a></li><li class="reference-toc-level-3"><a href="#room-tvs">Room TVs</a></li><li class="reference-toc-level-2"><a href="#required-provenance">Required provenance</a></li><li class="reference-toc-level-2"><a href="#security-and-resource-budgets">Security and resource budgets</a></li><li class="reference-toc-level-2"><a href="#files-and-url-acquisition">Files and URL acquisition</a></li><li class="reference-toc-level-2"><a href="#package-validation-and-examples">Package validation and examples</a></li><li class="reference-toc-level-3"><a href="#worked-examples-from-the-gallery">Worked examples from the Gallery</a></li></ol></details>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="complete-locus-package-v2-authoring" tabindex="-1">Complete Locus Package v2 authoring</h1><div class="reference-tools"><a class="reference-download" href="../locusplace-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#start-with-a-working-complete-package">Start with a working complete package</a></li><li class="reference-toc-level-2"><a href="#archive-layout">Archive layout</a></li><li class="reference-toc-level-2"><a href="#locusplacejson">locusplace.json</a></li><li class="reference-toc-level-3"><a href="#envelope-field-reference">Envelope field reference</a></li><li class="reference-toc-level-2"><a href="#remove-an-imported-package">Remove an imported package</a></li><li class="reference-toc-level-2"><a href="#package-v2-metadata-inside-the-zip">Package-v2 metadata inside the ZIP</a></li><li class="reference-toc-level-3"><a href="#view-destinationjson">View: destination.json</a></li><li class="reference-toc-level-3"><a href="#room-spacejson">Room: space.json</a></li><li class="reference-toc-level-3"><a href="#experience-experiencejson">Experience: experience.json</a></li><li class="reference-toc-level-2"><a href="#optional-capabilities-and-translated-labels">Optional capabilities and translated labels</a></li><li class="reference-toc-level-3"><a href="#room-tvs">Room TVs</a></li><li class="reference-toc-level-3"><a href="#room-interactive-states">Room interactive states</a></li><li class="reference-toc-level-2"><a href="#required-provenance">Required provenance</a></li><li class="reference-toc-level-2"><a href="#security-and-resource-budgets">Security and resource budgets</a></li><li class="reference-toc-level-2"><a href="#files-and-url-acquisition">Files and URL acquisition</a></li><li class="reference-toc-level-2"><a href="#package-validation-and-examples">Package validation and examples</a></li><li class="reference-toc-level-3"><a href="#worked-examples-from-the-gallery">Worked examples from the Gallery</a></li></ol></details>
 <p>Status: canonical publication, storage, composition and feature-complete import
 contract. Locus 1.2.1 and later accept this archive from Files or a public HTTPS
 URL for both View and Room imports. The older flat format in
@@ -875,14 +875,15 @@ covers media and masks (including <code>media.dayNight</code>), sound and Room m
 (<code>skyEntities</code>, <code>windSway</code>, <code>textureFlow</code>, <code>flowingWater</code>), water, computed <code>shore</code>, sky,
 clouds, sun path (<code>daySky</code>, <code>panoramaGrade</code>, <code>light</code>, <code>panoramaBlend</code>), celestial bodies,
 near orbit, black holes, point lights, GPU texture sidecars, seats and groups, lights,
-animations, video surfaces, particles, baked light layers, Room <code>textureFlow</code>, Room
-<code>flowingWater</code>, and <code>tvs</code>. It also defines <code>localizations</code>, <code>provenanceDetail</code>, and the
+animations, video surfaces, particles, baked light layers, Room <code>textureFlow</code>, Room <code>flowingWater</code>, <code>tvs</code>, and Room
+<code>interactiveStates</code> (<code>1.5.1</code>+). It also defines <code>localizations</code> (including <code>interactiveTitles</code>), <code>provenanceDetail</code>, and the
 Room’s <code>viewGroundFloorOffsetMeters</code>, <code>viewGroundKeepOut</code>, <code>viewGroundFootprint</code>, and
 <code>viewMidgroundVisibility</code> controls.</p>
 <p>For example, these optional fields belong in an otherwise complete Room
 manifest, and require envelope <code>minimumAppVersion: &quot;1.4.4&quot;</code> or later (with
-<code>viewGroundFootprint</code> and <code>textureFlow</code> requiring <code>&quot;1.4.5&quot;</code> or later, and
-<code>flowingWater</code> requiring <code>&quot;1.4.9&quot;</code> or later):</p>
+<code>viewGroundFootprint</code> and <code>textureFlow</code> requiring <code>&quot;1.4.5&quot;</code> or later, <code>tvs</code> and
+<code>flowingWater</code> requiring <code>&quot;1.4.9&quot;</code> or later, and <code>interactiveStates</code> requiring
+<code>&quot;1.5.1&quot;</code> or later):</p>
 <pre><code class="language-json">{
   &quot;viewGroundFloorOffsetMeters&quot;: 0.2,
   &quot;viewGroundKeepOut&quot;: false,
@@ -917,6 +918,75 @@ python3 tools/check_room.py --current-app-version 1.4.9 \
 </code></pre>
 <p><a href="../../examples/media-room/README.md">The Example Media Room README</a> explains how
 it is made.</p>
+<h3 id="room-interactive-states" tabindex="-1">Room interactive states</h3>
+<p>Room interactive states require Locus 1.5.1 or later and complete Package v2
+(a flat compatibility ZIP cannot carry <code>interactiveStates</code>). A Room can declare
+1 to 16 discrete controls, each driving <code>poses</code>, authored <code>emissives</code>, and
+<code>particleEffects</code> across 2 to 8 states. Every archive using <code>interactiveStates</code>
+must set <code>minimumAppVersion</code> to <code>&quot;1.5.1&quot;</code> or later:</p>
+<pre><code class="language-json">{
+  &quot;interactiveStates&quot;: [
+    {
+      &quot;id&quot;: &quot;hearth-fire&quot;,
+      &quot;displayName&quot;: &quot;Hearth Fire&quot;,
+      &quot;kind&quot;: &quot;fire&quot;,
+      &quot;targetEntities&quot;: [&quot;Hearth_Grate_Target&quot;],
+      &quot;defaultStateID&quot;: &quot;off&quot;,
+      &quot;states&quot;: [
+        {
+          &quot;id&quot;: &quot;off&quot;,
+          &quot;displayName&quot;: &quot;Off&quot;,
+          &quot;emissives&quot;: [{&quot;entityName&quot;: &quot;Hearth_Embers_Glow&quot;, &quot;scale&quot;: 0.0}],
+          &quot;particleEffects&quot;: [{&quot;particleEffectID&quot;: &quot;hearth&quot;, &quot;intensity&quot;: 0.0}]
+        },
+        {
+          &quot;id&quot;: &quot;embers&quot;,
+          &quot;displayName&quot;: &quot;Embers&quot;,
+          &quot;emissives&quot;: [{&quot;entityName&quot;: &quot;Hearth_Embers_Glow&quot;, &quot;scale&quot;: 0.7}],
+          &quot;particleEffects&quot;: [{&quot;particleEffectID&quot;: &quot;hearth&quot;, &quot;intensity&quot;: 0.0}]
+        },
+        {
+          &quot;id&quot;: &quot;low&quot;,
+          &quot;displayName&quot;: &quot;Low Fire&quot;,
+          &quot;emissives&quot;: [{&quot;entityName&quot;: &quot;Hearth_Embers_Glow&quot;, &quot;scale&quot;: 1.35}],
+          &quot;particleEffects&quot;: [{&quot;particleEffectID&quot;: &quot;hearth&quot;, &quot;intensity&quot;: 0.65}]
+        },
+        {
+          &quot;id&quot;: &quot;full&quot;,
+          &quot;displayName&quot;: &quot;Roaring Fire&quot;,
+          &quot;emissives&quot;: [{&quot;entityName&quot;: &quot;Hearth_Embers_Glow&quot;, &quot;scale&quot;: 2.2}],
+          &quot;particleEffects&quot;: [{&quot;particleEffectID&quot;: &quot;hearth&quot;, &quot;intensity&quot;: 1.35}]
+        }
+      ]
+    }
+  ],
+  &quot;localizations&quot;: {
+    &quot;zh-Hans&quot;: {
+      &quot;interactiveTitles&quot;: {
+        &quot;hearth-fire&quot;: &quot;客厅壁炉&quot;,
+        &quot;hearth-fire.off&quot;: &quot;关闭&quot;,
+        &quot;hearth-fire.embers&quot;: &quot;余烬&quot;,
+        &quot;hearth-fire.low&quot;: &quot;小火&quot;,
+        &quot;hearth-fire.full&quot;: &quot;旺火&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<p>Looking at and pinching any listed target entity in Virtual Space cycles
+through <code>states</code> in authored order; <strong>Current Place › Room Features</strong> offers
+direct per-state buttons with <strong>Save for This Room…</strong> persistence. Keep clear
+window or door glass out of <code>targetEntities</code>, keep interactive emissive meshes
+separate from Room <code>lighting</code> subtrees, and validate against <code>1.5.1</code>:</p>
+<pre><code class="language-sh">python3 tools/pack_locusplace.py --current-app-version 1.5.1 MyEditableRoom MyRoom.locusplace
+python3 tools/validate_locusplace.py --current-app-version 1.5.1 MyRoom.locusplace
+python3 tools/check_room.py --current-app-version 1.5.1 \
+  --renders /absolute/path/to/my-room-renders MyRoom.locusplace
+</code></pre>
+<p>See <a href="../locus-asset-format#room-interactive-states-locus-151-or-later">Room interactive states</a>
+and the <a href="../../schemas/room-interactive-states-v1.schema.json">Room interactive states schema</a>
+for full field bounds, <code>keyframes</code> choreography, and Blender-to-USDZ axis
+conventions.</p>
 <h2 id="required-provenance" tabindex="-1">Required provenance</h2>
 <p>Every imported Destination and Space points to a provenance JSON document.
 It records the creator/agency, exactly one of a license or an

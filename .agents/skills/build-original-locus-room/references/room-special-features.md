@@ -231,3 +231,7 @@ View. Instead declare the Room's exact indoor/outdoor relationship in
   or cove-wash subtrees to a `luminaireGroups` entry without making those wall
   meshes switchable themselves; see the
   [field reference](https://enterlocus.com/reference/locus-asset-format/#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8).
+- **Interactive multi-state controls (`interactiveStates`, 1.5.1+):** drive
+  operable doors, louvers, emissive glow beds, and `particleEffects` across 2–8
+  states from 3D pinch cycling and **Current Place › Room Features**; see
+  [Room interactive states](room-interactive-states.md).

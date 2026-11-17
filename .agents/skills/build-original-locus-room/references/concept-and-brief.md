@@ -13,8 +13,9 @@ generation is optional: no provider, API key, or paid service is required.
 
 Use one clear design basis rather than contradictory image references. Record
 the Room's purpose, mood, main activity, architectural type, important
-materials, principal view, day/night state, and any optional TVs, animation
-or sound. If an image model contributes materially, record that truthfully in
+materials, principal view, day/night state, and any optional TVs, interactive
+features (`interactiveStates`), animation, or sound. If an image model
+contributes materially, record that truthfully in
 provenance; a prompt alone does not prove authorship or redistribution rights.
 Keep a rights inventory for every supplied reference or incorporated asset.
 

@@ -19,6 +19,7 @@ enum RoomEntityBindings {
         case ambiguous(String)
         case overlapping(String, String)
         case noGeometry(String)
+        case noEmissiveMaterial(String)
 
         var errorDescription: String? {
             switch self {
@@ -27,6 +28,7 @@ enum RoomEntityBindings {
             case .overlapping(let first, let second):
                 "Room bindings '\(first)' and '\(second)' overlap in the model hierarchy."
             case .noGeometry(let name): "Room entity '\(name)' has no renderable geometry."
+            case .noEmissiveMaterial(let name): "Room entity '\(name)' has no positive-emissive material."
             }
         }
     }
@@ -133,6 +135,16 @@ struct RoomModelBindingContract: Decodable, Sendable {
     /// Package v2 Room `flowingWater`: every name across every entry resolves
     /// as one renderable subtree, none inside another.
     struct FlowingWater: Decodable, Sendable { let entities: [String] }
+    struct InteractiveControl: Decodable, Sendable {
+        struct Pose: Decodable, Sendable { let entityName: String }
+        struct Emissive: Decodable, Sendable { let entityName: String }
+        struct State: Decodable, Sendable {
+            let poses: [Pose]?
+            let emissives: [Emissive]?
+        }
+        let targetEntities: [String]
+        let states: [State]
+    }
     let spatialAdaptation: Adaptation?
     let rendering: Rendering?
     let lighting: Lighting?
@@ -142,9 +154,14 @@ struct RoomModelBindingContract: Decodable, Sendable {
     let textureFlow: [TextureFlow]?
     let flowingWater: [FlowingWater]?
     let tvs: [TV]?
+    let interactiveStates: [InteractiveControl]?
 
     var textureFlowNames: [String] { (textureFlow ?? []).flatMap(\.entities) }
     var flowingWaterNames: [String] { (flowingWater ?? []).flatMap(\.entities) }
+    var interactiveTargetNames: [String] { (interactiveStates ?? []).flatMap(\.targetEntities) }
+    var uniqueInteractiveEmissiveNames: [String] {
+        Array(Set((interactiveStates ?? []).flatMap { $0.states }.flatMap { $0.emissives ?? [] }.map(\.entityName))).sorted()
+    }
 
     var names: [String] {
         var names: [String] = []
@@ -171,6 +188,9 @@ struct RoomModelBindingContract: Decodable, Sendable {
         names += textureFlowNames
         names += flowingWaterNames
         names += (tvs ?? []).map(\.entityName)
+        names += interactiveTargetNames
+        names += (interactiveStates ?? []).flatMap { $0.states }.flatMap { $0.poses ?? [] }.map(\.entityName)
+        names += uniqueInteractiveEmissiveNames
         return names
     }
 }
@@ -208,9 +228,53 @@ enum RoomModelBindingValidator {
         if let tvs = contract.tvs, !tvs.isEmpty {
             _ = try RoomEntityBindings.subtrees(named: tvs.map(\.entityName), in: model)
         }
+        if !contract.interactiveTargetNames.isEmpty {
+            _ = try RoomEntityBindings.subtrees(named: contract.interactiveTargetNames, in: model)
+        }
+        if !contract.uniqueInteractiveEmissiveNames.isEmpty {
+            let emissiveEntities = try RoomEntityBindings.subtrees(
+                named: contract.uniqueInteractiveEmissiveNames, in: model)
+            for (name, entity) in zip(contract.uniqueInteractiveEmissiveNames, emissiveEntities) {
+                guard containsPositiveEmissiveMaterial(entity) else {
+                    throw RoomEntityBindings.BindingError.noEmissiveMaterial(name)
+                }
+            }
+            if let lighting = contract.lighting {
+                let protectedNames = Set(lighting.luminaireGroups.flatMap(\.entities))
+                    .union(lighting.luminaireGroups.flatMap { $0.illuminatedEntities ?? [] })
+                    .union(lighting.bakedIndirect?.entities ?? [])
+                for (emissiveName, emissiveEntity) in zip(contract.uniqueInteractiveEmissiveNames, emissiveEntities) {
+                    for protectedName in protectedNames.sorted() {
+                        let protectedEntity = try RoomEntityBindings.entity(named: protectedName, in: model)
+                        try RoomEntityBindings.requireNoAncestryOverlap(
+                            emissiveEntity, named: emissiveName,
+                            against: protectedEntity, named: protectedName)
+                    }
+                }
+            }
+        }
         if let lighting = contract.lighting {
             try validateIlluminatedEntities(lighting, in: model)
         }
+    }
+
+    private static func containsPositiveEmissiveMaterial(_ entity: Entity) -> Bool {
+        if let model = entity.components[ModelComponent.self] {
+            for material in model.materials {
+                guard let pbr = material as? PhysicallyBasedMaterial,
+                      pbr.emissiveIntensity > 0
+                else { continue }
+                if pbr.emissiveColor.texture != nil { return true }
+                if let components = pbr.emissiveColor.color.cgColor
+                    .converted(to: CGColorSpaceCreateDeviceRGB(), intent: .defaultIntent, options: nil)?
+                    .components,
+                   components.prefix(3).contains(where: { $0 > 0 })
+                {
+                    return true
+                }
+            }
+        }
+        return entity.children.contains(where: containsPositiveEmissiveMaterial)
     }
 
     /// Exact-name reuse between `illuminatedEntities` and the other lighting

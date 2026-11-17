@@ -1,0 +1,281 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://enterlocus.com/schemas/room-interactive-states-v1.schema.json",
+  "title": "Locus Room interactiveStates v1",
+  "description": "Declarative multi-state Room architecture controls (`space.json` `interactiveStates`, capability `locus.room.interactive-states.v1`, Locus 1.5.1 or later). Cross-field uniqueness, ownership disjointness, non-increasing keyframe checks, lighting/TV exclusion, and live USDZ entity bindings (including renderable target subtrees, positive-emissive materials, and lighting ancestry disjointness) are enforced during package and model validation.",
+  "type": "array",
+  "minItems": 1,
+  "maxItems": 16,
+  "items": {
+    "$ref": "#/$defs/control"
+  },
+  "$defs": {
+    "identifier": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{0,63}$"
+    },
+    "displayText": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "entityName": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "translation": {
+      "type": "array",
+      "minItems": 3,
+      "maxItems": 3,
+      "items": {
+        "type": "number",
+        "minimum": -20,
+        "maximum": 20
+      }
+    },
+    "rotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "axis",
+        "angleDegrees"
+      ],
+      "properties": {
+        "axis": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "type": "number"
+          }
+        },
+        "angleDegrees": {
+          "type": "number",
+          "minimum": -720,
+          "maximum": 720
+        }
+      }
+    },
+    "keyframe": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "at"
+      ],
+      "anyOf": [
+        {
+          "required": [
+            "translationMeters"
+          ]
+        },
+        {
+          "required": [
+            "rotation"
+          ]
+        }
+      ],
+      "properties": {
+        "at": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "exclusiveMaximum": 1
+        },
+        "fromStateIDs": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/identifier"
+          }
+        },
+        "translationMeters": {
+          "$ref": "#/$defs/translation"
+        },
+        "rotation": {
+          "$ref": "#/$defs/rotation"
+        }
+      }
+    },
+    "pose": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entityName"
+      ],
+      "properties": {
+        "entityName": {
+          "$ref": "#/$defs/entityName"
+        },
+        "translationMeters": {
+          "$ref": "#/$defs/translation"
+        },
+        "rotation": {
+          "$ref": "#/$defs/rotation"
+        },
+        "durationSeconds": {
+          "type": "number",
+          "minimum": 0.05,
+          "maximum": 15
+        },
+        "delaySeconds": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        },
+        "timing": {
+          "type": "string",
+          "enum": [
+            "easeInOut",
+            "easeOut",
+            "linear"
+          ]
+        },
+        "keyframes": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/keyframe"
+          }
+        }
+      }
+    },
+    "emissive": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entityName",
+        "scale"
+      ],
+      "properties": {
+        "entityName": {
+          "$ref": "#/$defs/entityName"
+        },
+        "scale": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 4
+        },
+        "durationSeconds": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    },
+    "particleEffectTarget": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "particleEffectID",
+        "intensity"
+      ],
+      "properties": {
+        "particleEffectID": {
+          "$ref": "#/$defs/identifier"
+        },
+        "intensity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 2
+        },
+        "durationSeconds": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 10
+        }
+      }
+    },
+    "state": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "displayName"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "displayName": {
+          "$ref": "#/$defs/displayText"
+        },
+        "poses": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 32,
+          "items": {
+            "$ref": "#/$defs/pose"
+          }
+        },
+        "emissives": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "items": {
+            "$ref": "#/$defs/emissive"
+          }
+        },
+        "particleEffects": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": {
+            "$ref": "#/$defs/particleEffectTarget"
+          }
+        }
+      }
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "displayName",
+        "kind",
+        "targetEntities",
+        "defaultStateID",
+        "states"
+      ],
+      "properties": {
+        "id": {
+          "$ref": "#/$defs/identifier"
+        },
+        "displayName": {
+          "$ref": "#/$defs/displayText"
+        },
+        "kind": {
+          "type": "string",
+          "enum": [
+            "opening",
+            "fire",
+            "louvers",
+            "mechanism"
+          ]
+        },
+        "targetEntities": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 16,
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/entityName"
+          }
+        },
+        "defaultStateID": {
+          "$ref": "#/$defs/identifier"
+        },
+        "states": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 8,
+          "items": {
+            "$ref": "#/$defs/state"
+          }
+        }
+      }
+    }
+  }
+}
