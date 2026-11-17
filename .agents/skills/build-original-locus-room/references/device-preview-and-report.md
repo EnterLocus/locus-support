@@ -16,9 +16,11 @@ Simulator.
    focal point, clipping, seat facing direction, and usable path.
 5. For every desk-backed seat, check tabletop alignment and **Hide Desk** if
    declared. Confirm that the hidden group contains all table-top objects.
-6. Try every light control and, if present, every experimental animation
-   switch, speed, and replay interval.
-   For each TV, follow the device review in [Room TVs](room-tvs.md).
+6. Try every light control and, if present, every interactive state control
+   (3D gaze + pinch cycling and **Current Place › Room Features**), and any
+   experimental animation switch, speed, and replay interval.
+   For each TV, follow the device review in [Room TVs](room-tvs.md); for
+   `interactiveStates`, follow [Room interactive states](room-interactive-states.md).
 7. Check actual appearance, scale, reach, readability, material appearance,
    comfort, and lighting in the conditions the Room is designed for.
 

@@ -37,8 +37,9 @@ View, Room, or Experience IDs.
 
 Supported complete packages preserve View media and masks, View and Room
 sound, Room animations, video surfaces, illuminated surfaces, particle effects,
-baked light layers, seat groups, Room TVs (Locus 1.4.9 or later), localized
-display text, provenance, and supported Experiences. They must pass manifest and file-inventory agreement,
+baked light layers, seat groups, Room TVs (Locus 1.4.9 or later), Room
+interactive states (Locus 1.5.1 or later), localized display text, provenance, and
+supported Experiences. They must pass manifest and file-inventory agreement,
 hashes, safe canonical paths, archive and decoded-resource limits, declared
 capabilities, and `minimumAppVersion`. If `locusplace.json` is present but the
 complete package is malformed, Locus rejects it; it does not reinterpret or
@@ -97,7 +98,10 @@ Each language entry may provide non-empty `title`, `caption`, and
 `libraryCaption` strings; `searchTerms` arrays; and translated name maps
 for existing IDs: `seatTitles`, `seatGroupTitles`, `soundTitles`,
 `mediaTitles`, `lightTitles`, `animationTitles`, `videoTitles`,
-`particleTitles`, and `tvTitles` (Room TVs, Locus 1.4.9 or later). All fields are optional, so missing fields fall back to the
+`particleTitles`, `tvTitles` (Room TVs, Locus 1.4.9 or later), and
+`interactiveTitles` (Room interactive states, Locus 1.5.1 or later, keyed by
+`<controlID>` and `<controlID>.<stateID>`). All fields are optional, so missing
+fields fall back to the
 manifest's original text one field at a time. `libraryCaption` and
 `searchTerms` are Library-facing metadata; they do not replace the manifest
 caption or inject search terms into another language. A package supports at
@@ -1812,6 +1816,160 @@ that is not one flat quad, is nested in or around another named entity, is not
 [Example Media Room](../examples/media-room/README.md) generates a complete
 Room with two TVs.
 
+### Room interactive states (Locus 1.5.1 or later)
+
+Requires Locus 1.5.1 or later and complete Package v2 (`.locusplace` / `.zip`);
+the legacy/simple flat Room ZIP cannot carry this field. `interactiveStates` is
+an optional top-level array on `space.json` (`1...16` discrete controls per Room)
+that drives multi-stage USDZ poses, positive-emissive surfaces, and
+`particleEffects` across `2...8` named states per control. Library offers use
+capability `locus.room.interactive-states.v1`. The normative JSON schema is
+[room-interactive-states-v1.schema.json](../schemas/room-interactive-states-v1.schema.json).
+
+Explicit JSON `null` is rejected on `interactiveStates` and all optional
+subfields; omit unused keys instead.
+
+```json
+"interactiveStates": [
+  {
+    "id": "door.bridge-deck",
+    "displayName": "Bridge Deck Sliding Door",
+    "kind": "opening",
+    "targetEntities": ["Slider_Bridge_Deck_Frame", "Slider_Bridge_Deck_Pull"],
+    "defaultStateID": "closed",
+    "states": [
+      {
+        "id": "closed",
+        "displayName": "Closed",
+        "poses": [
+          {
+            "entityName": "Slider_Bridge_Deck",
+            "translationMeters": [0, 0, 0],
+            "durationSeconds": 0.9,
+            "timing": "easeInOut",
+            "keyframes": [
+              {
+                "at": 0.78,
+                "fromStateIDs": ["breeze", "open"],
+                "translationMeters": [0, 0, 0]
+              }
+            ]
+          },
+          {
+            "entityName": "Slider_Bridge_Deck_Pull",
+            "rotation": {"axis": [0, 0, 1], "angleDegrees": 0},
+            "delaySeconds": 0.68,
+            "durationSeconds": 0.22
+          }
+        ]
+      },
+      {
+        "id": "breeze",
+        "displayName": "Breeze",
+        "poses": [
+          {
+            "entityName": "Slider_Bridge_Deck_Pull",
+            "rotation": {"axis": [0, 0, 1], "angleDegrees": -90},
+            "durationSeconds": 0.2,
+            "timing": "easeOut"
+          },
+          {
+            "entityName": "Slider_Bridge_Deck",
+            "translationMeters": [-0.24, 0, 0],
+            "durationSeconds": 0.7,
+            "keyframes": [
+              {
+                "at": 0.2,
+                "fromStateIDs": ["closed"],
+                "translationMeters": [0, 0, 0]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "open",
+        "displayName": "Open",
+        "poses": [
+          {
+            "entityName": "Slider_Bridge_Deck_Pull",
+            "rotation": {"axis": [0, 0, 1], "angleDegrees": -90},
+            "durationSeconds": 0.2,
+            "timing": "easeOut"
+          },
+          {
+            "entityName": "Slider_Bridge_Deck",
+            "translationMeters": [-2.05, 0, 0],
+            "durationSeconds": 0.95,
+            "keyframes": [
+              {
+                "at": 0.2,
+                "fromStateIDs": ["closed"],
+                "translationMeters": [0, 0, 0]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+]
+```
+
+| Field | Role and constraints |
+| --- | --- |
+| `id` | Required control ID matching `^[a-z0-9][a-z0-9._-]{0,63}$`, unique within `interactiveStates`. |
+| `displayName` | Non-blank user-visible label (`<= 200` UTF-8 bytes) shown in **Current Place › Room Features**. Localized via `localizations.<language>.interactiveTitles[<controlID>]`. |
+| `kind` | `"opening"`, `"fire"`, `"louvers"`, or `"mechanism"`. |
+| `targetEntities` | `1...16` unique non-empty entity names resolving to mesh-bearing subtrees in `scene.usdz`, pairwise disjoint across controls and disjoint from `tvs` and `lighting.luminaireGroups[].entities`. **Never include clear door or window glass in `targetEntities`**; target perimeter frame rails, handles, rims, or wall switches so gazes through clear glass reach the View. |
+| `defaultStateID` | Must match one entry of `states[].id`. |
+| `states` | `2...8` discrete states (`id` matching `^[a-z0-9][a-z0-9._-]{0,63}$`, unique within the control; `displayName` `1...200` UTF-8 bytes, localized via `interactiveTitles["<controlID>.<stateID>"]`). At least one state must declare `poses`, `emissives`, or `particleEffects`. |
+
+In Virtual Space, looking at and pinching any entity in `targetEntities` cycles
+sequentially through `states[]` (`(currentIndex + 1) % count`). In **Current
+Place › Room Features**, visitors see a direct button grid in `states[]` order
+along with **Revert**, **Try Original Settings**, and **Save for This Room…**.
+Order `states[]` intentionally so 3D pinching feels natural (for example
+`closed -> breeze -> open`, or `off -> embers -> low -> full`). Controls are
+not shown in Room Portal.
+
+When a state omits a pose entity, emissive entity, or particle effect ID owned
+elsewhere on the same control, runtime returns to the USDZ rest transform
+(`[0, 0, 0]`, `0°`), emissive `scale: 0`, or particle `intensity: 0`.
+
+1. `poses[]` (`1...32` per state, unique `entityName`): `translationMeters` (`3`
+   finite meters in `[-20, 20]`, default `[0, 0, 0]`) and `rotation` (`axis`
+   with norm in `[1e-6, 1e6]`, `angleDegrees` in `[-720, 720]`) are relative
+   offsets in **Room model space** (RealityKit USDZ Y-up: `+X` east/right,
+   `+Y` up, `-Z` north/forward) composed onto the entity's rest transform under
+   its parent. Optional `delaySeconds` (`[0, 10]`, default `0`),
+   `durationSeconds` (`[0.05, 15]`, default `0.65`), and `timing`
+   (`"easeInOut"`, `"easeOut"`, `"linear"`) control single-part pacing and
+   staggered motion. Optional `keyframes[]` (`1...8`) declare strictly increasing
+   normalized waypoints `at` in `(0, 1)` with `translationMeters` and/or
+   `rotation`, and optional `fromStateIDs` (`1...8` state IDs on the same control)
+   that activate those intermediate waypoints only when transitioning from those
+   prior states.
+2. `emissives[]` (`1...16` per state, unique `entityName`): scales authored
+   emission by `scale` in `[0, 4]` over `durationSeconds` (`[0, 10]`, default
+   `0.45`). Every referenced subtree must carry at least one
+   `PhysicallyBasedMaterial` with positive authored emissive color/texture and
+   intensity, and must stay strictly disjoint (no shared USD ancestry) from
+   `lighting.luminaireGroups[].entities`, `lighting.luminaireGroups[].illuminatedEntities`,
+   and `lighting.bakedIndirect.entities`.
+3. `particleEffects[]` (`1...4` per state, unique `particleEffectID`): scales an
+   authored `space.particleEffects[].id` emitter by `intensity` in `[0, 2]` over
+   `durationSeconds` (`[0, 10]`, default `0.45`). Setting `intensity: 0` cleanly
+   extinguishes live flames to zero GPU work, and starting at `0` avoids initial
+   warmup.
+
+Across distinct controls in the same Room, owned pose entities, owned emissive
+entities, and owned `particleEffectID` values must be pairwise disjoint. Both
+`tools/validate_locusplace.py` and `tools/check_room.py` enforce the manifest
+rules, version floor (`1.5.1`), USDZ mesh presence, positive emissive
+materials, and lighting ancestry separation when given
+`--current-app-version 1.5.1`.
+
 ## How Locus uses a Room
 
 The authoring interface and the runtime rules are both documented here. Public
@@ -1837,6 +1995,8 @@ the internal identity, file paths, and bookkeeping.
 | `videoSurfaces` | Optional, 1.2.1+, requires `formatVersion: 7`. Names a mesh-bearing entity that plays a looping video, optionally tied to a luminaire group's switch. At most 2 per Room. See [Room video surfaces](#room-video-surfaces-formatversion-7). |
 | `particleEffects` | Optional, 1.2.1+, requires `formatVersion: 9`. Anchors a continuously running app-owned particle preset (currently only `fire`) to a named entity; the author controls placement and size only. At most 4 per Room. See [Room particle effects](#room-particle-effects-formatversion-9). |
 | `viewForwardYawRadians` | Optional, 1.2.1+, requires `formatVersion: 8`. Names the model-space yaw that faces the selected View's straight-ahead direction, in place of the first teleport point's facing. Never changes seat placement or desk alignment. See [Room illuminated surfaces and view-forward yaw](#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8). |
+| `tvs` | Optional, 1.4.9+, complete Package v2 only. Turns up to 4 standalone 16:9 screen quads into interactive Locus TVs. See [Room TVs](#room-tvs-locus-149-or-later). |
+| `interactiveStates` | Optional, 1.5.1+, complete Package v2 only. Declares `1...16` multi-state controls (`2...8` states each) driving multi-stage USDZ poses, positive-emissive surfaces, and `particleEffects` via 3D pinch cycling and **Current Place › Room Features**. See [Room interactive states](#room-interactive-states-locus-151-or-later). |
 | `thumbnail.jpg` / `previewCamera` | Supply the library image and initial 3D preview framing. Neither determines the immersive seat. |
 
 ### Collision and quality: internal fields, not additional author inputs

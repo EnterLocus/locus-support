@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "sourceCommit": "f880a22ba4131301b3d866e81870f807943570ea",
+  "sourceCommit": "45741546e6de2d210904b84aa569f73d84532cdd",
   "files": [
     {
       "source": "scripts/pack_locusplace.py",
@@ -10,8 +10,8 @@
     {
       "source": "scripts/validate_locusplace.py",
       "target": "tools/validate_locusplace.py",
-      "sourceSHA256": "e48c0b03f3b1bddbbc55ab85fadb4e13fa868215b7bfaff73f1f07ab2a8d0b92",
-      "publicSHA256": "07177199fbbbb24c4f7e447427500c3f74167640bd0ebe127c64ec2926fb6f38",
+      "sourceSHA256": "74b0d16734cb8f93e582f6b4d231c3ebfc7b986ba60f57db467484f39626386d",
+      "publicSHA256": "ad6b956934aa990801057f35cd4a98e0ea5ec00b04b40beeec580a53ed2f518a",
       "adaptation": "Reject retired publisher-only oceanGlint data, enforce nonzero seatedOrigin quaternion, and run public room_bindings check"
     },
     {
@@ -42,7 +42,7 @@
     {
       "source": "scripts/content_localization.py",
       "target": "tools/content_localization.py",
-      "sourceSHA256": "482b23253a22737eb826bb3399a511670924e665d9d8a3110f9f572281b8068b"
+      "sourceSHA256": "3378fa7cefc235a9239a76710b611734cadf70961f1c7800091e67acab6b138a"
     },
     {
       "source": "scripts/fireflies_contract.py",
@@ -163,6 +163,11 @@
       "source": "docs/schemas/view-black-hole-v1.schema.json",
       "target": "schemas/view-black-hole-v1.schema.json",
       "sourceSHA256": "af3bf6c29031ed733f32e8681d427fd30808da71cd59a6822b09fe6969de1dcd"
+    },
+    {
+      "source": "docs/schemas/room-interactive-states-v1.schema.json",
+      "target": "schemas/room-interactive-states-v1.schema.json",
+      "sourceSHA256": "d2a822dc40fd879367c0885ef73ac2272bfc312e8218e55aa148d075da567fa3"
     },
     {
       "source": "scripts/validate_locus_asset.py",

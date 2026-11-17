@@ -85,6 +85,11 @@ later. See its [README](tools/black_hole/README.md).
 which need Locus 1.4.9 or later. See its [README](examples/media-room/README.md)
 and the skill's [Room TVs reference](.agents/skills/build-original-locus-room/references/room-tvs.md).
 
+Room interactive states (`interactiveStates`, schema [`schemas/room-interactive-states-v1.schema.json`](schemas/room-interactive-states-v1.schema.json))
+need Locus 1.5.1 or later and Complete Package v2; see the
+[Complete Package v2 guide](reference/locusplace-format.md#room-interactive-states) and the skill's
+[Room interactive states reference](.agents/skills/build-original-locus-room/references/room-interactive-states.md).
+
 ## Community
 
 [Community](https://www.reddit.com/r/EnterLocus/) — Share creations, ask

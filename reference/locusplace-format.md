@@ -504,15 +504,16 @@ covers media and masks (including `media.dayNight`), sound and Room music, midgr
 (`skyEntities`, `windSway`, `textureFlow`, `flowingWater`), water, computed `shore`, sky,
 clouds, sun path (`daySky`, `panoramaGrade`, `light`, `panoramaBlend`), celestial bodies,
 near orbit, black holes, point lights, GPU texture sidecars, seats and groups, lights,
-animations, video surfaces, particles, baked light layers, Room `textureFlow`, Room
-`flowingWater`, and `tvs`. It also defines `localizations`, `provenanceDetail`, and the
+animations, video surfaces, particles, baked light layers, Room `textureFlow`, Room `flowingWater`, `tvs`, and Room
+`interactiveStates` (`1.5.1`+). It also defines `localizations` (including `interactiveTitles`), `provenanceDetail`, and the
 Room's `viewGroundFloorOffsetMeters`, `viewGroundKeepOut`, `viewGroundFootprint`, and
 `viewMidgroundVisibility` controls.
 
 For example, these optional fields belong in an otherwise complete Room
 manifest, and require envelope `minimumAppVersion: "1.4.4"` or later (with
-`viewGroundFootprint` and `textureFlow` requiring `"1.4.5"` or later, and
-`flowingWater` requiring `"1.4.9"` or later):
+`viewGroundFootprint` and `textureFlow` requiring `"1.4.5"` or later, `tvs` and
+`flowingWater` requiring `"1.4.9"` or later, and `interactiveStates` requiring
+`"1.5.1"` or later):
 
 ```json
 {
@@ -559,6 +560,83 @@ python3 tools/check_room.py --current-app-version 1.4.9 \
 
 [The Example Media Room README](../examples/media-room/README.md) explains how
 it is made.
+
+### Room interactive states
+
+Room interactive states require Locus 1.5.1 or later and complete Package v2
+(a flat compatibility ZIP cannot carry `interactiveStates`). A Room can declare
+1 to 16 discrete controls, each driving `poses`, authored `emissives`, and
+`particleEffects` across 2 to 8 states. Every archive using `interactiveStates`
+must set `minimumAppVersion` to `"1.5.1"` or later:
+
+```json
+{
+  "interactiveStates": [
+    {
+      "id": "hearth-fire",
+      "displayName": "Hearth Fire",
+      "kind": "fire",
+      "targetEntities": ["Hearth_Grate_Target"],
+      "defaultStateID": "off",
+      "states": [
+        {
+          "id": "off",
+          "displayName": "Off",
+          "emissives": [{"entityName": "Hearth_Embers_Glow", "scale": 0.0}],
+          "particleEffects": [{"particleEffectID": "hearth", "intensity": 0.0}]
+        },
+        {
+          "id": "embers",
+          "displayName": "Embers",
+          "emissives": [{"entityName": "Hearth_Embers_Glow", "scale": 0.7}],
+          "particleEffects": [{"particleEffectID": "hearth", "intensity": 0.0}]
+        },
+        {
+          "id": "low",
+          "displayName": "Low Fire",
+          "emissives": [{"entityName": "Hearth_Embers_Glow", "scale": 1.35}],
+          "particleEffects": [{"particleEffectID": "hearth", "intensity": 0.65}]
+        },
+        {
+          "id": "full",
+          "displayName": "Roaring Fire",
+          "emissives": [{"entityName": "Hearth_Embers_Glow", "scale": 2.2}],
+          "particleEffects": [{"particleEffectID": "hearth", "intensity": 1.35}]
+        }
+      ]
+    }
+  ],
+  "localizations": {
+    "zh-Hans": {
+      "interactiveTitles": {
+        "hearth-fire": "客厅壁炉",
+        "hearth-fire.off": "关闭",
+        "hearth-fire.embers": "余烬",
+        "hearth-fire.low": "小火",
+        "hearth-fire.full": "旺火"
+      }
+    }
+  }
+}
+```
+
+Looking at and pinching any listed target entity in Virtual Space cycles
+through `states` in authored order; **Current Place › Room Features** offers
+direct per-state buttons with **Save for This Room…** persistence. Keep clear
+window or door glass out of `targetEntities`, keep interactive emissive meshes
+separate from Room `lighting` subtrees, and validate against `1.5.1`:
+
+```sh
+python3 tools/pack_locusplace.py --current-app-version 1.5.1 MyEditableRoom MyRoom.locusplace
+python3 tools/validate_locusplace.py --current-app-version 1.5.1 MyRoom.locusplace
+python3 tools/check_room.py --current-app-version 1.5.1 \
+  --renders /absolute/path/to/my-room-renders MyRoom.locusplace
+```
+
+See [Room interactive states](locus-asset-format/#room-interactive-states-locus-151-or-later)
+and the [Room interactive states schema](../schemas/room-interactive-states-v1.schema.json)
+for full field bounds, `keyframes` choreography, and Blender-to-USDZ axis
+conventions.
 
 ## Required provenance
 
