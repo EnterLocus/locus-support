@@ -867,8 +867,17 @@ dims the painted panorama across 2–16 strictly increasing <code>elevationDegre
 stops (<code>color</code> <code>0...16</code>, optional <code>ambientEV</code> <code>-6...6</code> default <code>0</code>) for the
 Room sun and IBL; <code>light.midground: true</code> also lights <code>midground.path</code>.
 <code>daySky</code> and <code>panoramaGrade</code> require root <code>sky</code> with <code>sky.mask</code>. These
-fields exclude <code>clouds</code>, <code>media</code> (unless paired via <code>media.dayNight</code>), root
-<code>water</code>, <code>midground.water</code>, <code>midground.flowingWater</code>, and <code>sky.aurora</code>.</li>
+fields exclude <code>clouds</code>, <code>media</code> (unless paired via <code>media.dayNight</code>),
+<code>midground.water</code>, <code>midground.flowingWater</code>, and <code>sky.aurora</code>. Pairing with
+root <code>water</code> (including <code>water.contactCalibration</code>, without <code>sky.aurora</code>)
+requires Locus <code>1.5.1</code> or later (<code>locus.view.water.day-night.v1</code>).</li>
+<li><strong>Keeping painted clouds with procedural sky and variable sun transmittance</strong>:
+set <code>sky.mask</code> to <code>255</code> only in open clear-sky blue gaps (<code>0</code> inside clouds
+with a gentle clearness feather so clouds preserve painted detail and water
+reflections by day while occluding stars at night), and set
+<code>environment.sunPath.disc.skyMask</code> to continuous cloud-thickness transmittance
+(high grays in thin wisps, low grays in thick cloud cores, <code>0</code> on solid
+terrain/horizon ridges with a <code>2–3 px</code> ridge feather).</li>
 <li><strong><code>panoramaBlend</code></strong> (Locus 1.4.10 or later,
 <code>locus.view.sun-path.panorama-blend.v1</code>): blends a distinct full-frame 2:1
 night panorama (<code>path</code>, exact same dimensions as <code>panorama.path</code>) over the

@@ -98,8 +98,10 @@ Contract: `tools/sun_path_contract.py` (`1.3.0+`).
   - `light` drives Room lighting and `ambientEV`; set `"midground": true` to
     illuminate `midground.path` dynamically.
   - Both `daySky` and `panoramaGrade` require root `sky` with `sky.mask`. They
-    exclude `clouds`, root `water`, `midground.water`, `midground.flowingWater`,
-    `sky.aurora`, and `media` (unless paired with `media.dayNight`).
+    exclude `clouds`, `midground.water`, `midground.flowingWater`, `sky.aurora`,
+    and `media` (unless paired with `media.dayNight`). Pairing with root
+    `water` (including `water.contactCalibration`, without `sky.aurora`)
+    requires `minimumAppVersion >= "1.5.1"` (`locus.view.water.day-night.v1`).
 - **`panoramaBlend` (`1.4.10+`)**:
   - Blends a distinct aligned full-frame `2:1` night panorama (`path`, exact same
     width/height as `panorama.path`) between `dayElevationDegrees` and

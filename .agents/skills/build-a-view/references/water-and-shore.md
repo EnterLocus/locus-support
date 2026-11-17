@@ -117,7 +117,10 @@ residency within `64 MiB`).
   - `contactCalibration` (`1.3.2+`, `layered-proxy-v1`, single floor-centered
     `disc` region with `blend.horizonSkirt: true` and `.locusmesh` proxy):
     authored and validated via `tools/water_contact_proxy.py` (`bake_patch`,
-    `far_reflection_plate`, `reflection_plate`, `validate_assets`).
+    `far_reflection_plate`, `reflection_plate`, `validate_assets`). Pairing root
+    `water` (or `contactCalibration` without `sky.aurora`) with
+    `environment.sunPath` (`daySky`, `panoramaGrade`, `light`) requires
+    `minimumAppVersion >= "1.5.1"` (`locus.view.water.day-night.v1`).
 - **Worked examples** in `data/place-examples.json`:
   `destination.bioluminescent-mangrove-lagoon` (`water` + `fireflies`),
   `destination.tropical-shallow-bay` (`water` + `day-night` + `sound`),

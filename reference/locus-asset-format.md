@@ -982,8 +982,17 @@ rejected:
   stops (`color` `0...16`, optional `ambientEV` `-6...6` default `0`) for the
   Room sun and IBL; `light.midground: true` also lights `midground.path`.
   `daySky` and `panoramaGrade` require root `sky` with `sky.mask`. These
-  fields exclude `clouds`, `media` (unless paired via `media.dayNight`), root
-  `water`, `midground.water`, `midground.flowingWater`, and `sky.aurora`.
+  fields exclude `clouds`, `media` (unless paired via `media.dayNight`),
+  `midground.water`, `midground.flowingWater`, and `sky.aurora`. Pairing with
+  root `water` (including `water.contactCalibration`, without `sky.aurora`)
+  requires Locus `1.5.1` or later (`locus.view.water.day-night.v1`).
+- **Keeping painted clouds with procedural sky and variable sun transmittance**:
+  set `sky.mask` to `255` only in open clear-sky blue gaps (`0` inside clouds
+  with a gentle clearness feather so clouds preserve painted detail and water
+  reflections by day while occluding stars at night), and set
+  `environment.sunPath.disc.skyMask` to continuous cloud-thickness transmittance
+  (high grays in thin wisps, low grays in thick cloud cores, `0` on solid
+  terrain/horizon ridges with a `2–3 px` ridge feather).
 - **`panoramaBlend`** (Locus 1.4.10 or later,
   `locus.view.sun-path.panorama-blend.v1`): blends a distinct full-frame 2:1
   night panorama (`path`, exact same dimensions as `panorama.path`) over the

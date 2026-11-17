@@ -751,6 +751,25 @@ class CleanRoomViewEndToEndTests(unittest.TestCase):
             require,
             minimum=(1, 4, 9),
         )
+        sun_path_contract.validate_day_night_destination(
+            {
+                "sky": {"mask": "sky-mask.png", "stars": {"twinkle": 0.8}},
+                "water": {"regions": [{"id": "bay", "pose": {"translationMeters": [0, -0.62, 0], "orientationXYZW": [0, 0, 0, 1]}, "sizeMeters": [360, 360]}]},
+                "environment": {"sunPath": two_mask_sun_path},
+            },
+            require,
+            minimum=(1, 5, 1),
+        )
+        with self.assertRaisesRegex(AssertionError, "1.5.1"):
+            sun_path_contract.validate_day_night_destination(
+                {
+                    "sky": {"mask": "sky-mask.png", "stars": {"twinkle": 0.8}},
+                    "water": {"regions": [{"id": "bay", "pose": {"translationMeters": [0, -0.62, 0], "orientationXYZW": [0, 0, 0, 1]}, "sizeMeters": [360, 360]}]},
+                    "environment": {"sunPath": two_mask_sun_path},
+                },
+                require,
+                minimum=(1, 5, 0),
+            )
 
     def test_clean_room_midground_usdz_with_flowing_water_and_motion(self):
         usda = """#usda 1.0
