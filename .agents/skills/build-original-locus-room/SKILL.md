@@ -101,7 +101,26 @@ the area under it clear for the remote. See [Room TVs](references/room-tvs.md).
 The agent models from both the concept image and the metric layout, preserving
 the editable source, scripts, textures, and review renders. Blender Python in
 background mode is the default build route and needs no Blender MCP; another
-professional 3D workflow is fine when the creator chooses it. Use
+professional 3D workflow is fine when the creator chooses it.
+
+Divide authoring by **constraint-bound structure and scene orchestration vs.
+standalone freeform props**, rather than generating an entire Room as one 3D
+mesh or drawing a naive line between hard and soft materials. Blender Python (or
+the creator's chosen DCC) owns the spatial skeleton, architectural envelope,
+stairs, guardrails, mullions, single-sheet transmissive glazing, rectilinear
+tables and cabinetry, `deskEntitiesByTeleportID` tabletop slabs, `Hide Desk`
+groups, TV screen quads, empty water basins, luminaire groups, lightmap baking,
+and calibrated seat anchors. Licensed 3D libraries, creator-supplied meshes, or
+optional single-object image-to-3D supply standalone freeform and sculpted
+props—upholstered sofas and lounge chairs, cushions, plants, rocks, ceramics,
+and standalone sculpted hard-surface pieces that need no CAD tolerances or
+moving sub-parts. Never generate a whole Room or architectural shell as one 3D
+mesh, and avoid faking upholstery or organic forms out of primitive chamfered
+boxes ("programmer art") when a suitable licensed asset or optional
+creator-authorized prop fits. See
+[Decide what to code, source, or generate](references/blender-headless.md#decide-what-to-code-source-or-generate).
+
+Use
 [Headless Blender](references/blender-headless.md) for the default route and
 [Materials and export](references/materials-and-export.md#asset-and-texture-inputs)
 for asset inputs. When existing assets would improve the requested quality or

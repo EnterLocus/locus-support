@@ -1391,7 +1391,8 @@ class PublicSiteTests(unittest.TestCase):
     def test_sample_skill_is_public_safe_and_includes_its_tools(self):
         root = ROOT / ".agents" / "skills" / "build-original-locus-room"
         skill = (root / "SKILL.md").read_text()
-        flat_skill = " ".join((skill + "\n" + "\n".join(path.read_text() for path in (root / "references").glob("*.md"))).split())
+        reference_texts = [path.read_text() for path in (root / "references").glob("*.md")]
+        flat_skill = " ".join((skill + "\n" + "\n".join(reference_texts)).split())
         self.assertTrue(skill.startswith("---\n"))
         self.assertIn("needs no Blender MCP", flat_skill)
         for required in [
@@ -1405,10 +1406,17 @@ class PublicSiteTests(unittest.TestCase):
             "references/package-v2.md", "references/concept-and-brief.md",
             "references/materials-and-export.md", "optional paid generation",
             "ambientAnimations", "may change",
+            "Decide what to code, source, or generate",
+            "constraint-bound structure and scene orchestration vs. standalone freeform props",
+            "programmer art",
+            "0.25–0.35 m",
+            "weld coincident vertices",
         ]:
             self.assertIn(required, flat_skill)
         for private_detail in ["/Users/", "Dropbox", "Locus Dev"]:
             self.assertNotIn(private_detail, skill)
+            for ref_text in reference_texts:
+                self.assertNotIn(private_detail, ref_text)
         self.assertEqual(
             (root / "scripts" / "validate_locus_asset.py").read_bytes(),
             (ROOT / "tools" / "validate_locus_asset.py").read_bytes(),

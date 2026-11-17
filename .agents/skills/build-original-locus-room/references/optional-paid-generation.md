@@ -11,11 +11,25 @@ mentions it.
 
 ## Image-to-3D furniture
 
-Use one cropped product image or one clear design reference for one furniture
-object at a time. Inspect the output topology and materials; do not simply
-decimate a generated glTF and call it finished. Rebuild or clean geometry,
-split packed ORM data into separate roughness and metallic maps, give thin
-surfaces thickness where needed, and export a self-contained USDZ.
+Treat creator-authorized image-to-3D (e.g., Tripo, Rodin, Meshy, or local
+open-weight models; never required) strictly as a **bounded single-prop
+generator orchestrated by the Python build**, never as a whole-Room or
+architectural-shell generator.
+
+Use one isolated, unobstructed product shot per prop at a time rather than
+mixing separately generated views whose proportions disagree. Inspect the
+output topology and materials, and **never decimate an imported glTF directly**:
+raw exports arrive split along UV and normal seams, so direct decimation opens
+dark cracks. Either request a target polygon budget from the generator or weld
+coincident vertices, decimate, and rebake color, roughness, metallic, and
+tangent-normal maps onto clean UVs.
+
+Split packed ORM data into separate grayscale roughness and metallic image
+files, prefix texture filenames per prop so USDZ export does not collide
+`color.jpg` across models, give thin surfaces real thickness where needed,
+inspect all visible sides (especially chair backs visible from seats), normalize
+axes and scale in Blender, and export a self-contained USDZ. Record material AI
+contributions truthfully in `provenance.json` (`aiGenerated`, `aiProvider`).
 
 Tripo is one optional image-to-3D route for furniture or local props. It is not
 required, is not called by this skill, and needs no special runtime integration.
