@@ -464,7 +464,26 @@
         "byteCount": 180594139,
         "sha256": "5798df65d135e700e22dbcd133f2a44cca06110f919f960f2e4ed2ef97a05383"
       },
-      "source": null
+      "source": null,
+      "upcoming": {
+        "appVersion": "1.5.1",
+        "features": [
+          "water",
+          "day-night",
+          "procedural-sky",
+          "sound"
+        ],
+        "package": {
+          "contentVersion": "1.1.1",
+          "minimumAppVersion": "1.5.1",
+          "fileName": "destination.tropical-shallow-bay-1.1.1.locusplace",
+          "url": "https://media.enterlocus.net/examples/destination.tropical-shallow-bay/destination.tropical-shallow-bay-1.1.1.locusplace",
+          "byteCount": 215252932,
+          "sha256": "2ebc9f05aac06c01bd41b7b3a7aea4e63409f695de821da17950bce7e78f3228"
+        },
+        "source": null,
+        "notes": "Full 24-hour day and night sky with preserved cumulus clouds, cloud-thickness sun glow, and sunset island occlusion."
+      }
     },
     {
       "packageID": "destination.cloud-garden-isles",

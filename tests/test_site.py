@@ -488,6 +488,7 @@ class PublicSiteTests(unittest.TestCase):
             "make-a-room": ["1. Generate a concept image", "2. Plan the floor and seats", "3. Build and check the Room", "4. Save the Room", "5. Import the Room", "6. Refine and import again", "Apple Vision Pro"],
             "add-a-tv": ["How Room TVs work", "TV_Screen_Living", "1.4.9", "Play on TV", "Open in Window", "tools/check_room.py"],
             "make-a-day-night-view": ["environment.sunPath", "daySky", "panoramaGrade", "panoramaBlend", "gpuTextures", "astc-6x6-srgb", "sunFreeSky"],
+            "tropical-shallow-bay": ["Tropical Shallow Bay", "sky.mask", "disc.skyMask", "locus.view.water.day-night.v1", "1.5.1", "sun-sky-mask.png", "Prompt for your agent"],
             "github-pages-skyboxes": ["GitHub Pages", "image itself", "Save as View…"],
         }
 
@@ -592,6 +593,24 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn('href="../make-a-room/"', page)
         self.assertNotIn("build-a-room", page)
         self.assertIn('href="../hilltop-villa/"', (ROOT / "make-a-room" / "index.html").read_text())
+
+    def test_tropical_shallow_bay_case_study_is_public_safe(self):
+        page = (ROOT / "tropical-shallow-bay" / "index.html").read_text()
+        parsed = PageParser()
+        parsed.feed(page)
+        for private in ["Dropbox", "TestFlight", "Dev Library", "claude/", "codex/", "agy/", "DEBUG"]:
+            self.assertNotIn(private, page)
+        main = page[page.index("<main"):page.index("</main>")]
+        self.assertIsNone(re.search(r"#\d", main), "no issue or PR numbers")
+        self.assertNotIn("data-locus-original", page)
+        self.assertGreaterEqual(page.count('<strong class="prompt-label">Prompt for your agent</strong><q>'), 5)
+        remote = [image["src"] for image in parsed.images if image["src"].startswith("https://")]
+        self.assertEqual(len(remote), 5)
+        self.assertTrue(all(url.startswith("https://media.enterlocus.net/tutorials/tropical-day-night/") for url in remote))
+        self.assertIn('href="../gallery/place/tropical-shallow-bay/"', page)
+        self.assertIn('href="../make-a-day-night-view/"', page)
+        self.assertIn("locus.view.water.day-night.v1", (ROOT / "reference" / "locus-asset-format.md").read_text())
+        self.assertIn('href="../tropical-shallow-bay/"', (ROOT / "make-a-day-night-view" / "index.html").read_text())
 
     def test_online_view_guide_leads_with_the_direct_use_resolution_gate(self):
         guide_path = ROOT / "online-views" / "index.html"
@@ -1537,7 +1556,7 @@ class PublicSiteTests(unittest.TestCase):
                  "package-format/index.html", "asset-rights/index.html",
                  "make-a-black-hole-view/index.html", "hilltop-villa/index.html",
                  "build-a-view/index.html", "add-a-tv/index.html",
-                 "make-a-day-night-view/index.html"]
+                 "make-a-day-night-view/index.html", "tropical-shallow-bay/index.html"]
         extracted = localization.extract_sources(ROOT)["pages"]
         for locale in localization.TRANSLATED_LOCALES:
             catalog = localization.load_catalog(ROOT, locale)

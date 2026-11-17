@@ -3662,8 +3662,16 @@ def validate_payload(
             for region in destination['water']['regions']:
                 calibration = region.get('contactCalibration')
                 if calibration is not None:
-                    require(not any(destination.get(key) is not None for key in
-                                    ('media', 'clouds', 'sky', 'midground', 'celestial', 'nearOrbit')),
+                    from sun_path_contract import uses_day_night
+                    sun_path = (destination.get('environment') or {}).get('sunPath')
+                    sky_allowed = (
+                        destination.get('sky') is not None
+                        and uses_day_night(sun_path)
+                        and (destination.get('sky') or {}).get('aurora') is None
+                        and parse_version(manifest['minimumAppVersion'], 'minimumAppVersion') >= (1, 5, 1)
+                    )
+                    forbidden = ('media', 'clouds', 'midground', 'celestial', 'nearOrbit') + (() if sky_allowed else ('sky',))
+                    require(not any(destination.get(key) is not None for key in forbidden),
                             'water.contactCalibration requires a photographic View without other geometry layers')
                     mask_path = referenced_asset(base, region['blend']['panoramaMask'], 'contactCalibration.sourceMask')
                     source_path=referenced_asset(base,calibration['sourcePanorama'],'contactCalibration.sourcePanorama')

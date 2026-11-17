@@ -212,6 +212,12 @@ def validate_day_night_destination(destination, require, minimum=None):
                     "sunPath.panoramaBlend with shore requires minimumAppVersion >= 1.4.11")
     media = destination.get("media")
     for key in DAY_NIGHT_EXCLUSIONS:
+        if key == "water" and destination.get("water") is not None:
+            if minimum is not None:
+                from water_contract import DAY_NIGHT_MINIMUM_APP as WATER_DAY_NIGHT_MINIMUM_APP
+                require(minimum >= WATER_DAY_NIGHT_MINIMUM_APP,
+                        "sunPath.daySky/panoramaGrade/light with water requires minimumAppVersion >= 1.5.1")
+            continue
         if key == "media" and isinstance(media, dict) and "dayNight" in media:
             # The only admitted media/full-day composition is the explicit
             # per-video lighting/emission pair bound to panoramaBlend's night

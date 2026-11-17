@@ -72,7 +72,7 @@ class AuthoringLocalizationTests(unittest.TestCase):
                  'experimental-room-animations', 'experimental-real-objects',
                  'create-your-own-place', 'build-a-room', 'package-format',
                  'asset-rights', 'make-a-black-hole-view', 'build-a-view',
-                 'add-a-tv', 'make-a-day-night-view']
+                 'add-a-tv', 'make-a-day-night-view', 'tropical-shallow-bay']
         for page in pages:
             relative = Path(page) / 'index.html'
             source = (ROOT / relative).read_text()
