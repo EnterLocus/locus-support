@@ -24,6 +24,44 @@ and hashes. Check that their terms permit redistribution inside the Room USDZ.
 Do not limit a headless build to primitive furniture or flat colors, and do not
 assume an asset library or paid generation service is required.
 
+## Decide what to code, source, or generate
+
+Separate the Room by **parametric, constraint-bound structure and scene
+orchestration vs. standalone freeform props**, rather than asking a 3D generator
+for a whole Room or drawing a crude boundary by material softness:
+
+- **Code in Blender Python** (spatial skeleton, constraint-bound geometry, and
+  scene assembly): low-entropy, metric-exact, planar, transparent, emissive, or
+  contract-bound parts—walls, floor slabs, roofs, reveals, stairs ($2R + G$,
+  connected landings, real slab openings), guardrails, mullions, single-sheet
+  transmissive glazing, rectilinear tables/desks/cabinets/shelves,
+  `deskEntitiesByTeleportID` tabletop slabs, `Hide Desk` parent groups, TV
+  screen quads, empty water basins, luminaire groups, UV lightmap atlases,
+  coplanar audits, and calibrated seat anchors. Whole-Room, shell, stair, and
+  glazing 3D generation fails in practice because generative meshes warp planes,
+  round corners, fuse addressable sub-entities, and bake false reflections into
+  glass.
+- **Source from licensed libraries or optional single-object image-to-3D**
+  (standalone freeform and sculpted props): high-entropy organic and upholstered
+  forms (sofas, lounge chairs, cushions, plants, rocks, ceramics, sculpture)
+  plus standalone sculpted or ornate hard-surface props (curved solid-wood
+  chairs, carved frames, decorative lamp bodies) that carry no architectural
+  tolerances, large planar spans, or articulated sub-parts—avoiding "programmer
+  art" chamfered boxes. Search the free licensed sources in
+  [Materials and export](materials-and-export.md#asset-and-texture-inputs)
+  first; use creator-authorized
+  [Optional paid generation](optional-paid-generation.md) only when elected.
+- **Bridge hybrid seats and multi-part/SubD objects**: for SubD industrial
+  shapes or multi-part articulated equipment that neither simple `bpy` CSG nor
+  raw image-to-3D solves cleanly alone, prefer a clean licensed mesh or split
+  the assembly so Python builds the metric frames, hinges, glass, emitters, or
+  bound surfaces while the imported mesh supplies only the static sculpted
+  body. When an imported or generated chair hosts a selectable seat, normalize
+  its axes and uniform scale, measure its actual backrest and cushion profile in
+  Python to place the eye `0.25–0.35 m` in front of the backrest (never at the
+  bounding-box center), and author any paired desk alignment surface as a clean
+  Python slab.
+
 ## Run scripts inside Blender
 
 With Blender on PATH, these are invocation patterns for scripts the agent
