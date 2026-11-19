@@ -169,6 +169,12 @@ non-empty `proxies` array, never both.
   `0 < innerAngleDegrees <= outerAngleDegrees <= 175`.
 - `bakedIndirect.entities`: positive-emissive opaque receiver subtrees only;
   exclude glass, water, transmissive surfaces, fixture glow, and local halos.
+  In Locus 1.5.2+ (`minimumAppVersion: "1.5.2"` on Package v2 `formatVersion: 2`,
+  or flat `formatVersion: 14`), `bakedIndirect` may set `mode: "irradiance"`,
+  optional `irradianceScale` (`(0, 64]`, 16-bit PNG required when `> 1`), and
+  either per-group `layers` or single-atlas `image` so runtime multiplies
+  `irradiance(LocusIndirectUV) * baseColor(st)` without blurring `UV0` surface
+  textures.
 
 For producing the indirect textures and checking glass material fidelity,
 follow [Lighting and glass](lighting-and-glass.md). Its export and appearance

@@ -110,21 +110,32 @@ not rebake it. Point/spot proxies are not large area emitters. A clean
 bright-state result is not proof of physically calibrated equivalence to
 diffuse lighting in a real home.
 
-## Bake independently controlled lamps as receiver layers
+## Bake independently controlled lamps as receiver layers (prefer `mode: "irradiance"`, 1.5.2+)
 
-The legacy/simple flat Room metadata feature is `formatVersion: 10`. In the
-preferred Package v2 delivery, `space.json` **MUST** remain
-`formatVersion: 2`: put `lighting.bakedIndirect.layers` inside that manifest;
-never copy the flat `formatVersion: 10` into it. Use the baked-light-layer
-capability when a lamp's control must visibly affect its surroundings.
-`bakedIndirect.layers` has one image per luminaire group, up to 12. Each layer
-contains only that group's direct and bounce contribution with the receiver
-material colour included, at its authored brightness and colour. The existing
-`bakedIndirect.entities` receiver subtree remains the one shared opaque
-positive-emissive atlas in the USDZ; it must sample that atlas through
-`LocusIndirectUV`. Keep each layer and that USDZ atlas identically laid out.
-Set `minimumAppVersion` to `1.2.1` or later. The Package v2 layer declaration
-is nested Room metadata:
+The legacy/simple flat Room metadata feature is `formatVersion: 10` (`layers`)
+or `formatVersion: 14` (`mode: "irradiance"`). In the preferred Package v2
+delivery, `space.json` **MUST** remain `formatVersion: 2`: put
+`lighting.bakedIndirect` (`layers`, `mode`, `irradianceScale`, or single-atlas
+`image`) inside that manifest; never copy the flat `formatVersion: 10` or `14`
+into it. Use the baked-light-layer capability when a lamp's control must visibly
+affect its surroundings.
+
+**Default to `mode: "irradiance"` (`minimumAppVersion: "1.5.2"`) whenever
+receivers carry tiled or detailed `UV0` (`st`) surface textures** (stone, wood
+grain, rugs, woven upholstery, framed art). Legacy `mode: "radiance"`
+(`include_color=True`) bakes surface colour onto `LocusIndirectUV` (`UV1`),
+which limits surface detail under Room Lights to the lightmap's texels per
+metre and blurs textured surfaces on multi-room interiors. With
+`mode: "irradiance"`, Cycles bakes pure diffuse irradiance without albedo
+(`include_color=False` on a temporary white diffuse proxy), normalizes across
+all layers by `irradianceScale` (`(0, 64]`, 16-bit sRGB PNG required when
+`> 1`), and Locus multiplies `irradiance(UV1) * baseColor(UV0) * (1 - metallic)
+* ao` at runtime in an `rgba16Float` GPU texture — keeping 100% of `UV0`
+sharpness, normal maps, and roughness. Keep a combined radiance fallback atlas
+on `scene.usdz` `emissiveColor` (`UV1`) so standalone Quick Look still previews
+balanced lighting. For legacy `mode: "radiance"` (`minimumAppVersion: "1.2.1"`),
+each layer contains that group's direct and bounce contribution with receiver
+material colour included.
 
 ```json
 "lighting": {
@@ -133,8 +144,10 @@ is nested Room metadata:
   ],
   "bakedIndirect": {
     "entities": ["Locus_BakedIndirect"],
+    "mode": "irradiance",
+    "irradianceScale": 4.0,
     "layers": [
-      {"luminaireGroupID": "desk-pendant", "image": "desk-pendant-indirect.png"}
+      {"luminaireGroupID": "desk-pendant", "image": "desk-pendant-irradiance.png"}
     ]
   }
 }

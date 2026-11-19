@@ -1,6 +1,6 @@
 {
   "formatVersion": 1,
-  "sourceCommit": "45741546e6de2d210904b84aa569f73d84532cdd",
+  "sourceCommit": "efdd49f9bbf3914e729de1939a143cde1a54da3b",
   "files": [
     {
       "source": "scripts/pack_locusplace.py",
@@ -10,8 +10,8 @@
     {
       "source": "scripts/validate_locusplace.py",
       "target": "tools/validate_locusplace.py",
-      "sourceSHA256": "74b0d16734cb8f93e582f6b4d231c3ebfc7b986ba60f57db467484f39626386d",
-      "publicSHA256": "ad6b956934aa990801057f35cd4a98e0ea5ec00b04b40beeec580a53ed2f518a",
+      "sourceSHA256": "3c076ae80cc97eecbdbb20ae1ff5a4613b2d7110922eb2da06a0197c27cbcec6",
+      "publicSHA256": "86d9f6629090dc2ed622d478f123e0abd424325c32edf29aef26d35f4c57077c",
       "adaptation": "Reject retired publisher-only oceanGlint data, enforce nonzero seatedOrigin quaternion, and run public room_bindings check"
     },
     {
@@ -72,7 +72,7 @@
     {
       "source": "scripts/package_sound.py",
       "target": "tools/package_sound.py",
-      "sourceSHA256": "266a2b66d3a4e154a6b14eb93a59b6136b41b1e1187c28e64c81a22048816dce"
+      "sourceSHA256": "823f464e1b692bf08076372a18b8a58c96e3d24b7abdf46964edda93f625c3bb"
     },
     {
       "source": "scripts/panorama_media.py",
@@ -172,8 +172,8 @@
     {
       "source": "scripts/validate_locus_asset.py",
       "target": "tools/validate_locus_asset.py",
-      "sourceSHA256": "662ceb16f930c49294985044568500130160ad48aa345973c007810befb9a546",
-      "publicSHA256": "b03e89c4aacefd68a7e7dc86c8b5ecc1b6e31d12137192190c53de0cd480c07a",
+      "sourceSHA256": "d1f5d573b24e73d995e17f00bdad9f850d74e870069f652d9a7f567dd3a7d2b8",
+      "publicSHA256": "9c7d4fc5d963934a96e1531b41a23a484dd0ab4894bb142a068cddc0e907ab43",
       "adaptation": "Standalone public Swift USD binding inspection"
     }
   ]

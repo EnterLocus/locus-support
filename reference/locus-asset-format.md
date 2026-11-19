@@ -1970,6 +1970,75 @@ rules, version floor (`1.5.1`), USDZ mesh presence, positive emissive
 materials, and lighting ancestry separation when given
 `--current-app-version 1.5.1`.
 
+### Room baked irradiance lightmaps (Locus 1.5.2 or later)
+
+When `lighting.bakedIndirect` bakes receiver material colour into the shared
+lightmap (`mode: "radiance"`, the default), surface sharpness under Room Lights
+is limited by the lightmap's texel density: across a multi-room interior, a
+single `4096×2048` atlas spread over dozens of walls, floors, and furniture
+pieces softens high-frequency tiled stone, wood grain, rugs, and woven fabrics
+whenever Room Lights turn on.
+
+In Locus 1.5.2 or later (`minimumAppVersion: "1.5.2"`, Library capability
+`locus.room.lighting.baked-irradiance.v1`), a Package v2 Room (`space.json`
+`formatVersion: 2`) or flat compatibility Room (`space.json` `formatVersion: 14`
+— never copy `14` into Package v2 `space.json`) can set `mode: "irradiance"` on
+`lighting.bakedIndirect`:
+
+```json
+"lighting": {
+  "luminaireGroups": [
+    {"id": "can-lights", "displayName": "Recessed Cans", "entities": ["Can_Glow"]},
+    {"id": "niche-shelves", "displayName": "Fireplace Shelves", "entities": ["Niche_Strip"]}
+  ],
+  "bakedIndirect": {
+    "entities": ["Wall_Living", "Floor_Slab", "Coffee_Table", "Sofa_Living"],
+    "mode": "irradiance",
+    "irradianceScale": 8.0,
+    "layers": [
+      {"luminaireGroupID": "can-lights", "image": "light-can-lights.png"},
+      {"luminaireGroupID": "niche-shelves", "image": "light-niche-shelves.png"}
+    ]
+  }
+}
+```
+
+A single-atlas Room without per-lamp `layers` declares `image` instead:
+
+```json
+"bakedIndirect": {
+  "entities": ["Locus_BakedIndirect"],
+  "mode": "irradiance",
+  "irradianceScale": 4.0,
+  "image": "baked-irradiance.png"
+}
+```
+
+- `mode`: `"radiance"` (default when omitted) or `"irradiance"`.
+- `irradianceScale`: optional finite number in `(0, 64]`, default `1.0`, allowed
+  only when `mode == "irradiance"`. Authoring bakes pure diffuse irradiance
+  without receiver albedo (`include_color = False` on a temporary unit-white
+  diffuse proxy) onto `LocusIndirectUV` (`UV1`) and stores
+  `sRGB(clamp(linearIrradiance / irradianceScale, 0, 1))`. Runtime decodes sRGB
+  to linear light, multiplies by `irradianceScale`, composites per-group EV /
+  switch / temperature / RGB weights into a mipmapped `rgba16Float` GPU texture,
+  and evaluates `irradiance(UV1) * baseColor(UV0) * (1 - metallic) * ao` inside
+  Locus's built-in PBR shader graph — preserving 100% of `UV0` (`st`) surface
+  texture detail, normal maps, roughness, specular/IBL response, and wall/roof
+  opacity fades. When `irradianceScale > 1`, every referenced irradiance PNG
+  **must** be 16-bit RGB or RGBA.
+- `image` vs `layers`: when `mode == "irradiance"`, declare either `image` (one
+  bare package-root `.png` filename, `<= 4096×4096`) or `layers` (`1...12`
+  per-group `.png` layers), never both. `image` is rejected when `mode` is
+  omitted or `"radiance"`.
+- USDZ fallback and UV check: every mesh under `bakedIndirect.entities` must
+  carry both `primvars:st` (`UV0`) and `primvars:LocusIndirectUV` (`UV1`), plus
+  an opaque positive-emissive PBR material in `scene.usdz` (keep a combined
+  radiance fallback atlas on `scene.usdz` `emissiveColor` so standalone USD
+  Quick Look still previews balanced lighting). Both `tools/validate_locusplace.py`,
+  `tools/validate_locus_asset.py`, and `tools/check_room.py --current-app-version
+  1.5.2` enforce the schema, PNG bit depth, and `LocusIndirectUV` mesh presence.
+
 ## How Locus uses a Room
 
 The authoring interface and the runtime rules are both documented here. Public
@@ -1989,7 +2058,7 @@ the internal identity, file paths, and bookkeeping.
 | `deskEntitiesByTeleportID` | Names the tabletop used for that seat's alignment and optional desk passthrough. Without a mapping the seat is a first-class lounge seat: it still loads, at its authored floor and eye height, but never measures, aligns, or offers passthrough for a desk. See [Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). |
 | `deskGroupEntitiesByTeleportID` | Optional, 1.1.5+. For a subset of desk-backed seats, names the one entity whose whole subtree is that seat's hideable desk, enabling a visitor **Hide Desk** control. A key must already have a `deskEntitiesByTeleportID` entry; the named entity must resolve uniquely and be an ancestor of that entry's surface entity, or the Room fails to load. Readers before 1.1.5 ignore this field and offer no Hide Desk. See [Lounge seats and hideable desks](#lounge-seats-and-hideable-desks). |
 | `seatGroups` | Optional, 1.2.0+, requires `formatVersion: 6`. Presents several teleport IDs as one seating area in the two-level Seats picker; every listed ID must be an authored teleport, and a teleport cannot belong to more than one group. It never changes a seat's identity, placement, desk mapping, Hide Desk contract, or eye height. Readers before 1.2.0 refuse to import a grouped Room. See [Seat groups](#seat-groups-formatversion-6). |
-| `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. A group's optional `illuminatedEntities` (1.2.1+, `formatVersion: 8`) and `bakedIndirect.layers` (1.2.1+, `formatVersion: 10`) extend this without changing the base v2/v3 contract. See [Room illuminated surfaces and view-forward yaw](#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8) and [Room baked light layers](#room-baked-light-layers-formatversion-10). |
+| `lighting` | Owns explicit emissive fixtures, optional bounded direct lights and optional shared indirect light. Controls do not discover lamps from names, and a material alone does not create a runtime point/spot light. A group's optional `illuminatedEntities` (1.2.1+, `formatVersion: 8`), `bakedIndirect.layers` (1.2.1+, `formatVersion: 10`), and `bakedIndirect.mode: "irradiance"` (1.5.2+, `formatVersion: 14`) extend this without changing the base v2/v3 contract. See [Room illuminated surfaces and view-forward yaw](#room-illuminated-surfaces-and-view-forward-yaw-formatversion-8), [Room baked light layers](#room-baked-light-layers-formatversion-10), and [Room baked irradiance lightmaps](#room-baked-irradiance-lightmaps-locus-152-or-later). |
 | `rendering` | Explicitly opts subtrees into softened View reflections or temporary window-obstruction fading. Omitted roles grant neither behavior. These permissions do not change the underlying material design. |
 | `ambientAnimations` | Binds embedded named clips to experimental switch/speed/interval controls. A valid entity name does not prove a clip exists or moves correctly; test playback in Locus. |
 | `videoSurfaces` | Optional, 1.2.1+, requires `formatVersion: 7`. Names a mesh-bearing entity that plays a looping video, optionally tied to a luminaire group's switch. At most 2 per Room. See [Room video surfaces](#room-video-surfaces-formatversion-7). |

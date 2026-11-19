@@ -19,10 +19,20 @@ def minimum_app(value):
     return MUSIC_MINIMUM_APP if has_music(value) else MINIMUM_APP
 
 
+def has_ambient_sound(value):
+    """True when the sound definition authors non-music `role: background` audio."""
+    return isinstance(value, dict) and any(
+        isinstance(s, dict) and s.get('role') == 'background' for s in value.get('sources') or [])
+
+
 def has_background_sound(value):
     """Discovery mark: Room music counts as background sound; effects never do."""
-    return isinstance(value, dict) and any(
-        isinstance(s, dict) and s.get('role') in ('background', 'music') for s in value.get('sources') or [])
+    return has_ambient_sound(value) or has_music(value)
+
+
+def has_music_only_sound(value):
+    """True when a Room authors music without non-music ambient sound."""
+    return has_music(value) and not has_ambient_sound(value)
 
 
 def capabilities(value, owner):
