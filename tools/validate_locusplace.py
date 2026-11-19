@@ -4317,6 +4317,73 @@ def validate_payload(
                 "lighting.luminaireGroups.illuminatedEntities requires minimumAppVersion >= 1.2.1",
             )
         baked_indirect = (space.get("lighting") or {}).get("bakedIndirect")
+        if isinstance(baked_indirect, dict):
+            allowed_baked_keys = {"entities", "layers", "mode", "irradianceScale", "image"}
+            unknown_baked = set(baked_indirect) - allowed_baked_keys
+            require(
+                not unknown_baked,
+                f"{base}.lighting.bakedIndirect contains unknown field(s): "
+                + ", ".join(sorted(unknown_baked)),
+            )
+            baked_mode = baked_indirect.get("mode", "radiance")
+            require(
+                isinstance(baked_mode, str) and baked_mode in {"radiance", "irradiance"},
+                f"{base}.lighting.bakedIndirect.mode must be radiance or irradiance",
+            )
+            require_16bit_png = False
+            if baked_mode == "irradiance":
+                require(
+                    parse_version(manifest["minimumAppVersion"], "minimumAppVersion")
+                    >= (1, 5, 2),
+                    "lighting.bakedIndirect.mode=irradiance requires minimumAppVersion >= 1.5.2",
+                )
+                if "irradianceScale" in baked_indirect:
+                    irr_scale = baked_indirect["irradianceScale"]
+                    require(
+                        type(irr_scale) in {int, float}
+                        and math.isfinite(irr_scale)
+                        and 0 < irr_scale <= 64,
+                        f"{base}.lighting.bakedIndirect.irradianceScale must be in (0, 64]",
+                    )
+                    require_16bit_png = float(irr_scale) > 1.0
+                has_single_image = "image" in baked_indirect
+                has_layers = "layers" in baked_indirect
+                require(
+                    has_single_image != has_layers,
+                    f"{base}.lighting.bakedIndirect with mode=irradiance requires either image or layers, not both",
+                )
+                if has_single_image:
+                    single_img = baked_indirect["image"]
+                    require(
+                        isinstance(single_img, str)
+                        and single_img.strip() == single_img
+                        and "/" not in single_img and "\\" not in single_img
+                        and single_img not in {".", ".."}
+                        and single_img.lower().endswith(".png"),
+                        f"{base}.lighting.bakedIndirect.image must be a bare root .png filename",
+                    )
+                    asset = referenced_asset(
+                        base, single_img, "lighting.bakedIndirect.image")
+                    require(0 < infos[asset].file_size <= 64 * 1024 * 1024,
+                            f"{asset} exceeds the light layer image byte limit")
+                    with archive.open(asset) as source:
+                        data = source.read()
+                    width, height, bit_depth, color_type = light_layer_png_info(
+                        data, asset)
+                    allowed_depths = (16,) if require_16bit_png else (8, 16)
+                    require(
+                        color_type in (2, 6) and bit_depth in allowed_depths,
+                        f"{asset} must be a 16-bit RGB or RGBA PNG when irradianceScale > 1"
+                        if require_16bit_png
+                        else f"{asset} must be an 8- or 16-bit RGB or RGBA PNG",
+                    )
+                    require(width <= 4096 and height <= 4096,
+                            f"{asset} exceeds the 4096x4096 light layer dimension limit")
+            else:
+                require(
+                    "irradianceScale" not in baked_indirect and "image" not in baked_indirect,
+                    f"{base}.lighting.bakedIndirect.irradianceScale and image require mode=irradiance",
+                )
         if isinstance(baked_indirect, dict) and baked_indirect.get("layers"):
             require(
                 parse_version(manifest["minimumAppVersion"], "minimumAppVersion")
@@ -4331,6 +4398,11 @@ def validate_payload(
             layer_images = validate_baked_light_layers(
                 baked_indirect["layers"], luminaire_group_ids,
                 f"{base}.lighting.bakedIndirect.layers")
+            require_16bit_layers = (
+                baked_indirect.get("mode") == "irradiance"
+                and float(baked_indirect.get("irradianceScale", 1.0)) > 1.0
+            )
+            allowed_layer_depths = (16,) if require_16bit_layers else (8, 16)
             layer_dimensions = None
             for image in layer_images:
                 asset = referenced_asset(
@@ -4341,8 +4413,12 @@ def validate_payload(
                     data = source.read()
                 width, height, bit_depth, color_type = light_layer_png_info(
                     data, asset)
-                require(color_type in (2, 6) and bit_depth in (8, 16),
-                        f"{asset} must be an 8- or 16-bit RGB or RGBA PNG")
+                require(
+                    color_type in (2, 6) and bit_depth in allowed_layer_depths,
+                    f"{asset} must be a 16-bit RGB or RGBA PNG when irradianceScale > 1"
+                    if require_16bit_layers
+                    else f"{asset} must be an 8- or 16-bit RGB or RGBA PNG",
+                )
                 require(width <= 4096 and height <= 4096,
                         f"{asset} exceeds the 4096x4096 light layer dimension limit")
                 if layer_dimensions is None:

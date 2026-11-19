@@ -210,12 +210,14 @@ toward the current import allowance.
 
 The complete envelope uses `formatVersion: 1`; each `destination.json`,
 `space.json` and `experience.json` uses `formatVersion: 2`. The legacy flat
-Room metadata feature for baked light layers is `formatVersion: 10`; it belongs
-to the separate flat `space.json` input in the [flat compatibility
+Room metadata features for baked light layers (`formatVersion: 10`) and baked
+irradiance lightmaps (`formatVersion: 14`) belong to the separate flat
+`space.json` input in the [flat compatibility
 reference](locus-asset-format/#flat-compatibility-room-zip). In a preferred
 Package v2 Room, `space.json` **MUST** stay `formatVersion: 2`; put
-`lighting.bakedIndirect.layers` inside it and never copy the legacy version 10.
-In complete packages, optional capabilities are enabled by their typed fields
+`lighting.bakedIndirect.layers` (App 1.2.1+) and optional `mode: "irradiance"` /
+`irradianceScale` / `image` (App 1.5.2+) inside it and never copy the legacy
+version 10 or 14. In complete packages, optional capabilities are enabled by their typed fields
 and guarded by `minimumAppVersion`.
 
 

@@ -152,7 +152,34 @@ struct Report: Codable {
                 for name in group["entities"] as? [String] ?? [] { light(name, opaque: false) }
                 for name in group["illuminatedEntities"] as? [String] ?? [] { light(name, opaque: true) }
             }
-            if let indirect = lighting["bakedIndirect"] as? [String: Any] { for name in indirect["entities"] as? [String] ?? [] { light(name, opaque: true) } }
+            if let indirect = lighting["bakedIndirect"] as? [String: Any] {
+                let isIrradiance = (indirect["mode"] as? String) == "irradiance"
+                for name in indirect["entities"] as? [String] ?? [] {
+                    light(name, opaque: true)
+                    if isIrradiance, let rootEntity = entity(name) {
+                        func checkUV1(_ node: Entity) {
+                            if let mc = node.components[ModelComponent.self] {
+                                for m in mc.mesh.contents.models {
+                                    for part in m.parts where part.positions.count > 0 {
+                                        let v = part.positions.count
+                                        var ok = (part[MeshBuffers.custom("UV1", type: SIMD2<Float>.self)]?.elements.count == v)
+                                            || (part[MeshBuffers.custom("LocusIndirectUV", type: SIMD2<Float>.self)]?.elements.count == v)
+                                            || (part[MeshBuffers.custom("primvars:LocusIndirectUV", type: SIMD2<Float>.self)]?.elements.count == v)
+                                        if #available(macOS 27.0, *) {
+                                            ok = ok || (part[MeshBuffers.textureCoordinates1]?.elements.count == v)
+                                        }
+                                        if !ok {
+                                            error("missingBakedIrradianceUV", "Entity '\(node.name)' is missing secondary UV coordinates (LocusIndirectUV) required by mode: irradiance.")
+                                        }
+                                    }
+                                }
+                            }
+                            node.children.forEach(checkUV1)
+                        }
+                        checkUV1(rootEntity)
+                    }
+                }
+            }
         }
         for animation in space["ambientAnimations"] as? [[String: Any]] ?? [] {
             guard let name = animation["entityName"] as? String, let clip = animation["animationName"] as? String, let e = entity(name) else { continue }

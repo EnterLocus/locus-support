@@ -157,11 +157,12 @@ def check(archive: Path, version: str, renders: Path | None = None) -> dict:
                     groups = lighting.get("luminaireGroups", [])
                     sound = json.loads((root / "sound.json").read_text()) if (root / "sound.json").exists() else {}
                     music = any(x.get("role") == "music" for x in sound.get("sources", []))
+                    irradiance = (lighting.get("bakedIndirect") or {}).get("mode") == "irradiance"
                     modern = (space.get("videoSurfaces") or space.get("particleEffects") or
                               "viewForwardYawRadians" in space or
                               any(x.get("illuminatedEntities") for x in groups) or
                               (lighting.get("bakedIndirect") or {}).get("layers"))
-                    floor = "1.4.1" if music else "1.2.1" if modern else "1.2.0" if space.get("seatGroups") else "1.1.4" if sound else "1.0.0"
+                    floor = "1.5.2" if irradiance else "1.4.1" if music else "1.2.1" if modern else "1.2.0" if space.get("seatGroups") else "1.1.4" if sound else "1.0.0"
                     if v2.parse_version(version, "currentAppVersion") < v2.parse_version(floor, "minimumAppVersion"):
                         raise ValueError("Room requires Locus " + floor + " or later.")
                 arguments = [str(binary), str(model), str(path), str(seat_file)]

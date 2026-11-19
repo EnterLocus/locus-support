@@ -20,6 +20,7 @@ enum RoomEntityBindings {
         case overlapping(String, String)
         case noGeometry(String)
         case noEmissiveMaterial(String)
+        case missingBakedIrradianceUV(String)
 
         var errorDescription: String? {
             switch self {
@@ -29,6 +30,8 @@ enum RoomEntityBindings {
                 "Room bindings '\(first)' and '\(second)' overlap in the model hierarchy."
             case .noGeometry(let name): "Room entity '\(name)' has no renderable geometry."
             case .noEmissiveMaterial(let name): "Room entity '\(name)' has no positive-emissive material."
+            case .missingBakedIrradianceUV(let name):
+                "Room entity '\(name)' has a mesh missing secondary UV coordinates (LocusIndirectUV) required for irradiance baking."
             }
         }
     }
@@ -116,7 +119,10 @@ struct RoomModelBindingContract: Decodable, Sendable {
             let proxy: Proxy?
             let proxies: [Proxy]?
         }
-        struct Indirect: Decodable, Sendable { let entities: [String] }
+        struct Indirect: Decodable, Sendable {
+            let entities: [String]
+            let mode: String?
+        }
         let luminaireGroups: [Group]
         let bakedIndirect: Indirect?
     }
@@ -255,6 +261,37 @@ enum RoomModelBindingValidator {
         }
         if let lighting = contract.lighting {
             try validateIlluminatedEntities(lighting, in: model)
+            if lighting.bakedIndirect?.mode == "irradiance",
+               let bakedNames = lighting.bakedIndirect?.entities, !bakedNames.isEmpty
+            {
+                let subtrees = try RoomEntityBindings.subtrees(named: bakedNames, in: model)
+                for subtree in subtrees {
+                    try verifyIrradianceUVSubtree(subtree)
+                }
+            }
+        }
+    }
+
+    private static func verifyIrradianceUVSubtree(_ entity: Entity) throws {
+        if let model = entity.components[ModelComponent.self] {
+            for modelInstance in model.mesh.contents.models {
+                for part in modelInstance.parts {
+                    let vCount = part.positions.count
+                    guard vCount > 0 else { continue }
+                    var hasUV1 = (part[MeshBuffers.custom("UV1", type: SIMD2<Float>.self)]?.elements.count == vCount)
+                        || (part[MeshBuffers.custom("LocusIndirectUV", type: SIMD2<Float>.self)]?.elements.count == vCount)
+                        || (part[MeshBuffers.custom("primvars:LocusIndirectUV", type: SIMD2<Float>.self)]?.elements.count == vCount)
+                    if #available(macOS 27.0, *) {
+                        hasUV1 = hasUV1 || (part[MeshBuffers.textureCoordinates1]?.elements.count == vCount)
+                    }
+                    if !hasUV1 {
+                        throw RoomEntityBindings.BindingError.missingBakedIrradianceUV(entity.name)
+                    }
+                }
+            }
+        }
+        for child in entity.children {
+            try verifyIrradianceUVSubtree(child)
         }
     }
 

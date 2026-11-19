@@ -633,12 +633,15 @@ def read_png_ihdr(path: Path) -> tuple[int, int, int, int]:
     return width, height, bit_depth, color_type
 
 
-def validate_light_layer_image(path: Path) -> tuple[int, int]:
+def validate_light_layer_image(path: Path, *, require_sixteen_bit: bool = False) -> tuple[int, int]:
     width, height, bit_depth, color_type = read_png_ihdr(path)
     require(0 < width <= 4096 and 0 < height <= 4096,
             f"{path.name} exceeds the 4096x4096 light layer dimension limit")
-    require(bit_depth in (8, 16) and color_type in (2, 6),
-            f"{path.name} must be an 8- or 16-bit RGB or RGBA PNG")
+    allowed_depths = (16,) if require_sixteen_bit else (8, 16)
+    require(bit_depth in allowed_depths and color_type in (2, 6),
+            f"{path.name} must be a 16-bit RGB or RGBA PNG when irradianceScale > 1"
+            if require_sixteen_bit
+            else f"{path.name} must be an 8- or 16-bit RGB or RGBA PNG")
     return width, height
 
 
@@ -773,10 +776,18 @@ def validate_lighting(
                 "lighting.bakedIndirect requires space.json formatVersion 3")
         baked = value["bakedIndirect"]
         require(isinstance(baked, dict), "lighting.bakedIndirect must be an object")
+        for v14_key in ("mode", "irradianceScale", "image"):
+            require(room_format_version >= 14 or v14_key not in baked,
+                    f"lighting.bakedIndirect.{v14_key} requires space.json formatVersion 14")
+        optional_baked: set[str] = set()
+        if room_format_version >= 10:
+            optional_baked.add("layers")
+        if room_format_version >= 14:
+            optional_baked.update({"mode", "irradianceScale", "image"})
         exact_keys(
             baked,
             required={"entities"},
-            optional={"layers"} if room_format_version >= 10 else set(),
+            optional=optional_baked,
             context="lighting.bakedIndirect",
         )
         entities = baked["entities"]
@@ -787,13 +798,30 @@ def validate_lighting(
                 "lighting.bakedIndirect.entities has duplicates")
         require(luminaire_entities.isdisjoint(entities),
                 "lighting.bakedIndirect.entities must not name luminaires")
+        mode = baked.get("mode", "radiance")
+        require(isinstance(mode, str) and mode in {"radiance", "irradiance"},
+                "lighting.bakedIndirect.mode must be radiance or irradiance")
+        if mode == "irradiance":
+            if "irradianceScale" in baked:
+                scale = baked["irradianceScale"]
+                require(finite(scale) and 0 < scale <= 64,
+                        "lighting.bakedIndirect.irradianceScale must be in (0, 64]")
+            has_image = "image" in baked
+            has_layers = "layers" in baked
+            require(has_image != has_layers,
+                    "lighting.bakedIndirect with mode=irradiance requires either image or layers, not both")
+            if has_image:
+                image_name = baked["image"]
+                require(isinstance(image_name, str) and image_name.strip() == image_name
+                        and "/" not in image_name and "\\" not in image_name
+                        and image_name not in {".", ".."}
+                        and image_name.lower().endswith(".png"),
+                        "lighting.bakedIndirect.image must be a bare root .png filename")
+                referenced_layer_images.add(image_name)
+        else:
+            require("irradianceScale" not in baked and "image" not in baked,
+                    "lighting.bakedIndirect.irradianceScale and image require mode=irradiance")
         if "layers" in baked:
-            # Room v10 (docs/locus-asset-format.md "Room baked light
-            # layers"): one PNG per declared luminaire group, holding that
-            # group's own contribution to the shared bakedIndirect atlas.
-            # Structural shape only; PNG header/byte checks on the
-            # referenced files happen against the real extracted bytes in
-            # `validate_room`, matching how `videoSurfaces` checks `.mp4`.
             referenced_layer_images = validate_baked_light_layers(
                 baked["layers"], identifiers)
     return referenced_layer_images
@@ -1023,8 +1051,8 @@ def validate_room(
         context="space.json",
     )
     require(type(value["formatVersion"]) is int
-            and value["formatVersion"] in {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13},
-            "space.json.formatVersion must be 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, or 13")
+            and value["formatVersion"] in {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14},
+            "space.json.formatVersion must be 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, or 14")
     require(value["formatVersion"] >= 2 or "lighting" not in value,
             "space.json.lighting requires formatVersion 2")
     require(value["formatVersion"] >= 4 or "ambientAnimations" not in value,
@@ -1135,11 +1163,16 @@ def validate_room(
         referenced_layer_images = validate_lighting(
             value["lighting"], teleports, value["formatVersion"])
         require(referenced_layer_images == image_files,
-                "lighting.bakedIndirect.layers must reference every .png file, and no others")
+                "lighting.bakedIndirect must reference every .png file, and no others")
+        baked_dict = (value["lighting"] or {}).get("bakedIndirect") or {}
+        require_16bit = (
+            baked_dict.get("mode") == "irradiance"
+            and float(baked_dict.get("irradianceScale", 1.0)) > 1.0
+        )
         dimensions_seen: tuple[int, int] | None = None
         for name in referenced_layer_images:
             path = root / name
-            width, height = validate_light_layer_image(path)
+            width, height = validate_light_layer_image(path, require_sixteen_bit=require_16bit)
             if dimensions_seen is None:
                 dimensions_seen = (width, height)
             else:
