@@ -42,7 +42,8 @@ CC_BY_ROOMS = ('atrium-loft', 'courtyard-gallery', 'horizon-atelier')
 FEATURES = (
     'video', 'room-animation', 'water', 'flowing-water', 'shore', 'midground',
     'day-night', 'procedural-sky', 'celestial', 'sound', 'music', 'light-layers',
-    'generated-furniture', 'clouds', 'particles', 'room-tv',
+    'baked-irradiance', 'interactive-states', 'generated-furniture', 'clouds',
+    'particles', 'room-tv',
 )
 KINDS = {'room', 'view'}
 EXAMPLE_KEYS = {'packageID', 'kind', 'title', 'license', 'features', 'package', 'source'}

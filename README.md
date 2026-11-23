@@ -314,7 +314,8 @@ they are not registered in `data/external-assets.json`.
 `features` uses only these ids, which the Gallery translates: `video`,
 `room-animation`, `water`, `flowing-water`, `shore`, `midground`, `day-night`,
 `procedural-sky`, `celestial`, `sound`, `music`, `light-layers`,
-`generated-furniture`, `clouds`, `particles`, `room-tv`. `license` is `LicenseRef-EnterLocus-Example`, or
+`baked-irradiance`, `interactive-states`, `generated-furniture`, `clouds`,
+`particles`, `room-tv`. `license` is `LicenseRef-EnterLocus-Example`, or
 `CC-BY-4.0` for Atrium Loft, Courtyard Gallery and Horizon Atelier only.
 
 A Gallery Place page shows the example whose `packageID` equals the Place ID

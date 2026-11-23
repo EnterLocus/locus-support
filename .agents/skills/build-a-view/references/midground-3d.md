@@ -136,29 +136,163 @@ land in `midground.path` rather than the panorama:
     UsdUtils.CreateNewUsdzPackage(Sdf.AssetPath("midground_raw.usdc"), "midground.usdz")
     ```
     Validate with `tools/validate_locusplace.py`.
-- **`ambientAnimations` on Views** (Locus 1.6.0+ / protocol `minimumAppVersion
-  >= "1.5.2"`, capability `locus.view.ambient-animations.v1`): optional
-  non-empty top-level `destination.json` array driving named skeletal or
-  transform clips inside `midground.path` with the same entry schema as Room
-  `ambientAnimations` (`id`, `displayName`, `entityName`, `animationName`,
-  `isEnabledByDefault`, `defaultSpeed`, `speedRange`, optional
-  `defaultIntervalRangeSeconds` and `intervalRangeSeconds`; localized via
-  `localizations.<lang>.animationTitles.<id>`). Entities must resolve in
-  `midground.path` and stay disjoint from `midground.terrainEntities`; they are
-  retained even if a legacy Room sets `viewMidgroundVisibility` to
-  `terrainOnly`/`hidden` and bypass static-prop keep-out. Counts as an Animated
-  View.
-- **`interactiveStates` on Views** (Locus 1.6.0+ / protocol `minimumAppVersion
-  >= "1.5.2"`, capability `locus.view.interactive-states.v1`): optional
-  top-level `destination.json` array of `1..16` multi-state controls acting on
-  `midground.path` props using the same `poses`, `keyframes`, and `emissives`
-  schema as Room `interactiveStates` (`schemas/room-interactive-states-v1.schema.json`,
-  localized via `localizations.<lang>.interactiveTitles`), **except
-  `states[].particleEffects` is unsupported on Views**. All referenced entities
-  must resolve in `midground.path` and stay disjoint from `terrainEntities`;
-  pose entities must stay disjoint from `ambientAnimations`. Works in both
-  Virtual Space and Room Portal via 3D gaze + pinch cycling and **Current Place**
-  / **Edit View** state pills; does not mark the View as continuously animated.
+
+## View midground animations (`ambientAnimations`, Locus 1.6.0+ / protocol `1.5.2+`)
+
+Add an optional non-empty top-level `ambientAnimations` array to
+`destination.json` when a View's `midground.path` USDZ carries independently
+playable skeletal or transform animation loops (for example swaying chimes,
+drifting boats, turning windmills, or gentle wildlife motion). Set
+`minimumAppVersion >= "1.5.2"` in `locusplace.json` (Library capability
+`locus.view.ambient-animations.v1` alongside `locus.view.midground.v1`).
+
+```json
+{
+  "midground": {
+    "path": "midground.usdz",
+    "terrainEntities": ["Terrain_Shore"]
+  },
+  "ambientAnimations": [
+    {
+      "id": "windmill-blades",
+      "displayName": "Windmill Blades",
+      "entityName": "Midground_Windmill_Rotor",
+      "animationName": "Rotor_Spin",
+      "isEnabledByDefault": true,
+      "defaultSpeed": 1.0,
+      "speedRange": [0.25, 2.0],
+      "defaultIntervalRangeSeconds": [0.0, 0.0],
+      "intervalRangeSeconds": [0.0, 60.0]
+    }
+  ],
+  "localizations": {
+    "zh-Hans": {
+      "animationTitles": {
+        "windmill-blades": "风车叶片"
+      }
+    }
+  }
+}
+```
+
+- **Blender & USDZ export rules:** Author the animation clip cleanly on a
+  dedicated named object/subtree inside `midground.usdz`, verify that
+  `entityName` resolves to one unique prim and `animationName` resolves on its
+  USDZ subtree at load/import preflight, and keep the animated subtree disjoint
+  from `midground.terrainEntities` and from any `interactiveStates` pose entity.
+  Avoid USD native instances (`instanceable = true`) and time-sampled topology.
+- **Intervals:** `defaultIntervalRangeSeconds` defaults to `[0, 0]` (continuous
+  looping) and `intervalRangeSeconds` defaults to `[0, 60]`. Use a non-zero
+  interval range for occasional accents (for example passing birds or jumping
+  koi) so playback rests between cycles.
+- **Room composition & keep-out:** Compatible with `midground.skyEntities`.
+  Animated midground subtrees bypass static-prop keep-out (`keepsOut`) and Room
+  floor-target occlusion, and remain retained even if a legacy Room sets the
+  deprecated `viewMidgroundVisibility` to `"terrainOnly"` or `"hidden"`.
+- **Visitor controls & motion gate:** Declaring `ambientAnimations` marks the
+  View as an **Animated View**. Playback runs only while the View's Animated
+  View switch is on, the app is foregrounded, system Reduce Motion is off, and
+  the animation's own **Enabled** toggle is on. Visitors adjust **Enabled**,
+  **Speed**, and **Interval** in **Current Place**, **Settings**, and **Edit
+  View**. Explicit JSON `null` and empty arrays are rejected.
+
+## View interactive items (`interactiveStates`, Locus 1.6.0+ / protocol `1.5.2+`)
+
+Add an optional top-level `interactiveStates` array (`1..16` controls, `2..8`
+states each) to `destination.json` when a View's `midground.path` USDZ includes
+props visitors can gaze at and pinch or switch from UI—such as garden gates,
+bridge lanterns, dock beacons, shutters, or multi-stage mechanisms. Set
+`minimumAppVersion >= "1.5.2"` in `locusplace.json` (Library capability
+`locus.view.interactive-states.v1` alongside `locus.view.midground.v1`).
+
+Each control follows the same `poses`, `keyframes`, `fromStateIDs`, and
+`emissives` schema as Room `interactiveStates`
+(`schemas/room-interactive-states-v1.schema.json`), **except
+`states[].particleEffects` is unsupported on Views**:
+
+```json
+{
+  "midground": {
+    "path": "midground.usdz",
+    "terrainEntities": ["Terrain_Shore"]
+  },
+  "interactiveStates": [
+    {
+      "id": "dock-lantern",
+      "displayName": "Dock Lantern",
+      "kind": "mechanism",
+      "targetEntities": ["DockLantern_Frame", "DockLantern_Post"],
+      "defaultStateID": "warm",
+      "states": [
+        {
+          "id": "off",
+          "displayName": "Off",
+          "emissives": [{"entityName": "DockLantern_Core", "scale": 0.0}]
+        },
+        {
+          "id": "warm",
+          "displayName": "Warm",
+          "emissives": [{"entityName": "DockLantern_Core", "scale": 1.0}]
+        },
+        {
+          "id": "beacon",
+          "displayName": "Beacon",
+          "poses": [
+            {
+              "entityName": "DockLantern_Hood",
+              "rotation": {"axis": [0, 1, 0], "angleDegrees": 35},
+              "durationSeconds": 0.5,
+              "timing": "easeInOut"
+            }
+          ],
+          "emissives": [{"entityName": "DockLantern_Core", "scale": 2.2}]
+        }
+      ]
+    }
+  ],
+  "localizations": {
+    "zh-Hans": {
+      "interactiveTitles": {
+        "dock-lantern": "码头提灯",
+        "dock-lantern.off": "关闭",
+        "dock-lantern.warm": "柔光",
+        "dock-lantern.beacon": "强光"
+      }
+    }
+  }
+}
+```
+
+- **Coordinate space & pivots:** `poses[].translationMeters` and
+  `poses[].rotation.axis` are evaluated in exported USD / RealityKit **+Y up,
+  -Z forward** space relative to each entity's rest transform under its parent:
+  Blender `(+X, +Y, +Z)` maps to USD `(+X, -Z, +Y)` (rotations around Blender
+  `X/Y/Z` map to USD `[1, 0, 0]`, `[0, 0, -1]`, `[0, 1, 0]`). Place each
+  rotating or sliding part's Blender origin at its mechanical pivot.
+- **Disjointness & hit targets:** Every `targetEntities`, `poses[].entityName`,
+  and `emissives[].entityName` must resolve inside `midground.path` and stay
+  disjoint from `midground.terrainEntities`. Pose entities must stay disjoint
+  (no overlap or shared USD ancestry) from `ambientAnimations`. Target entities
+  (`1..16` per control, pairwise disjoint across controls) must bear renderable
+  meshes; avoid targeting large clear glass panes that block the vista behind
+  them. Every `emissives[].entityName` must carry a positive authored
+  `PhysicallyBasedMaterial` emission (`Emission Color > 0` and
+  `Emission Strength > 0`) in USDZ, scaled to `0.0` in `"off"` states.
+- **Room composition & visitor interaction:** Compatible with
+  `midground.skyEntities`, bypasses static-prop keep-out (`keepsOut`) and Room
+  floor-target occlusion, and remains visible under legacy Rooms that set
+  `viewMidgroundVisibility`. Works in both **Virtual Space** and **Room
+  Portal**: gazing at and pinching any `targetEntities` mesh cycles through
+  `states[]` (`(index + 1) % count`), and **Current Place** / **Edit View**
+  expose direct state pill buttons (persisting non-default choices and snapping
+  initial state without transition animation; live changes respect Animated
+  View / Reduce Motion). Unlike `ambientAnimations`, `interactiveStates` does
+  **not** mark a View as continuously animated.
+- **Validate against Locus 1.6.0:**
+  ```sh
+  python3 tools/pack_locusplace.py --current-app-version 1.6.0 /abs/path/to/MyViewSrc /abs/path/to/MyView.locusplace
+  python3 tools/validate_locusplace.py --current-app-version 1.6.0 /abs/path/to/MyView.locusplace
+  ```
 
 ## Downloadable Blender source examples
 

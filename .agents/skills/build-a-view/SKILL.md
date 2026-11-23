@@ -1,6 +1,6 @@
 ---
 name: build-a-view
-description: Create, repair, and package a Locus View — from native-density full-sphere static skyboxes to complete Package v2 Views with 3D midground and flowing water, realtime water and computed surf (`shore`), procedural night skies, painted clouds, 24-hour `sunPath` day/night blends, looping panorama video, fireflies, point lights, spatial sound, and `celestial`, `nearOrbit`, and `blackHole` profiles. Excludes Room-only authoring (`build-original-locus-room`).
+description: Create, repair, and package a Locus View — from native-density full-sphere static skyboxes to complete Package v2 Views with 3D midground (including `skyRadiusMeters` up to 1600 m, `ambientAnimations`, `interactiveStates`, and `flowingWater`), realtime water and computed surf (`shore`), procedural night skies, painted clouds, 24-hour `sunPath` day/night blends, looping panorama video, fireflies, point lights, spatial sound, and `celestial`, `nearOrbit`, and `blackHole` profiles. Excludes Room-only authoring (`build-original-locus-room`).
 ---
 
 # Build a View
@@ -28,7 +28,7 @@ Read only the references needed for the capabilities the creator asks for:
 | Panorama looping video (`media` + `media.dayNight`), `fireflies`, `pointLights`, and View spatial `sound` | [Video, atmosphere, and sound](references/video-atmosphere-and-sound.md) |
 | Space and orbital profiles (`blackHole`, `celestial` v1/v2, `nearOrbit` v1/v2) | [Space and black hole Views](references/space-and-black-hole.md) |
 
-A clone of `EnterLocus/locus-support` also carries complete offline format specs (`reference/locusplace-format.md` and `reference/locus-asset-format.md`), JSON Schemas (`schemas/locusplace-v1.schema.json`, `schemas/provenance-v1.schema.json`, `schemas/view-celestial-v1.schema.json`, `schemas/view-celestial-v2.schema.json`, `schemas/view-near-orbit-v1.schema.json`, `schemas/view-near-orbit-v2.schema.json`, `schemas/view-black-hole-v1.schema.json`), and a stdlib package-builder reference (`examples/locusplace/build_examples.py`). See [Package v2 delivery](references/package-v2-delivery.md) for which scripts under `tools/` are CLIs versus importable Python helpers.
+A clone of `EnterLocus/locus-support` also carries complete offline format specs (`reference/locusplace-format.md` and `reference/locus-asset-format.md`), JSON Schemas (`schemas/locusplace-v1.schema.json`, `schemas/provenance-v1.schema.json`, `schemas/room-interactive-states-v1.schema.json`, `schemas/view-celestial-v1.schema.json`, `schemas/view-celestial-v2.schema.json`, `schemas/view-near-orbit-v1.schema.json`, `schemas/view-near-orbit-v2.schema.json`, `schemas/view-black-hole-v1.schema.json`), and a stdlib package-builder reference (`examples/locusplace/build_examples.py`). See [Package v2 delivery](references/package-v2-delivery.md) for which scripts under `tools/` are CLIs versus importable Python helpers.
 
 For a static skybox, use exactly two creator checkpoints below. Read
 [the workflow](references/skybox-workflow.md) for image processing,
@@ -148,11 +148,13 @@ Finished Locus Views are published as worked examples. The manifest is
 `minimumAppVersion`, `url`, `byteCount`, `sha256`), and usually `source: null`.
 View feature ids are `video` (looping video regions), `water`, `flowing-water`,
 `shore`, `midground` (3D midground USDZ), `day-night`, `procedural-sky`,
-`celestial`, `clouds` (animated cloud sea), `particles`, and `sound`. Those
+`celestial`, `clouds` (animated cloud sea), `particles`, `interactive-states`
+(pinch-operable midground props, Locus 1.6.0+), and `sound`. Those
 features correspond directly to the capability references in this skill; use
 these packages to study how a finished View structures its assets, `destination.json`,
 thumbnail, appearance, and `provenance.json`. Room-only ids such as `room-tv`
-(Room TVs) are explained in the build-original-locus-room skill.
+(Room TVs) and `baked-irradiance` (v14 baked irradiance lightmaps) are explained
+in the build-original-locus-room skill.
 
 A record may also have `upcoming`: a newer revision for a Locus `appVersion`
 that is not public yet, with its own `package`, `source`, `features` and

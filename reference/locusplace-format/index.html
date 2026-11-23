@@ -14,7 +14,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
   <header class="site-header"><a class="brand" href="../../" aria-label="Locus home"><span class="brand-mark" aria-hidden="true"><span></span></span><span>Locus</span></a><nav aria-label="Primary navigation"><a href="../../whats-new/">What’s New</a><a href="../../gallery/">Gallery</a><a aria-current="page" href="../../tutorials/">Tutorials</a><a href="../../faq/">FAQ</a><a href="../../support/">Support</a><a href="https://www.reddit.com/r/EnterLocus/">Community</a><button class="search-trigger" type="button" hidden aria-haspopup="dialog"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg>Search</button></nav></header>
-  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="complete-locus-package-v2-authoring" tabindex="-1">Complete Locus Package v2 authoring</h1><div class="reference-tools"><a class="reference-download" href="../locusplace-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#start-with-a-working-complete-package">Start with a working complete package</a></li><li class="reference-toc-level-2"><a href="#archive-layout">Archive layout</a></li><li class="reference-toc-level-2"><a href="#locusplacejson">locusplace.json</a></li><li class="reference-toc-level-3"><a href="#envelope-field-reference">Envelope field reference</a></li><li class="reference-toc-level-2"><a href="#remove-an-imported-package">Remove an imported package</a></li><li class="reference-toc-level-2"><a href="#package-v2-metadata-inside-the-zip">Package-v2 metadata inside the ZIP</a></li><li class="reference-toc-level-3"><a href="#view-destinationjson">View: destination.json</a></li><li class="reference-toc-level-3"><a href="#room-spacejson">Room: space.json</a></li><li class="reference-toc-level-3"><a href="#experience-experiencejson">Experience: experience.json</a></li><li class="reference-toc-level-2"><a href="#optional-capabilities-and-translated-labels">Optional capabilities and translated labels</a></li><li class="reference-toc-level-3"><a href="#room-tvs">Room TVs</a></li><li class="reference-toc-level-3"><a href="#room-interactive-states">Room interactive states</a></li><li class="reference-toc-level-2"><a href="#required-provenance">Required provenance</a></li><li class="reference-toc-level-2"><a href="#security-and-resource-budgets">Security and resource budgets</a></li><li class="reference-toc-level-2"><a href="#files-and-url-acquisition">Files and URL acquisition</a></li><li class="reference-toc-level-2"><a href="#package-validation-and-examples">Package validation and examples</a></li><li class="reference-toc-level-3"><a href="#worked-examples-from-the-gallery">Worked examples from the Gallery</a></li></ol></details>
+  <main data-pagefind-body id="main" class="page-main reference-page"><article class="reference-content"><p class="kicker">Technical reference</p><h1 id="complete-locus-package-v2-authoring" tabindex="-1">Complete Locus Package v2 authoring</h1><div class="reference-tools"><a class="reference-download" href="../locusplace-format.md" download>Download Markdown</a></div><details class="reference-toc" open><summary>On this page</summary><ol><li class="reference-toc-level-2"><a href="#start-with-a-working-complete-package">Start with a working complete package</a></li><li class="reference-toc-level-2"><a href="#archive-layout">Archive layout</a></li><li class="reference-toc-level-2"><a href="#locusplacejson">locusplace.json</a></li><li class="reference-toc-level-3"><a href="#envelope-field-reference">Envelope field reference</a></li><li class="reference-toc-level-2"><a href="#remove-an-imported-package">Remove an imported package</a></li><li class="reference-toc-level-2"><a href="#package-v2-metadata-inside-the-zip">Package-v2 metadata inside the ZIP</a></li><li class="reference-toc-level-3"><a href="#view-destinationjson">View: destination.json</a></li><li class="reference-toc-level-3"><a href="#room-spacejson">Room: space.json</a></li><li class="reference-toc-level-3"><a href="#experience-experiencejson">Experience: experience.json</a></li><li class="reference-toc-level-2"><a href="#optional-capabilities-and-translated-labels">Optional capabilities and translated labels</a></li><li class="reference-toc-level-3"><a href="#room-tvs">Room TVs</a></li><li class="reference-toc-level-3"><a href="#room-interactive-states">Room interactive states</a></li><li class="reference-toc-level-3"><a href="#view-midground-animations-and-interactive-states">View midground animations and interactive states</a></li><li class="reference-toc-level-2"><a href="#required-provenance">Required provenance</a></li><li class="reference-toc-level-2"><a href="#security-and-resource-budgets">Security and resource budgets</a></li><li class="reference-toc-level-2"><a href="#files-and-url-acquisition">Files and URL acquisition</a></li><li class="reference-toc-level-2"><a href="#package-validation-and-examples">Package validation and examples</a></li><li class="reference-toc-level-3"><a href="#worked-examples-from-the-gallery">Worked examples from the Gallery</a></li></ol></details>
 <p>Status: canonical publication, storage, composition and feature-complete import
 contract. Locus 1.2.1 and later accept this archive from Files or a public HTTPS
 URL for both View and Room imports. The older flat format in
@@ -1002,6 +1002,94 @@ python3 tools/check_room.py --current-app-version 1.5.1 \
 and the <a href="../../schemas/room-interactive-states-v1.schema.json">Room interactive states schema</a>
 for full field bounds, <code>keyframes</code> choreography, and Blender-to-USDZ axis
 conventions.</p>
+<h3 id="view-midground-animations-and-interactive-states" tabindex="-1">View midground animations and interactive states</h3>
+<p>Views with a 3D <code>midground.path</code> USDZ can add independently controllable
+<code>ambientAnimations</code> and pinch-operable <code>interactiveStates</code> in
+<code>destination.json</code> (protocol floor <code>minimumAppVersion &gt;= &quot;1.5.2&quot;</code>, shipped
+publicly in Locus 1.6.0):</p>
+<pre><code class="language-json">{
+  &quot;midground&quot;: {
+    &quot;path&quot;: &quot;midground.usdz&quot;,
+    &quot;terrainEntities&quot;: [&quot;Terrain_Shore&quot;]
+  },
+  &quot;ambientAnimations&quot;: [
+    {
+      &quot;id&quot;: &quot;wind-chimes&quot;,
+      &quot;displayName&quot;: &quot;Porch Wind Chimes&quot;,
+      &quot;entityName&quot;: &quot;Midground_WindChimes&quot;,
+      &quot;animationName&quot;: &quot;Chimes_Sway&quot;,
+      &quot;isEnabledByDefault&quot;: true,
+      &quot;defaultSpeed&quot;: 1.0,
+      &quot;speedRange&quot;: [0.25, 2.0],
+      &quot;defaultIntervalRangeSeconds&quot;: [0.0, 0.0],
+      &quot;intervalRangeSeconds&quot;: [0.0, 60.0]
+    }
+  ],
+  &quot;interactiveStates&quot;: [
+    {
+      &quot;id&quot;: &quot;lantern-post&quot;,
+      &quot;displayName&quot;: &quot;Path Lantern&quot;,
+      &quot;kind&quot;: &quot;mechanism&quot;,
+      &quot;targetEntities&quot;: [&quot;Lantern_Frame&quot;, &quot;Lantern_Switch&quot;],
+      &quot;defaultStateID&quot;: &quot;dim&quot;,
+      &quot;states&quot;: [
+        {
+          &quot;id&quot;: &quot;off&quot;,
+          &quot;displayName&quot;: &quot;Off&quot;,
+          &quot;emissives&quot;: [{&quot;entityName&quot;: &quot;Lantern_Glass_Glow&quot;, &quot;scale&quot;: 0.0}]
+        },
+        {
+          &quot;id&quot;: &quot;dim&quot;,
+          &quot;displayName&quot;: &quot;Warm Glow&quot;,
+          &quot;emissives&quot;: [{&quot;entityName&quot;: &quot;Lantern_Glass_Glow&quot;, &quot;scale&quot;: 1.0}]
+        },
+        {
+          &quot;id&quot;: &quot;bright&quot;,
+          &quot;displayName&quot;: &quot;Bright&quot;,
+          &quot;emissives&quot;: [{&quot;entityName&quot;: &quot;Lantern_Glass_Glow&quot;, &quot;scale&quot;: 2.0}]
+        }
+      ]
+    }
+  ],
+  &quot;localizations&quot;: {
+    &quot;zh-Hans&quot;: {
+      &quot;animationTitles&quot;: {
+        &quot;wind-chimes&quot;: &quot;风铃摆动&quot;
+      },
+      &quot;interactiveTitles&quot;: {
+        &quot;lantern-post&quot;: &quot;庭院灯笼&quot;,
+        &quot;lantern-post.off&quot;: &quot;关闭&quot;,
+        &quot;lantern-post.dim&quot;: &quot;微亮&quot;,
+        &quot;lantern-post.bright&quot;: &quot;明亮&quot;
+      }
+    }
+  }
+}
+</code></pre>
+<ul>
+<li><strong>Disjointness &amp; bindings:</strong> Every <code>entityName</code>, <code>targetEntities</code> entry,
+<code>poses[].entityName</code>, and <code>emissives[].entityName</code> must resolve inside
+<code>midground.path</code> and stay disjoint from <code>midground.terrainEntities</code>. Pose
+entities in <code>interactiveStates</code> must stay disjoint from <code>ambientAnimations</code>.
+Unlike Room <code>interactiveStates</code>, <strong><code>states[].particleEffects</code> is unsupported
+on Views</strong>.</li>
+<li><strong>Room composition:</strong> Both <code>ambientAnimations</code> and <code>interactiveStates</code>
+subtrees work with <code>midground.skyEntities</code>, bypass static-prop keep-out, and
+remain visible even when a legacy Room sets <code>viewMidgroundVisibility</code> to
+<code>&quot;terrainOnly&quot;</code> or <code>&quot;hidden&quot;</code>.</li>
+<li><strong>Visitor interaction:</strong> <code>ambientAnimations</code> counts as an Animated View and
+exposes Enabled, Speed, and Interval controls in <strong>Current Place</strong>,
+<strong>Settings</strong>, and <strong>Edit View</strong> (respecting the Animated View switch and
+Reduce Motion). <code>interactiveStates</code> works in both <strong>Virtual Space</strong> and
+<strong>Room Portal</strong> via 3D gaze + pinch cycling and <strong>Current Place</strong> /
+<strong>Edit View</strong> state pills, without marking the View as continuously animated.</li>
+</ul>
+<p>Validate against <code>1.6.0</code> (or the <code>1.5.2</code> protocol floor):</p>
+<pre><code class="language-sh">python3 tools/pack_locusplace.py --current-app-version 1.6.0 MyEditableView MyView.locusplace
+python3 tools/validate_locusplace.py --current-app-version 1.6.0 MyView.locusplace
+</code></pre>
+<p>See <a href="../locus-asset-format#view-sky-radius-midground-animations-and-interactive-states-locus-160-protocol-151152">View sky radius, midground animations, and interactive states</a>
+for complete constraints.</p>
 <h2 id="required-provenance" tabindex="-1">Required provenance</h2>
 <p>Every imported Destination and Space points to a provenance JSON document.
 It records the creator/agency, exactly one of a license or an
