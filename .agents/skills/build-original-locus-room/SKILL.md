@@ -287,11 +287,14 @@ use it freely as a template for the creator's own Room.
   know its newest fields yet. At release closeout the upcoming revision becomes
   the main entry.
 - **Features:** pick examples by `features`. Room-relevant ids are
-  `light-layers` (baked, switchable lamp layers), `generated-furniture`
-  (image-to-3D furniture inside the Room), `room-animation` (authored USDZ
-  animation), `music`, `sound` (spatial ambient sources), `particles` (fire or
-  fireflies), `room-tv` (Room TVs, Locus 1.5.0), `water`, and
-  `flowing-water`. View ids are listed in the build-a-view skill.
+  `light-layers` (baked, switchable lamp layers), `baked-irradiance` (albedo-free
+  `mode: "irradiance"` lightmaps keeping full-res surface textures crisp, Locus
+  1.6.0+), `interactive-states` (pinch-operable doors, louvers, or multi-stage
+  hearths, Locus 1.6.0+), `generated-furniture` (image-to-3D furniture inside the
+  Room), `room-animation` (authored USDZ animation), `music`, `sound` (spatial
+  ambient sources), `particles` (fire or fireflies), `room-tv` (Room TVs, Locus
+  1.5.0), `water`, and `flowing-water`. View ids are listed in the build-a-view
+  skill.
 - **Fetch and inspect:** check `byteCount` first (source bundles can exceed
   1 GB) and download only what the brief needs, into scratch space outside the
   creator's deliverable:

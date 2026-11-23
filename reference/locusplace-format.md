@@ -641,6 +641,101 @@ and the [Room interactive states schema](../schemas/room-interactive-states-v1.s
 for full field bounds, `keyframes` choreography, and Blender-to-USDZ axis
 conventions.
 
+### View midground animations and interactive states
+
+Views with a 3D `midground.path` USDZ can add independently controllable
+`ambientAnimations` and pinch-operable `interactiveStates` in
+`destination.json` (protocol floor `minimumAppVersion >= "1.5.2"`, shipped
+publicly in Locus 1.6.0):
+
+```json
+{
+  "midground": {
+    "path": "midground.usdz",
+    "terrainEntities": ["Terrain_Shore"]
+  },
+  "ambientAnimations": [
+    {
+      "id": "wind-chimes",
+      "displayName": "Porch Wind Chimes",
+      "entityName": "Midground_WindChimes",
+      "animationName": "Chimes_Sway",
+      "isEnabledByDefault": true,
+      "defaultSpeed": 1.0,
+      "speedRange": [0.25, 2.0],
+      "defaultIntervalRangeSeconds": [0.0, 0.0],
+      "intervalRangeSeconds": [0.0, 60.0]
+    }
+  ],
+  "interactiveStates": [
+    {
+      "id": "lantern-post",
+      "displayName": "Path Lantern",
+      "kind": "mechanism",
+      "targetEntities": ["Lantern_Frame", "Lantern_Switch"],
+      "defaultStateID": "dim",
+      "states": [
+        {
+          "id": "off",
+          "displayName": "Off",
+          "emissives": [{"entityName": "Lantern_Glass_Glow", "scale": 0.0}]
+        },
+        {
+          "id": "dim",
+          "displayName": "Warm Glow",
+          "emissives": [{"entityName": "Lantern_Glass_Glow", "scale": 1.0}]
+        },
+        {
+          "id": "bright",
+          "displayName": "Bright",
+          "emissives": [{"entityName": "Lantern_Glass_Glow", "scale": 2.0}]
+        }
+      ]
+    }
+  ],
+  "localizations": {
+    "zh-Hans": {
+      "animationTitles": {
+        "wind-chimes": "风铃摆动"
+      },
+      "interactiveTitles": {
+        "lantern-post": "庭院灯笼",
+        "lantern-post.off": "关闭",
+        "lantern-post.dim": "微亮",
+        "lantern-post.bright": "明亮"
+      }
+    }
+  }
+}
+```
+
+- **Disjointness & bindings:** Every `entityName`, `targetEntities` entry,
+  `poses[].entityName`, and `emissives[].entityName` must resolve inside
+  `midground.path` and stay disjoint from `midground.terrainEntities`. Pose
+  entities in `interactiveStates` must stay disjoint from `ambientAnimations`.
+  Unlike Room `interactiveStates`, **`states[].particleEffects` is unsupported
+  on Views**.
+- **Room composition:** Both `ambientAnimations` and `interactiveStates`
+  subtrees work with `midground.skyEntities`, bypass static-prop keep-out, and
+  remain visible even when a legacy Room sets `viewMidgroundVisibility` to
+  `"terrainOnly"` or `"hidden"`.
+- **Visitor interaction:** `ambientAnimations` counts as an Animated View and
+  exposes Enabled, Speed, and Interval controls in **Current Place**,
+  **Settings**, and **Edit View** (respecting the Animated View switch and
+  Reduce Motion). `interactiveStates` works in both **Virtual Space** and
+  **Room Portal** via 3D gaze + pinch cycling and **Current Place** /
+  **Edit View** state pills, without marking the View as continuously animated.
+
+Validate against `1.6.0` (or the `1.5.2` protocol floor):
+
+```sh
+python3 tools/pack_locusplace.py --current-app-version 1.6.0 MyEditableView MyView.locusplace
+python3 tools/validate_locusplace.py --current-app-version 1.6.0 MyView.locusplace
+```
+
+See [View sky radius, midground animations, and interactive states](locus-asset-format/#view-sky-radius-midground-animations-and-interactive-states-locus-160-protocol-151152)
+for complete constraints.
+
 ## Required provenance
 
 Every imported Destination and Space points to a provenance JSON document.
