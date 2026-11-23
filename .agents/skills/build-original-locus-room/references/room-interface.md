@@ -168,13 +168,15 @@ non-empty `proxies` array, never both.
 - Point proxies cannot cast shadows. Spot angles satisfy
   `0 < innerAngleDegrees <= outerAngleDegrees <= 175`.
 - `bakedIndirect.entities`: positive-emissive opaque receiver subtrees only;
-  exclude glass, water, transmissive surfaces, fixture glow, and local halos.
-  In Locus 1.5.2+ (`minimumAppVersion: "1.5.2"` on Package v2 `formatVersion: 2`,
-  or flat `formatVersion: 14`), `bakedIndirect` may set `mode: "irradiance"`,
-  optional `irradianceScale` (`(0, 64]`, 16-bit PNG required when `> 1`), and
-  either per-group `layers` or single-atlas `image` so runtime multiplies
+  exclude glass, water, transmissive surfaces, pure metals, fixture glows, and
+  moving `interactiveStates` parts. In Locus 1.6.0+ (protocol floor
+  `minimumAppVersion: "1.5.2"` on Package v2 `formatVersion: 2`, or flat
+  `formatVersion: 14`), default to `mode: "irradiance"` with shared
+  `irradianceScale` (`(0, 64]`, 16-bit PNG required when `> 1`) and either
+  per-group `layers` or single-atlas `image` so runtime multiplies
   `irradiance(LocusIndirectUV) * baseColor(st)` without blurring `UV0` surface
-  textures.
+  textures. Keep a combined radiance fallback atlas on `scene.usdz`
+  `emissiveColor` (`UV1`) for Quick Look.
 
 For producing the indirect textures and checking glass material fidelity,
 follow [Lighting and glass](lighting-and-glass.md). Its export and appearance

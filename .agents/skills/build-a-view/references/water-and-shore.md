@@ -207,6 +207,9 @@ simulated shallow-water strip (`x: -32..32 m`, `z: -58..+6 m` in `shore.frame`,
     }
   }
   ```
-  Set `light.follow` to `"none"`, `"moon"` (requires `sky.moon`), or `"sun"`
-  (requires `environment.sunPath` or `environment.directSun.enabled: true`),
-  and match `sand.dry` / `sand.wet` to your terrain material at the waterline.
+  Set `light.follow` to `"none"`, `"moon"` (requires `sky.moon`; moonlight
+  water and wet-sand reflection width scales automatically with Moon Size in
+  Locus 1.6.0+), or `"sun"` (requires `environment.sunPath` or an enabled
+  `environment.directSun`), and match `sand.dry` / `sand.wet` to your terrain
+  material at the waterline. For expansive open-sea horizons, pair `shore` with
+  `skyRadiusMeters: 1600` (`1.5.1+`) and 3D coastal `midground.path` relief.

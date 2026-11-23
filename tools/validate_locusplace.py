@@ -217,6 +217,12 @@ FLOWING_WATER_PLUNGE_WIDTH_RANGE = (0.2, 20.0)
 FLOWING_WATER_PLUNGE_HEIGHT_RANGE = (0.3, 30.0)
 FLOWING_WATER_MAXIMUM_COORDINATE = 10000
 FLOWING_WATER_MAXIMUM_YAW_DEGREES = 360
+# View `ambientAnimations` (`locus.view.ambient-animations.v1`). Mirrors
+# DestinationManifest.ambientAnimationsMinimumAppVersion and runtime validation.
+VIEW_AMBIENT_ANIMATIONS_MINIMUM_APP = (1, 5, 2)
+# View `interactiveStates` (`locus.view.interactive-states.v1`). Mirrors
+# DestinationManifest.interactiveStatesMinimumAppVersion and runtime validation.
+VIEW_INTERACTIVE_STATES_MINIMUM_APP = (1, 5, 2)
 
 
 def requires_optional_view_openings_reader(spaces, experiences) -> bool:
@@ -2514,6 +2520,137 @@ def validate_midground_flowing_water(
         )
 
 
+def validate_destination_ambient_animations(
+    base: str,
+    animations: Any,
+    *,
+    has_path: bool,
+    minimum_app: tuple[int, int, int],
+    prim_names: set[str],
+    terrain_names: set[str],
+) -> None:
+    """View `ambientAnimations` (`locus.view.ambient-animations.v1`):
+    named USDZ animation loops in `midground.path`."""
+    require(
+        minimum_app >= VIEW_AMBIENT_ANIMATIONS_MINIMUM_APP,
+        "ambientAnimations requires minimumAppVersion >= 1.5.2",
+    )
+    context = f"{base}.ambientAnimations"
+    require(has_path, f"{context} requires midground.path")
+    require(
+        isinstance(animations, list) and len(animations) > 0
+        and all(isinstance(item, dict) for item in animations),
+        f"{context} must be a non-empty array",
+    )
+    identifiers: set[str] = set()
+    for index, animation in enumerate(animations):
+        entry_context = f"{context}[{index}]"
+        exact_keys(
+            animation,
+            required={
+                "id", "displayName", "entityName", "animationName",
+                "isEnabledByDefault", "defaultSpeed", "speedRange",
+            },
+            optional={"defaultIntervalRangeSeconds", "intervalRangeSeconds"},
+            context=entry_context,
+        )
+        anim_id = animation["id"]
+        require(valid_identifier(anim_id), f"{entry_context}.id is invalid")
+        require(anim_id not in identifiers, f"{context}.id is duplicated: {anim_id}")
+        identifiers.add(anim_id)
+        for field in ("displayName", "entityName", "animationName"):
+            require_text(animation[field], f"{entry_context}.{field}", 200)
+        require(
+            type(animation["isEnabledByDefault"]) is bool,
+            f"{entry_context}.isEnabledByDefault must be boolean",
+        )
+        speed_range = animation["speedRange"]
+        require(
+            isinstance(speed_range, list) and len(speed_range) == 2
+            and all(is_finite_number(v) and 0.25 <= v <= 2.0 for v in speed_range)
+            and speed_range[0] <= speed_range[1],
+            f"{entry_context}.speedRange is invalid",
+        )
+        default_speed = animation["defaultSpeed"]
+        require(
+            is_finite_number(default_speed)
+            and speed_range[0] <= default_speed <= speed_range[1],
+            f"{entry_context}.defaultSpeed is invalid",
+        )
+        raw_default_interval = animation.get("defaultIntervalRangeSeconds", [0, 0])
+        raw_interval_range = animation.get("intervalRangeSeconds", [0, 60])
+        for interval_field, pair in (
+            ("defaultIntervalRangeSeconds", raw_default_interval),
+            ("intervalRangeSeconds", raw_interval_range),
+        ):
+            require(
+                isinstance(pair, list) and len(pair) == 2
+                and all(is_finite_number(v) and 0.0 <= v <= 3_600.0 for v in pair)
+                and pair[0] <= pair[1],
+                f"{entry_context}.{interval_field} is invalid",
+            )
+        require(
+            raw_interval_range[0] <= raw_default_interval[0]
+            and raw_default_interval[1] <= raw_interval_range[1],
+            f"{entry_context}.defaultIntervalRangeSeconds exceeds its allowed range",
+        )
+        entity_name = animation["entityName"]
+        require(
+            entity_name not in terrain_names,
+            f"{context} entity {entity_name!r} overlaps midground.terrainEntities",
+        )
+        require(
+            entity_name in prim_names,
+            f"{context} entity {entity_name!r} matches no prim in the midground USDZ",
+        )
+
+
+def validate_destination_interactive_states(
+    base: str,
+    controls: Any,
+    *,
+    has_path: bool,
+    minimum_app: tuple[int, int, int],
+    prim_names: set[str],
+    terrain_names: set[str],
+    ambient_animation_entities: set[str],
+) -> None:
+    """View `interactiveStates` (`locus.view.interactive-states.v1`):
+    author-declared poses and emissives on `midground.path` props."""
+    require(
+        minimum_app >= VIEW_INTERACTIVE_STATES_MINIMUM_APP,
+        "Destination interactiveStates requires minimumAppVersion >= 1.5.2",
+    )
+    context = f"{base}.interactiveStates"
+    require(has_path, f"{context} requires midground.path")
+    referenced_entities = validate_room_interactive_states(
+        base,
+        controls,
+        minimum_app=minimum_app,
+        lighting=None,
+        tvs=None,
+        particle_effects=None,
+        require_known_particles=True,
+    )
+    for name in referenced_entities:
+        require(
+            name not in terrain_names,
+            f"{context} entity {name!r} overlaps midground.terrainEntities",
+        )
+        require(
+            name in prim_names,
+            f"{context} entity {name!r} matches no prim in the midground USDZ",
+        )
+    for control in controls:
+        for state in control["states"]:
+            for pose in state.get("poses") or []:
+                entity_name = pose["entityName"]
+                require(
+                    entity_name not in ambient_animation_entities,
+                    f"{context} pose entity {entity_name!r} overlaps ambientAnimations",
+                )
+
+
 def validate_room_flowing_water(
     base: str, flows: Any, *, minimum_app: tuple[int, int, int],
     texture_flow_names: list[str],
@@ -3106,7 +3243,7 @@ def validate_payload(
             "videoTitles": title_ids(destination.get("videoSurfaces")),
             "particleTitles": title_ids(destination.get("particleEffects")),
             "tvTitles": set(),
-            "interactiveTitles": set(),
+            "interactiveTitles": interactive_state_title_ids(destination.get("interactiveStates")),
         })
         for field in ("depthLayers", "splat", "audio"):
             require(
@@ -3657,6 +3794,20 @@ def validate_payload(
                     "point-lights table byte limit")
             validate_point_lights_table(
                 decoded_member(archive, infos[table_path], table_path), require)
+        if "skyRadiusMeters" in destination:
+            require(
+                parse_version(manifest["minimumAppVersion"], "minimumAppVersion") >= (1, 5, 1),
+                "skyRadiusMeters requires minimumAppVersion >= 1.5.1",
+            )
+            sky_radius_meters = destination["skyRadiusMeters"]
+            require(
+                is_finite_number(sky_radius_meters) and 80.0 <= float(sky_radius_meters) <= 1600.0,
+                f"{base}.skyRadiusMeters must be a finite number in [80, 1600]",
+            )
+            require(
+                all(destination.get(field) is None for field in ("celestial", "nearOrbit", "blackHole")),
+                "skyRadiusMeters cannot coexist with celestial, nearOrbit or blackHole",
+            )
         provenance_path = referenced_asset(
             base, destination.get("provenance"), "provenance"
         )
@@ -3827,6 +3978,7 @@ def validate_payload(
             require(isinstance(depth, dict), f"{base}.depthLayers[{index}] must be an object")
             referenced_asset(base, depth.get("path"), f"depthLayers[{index}].path")
         midground = destination.get("midground")
+        midground_prim_names: set[str] = set()
         if midground is not None:
             require(
                 parse_version(manifest["minimumAppVersion"], "minimumAppVersion")
@@ -3950,6 +4102,40 @@ def validate_payload(
                 validate_midground_water(
                     base, water, archive, infos, referenced_asset,
                     account_midground_image)
+        if "ambientAnimations" in destination:
+            terrain_names = (
+                midground.get("terrainEntities")
+                if isinstance(midground, dict) else None
+            )
+            validate_destination_ambient_animations(
+                base,
+                destination["ambientAnimations"],
+                has_path=isinstance(midground, dict) and midground.get("path") is not None,
+                minimum_app=parse_version(
+                    manifest["minimumAppVersion"], "minimumAppVersion"),
+                prim_names=midground_prim_names,
+                terrain_names=set(terrain_names) if isinstance(terrain_names, list) else set(),
+            )
+        if "interactiveStates" in destination:
+            terrain_names = (
+                midground.get("terrainEntities")
+                if isinstance(midground, dict) else None
+            )
+            ambient_entities = {
+                item.get("entityName")
+                for item in (destination.get("ambientAnimations") or [])
+                if isinstance(item, dict) and isinstance(item.get("entityName"), str)
+            }
+            validate_destination_interactive_states(
+                base,
+                destination["interactiveStates"],
+                has_path=isinstance(midground, dict) and midground.get("path") is not None,
+                minimum_app=parse_version(
+                    manifest["minimumAppVersion"], "minimumAppVersion"),
+                prim_names=midground_prim_names,
+                terrain_names=set(terrain_names) if isinstance(terrain_names, list) else set(),
+                ambient_animation_entities=ambient_entities,
+            )
         if "water" in destination:
             from water_contract import minimum_app, validate_definition
             require(not (destination.get('midground') or {}).get('water'),

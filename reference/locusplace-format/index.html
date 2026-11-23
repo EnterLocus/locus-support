@@ -397,6 +397,21 @@ numbers), <code>orientationXYZW</code> (four finite numbers with non-zero length
 <td>App-rendered water declaration, including validated mask/normal-map and optional shore data described in the <a href="../locus-asset-format">field reference</a>.</td>
 </tr>
 <tr>
+<td><code>skyRadiusMeters</code></td>
+<td style="text-align:right">no</td>
+<td>Optional skybox sphere radius in metres (<code>80...1600</code>), excluding <code>celestial</code>, <code>nearOrbit</code>, and <code>blackHole</code>; requires <code>1.5.1</code> (shipped publicly in Locus <code>1.6.0</code>).</td>
+</tr>
+<tr>
+<td><code>ambientAnimations</code></td>
+<td style="text-align:right">no</td>
+<td>Optional non-empty array of named skeletal or transform animation loops inside <code>midground.path</code> (disjoint from <code>midground.terrainEntities</code>); requires <code>1.5.2</code> (shipped publicly in Locus <code>1.6.0</code>).</td>
+</tr>
+<tr>
+<td><code>interactiveStates</code></td>
+<td style="text-align:right">no</td>
+<td>Optional array of 1–16 discrete multi-state controls driving <code>poses</code> and <code>emissives</code> on <code>midground.path</code> props (no <code>particleEffects</code>; disjoint from <code>midground.terrainEntities</code> and animated pose entities); requires <code>1.5.2</code> (shipped publicly in Locus <code>1.6.0</code>).</td>
+</tr>
+<tr>
 <td><code>media</code></td>
 <td style="text-align:right">no</td>
 <td>Panorama-mapped video/audio regions (<code>media.dayNight</code> adds per-video <code>lighting</code> and <code>emission</code> PNG maps bound to <code>sunPath.panoramaBlend</code>, requiring <code>1.4.11</code>).</td>
@@ -874,22 +889,20 @@ IDs; unresolved references fail the whole import.</p>
 <p>Add optional fields to their owning View or Room manifest, and include every
 referenced asset beside that manifest. The <a href="../locus-asset-format">field reference</a>
 covers media and masks (including <code>media.dayNight</code>), sound and Room music, midground
-(<code>skyEntities</code>, <code>windSway</code>, <code>textureFlow</code>, <code>flowingWater</code>), water, computed <code>shore</code>, sky,
+(<code>skyEntities</code>, <code>windSway</code>, <code>textureFlow</code>, <code>flowingWater</code>, View <code>ambientAnimations</code>, View <code>interactiveStates</code>), <code>skyRadiusMeters</code>, water, computed <code>shore</code>, sky,
 clouds, sun path (<code>daySky</code>, <code>panoramaGrade</code>, <code>light</code>, <code>panoramaBlend</code>), celestial bodies,
 near orbit, black holes, point lights, GPU texture sidecars, seats and groups, lights,
-animations, video surfaces, particles, baked light layers, Room <code>textureFlow</code>, Room <code>flowingWater</code>, <code>tvs</code>, and Room
+animations, video surfaces, particles, baked light layers and irradiance lightmaps, Room <code>textureFlow</code>, Room <code>flowingWater</code>, <code>tvs</code>, and Room
 <code>interactiveStates</code> (<code>1.5.1</code>+). It also defines <code>localizations</code> (including <code>interactiveTitles</code>), <code>provenanceDetail</code>, and the
-Room’s <code>viewGroundFloorOffsetMeters</code>, <code>viewGroundKeepOut</code>, <code>viewGroundFootprint</code>, and
-<code>viewMidgroundVisibility</code> controls.</p>
+Room’s <code>viewGroundFloorOffsetMeters</code>, <code>viewGroundKeepOut</code>, and <code>viewGroundFootprint</code> controls (<code>viewMidgroundVisibility</code> is deprecated for new Rooms).</p>
 <p>For example, these optional fields belong in an otherwise complete Room
 manifest, and require envelope <code>minimumAppVersion: &quot;1.4.4&quot;</code> or later (with
 <code>viewGroundFootprint</code> and <code>textureFlow</code> requiring <code>&quot;1.4.5&quot;</code> or later, <code>tvs</code> and
-<code>flowingWater</code> requiring <code>&quot;1.4.9&quot;</code> or later, and <code>interactiveStates</code> requiring
-<code>&quot;1.5.1&quot;</code> or later):</p>
+<code>flowingWater</code> requiring <code>&quot;1.4.9&quot;</code> or later, <code>interactiveStates</code> requiring
+<code>&quot;1.5.1&quot;</code> or later, and <code>bakedIndirect.mode: &quot;irradiance&quot;</code> requiring <code>&quot;1.5.2&quot;</code> or later):</p>
 <pre><code class="language-json">{
   &quot;viewGroundFloorOffsetMeters&quot;: 0.2,
-  &quot;viewGroundKeepOut&quot;: false,
-  &quot;viewMidgroundVisibility&quot;: &quot;terrainOnly&quot;
+  &quot;viewGroundKeepOut&quot;: true
 }
 </code></pre>
 <p>They keep their meaning for imported, bundled and Library content. Library

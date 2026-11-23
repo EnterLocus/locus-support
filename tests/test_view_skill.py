@@ -253,6 +253,9 @@ class BuildAViewSkillTests(unittest.TestCase):
                 "nearOrbit",
                 "blackHole",
                 "azimuthDegrees",
+                "skyRadiusMeters",
+                "ambientAnimations",
+                "interactiveStates",
             ):
                 with self.subTest(capability_term=required):
                     self.assertIn(required, combined)
@@ -1015,6 +1018,111 @@ def Xform "Root"
             EXAMPLES.json_bytes(proof)
         )
         self._pack_and_validate(editable_orbit, "near-orbit-v2")
+
+    def test_clean_room_large_sky_radius_and_view_ambient_and_interactive_states(self):
+        usda = """#usda 1.0
+(
+    defaultPrim = "Root"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def Xform "Root"
+{
+    def Material "LanternMat"
+    {
+        token outputs:surface.connect = </Root/LanternMat/Preview.outputs:surface>
+        def Shader "Preview"
+        {
+            uniform token info:id = "UsdPreviewSurface"
+            color3f inputs:diffuseColor = (0.3, 0.25, 0.2)
+            color3f inputs:emissiveColor = (1.0, 0.7, 0.3)
+            float inputs:roughness = 0.5
+            token outputs:surface
+        }
+    }
+
+    def Mesh "Terrain_Beach"
+    {
+        int[] faceVertexCounts = [3]
+        int[] faceVertexIndices = [0, 1, 2]
+        point3f[] points = [(-10, 0, -10), (10, 0, -10), (0, 0, -2)]
+    }
+
+    def Mesh "Boat_Idle"
+    {
+        int[] faceVertexCounts = [3]
+        int[] faceVertexIndices = [0, 1, 2]
+        point3f[] points = [(-1, 0, -8), (1, 0, -8), (0, 1, -8)]
+    }
+
+    def Mesh "Pier_Lantern" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        int[] faceVertexCounts = [3]
+        int[] faceVertexIndices = [0, 1, 2]
+        point3f[] points = [(2, 1, -6), (2.4, 1, -6), (2.2, 1.5, -6)]
+        rel material:binding = </Root/LanternMat>
+    }
+}
+"""
+        editable = self._prepare_view_dir(
+            "large-world-interactive",
+            "destination.clean-room-interactive-world",
+            minimum_app="1.5.2",
+            assets={"midground.usdz": _usdz_from_usda(usda)},
+            destination_extra={
+                "skyRadiusMeters": 1600,
+                "midground": {
+                    "path": "midground.usdz",
+                    "terrainEntities": ["Terrain_Beach"],
+                },
+                "ambientAnimations": [
+                    {
+                        "id": "boat-bob",
+                        "displayName": "Boat Motion",
+                        "entityName": "Boat_Idle",
+                        "animationName": "default subtree animation",
+                        "isEnabledByDefault": True,
+                        "defaultSpeed": 1.0,
+                        "speedRange": [0.5, 1.5],
+                    }
+                ],
+                "interactiveStates": [
+                    {
+                        "id": "pier-lantern",
+                        "displayName": "Pier Lantern",
+                        "kind": "mechanism",
+                        "targetEntities": ["Pier_Lantern"],
+                        "defaultStateID": "off",
+                        "states": [
+                            {
+                                "id": "off",
+                                "displayName": "Off",
+                                "emissives": [{"entityName": "Pier_Lantern", "scale": 0.0}],
+                            },
+                            {
+                                "id": "lit",
+                                "displayName": "Lit",
+                                "emissives": [{"entityName": "Pier_Lantern", "scale": 1.5}],
+                            },
+                        ],
+                    }
+                ],
+                "localizations": {
+                    "zh-Hans": {
+                        "animationTitles": {"boat-bob": "小船起伏"},
+                        "interactiveTitles": {
+                            "pier-lantern": "码头灯笼",
+                            "pier-lantern.off": "关闭",
+                            "pier-lantern.lit": "点亮",
+                        },
+                    }
+                },
+            },
+        )
+        self._pack_and_validate(editable, "large-world-interactive", app_version="1.6.0")
 
 
 if __name__ == "__main__":

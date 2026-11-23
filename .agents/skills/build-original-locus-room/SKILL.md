@@ -66,7 +66,9 @@ model or export a skybox sphere, curved backdrop/cyclorama, scenery card, or
 distant terrain mesh inside the Room's `scene.usdz`.
 
 Record the Room's intended purpose, each seat and its purpose, desk-backed
-seats, visitor-controlled lamps, optional TVs, animation or sound, and a rights
+seats, semantic luminaire groups (separating primary overheads from small
+mood/task/cove lamps so turning big lights off leaves a cozy evening scene),
+optional TVs, interactive features, animation or sound, and a rights
 inventory for every supplied or incorporated asset. Record material AI use
 truthfully in `provenance.json`: `aiGenerated: true` names every materially
 contributing generative provider in `aiProvider`; a DCC, renderer, exporter,
@@ -147,12 +149,22 @@ leaks, backwards fixtures, clipping, poor sightlines, or unusable desk space.
 Seat eye points belong in front of the backrest over the cushion, not at a
 chair center. Use [Materials and export](references/materials-and-export.md)
 for export-safe PBR and [Lighting and glass](references/lighting-and-glass.md)
-for controlled fixtures, receiving-surface light, or glazing. A lamp that only
-glows as a fixture is incomplete when the intended scene calls for it to light
-nearby architecture: bake its contribution into intentional opaque receiving
-surfaces. Use one baked layer per independently switchable, dimmable, or
-recolorable luminaire group; a single shared atlas is only appropriate for
-light that is controlled solely by Room master/overall EV.
+for controlled fixtures, baked irradiance lighting, and glazing. A lamp that
+only glows as a fixture is incomplete when the scene calls for it to light
+nearby architecture: bake each semantic luminaire group into its own
+`lighting.bakedIndirect.layers` image using **`mode: "irradiance"`** (Locus
+1.6.0+, protocol floor `minimumAppVersion: "1.5.2"`) so Locus multiplies
+albedo-free irradiance on `LocusIndirectUV` (`UV1`) by each material's
+full-resolution `baseColor` on `st` (`UV0`) at runtime—keeping stone, wood
+grain, rugs, and fabrics sharp when Room Lights turn on. Use the bundled
+standalone baker (`scripts/bake_irradiance.py`) and photometry checker
+(`scripts/audit_lighting_photometry.py`) to lint light groups, pack
+`LocusIndirectUV`, deduplicate indirect materials, bake sharp direct plus
+low-passed bounce passes into 16-bit sRGB PNGs with a shared `irradianceScale`,
+and verify zero highlight clipping and clear overhead-off mood contrast before
+packaging. A single shared atlas (`bakedIndirect.image`) is only appropriate
+when every lamp is controlled solely by Room master/overall EV, and legacy
+`mode: "radiance"` is only for untextured flat-palette Rooms or older targets.
 
 Model each TV screen as one flat 16:9 quad of its own, with its own UVs and a
 non-emissive off-state material, set a few millimetres in front of its frame.
@@ -160,11 +172,12 @@ Declare it in `tvs` and set `minimumAppVersion` to `1.4.9` or later, as
 described in [Room TVs](references/room-tvs.md).
 
 When the Room includes operable doors, motorized pergola louvers, or
-multi-stage fireplaces (`interactiveStates`, Locus 1.5.1 or later), keep
-moving parts and interactive emissive meshes outside `Locus_BakedIndirect`,
-exclude clear glass from `targetEntities`, follow the Blender-to-USDZ axis table,
-and declare `interactiveStates` plus `minimumAppVersion >= "1.5.1"`, as
-described in [Room interactive states](references/room-interactive-states.md).
+multi-stage fireplaces (`interactiveStates`, Locus 1.6.0+, protocol floor
+`minimumAppVersion: "1.5.1"`), keep moving parts and interactive emissive
+meshes outside `Locus_BakedIndirect`, exclude clear glass from `targetEntities`,
+follow the Blender-to-USDZ axis table, and declare `interactiveStates` plus
+`minimumAppVersion >= "1.5.1"`, as described in
+[Room interactive states](references/room-interactive-states.md).
 
 When the brief calls for fireplace flames (`particleEffects`), a Room pool or
 basin (`water`), waterfalls or cascades (`flowingWater`), UV-scrolling streams

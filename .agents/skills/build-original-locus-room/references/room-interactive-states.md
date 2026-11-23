@@ -1,10 +1,10 @@
-# Room Interactive States (`interactiveStates`, Locus 1.5.1+)
+# Room Interactive States (`interactiveStates`, Locus 1.6.0+ / protocol `1.5.1+`)
 
 Use this guide when a Room brief calls for operable doors, windows, motorized
 pergola louvers, fireplaces, fire tables, or other multi-stage mechanisms. Every
 contract below belongs to **Complete Package v2** (`.locusplace` / `.zip` with
-`minimumAppVersion >= "1.5.1"`); the flat compatibility ZIP cannot carry
-`interactiveStates`.
+protocol floor `minimumAppVersion >= "1.5.1"`, shipped publicly in Locus
+1.6.0); the flat compatibility ZIP cannot carry `interactiveStates`.
 
 Normative references:
 - [Complete Package v2 authoring — Room interactive states](https://enterlocus.com/reference/locusplace-format/#room-interactive-states)
@@ -117,9 +117,10 @@ When driving a fireplace or fire table with `particleEffects`:
     with `"fromStateIDs": ["breeze", "open"]`, then rotate the handle back with
     `delaySeconds: 0.68`.
 - **Staggered louvers (`kind: "louvers"`):** Give consecutive blades increasing
-  `delaySeconds` (`0.00, 0.045, ..., 0.405`), and list both the wall switch and
-  louvers (up to 16 total `targetEntities`) so visitors can pinch overhead slats
-  from lounge seats as well as at the wall switch.
+  `delaySeconds` (`0.00, 0.045, ..., 0.405`). Target only the dedicated switch
+  or disjoint perimeter/post entities you want to highlight on gaze (up to 16
+  total `targetEntities`) so looking toward the sky does not highlight an
+  entire overhead canopy unintentionally.
 
 ---
 
@@ -127,16 +128,17 @@ When driving a fireplace or fire table with `particleEffects`:
 
 1. Add `localizations.<lang>.interactiveTitles` with keys `"<controlID>"` and
    `"<controlID>.<stateID>"` for every language your Room ships.
-2. Set `"minimumAppVersion": "1.5.1"` (or higher) in `locusplace.json`.
-3. Pack and validate against `1.5.1`:
+2. Set `"minimumAppVersion": "1.5.1"` (or `"1.5.2"` when also using
+   `mode: "irradiance"` lightmaps) in `locusplace.json`.
+3. Pack and validate against Locus `1.6.0` (or the protocol floor `1.5.1`/`1.5.2`):
 
 ```sh
-python3 tools/pack_locusplace.py --current-app-version 1.5.1 /abs/path/to/MyRoomSrc /abs/path/to/MyRoom.locusplace
-python3 tools/validate_locusplace.py --current-app-version 1.5.1 /abs/path/to/MyRoom.locusplace
-python3 tools/check_room.py --current-app-version 1.5.1 --renders /abs/path/to/renders /abs/path/to/MyRoom.locusplace
+python3 tools/pack_locusplace.py --current-app-version 1.6.0 /abs/path/to/MyRoomSrc /abs/path/to/MyRoom.locusplace
+python3 tools/validate_locusplace.py --current-app-version 1.6.0 /abs/path/to/MyRoom.locusplace
+python3 tools/check_room.py --current-app-version 1.6.0 --renders /abs/path/to/renders /abs/path/to/MyRoom.locusplace
 ```
 
-4. On physical Apple Vision Pro (`1.5.1`+), verify gaze highlights trace only
+4. On physical Apple Vision Pro (`1.6.0`+), verify gaze highlights trace only
    frames/handles/switches (not clear glass), pinch-cycling visits every state
    in intuitive order, and **Current Place › Room Features** switches, previews,
    and saves defaults cleanly.

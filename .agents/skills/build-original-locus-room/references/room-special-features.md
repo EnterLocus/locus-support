@@ -52,7 +52,9 @@ For a **Room-owned pool, plunge basin, or reflecting tray** declared in
 - Declare top-level `water` in `space.json` (`1...4` `regions`, each with `id`,
   `pose` `{translationMeters, orientationXYZW}`, and `sizeMeters`, plus optional
   `shape`, `surface`, `optics`, `bed`, `blend`, `glow`, and
-  `reflectionRegistration`; keep water texture budgets within 64 MiB).
+  `reflectionRegistration`; keep water texture budgets within 64 MiB). For calm
+  Room pools and reflecting basins, use `surface.motion: "still"` rather than
+  `"ocean"` so the Room does not fight a paired coastal View's wave solver.
 - Set `minimumAppVersion` to `"1.3.0"` or later (higher if subfields require it;
   check with `tools/validate_locusplace.py`).
 - If outdoor View water passes beneath a Room terrace or infinity pool, prefer
@@ -212,9 +214,13 @@ View. Instead declare the Room's exact indoor/outdoor relationship in
 - **`viewGroundKeepOut`** (`1.4.4+`, default `true`): keep `true` for normal
   ground clipping; only set `false` when all occupied floors sit above the View
   ground and opaque Room geometry handles depth occlusion.
-- **`viewMidgroundVisibility`** (`1.4.4+`): `"all"` (default), `"terrainOnly"`,
-  or `"hidden"`. If hiding View terrain, cover exposed ground under the Room's
-  architecture yourself.
+- **`viewMidgroundVisibility`** (`1.4.4+`, **deprecated**): do **not** author
+  `viewMidgroundVisibility` (`"terrainOnly"` or `"hidden"`) on new or revised
+  Rooms. Large-scale Views (such as `skyRadiusMeters: 1600`) place all of their
+  land in the 3D midground model with a distant-only panorama, so hiding the
+  midground leaves an empty void. Keep View terrain, props, and water out of
+  the Room with `viewGroundKeepOut` (default `true`) and `viewGroundFootprint`
+  instead. Readers continue honoring the field only for legacy Rooms.
 - **`viewForwardYawRadians`** (`1.2.1+`, `-π...π`): decouples the View's
   straight-ahead sky/sun direction from the first seat's facing `yawRadians`.
 

@@ -98,11 +98,12 @@ an increased `contentVersion`.
 
 Keep editable Blender files, scripts, source textures, and renders outside the
 Package v2 source directory. A Package v2 Room's `space.json` always keeps
-`formatVersion: 2`; the Room v3–v10 numbers in the flat compatibility and
-lighting references apply only to a flat ZIP, so add those fields to the
-Package v2 manifest without changing its `formatVersion`. Set stable `packageID` and space ID values once,
-then increment `contentVersion` whenever an archive changes. Generate the
-archive with the public packer:
+`formatVersion: 2`; the Room v3–v14 numbers in the flat compatibility and
+lighting references apply only to a flat ZIP, so add those fields (including
+`lighting.bakedIndirect.mode: "irradiance"` and `irradianceScale`) to the
+Package v2 manifest without changing its `formatVersion`. Set stable `packageID`
+and space ID values once, then increment `contentVersion` whenever an archive
+changes. Generate the archive with the public packer:
 
 ```sh
 python3 tools/pack_locusplace.py --current-app-version <target-version> \

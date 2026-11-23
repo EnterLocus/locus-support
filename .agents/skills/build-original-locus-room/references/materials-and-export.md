@@ -16,6 +16,14 @@ calling an export complete.
 - Use file-backed base color, roughness, metallic, and normal maps. Bake
   procedural textures to images before export when the target material cannot
   express them.
+- For every opaque receiver under `lighting.bakedIndirect.entities`, name the
+  base PBR UV layer `st` (`UV0`), keep a separate non-overlapping
+  `LocusIndirectUV` (`UV1`) lightmap layout plus mesh tangents, and deduplicate
+  indirect receiver materials per base material (`__LocusIndirect__shared`) so
+  large Rooms do not multiply shader instances or VRAM.
+- Consolidate static non-interactive architecture meshes where practical and
+  avoid stacking unnecessary transparent clear-glass panes in front of animated
+  water or fire, which increases overdraw on Apple Vision Pro.
 
 Run `xcrun usdchecker --arkit scene.usdz` and inspect the delivered hierarchy,
 texture paths, axes, scale, material bindings, transparency values, and every

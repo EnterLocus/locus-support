@@ -1,8 +1,10 @@
-# 3D midground and flowing water
+# 3D midground, large-scale worlds, and flowing water
 
-Covers `midground` USDZ scenery (`1.2.1+`) and dynamic midground capabilities
-(`windSway`, `wavelengthMeters`, `textureFlow`, `skyEntities`, `flowingWater`).
-See the public
+Covers `midground` USDZ scenery (`1.2.1+`), large-scale `skyRadiusMeters`
+(`80..1600`, Locus 1.6.0+ / protocol `1.5.1+`), dynamic midground capabilities
+(`windSway`, `wavelengthMeters`, `textureFlow`, `skyEntities`, `flowingWater`),
+and midground `ambientAnimations` / `interactiveStates` (Locus 1.6.0+ /
+protocol `1.5.2+`). See the public
 [field reference](https://enterlocus.com/reference/locus-asset-format/).
 
 ## Coordinate contract, USDZ packaging, and budgets
@@ -24,26 +26,34 @@ See the public
   ```sh
   blender -b --python tools/audit_coplanar_surfaces.py -- --usdz midground.usdz --json coplanar-report.json
   ```
-- Keep all geometry inside the `80 m` sky sphere with margin (`<= 76 m`), and
-  target near land within `~25 m` and props within `~27 m` unless paired with
-  known Rooms.
+- Keep all geometry inside the sky sphere with margin: `<= 76 m` at the default
+  `80 m` radius, or up to the authored `skyRadiusMeters` (`80..1600` m, Locus
+  1.6.0+ / protocol `minimumAppVersion >= "1.5.1"`, capability
+  `locus.view.sky-radius.v1`; incompatible with `celestial`, `nearOrbit`, and
+  `blackHole`). For large-scale coastal or landscape worlds
+  (`skyRadiusMeters: 1600`), keep near land and interactive props close, model
+  3D headlands/ridges out to hundreds of meters, use lightweight distant-impostor
+  or 3D-baked horizon silhouettes where helpful, and keep the outer `2:1`
+  panorama as distant sky/horizon only.
 - Declare ground unit names in `terrainEntities` and separate prop units
   outside `terrainEntities`.
 
 ## Room compatibility and lighting
 
 Rooms grade `terrainEntities` and hide overlapping non-terrain units using
-`viewGroundFloorOffsetMeters`, `viewGroundKeepOut`, or `viewGroundFootprint`
-(`tools/view_ground_footprint.py`), and may hide midground completely via
-`viewMidgroundVisibility`:
+`viewGroundFloorOffsetMeters`, `viewGroundKeepOut` (default `true`), and
+`viewGroundFootprint` (`tools/view_ground_footprint.py`). Room
+`viewMidgroundVisibility` (`terrainOnly`/`hidden`) is **deprecated** for new
+Rooms because large-scale (`skyRadiusMeters: 1600`) Views keep all of their
+land in `midground.path` rather than the panorama:
 
 - **Flat keep-out pad** (e.g. `destination.cloud-garden-isles`): reserve a flat
   empty pad around the origin large enough for expected Rooms.
 - **Hideable prop units** (e.g. `destination.ancient-forest`): split props into
   many small independent units with tight bounding boxes so Rooms hide only
   overlapping units.
-- **Self-sufficient panorama**: ensure the `2:1` panorama reads well on its own
-  if a Room hides the midground.
+- **Self-sufficient panorama (for 80 m Views)**: ensure the `2:1` panorama
+  reads cleanly on its own if a legacy Room hides the midground.
 - **Lighting**: Room `directSun` shadow frustums fit the Room only, not
   midground geometry. Bake gentle shading into texture/vertex color for static
   Views, or pair with `environment.sunPath.light` (`"midground": true`,
@@ -126,6 +136,29 @@ Rooms grade `terrainEntities` and hide overlapping non-terrain units using
     UsdUtils.CreateNewUsdzPackage(Sdf.AssetPath("midground_raw.usdc"), "midground.usdz")
     ```
     Validate with `tools/validate_locusplace.py`.
+- **`ambientAnimations` on Views** (Locus 1.6.0+ / protocol `minimumAppVersion
+  >= "1.5.2"`, capability `locus.view.ambient-animations.v1`): optional
+  non-empty top-level `destination.json` array driving named skeletal or
+  transform clips inside `midground.path` with the same entry schema as Room
+  `ambientAnimations` (`id`, `displayName`, `entityName`, `animationName`,
+  `isEnabledByDefault`, `defaultSpeed`, `speedRange`, optional
+  `defaultIntervalRangeSeconds` and `intervalRangeSeconds`; localized via
+  `localizations.<lang>.animationTitles.<id>`). Entities must resolve in
+  `midground.path` and stay disjoint from `midground.terrainEntities`; they are
+  retained even if a legacy Room sets `viewMidgroundVisibility` to
+  `terrainOnly`/`hidden` and bypass static-prop keep-out. Counts as an Animated
+  View.
+- **`interactiveStates` on Views** (Locus 1.6.0+ / protocol `minimumAppVersion
+  >= "1.5.2"`, capability `locus.view.interactive-states.v1`): optional
+  top-level `destination.json` array of `1..16` multi-state controls acting on
+  `midground.path` props using the same `poses`, `keyframes`, and `emissives`
+  schema as Room `interactiveStates` (`schemas/room-interactive-states-v1.schema.json`,
+  localized via `localizations.<lang>.interactiveTitles`), **except
+  `states[].particleEffects` is unsupported on Views**. All referenced entities
+  must resolve in `midground.path` and stay disjoint from `terrainEntities`;
+  pose entities must stay disjoint from `ambientAnimations`. Works in both
+  Virtual Space and Room Portal via 3D gaze + pinch cycling and **Current Place**
+  / **Edit View** state pills; does not mark the View as continuously animated.
 
 ## Downloadable Blender source examples
 
