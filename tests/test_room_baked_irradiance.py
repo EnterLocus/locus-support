@@ -220,5 +220,135 @@ class RoomBakedIrradianceTests(unittest.TestCase):
                 room_bindings.check(scene, space_file)
 
 
+class RoomLightingScriptsAndSkillTests(unittest.TestCase):
+    """Test standalone public bake_irradiance.py, audit_lighting_photometry.py, and Room skill hygiene."""
+
+    def test_public_bake_config_validation_and_helpers(self):
+        import importlib.util
+        from array import array
+
+        script = ROOT / ".agents" / "skills" / "build-original-locus-room" / "scripts" / "bake_irradiance.py"
+        spec = importlib.util.spec_from_file_location("public_bake_irradiance", script)
+        mod = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(mod)
+
+        valid_cfg = {
+            "rootName": "TestRoom_ROOT",
+            "scale": "standard",
+            "lightGroups": [
+                {
+                    "id": "overheads",
+                    "role": "overheads",
+                    "fixtures": [
+                        {"id": "can-1", "kind": "downlight", "emitterType": "spot", "position": [0, 2.7, 0], "lumens": 450, "kelvin": 2900}
+                    ],
+                },
+                {
+                    "id": "desk",
+                    "role": "task",
+                    "fixtures": [
+                        {"id": "desk-1", "kind": "desk_lamp", "emitterType": "spot", "position": [0, 1.1, -1], "lumens": 200, "kelvin": 2700}
+                    ],
+                },
+            ],
+        }
+        report = mod.validate_bake_config(valid_cfg, 2048, 1024)
+        self.assertTrue(report["passed"], report)
+
+        bad_cfg = {
+            "rootName": "TestRoom_ROOT",
+            "lightGroups": [
+                {
+                    "id": "mixed",
+                    "role": "overheads",
+                    "fixtures": [
+                        {"id": "can-1", "role": "overheads", "kind": "downlight", "emitterType": "spot", "position": [0, 2.7, 0], "lumens": 400},
+                        {"id": "floor-1", "role": "accent", "kind": "floor_lamp", "emitterType": "point", "position": [1, 1.5, 0], "lumens": 400},
+                    ],
+                }
+            ],
+        }
+        bad_report = mod.validate_bake_config(bad_cfg, 2048, 1024)
+        self.assertFalse(bad_report["passed"])
+        codes = {f["code"] for f in bad_report["findings"]}
+        self.assertIn("LIGHTING_MIXED_QUADRANT_GROUP", codes)
+        self.assertIn("LIGHTING_UNSHADED_LAMP_POINT", codes)
+
+        self.assertEqual(mod.compute_irradiance_scale(0.8), 1.0)
+        self.assertGreaterEqual(mod.compute_irradiance_scale(4.2), 4.28)
+        self.assertLessEqual(mod.compute_irradiance_scale(99.0, p99999_linear=20.0), 64.0)
+
+        px = array("f", [0.0] * (8 * 8 * 4))
+        px[3 * 8 * 4 + 3 * 4] = 1.0
+        blurred = mod.separable_box_blur_rgba(px, 8, 8, radius=1, passes=1)
+        self.assertEqual(len(blurred), len(px))
+        self.assertLess(blurred[3 * 8 * 4 + 3 * 4], 1.0)
+
+    def test_public_photometry_audit_pass_and_failure_gates(self):
+        import importlib.util
+
+        script = ROOT / ".agents" / "skills" / "build-original-locus-room" / "scripts" / "audit_lighting_photometry.py"
+        spec = importlib.util.spec_from_file_location("public_audit_photometry", script)
+        mod = importlib.util.module_from_spec(spec)
+        assert spec.loader is not None
+        spec.loader.exec_module(mod)
+
+        def solid_16_png(val_u16: int, size: int = 16) -> bytes:
+            row = b"\x00" + struct.pack(">HHH", val_u16, val_u16, val_u16) * size
+            ihdr = struct.pack(">IIBBBBB", size, size, 16, 2, 0, 0, 0)
+            return (
+                b"\x89PNG\r\n\x1a\n"
+                + _png_chunk(b"IHDR", ihdr)
+                + _png_chunk(b"IDAT", zlib.compress(row * size, level=6))
+                + _png_chunk(b"IEND", b"")
+            )
+
+        with tempfile.TemporaryDirectory(prefix="locus-photometry-test-") as directory:
+            root = Path(directory)
+            manifest = {
+                "formatVersion": 2,
+                "lighting": {
+                    "luminaireGroups": [
+                        {"id": "overheads", "displayName": "Ceiling Lights", "entities": ["Can_Glow"]},
+                        {"id": "desk-lamp", "displayName": "Desk Lamp", "entities": ["Desk_Glow"]},
+                    ],
+                    "bakedIndirect": {
+                        "entities": ["Locus_BakedIndirect"],
+                        "mode": "irradiance",
+                        "irradianceScale": 4.0,
+                        "layers": [
+                            {"luminaireGroupID": "overheads", "image": "light-overheads.png"},
+                            {"luminaireGroupID": "desk-lamp", "image": "light-desk-lamp.png"},
+                        ],
+                    },
+                },
+            }
+            (root / "space.json").write_text(json.dumps(manifest), encoding="utf-8")
+            (root / "light-overheads.png").write_bytes(solid_16_png(38000))
+            (root / "light-desk-lamp.png").write_bytes(solid_16_png(12000))
+            good = mod.audit_lighting_photometry(root)
+            self.assertTrue(good["passed"], good)
+            self.assertGreaterEqual(good["moodSummary"]["overheadsOffMedianDropPercent"], 65.0)
+
+            # Overbright small mood layer washing out the room should fail
+            (root / "light-desk-lamp.png").write_bytes(solid_16_png(36000))
+            washed = mod.audit_lighting_photometry(root)
+            self.assertFalse(washed["passed"])
+            self.assertIn("LIGHTING_OVERHEADS_OFF_NO_MOOD_DELTA", {f["code"] for f in washed["findings"]})
+
+    def test_room_skill_is_public_safe_and_weaves_irradiance_baking(self):
+        skill_dir = ROOT / ".agents" / "skills" / "build-original-locus-room"
+        combined = []
+        for path in sorted(skill_dir.rglob("*.md")):
+            content = path.read_text(encoding="utf-8")
+            combined.append(content)
+            for forbidden in ("/Users/", "/Volumes/", "Dropbox", "Locus Dev", "model-preview/", "--simulator-head-pose"):
+                self.assertNotIn(forbidden, content, f"{path}: contains private reference {forbidden!r}")
+        joined = "\n".join(combined)
+        for required in ("bake_irradiance.py", "audit_lighting_photometry.py", "mode: \"irradiance\"", "irradianceScale", "LocusIndirectUV"):
+            self.assertIn(required, joined)
+
+
 if __name__ == "__main__":
     unittest.main()

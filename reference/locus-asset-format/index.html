@@ -756,7 +756,11 @@ with its origin at its root. Import does not check this floor; earlier
 versions of Locus ignore the field and sway each plant on its own.</li>
 <li><code>sky.moon.drawnDiameterDegrees</code> (<code>0.5172...24</code>) fixes the Moon’s drawn
 angular diameter instead of the natural size times <code>sizeScale</code>. It changes
-only the drawn disc and the stars it hides, not moonlight or sky glow. Earlier
+only the drawn disc and the stars it hides, not moonlight or sky glow (though
+moonlight reflections on <code>shore</code> water and wet sand scale their width with
+Moon Size in Locus 1.6.0+). In Locus 1.6.0+, UI presets and visitor overrides
+cap at <code>4×</code> (<code>11.844647905°</code>, clamping retired <code>6×</code>/<code>8×</code> visitor overrides,
+while the package field keeps <code>0.5172...24</code> for compatibility). Earlier
 versions of Locus ignore it.</li>
 <li><code>celestial.sunDisc.angularSizeDegrees</code> now accepts values down to <code>0.001</code>.</li>
 <li><code>oceanGlint</code>, an experimental block in two Library revisions that never
@@ -791,6 +795,43 @@ meshes carry <code>primvars:st</code> = <code>(acrossMeters, tauSeconds)</code> 
 vertex-interpolated <code>primvars:displayColor</code> = <code>(white, steep, edge)</code> in
 <code>0...1</code>, with at most 400,000 vertices and outward normals. Counts as an
 Animated View.</li>
+</ul>
+<h4 id="view-sky-radius-midground-animations-and-interactive-states-locus-160--protocol-151152" tabindex="-1">View sky radius, midground animations, and interactive states (Locus 1.6.0 / protocol 1.5.1–1.5.2)</h4>
+<ul>
+<li><strong><code>skyRadiusMeters</code></strong> (protocol floor <code>1.5.1</code>, shipped publicly in Locus
+1.6.0; Library capability <code>locus.view.sky-radius.v1</code>): optional finite number
+in <code>80...1600</code> metres setting the View’s skybox sphere radius for large-scale
+3D midground worlds (for example coastal headlands and ridges paired with
+<code>shore</code> and a distant-only panorama). Cannot coexist with <code>celestial</code>,
+<code>nearOrbit</code>, or <code>blackHole</code>.</li>
+<li><strong>View <code>ambientAnimations</code></strong> (protocol floor <code>1.5.2</code>, shipped publicly in
+Locus 1.6.0; Library capability <code>locus.view.ambient-animations.v1</code>): optional
+non-empty top-level <code>destination.json</code> array driving named skeletal or
+transform loops inside <code>midground.path</code>. Each entry uses the same schema as
+Room <code>ambientAnimations</code> (<code>id</code>, <code>displayName</code>, <code>entityName</code>, <code>animationName</code>,
+<code>isEnabledByDefault</code>, <code>defaultSpeed</code>, <code>speedRange</code>, optional
+<code>defaultIntervalRangeSeconds</code> defaulting to <code>[0, 0]</code>, and optional
+<code>intervalRangeSeconds</code> defaulting to <code>[0, 60]</code>), localized via
+<code>localizations.&lt;language&gt;.animationTitles.&lt;id&gt;</code>. Every <code>entityName</code> must
+resolve in <code>midground.path</code> and stay disjoint from <code>midground.terrainEntities</code>.
+Counts as an Animated View, bypasses static-prop keep-out, and remains
+retained even when a legacy Room sets <code>viewMidgroundVisibility</code> to
+<code>&quot;terrainOnly&quot;</code> or <code>&quot;hidden&quot;</code>.</li>
+<li><strong>View <code>interactiveStates</code></strong> (protocol floor <code>1.5.2</code>, shipped publicly in
+Locus 1.6.0; Library capability <code>locus.view.interactive-states.v1</code>): optional
+top-level <code>destination.json</code> array of <code>1...16</code> multi-state controls acting on
+<code>midground.path</code> props using the same <code>poses</code>, <code>keyframes</code>, and <code>emissives</code>
+schema as <a href="#room-interactive-states-locus-151-or-later">Room interactive states</a>
+(localized via <code>localizations.&lt;language&gt;.interactiveTitles</code>), <strong>except
+<code>states[].particleEffects</code> is unsupported on Views</strong>. All referenced entities
+must resolve in <code>midground.path</code> and stay disjoint from
+<code>midground.terrainEntities</code>; pose entities must not overlap
+<code>ambientAnimations</code>. Works in both Virtual Space and Room Portal via 3D gaze
+<ul>
+<li>pinch cycling and <strong>Current Place</strong> / <strong>Edit View</strong> state buttons, bypasses
+static-prop keep-out, and does not mark a View as continuously animated.</li>
+</ul>
+</li>
 </ul>
 <h4 id="view-shore-locus-1491411" tabindex="-1">View shore (Locus 1.4.9–1.4.11)</h4>
 <p>Root <code>shore</code> renders computed surf over a 64 m shallow-water solver strip
@@ -1513,8 +1554,7 @@ state that any particular installed or App Store build already supports them.
 The legacy/simple flat Room ZIP cannot carry these fields.</p>
 <pre><code class="language-json">{
   &quot;viewGroundFloorOffsetMeters&quot;: 1.4,
-  &quot;viewGroundKeepOut&quot;: false,
-  &quot;viewMidgroundVisibility&quot;: &quot;terrainOnly&quot;
+  &quot;viewGroundKeepOut&quot;: false
 }
 </code></pre>
 <p><code>viewGroundFloorOffsetMeters</code> (<code>locus.room.view-ground.v1</code>) is a finite
@@ -1531,11 +1571,16 @@ the selected View ground and the Room’s opaque geometry should depth-occlude
 that ground instead. It has no effect on Room-owned water, seats, the Room
 anchor, or Room Portal.</p>
 <p><code>viewMidgroundVisibility</code> (<code>locus.room.view-midground-visibility.v1</code>) is
-<code>&quot;all&quot;</code> (the default), <code>&quot;terrainOnly&quot;</code>, or <code>&quot;hidden&quot;</code>. <code>terrainOnly</code> retains
-only units named by the selected View’s <code>midground.terrainEntities</code>; <code>hidden</code>
-does not load the selected View’s <code>midground.path</code> model or textures. It does
-not hide the panorama, View water, Room water, fireflies, or the Room’s own
-geometry, and it is independent of <code>viewGroundKeepOut</code>.</p>
+<strong>deprecated for new and revised Rooms</strong>. Large-scale Views (for example
+<code>skyRadiusMeters: 1600</code>) keep all of their land in <code>midground.path</code> with a
+distant-only panorama, so hiding the midground leaves an empty void; omit
+<code>viewMidgroundVisibility</code> and use <code>viewGroundKeepOut</code> plus
+<code>viewGroundFootprint</code> instead. Readers keep honoring <code>&quot;all&quot;</code> (default),
+<code>&quot;terrainOnly&quot;</code>, and <code>&quot;hidden&quot;</code> for already-published legacy Rooms, while
+preserving any <code>midground.path</code> subtrees owned by a View’s <code>ambientAnimations</code>
+or <code>interactiveStates</code>. It does not hide the panorama, View water, Room water,
+fireflies, or the Room’s own geometry, and it is independent of
+<code>viewGroundKeepOut</code>.</p>
 <h3 id="room-view-ground-footprint-locus-145-or-later" tabindex="-1">Room View-ground footprint (Locus 1.4.5 or later)</h3>
 <p><code>viewGroundFootprint</code> replaces the whole-bounds View-ground keep-out box with
 the union of 1–32 simple X/Z polygons in Room-local metres (<code>[-200, 200]</code>,

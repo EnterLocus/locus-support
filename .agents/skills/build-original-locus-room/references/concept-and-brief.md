@@ -54,11 +54,15 @@ For every seat, record:
 For a desk-backed seat, identify the actual tabletop, its usable work area, and
 the group that **Hide Desk** must later hide. For lounge seating, define the
 relaxed view and access route. Also record the comparison camera's eye height,
-direction, framing, and field of view. State the seat count and purpose, which
-lamps a visitor can control, each TV and the seats that watch it, and a
-compact acceptance list: clear paths and
-focal points, no floating or intersecting objects, sufficient visible-surface
-thickness, and readable usable desks.
+direction, framing, and field of view. State the seat count and purpose, the
+Room's semantic luminaire groups (grouping by mood layer—such as primary
+overheads, chandelier, desk/reading task lamps, accent/floor lamps, cove or
+shelf strips, and outdoor lights—so turning off overheads drops ambient
+brightness cleanly into a warm evening mood, and keeping colored lights in
+their own group), each TV and the seats that watch it, and a compact acceptance
+list: clear paths and focal points, no floating or intersecting objects,
+sufficient visible-surface thickness, readable usable desks, and distinct
+all-on vs. small-lights-only lighting moods.
 
 ## Use both inputs through the build
 

@@ -11,7 +11,7 @@
       "source": "scripts/validate_locusplace.py",
       "target": "tools/validate_locusplace.py",
       "sourceSHA256": "3c076ae80cc97eecbdbb20ae1ff5a4613b2d7110922eb2da06a0197c27cbcec6",
-      "publicSHA256": "86d9f6629090dc2ed622d478f123e0abd424325c32edf29aef26d35f4c57077c",
+      "publicSHA256": "65eb685ea396be88b614238dd507f24525ab15f6f9a309844b8a59fd83136033",
       "adaptation": "Reject retired publisher-only oceanGlint data, enforce nonzero seatedOrigin quaternion, and run public room_bindings check"
     },
     {

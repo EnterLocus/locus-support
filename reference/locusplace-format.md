@@ -275,6 +275,9 @@ numbers), `orientationXYZW` (four finite numbers with non-zero length), and
 | `midground.textureFlow` | no | 1–16 UV-scroll entries (`entities` prefixes and `uvVelocity`) on midground props; requires `1.4.5`. |
 | `midground.flowingWater` | no | 1–16 flowing-water entries on midground props carrying `primvars:st` and `primvars:displayColor`; requires `1.4.9`. |
 | `midground.water` | no | App-rendered water declaration, including validated mask/normal-map and optional shore data described in the [field reference](locus-asset-format/). |
+| `skyRadiusMeters` | no | Optional skybox sphere radius in metres (`80...1600`), excluding `celestial`, `nearOrbit`, and `blackHole`; requires `1.5.1` (shipped publicly in Locus `1.6.0`). |
+| `ambientAnimations` | no | Optional non-empty array of named skeletal or transform animation loops inside `midground.path` (disjoint from `midground.terrainEntities`); requires `1.5.2` (shipped publicly in Locus `1.6.0`). |
+| `interactiveStates` | no | Optional array of 1–16 discrete multi-state controls driving `poses` and `emissives` on `midground.path` props (no `particleEffects`; disjoint from `midground.terrainEntities` and animated pose entities); requires `1.5.2` (shipped publicly in Locus `1.6.0`). |
 | `media` | no | Panorama-mapped video/audio regions (`media.dayNight` adds per-video `lighting` and `emission` PNG maps bound to `sunPath.panoramaBlend`, requiring `1.4.11`). |
 | `sky` | no | App-rendered procedural night sky (stars, Milky Way, optional aurora) shown through a validated 2:1 grayscale `sky.mask`; requires `minimumAppVersion >= 1.2.4`. See the [sky reference](locus-asset-format/#procedural-sky-celestial-bodies-and-near-orbit). |
 | `gpuTexture`, `gpuTextures` | no | Validated ASTC KTX1 sidecars available to user ZIPs and Library packages alike. The v1 panorama sidecar requires `1.2.3`; the v2 source-image array requires `1.3.0`. Source hashes, dimensions and mip levels must match. |
@@ -503,25 +506,23 @@ IDs; unresolved references fail the whole import.
 Add optional fields to their owning View or Room manifest, and include every
 referenced asset beside that manifest. The [field reference](locus-asset-format/)
 covers media and masks (including `media.dayNight`), sound and Room music, midground
-(`skyEntities`, `windSway`, `textureFlow`, `flowingWater`), water, computed `shore`, sky,
+(`skyEntities`, `windSway`, `textureFlow`, `flowingWater`, View `ambientAnimations`, View `interactiveStates`), `skyRadiusMeters`, water, computed `shore`, sky,
 clouds, sun path (`daySky`, `panoramaGrade`, `light`, `panoramaBlend`), celestial bodies,
 near orbit, black holes, point lights, GPU texture sidecars, seats and groups, lights,
-animations, video surfaces, particles, baked light layers, Room `textureFlow`, Room `flowingWater`, `tvs`, and Room
+animations, video surfaces, particles, baked light layers and irradiance lightmaps, Room `textureFlow`, Room `flowingWater`, `tvs`, and Room
 `interactiveStates` (`1.5.1`+). It also defines `localizations` (including `interactiveTitles`), `provenanceDetail`, and the
-Room's `viewGroundFloorOffsetMeters`, `viewGroundKeepOut`, `viewGroundFootprint`, and
-`viewMidgroundVisibility` controls.
+Room's `viewGroundFloorOffsetMeters`, `viewGroundKeepOut`, and `viewGroundFootprint` controls (`viewMidgroundVisibility` is deprecated for new Rooms).
 
 For example, these optional fields belong in an otherwise complete Room
 manifest, and require envelope `minimumAppVersion: "1.4.4"` or later (with
 `viewGroundFootprint` and `textureFlow` requiring `"1.4.5"` or later, `tvs` and
-`flowingWater` requiring `"1.4.9"` or later, and `interactiveStates` requiring
-`"1.5.1"` or later):
+`flowingWater` requiring `"1.4.9"` or later, `interactiveStates` requiring
+`"1.5.1"` or later, and `bakedIndirect.mode: "irradiance"` requiring `"1.5.2"` or later):
 
 ```json
 {
   "viewGroundFloorOffsetMeters": 0.2,
-  "viewGroundKeepOut": false,
-  "viewMidgroundVisibility": "terrainOnly"
+  "viewGroundKeepOut": true
 }
 ```
 

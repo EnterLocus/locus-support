@@ -134,10 +134,18 @@ and light directions with the delivered model; record any measured floating-
 point round-trip differences. A packed-image icon alone does not prove
 relocation works.
 
-For indirect-light atlases and architectural glazing, use
-[Lighting and glass](lighting-and-glass.md). It explains linear float baking,
-UV roles, RGB16 texture encoding, and the difference between base roughness
-and clearcoat roughness. These steps fit this headless workflow and do not
+For baked Room lighting and architectural glazing, follow
+[Lighting and glass](lighting-and-glass.md) as part of the headless build
+pipeline—not as an afterthought. Name every receiver's base UV layer `st`, keep
+glass, water, pure metals, moving `interactiveStates` parts, and fixture glows
+out of `Locus_BakedIndirect`, and drive per-group `mode: "irradiance"` light
+baking with the bundled `../scripts/bake_irradiance.py` script (validating
+`bake-config.json` with `--validate-config-only` before spending Cycles GPU
+time). Afterward, run `../scripts/audit_lighting_photometry.py` on the workspace
+or packaged `.locusplace` to verify 16-bit PNGs, zero clipping, low speckle,
+and clear overhead-off mood contrast. Keep `clearcoatRoughness >= 0.2` on
+uncoated clear glass, and preserve `scene.cycles` and World settings across
+baking and review stages. These steps fit this headless workflow and do not
 require an additional service or a separate preview app.
 
 Return to `../SKILL.md` for packaging, exact ZIP validation, and physical

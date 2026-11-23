@@ -37,7 +37,11 @@ procedural sky and black `0` keeps the painted panorama).
     ```
 - `moon`: `azimuthDegrees`, `elevationDegrees`, `illumination`, `brightness`,
   `maximumIllumination`, `sizeScale`, and optional `drawnDiameterDegrees`
-  (`1.3.4+`).
+  (`1.3.4+`, finite `0.5172..24`). In Locus 1.6.0+, UI Moon Size presets and
+  visitor overrides cap at `4×` (`11.844647905°`, clamping retired `6×`/`8×`
+  overrides while keeping `0.5172..24` valid in packages for compatibility),
+  and moonlight reflections on `shore` water and wet sand scale their width
+  with Moon Size.
 - `aurora`: `classic`, `storm`, or `low-latitude` palette and `1..4` arcs
   (excluded by `celestial` and `sunPath.daySky`).
 - `defaultMode`: visitor default Real vs Free sky.

@@ -24,7 +24,7 @@ Read only the references needed for the capabilities the creator asks for:
 | Complete Package v2 archive (`.locusplace`), `thumbnail.jpg` vs `lighting-ibl.jpg`, `gpuTextures` KTX1 sidecars, `localizations`, validation & Apple Vision Pro iteration | [Package v2 delivery](references/package-v2-delivery.md) |
 | Procedural night `sky` (`stars`, `milkyWay`, `moon`, `aurora`), painted `clouds`, and 24h `environment.sunPath` (`daySky`, `panoramaGrade`, `light`, `panoramaBlend`) | [Sky, clouds, and daylight](references/sky-clouds-and-daylight.md) |
 | Realtime `water` (`ocean`/`still`, `optics`, `bed.deepening`, `reflectionRegistration`, `contactCalibration`, `glow`) and computed surf `shore` (`1.4.9–1.4.11`) | [Water and shore](references/water-and-shore.md) |
-| 3D `midground` (`midground.usdz`, Room keep-out / hideable units, `skyEntities`, `windSway`, `textureFlow`, `flowingWater`) | [3D midground](references/midground-3d.md) |
+| 3D `midground` (`midground.usdz`, `skyRadiusMeters: 80..1600` large-scale 4-layer worlds, Room keep-out / hideable units, `skyEntities`, `windSway`, `textureFlow`, `flowingWater`, View `ambientAnimations` & `interactiveStates`) | [3D midground](references/midground-3d.md) |
 | Panorama looping video (`media` + `media.dayNight`), `fireflies`, `pointLights`, and View spatial `sound` | [Video, atmosphere, and sound](references/video-atmosphere-and-sound.md) |
 | Space and orbital profiles (`blackHole`, `celestial` v1/v2, `nearOrbit` v1/v2) | [Space and black hole Views](references/space-and-black-hole.md) |
 

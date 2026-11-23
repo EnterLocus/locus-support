@@ -86,9 +86,16 @@ which need Locus 1.4.9 or later. See its [README](examples/media-room/README.md)
 and the skill's [Room TVs reference](.agents/skills/build-original-locus-room/references/room-tvs.md).
 
 Room interactive states (`interactiveStates`, schema [`schemas/room-interactive-states-v1.schema.json`](schemas/room-interactive-states-v1.schema.json))
-need Locus 1.5.1 or later and Complete Package v2; see the
-[Complete Package v2 guide](reference/locusplace-format.md#room-interactive-states) and the skill's
-[Room interactive states reference](.agents/skills/build-original-locus-room/references/room-interactive-states.md).
+use protocol floor `1.5.1` (Locus 1.6.0+) and Complete Package v2; Room baked
+irradiance lightmaps (`lighting.bakedIndirect.mode: "irradiance"`, bundled
+baker `.agents/skills/build-original-locus-room/scripts/bake_irradiance.py` and
+photometry audit `audit_lighting_photometry.py`) and View `ambientAnimations` /
+`interactiveStates` use protocol floor `1.5.2` (Locus 1.6.0+). See the
+[Complete Package v2 guide](reference/locusplace-format.md#room-interactive-states)
+and the skill's
+[Lighting and glass](.agents/skills/build-original-locus-room/references/lighting-and-glass.md)
+and [Room interactive states](.agents/skills/build-original-locus-room/references/room-interactive-states.md)
+references.
 
 ## Community
 
