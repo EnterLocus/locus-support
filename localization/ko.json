@@ -4309,6 +4309,7 @@
     "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\") and an interactive state. Uses package ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "새로운 레이아웃과 가구, 베이크된 조도 라이트맵(mode: \"irradiance\") 및 인터랙티브 상태로 재구축되었습니다. 기본 제공 Horizon Atelier와 나란히 가져올 수 있도록 패키지 ID space.horizon-atelier-example을 사용합니다.",
     "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\").": "핀치로 조작할 수 있는 7개의 인터랙티브 상태(문 및 퍼걸러 루버)와 베이크된 조도 라이트맵(mode: \"irradiance\")이 추가되었습니다.",
     "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\").": "핀치로 조작할 수 있는 3개의 인터랙티브 문과 베이크된 조도 라이트맵(mode: \"irradiance\")이 추가되었습니다.",
-    "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "베이크된 조도 라이트맵(mode: \"irradiance\")으로 업그레이드되어 Room 조명을 켜도 전체 해상도 표면 텍스처가 선명하게 유지됩니다."
+    "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "베이크된 조도 라이트맵(mode: \"irradiance\")으로 업그레이드되어 Room 조명을 켜도 전체 해상도 표면 텍스처가 선명하게 유지됩니다.",
+    "See downloads and features in the Gallery.": "갤러리에서 다운로드와 기능을 확인하세요."
   }
 }

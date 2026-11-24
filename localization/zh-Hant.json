@@ -4311,6 +4311,7 @@
     "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\") and an interactive state. Uses package ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "採用全新配置、家具、烘焙輻照度光照貼圖（mode: \"irradiance\"）以及互動狀態重建。此套件使用 ID space.horizon-atelier-example，以便與內建的 Horizon Atelier 並存匯入。",
     "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\").": "新增 7 組可捏合操作的互動狀態（門與涼棚百葉）以及烘焙輻照度光照貼圖（mode: \"irradiance\"）。",
     "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\").": "新增 3 組可捏合操作的互動門以及烘焙輻照度光照貼圖（mode: \"irradiance\"）。",
-    "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "升級為烘焙輻照度光照貼圖（mode: \"irradiance\"），使全解析度表面紋理在開啟 Room 燈光時依然保持清晰銳利。"
+    "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "升級為烘焙輻照度光照貼圖（mode: \"irradiance\"），使全解析度表面紋理在開啟 Room 燈光時依然保持清晰銳利。",
+    "See downloads and features in the Gallery.": "在藝廊中查看下載檔案與特性。"
   }
 }

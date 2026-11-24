@@ -4309,6 +4309,7 @@
     "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\") and an interactive state. Uses package ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "新しいレイアウトと家具、ベイク済みイラディアンスライトマップ（mode: \"irradiance\"）、インタラクティブ状態で再構築しました。内蔵の Horizon Atelier と並べて読み込めるよう、パッケージ ID に space.horizon-atelier-example を使用しています。",
     "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\").": "ピンチ操作できる 7 つのインタラクティブ状態（ドアとパーゴラのルーバー）と、ベイク済みイラディアンスライトマップ（mode: \"irradiance\"）を追加しました。",
     "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\").": "ピンチ操作できる 3 つのインタラクティブドアと、ベイク済みイラディアンスライトマップ（mode: \"irradiance\"）を追加しました。",
-    "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "ベイク済みイラディアンスライトマップ（mode: \"irradiance\"）へアップグレードし、Room ライト点灯時も高解像度テクスチャがくっきり保たれます。"
+    "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "ベイク済みイラディアンスライトマップ（mode: \"irradiance\"）へアップグレードし、Room ライト点灯時も高解像度テクスチャがくっきり保たれます。",
+    "See downloads and features in the Gallery.": "ギャラリーでダウンロードと機能を確認。"
   }
 }
