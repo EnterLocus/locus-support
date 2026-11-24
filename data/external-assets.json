@@ -2484,6 +2484,12 @@
       "url": "https://media.enterlocus.net/gallery/library-b4f7e38ca1941ebc8db9017d61e12d0d3274eb3bb531ac88b78cd64a60189d81.jpg",
       "byteCount": 146233,
       "sha256": "b4f7e38ca1941ebc8db9017d61e12d0d3274eb3bb531ac88b78cd64a60189d81"
+    },
+    {
+      "path": "assets/gallery/library-20e7d54e34d260bd40bf1c8805b9d42b0618b3343acce925e4c714d0d9f34e5f.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-20e7d54e34d260bd40bf1c8805b9d42b0618b3343acce925e4c714d0d9f34e5f.jpg",
+      "byteCount": 125361,
+      "sha256": "20e7d54e34d260bd40bf1c8805b9d42b0618b3343acce925e4c714d0d9f34e5f"
     }
   ]
 }
