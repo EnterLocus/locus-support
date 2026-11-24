@@ -8,12 +8,12 @@ test.beforeEach(async ({ page }) => {
 });
 
 for (const width of [1440, 390, 320]) {
-  test(`1.6.0 entry and release navigation at ${width}px`, async ({ page }) => {
+  test(`1.6.1 entry and release navigation at ${width}px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
     // Release navigation should not wait for the third-party video player.
     await page.goto('/#whats-new', { waitUntil: 'domcontentloaded' });
     const entry = page.locator('.whats-new-latest');
-    await expect(entry).toContainText('New in Locus 1.6.0');
+    await expect(entry).toContainText('New in Locus 1.6.1');
     await expect(page.locator('.hero .app-store-link')).toBeVisible();
     await expect(page.locator('.hero iframe')).toHaveCount(0);
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
@@ -21,38 +21,38 @@ for (const width of [1440, 390, 320]) {
     await page.screenshot({ path: `.scratch/release-home-${width}.png` });
     await entry.focus();
     await page.keyboard.press('Enter');
-    await expect(page).toHaveURL(/\/whats-new\/1-6-0\/$/);
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Open the doors, and let the light follow the day.');
+    await expect(page).toHaveURL(/\/whats-new\/1-6-1\/$/);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Smoother frame rates across complex Rooms and Views.');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
     await page.screenshot({ path: `.scratch/release-article-${width}.png`, fullPage: true });
-    await page.locator('.release-pagination a[href="../1-5-0/"]').click();
-    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Press play in your Room.');
     await page.locator('.release-pagination a[href="../1-6-0/"]').click();
-    await expect(page).toHaveURL(/\/whats-new\/1-6-0\/$/);
+    await expect(page.getByRole('heading', { level: 1 })).toHaveText('Open the doors, and let the light follow the day.');
+    await page.locator('.release-pagination a[href="../1-6-1/"]').click();
+    await expect(page).toHaveURL(/\/whats-new\/1-6-1\/$/);
     await page.locator('.release-back').click();
-    await expect(page.locator('.release-card').first()).toHaveAttribute('href', './1-6-0/');
+    await expect(page.locator('.release-card').first()).toHaveAttribute('href', './1-6-1/');
     await page.screenshot({ path: `.scratch/release-archive-${width}.png` });
     await page.locator('.release-card').first().click();
-    await expect(page).toHaveURL(/\/whats-new\/1-6-0\/$/);
+    await expect(page).toHaveURL(/\/whats-new\/1-6-1\/$/);
   });
 }
 
 for (const locale of ['zh-Hans', 'zh-Hant', 'ja', 'ko', 'de', 'fr', 'es']) {
-  test(`localized 1.6.0 entry stays in ${locale} on mobile`, async ({ page }) => {
+  test(`localized 1.6.1 entry stays in ${locale} on mobile`, async ({ page }) => {
     await page.setViewportSize({ width: 390, height: 844 });
     await page.goto(`/${locale}/`, { waitUntil: 'domcontentloaded' });
     const entry = page.locator('.whats-new-latest');
-    await expect(entry).not.toContainText('Open the doors');
+    await expect(entry).not.toContainText('Smoother frame rates');
     await entry.scrollIntoViewIfNeeded();
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
     await page.screenshot({ path: `.scratch/release-home-${locale}.png` });
     await entry.click();
-    await expect(page).toHaveURL(new RegExp(`/${locale}/whats-new/1-6-0/$`));
-    await expect(page.getByRole('heading', { level: 1 })).not.toHaveText('Open the doors, and let the light follow the day.');
+    await expect(page).toHaveURL(new RegExp(`/${locale}/whats-new/1-6-1/$`));
+    await expect(page.getByRole('heading', { level: 1 })).not.toHaveText('Smoother frame rates across complex Rooms and Views.');
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBeTruthy();
     await page.screenshot({ path: `.scratch/release-article-${locale}.png`, fullPage: true });
     await page.locator('.release-pagination a').first().click();
-    await expect(page).toHaveURL(new RegExp(`/${locale}/whats-new/1-5-0/$`));
+    await expect(page).toHaveURL(new RegExp(`/${locale}/whats-new/1-6-0/$`));
   });
 }
 
@@ -61,7 +61,7 @@ for (const [locale, width, height] of [['zh-Hans', 1440, 900], ['en', 390, 844]]
     await page.setViewportSize({ width, height });
     await page.goto(`${locale === 'en' ? '' : '/' + locale}/whats-new/`);
     const cards = page.locator('.release-card');
-    await expect(cards).toHaveCount(19);
+    await expect(cards).toHaveCount(20);
     for (const card of await cards.all()) {
       const image = card.locator('img');
       await expect(image).toHaveCount(1);
