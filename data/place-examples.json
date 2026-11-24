@@ -125,24 +125,27 @@
       "license": "LicenseRef-EnterLocus-Example",
       "features": [
         "room-animation",
-        "music"
+        "music",
+        "light-layers",
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.14",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.winter-garden-breeze-1.0.14.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-1.0.14.locusplace",
-        "byteCount": 53827911,
-        "sha256": "35f374c2ae903ce9f9e60776ae3408577bd5d4a80ac01d7759ff6880503af933"
+        "contentVersion": "1.0.18",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.winter-garden-breeze-1.0.18.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-1.0.18.locusplace",
+        "byteCount": 50567762,
+        "sha256": "e24ca661f996340b249fde1fa7fbbe9c1fa06e9dd3a58802e1ab19be412b9adf"
       },
       "source": {
-        "sourceVersion": "1.0.14",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.winter-garden-breeze-source-1.0.14-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-source-1.0.14-r2.zip",
-        "byteCount": 38704341,
-        "sha256": "0babc4e37e98b83bcdfa2e92236d1d7519ff5e9b5cc59877f05276310cdf6777"
-      }
+        "sourceVersion": "1.0.18",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.winter-garden-breeze-source-1.0.18.zip",
+        "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-source-1.0.18.zip",
+        "byteCount": 33812642,
+        "sha256": "24429564b0836320bc96698b10044e655b4ed7ca9a9d2444a069bceee317315a"
+      },
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.cloudvault-retreat",

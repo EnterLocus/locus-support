@@ -2478,6 +2478,12 @@
       "url": "https://media.enterlocus.net/gallery/library-148f2408ef4b16e53a9f752f3f6734fc678d4e8b4997394d3bdccb3861b876b8.jpg",
       "byteCount": 301194,
       "sha256": "148f2408ef4b16e53a9f752f3f6734fc678d4e8b4997394d3bdccb3861b876b8"
+    },
+    {
+      "path": "assets/gallery/library-b4f7e38ca1941ebc8db9017d61e12d0d3274eb3bb531ac88b78cd64a60189d81.jpg",
+      "url": "https://media.enterlocus.net/gallery/library-b4f7e38ca1941ebc8db9017d61e12d0d3274eb3bb531ac88b78cd64a60189d81.jpg",
+      "byteCount": 146233,
+      "sha256": "b4f7e38ca1941ebc8db9017d61e12d0d3274eb3bb531ac88b78cd64a60189d81"
     }
   ]
 }

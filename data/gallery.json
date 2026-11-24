@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "appVersion": "1.6.0",
-  "catalogGeneration": "aef33a99-9ec0-4d4a-adbd-a025aa2fa6e5",
+  "catalogGeneration": "67275f4a-5cc1-4a71-b4e9-c662d06ce1c2",
   "places": [
     {
       "id": "destination.moonlit-bay",
@@ -7462,17 +7462,17 @@
       "title": "Winter Garden",
       "description": "Winter Garden is a cozy modern lounge with glass walls and plants. The open-plan room has a wood-paneled ceiling, black metal framing, pale plaster walls, and a smooth light floor. A round dining table, window desk, cream sofa, wood credenza, and built-in planters support relaxing or quiet work. Pendant, floor, and recessed strip lighting create a warm, calm feel.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-7c87c149c8b0460d0ea1f09e3865c55b45906528374ee3e399f9674c257c8261.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-b4f7e38ca1941ebc8db9017d61e12d0d3274eb3bb531ac88b78cd64a60189d81.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "7c87c149c8b0460d0ea1f09e3865c55b45906528374ee3e399f9674c257c8261"
+        "sha256": "b4f7e38ca1941ebc8db9017d61e12d0d3274eb3bb531ac88b78cd64a60189d81"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.14",
+      "contentVersion": "1.0.18",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T03:32:01Z",
       "searchTerms": [
