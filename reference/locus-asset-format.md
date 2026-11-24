@@ -522,7 +522,10 @@ edges blend the live sky with the photograph.
 
 Stars accept a seed integer `0...2147483647`, twinkle `0...1.5`, brightness
 `0.25...2`, limiting magnitude `4.5...7`, bright-star size `0...2`, colour
-saturation `0...1.5`, and azimuth `-180...180` degrees. Milky Way style is
+saturation `0...1.5`, azimuth `-180...180` degrees, and optional `realSky`
+(`latitudeDegrees` `-90...90`, `siderealTimeHours` `0...24`, or an authored
+`catalog` JSON in `equatorial` frame; when `realSky` is set, omit free Milky
+Way placement fields). Milky Way style is
 `realistic` or `vivid`, brightness `0...2`, and free placement uses centre
 azimuth `-180...180`, centre elevation `-90...90`, and tilt `-180...180`.
 The shared Galactic map is bundled by Locus; an ordinary package needs no
@@ -1022,7 +1025,10 @@ rejected:
   dims the painted panorama across 2–16 strictly increasing `elevationDegrees`
   (`-90...90`) stops with linear RGB `color` (`0...4`). `light` supplies 2–16
   stops (`color` `0...16`, optional `ambientEV` `-6...6` default `0`) for the
-  Room sun and IBL; `light.midground: true` also lights `midground.path`.
+  Room sun and IBL; `light.midground: true` also lights `midground.path` (and on
+  Locus 1.6.0 / protocol `1.5.2` or later, `UsdPreviewSurface` foliage cards and
+  standees exported with `inputs:opacityThreshold > 0` and `doubleSided = 1`
+  automatically receive two-sided hardware alpha-cutout solar/ambient lighting).
   `daySky` and `panoramaGrade` require root `sky` with `sky.mask`. These
   fields exclude `clouds`, `media` (unless paired via `media.dayNight`),
   `midground.water`, `midground.flowingWater`, and `sky.aurora`. Pairing with

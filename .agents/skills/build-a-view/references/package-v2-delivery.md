@@ -71,12 +71,16 @@ my-view.locusplace
 - **Visible sky (`panorama.path`)**: `2:1` SDR JPEG or PNG (e.g. `8192×4096` or
   `12288×6144`). EXR / HDR panoramas are unsupported.
 - **Catalog card (`thumbnail`)**: separate `16:9` rectilinear forward snapshot
-  for Places cards. Never reuse an IBL or stretched `2:1` sphere.
+  for Places cards, cropped free of any UI overlays. Never reuse an IBL or
+  stretched `2:1` sphere.
 - **Room IBL (`environment.imageBasedLight`)**: small `2:1` SDR map (e.g.
   `1024×512`) lighting Room geometry. Must be a separate file from
   `panorama.path`.
 - **Environment tuning**: `skyGainEV`, `exposureEV`, `horizonPitchDegrees`,
-  `colorGrade` (`contrast`, `saturation`), and optional `directSun`
+  `colorGrade` (`contrast`, `saturation`), optional `condition` (`"day"`,
+  `"dusk"`, `"night"`, or `"overcast"` — suggests the Room Lights master switch's
+  initial position when entering the View; `"dusk"`/`"night"` default on,
+  `"day"`/`"overcast"`/omitted default off), and optional `directSun`
   (`enabled`, `illuminanceLux`, `azimuthDegrees`, `elevationDegrees`).
 
 ## ASTC KTX1 GPU texture sidecars

@@ -54,10 +54,99 @@ land in `midground.path` rather than the panorama:
   overlapping units.
 - **Self-sufficient panorama (for 80 m Views)**: ensure the `2:1` panorama
   reads cleanly on its own if a legacy Room hides the midground.
-- **Lighting**: Room `directSun` shadow frustums fit the Room only, not
-  midground geometry. Bake gentle shading into texture/vertex color for static
-  Views, or pair with `environment.sunPath.light` (`"midground": true`,
-  `1.4.9+`) for 24-hour sunlight response.
+- **Lighting & alpha-cutout foliage (`1.5.2+`)**: Room `directSun` shadow
+  frustums fit the Room only, not midground geometry. Bake gentle shading into
+  texture/vertex color for static Views, or pair with `environment.sunPath.light`
+  (`"midground": true`, `1.4.9+`) for 24-hour sunlight response. For thin foliage
+  cards and horizon standees, export `UsdPreviewSurface` with
+  `inputs:opacityThreshold = 0.5` (`> 0`) and `uniform bool doubleSided = 1`:
+  under `sunPath.light.midground: true`, Locus 1.6.0+ (`1.5.2+`) automatically
+  upgrades those materials to two-sided hardware alpha-cutout shading with full
+  24-hour solar and ambient lighting.
+
+## Large-scale 4-layer parallax, terrain, geology, and GPU/VRAM craft
+
+Practical lessons distilled from building large coastal, alpine, and stylized
+3D midground Views:
+
+- **4-layer distance architecture (`skyRadiusMeters: 1600`)**:
+  Visitor locomotion (`Glide` / `Move`) stays within a playable envelope of
+  roughly `60 m` horizontal radius and `+45 m` altitude (or Room bounds + margin).
+  Partition geometry around that envelope so visitors never walk into or peek
+  behind flat cards:
+  1. **Zone 1 & 2 (`0 .. < 150 m`) — 100% real 3D**: watertight multi-zone
+     terrain (`terrainEntities`), 3D trees, foliage, boulders, driftwood, and
+     bluffs. **Never place 2D cutout standee billboards inside `< 150 m`.**
+  2. **Zone 3 (`>= 150 m`, e.g. `172–288 m`) — mid-field standees & outer
+     landforms**: curved multi-rank tree-line standee strips and distant islets,
+     giving crisp multi-layer parallax against the far skybox when rising to
+     `+25..+45 m`.
+  3. **Zone 4 (`skyRadiusMeters: 1600`) — far-only 2:1 panorama**: distant
+     mountain peaks, sky, and open horizon water — stripped of foreground trees,
+     beaches, near stacks, and painted sun discs.
+- **3D-baked standees (never crop-upscale from a panorama)**:
+  Cropping and upscaling slices from a 12K panorama for standees produces
+  blockiness, bright cutout halos, and cloned silhouettes at elevated viewpoints.
+  Instead, render transparent strips (`2048×512`–`4096×1024`) in headless
+  Blender directly from the **same** 3D tree species used in the foreground
+  (hundreds of instances staggered across 4–5 depth ranks plus a dark interior
+  core closing sky slits), curve stacked bands outward with progressive
+  atmospheric Rayleigh haze, and tuck flank endpoints underground behind 3D
+  headlands so side views never show floating strip edges. Remove offshore islet
+  cards that fail visual scrutiny rather than leaving unconvincing cutouts.
+- **Natural landform vs circular platforms**:
+  Avoid floating round "stage" pads. Measure landmark elevation angles from the
+  panorama (near ridge lips, rear knolls) alongside expected Room footprints,
+  then sculpt continuous terrain with natural erosion and fall-line gullies:
+  - Let the rear 3D skyline cover the panorama's near ridge/knoll with a small
+    positive margin so movement never reveals a double silhouette.
+  - Keep the front brow as low as the Room footprint permits so valleys and
+    vistas open up naturally; keep terrain just outside the Room footprint at or
+    below the Room floor so Room grading never carves a visible ring-cut.
+  - Submerge outer terrain flanks and behind-ridge shoulders below sea level or
+    the panorama horizon so `+45 m` overlooks never expose cut mesh cliffs.
+  - Wrap bay/coastal midground continuously around the entire shoreline (left
+    and right wings plus rear beach), not just the forward cone, and keep
+    Room-adjacent terrain mesh chunks moderate (e.g. `<= 32 m` spans).
+- **Anti-tiling textures & seamless zone transitions**:
+  Large sand, grass, or turf surfaces tiled naively show obvious repetition, and
+  hard boundaries between sand, grass, and forest floor look artificial. Use
+  large seamless scans with world-space UV phase variation, contour-aligned wide
+  opacity-fade blend strips (e.g. `~3 m` fade or quintic Eikonal strips),
+  world-mapped baked canopy ambient occlusion on upland forest humus, and clean
+  8-bit linear tangent-space normal PNGs (containing only `IHDR`/`IDAT`/`IEND`
+  chunks).
+- **Photogrammetry rock skirt-ratio audit**:
+  Before placing scanned boulders in shallow water, wet sand, or bare spits,
+  measure the mesh's base-to-mid footprint width ratio (`w_low / w_mid`). Scanned
+  rocks with wide flat dirt/moss plinth skirts (`w_low / w_mid > 1.35`) look
+  pasted-on over sand or water — restrict them to deep inland forest humus
+  (sunk slightly into the ground) and place only closed, inward-tapered bare
+  rocks (`<= 1.1–1.35`) along beaches and intertidal coastlines.
+- **Foliage diversity, distance-graded LOD & GPU texture VRAM discipline**:
+  Repeating one tree model reads like an early-2000s game. Mix multiple scanned
+  age/size variations, broadleaf accents, weathered snags/driftwood, understory
+  ferns/shrubs, and root-pivoted `windSway` grasses in the hero zone
+  (`r < 95 m`, tight individual bounds for clean Room keep-out), and
+  sector-batch upland canopy (`95..148 m`). Keep `midground.usdz` within hard
+  budgets (`<= 195 MiB`, `<= 1,650,000` triangles, flattened `.usda <= 256 MiB`)
+  and **watch uncompressed GPU texture VRAM** so the View stays smooth alongside
+  large Rooms on Apple Vision Pro:
+  - Cap terrain albedos around `1536–2048²`, terrain normals around `768–1024²`
+    (renormalize unit vectors after downscaling), distant standees around
+    `2048×512`, and foliage/prop textures around `512²` (bringing total
+    uncompressed RGBA+mips from ~800 MB down to ~185 MB on complex forests).
+  - Always downscale RGBA alpha-cutout foliage textures using
+    **premultiplied-safe alpha resizing + 3–4 px RGB edge color dilation** into
+    transparent texels so mipmaps never bleed dark halos around needles or
+    leaves.
+  - On dense mid-range forests (`40–110 m`), thin redundant interior overlapping
+    foliage cards while preserving crown-top silhouettes to cut alpha-test
+    overdraw without thinning the skyline.
+- **Stylized / low-poly Views**:
+  Aim for clean sculptural massing rather than noisy, overly triangulated
+  ground, and compose the 16:9 `thumbnail.jpg` so the stylized identity reads
+  immediately on the Places card.
 
 ## Dynamic midground capabilities
 
