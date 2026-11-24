@@ -4313,6 +4313,8 @@
     "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\").": "新增 7 组可捏合操作的交互状态（门与凉棚百叶）以及烘焙辐照度光照贴图（mode: \"irradiance\"）。",
     "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\").": "新增 3 组可捏合操作的交互门以及烘焙辐照度光照贴图（mode: \"irradiance\"）。",
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "升级为烘焙辐照度光照贴图（mode: \"irradiance\"），使全分辨率表面纹理在开启 Room 灯光时依然保持清晰锐利。",
-    "See downloads and features in the Gallery.": "在画廊中查看下载文件与特性。"
+    "See downloads and features in the Gallery.": "在画廊中查看下载文件与特性。",
+    "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "拥有 8 组烘焙辐照度灯光图层（mode: \"irradiance\"）的哥特式石拱图书馆。",
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "具备 3D 中景地形与程序星空的 1600 米大尺度视差高山峡谷景观。"
   }
 }

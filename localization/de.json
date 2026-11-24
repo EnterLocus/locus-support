@@ -4316,6 +4316,8 @@
     "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\").": "Ergänzt sieben per Pinch-Geste bedienbare interaktive Zustände (Türen und Pergola-Lamellen) sowie gebackene Beleuchtungsstärke-Lightmaps (mode: \"irradiance\").",
     "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\").": "Ergänzt drei per Pinch-Geste bedienbare interaktive Türen sowie gebackene Beleuchtungsstärke-Lightmaps (mode: \"irradiance\").",
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "Auf gebackene Beleuchtungsstärke-Lightmaps (mode: \"irradiance\") aktualisiert, damit Oberflächentexturen in voller Auflösung bei eingeschalteten Raumlichtern scharf bleiben.",
-    "See downloads and features in the Gallery.": "Downloads und Funktionen in der Galerie ansehen."
+    "See downloads and features in the Gallery.": "Downloads und Funktionen in der Galerie ansehen.",
+    "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "Gotische Gewölbebibliothek aus Stein mit acht gebackenen Irradiance-Lichtgruppen (mode: \"irradiance\").",
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "Weitläufige 1600-m-Parallax-Alpenansicht mit 3D-Mittelgrund-Terrain und prozeduralem Sternenhimmel."
   }
 }

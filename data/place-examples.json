@@ -96,24 +96,27 @@
       "license": "LicenseRef-EnterLocus-Example",
       "features": [
         "room-animation",
-        "music"
+        "music",
+        "light-layers",
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.17",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.cloud-fan-pavilion-1.0.17.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-1.0.17.locusplace",
-        "byteCount": 31571526,
-        "sha256": "4f21abfce3ea04b4ef8ad467c66820489c712d5f4b671121048db8f9659f90db"
+        "contentVersion": "1.0.20",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.cloud-fan-pavilion-1.0.20.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-1.0.20.locusplace",
+        "byteCount": 35630393,
+        "sha256": "c7bc0a638c9109896064bce533527d496d10ea7153b301a44c826ce681b4d98d"
       },
       "source": {
-        "sourceVersion": "1.0.17",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.cloud-fan-pavilion-source-1.0.17-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-source-1.0.17-r2.zip",
-        "byteCount": 17580236,
-        "sha256": "aab55951ca88c6428cbacc9a03725ea23a2271ae4a95b00b279c48435b831e0a"
-      }
+        "sourceVersion": "1.0.20",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.cloud-fan-pavilion-source-1.0.20.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-source-1.0.20.zip",
+        "byteCount": 29124457,
+        "sha256": "8f11a297335fed9447d3f360315d06fe3216f9e9d94315085205daf93d9c472f"
+      },
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.winter-garden-breeze",
@@ -146,23 +149,27 @@
       "kind": "room",
       "title": "Cloudvault Retreat",
       "license": "LicenseRef-EnterLocus-Example",
-      "features": [],
+      "features": [
+        "light-layers",
+        "baked-irradiance"
+      ],
       "package": {
-        "contentVersion": "1.0.7",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.cloudvault-retreat-1.0.7.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-1.0.7.locusplace",
-        "byteCount": 31217056,
-        "sha256": "6e3fca1e2ee052eccf38c8edeb008b08a4fc67076b8c44386ede8d099984120a"
+        "contentVersion": "1.0.9",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.cloudvault-retreat-1.0.9.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-1.0.9.locusplace",
+        "byteCount": 20007692,
+        "sha256": "d4a4b4e73ed088dac9bd70fc5bed4267707c1e7dd0918b14798d0e2bae6e71c5"
       },
       "source": {
-        "sourceVersion": "1.0.7",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.cloudvault-retreat-source-1.0.7-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-source-1.0.7-r2.zip",
-        "byteCount": 28587485,
-        "sha256": "2ddb22de5f9825950040a4536f28f8bda28829d32e2394c22e68f22c042505ac"
-      }
+        "sourceVersion": "1.0.9",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.cloudvault-retreat-source-1.0.9.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-source-1.0.9.zip",
+        "byteCount": 28547781,
+        "sha256": "12ff193681526007f492a4544722769f8c34e44d5bfbe2a656b0bbf435e3543f"
+      },
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.mediterranean-loggia",
@@ -199,24 +206,27 @@
       "license": "LicenseRef-EnterLocus-Example",
       "features": [
         "sound",
-        "music"
+        "music",
+        "light-layers",
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.14",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.sunlit-cafe-1.0.14.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-1.0.14.locusplace",
-        "byteCount": 32652017,
-        "sha256": "edb6edceb71d07b96934b4300e3761b4470d8d5b619ef2209c8e04aa0d6bb3f8"
+        "contentVersion": "1.0.16",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.sunlit-cafe-1.0.16.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-1.0.16.locusplace",
+        "byteCount": 72356464,
+        "sha256": "52cf4393a330688b0237c7c2c996148734be6c7d0140e5ec4404c0967bd93e48"
       },
       "source": {
-        "sourceVersion": "1.0.14",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.sunlit-cafe-source-1.0.14-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-source-1.0.14-r2.zip",
-        "byteCount": 16663522,
-        "sha256": "bc6eddc88a07576b9f9052e04650deb025a15719a61d1c3745101d07136fd222"
-      }
+        "sourceVersion": "1.0.16",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.sunlit-cafe-source-1.0.16.zip",
+        "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-source-1.0.16.zip",
+        "byteCount": 16524892,
+        "sha256": "90c6a4a0db1ce1b05aacdcd59b20906797ab271ee96a50994e3bb844958c7f94"
+      },
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.lakeside-cabin",
@@ -226,26 +236,26 @@
       "features": [
         "particles",
         "sound",
-        "music",
         "light-layers",
-        "generated-furniture"
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.17",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.lakeside-cabin-1.0.17.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-1.0.17.locusplace",
-        "byteCount": 84626200,
-        "sha256": "a6f4674303bd5fe1d0ecfe09e77cae16cfb1ec08863324e02f92d4cc09895d26"
+        "contentVersion": "1.0.22",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.lakeside-cabin-1.0.22.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-1.0.22.locusplace",
+        "byteCount": 28347393,
+        "sha256": "0ec657a3e7c4e80e30d9614a1f27bdffe7a8f83e0b24681df7755471c213a3a2"
       },
       "source": {
-        "sourceVersion": "1.0.17",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.lakeside-cabin-source-1.0.17-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-source-1.0.17-r2.zip",
-        "byteCount": 40924249,
-        "sha256": "44ecf98dbcc882e5b42721d148bbe05d421ff3ba0db489a639d44136d16a3f73"
-      }
+        "sourceVersion": "1.0.22",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.lakeside-cabin-source-1.0.22.zip",
+        "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-source-1.0.22.zip",
+        "byteCount": 13188260,
+        "sha256": "9d8d2dace337de657e2a860cd1b034db69dd282314a246a66fa9bae02d70a549"
+      },
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.free-capsule",
@@ -253,24 +263,26 @@
       "title": "Free Capsule",
       "license": "LicenseRef-EnterLocus-Example",
       "features": [
-        "light-layers"
+        "light-layers",
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.7",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.free-capsule-1.0.7.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-1.0.7.locusplace",
-        "byteCount": 28160446,
-        "sha256": "8279dd96009ba72eb2f5167080482953af456155a78cb6a2398098e7bf8ff6a1"
+        "contentVersion": "1.0.10",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.free-capsule-1.0.10.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-1.0.10.locusplace",
+        "byteCount": 5100844,
+        "sha256": "42305c5bdb17df91a16893297e073038cb5b8da5368d09b064b43aa0062a4380"
       },
       "source": {
-        "sourceVersion": "1.0.7",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.free-capsule-source-1.0.7-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-source-1.0.7-r2.zip",
-        "byteCount": 10129821,
-        "sha256": "15e927bafda43f72c6d251b4d05febe7dbc893987bfd0f6153474cbda7b94ba5"
-      }
+        "sourceVersion": "1.0.10",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.free-capsule-source-1.0.10.zip",
+        "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-source-1.0.10.zip",
+        "byteCount": 26093942,
+        "sha256": "d65358b9224d1eb39f7cf3c1df33e3c8814f0f45edc43150fe3c62b5d7f55084"
+      },
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.hilltop-villa",
@@ -288,20 +300,20 @@
         "interactive-states"
       ],
       "package": {
-        "contentVersion": "1.1.1",
+        "contentVersion": "1.1.2",
         "minimumAppVersion": "1.5.2",
-        "fileName": "space.hilltop-villa-1.1.1.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.1.1.locusplace",
-        "byteCount": 110864012,
-        "sha256": "e15bff3a873235b5724abd0e81236ec0e21ff650c438869409017e3412a07586"
+        "fileName": "space.hilltop-villa-1.1.2.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.1.2.locusplace",
+        "byteCount": 109700609,
+        "sha256": "29e79b415fe98a864c01260033aa84ad99d1bfe39cf3e10131a986cc8cd9cc7b"
       },
       "source": {
-        "sourceVersion": "1.1.1",
+        "sourceVersion": "1.1.2",
         "blenderVersion": "5.3.0",
-        "fileName": "space.hilltop-villa-source-1.1.1.zip",
-        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.1.1.zip",
-        "byteCount": 99197595,
-        "sha256": "6b1e904fe628ee981618b9bccfee6a228b362274eb955cabb6b472419e1e3f85"
+        "fileName": "space.hilltop-villa-source-1.1.2.zip",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.1.2.zip",
+        "byteCount": 99195129,
+        "sha256": "30c896d101b6a01e45fac4495b9cab139ae7917953b04b3d068275ed54e0c43e"
       },
       "notes": "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\")."
     },
@@ -337,25 +349,27 @@
       "title": "Tidal Veranda",
       "license": "LicenseRef-EnterLocus-Example",
       "features": [
-        "music",
-        "light-layers"
+        "sound",
+        "light-layers",
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.12",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.tidal-veranda-1.0.12.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-1.0.12.locusplace",
-        "byteCount": 62454083,
-        "sha256": "c1e0832d03e040ba0cc42c0778c1ea4c53eb6a81aa77a43ca650e38703c9b56c"
+        "contentVersion": "1.0.15",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.tidal-veranda-1.0.15.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-1.0.15.locusplace",
+        "byteCount": 41202887,
+        "sha256": "f68498a94aae7c158c63963d97f52e3c90014eb408105fbfc57e346be9e5aa12"
       },
       "source": {
-        "sourceVersion": "1.0.12",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.tidal-veranda-source-1.0.12-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-source-1.0.12-r2.zip",
-        "byteCount": 34370812,
-        "sha256": "8f2425c4f7b3e3d3039a5a78f46044ba83a3831f8b70433b8c1df9d722125a23"
-      }
+        "sourceVersion": "1.0.15",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.tidal-veranda-source-1.0.15.zip",
+        "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-source-1.0.15.zip",
+        "byteCount": 89694670,
+        "sha256": "aaf72ae836acef1fe2ebd6f1238021f40a28914e5ffc360dd9259e3e151a62a6"
+      },
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.crossbeam-house",
@@ -386,6 +400,33 @@
         "sha256": "3823a0d2a2f993fd0e033f05976e2cdb797bddda924f96e3e13ebe57ac5ce532"
       },
       "notes": "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\")."
+    },
+    {
+      "packageID": "space.alpine-scriptorium",
+      "kind": "room",
+      "title": "Alpine Scriptorium",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "light-layers",
+        "baked-irradiance"
+      ],
+      "package": {
+        "contentVersion": "1.1.9",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.alpine-scriptorium-1.1.9.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.alpine-scriptorium/space.alpine-scriptorium-1.1.9.locusplace",
+        "byteCount": 19746164,
+        "sha256": "14b6fa879302951abdcdbcd7ed11c382f82aa93fcdac1e9301153f3c84c4d1f9"
+      },
+      "source": {
+        "sourceVersion": "1.1.9",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.alpine-scriptorium-source-1.1.9.zip",
+        "url": "https://media.enterlocus.net/examples/space.alpine-scriptorium/space.alpine-scriptorium-source-1.1.9.zip",
+        "byteCount": 16948895,
+        "sha256": "86473da7449897c115e91c999fdd53542f5b9a1210a2e4034466f500327785d4"
+      },
+      "notes": "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\")."
     },
     {
       "packageID": "destination.emerald-grotto",
@@ -724,6 +765,26 @@
         "byteCount": 20333533,
         "sha256": "70fe9af47fac1cdaa61b18687636aefa54d7ec422a3f1cdf6f79f14fd4868662"
       }
+    },
+    {
+      "packageID": "destination.alpine-ridge",
+      "kind": "view",
+      "title": "Alpine Ridge",
+      "license": "LicenseRef-EnterLocus-Example",
+      "features": [
+        "midground",
+        "procedural-sky"
+      ],
+      "package": {
+        "contentVersion": "1.5.0",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "destination.alpine-ridge-1.5.0.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.alpine-ridge/destination.alpine-ridge-1.5.0.locusplace",
+        "byteCount": 143693156,
+        "sha256": "e15ce497201f8778d242120ba28bc974562bf54e325eed06ef644d5f56d95a27"
+      },
+      "source": null,
+      "notes": "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky."
     }
   ]
 }
