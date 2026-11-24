@@ -1,8 +1,1041 @@
 {
   "formatVersion": 1,
-  "appVersion": "1.5.0",
-  "catalogGeneration": "1adb06b8-8ea0-4302-a6a0-dadc1e80acb9",
+  "appVersion": "1.6.0",
+  "catalogGeneration": "d407b4a5-edd2-4d5b-acfb-77229ab6fd39",
   "places": [
+    {
+      "id": "destination.moonlit-bay",
+      "slug": "moonlit-bay",
+      "type": "view",
+      "title": "Moonlit Bay",
+      "description": "A full moon over a crescent bay at night. Small waves break and run up the wet sand along a silver path of moonlight, with a dark headland and an island on the horizon. The sea and the surf are computed live.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-5a9702ea2c803f0b8dc672d91d508e25d956b4dfc585f629b7b75999dae6037e.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "5a9702ea2c803f0b8dc672d91d508e25d956b4dfc585f629b7b75999dae6037e"
+      },
+      "access": "supporter",
+      "animated": true,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {
+        "aiGenerated": true,
+        "aiProvider": "OpenAI GPT Image 2.5 Sunburst; Tripo3D H3.1 (fal); Fab / Quixel Megascans / Poly Haven CC0; Blender Procedural",
+        "creator": "Locus",
+        "modification": "Adapted for use in Locus."
+      },
+      "contentVersion": "1.7.0",
+      "addedAt": "2026-11-11T09:34:12Z",
+      "updatedAt": "2026-11-22T23:25:00Z",
+      "searchTerms": [
+        "Beach",
+        "Ocean",
+        "Waves",
+        "Moon",
+        "Stars",
+        "Night"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Mondlichtbucht",
+          "description": "Ein Vollmond steht nachts über einer sichelförmigen Bucht. Kleine Wellen brechen und laufen entlang einer silbernen Mondlichtbahn über den nassen Sand, am Horizont liegen eine dunkle Landzunge und eine Insel. Meer und Brandung werden in Echtzeit berechnet.",
+          "searchTerms": [
+            "Strand",
+            "Meer",
+            "Wellen",
+            "Mond",
+            "Sterne",
+            "Nacht"
+          ]
+        },
+        "en": {
+          "title": "Moonlit Bay",
+          "description": "A full moon over a crescent bay at night. Small waves break and run up the wet sand along a silver path of moonlight, with a dark headland and an island on the horizon. The sea and the surf are computed live.",
+          "searchTerms": [
+            "Beach",
+            "Ocean",
+            "Waves",
+            "Moon",
+            "Stars",
+            "Night"
+          ]
+        },
+        "es": {
+          "title": "Bahía a la luz de la luna",
+          "description": "La luna llena sobre una bahía en forma de media luna, de noche. Pequeñas olas rompen y suben por la arena mojada siguiendo un camino plateado de luz de luna, con un cabo oscuro y una isla en el horizonte. El mar y el oleaje se calculan en tiempo real.",
+          "searchTerms": [
+            "Playa",
+            "Océano",
+            "Olas",
+            "Luna",
+            "Estrellas",
+            "Noche"
+          ]
+        },
+        "fr": {
+          "title": "Baie au clair de lune",
+          "description": "La pleine lune au-dessus d’une baie en croissant, la nuit. De petites vagues déferlent et remontent le sable mouillé le long d’un chemin de lumière argentée, avec un cap sombre et une île à l’horizon. La mer et le ressac sont calculés en temps réel.",
+          "searchTerms": [
+            "Plage",
+            "Océan",
+            "Vagues",
+            "Lune",
+            "Étoiles",
+            "Nuit"
+          ]
+        },
+        "ja": {
+          "title": "月明かりの入り江",
+          "description": "夜、三日月形の入り江に満月がかかります。小さな波が銀色の月の道に沿って濡れた砂浜に打ち寄せ、水平線には暗い岬と島が見えます。海と波はリアルタイムで計算されています。",
+          "searchTerms": [
+            "ビーチ",
+            "海",
+            "波",
+            "月",
+            "星",
+            "夜"
+          ]
+        },
+        "ko": {
+          "title": "달빛 만",
+          "description": "밤, 초승달 모양의 만 위로 보름달이 떠 있습니다. 잔물결이 은빛 달빛 길을 따라 젖은 모래 위로 밀려오고, 수평선에는 어두운 곶과 섬이 보입니다. 바다와 파도는 실시간으로 계산됩니다.",
+          "searchTerms": [
+            "해변",
+            "바다",
+            "파도",
+            "달",
+            "별",
+            "밤"
+          ]
+        },
+        "zh-Hans": {
+          "title": "海边月湾",
+          "description": "夜晚，满月悬在弯弯的海湾上空。细浪沿着银色的月光涌上湿沙，远处是深色的岬角和小岛。海面和浪花均为实时计算。",
+          "searchTerms": [
+            "海滩",
+            "海洋",
+            "海浪",
+            "月亮",
+            "星空",
+            "夜间"
+          ]
+        },
+        "zh-Hant": {
+          "title": "海邊月灣",
+          "description": "夜晚，滿月懸在彎彎的海灣上空。細浪沿著銀色的月光湧上濕沙，遠處是深色的岬角與小島。海面與浪花皆為即時運算。",
+          "searchTerms": [
+            "海灘",
+            "海洋",
+            "海浪",
+            "月亮",
+            "星空",
+            "夜間"
+          ]
+        }
+      }
+    },
+    {
+      "id": "destination.alpine-ridge",
+      "slug": "alpine-ridge",
+      "type": "view",
+      "title": "Alpine Ridge",
+      "description": "A sunlit grass ridge above deep conifer valleys, with snow-covered peaks stretching across the horizon under a blue sky.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-d19043f9fdde441100f5db04ebcd183db272eb4aa1601307fefac1ffcb746e81.jpg",
+        "width": 1024,
+        "height": 576,
+        "sha256": "d19043f9fdde441100f5db04ebcd183db272eb4aa1601307fefac1ffcb746e81"
+      },
+      "access": "free",
+      "animated": true,
+      "hasSound": false,
+      "builtIn": false,
+      "credits": {
+        "aiGenerated": true,
+        "aiProvider": "OpenAI and Google",
+        "creator": "Locus",
+        "modification": "Adapted for use in Locus."
+      },
+      "contentVersion": "1.5.0",
+      "addedAt": "2026-11-18T23:50:03Z",
+      "updatedAt": "2026-11-19T21:30:00Z",
+      "searchTerms": [
+        "Mountain",
+        "Alps",
+        "Snow Peaks",
+        "Panorama",
+        "Photo Realistic",
+        "Day"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Alpenkamm",
+          "description": "Sonnige Alpenhänge über tiefen Waldtälern und verschneiten Gipfeln.",
+          "searchTerms": [
+            "Berge",
+            "Alpen",
+            "Schneegipfel",
+            "Panorama",
+            "Fotorealistisch",
+            "Tag"
+          ]
+        },
+        "en": {
+          "title": "Alpine Ridge",
+          "description": "A sunlit grass ridge above deep conifer valleys, with snow-covered peaks stretching across the horizon under a blue sky.",
+          "searchTerms": [
+            "Mountain",
+            "Alps",
+            "Snow Peaks",
+            "Panorama",
+            "Photo Realistic",
+            "Day"
+          ]
+        },
+        "es": {
+          "title": "Cresta alpina",
+          "description": "Laderas alpinas soleadas sobre profundos valles boscosos y cumbres nevadas.",
+          "searchTerms": [
+            "Montaña",
+            "Alpes",
+            "Cumbres nevadas",
+            "Panorama",
+            "Fotorrealista",
+            "Día"
+          ]
+        },
+        "fr": {
+          "title": "Crête des Alpes",
+          "description": "Des versants alpins ensoleillés dominent de profondes vallées boisées et des sommets enneigés.",
+          "searchTerms": [
+            "Montagne",
+            "Alpes",
+            "Sommets enneigés",
+            "Panorama",
+            "Photoréaliste",
+            "Jour"
+          ]
+        },
+        "ja": {
+          "title": "アルプスの稜線",
+          "description": "陽光に照らされたアルプスの斜面から、深い森の谷と雪峰を望みます。",
+          "searchTerms": [
+            "山",
+            "アルプス",
+            "雪山",
+            "パノラマ",
+            "写実的",
+            "昼"
+          ]
+        },
+        "ko": {
+          "title": "알프스 능선",
+          "description": "햇살이 비치는 알프스 산비탈에서 깊은 숲 계곡과 눈 덮인 봉우리를 바라봅니다.",
+          "searchTerms": [
+            "산",
+            "알프스",
+            "설봉",
+            "파노라마",
+            "사실적",
+            "낮"
+          ]
+        },
+        "zh-Hans": {
+          "title": "阿尔卑斯山脊",
+          "description": "阳光下的阿尔卑斯山坡俯瞰幽深林谷与连绵雪峰。",
+          "searchTerms": [
+            "山脉",
+            "阿尔卑斯",
+            "雪峰",
+            "全景",
+            "写实",
+            "日间"
+          ]
+        },
+        "zh-Hant": {
+          "title": "阿爾卑斯山脊",
+          "description": "陽光下的阿爾卑斯山坡俯瞰幽深林谷與連綿雪峰。",
+          "searchTerms": [
+            "山脈",
+            "阿爾卑斯",
+            "雪峰",
+            "全景",
+            "寫實",
+            "日間"
+          ]
+        }
+      }
+    },
+    {
+      "id": "destination.sunlit-bay",
+      "slug": "sunlit-bay",
+      "type": "view",
+      "title": "Crescent Shore",
+      "description": "A crescent-shaped beach with forested headlands. From daylight to starry night, surf washes over the sand.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-f9b581ccb8de1b5b39f41d2144f37cfdc9e33ac1e674778b911b6aefcef2e7ac.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "f9b581ccb8de1b5b39f41d2144f37cfdc9e33ac1e674778b911b6aefcef2e7ac"
+      },
+      "access": "free",
+      "animated": true,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {
+        "aiGenerated": true,
+        "aiProvider": "OpenAI GPT Image 2.5 Sunburst; Fab / Quixel Megascans / Poly Haven CC0; Tripo3D H3.1 (fal); Blender Procedural",
+        "creator": "Locus",
+        "modification": "Adapted for use in Locus."
+      },
+      "contentVersion": "1.8.12",
+      "addedAt": "2026-11-11T09:34:12Z",
+      "updatedAt": "2026-11-19T20:40:03Z",
+      "searchTerms": [
+        "Beach",
+        "Ocean",
+        "Waves",
+        "Day and Night",
+        "Stars",
+        "Sunlit Bay"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Sichelküste",
+          "description": "Ein sichelförmiger Strand mit bewaldeten Landzungen. Vom Tageslicht bis zur sternklaren Nacht rollen die Wellen über den Sand.",
+          "searchTerms": [
+            "Strand",
+            "Meer",
+            "Wellen",
+            "Tag und Nacht",
+            "Sterne",
+            "Sonnenbucht"
+          ]
+        },
+        "en": {
+          "title": "Crescent Shore",
+          "description": "A crescent-shaped beach with forested headlands. From daylight to starry night, surf washes over the sand.",
+          "searchTerms": [
+            "Beach",
+            "Ocean",
+            "Waves",
+            "Day and Night",
+            "Stars",
+            "Sunlit Bay"
+          ]
+        },
+        "es": {
+          "title": "Costa de la Media Luna",
+          "description": "Una playa en forma de media luna, con cabos boscosos. Las olas bañan la arena desde el día hasta la noche estrellada.",
+          "searchTerms": [
+            "Playa",
+            "Océano",
+            "Olas",
+            "Día y noche",
+            "Estrellas",
+            "Bahía soleada"
+          ]
+        },
+        "fr": {
+          "title": "Rivage en croissant",
+          "description": "Une plage en croissant, bordée de caps boisés. Les vagues déferlent sur le sable, du plein jour à la nuit étoilée.",
+          "searchTerms": [
+            "Plage",
+            "Océan",
+            "Vagues",
+            "Jour et nuit",
+            "Étoiles",
+            "Baie ensoleillée"
+          ]
+        },
+        "ja": {
+          "title": "三日月の海岸",
+          "description": "三日月形の砂浜と、森に覆われた岬。昼から星空の夜へと移り変わる中、波が砂浜に打ち寄せます。",
+          "searchTerms": [
+            "ビーチ",
+            "海",
+            "波",
+            "昼と夜",
+            "星空",
+            "陽だまりの入り江"
+          ]
+        },
+        "ko": {
+          "title": "초승달 해안",
+          "description": "숲이 우거진 곶이 둘러싼 초승달 모양의 해변입니다. 낮에서 별이 빛나는 밤으로 바뀌는 동안 파도가 모래사장으로 밀려옵니다.",
+          "searchTerms": [
+            "해변",
+            "바다",
+            "파도",
+            "낮과 밤",
+            "별",
+            "햇살 만"
+          ]
+        },
+        "zh-Hans": {
+          "title": "月牙海岸",
+          "description": "月牙形的海岸与林木覆盖的岬角相望。从白天到繁星满天的夜晚，海浪不断涌上沙滩。",
+          "searchTerms": [
+            "海滩",
+            "海洋",
+            "海浪",
+            "日夜",
+            "星空",
+            "海边晴湾"
+          ]
+        },
+        "zh-Hant": {
+          "title": "月牙海岸",
+          "description": "月牙形的海岸與林木覆蓋的岬角相望。從白天到繁星滿天的夜晚，海浪不斷湧上沙灘。",
+          "searchTerms": [
+            "海灘",
+            "海洋",
+            "海浪",
+            "日夜",
+            "星空",
+            "海邊晴灣"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.hilltop-villa",
+      "slug": "hilltop-villa",
+      "type": "room",
+      "title": "Hilltop Villa",
+      "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.1.1",
+      "addedAt": "2026-10-24T16:43:41Z",
+      "updatedAt": "2026-11-19T04:51:56Z",
+      "searchTerms": [
+        "Room",
+        "Villa",
+        "Luxury",
+        "Living Room",
+        "Fireplace",
+        "Pool",
+        "Terrace",
+        "Hilltop",
+        "Modern",
+        "Fire",
+        "Music"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Villa auf dem Hügel",
+          "description": "Zweigeschossiger Wohnraum einer Villa auf dem Hügel mit Kaminwand aus Travertin und langem Kamin, einem langen elfenbeinfarbenen Sofa, cremefarbenen Bouclé-Drehsesseln und einer Kaskade gläserner Röhrenleuchten. Schiebetüren aus Glas öffnen sich zur Terrasse mit Lounge am Feuertisch, Essplatz für acht und Infinity-Pool. Oben blicken eine verglaste Brücke, eine Galeriebibliothek und der auskragende gläserne Sky Room mit Schreibtisch auf die Aussicht.",
+          "searchTerms": [
+            "Raum",
+            "Villa",
+            "Luxus",
+            "Wohnzimmer",
+            "Kamin",
+            "Pool",
+            "Terrasse",
+            "Hügel",
+            "Modern",
+            "Feuer",
+            "Musik"
+          ]
+        },
+        "en": {
+          "title": "Hilltop Villa",
+          "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
+          "searchTerms": [
+            "Room",
+            "Villa",
+            "Luxury",
+            "Living Room",
+            "Fireplace",
+            "Pool",
+            "Terrace",
+            "Hilltop",
+            "Modern",
+            "Fire",
+            "Music"
+          ]
+        },
+        "es": {
+          "title": "Villa en la colina",
+          "description": "Salón de doble altura de una villa en la colina: pared de chimenea de travertino con hogar lineal, un largo sofá marfil, sillones giratorios de bouclé crema y una cascada de lámparas de tubos de vidrio. Las puertas correderas de vidrio se abren a una terraza con zona de estar junto a una mesa de fuego, comedor exterior para ocho y piscina infinita. Arriba, un puente acristalado, una biblioteca en galería y la Sky Room de vidrio en voladizo, con escritorio, miran al paisaje.",
+          "searchTerms": [
+            "Sala",
+            "Villa",
+            "Lujo",
+            "Salón",
+            "Chimenea",
+            "Piscina",
+            "Terraza",
+            "Colina",
+            "Moderno",
+            "Fuego",
+            "Música"
+          ]
+        },
+        "fr": {
+          "title": "Villa sur la colline",
+          "description": "Séjour en double hauteur d’une villa sur la colline : mur de cheminée en travertin et foyer linéaire, long canapé ivoire, fauteuils pivotants en bouclette crème et cascade de suspensions à tubes de verre. Les baies coulissantes s’ouvrent sur une terrasse avec salon autour d’une table à feu, table pour huit et piscine à débordement. À l’étage, une passerelle vitrée, une bibliothèque en galerie et la Sky Room vitrée en porte-à-faux, avec bureau, regardent la vue.",
+          "searchTerms": [
+            "Pièce",
+            "Villa",
+            "Luxe",
+            "Salon",
+            "Cheminée",
+            "Piscine",
+            "Terrasse",
+            "Colline",
+            "Moderne",
+            "Feu",
+            "Musique"
+          ]
+        },
+        "ja": {
+          "title": "丘の上のヴィラ",
+          "description": "吹き抜けの丘の上のヴィラのリビング。トラバーチンの暖炉壁と横長の暖炉、長いアイボリーのソファ、クリーム色のブークレ生地のスイベルチェア、ガラス管のペンダントライトの連なり。引き戸のガラスを開けると、ファイヤーテーブルのラウンジ、8人掛けの屋外ダイニング、インフィニティプールのあるテラスへ。上階にはガラス張りのブリッジ、ギャラリーの書庫、デスクのある張り出したガラスのスカイルームがあり、眺めに向いています。",
+          "searchTerms": [
+            "ルーム",
+            "ヴィラ",
+            "高級",
+            "リビング",
+            "暖炉",
+            "プール",
+            "テラス",
+            "丘",
+            "モダン",
+            "火",
+            "音楽"
+          ]
+        },
+        "ko": {
+          "title": "언덕 위의 빌라",
+          "description": "층고가 높은 언덕 위 빌라의 거실. 트래버틴 벽난로 벽과 가로로 긴 벽난로, 긴 아이보리 소파, 크림색 부클레 회전 의자, 유리관 펜던트 조명이 늘어져 있습니다. 슬라이딩 유리문을 열면 파이어 테이블 라운지, 8인용 야외 다이닝, 인피니티 풀이 있는 테라스로 이어집니다. 위층에는 유리 브리지, 갤러리 서재, 책상이 있는 돌출된 유리 스카이 룸이 풍경을 향해 있습니다.",
+          "searchTerms": [
+            "룸",
+            "빌라",
+            "럭셔리",
+            "거실",
+            "벽난로",
+            "수영장",
+            "테라스",
+            "언덕",
+            "모던",
+            "불",
+            "음악"
+          ]
+        },
+        "zh-Hans": {
+          "title": "山顶别墅",
+          "description": "通高的山顶别墅客厅：石灰华壁炉墙与线性壁炉、长长的象牙色沙发、奶油色羊羔绒旋转椅和一簇玻璃管吊灯。推拉玻璃门通向露台，那里有火炉休闲区、八人户外餐桌和无边泳池。楼上的玻璃天桥、书廊和悬挑的玻璃房配有书桌，面朝远景。",
+          "searchTerms": [
+            "房间",
+            "别墅",
+            "豪宅",
+            "客厅",
+            "壁炉",
+            "泳池",
+            "露台",
+            "山顶",
+            "现代",
+            "火",
+            "音乐"
+          ]
+        },
+        "zh-Hant": {
+          "title": "山頂別墅",
+          "description": "挑高的山頂別墅客廳：石灰華壁爐牆與線性壁爐、長長的象牙色沙發、奶油色羔羊絨旋轉椅和一簇玻璃管吊燈。橫拉玻璃門通往露台，那裡有火爐休閒區、八人戶外餐桌和無邊際泳池。樓上的玻璃天橋、書廊和懸挑的玻璃屋配有書桌，面向遠景。",
+          "searchTerms": [
+            "房間",
+            "別墅",
+            "豪宅",
+            "客廳",
+            "壁爐",
+            "泳池",
+            "露台",
+            "山頂",
+            "現代",
+            "火",
+            "音樂"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.alpine-scriptorium",
+      "slug": "alpine-scriptorium",
+      "type": "room",
+      "title": "Alpine Scriptorium",
+      "description": "A soaring Gothic library of walnut book galleries and quiet reading tables beneath ribbed stone vaults. Tall mountain windows pair it naturally with Alpine Ranges in daylight.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-11ec076b73b646fd84f6b14f45f95a2f08fa6f47f5128d4725c74e2294c75966.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "11ec076b73b646fd84f6b14f45f95a2f08fa6f47f5128d4725c74e2294c75966"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.1.9",
+      "addedAt": "2026-11-17T22:30:57Z",
+      "updatedAt": "2026-11-18T20:57:33Z",
+      "searchTerms": [
+        "Room",
+        "Library",
+        "Gothic",
+        "Reading",
+        "Vaults",
+        "Mountains",
+        "Desk",
+        "Daylight"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Alpines Skriptorium",
+          "description": "Eine hohe gotische Bibliothek mit Walnuss-Holzgalerien und ruhigen Lesetischen unter gerippten Steingewölben. Hohe Bergfenster ergänzen die Alpenketten bei Tageslicht.",
+          "searchTerms": [
+            "Raum",
+            "Bibliothek",
+            "Gotik",
+            "Lesen",
+            "Gewölbe",
+            "Berge",
+            "Schreibtisch",
+            "Tag"
+          ]
+        },
+        "en": {
+          "title": "Alpine Scriptorium",
+          "description": "A soaring Gothic library of walnut book galleries and quiet reading tables beneath ribbed stone vaults. Tall mountain windows pair it naturally with Alpine Ranges in daylight.",
+          "searchTerms": [
+            "Room",
+            "Library",
+            "Gothic",
+            "Reading",
+            "Vaults",
+            "Mountains",
+            "Desk",
+            "Daylight"
+          ]
+        },
+        "es": {
+          "title": "Scriptorium alpino",
+          "description": "Una elevada biblioteca gótica con galerías de nogal y tranquilas mesas de lectura bajo bóvedas de piedra nervadas. Sus altos ventanales de montaña se combinan de forma natural con las cordilleras alpinas de día.",
+          "searchTerms": [
+            "Sala",
+            "Biblioteca",
+            "Gótico",
+            "Lectura",
+            "Bóvedas",
+            "Montañas",
+            "Escritorio",
+            "Día"
+          ]
+        },
+        "fr": {
+          "title": "Scriptorium alpin",
+          "description": "Une haute bibliothèque gothique aux galeries de noyer et aux tables de lecture silencieuses sous des voûtes de pierre nervurées. Ses grandes fenêtres de montagne s’accordent naturellement avec les Alpes en plein jour.",
+          "searchTerms": [
+            "Pièce",
+            "Bibliothèque",
+            "Gothique",
+            "Lecture",
+            "Voûtes",
+            "Montagnes",
+            "Bureau",
+            "Jour"
+          ]
+        },
+        "ja": {
+          "title": "アルプスの写字室",
+          "description": "リブ付きの石造ヴォールトの下に、ウォールナットの書架ギャラリーと静かな読書机が並ぶ高いゴシック図書館。大きな山窓は昼のアルプス山脈と自然に組み合わさります。",
+          "searchTerms": [
+            "ルーム",
+            "図書館",
+            "ゴシック",
+            "読書",
+            "ヴォールト",
+            "山",
+            "机",
+            "昼"
+          ]
+        },
+        "ko": {
+          "title": "알프스 필사실",
+          "description": "리브 석조 볼트 아래 호두나무 서가 갤러리와 조용한 독서 테이블이 놓인 높은 고딕 도서관입니다. 높은 산 창은 낮의 알프스 산맥과 자연스럽게 어울립니다.",
+          "searchTerms": [
+            "룸",
+            "도서관",
+            "고딕",
+            "독서",
+            "볼트",
+            "산",
+            "책상",
+            "낮"
+          ]
+        },
+        "zh-Hans": {
+          "title": "阿尔卑斯写经室",
+          "description": "一座挑高的哥特式图书馆，胡桃木书廊与安静的阅读桌位于肋拱石穹顶之下。高大的山景窗可在日光中自然搭配阿尔卑斯群峰。",
+          "searchTerms": [
+            "房间",
+            "图书馆",
+            "哥特式",
+            "阅读",
+            "拱顶",
+            "山脉",
+            "书桌",
+            "日光"
+          ]
+        },
+        "zh-Hant": {
+          "title": "阿爾卑斯寫經室",
+          "description": "一座挑高的哥德式圖書館，胡桃木書廊與安靜的閱讀桌位於肋拱石穹頂之下。高大的山景窗可在日光中自然搭配阿爾卑斯群峰。",
+          "searchTerms": [
+            "房間",
+            "圖書館",
+            "哥德式",
+            "閱讀",
+            "拱頂",
+            "山脈",
+            "書桌",
+            "日光"
+          ]
+        }
+      }
+    },
+    {
+      "id": "space.crossbeam-house",
+      "slug": "crossbeam-house",
+      "type": "room",
+      "title": "Crossbeam House",
+      "description": "Three cedar bars are stacked crosswise on a stone plinth: a studio bridges the pool, a library lounge opens above it, and a roof deck sits beneath a pergola. A single stream falls from the roof to the pool in three drops past the windows.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-25902c11a0a3fb938eb920799f3469f08c1881fc27e6e07882eab68014a502b0.jpg",
+        "width": 1280,
+        "height": 720,
+        "sha256": "25902c11a0a3fb938eb920799f3469f08c1881fc27e6e07882eab68014a502b0"
+      },
+      "access": "free",
+      "animated": false,
+      "hasSound": false,
+      "builtIn": false,
+      "credits": {},
+      "contentVersion": "1.1.12",
+      "addedAt": "2026-11-12T19:56:20Z",
+      "updatedAt": "2026-11-17T03:54:00Z",
+      "searchTerms": [
+        "Room",
+        "House",
+        "Modern",
+        "Cedar",
+        "Pool",
+        "Waterfall",
+        "Library",
+        "Studio",
+        "Roof Deck"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Haus der Kreuzbalken",
+          "description": "Drei Zedernholzriegel kreuzen sich auf einem Steinsockel: Ein Studio überbrückt den Pool, darüber liegt eine Bibliothekslounge, und unter einer Pergola befindet sich das Dachdeck. Ein Bach fällt vom Dach in drei Kaskaden an den Fenstern vorbei in den Pool.",
+          "searchTerms": [
+            "Raum",
+            "Haus",
+            "Zeder",
+            "Balken",
+            "Kreuzung",
+            "Wasserfall",
+            "Pool",
+            "Studio",
+            "Bibliothek",
+            "Dachdeck"
+          ]
+        },
+        "en": {
+          "title": "Crossbeam House",
+          "description": "Three cedar bars are stacked crosswise on a stone plinth: a studio bridges the pool, a library lounge opens above it, and a roof deck sits beneath a pergola. A single stream falls from the roof to the pool in three drops past the windows.",
+          "searchTerms": [
+            "Room",
+            "House",
+            "Modern",
+            "Cedar",
+            "Pool",
+            "Waterfall",
+            "Library",
+            "Studio",
+            "Roof Deck"
+          ]
+        },
+        "es": {
+          "title": "Casa de vigas cruzadas",
+          "description": "Tres volúmenes de cedro se cruzan sobre un zócalo de piedra: un estudio salva la piscina, sobre él hay un salón-biblioteca y bajo una pérgola se abre una terraza en la azotea. Un arroyo cae del tejado a la piscina en tres cascadas junto a las ventanas.",
+          "searchTerms": [
+            "Sala",
+            "Casa",
+            "Cedro",
+            "Viga",
+            "Cruzado",
+            "Cascada",
+            "Piscina",
+            "Estudio",
+            "Biblioteca",
+            "Azotea"
+          ]
+        },
+        "fr": {
+          "title": "Maison aux poutres croisées",
+          "description": "Trois volumes de cèdre se croisent sur un socle de pierre : un studio enjambe la piscine, un salon-bibliothèque le surplombe et une terrasse de toit se glisse sous une pergola. Un ruisseau tombe du toit à la piscine en trois cascades devant les fenêtres.",
+          "searchTerms": [
+            "Pièce",
+            "Maison",
+            "Cèdre",
+            "Poutre",
+            "Croisé",
+            "Cascade",
+            "Piscine",
+            "Studio",
+            "Bibliothèque",
+            "Toit-terrasse"
+          ]
+        },
+        "ja": {
+          "title": "交差梁の家",
+          "description": "石の基壇に交差して積み重なる三つの杉材の棟。プールをまたぐスタジオ、その上のライブラリーラウンジ、パーゴラ下の屋上デッキを、一筋の流れが窓辺を通って三段の滝となり、プールへ落ちます。",
+          "searchTerms": [
+            "ルーム",
+            "住宅",
+            "杉",
+            "梁",
+            "交差",
+            "滝",
+            "プール",
+            "スタジオ",
+            "図書室",
+            "屋上デッキ"
+          ]
+        },
+        "ko": {
+          "title": "교차 보의 집",
+          "description": "석재 기단 위에 세 개의 삼나무 동이 교차해 쌓여 있습니다. 수영장을 가로지르는 스튜디오 위에는 도서 라운지가 있고, 퍼걸러 아래에는 옥상 데크가 있습니다. 한 줄기 물이 창가를 지나 지붕에서 수영장까지 세 번의 폭포로 떨어집니다.",
+          "searchTerms": [
+            "룸",
+            "주택",
+            "삼나무",
+            "보",
+            "교차",
+            "폭포",
+            "수영장",
+            "스튜디오",
+            "도서관",
+            "옥상 데크"
+          ]
+        },
+        "zh-Hans": {
+          "title": "叠梁居",
+          "description": "三条雪松木长盒交叉叠放在石砌基座上：书房横跨泳池，其上是藏书客厅，顶层凉棚下设屋顶平台。一道水流从屋顶沿窗而下，经三重瀑布落入泳池。",
+          "searchTerms": [
+            "房间",
+            "住宅",
+            "雪松",
+            "横梁",
+            "交错",
+            "瀑布",
+            "泳池",
+            "书房",
+            "图书室",
+            "屋顶平台"
+          ]
+        },
+        "zh-Hant": {
+          "title": "疊梁居",
+          "description": "三條雪松木長盒交叉疊放在石砌基座上：書房橫跨泳池，其上是藏書客廳，頂層涼棚下設屋頂平台。一道水流從屋頂沿窗而下，經三重瀑布落入泳池。",
+          "searchTerms": [
+            "房間",
+            "住宅",
+            "雪松",
+            "橫樑",
+            "交錯",
+            "瀑布",
+            "泳池",
+            "書房",
+            "圖書室",
+            "屋頂平台"
+          ]
+        }
+      }
+    },
+    {
+      "id": "destination.tropical-shallow-bay",
+      "slug": "tropical-shallow-bay",
+      "type": "view",
+      "title": "Tropical Shallow Bay",
+      "description": "Clear turquoise water reveals a pale sand bottom beneath low sandbars and distant islets, shifting from sunlit tropical skies through sunset to stars and the Milky Way.",
+      "image": {
+        "url": "https://media.enterlocus.net/gallery/library-811d87c97e3c413145464bb31a9eaed2fe3306c5f59e0e97c4846936a4338aa8.jpg",
+        "width": 1024,
+        "height": 512,
+        "sha256": "811d87c97e3c413145464bb31a9eaed2fe3306c5f59e0e97c4846936a4338aa8"
+      },
+      "access": "free",
+      "animated": true,
+      "hasSound": true,
+      "builtIn": false,
+      "credits": {
+        "aiGenerated": true,
+        "aiProvider": "OpenAI",
+        "creator": "Locus",
+        "modification": "Adapted for use in Locus."
+      },
+      "contentVersion": "1.1.1",
+      "addedAt": "2026-10-02T20:38:24Z",
+      "updatedAt": "2026-11-16T22:22:25Z",
+      "searchTerms": [
+        "Tropical",
+        "Bay",
+        "Shallow water",
+        "Clear water",
+        "Sandbars",
+        "Ocean",
+        "Day and Night",
+        "Stars",
+        "Milky Way"
+      ],
+      "localizations": {
+        "de": {
+          "title": "Tropische Flachwasserbucht",
+          "description": "Durch klares, türkisfarbenes Wasser sind heller Sandgrund und ferne Inseln zu sehen – vom sonnigen Tag über den Sonnenuntergang bis zu Sternen und Milchstraße.",
+          "searchTerms": [
+            "Tropisch",
+            "Bucht",
+            "Flachwasser",
+            "Klares Wasser",
+            "Sandbänke",
+            "Meer",
+            "Tag und Nacht",
+            "Sterne",
+            "Milchstraße"
+          ]
+        },
+        "en": {
+          "title": "Tropical Shallow Bay",
+          "description": "Clear turquoise water reveals a pale sand bottom beneath low sandbars and distant islets, shifting from sunlit tropical skies through sunset to stars and the Milky Way.",
+          "searchTerms": [
+            "Tropical",
+            "Bay",
+            "Shallow water",
+            "Clear water",
+            "Sandbars",
+            "Ocean",
+            "Day and Night",
+            "Stars",
+            "Milky Way"
+          ]
+        },
+        "es": {
+          "title": "Bahía tropical de aguas poco profundas",
+          "description": "El agua turquesa cristalina deja ver un fondo de arena clara e islotes lejanos, transitando del día soleado y la puesta de sol a las estrellas y la Vía Láctea.",
+          "searchTerms": [
+            "Tropical",
+            "Bahía",
+            "Aguas poco profundas",
+            "Agua transparente",
+            "Bancos de arena",
+            "Mar",
+            "Día y noche",
+            "Estrellas",
+            "Vía Láctea"
+          ]
+        },
+        "fr": {
+          "title": "Baie tropicale peu profonde",
+          "description": "L’eau turquoise limpide dévoile un fond de sable clair et des îlots lointains, glissant du plein jour au coucher du soleil puis aux étoiles et à la Voie lactée.",
+          "searchTerms": [
+            "Tropical",
+            "Baie",
+            "Eau peu profonde",
+            "Eau limpide",
+            "Bancs de sable",
+            "Mer",
+            "Jour et nuit",
+            "Étoiles",
+            "Voie lactée"
+          ]
+        },
+        "ja": {
+          "title": "熱帯の浅い湾",
+          "description": "澄んだターコイズの海に淡い砂底と低い砂州が広がり、柔らかな昼の光から夕焼け、星と天の川の夜へと移ろいます。",
+          "searchTerms": [
+            "熱帯",
+            "湾",
+            "浅瀬",
+            "澄んだ海",
+            "砂州",
+            "海",
+            "昼と夜",
+            "星",
+            "天の川"
+          ]
+        },
+        "ko": {
+          "title": "열대의 얕은 만",
+          "description": "맑은 청록빛 바다와 낮은 모래톱이 펼쳐지며, 밝은 낮의 햇살에서 노을을 거쳐 별과 은하수가 빛나는 밤하늘로 바뀝니다.",
+          "searchTerms": [
+            "열대",
+            "만",
+            "얕은 바다",
+            "맑은 바닷물",
+            "모래톱",
+            "바다",
+            "낮과 밤",
+            "별",
+            "은하수"
+          ]
+        },
+        "zh-Hans": {
+          "title": "热带浅水湾",
+          "description": "清澈的蓝绿色海水下，浅色沙底清晰可见，远处沙洲与小岛相伴，天色从热带日光穿过日落渐入星辰与银河。",
+          "searchTerms": [
+            "热带",
+            "海湾",
+            "浅水",
+            "清澈海水",
+            "沙洲",
+            "海洋",
+            "昼夜",
+            "星空",
+            "银河"
+          ]
+        },
+        "zh-Hant": {
+          "title": "熱帶淺水灣",
+          "description": "清澈的藍綠色海水下，淺色沙底清晰可見，遠處沙洲與小島相映，天色從熱帶日光穿過日落漸入星辰與銀河。",
+          "searchTerms": [
+            "熱帶",
+            "海灣",
+            "淺水",
+            "清澈海水",
+            "沙洲",
+            "海洋",
+            "晝夜",
+            "星空",
+            "銀河"
+          ]
+        }
+      }
+    },
     {
       "id": "space.cascade-house",
       "slug": "cascade-house",
@@ -10,17 +1043,17 @@
       "title": "Cascade House",
       "description": "A limestone hillside mansion stepping up in six half-levels around an open-air water stair, where five waterfalls drop from basalt basin to basin into an infinity pool. Lower levels hold a Pool House bar, a sunlit Studio beside the falls, a Dining Room with an oak wine wall, a Fire Terrace, and a Kitchen island. Above, a double-height Great Hall with a linear fireplace and grand piano rises beneath a Library Gallery and Sky Terrace spa.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-38b9c4fa5ee0f93c1b4ba70346e95ed44bb6d44dafa7e9cd9314f4a2fe6a94a2.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-2a9bb50e1c9a6bb17a2442ba4e711b24d541214d094b967ae02cf2696d649abf.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "38b9c4fa5ee0f93c1b4ba70346e95ed44bb6d44dafa7e9cd9314f4a2fe6a94a2"
+        "sha256": "2a9bb50e1c9a6bb17a2442ba4e711b24d541214d094b967ae02cf2696d649abf"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": false,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.7",
+      "contentVersion": "1.1.4",
       "addedAt": "2026-11-12T19:57:00Z",
       "updatedAt": "2026-11-16T00:00:00Z",
       "searchTerms": [
@@ -338,167 +1371,6 @@
       }
     },
     {
-      "id": "space.crossbeam-house",
-      "slug": "crossbeam-house",
-      "type": "room",
-      "title": "Crossbeam House",
-      "description": "Three cedar bars are stacked crosswise on a stone plinth: a studio bridges the pool, a library lounge opens above it, and a roof deck sits beneath a pergola. A single stream falls from the roof to the pool in three drops past the windows.",
-      "image": {
-        "url": "https://media.enterlocus.net/gallery/library-22bd52b0ff37cdbe2cdcf89957248b8e2793f5d4f49a3c45b72cb0e2f3fe5541.jpg",
-        "width": 1280,
-        "height": 720,
-        "sha256": "22bd52b0ff37cdbe2cdcf89957248b8e2793f5d4f49a3c45b72cb0e2f3fe5541"
-      },
-      "access": "free",
-      "animated": false,
-      "hasSound": false,
-      "builtIn": false,
-      "credits": {},
-      "contentVersion": "1.0.4",
-      "addedAt": "2026-11-12T19:56:20Z",
-      "updatedAt": "2026-11-14T08:48:00Z",
-      "searchTerms": [
-        "Room",
-        "House",
-        "Modern",
-        "Cedar",
-        "Pool",
-        "Waterfall",
-        "Library",
-        "Studio",
-        "Roof Deck"
-      ],
-      "localizations": {
-        "de": {
-          "title": "Haus der Kreuzbalken",
-          "description": "Drei Zedernholzriegel kreuzen sich auf einem Steinsockel: Ein Studio überbrückt den Pool, darüber liegt eine Bibliothekslounge, und unter einer Pergola befindet sich das Dachdeck. Ein Bach fällt vom Dach in drei Kaskaden an den Fenstern vorbei in den Pool.",
-          "searchTerms": [
-            "Raum",
-            "Haus",
-            "Zeder",
-            "Balken",
-            "Kreuzung",
-            "Wasserfall",
-            "Pool",
-            "Studio",
-            "Bibliothek",
-            "Dachdeck"
-          ]
-        },
-        "en": {
-          "title": "Crossbeam House",
-          "description": "Three cedar bars are stacked crosswise on a stone plinth: a studio bridges the pool, a library lounge opens above it, and a roof deck sits beneath a pergola. A single stream falls from the roof to the pool in three drops past the windows.",
-          "searchTerms": [
-            "Room",
-            "House",
-            "Modern",
-            "Cedar",
-            "Pool",
-            "Waterfall",
-            "Library",
-            "Studio",
-            "Roof Deck"
-          ]
-        },
-        "es": {
-          "title": "Casa de vigas cruzadas",
-          "description": "Tres volúmenes de cedro se cruzan sobre un zócalo de piedra: un estudio salva la piscina, sobre él hay un salón-biblioteca y bajo una pérgola se abre una terraza en la azotea. Un arroyo cae del tejado a la piscina en tres cascadas junto a las ventanas.",
-          "searchTerms": [
-            "Sala",
-            "Casa",
-            "Cedro",
-            "Viga",
-            "Cruzado",
-            "Cascada",
-            "Piscina",
-            "Estudio",
-            "Biblioteca",
-            "Azotea"
-          ]
-        },
-        "fr": {
-          "title": "Maison aux poutres croisées",
-          "description": "Trois volumes de cèdre se croisent sur un socle de pierre : un studio enjambe la piscine, un salon-bibliothèque le surplombe et une terrasse de toit se glisse sous une pergola. Un ruisseau tombe du toit à la piscine en trois cascades devant les fenêtres.",
-          "searchTerms": [
-            "Pièce",
-            "Maison",
-            "Cèdre",
-            "Poutre",
-            "Croisé",
-            "Cascade",
-            "Piscine",
-            "Studio",
-            "Bibliothèque",
-            "Toit-terrasse"
-          ]
-        },
-        "ja": {
-          "title": "交差梁の家",
-          "description": "石の基壇に交差して積み重なる三つの杉材の棟。プールをまたぐスタジオ、その上のライブラリーラウンジ、パーゴラ下の屋上デッキを、一筋の流れが窓辺を通って三段の滝となり、プールへ落ちます。",
-          "searchTerms": [
-            "ルーム",
-            "住宅",
-            "杉",
-            "梁",
-            "交差",
-            "滝",
-            "プール",
-            "スタジオ",
-            "図書室",
-            "屋上デッキ"
-          ]
-        },
-        "ko": {
-          "title": "교차 보의 집",
-          "description": "석재 기단 위에 세 개의 삼나무 동이 교차해 쌓여 있습니다. 수영장을 가로지르는 스튜디오 위에는 도서 라운지가 있고, 퍼걸러 아래에는 옥상 데크가 있습니다. 한 줄기 물이 창가를 지나 지붕에서 수영장까지 세 번의 폭포로 떨어집니다.",
-          "searchTerms": [
-            "룸",
-            "주택",
-            "삼나무",
-            "보",
-            "교차",
-            "폭포",
-            "수영장",
-            "스튜디오",
-            "도서관",
-            "옥상 데크"
-          ]
-        },
-        "zh-Hans": {
-          "title": "叠梁居",
-          "description": "三条雪松木长盒交叉叠放在石砌基座上：书房横跨泳池，其上是藏书客厅，顶层凉棚下设屋顶平台。一道水流从屋顶沿窗而下，经三重瀑布落入泳池。",
-          "searchTerms": [
-            "房间",
-            "住宅",
-            "雪松",
-            "横梁",
-            "交错",
-            "瀑布",
-            "泳池",
-            "书房",
-            "图书室",
-            "屋顶平台"
-          ]
-        },
-        "zh-Hant": {
-          "title": "疊梁居",
-          "description": "三條雪松木長盒交叉疊放在石砌基座上：書房橫跨泳池，其上是藏書客廳，頂層涼棚下設屋頂平台。一道水流從屋頂沿窗而下，經三重瀑布落入泳池。",
-          "searchTerms": [
-            "房間",
-            "住宅",
-            "雪松",
-            "橫樑",
-            "交錯",
-            "瀑布",
-            "泳池",
-            "書房",
-            "圖書室",
-            "屋頂平台"
-          ]
-        }
-      }
-    },
-    {
       "id": "space.starship-observation-deck",
       "slug": "starship-observation-deck",
       "type": "room",
@@ -657,178 +1529,6 @@
             "書桌",
             "休息區",
             "寫實"
-          ]
-        }
-      }
-    },
-    {
-      "id": "space.hilltop-villa",
-      "slug": "hilltop-villa",
-      "type": "room",
-      "title": "Hilltop Villa",
-      "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
-      "image": {
-        "url": "https://media.enterlocus.net/gallery/library-a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85.jpg",
-        "width": 1280,
-        "height": 720,
-        "sha256": "a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85"
-      },
-      "access": "free",
-      "animated": false,
-      "hasSound": true,
-      "builtIn": false,
-      "credits": {},
-      "contentVersion": "1.0.17",
-      "addedAt": "2026-10-24T16:43:41Z",
-      "updatedAt": "2026-11-12T01:26:17Z",
-      "searchTerms": [
-        "Room",
-        "Villa",
-        "Luxury",
-        "Living Room",
-        "Fireplace",
-        "Pool",
-        "Terrace",
-        "Hilltop",
-        "Modern",
-        "Fire",
-        "Music"
-      ],
-      "localizations": {
-        "de": {
-          "title": "Villa auf dem Hügel",
-          "description": "Zweigeschossiger Wohnraum einer Villa auf dem Hügel mit Kaminwand aus Travertin und langem Kamin, einem langen elfenbeinfarbenen Sofa, cremefarbenen Bouclé-Drehsesseln und einer Kaskade gläserner Röhrenleuchten. Schiebetüren aus Glas öffnen sich zur Terrasse mit Lounge am Feuertisch, Essplatz für acht und Infinity-Pool. Oben blicken eine verglaste Brücke, eine Galeriebibliothek und der auskragende gläserne Sky Room mit Schreibtisch auf die Aussicht.",
-          "searchTerms": [
-            "Raum",
-            "Villa",
-            "Luxus",
-            "Wohnzimmer",
-            "Kamin",
-            "Pool",
-            "Terrasse",
-            "Hügel",
-            "Modern",
-            "Feuer",
-            "Musik"
-          ]
-        },
-        "en": {
-          "title": "Hilltop Villa",
-          "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
-          "searchTerms": [
-            "Room",
-            "Villa",
-            "Luxury",
-            "Living Room",
-            "Fireplace",
-            "Pool",
-            "Terrace",
-            "Hilltop",
-            "Modern",
-            "Fire",
-            "Music"
-          ]
-        },
-        "es": {
-          "title": "Villa en la colina",
-          "description": "Salón de doble altura de una villa en la colina: pared de chimenea de travertino con hogar lineal, un largo sofá marfil, sillones giratorios de bouclé crema y una cascada de lámparas de tubos de vidrio. Las puertas correderas de vidrio se abren a una terraza con zona de estar junto a una mesa de fuego, comedor exterior para ocho y piscina infinita. Arriba, un puente acristalado, una biblioteca en galería y la Sky Room de vidrio en voladizo, con escritorio, miran al paisaje.",
-          "searchTerms": [
-            "Sala",
-            "Villa",
-            "Lujo",
-            "Salón",
-            "Chimenea",
-            "Piscina",
-            "Terraza",
-            "Colina",
-            "Moderno",
-            "Fuego",
-            "Música"
-          ]
-        },
-        "fr": {
-          "title": "Villa sur la colline",
-          "description": "Séjour en double hauteur d’une villa sur la colline : mur de cheminée en travertin et foyer linéaire, long canapé ivoire, fauteuils pivotants en bouclette crème et cascade de suspensions à tubes de verre. Les baies coulissantes s’ouvrent sur une terrasse avec salon autour d’une table à feu, table pour huit et piscine à débordement. À l’étage, une passerelle vitrée, une bibliothèque en galerie et la Sky Room vitrée en porte-à-faux, avec bureau, regardent la vue.",
-          "searchTerms": [
-            "Pièce",
-            "Villa",
-            "Luxe",
-            "Salon",
-            "Cheminée",
-            "Piscine",
-            "Terrasse",
-            "Colline",
-            "Moderne",
-            "Feu",
-            "Musique"
-          ]
-        },
-        "ja": {
-          "title": "丘の上のヴィラ",
-          "description": "吹き抜けの丘の上のヴィラのリビング。トラバーチンの暖炉壁と横長の暖炉、長いアイボリーのソファ、クリーム色のブークレ生地のスイベルチェア、ガラス管のペンダントライトの連なり。引き戸のガラスを開けると、ファイヤーテーブルのラウンジ、8人掛けの屋外ダイニング、インフィニティプールのあるテラスへ。上階にはガラス張りのブリッジ、ギャラリーの書庫、デスクのある張り出したガラスのスカイルームがあり、眺めに向いています。",
-          "searchTerms": [
-            "ルーム",
-            "ヴィラ",
-            "高級",
-            "リビング",
-            "暖炉",
-            "プール",
-            "テラス",
-            "丘",
-            "モダン",
-            "火",
-            "音楽"
-          ]
-        },
-        "ko": {
-          "title": "언덕 위의 빌라",
-          "description": "층고가 높은 언덕 위 빌라의 거실. 트래버틴 벽난로 벽과 가로로 긴 벽난로, 긴 아이보리 소파, 크림색 부클레 회전 의자, 유리관 펜던트 조명이 늘어져 있습니다. 슬라이딩 유리문을 열면 파이어 테이블 라운지, 8인용 야외 다이닝, 인피니티 풀이 있는 테라스로 이어집니다. 위층에는 유리 브리지, 갤러리 서재, 책상이 있는 돌출된 유리 스카이 룸이 풍경을 향해 있습니다.",
-          "searchTerms": [
-            "룸",
-            "빌라",
-            "럭셔리",
-            "거실",
-            "벽난로",
-            "수영장",
-            "테라스",
-            "언덕",
-            "모던",
-            "불",
-            "음악"
-          ]
-        },
-        "zh-Hans": {
-          "title": "山顶别墅",
-          "description": "通高的山顶别墅客厅：石灰华壁炉墙与线性壁炉、长长的象牙色沙发、奶油色羊羔绒旋转椅和一簇玻璃管吊灯。推拉玻璃门通向露台，那里有火炉休闲区、八人户外餐桌和无边泳池。楼上的玻璃天桥、书廊和悬挑的玻璃房配有书桌，面朝远景。",
-          "searchTerms": [
-            "房间",
-            "别墅",
-            "豪宅",
-            "客厅",
-            "壁炉",
-            "泳池",
-            "露台",
-            "山顶",
-            "现代",
-            "火",
-            "音乐"
-          ]
-        },
-        "zh-Hant": {
-          "title": "山頂別墅",
-          "description": "挑高的山頂別墅客廳：石灰華壁爐牆與線性壁爐、長長的象牙色沙發、奶油色羔羊絨旋轉椅和一簇玻璃管吊燈。橫拉玻璃門通往露台，那裡有火爐休閒區、八人戶外餐桌和無邊際泳池。樓上的玻璃天橋、書廊和懸挑的玻璃屋配有書桌，面向遠景。",
-          "searchTerms": [
-            "房間",
-            "別墅",
-            "豪宅",
-            "客廳",
-            "壁爐",
-            "泳池",
-            "露台",
-            "山頂",
-            "現代",
-            "火",
-            "音樂"
           ]
         }
       }
@@ -1445,7 +2145,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.8",
+      "contentVersion": "1.0.10",
       "addedAt": "2026-11-02T17:11:52Z",
       "updatedAt": "2026-11-03T20:43:45Z",
       "searchTerms": [
@@ -1744,7 +2444,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.5",
+      "contentVersion": "1.1.3",
       "addedAt": "2026-10-28T12:29:56Z",
       "updatedAt": "2026-10-29T04:47:01Z",
       "searchTerms": [
@@ -2113,17 +2813,17 @@
       "title": "Aegean Terrace Estate",
       "description": "Cycladic white-plaster estate on stepped terraces above the sea. A living room with a corner fireplace, built-in book niches and pocket sliders opens onto travertine terraces; a cane-shaded pergola holds a dining table for eight under rattan pendants. Below, a dry-stone wall drops to an 18 m overflow pool with a shaded daybed, then to an olive garden with a curved whitewashed bench. A white exterior stair climbs to a roof terrace with a cushioned banquette.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-54e15b6e765ef5165b24c3b92100f8646efb888f52cedf066e1b1c35c6e819bd.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-d3544d52b2101ebe7e67b23f1a2a2ea081783dd1f8388197c19349198951d682.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "54e15b6e765ef5165b24c3b92100f8646efb888f52cedf066e1b1c35c6e819bd"
+        "sha256": "d3544d52b2101ebe7e67b23f1a2a2ea081783dd1f8388197c19349198951d682"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.11",
+      "contentVersion": "1.0.18",
       "addedAt": "2026-10-28T00:01:42Z",
       "updatedAt": "2026-10-29T03:06:45Z",
       "searchTerms": [
@@ -2292,147 +2992,6 @@
             "涼棚",
             "壁爐",
             "音樂"
-          ]
-        }
-      }
-    },
-    {
-      "id": "destination.tropical-shallow-bay",
-      "slug": "tropical-shallow-bay",
-      "type": "view",
-      "title": "Tropical Shallow Bay",
-      "description": "Clear turquoise water reveals a pale sand bottom. Low sandbars and sparse coastal vegetation frame a wide sea horizon under soft daylight.",
-      "image": {
-        "url": "https://media.enterlocus.net/gallery/library-b23a5e59a036e0d219118fc9b82dadffe060faf7dea06cb06516b7c369ea75f7.jpg",
-        "width": 1024,
-        "height": 512,
-        "sha256": "b23a5e59a036e0d219118fc9b82dadffe060faf7dea06cb06516b7c369ea75f7"
-      },
-      "access": "free",
-      "animated": true,
-      "hasSound": true,
-      "builtIn": false,
-      "credits": {
-        "aiGenerated": true,
-        "aiProvider": "OpenAI",
-        "creator": "Locus",
-        "modification": "Adapted for use in Locus."
-      },
-      "contentVersion": "1.0.18",
-      "addedAt": "2026-10-02T20:38:24Z",
-      "updatedAt": "2026-10-20T17:46:24Z",
-      "searchTerms": [
-        "Tropical",
-        "Bay",
-        "Shallow water",
-        "Clear water",
-        "Sandbars",
-        "Ocean",
-        "Day"
-      ],
-      "localizations": {
-        "de": {
-          "title": "Tropische Flachwasserbucht",
-          "description": "Durch das klare, türkisfarbene Wasser ist heller Sandgrund zu sehen. Niedrige Sandbänke und spärliche Küstenvegetation rahmen einen weiten Meereshorizont in sanftem Tageslicht ein.",
-          "searchTerms": [
-            "Tropisch",
-            "Bucht",
-            "Flachwasser",
-            "Klares Wasser",
-            "Sandbänke",
-            "Meer",
-            "Tag"
-          ]
-        },
-        "en": {
-          "title": "Tropical Shallow Bay",
-          "description": "Clear turquoise water reveals a pale sand bottom. Low sandbars and sparse coastal vegetation frame a wide sea horizon under soft daylight.",
-          "searchTerms": [
-            "Tropical",
-            "Bay",
-            "Shallow water",
-            "Clear water",
-            "Sandbars",
-            "Ocean",
-            "Day"
-          ]
-        },
-        "es": {
-          "title": "Bahía tropical de aguas poco profundas",
-          "description": "Las aguas turquesas y transparentes dejan ver un fondo de arena clara. Los bancos de arena bajos y la escasa vegetación costera enmarcan un amplio horizonte marino bajo una suave luz diurna.",
-          "searchTerms": [
-            "Tropical",
-            "Bahía",
-            "Aguas poco profundas",
-            "Agua transparente",
-            "Bancos de arena",
-            "Mar",
-            "Día"
-          ]
-        },
-        "fr": {
-          "title": "Baie tropicale peu profonde",
-          "description": "L’eau turquoise et limpide laisse apparaître un fond de sable clair. Des bancs de sable bas et une végétation côtière clairsemée encadrent un vaste horizon marin sous une douce lumière du jour.",
-          "searchTerms": [
-            "Tropical",
-            "Baie",
-            "Eau peu profonde",
-            "Eau limpide",
-            "Bancs de sable",
-            "Mer",
-            "Jour"
-          ]
-        },
-        "ja": {
-          "title": "熱帯の浅い湾",
-          "description": "澄んだターコイズ色の海に、淡い砂底が透けて見えます。低い砂州とまばらな海岸の草木が、柔らかな日差しに包まれた広い水平線を縁取ります。",
-          "searchTerms": [
-            "熱帯",
-            "湾",
-            "浅瀬",
-            "澄んだ海",
-            "砂州",
-            "海",
-            "昼"
-          ]
-        },
-        "ko": {
-          "title": "열대의 얕은 만",
-          "description": "맑은 청록빛 바닷물 아래로 밝은 모래 바닥이 보입니다. 낮은 모래톱과 드문드문 자라는 해안 식물 너머로 넓은 수평선이 펼쳐지고 부드러운 햇살이 비칩니다.",
-          "searchTerms": [
-            "열대",
-            "만",
-            "얕은 바다",
-            "맑은 바닷물",
-            "모래톱",
-            "바다",
-            "낮"
-          ]
-        },
-        "zh-Hans": {
-          "title": "热带浅水湾",
-          "description": "清澈的蓝绿色海水下，浅色沙底清晰可见。低矮沙洲和稀疏的海岸植被映衬着开阔海平线，日光柔和。",
-          "searchTerms": [
-            "热带",
-            "海湾",
-            "浅水",
-            "清澈海水",
-            "沙洲",
-            "海洋",
-            "日间"
-          ]
-        },
-        "zh-Hant": {
-          "title": "熱帶淺水灣",
-          "description": "清澈的藍綠色海水下，淺色沙底清晰可見。低矮沙洲和稀疏的海岸植被映襯著開闊海平線，日光柔和。",
-          "searchTerms": [
-            "熱帶",
-            "海灣",
-            "淺水",
-            "清澈海水",
-            "沙洲",
-            "海洋",
-            "日間"
           ]
         }
       }
@@ -5023,7 +5582,7 @@
         "modification": "Adapted for use in Locus.",
         "sourceURL": "https://developers.openai.com/api/docs/models/gpt-image-2.5-sunburst"
       },
-      "contentVersion": "1.0.9",
+      "contentVersion": "1.1.2",
       "addedAt": "2026-10-02T20:38:24Z",
       "updatedAt": "2026-10-12T22:46:52Z",
       "searchTerms": [
@@ -5140,30 +5699,7 @@
             "海鷗"
           ]
         }
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-7eb371f7b62857c5237c17748b30d91666598279fb8953360fcd51f04043b554.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "7eb371f7b62857c5237c17748b30d91666598279fb8953360fcd51f04043b554",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-f3df761e797b44b124b5f8756a087201baf9bc4d36ae9da57ce6250cd879e389.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "f3df761e797b44b124b5f8756a087201baf9bc4d36ae9da57ce6250cd879e389",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-e3cc0117ee762fd7ef5ddefadb880c876877e0d206b8be99fe77e0359bd520f0.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "e3cc0117ee762fd7ef5ddefadb880c876877e0d206b8be99fe77e0359bd520f0",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "destination.bioluminescent-mangrove-lagoon",
@@ -6827,7 +7363,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.19",
+      "contentVersion": "1.0.22",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T03:32:01Z",
       "searchTerms": [
@@ -7254,7 +7790,7 @@
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.13",
+      "contentVersion": "1.0.17",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T02:25:36Z",
       "searchTerms": [
@@ -12454,257 +12990,246 @@
       "slug": "atrium-loft",
       "type": "room",
       "title": "Atrium Loft",
-      "description": "Modern double-height loft with floor-to-ceiling glass and a mezzanine workspace. Warm wood floors and matching worktables contrast with pale walls, slim black window frames, and glass railings. A straight stair with metal handrails leads to the upper desk, while the open lower level includes a white sofa, pendant light, and potted plant. Calm and airy.",
+      "description": "A double-height loft with floor-to-ceiling glass on two sides and a mezzanine library. Oak floors, warm plaster and slim black mullions frame the View. A cream sofa, a lounge chair, a reading corner and a work desk face the glass; dining for four sits under the mezzanine by a walnut credenza. An oak stair climbs the rear wall to a reading desk before a wall of books, where a bookcase door hides the way to a private roof garden with a bench, a lounge chair and garden lights.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/space.atrium-loft.jpg",
+        "url": "https://media.enterlocus.net/gallery/builtin-ef8850888b098d47efd8a25f8312b60d7ad9d5d8a3ede16293975b16f2a3748c.jpg",
         "width": 1600,
         "height": 900,
-        "sha256": "02ad3ca505152eb8cd87903b0354a92d997887e19df2f78bad7765a7a5e6b148"
+        "sha256": "ef8850888b098d47efd8a25f8312b60d7ad9d5d8a3ede16293975b16f2a3748c"
       },
       "access": "free",
       "animated": false,
       "hasSound": false,
       "builtIn": true,
-      "contentVersion": "1.0.22",
+      "contentVersion": "1.2.3",
       "searchTerms": [],
       "localizations": {
         "zh-Hans": {
           "title": "中庭阁楼",
-          "description": "现代挑高阁楼配有落地玻璃和夹层工作区。温暖木地板与同色工作桌，与浅色墙面、纤细黑窗框和玻璃栏杆形成对比。带金属扶手的直梯通向上层书桌；开放下层设有白色沙发、吊灯与盆栽。安静而通透。",
+          "description": "两面落地玻璃的挑高阁楼，夹层是一座小书房。橡木地板、暖白灰泥墙与纤细的黑色窗框框出窗外景色。奶油色沙发、休闲椅、阅读角和工作桌面向玻璃；夹层下方是四人餐桌和胡桃木矮柜。橡木楼梯沿后墙而上，通向书墙前的阅读桌；一扇书架暗门通往私密的屋顶花园，那里有长椅、躺椅和庭院灯。",
           "searchTerms": [
             "中庭",
             "阁楼",
             "夹层",
-            "书桌"
+            "书桌",
+            "书墙",
+            "屋顶花园"
           ]
         },
         "zh-Hant": {
           "title": "中庭閣樓",
-          "description": "現代挑高閣樓配有落地玻璃和夾層工作區。溫暖木地板與同色工作桌，與淺色牆面、纖細黑窗框和玻璃欄桿形成對比。帶金屬扶手的直梯通向上層書桌；開放下層設有白色沙發、吊燈與盆栽。安靜而通透。",
+          "description": "兩面落地玻璃的挑高閣樓，夾層是一座小書房。橡木地板、暖白灰泥牆與纖細的黑色窗框框出窗外景色。奶油色沙發、休閒椅、閱讀角和工作桌面向玻璃；夾層下方是四人餐桌和胡桃木矮櫃。橡木樓梯沿後牆而上，通向書牆前的閱讀桌；一扇書架暗門通往私密的屋頂花園，那裡有長椅、躺椅和庭院燈。",
           "searchTerms": [
             "中庭",
             "閣樓",
             "夾層",
-            "書桌"
+            "書桌",
+            "書牆",
+            "屋頂花園"
           ]
         },
         "ja": {
           "title": "アトリウム・ロフト",
-          "description": "床から天井までのガラスと中二階のワークスペースを持つ、現代的な吹き抜けのロフト。暖かな木の床と揃いの作業テーブルが、淡い壁、細い黒い窓枠、ガラスの手すりと対照をなします。金属の手すりを備えた直線階段が上階のデスクへ続き、開放的な下階には白いソファ、ペンダントライト、鉢植えがあります。穏やかで風通しのよい空間です。",
+          "description": "二面が床から天井までのガラスの吹き抜けのロフトで、中二階は小さな書斎です。オークの床、温かな白い漆喰、細い黒のサッシが眺めを縁取ります。クリーム色のソファ、ラウンジチェア、読書コーナー、作業デスクがガラスに向かい、中二階の下には4人掛けのダイニングとウォールナットのキャビネット。オークの階段が奥の壁に沿って本棚の前の読書デスクへ上り、本棚の隠し扉の先には、ベンチとラウンジチェア、庭園灯のあるプライベートな屋上庭園があります。",
           "searchTerms": [
             "アトリウム",
             "ロフト",
             "中二階",
-            "デスク"
+            "デスク",
+            "本棚",
+            "屋上庭園"
           ]
         },
         "ko": {
           "title": "아트리움 로프트",
-          "description": "바닥부터 천장까지 이어지는 유리와 중층 작업 공간이 있는 현대적인 복층 높이 로프트. 따뜻한 목재 바닥과 어울리는 작업대가 밝은 벽, 가느다란 검은 창틀과 유리 난간에 대비됩니다. 금속 난간이 있는 곧은 계단이 위층 책상으로 이어지고, 개방된 아래층에는 흰 소파, 펜던트 조명과 화분이 있습니다. 평온하고 쾌적합니다.",
+          "description": "두 면이 바닥부터 천장까지 유리로 된 복층 높이의 로프트로, 중층은 작은 서재입니다. 오크 바닥, 따뜻한 흰색 회벽, 가는 검은 창살이 풍경을 감쌉니다. 크림색 소파, 라운지 체어, 독서 공간과 작업 책상이 유리를 향하고, 중층 아래에는 4인용 식탁과 월넛 수납장이 있습니다. 오크 계단이 뒷벽을 따라 책장 벽 앞의 독서 책상으로 이어지고, 책장 비밀 문 너머에는 벤치와 라운지 의자, 정원 조명이 있는 개인 옥상 정원이 있습니다.",
           "searchTerms": [
             "아트리움",
             "로프트",
             "중층",
-            "책상"
+            "책상",
+            "책장",
+            "옥상 정원"
           ]
         },
         "de": {
           "title": "Atrium-Loft",
-          "description": "Modernes Loft mit doppelter Raumhöhe, bodenhohem Glas und Arbeitsbereich auf der Galerie. Warme Holzböden und passende Arbeitstische stehen im Kontrast zu hellen Wänden, schmalen schwarzen Fensterrahmen und Glasgeländern. Eine gerade Treppe mit Metallhandläufen führt zum oberen Schreibtisch. Unten gibt es ein weißes Sofa, eine Pendelleuchte und eine Topfpflanze. Ruhig und luftig.",
+          "description": "Ein Loft mit doppelter Raumhöhe, raumhohem Glas an zwei Seiten und einer Galerie als Bibliothek. Eichenboden, warmer Putz und schmale schwarze Pfosten rahmen den Ausblick. Sofa, Loungesessel, Leseecke und Arbeitstisch blicken zum Glas; unter der Galerie steht ein Esstisch für vier an einem Nussbaum-Sideboard. Eine Eichentreppe führt zum Lesetisch vor einer Bücherwand, deren Regaltür den Weg zu einem privaten Dachgarten mit Bank, Sessel und Gartenleuchten verbirgt.",
           "searchTerms": [
             "Atrium",
             "Loft",
             "Galerie",
-            "Schreibtisch"
+            "Schreibtisch",
+            "Bücherwand",
+            "Dachgarten"
           ]
         },
         "fr": {
           "title": "Loft avec atrium",
-          "description": "Loft moderne à double hauteur, vitrage toute hauteur et espace de travail en mezzanine. Sols en bois chaud et tables assorties contrastent avec murs pâles, cadres noirs fins et garde-corps vitrés. Un escalier droit à mains courantes métalliques mène au bureau supérieur ; le niveau bas ouvert comprend un canapé blanc, une suspension et une plante en pot. Calme et aéré.",
+          "description": "Un loft double hauteur vitré sur deux côtés, avec une bibliothèque en mezzanine. Chêne, enduit blanc chaud et fins montants noirs encadrent la vue. Canapé, fauteuil, coin lecture et bureau font face à la baie ; sous la mezzanine, une table pour quatre côtoie une enfilade en noyer. Un escalier en chêne mène au bureau devant un mur de livres, où une porte-bibliothèque cache l’accès à un jardin privé sur le toit, avec banc, fauteuil et luminaires.",
           "searchTerms": [
             "atrium",
             "loft",
             "mezzanine",
-            "bureau"
+            "bureau",
+            "bibliothèque",
+            "jardin sur le toit"
           ]
         },
         "es": {
           "title": "Loft con atrio",
-          "description": "Loft moderno de doble altura, acristalamiento de suelo a techo y zona de trabajo en el altillo. Suelo de madera cálida y mesas a juego contrastan con paredes claras, marcos negros finos y barandillas de cristal. Una escalera recta con pasamanos metálicos lleva al escritorio superior; el nivel inferior abierto tiene sofá blanco, lámpara colgante y planta en maceta. Tranquilo y espacioso.",
+          "description": "Un loft de doble altura con vidrio de suelo a techo en dos lados y una biblioteca en el altillo. Roble, estuco blanco cálido y finos montantes negros enmarcan la vista. Sofá, butaca, rincón de lectura y escritorio miran al vidrio; bajo el altillo, una mesa para cuatro junto a un aparador de nogal. Una escalera de roble sube al escritorio ante una pared de libros, donde una puerta-estantería oculta un jardín privado en la azotea con banco, butaca y luces.",
           "searchTerms": [
             "atrio",
             "loft",
             "altillo",
-            "escritorio"
+            "escritorio",
+            "biblioteca",
+            "azotea"
           ]
         }
       },
       "credits": {
         "creator": "EnterLocus"
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-e55429643a4dfb59f5c77db0a267f10f2041ab022986311e129d15530370f3ef.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "e55429643a4dfb59f5c77db0a267f10f2041ab022986311e129d15530370f3ef",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-dd4a8813e458e92b5288e35a00b4b84ccec33b77cc6020cc553867a583636af8.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "dd4a8813e458e92b5288e35a00b4b84ccec33b77cc6020cc553867a583636af8",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-2682502f7de7550e21c81a0b89bb8993d53f410503ec67826e1d151df900ea94.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "2682502f7de7550e21c81a0b89bb8993d53f410503ec67826e1d151df900ea94",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.courtyard-gallery",
       "slug": "courtyard-gallery",
       "type": "room",
       "title": "Courtyard Gallery",
-      "description": "Modern glass-walled courtyard gallery with a reflecting pool and rooftop terrace. Split-level rooms have pale plaster walls, wood floors, slim black metal frames, and simple wooden tables with chairs for working or dining. A central planted water court connects the spaces, while stairs, glass railings, and small pendant lights give the pavilion a calm, minimalist feel.",
+      "description": "Modern glass-walled courtyard gallery around a reflecting pool with an olive tree. A lounge and dining room look onto the courtyard, a straight oak stair climbs to a level roof terrace, rear gallery and upper glass study, and a double-height glass studio holds a desk and a sofa. Oak floors, warm plaster, slim black frames and soft linen furniture, with lamps in every room for calm evenings.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/space.courtyard-gallery.jpg",
+        "url": "https://media.enterlocus.net/gallery/builtin-5b9ed6ef278e122b7d3c9335109de1e4a41eb461590372443ba560b2232f8d3b.jpg",
         "width": 1600,
         "height": 900,
-        "sha256": "824faae34b18b45326c44df2e9ec6dcd515b5ce6cbe94d392b16efab7455c8e1"
+        "sha256": "5b9ed6ef278e122b7d3c9335109de1e4a41eb461590372443ba560b2232f8d3b"
       },
       "access": "free",
       "animated": false,
       "hasSound": false,
       "builtIn": true,
-      "contentVersion": "1.0.23",
+      "contentVersion": "1.2.2",
       "searchTerms": [],
       "localizations": {
         "zh-Hans": {
           "title": "庭院画廊",
-          "description": "现代玻璃墙庭院画廊配有倒影水池与屋顶露台。错层房间采用浅色灰泥墙、木地板和纤细黑金属框架，简洁木桌椅适合工作或用餐。中央绿植水庭连接各个空间，楼梯、玻璃栏杆与小吊灯让凉亭显得安静而简约。",
+          "description": "现代玻璃墙庭院画廊环绕着种有橄榄树的倒影水池。客厅与餐厅面向庭院，笔直的橡木楼梯通往同一标高的屋顶露台、后回廊和上层玻璃书房，挑高的玻璃工作室设有书桌与沙发。橡木地板、温暖灰泥墙、纤细黑框和柔软亚麻家具，每个房间都有灯光，夜晚安静温暖。",
           "searchTerms": [
             "庭院",
             "画廊",
             "水池",
-            "露台"
+            "露台",
+            "橄榄树",
+            "客厅",
+            "餐厅"
           ]
         },
         "zh-Hant": {
           "title": "庭院畫廊",
-          "description": "現代玻璃牆庭院畫廊配有倒影水池與屋頂露台。錯層房間採用淺色灰泥牆、木地板和纖細黑金屬框架，簡潔木桌椅適合工作或用餐。中央綠植水庭連接各個空間，樓梯、玻璃欄桿與小吊燈讓涼亭顯得安靜而簡約。",
+          "description": "現代玻璃牆庭院畫廊環繞著種有橄欖樹的倒影水池。客廳與餐廳面向庭院，筆直的橡木樓梯通往同一標高的屋頂露台、後迴廊和上層玻璃書房，挑高的玻璃工作室設有書桌與沙發。橡木地板、溫暖灰泥牆、纖細黑框和柔軟亞麻家具，每個房間都有燈光，夜晚安靜溫暖。",
           "searchTerms": [
             "庭院",
             "畫廊",
             "水池",
-            "露台"
+            "露台",
+            "橄欖樹",
+            "客廳",
+            "餐廳"
           ]
         },
         "ja": {
           "title": "中庭のギャラリー",
-          "description": "反射池と屋上テラスを持つ、現代的なガラス壁の中庭ギャラリー。段差のある部屋には淡い漆喰壁、木の床、細い黒い金属フレームがあり、作業や食事用の簡素な木製テーブルと椅子を備えます。中央の植栽された水の庭が空間をつなぎ、階段、ガラスの手すり、小さなペンダントライトが、パビリオンに穏やかでミニマルな印象を与えます。",
+          "description": "オリーブの木が立つ反射池を囲む、現代的なガラス壁の中庭ギャラリー。ラウンジとダイニングは中庭に面し、まっすぐなオークの階段が段差のない屋上テラス、奥のギャラリー、上階のガラス張りの書斎へ続きます。吹き抜けのガラスのスタジオにはデスクとソファがあります。オークの床、温かみのある漆喰、細い黒いフレーム、柔らかなリネンの家具に、各部屋のランプが穏やかな夜を演出します。",
           "searchTerms": [
             "中庭",
             "ギャラリー",
             "水盤",
-            "テラス"
+            "テラス",
+            "オリーブ",
+            "ラウンジ",
+            "ダイニング"
           ]
         },
         "ko": {
           "title": "안뜰 갤러리",
-          "description": "반사 연못과 옥상 테라스가 있는 현대적인 유리 벽 안뜰 갤러리. 높이가 다른 공간에 밝은 미장 벽, 나무 바닥, 가느다란 검은 금속 프레임과 작업이나 식사에 쓸 의자가 딸린 단순한 나무 테이블이 있습니다. 식물을 심은 중앙 수공간이 방들을 연결하고, 계단과 유리 난간, 작은 펜던트 조명이 정자에 평온하고 미니멀한 분위기를 줍니다.",
+          "description": "올리브 나무가 있는 반사 연못을 둘러싼 현대적인 유리 벽 안뜰 갤러리. 라운지와 다이닝이 안뜰을 향하고, 곧은 오크 계단이 단차 없는 옥상 테라스와 뒤쪽 갤러리, 위층 유리 서재로 이어지며, 두 층 높이의 유리 스튜디오에는 책상과 소파가 있습니다. 오크 바닥, 따뜻한 미장 벽, 가느다란 검은 프레임, 부드러운 리넨 가구와 방마다 놓인 램프가 차분한 저녁을 만듭니다.",
           "searchTerms": [
             "안뜰",
             "갤러리",
             "연못",
-            "테라스"
+            "테라스",
+            "올리브",
+            "라운지",
+            "다이닝"
           ]
         },
         "de": {
           "title": "Hofgalerie",
-          "description": "Moderne gläserne Hofgalerie mit Spiegelbecken und Dachterrasse. Räume auf verschiedenen Ebenen haben helle Putzwände, Holzböden, schmale schwarze Metallrahmen und einfache Holztische mit Stühlen zum Arbeiten oder Essen. Ein bepflanzter Wasserhof verbindet die Räume. Treppen, Glasgeländer und kleine Pendelleuchten geben dem Pavillon eine ruhige minimalistische Atmosphäre.",
+          "description": "Moderne gläserne Hofgalerie um ein Spiegelbecken mit Olivenbaum. Lounge und Essbereich blicken in den Innenhof, eine gerade Eichentreppe führt zu einer ebenen Dachterrasse, einer hinteren Galerie und einem oberen Glasarbeitszimmer, und ein zweigeschossiges Glasstudio bietet Schreibtisch und Sofa. Eichenböden, warmer Putz, schmale schwarze Rahmen und weiche Leinenmöbel, dazu Lampen in jedem Raum für ruhige Abende.",
           "searchTerms": [
             "Innenhof",
             "Galerie",
             "Wasserbecken",
-            "Terrasse"
+            "Terrasse",
+            "Olivenbaum",
+            "Lounge",
+            "Esstisch"
           ]
         },
         "fr": {
           "title": "Galerie autour d’une cour",
-          "description": "Galerie moderne aux murs vitrés, bassin miroir et terrasse sur le toit. Les espaces à niveaux décalés ont murs enduits pâles, sols en bois, fins cadres métalliques noirs et simples tables en bois avec chaises pour travailler ou manger. Une cour centrale plantée avec bassin relie les espaces ; escaliers, garde-corps vitrés et petites suspensions donnent au pavillon une ambiance calme et minimaliste.",
+          "description": "Galerie moderne aux murs vitrés autour d’un bassin miroir planté d’un olivier. Le salon et la salle à manger donnent sur la cour, un escalier droit en chêne monte vers un toit-terrasse de plain-pied, une galerie arrière et un bureau vitré à l’étage, et un studio vitré en double hauteur accueille un bureau et un canapé. Sols en chêne, enduit chaleureux, fins cadres noirs et meubles en lin doux, avec des lampes dans chaque pièce pour des soirées paisibles.",
           "searchTerms": [
             "cour",
             "galerie",
             "bassin",
-            "terrasse"
+            "terrasse",
+            "olivier",
+            "salon",
+            "salle à manger"
           ]
         },
         "es": {
           "title": "Galería del patio",
-          "description": "Galería moderna acristalada con estanque reflectante y terraza en la azotea. Las zonas a distintos niveles tienen paredes enlucidas claras, suelo de madera, marcos metálicos negros finos y mesas sencillas con sillas para trabajar o comer. Un patio central con agua y plantas conecta los espacios; escaleras, barandillas de cristal y pequeñas lámparas colgantes crean un ambiente tranquilo y minimalista.",
+          "description": "Galería moderna acristalada alrededor de un estanque reflectante con un olivo. El salón y el comedor dan al patio, una escalera recta de roble sube a una azotea a nivel, una galería trasera y un estudio acristalado superior, y un estudio de doble altura acoge un escritorio y un sofá. Suelos de roble, enlucido cálido, finos marcos negros y muebles de lino suave, con lámparas en cada estancia para tardes tranquilas.",
           "searchTerms": [
             "patio",
             "galería",
             "estanque",
-            "terraza"
+            "terraza",
+            "olivo",
+            "salón",
+            "comedor"
           ]
         }
       },
       "credits": {
         "creator": "EnterLocus"
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-c3cf8cdf6faccc734ee0587b1bfd52fd25dfb094eff3000b651022f7a3199879.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "c3cf8cdf6faccc734ee0587b1bfd52fd25dfb094eff3000b651022f7a3199879",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-7f29729c2d70cdb8e9fa7f2825ef0934f23ab783bfedeae0f581f9a2b49386f1.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "7f29729c2d70cdb8e9fa7f2825ef0934f23ab783bfedeae0f581f9a2b49386f1",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-601038579795c6d9d31ba6c6f95870b7115d27c788c819de40a098f6af82f026.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "601038579795c6d9d31ba6c6f95870b7115d27c788c819de40a098f6af82f026",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     },
     {
       "id": "space.horizon-atelier",
       "slug": "horizon-atelier",
       "type": "room",
       "title": "Horizon Atelier",
-      "description": "Modern glass-walled studio pavilion with wood floors, worktables, and a covered terrace. Black-framed floor-to-ceiling windows enclose a compact workspace with a wood desk, dining table, wall shelves, and two pendant lamps. A low upholstered lounge, round coffee table, potted plants, and a small outdoor table create a calm, minimalist setting.",
+      "description": "Single-level glass pavilion with oak floors, a floating oak ceiling and a stone hearth with a fire. Floor-to-ceiling glass wraps a window desk, a walnut dining table under two pendants and a lounge with a sofa, an armchair facing the view, lamps and plants. Outside: a timber terrace with a café table under a cantilevered canopy, two Adirondack chairs facing the view and a reflecting ribbon pool, lit at night by lanterns and a ribbon light.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/space.horizon-atelier.jpg",
+        "url": "https://media.enterlocus.net/gallery/builtin-a03db8a135d6f631c2cbc904846abc619f9692150fc842d2cb8b0fc049d87ea5.jpg",
         "width": 1600,
         "height": 900,
-        "sha256": "7e6c01cb2e30a5c5a511145c2dec273a460ba8cfcd844887470a0b9ce47b4eb0"
+        "sha256": "a03db8a135d6f631c2cbc904846abc619f9692150fc842d2cb8b0fc049d87ea5"
       },
       "access": "free",
       "animated": false,
       "hasSound": false,
       "builtIn": true,
-      "contentVersion": "1.0.28",
+      "contentVersion": "1.2.4",
       "searchTerms": [],
       "localizations": {
         "zh-Hans": {
           "title": "天际工作室",
-          "description": "现代玻璃墙工作室凉亭配有木地板、工作桌和带顶露台。黑框落地窗围住紧凑工作区，内部设有木书桌、餐桌、墙上搁板和两盏吊灯。低矮软包休息座、圆茶几、盆栽与户外小桌营造出安静、简约的环境。",
+          "description": "单层玻璃凉亭，橡木地板、悬浮的橡木吊顶和燃着炉火的石砌壁炉墙。落地玻璃环绕着窗边书桌、两盏吊灯下的胡桃木餐桌，以及摆有沙发、面向窗景的单人椅、灯具和绿植的休息区。室外是木露台：悬挑雨棚下的咖啡桌、两把面向风景的阿迪朗达克椅和一条细长水带，夜晚由庭院灯和灯带照亮。",
           "searchTerms": [
             "天际",
             "工作室",
@@ -12714,7 +13239,7 @@
         },
         "zh-Hant": {
           "title": "天際工作室",
-          "description": "現代玻璃牆工作室涼亭配有木地板、工作桌和帶頂露台。黑框落地窗圍住緊湊工作區，內部設有木書桌、餐桌、牆上擱板和兩盞吊燈。低矮軟包休息座、圓茶几、盆栽與戶外小桌營造出安靜、簡約的環境。",
+          "description": "單層玻璃涼亭，橡木地板、懸浮的橡木吊頂和燃著爐火的石砌壁爐牆。落地玻璃環繞著窗邊書桌、兩盞吊燈下的胡桃木餐桌，以及擺有沙發、面向窗景的單人椅、燈具和綠植的休息區。室外是木露台：懸挑雨棚下的咖啡桌、兩把面向風景的阿迪朗達克椅和一條細長水帶，夜晚由庭院燈和燈帶照亮。",
           "searchTerms": [
             "天際",
             "工作室",
@@ -12724,7 +13249,7 @@
         },
         "ja": {
           "title": "ホライズン・アトリエ",
-          "description": "木の床、作業テーブル、屋根付きテラスを持つ、現代的なガラス壁のスタジオパビリオン。黒枠の床から天井までの窓が、木のデスク、食卓、壁棚、二つのペンダントランプを備えたコンパクトなワークスペースを囲みます。低い張り地のラウンジ、丸いコーヒーテーブル、鉢植え、小さな屋外テーブルが、穏やかでミニマルな空間を作ります。",
+          "description": "オーク材の床、浮かぶオークの天井、炎の灯る石の暖炉壁を備えた平屋のガラスパビリオン。床から天井までのガラスが、窓際のデスク、二灯のペンダントの下のウォールナットのダイニングテーブル、ソファと景色に向いたアームチェア、ランプと植物のあるラウンジを囲みます。外には木のテラスがあり、張り出した庇の下にカフェテーブル、景色に向いた二脚のアディロンダックチェア、細長い水盤が並び、夜はランタンとライン照明が灯ります。",
           "searchTerms": [
             "地平線",
             "スタジオ",
@@ -12734,7 +13259,7 @@
         },
         "ko": {
           "title": "호라이즌 아틀리에",
-          "description": "나무 바닥, 작업대와 지붕 있는 테라스를 갖춘 현대적인 유리 벽 스튜디오 정자. 검은 프레임의 전면 창이 목재 책상, 식탁, 벽 선반과 펜던트 조명 두 개가 있는 작은 작업 공간을 감쌉니다. 낮은 패브릭 라운지 좌석, 둥근 커피 테이블, 화분과 작은 야외 테이블이 평온하고 미니멀한 환경을 만듭니다.",
+          "description": "오크 바닥, 떠 있는 오크 천장, 불이 타오르는 돌 벽난로 벽을 갖춘 단층 유리 파빌리온. 바닥부터 천장까지 이어진 유리가 창가 책상, 펜던트 두 개 아래의 월넛 식탁, 소파와 풍경을 향한 안락의자, 조명과 식물이 있는 라운지를 감쌉니다. 밖에는 목재 테라스가 있어 캔틸레버 차양 아래 카페 테이블, 풍경을 향한 애디론댁 의자 두 개, 길쭉한 수경 연못이 놓이고, 밤에는 랜턴과 라인 조명이 밝힙니다.",
           "searchTerms": [
             "지평선",
             "스튜디오",
@@ -12744,7 +13269,7 @@
         },
         "de": {
           "title": "Horizont-Atelier",
-          "description": "Moderner gläserner Atelierpavillon mit Holzböden, Arbeitstischen und überdachter Terrasse. Bodenhohe Fenster mit schwarzen Rahmen umschließen einen kompakten Arbeitsbereich mit Holzschreibtisch, Esstisch, Wandregalen und zwei Pendellampen. Eine niedrige gepolsterte Lounge, ein runder Couchtisch, Topfpflanzen und ein kleiner Außentisch schaffen eine ruhige minimalistische Umgebung.",
+          "description": "Einstöckiger Glaspavillon mit Eichenböden, schwebender Eichendecke und Steinwand mit Kaminfeuer. Raumhohe Verglasung umgibt einen Fensterschreibtisch, einen Nussbaum-Esstisch unter zwei Pendelleuchten und eine Lounge mit Sofa, Sessel mit Aussicht, Lampen und Pflanzen. Draußen: eine Holzterrasse mit Bistrotisch unter einem auskragenden Vordach, zwei Adirondack-Stühlen mit Blick in die Landschaft und schmalem Wasserbecken, nachts von Laternen und einem Lichtband beleuchtet.",
           "searchTerms": [
             "Horizont",
             "Atelier",
@@ -12754,7 +13279,7 @@
         },
         "fr": {
           "title": "Atelier Horizon",
-          "description": "Pavillon-atelier moderne vitré, sols en bois, tables de travail et terrasse couverte. Le vitrage toute hauteur à cadres noirs entoure un espace compact avec bureau en bois, table à manger, étagères murales et deux suspensions. Assise basse rembourrée, table basse ronde, plantes en pot et petite table extérieure composent un cadre calme et minimaliste.",
+          "description": "Pavillon de verre de plain-pied aux sols en chêne, plafond flottant en chêne et mur de pierre abritant un feu. Les baies toute hauteur entourent un bureau face à la fenêtre, une table en noyer sous deux suspensions et un salon avec canapé, fauteuil face à la vue, lampes et plantes. Dehors, une terrasse en bois avec table de café sous un auvent en porte-à-faux, deux chaises Adirondack face à la vue et un miroir d'eau, éclairée la nuit par des lanternes et un ruban lumineux.",
           "searchTerms": [
             "horizon",
             "atelier",
@@ -12764,7 +13289,7 @@
         },
         "es": {
           "title": "Taller Horizonte",
-          "description": "Pabellón de estudio moderno acristalado, suelo de madera, mesas de trabajo y terraza cubierta. Ventanas de suelo a techo con marcos negros rodean una zona compacta con escritorio de madera, mesa de comedor, estantes y dos lámparas colgantes. Asientos bajos tapizados, mesa baja redonda, plantas en maceta y una pequeña mesa exterior crean un entorno tranquilo y minimalista.",
+          "description": "Pabellón de cristal de una planta con suelos de roble, techo de roble suspendido y muro de piedra con chimenea. Ventanales de suelo a techo rodean un escritorio junto a la ventana, una mesa de nogal bajo dos lámparas colgantes y una sala con sofá, sillón hacia el paisaje, lámparas y plantas. Fuera, una terraza de madera con mesa de café bajo un voladizo, dos sillas Adirondack frente al paisaje y una lámina de agua, iluminada de noche por faroles y una línea de luz.",
           "searchTerms": [
             "horizonte",
             "estudio",
@@ -12775,30 +13300,7 @@
       },
       "credits": {
         "creator": "EnterLocus"
-      },
-      "photos": [
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-671214881989103180c57453478cc75068385ffdcd1444929e7dce80582a949c.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "671214881989103180c57453478cc75068385ffdcd1444929e7dce80582a949c",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-7711a58677604e353705fc4f22cb3fb14ab1b27ac2a819c948284b619e7a478e.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "7711a58677604e353705fc4f22cb3fb14ab1b27ac2a819c948284b619e7a478e",
-          "captureKind": "visionos-simulator"
-        },
-        {
-          "url": "https://media.enterlocus.net/gallery/rendered-0c82dac26f7e1b443fdeb5a6487d42aa9c55c6d8117002bf1709bd695d6c43ff.jpg",
-          "width": 1920,
-          "height": 1080,
-          "sha256": "0c82dac26f7e1b443fdeb5a6487d42aa9c55c6d8117002bf1709bd695d6c43ff",
-          "captureKind": "visionos-simulator"
-        }
-      ]
+      }
     }
   ],
   "series": [
@@ -13108,7 +13610,8 @@
       },
       "members": [
         "space.free-capsule",
-        "space.orbital-lounge-fan"
+        "space.orbital-lounge-fan",
+        "space.starship-observation-deck"
       ],
       "type": "room"
     },
@@ -13150,7 +13653,8 @@
         "space.hilltop-villa",
         "space.aegean-terrace-estate",
         "space.japanese-courtyard-mansion",
-        "space.pacific-palapa-house"
+        "space.pacific-palapa-house",
+        "space.cascade-house"
       ],
       "type": "room"
     },

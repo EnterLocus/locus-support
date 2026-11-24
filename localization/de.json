@@ -4315,6 +4315,7 @@
     "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\") and an interactive state. Uses package ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.": "Mit neuem Grundriss, neuen Möbeln, gebackenen Beleuchtungsstärke-Lightmaps (mode: \"irradiance\") und einem interaktiven Zustand neu aufgebaut. Verwendet die Paket-ID space.horizon-atelier-example, um neben dem integrierten Horizon Atelier importiert zu werden.",
     "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\").": "Ergänzt sieben per Pinch-Geste bedienbare interaktive Zustände (Türen und Pergola-Lamellen) sowie gebackene Beleuchtungsstärke-Lightmaps (mode: \"irradiance\").",
     "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\").": "Ergänzt drei per Pinch-Geste bedienbare interaktive Türen sowie gebackene Beleuchtungsstärke-Lightmaps (mode: \"irradiance\").",
-    "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "Auf gebackene Beleuchtungsstärke-Lightmaps (mode: \"irradiance\") aktualisiert, damit Oberflächentexturen in voller Auflösung bei eingeschalteten Raumlichtern scharf bleiben."
+    "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "Auf gebackene Beleuchtungsstärke-Lightmaps (mode: \"irradiance\") aktualisiert, damit Oberflächentexturen in voller Auflösung bei eingeschalteten Raumlichtern scharf bleiben.",
+    "See downloads and features in the Gallery.": "Downloads und Funktionen in der Galerie ansehen."
   }
 }

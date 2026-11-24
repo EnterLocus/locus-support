@@ -10,48 +10,27 @@
       "kind": "room",
       "title": "Atrium Loft",
       "license": "CC-BY-4.0",
-      "features": [],
+      "features": [
+        "light-layers",
+        "baked-irradiance"
+      ],
       "package": {
-        "contentVersion": "1.0.24",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.atrium-loft-example-1.0.24.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-example-1.0.24.locusplace",
-        "byteCount": 10095434,
-        "sha256": "1f7b4f6e5736c2f046bbcc702c5286032e313deb755d902bd17d30ac04833a05"
+        "contentVersion": "1.2.3",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.atrium-loft-example-1.2.3.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-example-1.2.3.locusplace",
+        "byteCount": 19636345,
+        "sha256": "1fce91a8746c17137360745fef80d9e187245f5f375d7961adb0446ef1e3ef66"
       },
       "source": {
-        "sourceVersion": "1.0.24",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.atrium-loft-source-1.0.24.zip",
-        "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-source-1.0.24.zip",
-        "byteCount": 9833618,
-        "sha256": "74c1670bd63eb361943be443a917975406122dd2975499bf702854aa22347d26"
+        "sourceVersion": "1.2.3",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.atrium-loft-source-1.2.3.zip",
+        "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-source-1.2.3.zip",
+        "byteCount": 19817458,
+        "sha256": "8d99aab0a45673804f95cb37127808a0b2e272c5c2b60fd5a651c234441535e4"
       },
-      "notes": "The package uses the ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft.",
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.2.3",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.atrium-loft-example-1.2.3.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-example-1.2.3.locusplace",
-          "byteCount": 19636345,
-          "sha256": "1fce91a8746c17137360745fef80d9e187245f5f375d7961adb0446ef1e3ef66"
-        },
-        "source": {
-          "sourceVersion": "1.2.3",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.atrium-loft-source-1.2.3.zip",
-          "url": "https://media.enterlocus.net/examples/space.atrium-loft/space.atrium-loft-source-1.2.3.zip",
-          "byteCount": 19817458,
-          "sha256": "8d99aab0a45673804f95cb37127808a0b2e272c5c2b60fd5a651c234441535e4"
-        },
-        "notes": "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\"). Uses package ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft."
-      }
+      "notes": "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\"). Uses package ID space.atrium-loft-example so it can be imported beside the built-in Atrium Loft."
     },
     {
       "packageID": "space.courtyard-gallery",
@@ -59,50 +38,27 @@
       "title": "Courtyard Gallery",
       "license": "CC-BY-4.0",
       "features": [
-        "water"
+        "water",
+        "light-layers",
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.24",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.courtyard-gallery-example-1.0.24.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.courtyard-gallery/space.courtyard-gallery-example-1.0.24.locusplace",
-        "byteCount": 12095634,
-        "sha256": "ec6dd1823a07c56a113cb39b72157ee55b1c8077f9c8987531d22615abf7be84"
+        "contentVersion": "1.2.2",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.courtyard-gallery-example-1.2.2.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.courtyard-gallery/space.courtyard-gallery-example-1.2.2.locusplace",
+        "byteCount": 12295057,
+        "sha256": "5ee5343fa58c8dd3cfcc3578b7b92fd2ad6daf8dbcb15efc97700ba432de9e74"
       },
       "source": {
-        "sourceVersion": "1.0.24",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.courtyard-gallery-source-1.0.24.zip",
-        "url": "https://media.enterlocus.net/examples/space.courtyard-gallery/space.courtyard-gallery-source-1.0.24.zip",
-        "byteCount": 11396534,
-        "sha256": "f4595b559a2d24d9fe04b6df0f54601e0870fe0cbad228551ad93838f7a1e972"
+        "sourceVersion": "1.2.2",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.courtyard-gallery-source-1.2.2.zip",
+        "url": "https://media.enterlocus.net/examples/space.courtyard-gallery/space.courtyard-gallery-source-1.2.2.zip",
+        "byteCount": 19011364,
+        "sha256": "e2aae1f36660fd6b4681f69538e4d204291261d362314442c95d93f5127dc1ae"
       },
-      "notes": "The package uses the ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery.",
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "water",
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.2.2",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.courtyard-gallery-example-1.2.2.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.courtyard-gallery/space.courtyard-gallery-example-1.2.2.locusplace",
-          "byteCount": 12295057,
-          "sha256": "5ee5343fa58c8dd3cfcc3578b7b92fd2ad6daf8dbcb15efc97700ba432de9e74"
-        },
-        "source": {
-          "sourceVersion": "1.2.2",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.courtyard-gallery-source-1.2.2.zip",
-          "url": "https://media.enterlocus.net/examples/space.courtyard-gallery/space.courtyard-gallery-source-1.2.2.zip",
-          "byteCount": 19011364,
-          "sha256": "e2aae1f36660fd6b4681f69538e4d204291261d362314442c95d93f5127dc1ae"
-        },
-        "notes": "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\"). Uses package ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery."
-      }
+      "notes": "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\"). Uses package ID space.courtyard-gallery-example so it can be imported beside the built-in Courtyard Gallery."
     },
     {
       "packageID": "space.horizon-atelier",
@@ -110,51 +66,28 @@
       "title": "Horizon Atelier",
       "license": "CC-BY-4.0",
       "features": [
-        "water"
+        "water",
+        "light-layers",
+        "baked-irradiance",
+        "interactive-states"
       ],
       "package": {
-        "contentVersion": "1.0.30",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.horizon-atelier-example-1.0.30.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.horizon-atelier/space.horizon-atelier-example-1.0.30.locusplace",
-        "byteCount": 12945766,
-        "sha256": "e22b61576f2bbd9f3ef1ae83cdd6da916bb98bec9f5de1f7426ff555f5f9f4b9"
+        "contentVersion": "1.2.4",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.horizon-atelier-example-1.2.4.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.horizon-atelier/space.horizon-atelier-example-1.2.4.locusplace",
+        "byteCount": 12019195,
+        "sha256": "2c5612a0d9552ab77ec7bc2eb25ab9ab66e0b1a6a0d93729169d9ca3d8120a46"
       },
       "source": {
-        "sourceVersion": "1.0.30",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.horizon-atelier-source-1.0.30.zip",
-        "url": "https://media.enterlocus.net/examples/space.horizon-atelier/space.horizon-atelier-source-1.0.30.zip",
-        "byteCount": 12352305,
-        "sha256": "eb1aba9fa4d78a8ac9b09675976a33cd271ccbb6fb7036b9ef77e025f153f1cb"
+        "sourceVersion": "1.2.4",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.horizon-atelier-source-1.2.4.zip",
+        "url": "https://media.enterlocus.net/examples/space.horizon-atelier/space.horizon-atelier-source-1.2.4.zip",
+        "byteCount": 11903863,
+        "sha256": "7dfa4bd5f9a2af53be041a5cb1e642d96d46759bf2d08d4bb901b01b8879cc5c"
       },
-      "notes": "The package uses the ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier.",
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "water",
-          "light-layers",
-          "baked-irradiance",
-          "interactive-states"
-        ],
-        "package": {
-          "contentVersion": "1.2.4",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.horizon-atelier-example-1.2.4.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.horizon-atelier/space.horizon-atelier-example-1.2.4.locusplace",
-          "byteCount": 12019195,
-          "sha256": "2c5612a0d9552ab77ec7bc2eb25ab9ab66e0b1a6a0d93729169d9ca3d8120a46"
-        },
-        "source": {
-          "sourceVersion": "1.2.4",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.horizon-atelier-source-1.2.4.zip",
-          "url": "https://media.enterlocus.net/examples/space.horizon-atelier/space.horizon-atelier-source-1.2.4.zip",
-          "byteCount": 11903863,
-          "sha256": "7dfa4bd5f9a2af53be041a5cb1e642d96d46759bf2d08d4bb901b01b8879cc5c"
-        },
-        "notes": "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\") and an interactive state. Uses package ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier."
-      }
+      "notes": "Rebuilt layout and furnishings with baked irradiance lightmaps (mode: \"irradiance\") and an interactive state. Uses package ID space.horizon-atelier-example so it can be imported beside the built-in Horizon Atelier."
     },
     {
       "packageID": "space.cloud-fan-pavilion",
@@ -180,32 +113,6 @@
         "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-source-1.0.17-r2.zip",
         "byteCount": 17580236,
         "sha256": "aab55951ca88c6428cbacc9a03725ea23a2271ae4a95b00b279c48435b831e0a"
-      },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "room-animation",
-          "music",
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.19",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.cloud-fan-pavilion-1.0.19.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-1.0.19.locusplace",
-          "byteCount": 35514164,
-          "sha256": "7e975d1d252ca2135096bb2cce5be4f112debf3fb219a33e21a819cd6543e64b"
-        },
-        "source": {
-          "sourceVersion": "1.0.19",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.cloud-fan-pavilion-source-1.0.19.zip",
-          "url": "https://media.enterlocus.net/examples/space.cloud-fan-pavilion/space.cloud-fan-pavilion-source-1.0.19.zip",
-          "byteCount": 23555244,
-          "sha256": "42e50443b655653bfaac6b8bd0b85c671fafac5e36b95ff8cf4e50dd9e6ad656"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
       }
     },
     {
@@ -232,32 +139,6 @@
         "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-source-1.0.14-r2.zip",
         "byteCount": 38704341,
         "sha256": "0babc4e37e98b83bcdfa2e92236d1d7519ff5e9b5cc59877f05276310cdf6777"
-      },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "room-animation",
-          "music",
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.16",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.winter-garden-breeze-1.0.16.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-1.0.16.locusplace",
-          "byteCount": 44089917,
-          "sha256": "ffc2bf3dc4d290d52f5c1458e45169e992a4f0e0167f58799630d6a23343bbe5"
-        },
-        "source": {
-          "sourceVersion": "1.0.16",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.winter-garden-breeze-source-1.0.16.zip",
-          "url": "https://media.enterlocus.net/examples/space.winter-garden-breeze/space.winter-garden-breeze-source-1.0.16.zip",
-          "byteCount": 38481278,
-          "sha256": "66b76183293d085669cf3a34c8290e0a6e5219e7da25e4e5e347354f0aa01067"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
       }
     },
     {
@@ -281,30 +162,6 @@
         "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-source-1.0.7-r2.zip",
         "byteCount": 28587485,
         "sha256": "2ddb22de5f9825950040a4536f28f8bda28829d32e2394c22e68f22c042505ac"
-      },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.9",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.cloudvault-retreat-1.0.9.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-1.0.9.locusplace",
-          "byteCount": 20007692,
-          "sha256": "d4a4b4e73ed088dac9bd70fc5bed4267707c1e7dd0918b14798d0e2bae6e71c5"
-        },
-        "source": {
-          "sourceVersion": "1.0.9",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.cloudvault-retreat-source-1.0.9.zip",
-          "url": "https://media.enterlocus.net/examples/space.cloudvault-retreat/space.cloudvault-retreat-source-1.0.9.zip",
-          "byteCount": 28547781,
-          "sha256": "12ff193681526007f492a4544722769f8c34e44d5bfbe2a656b0bbf435e3543f"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
       }
     },
     {
@@ -313,50 +170,27 @@
       "title": "Mediterranean Loggia",
       "license": "LicenseRef-EnterLocus-Example",
       "features": [
-        "music"
+        "music",
+        "light-layers",
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.13",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.mediterranean-loggia-1.0.13.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-1.0.13.locusplace",
-        "byteCount": 35375327,
-        "sha256": "315b34f030154268c6ea19e74f35db3f1bde7c8af5cad153fec3b4a206532ca9"
+        "contentVersion": "1.0.17",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.mediterranean-loggia-1.0.17.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-1.0.17.locusplace",
+        "byteCount": 53179377,
+        "sha256": "663fb4d7ca326c47421c0c1b0a52ee189778f7b9fed8e4e77889b4d0bc35d67e"
       },
       "source": {
-        "sourceVersion": "1.0.9",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.mediterranean-loggia-source-1.0.9-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-source-1.0.9-r2.zip",
-        "byteCount": 44832624,
-        "sha256": "5494bdb743d5e0908ddb7e7ebdc9bc690872565f5a0ecf6f60c60594e54216f4"
+        "sourceVersion": "1.0.17",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.mediterranean-loggia-source-1.0.17.zip",
+        "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-source-1.0.17.zip",
+        "byteCount": 44668335,
+        "sha256": "a9bd427ea83f49336697ba092ffb802ca58c71efb335a157cd49feab55b4194a"
       },
-      "notes": "The Blender source is the 1.0.9 authoring file; package 1.0.13 uses a later lower-poly export of the backsplash tiles.",
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "music",
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.17",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.mediterranean-loggia-1.0.17.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-1.0.17.locusplace",
-          "byteCount": 53179377,
-          "sha256": "663fb4d7ca326c47421c0c1b0a52ee189778f7b9fed8e4e77889b4d0bc35d67e"
-        },
-        "source": {
-          "sourceVersion": "1.0.17",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.mediterranean-loggia-source-1.0.17.zip",
-          "url": "https://media.enterlocus.net/examples/space.mediterranean-loggia/space.mediterranean-loggia-source-1.0.17.zip",
-          "byteCount": 44668335,
-          "sha256": "a9bd427ea83f49336697ba092ffb802ca58c71efb335a157cd49feab55b4194a"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
-      }
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.sunlit-cafe",
@@ -382,32 +216,6 @@
         "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-source-1.0.14-r2.zip",
         "byteCount": 16663522,
         "sha256": "bc6eddc88a07576b9f9052e04650deb025a15719a61d1c3745101d07136fd222"
-      },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "sound",
-          "music",
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.16",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.sunlit-cafe-1.0.16.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-1.0.16.locusplace",
-          "byteCount": 72356464,
-          "sha256": "52cf4393a330688b0237c7c2c996148734be6c7d0140e5ec4404c0967bd93e48"
-        },
-        "source": {
-          "sourceVersion": "1.0.16",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.sunlit-cafe-source-1.0.16.zip",
-          "url": "https://media.enterlocus.net/examples/space.sunlit-cafe/space.sunlit-cafe-source-1.0.16.zip",
-          "byteCount": 16524892,
-          "sha256": "90c6a4a0db1ce1b05aacdcd59b20906797ab271ee96a50994e3bb844958c7f94"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
       }
     },
     {
@@ -437,34 +245,6 @@
         "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-source-1.0.17-r2.zip",
         "byteCount": 40924249,
         "sha256": "44ecf98dbcc882e5b42721d148bbe05d421ff3ba0db489a639d44136d16a3f73"
-      },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "particles",
-          "sound",
-          "music",
-          "light-layers",
-          "generated-furniture",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.20",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.lakeside-cabin-1.0.20.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-1.0.20.locusplace",
-          "byteCount": 23744838,
-          "sha256": "d06a4bba2f079446fdce7bc9db2304a6ff5c87d927589ddcc574f682651d0556"
-        },
-        "source": {
-          "sourceVersion": "1.0.20",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.lakeside-cabin-source-1.0.20.zip",
-          "url": "https://media.enterlocus.net/examples/space.lakeside-cabin/space.lakeside-cabin-source-1.0.20.zip",
-          "byteCount": 70011615,
-          "sha256": "1bc99ace963a7287ffe8a30f65d43bedf352cb2240b0db5423adc12278e7acc9"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
       }
     },
     {
@@ -490,30 +270,6 @@
         "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-source-1.0.7-r2.zip",
         "byteCount": 10129821,
         "sha256": "15e927bafda43f72c6d251b4d05febe7dbc893987bfd0f6153474cbda7b94ba5"
-      },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.10",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.free-capsule-1.0.10.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-1.0.10.locusplace",
-          "byteCount": 5100844,
-          "sha256": "42305c5bdb17df91a16893297e073038cb5b8da5368d09b064b43aa0062a4380"
-        },
-        "source": {
-          "sourceVersion": "1.0.10",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.free-capsule-source-1.0.10.zip",
-          "url": "https://media.enterlocus.net/examples/space.free-capsule/space.free-capsule-source-1.0.10.zip",
-          "byteCount": 26093942,
-          "sha256": "d65358b9224d1eb39f7cf3c1df33e3c8814f0f45edc43150fe3c62b5d7f55084"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
       }
     },
     {
@@ -527,54 +283,27 @@
         "music",
         "light-layers",
         "generated-furniture",
-        "room-tv"
+        "room-tv",
+        "baked-irradiance",
+        "interactive-states"
       ],
       "package": {
-        "contentVersion": "1.0.17",
-        "minimumAppVersion": "1.4.9",
-        "fileName": "space.hilltop-villa-1.0.17.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.0.17.locusplace",
-        "byteCount": 118258514,
-        "sha256": "8d1df44d464b1dc6ef6868de7d5eca9ee9603f14e36c7479fabb82b4a1118bef"
+        "contentVersion": "1.1.1",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.hilltop-villa-1.1.1.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.1.1.locusplace",
+        "byteCount": 110864012,
+        "sha256": "e15bff3a873235b5724abd0e81236ec0e21ff650c438869409017e3412a07586"
       },
       "source": {
-        "sourceVersion": "1.0.17",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.hilltop-villa-source-1.0.17.zip",
-        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.0.17.zip",
-        "byteCount": 37414192,
-        "sha256": "59deae881fdbefb217282e92b6432a5a53debefa3655b863dab22c543bc04559"
+        "sourceVersion": "1.1.1",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.hilltop-villa-source-1.1.1.zip",
+        "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.1.1.zip",
+        "byteCount": 99197595,
+        "sha256": "6b1e904fe628ee981618b9bccfee6a228b362274eb955cabb6b472419e1e3f85"
       },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "water",
-          "particles",
-          "music",
-          "light-layers",
-          "generated-furniture",
-          "room-tv",
-          "baked-irradiance",
-          "interactive-states"
-        ],
-        "package": {
-          "contentVersion": "1.1.1",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.hilltop-villa-1.1.1.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-1.1.1.locusplace",
-          "byteCount": 110864012,
-          "sha256": "e15bff3a873235b5724abd0e81236ec0e21ff650c438869409017e3412a07586"
-        },
-        "source": {
-          "sourceVersion": "1.1.1",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.hilltop-villa-source-1.1.1.zip",
-          "url": "https://media.enterlocus.net/examples/space.hilltop-villa/space.hilltop-villa-source-1.1.1.zip",
-          "byteCount": 99197595,
-          "sha256": "6b1e904fe628ee981618b9bccfee6a228b362274eb955cabb6b472419e1e3f85"
-        },
-        "notes": "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\")."
-      }
+      "notes": "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\")."
     },
     {
       "packageID": "space.cloud-garden-cabin",
@@ -600,31 +329,6 @@
         "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-source-1.0.8-r2.zip",
         "byteCount": 3283575,
         "sha256": "2092e60017f48ade531375a0efc0ba03e464e95d75398b1a2cc101a61c8c6666"
-      },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "music",
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.13",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.cloud-garden-cabin-1.0.13.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-1.0.13.locusplace",
-          "byteCount": 11411066,
-          "sha256": "dd4139554abf2864fbf6d84106604930697bcd825a23bf5b8d43be24af361488"
-        },
-        "source": {
-          "sourceVersion": "1.0.13",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.cloud-garden-cabin-source-1.0.13.zip",
-          "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-source-1.0.13.zip",
-          "byteCount": 10411623,
-          "sha256": "dfbe9b96aa904d4312a1efae605cb2865d6abc305871857c51e409a7bd01a2b9"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
       }
     },
     {
@@ -651,31 +355,6 @@
         "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-source-1.0.12-r2.zip",
         "byteCount": 34370812,
         "sha256": "8f2425c4f7b3e3d3039a5a78f46044ba83a3831f8b70433b8c1df9d722125a23"
-      },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "music",
-          "light-layers",
-          "baked-irradiance"
-        ],
-        "package": {
-          "contentVersion": "1.0.14",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.tidal-veranda-1.0.14.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-1.0.14.locusplace",
-          "byteCount": 41246995,
-          "sha256": "e15c0bfda5408eb587849ef40922bb2dff50781260d1661b4fb8deb607e0eff5"
-        },
-        "source": {
-          "sourceVersion": "1.0.14",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.tidal-veranda-source-1.0.14.zip",
-          "url": "https://media.enterlocus.net/examples/space.tidal-veranda/space.tidal-veranda-source-1.0.14.zip",
-          "byteCount": 36621635,
-          "sha256": "c7f230fe155ff6cae70be095a2325d196646117512f2843166ce69cb61cfc056"
-        },
-        "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
       }
     },
     {
@@ -686,51 +365,27 @@
       "features": [
         "water",
         "flowing-water",
-        "light-layers"
+        "light-layers",
+        "baked-irradiance",
+        "interactive-states"
       ],
       "package": {
-        "contentVersion": "1.0.4",
-        "minimumAppVersion": "1.4.9",
-        "fileName": "space.crossbeam-house-1.0.4.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.crossbeam-house/space.crossbeam-house-1.0.4.locusplace",
-        "byteCount": 48350699,
-        "sha256": "7b6449fc7e715dde157aeeb3d0ae8ad5a05df31f4f62fa6491eff9060b6faa28"
+        "contentVersion": "1.1.12",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.crossbeam-house-1.1.12.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.crossbeam-house/space.crossbeam-house-1.1.12.locusplace",
+        "byteCount": 46726219,
+        "sha256": "407a2b62a47ff0d0414e2ca1196d09ae30ea60dd0b2bc6f1ea1d9c03dd8adb12"
       },
       "source": {
-        "sourceVersion": "1.0.4",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.crossbeam-house-source-1.0.4.zip",
-        "url": "https://media.enterlocus.net/examples/space.crossbeam-house/space.crossbeam-house-source-1.0.4.zip",
-        "byteCount": 22715893,
-        "sha256": "3ce5d23688ebc3faf367a52d9c6ddf83a40f7a307035e411852b794621cbcc56"
+        "sourceVersion": "1.1.12",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.crossbeam-house-source-1.1.12.zip",
+        "url": "https://media.enterlocus.net/examples/space.crossbeam-house/space.crossbeam-house-source-1.1.12.zip",
+        "byteCount": 41141743,
+        "sha256": "3823a0d2a2f993fd0e033f05976e2cdb797bddda924f96e3e13ebe57ac5ce532"
       },
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "water",
-          "flowing-water",
-          "light-layers",
-          "baked-irradiance",
-          "interactive-states"
-        ],
-        "package": {
-          "contentVersion": "1.1.12",
-          "minimumAppVersion": "1.5.2",
-          "fileName": "space.crossbeam-house-1.1.12.locusplace",
-          "url": "https://media.enterlocus.net/examples/space.crossbeam-house/space.crossbeam-house-1.1.12.locusplace",
-          "byteCount": 46726219,
-          "sha256": "407a2b62a47ff0d0414e2ca1196d09ae30ea60dd0b2bc6f1ea1d9c03dd8adb12"
-        },
-        "source": {
-          "sourceVersion": "1.1.12",
-          "blenderVersion": "5.3.0",
-          "fileName": "space.crossbeam-house-source-1.1.12.zip",
-          "url": "https://media.enterlocus.net/examples/space.crossbeam-house/space.crossbeam-house-source-1.1.12.zip",
-          "byteCount": 41141743,
-          "sha256": "3823a0d2a2f993fd0e033f05976e2cdb797bddda924f96e3e13ebe57ac5ce532"
-        },
-        "notes": "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\")."
-      }
+      "notes": "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\")."
     },
     {
       "packageID": "destination.emerald-grotto",
@@ -815,36 +470,19 @@
       "features": [
         "water",
         "day-night",
+        "procedural-sky",
         "sound"
       ],
       "package": {
-        "contentVersion": "1.0.18",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "destination.tropical-shallow-bay-1.0.18.locusplace",
-        "url": "https://media.enterlocus.net/examples/destination.tropical-shallow-bay/destination.tropical-shallow-bay-1.0.18.locusplace",
-        "byteCount": 180594139,
-        "sha256": "5798df65d135e700e22dbcd133f2a44cca06110f919f960f2e4ed2ef97a05383"
+        "contentVersion": "1.1.1",
+        "minimumAppVersion": "1.5.1",
+        "fileName": "destination.tropical-shallow-bay-1.1.1.locusplace",
+        "url": "https://media.enterlocus.net/examples/destination.tropical-shallow-bay/destination.tropical-shallow-bay-1.1.1.locusplace",
+        "byteCount": 215252932,
+        "sha256": "2ebc9f05aac06c01bd41b7b3a7aea4e63409f695de821da17950bce7e78f3228"
       },
       "source": null,
-      "upcoming": {
-        "appVersion": "1.6.0",
-        "features": [
-          "water",
-          "day-night",
-          "procedural-sky",
-          "sound"
-        ],
-        "package": {
-          "contentVersion": "1.1.1",
-          "minimumAppVersion": "1.5.1",
-          "fileName": "destination.tropical-shallow-bay-1.1.1.locusplace",
-          "url": "https://media.enterlocus.net/examples/destination.tropical-shallow-bay/destination.tropical-shallow-bay-1.1.1.locusplace",
-          "byteCount": 215252932,
-          "sha256": "2ebc9f05aac06c01bd41b7b3a7aea4e63409f695de821da17950bce7e78f3228"
-        },
-        "source": null,
-        "notes": "Full 24-hour day and night sky with preserved cumulus clouds, cloud-thickness sun glow, and sunset island occlusion."
-      }
+      "notes": "Full 24-hour day and night sky with preserved cumulus clouds, cloud-thickness sun glow, and sunset island occlusion."
     },
     {
       "packageID": "destination.cloud-garden-isles",
