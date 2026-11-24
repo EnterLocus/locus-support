@@ -122,9 +122,14 @@ anchorZ = (seatWorldZ - boundsMinZ) / (boundsMaxZ - boundsMinZ)
 sourceFloorOffset = authoredFloorY - boundsMinY
 ```
 
-Do not paste a DCC world-space Z value into the second normalized component.
-Confirm both the resulting position and `yawRadians` by entering the Room; a
-valid value can still place the visitor under a lamp or facing backward.
+Account for negative-Y foundations or plinths in `sourceFloorOffset`: if a stone
+foundation slab extends to `Y = -0.40 m` while the interior floor is at `0.00 m`,
+leaving `sourceFloorOffset` at `0` drops every seat by `40 cm` (set
+`sourceFloorOffset` to `0.40` and match `viewGroundFloorOffsetMeters` in Package
+v2 when appropriate). Do not paste a DCC world-space Z value into the second
+normalized component. Confirm both the resulting position and `yawRadians` by
+entering the Room; a valid value can still place the visitor under a lamp or
+facing backward.
 
 ## Spatial adaptation
 

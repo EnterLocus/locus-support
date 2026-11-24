@@ -36,16 +36,32 @@ group.
   receiver layer (`lighting.bakedIndirect.layers`) lights walls, floors,
   ceilings, and furniture; `illuminatedEntities` is only a secondary option for
   authored emissive washes, never a substitute for a baked receiver atlas.
-- **Model physically believable fixtures with open light paths.** Connect
-  shades, arms, mounts, and cords cleanly. Delete end caps on cylindrical/cone
-  lamp shades (a capped shade traps its bulb), leave clearance below bulbs, and
-  offset inner shade linings by at least 2 cm so coplanar faces do not flicker.
+- **Model physically believable fixtures with open light paths and watertight shells.**
+  Connect shades, arms, mounts, and cords cleanly. Delete end caps on
+  cylindrical/cone lamp shades (a capped shade traps its bulb), leave clearance
+  below bulbs, and model every pendant, floor, and table lamp shade as a
+  **watertight 4–8 mm thick closed manifold shell** (`0` open boundary edges)
+  with `>= 5 mm` clearance to its internal glow diffuser—a single-sided cone or
+  drum disappears from below under RealityKit back-face culling. Offset any
+  separate inner shade lining by at least 2 cm so coplanar faces do not flicker.
+  For glowing fabric or linen shades controlled by `luminaireGroups`, author a
+  dedicated 512×512 textured emission map instead of an untextured solid
+  emission color so runtime brightness, temperature, and color controls preserve
+  woven grain and falloff rather than replacing the shade with a flat tint.
+  Keep scalar diffuser emission restrained (`1.5–3.0`, never `> 5.0`) so
+  highlights stay warm on device. Never leave a luminaire enclosed inside a
+  cabinet or furniture carcass where visitors cannot reach or toggle it directly.
   For shaded floor, table, or reading lamps, bake with directional spots (a
   downward cone plus a weak upward bounce spot), never a bare omnidirectional
-  point light that washes out the whole room. For linear cove/shelf strips,
-  bake with rectangular `AREA` lights or emissive strip meshes rather than
-  spotlights. Keep close-range task lamps moderate (typically `<= 300 lm`) so
-  tabletops do not blow out.
+  point light that washes out the whole room; exclude the lamp's own ceramic or
+  stoneware base, neck, and spider via Cycles light linking (`exclude_receivers`)
+  so the base catches soft tabletop bounce without white hotspots. For linear
+  cove/shelf strips, bake with rectangular `AREA` lights or emissive strip
+  meshes rather than spotlights. Keep close-range task lamps moderate (typically
+  `<= 300 lm`, ~`65–180 lm` at `~0.4 m` desk distance) so tabletops do not blow
+  out. For uplighted indoor plants, give leaves double-sided or varied-pitch
+  geometry so single-sided upward-facing leaves do not bake black from below,
+  and verify the stake fixture is not occluded by an adjacent frond.
 
 ## 2. Bake per-lamp irradiance layers (`mode: "irradiance"`, Locus 1.6.0+ / protocol `1.5.2+`)
 
@@ -146,6 +162,17 @@ still preserves `UV0` sharpness.
      `irradianceScale` across every layer covering the composite peak
      (`ceil(peak * 1.02)` up to `64.0`) so **`0%` of texels clip**—never
      normalize each layer independently, which destroys lamp brightness ratios.
+   - **Keep absolute irradiance bounded.** `0%` clipped PNG pixels alone does
+     not prevent overexposure if one over-powered near-surface lamp pushes
+     `irradianceScale` into `10–50`, which washes out wood grain and plaster on
+     device and wastes 16-bit dark-end precision across every other layer. Target
+     a shared `irradianceScale <= 6.0` (keep `<= 8.5`), per-layer linear peak
+     `<= 3.5` (keep `<= 6.5`), and lit P99 `<= 3.5` by lowering near-surface
+     fixture wattage/lumens rather than inflating `irradianceScale`.
+   - **Surgical single-prop rebake:** when removing or nudging a single
+     tabletop or floor prop during iteration, avoid repacking the whole Room's
+     `LocusIndirectUV`—rebake only the directly affected receiver meshes onto
+     their existing UV1 regions so the rest of the Room's lighting stays intact.
    - Encode each layer as `sRGB(clamp(linearIrradiance / irradianceScale, 0,
      1))` through an isolated Standard/sRGB save scene (no look, exposure 0,
      gamma 1, dither 0) using `image.save_render(path, scene=...)` with
