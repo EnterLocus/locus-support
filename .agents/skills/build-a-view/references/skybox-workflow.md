@@ -33,34 +33,51 @@ do not automatically retry interrupted requests with unknown billing status.
 Never put credentials in source, manifests, prompts or logs. Do not fall back
 to lower resolution to complete a run.
 
-### Model choice, costs and approval
+### Two creator checkpoints (base freeze, then paid enhancement)
 
-Offer Nano Banana Pro, Nano Banana 2.1 and GPT Image 2.6 Sunburst. The 2.1
-trial is a lower-cost candidate close to Pro in this scene; it is not a new
-default while owner Locus/headset review is pending. Before generating, ask the
-creator which API/model to use and the environment-variable name or secure
-credential reference for its key; never ask them to paste a secret. Read
-[models, per-View costs, bulk discounts and the quote contract](models-and-cost.md).
-The article gives dated output subtotals and separates them from billed cost.
+**Step 1 — Make the base panorama and freeze its layout:**
+Generate one full 360°×180° base, normally with the host's built-in image tool,
+or use the creator's supplied image. The built-in base needs no external API
+key (host usage limits still apply); do not begin by asking for an API key or
+silently selecting a paid API base. If built-in generation is unavailable,
+explain supplied/paid-base alternatives and quote any paid base first. Show the
+actual panorama to the creator — using the host's native 360° preview where
+supported, plus flat preview and perspective/seam crops as evidence (never
+claim a flat picture is a 360° inspection). Wait for explicit layout acceptance
+and freeze the exact file, dimensions, prompt, and SHA-256. In a model
+comparison, every route starts from that exact frozen file.
 
-First show the Step 1 panorama in the host's available 360° preview and wait
-for visual confirmation. Freeze the accepted base and prompt with SHA-256.
-Only then ask the Step 2 model/key, budget and native output-resolution
-questions. Offer Standard versus Batch for Nano Banana Pro or 2.1 and confirm the
-creator's choice, unless already explicitly provided.
+**Step 2 — Select API, quote cost and native resolution, then enhance:**
+After base acceptance, offer Nano Banana Pro (tested baseline), Nano Banana 2.1
+(lower-cost comparison candidate; static review passed with limits, owner
+headset review pending so it is not yet the default), and GPT Image 2.6
+Sunburst. Ask only for missing API/model and credential-reference information
+(environment variable name or secure credential-file reference; never paste a
+secret in chat). Load keys quietly and never print, commit, or persist them.
+Read [models, per-View costs, bulk discounts and the quote contract](models-and-cost.md)
+and [native resolution](resolution.md) before promising output size.
 
-Before **each** paid generation/edit submission, quote the specific requests
-and wait for explicit approval. A declared batch can be approved as one exact,
-itemized list; later stages, retries and repairs require fresh approval.
-Choosing a model, supplying a key or discussing an overall budget is not
-approval to generate. Establish whether the initial base is supplied, built-in
-(no external image-API key or API charge), or explicitly paid API generation.
-Show the full B/G/F/R run budget before the first per-submission quote. A low-
-resolution built-in base still needs paid whole-panorama restoration and up to
-six detailed face edits, plus any quoted repairs. Keep exact native-size and
-quality checks for each selected model. An explicit authorization for a declared full plan
-under a shared cap overrides repeated per-image approval within that scope;
-record it, maintain one ledger, and stop at the stated attempt/cost boundary.
+Present the full stage plan `N_paid = B + G + F + R + E` (for a frozen
+low-resolution base, `B=0, G=1, F=6, R=0..2, E=0` means 7..9 outputs per model;
+the accepted probe counts as one of the six `F`). Separate known output costs,
+unknown/actual input or thinking tokens, actual spent cost, and reserve; do not
+guess overhead tokens, multiply one stage's unit price across all requests, or
+promise 12K. For Nano Banana Pro and 2.1, explicitly offer Standard versus
+discounted Batch (noting estimated savings, up-to-24-hour latency, and
+sequential stage dependencies); for GPT, offer Batch only after confirming
+exact model/account/endpoint eligibility. Never assume six parallel standard
+requests receive a Batch discount.
+
+Before **each** paid generation/edit submission, quote the concrete itemized
+request list and wait for explicit approval. A declared Batch job can be
+approved as one exact list; later stages, retries, repairs, changed
+size/quality/model, and unknown-status replacements require fresh approval.
+Choosing a model, supplying a key, or discussing an overall budget is not
+approval to generate. An explicit creator authorization for a declared full
+plan under a combined cap overrides repeated per-image approval strictly within
+that listed scope; record it, keep one shared cost ledger across parallel
+agents, and stop at the stated attempt/cost boundary. Free local preparation and
+read-only pricing checks can continue while waiting.
 
 ## 1. Generate the world before the detail
 
@@ -235,7 +252,7 @@ a sharp rectangle against its neighbors. Its correct deterministic roundtrip
 does not establish successful generative integration. The unvalidated 80–96
 small-patch route is not a recommended replacement for high-resolution faces.
 
-## 4. Merge with a narrow transition
+## 4. Merge with a narrow transition (or two-band frequency split)
 
 ```sh
 python3 tools/skybox/skybox.py merge enhanced panorama.jpg --native-resolution --blend 0.25
@@ -254,6 +271,32 @@ export an oversized final as a workaround for missing native detail. Narrow blen
 and the 0.25° blend solve different problems. A broad cross-fade between
 inconsistent faces makes double palm trunks and ghost shorelines. A narrow
 join keeps detail, but it cannot align objects that the model moved.
+
+### Detail-only enhancement & two-band frequency-split merge
+
+When enhancing an already well-toned high-resolution panorama (rather than
+re-imagining low-res scenery) and preserving exact cross-seam color continuity:
+
+- **One prompt across all four side faces (`nz`, `px`, `pz`, `nx`)**: never mix
+  different prompt wording between adjacent faces — even subtle tone/clarity
+  prompt differences create visible exposure steps across cube joins. When a
+  4096² PNG exceeds an API's inline payload ceiling (for example ~20 MB), send
+  a quality-95 4:4:4 sRGB JPEG instead of downscaling.
+- **Optical-flow registration + low-frequency lock**: register each returned
+  face back onto its source face (for example dense DIS optical flow, checking
+  sub-pixel median shift and high NCC), keep the source's low-frequency tones
+  and lighting above ~20–50 px, and take only finer high-frequency structure
+  from the enhanced face.
+- **Two-band merge**: run `skybox.py merge` twice — once with a wide angular
+  blend (e.g. `--blend 1.0`) for the smooth low-frequency band and once with a
+  near-hard join (e.g. `--blend 0.03`) for the high-frequency detail band — then
+  recombine low + high. Cross-fading two uncorrelated high-frequency detail
+  layers across a wide seam loses roughly 30% of crispness.
+- **Avoid oversharpening & protect bright peaks**: aggressive contrast/sharpen
+  passes often look harsh or crunchy inside Apple Vision Pro compared to a
+  natural, shadow-safe grade. When cleaning leftover foreground/foliage smudges
+  out of a far-only skybox, mask out bright sunlit snowfields and sky (`sky.mask`)
+  before smoothing so distant alpine ridges stay crisp.
 
 If a join remains broken, repair a face centered on that direction with
 sufficient context, then merge and review again. A simple wrap repair belongs

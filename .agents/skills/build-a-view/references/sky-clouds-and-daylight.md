@@ -116,10 +116,23 @@ Contract: `tools/sun_path_contract.py` (`1.3.0+`).
     `gpuTexture` is rejected.
 - **`shore` or `media.dayNight` alongside `panoramaBlend`**: requires
   `minimumAppVersion >= "1.4.11"`.
-- **Keeping your own painted sky**: paint `sky.mask` all-black (`0`) while
-  retaining required `sky` and `daySky` blocks; Locus hides procedural stars,
-  Moon, and blue sky while preserving the 24-hour clock, `panoramaBlend`,
-  `panoramaGrade`, and dynamic Room/midground light.
+- **Keeping your own painted sky & style-fit rule**: realistic procedural stars
+  can clash visually with illustrated or painterly Views. When you want to keep
+  your own painted day/night skies (or stay faithful to an illustrated style),
+  paint `sky.mask` all-black (`0`) while retaining the required `sky` and
+  `daySky` blocks; Locus hides procedural stars, Moon, and blue sky while
+  preserving the 24-hour clock, `panoramaBlend`, `panoramaGrade`, and dynamic
+  Room/midground light.
+- **Paired panoramas vs dimming & balanced day/night IBLs**: dimming a single
+  daytime panorama alone cannot make sunlit mountains, shadows, or distant lit
+  buildings read convincingly at night — use an aligned `panoramaBlend` night
+  panorama (+ `gpuTextures` v2 ASTC sidecars) whenever true night fidelity
+  matters. For `lighting-ibl.jpg`, soften upper-hemisphere peak highlights and
+  temper overly saturated Rayleigh blue toward cool neutral (while preserving
+  warm/turquoise ground or lagoon bounce below the horizon) so Room interiors do
+  not turn overly blue at night. Also set `environment.condition` (`"day"`,
+  `"dusk"`, `"night"`, or `"overcast"`) to match the View's starting mood so
+  Room Lights default to an appropriate initial state on entry.
 - **Preserving painted clouds with procedural sky & variable sun behind clouds (`1.4.9+`)**:
   to retain painted clouds (and reflections on matching scenes) while letting
   clear sky gaps shift from blue daylight to stars and the Milky Way—and letting

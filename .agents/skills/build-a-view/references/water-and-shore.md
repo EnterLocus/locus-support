@@ -104,7 +104,12 @@ residency within `64 MiB`).
   - `deepening.macro` (`1.4.5+`): `macro.map` is a **square 8-bit grayscale
     PNG** (`<= 2048`), with `bed.depthMeters <= macro.shallowMeters < deepening.depthMeters`;
     `waveSlopeScale` (`1..8`) and `chopSlope` (`0..0.5`) control open-water
-    wave roughness (`1.4.5+`).
+    wave roughness (`1.4.5+`). **Deep-water scale discipline**: uniform flat
+    deep blue reads artificial, while tiling small near-shore pebble beds
+    (`~8–12 m`) out to the horizon destroys distance cues (making far islands
+    look close). Author `deepening.macro` at large geographic scale (e.g.
+    `tileMeters: 240`, rank-equalized reef lobes and deeper channels) for
+    convincing open-ocean color variation.
 - **`blend` & `glow.mover`**: `blend.horizonSkirt: true` requires
   `shape: "disc"`; `blend.panoramaMask` is a `2:1` 8-bit grayscale PNG. Optional
   View-only `glow.mover` takes `[centerX, centerZ, orbitRadiusMeters, angularSpeedRadPerSec]`
@@ -167,6 +172,36 @@ simulated shallow-water strip (`x: -32..32 m`, `z: -58..+6 m` in `shore.frame`,
   4. Ensure every column of the `64 m` strip crosses `0 m` cleanly once, the
      seaward start band (`z: -58..-45 m`) is at least `~3–4.5 m` deep, and slopes
      below `+2 m` stay `<= 1:2` so cells do not stair-step waves.
+  5. **4-edge deep-sea perimeter taper (`-X, +X, -Z, +Z -> -4.5 m`)**: because
+     the shore shader uses `clamp_to_edge` outside `shore-bed.png` and culls
+     water wherever clamped bed height exceeds sea level, extend `shore-bed.png`
+     beyond your terrain keep-radius on **all four sides** — including inland
+     `+Z` behind rear ridges/standees — and taper every perimeter margin
+     smoothly down to `-4.5 m`. Without the rear `+Z` taper, elevated `+45 m`
+     views can expose stray cyan water-culling triangles behind distant ridges.
+- **Shoreline composition, wet sand & night horizon craft**:
+  - **Align `shore.frame` to the real waterline**: place the shore origin so the
+    central `0 m` waterline and `~1 m` shoaling depth sit squarely inside the
+    finely sampled `64 m` surf strip, keep the central beach slope gentle for
+    clean Room grounding, and wrap 3D coastal midground continuously around
+    curved bays so turning or elevating never exposes gaps between water and
+    painted land.
+  - **Avoid fake wet-sand overlays and unreflected shallow rocks**: let `shore`
+    render the wet band (matching `sand.dry`/`sand.wet` to your terrain at the
+    waterline) or disable `wetBand: false` cleanly rather than stacking a
+    separate semi-transparent wet-sand mesh that can show hard edges. Avoid
+    placing isolated dark rocks out in shallow open water where the absence of
+    planar water reflections makes them read as detached dark shards.
+  - **Prevent night cyan horizon rims**: on night coastal Views, bright blue
+    panorama horizon pixels, positive `sky.stars.twilight`, or high-chroma blue
+    `shore.sky` / `shore.water` create an unnatural glowing cyan rim along the
+    ocean horizon. Grade the panorama horizon band (`-1.5°..+2.2°`) to calm
+    low-chroma nocturnal slate (`B/R <= 2.0`), set `sky.stars.twilight`
+    strength to `0`, and match low-chroma nocturnal slate `shore.sky` /
+    `shore.water` values so grazing Fresnel reflections melt cleanly into the
+    horizon. For fixed-moon coastal Views, pairing a natural Moon scale (e.g.
+    `sky.moon.sizeScale: 3.0`) with `shore.light.follow: "moon"` keeps the
+    moonlight reflection path width proportional to the Moon disc.
 - **Required linear-RGB manifest shape** (all top-level keys below except `frame`
   and `bed` are required; no unknown keys or `null` values):
   ```json
