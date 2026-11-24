@@ -1161,6 +1161,25 @@ class PublicSiteTests(unittest.TestCase):
                     with self.subTest(page=str(path), locale=locale, source=source):
                         self.assertTrue(localization.has_translation(source, catalog))
 
+    def test_released_1_6_1_is_latest_and_connected(self):
+        article = (ROOT / "whats-new/1-6-1/index.html").read_text()
+        self.assertIn("Adaptive Performance", article)
+        self.assertIn("Room audio", article)
+        self.assertIn("../1-6-0/", article)
+        previous = (ROOT / "whats-new/1-6-0/index.html").read_text()
+        self.assertIn("../1-6-1/", previous)
+        archive = (ROOT / "whats-new/index.html").read_text()
+        self.assertIn("Locus 1.6.1 · Latest", archive)
+        self.assertLess(archive.index('href="./1-6-1/"'), archive.index('href="./1-6-0/"'))
+        self.assertEqual(archive.count("· Latest"), 1)
+        self.assertIn("https://enterlocus.com/whats-new/1-6-1/", (ROOT / "sitemap.xml").read_text())
+        release_sources = localization._sources_in_html(article)
+        for locale in localization.TRANSLATED_LOCALES:
+            catalog = localization.load_catalog(ROOT, locale)
+            for source in release_sources:
+                with self.subTest(locale=locale, source=source):
+                    self.assertTrue(localization.has_translation(source, catalog))
+
     def test_released_1_6_0_is_latest_and_connected(self):
         article = (ROOT / "whats-new/1-6-0/index.html").read_text()
         self.assertIn("Open doors in your Room", article)
@@ -1170,10 +1189,10 @@ class PublicSiteTests(unittest.TestCase):
         self.assertIn("../../reference/locusplace-format/#room-interactive-states", article)
         self.assertIn("../../reference/locus-asset-format/#room-baked-irradiance-lightmaps-locus-152-or-later", article)
         self.assertIn("../1-5-0/", article)
+        self.assertIn("../1-6-1/", article)
         previous = (ROOT / "whats-new/1-5-0/index.html").read_text()
         self.assertIn("../1-6-0/", previous)
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.6.0 · Latest", archive)
         self.assertLess(archive.index('href="./1-6-0/"'), archive.index('href="./1-5-0/"'))
         self.assertEqual(archive.count("· Latest"), 1)
         self.assertIn("https://enterlocus.com/whats-new/1-6-0/", (ROOT / "sitemap.xml").read_text())
@@ -1208,10 +1227,10 @@ class PublicSiteTests(unittest.TestCase):
 
     def test_released_1_4_4_has_compact_entry_and_connected_article(self):
         homepage = (ROOT / "index.html").read_text()
-        self.assertIn('href="./whats-new/1-6-0/"', homepage)
-        self.assertIn("New in Locus 1.6.0", homepage)
+        self.assertIn('href="./whats-new/1-6-1/"', homepage)
+        self.assertIn("New in Locus 1.6.1", homepage)
         archive = (ROOT / "whats-new/index.html").read_text()
-        self.assertIn("Locus 1.6.0 · Latest", archive)
+        self.assertIn("Locus 1.6.1 · Latest", archive)
         self.assertLess(archive.index('href="./1-4-4/"'), archive.index('href="./1-4-3/"'))
         self.assertEqual(archive.count("· Latest"), 1)
         article = (ROOT / "whats-new/1-4-4/index.html").read_text()
@@ -1291,7 +1310,7 @@ class PublicSiteTests(unittest.TestCase):
         # Release stories remain in the archive; the homepage leads with Places.
         self.assertIn('id="whats-new"', homepage)
         self.assertIn('href="./whats-new/"', homepage)
-        self.assertIn('href="./whats-new/1-6-0/"', homepage)
+        self.assertIn('href="./whats-new/1-6-1/"', homepage)
         self.assertIn('id="places"', homepage)
         self.assertEqual(parser.videos, [])
 

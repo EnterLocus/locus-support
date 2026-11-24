@@ -4318,6 +4318,18 @@
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "Auf gebackene Beleuchtungsstärke-Lightmaps (mode: \"irradiance\") aktualisiert, damit Oberflächentexturen in voller Auflösung bei eingeschalteten Raumlichtern scharf bleiben.",
     "See downloads and features in the Gallery.": "Downloads und Funktionen in der Galerie ansehen.",
     "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "Gotische Gewölbebibliothek aus Stein mit acht gebackenen Irradiance-Lichtgruppen (mode: \"irradiance\").",
-    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "Weitläufige 1600-m-Parallax-Alpenansicht mit 3D-Mittelgrund-Terrain und prozeduralem Sternenhimmel."
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "Weitläufige 1600-m-Parallax-Alpenansicht mit 3D-Mittelgrund-Terrain und prozeduralem Sternenhimmel.",
+    "Locus 1.6.1": "Locus 1.6.1",
+    "Locus 1.6.1 · Latest": "Locus 1.6.1 · Aktuell",
+    "New in Locus 1.6.1": "Neu in Locus 1.6.1",
+    "Locus 1.6.1 for Apple Vision Pro": "Locus 1.6.1 für Apple Vision Pro",
+    "Locus 1.6.1: Adaptive Performance and smoother rendering": "Locus 1.6.1: Adaptive Leistung und flüssigeres Rendering",
+    "Adaptive Performance, smoother rendering across complex Rooms and Views, and Room Music and TV playback fixes in Locus 1.6.1.": "Adaptive Leistung, flüssigeres Rendering in komplexen Räumen und Ansichten sowie Korrekturen für Raummusik und TV-Wiedergabe in Locus 1.6.1.",
+    "Smoother frame rates across complex Rooms and Views.": "Flüssigere Bildraten in komplexen Räumen und Ansichten.",
+    "Adaptive Performance keeps movement and interaction smooth while preserving sun shadows, alongside Room audio and TV playback fixes.": "Adaptive Leistung hält Bewegung und Interaktion flüssig und bewahrt Sonnenschatten – ergänzt durch Korrekturen für Raumaudio und TV-Wiedergabe.",
+    "Adaptive Performance & smoother rendering": "Adaptive Leistung & flüssigeres Rendering",
+    "Locus now automatically trims background effects during movement, toolbar summon, or heavy load to keep interaction smooth while preserving sun shadows. You can adjust this anytime in Settings. Optimized sun-path lighting, Room shadow rendering, and foliage shaders further improve frame rates across complex Rooms and Views.": "Locus reduziert Hintergrund-Effekte beim Bewegen, beim Öffnen der Symbolleiste oder unter hoher Last automatisch, damit die Bedienung flüssig bleibt und Sonnenschatten erhalten bleiben. Du kannst das jederzeit in den Einstellungen anpassen. Optimierte Sonnenlicht-Berechnung, Raumschatten und Vegetations-Shader verbessern die Bildrate in komplexen Räumen und Ansichten zusätzlich.",
+    "Room audio & TV playback fixes": "Korrekturen für Raumaudio & TV-Wiedergabe",
+    "Room Music now pauses automatically while Room TV audio is playing, and TV playback stops immediately when switching Rooms.": "Raummusik pausiert jetzt automatisch, solange Ton vom Raum-TV läuft, und die TV-Wiedergabe stoppt sofort beim Wechseln des Raums."
   }
 }

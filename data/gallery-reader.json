@@ -1,8 +1,8 @@
 {
   "formatVersion": 1,
-  "appVersion": "1.6.0",
+  "appVersion": "1.6.1",
   "minimumOSVersion": "27.0.0",
-  "readerSource": "visionos-v1.6.0-build-2",
+  "readerSource": "visionos-v1.6.1-build-1",
   "capabilities": [
     "locus.view.media.v1",
     "locus.view.media.day-night.v1",

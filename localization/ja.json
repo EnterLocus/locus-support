@@ -4312,6 +4312,18 @@
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "ベイク済みイラディアンスライトマップ（mode: \"irradiance\"）へアップグレードし、Room ライト点灯時も高解像度テクスチャがくっきり保たれます。",
     "See downloads and features in the Gallery.": "ギャラリーでダウンロードと機能を確認。",
     "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "8 つのベイク済みイラディアンス照明グループ（mode: \"irradiance\"）を備えたゴシック様式の石造り図書館です。",
-    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "3D 中景地形とプロシージャル星空を備えた 1600 m スケールの大規模パララックス高山ビューです。"
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "3D 中景地形とプロシージャル星空を備えた 1600 m スケールの大規模パララックス高山ビューです。",
+    "Locus 1.6.1": "Locus 1.6.1",
+    "Locus 1.6.1 · Latest": "Locus 1.6.1 · 最新",
+    "New in Locus 1.6.1": "Locus 1.6.1 の新機能",
+    "Locus 1.6.1 for Apple Vision Pro": "Apple Vision Pro 版 Locus 1.6.1",
+    "Locus 1.6.1: Adaptive Performance and smoother rendering": "Locus 1.6.1：適応パフォーマンスとより滑らかな描画",
+    "Adaptive Performance, smoother rendering across complex Rooms and Views, and Room Music and TV playback fixes in Locus 1.6.1.": "Locus 1.6.1 では、適応パフォーマンス、複雑なルームやビューの描画最適化、ルーム音楽とTV再生の修正をお届けします。",
+    "Smoother frame rates across complex Rooms and Views.": "複雑なルームやビューでも、より滑らかなフレームレートへ。",
+    "Adaptive Performance keeps movement and interaction smooth while preserving sun shadows, alongside Room audio and TV playback fixes.": "適応パフォーマンスにより太陽光の影を保ちながら移動や操作を滑らかに保ち、ルーム音楽とTV再生の修正も加えました。",
+    "Adaptive Performance & smoother rendering": "適応パフォーマンスと描画のさらなる滑らかさ",
+    "Locus now automatically trims background effects during movement, toolbar summon, or heavy load to keep interaction smooth while preserving sun shadows. You can adjust this anytime in Settings. Optimized sun-path lighting, Room shadow rendering, and foliage shaders further improve frame rates across complex Rooms and Views.": "移動中やツールバーの呼び出し時、高負荷時に背景エフェクトを自動で抑え、太陽光の影を保ちながら滑らかな操作感を維持します。設定からいつでもオン・オフを切り替えられます。さらに太陽光ライティング、ルームの影描画、草木シェーダーの最適化により、複雑なルームやビューでのフレームレートが向上しました。",
+    "Room audio & TV playback fixes": "ルーム音楽とTV再生の修正",
+    "Room Music now pauses automatically while Room TV audio is playing, and TV playback stops immediately when switching Rooms.": "ルーム内のTV音声の再生中はルーム音楽が自動で一時停止するようになり、ルームを切り替えるとTV再生が即座に停止するようになりました。"
   }
 }

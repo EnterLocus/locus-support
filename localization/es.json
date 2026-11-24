@@ -4312,6 +4312,18 @@
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "Actualizado a mapas de irradiancia horneada (mode: \"irradiance\") para que las texturas de superficie a resolución completa sigan nítidas con las luces de la Room encendidas.",
     "See downloads and features in the Gallery.": "Consulta las descargas y funciones en la galería.",
     "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "Biblioteca gótica abovedada de piedra con ocho grupos de capas de luz por irradiancia horneada (mode: \"irradiance\").",
-    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "Vista alpina de paralaje a gran escala (1600 m) con terreno 3D de plano medio y cielo estrellado procedural."
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "Vista alpina de paralaje a gran escala (1600 m) con terreno 3D de plano medio y cielo estrellado procedural.",
+    "Locus 1.6.1": "Locus 1.6.1",
+    "Locus 1.6.1 · Latest": "Locus 1.6.1 · Última versión",
+    "New in Locus 1.6.1": "Novedades de Locus 1.6.1",
+    "Locus 1.6.1 for Apple Vision Pro": "Locus 1.6.1 para Apple Vision Pro",
+    "Locus 1.6.1: Adaptive Performance and smoother rendering": "Locus 1.6.1: Rendimiento adaptable y renderizado más fluido",
+    "Adaptive Performance, smoother rendering across complex Rooms and Views, and Room Music and TV playback fixes in Locus 1.6.1.": "Rendimiento adaptable, renderizado más fluido en habitaciones y vistas complejas, y correcciones de música de habitación y reproducción de TV en Locus 1.6.1.",
+    "Smoother frame rates across complex Rooms and Views.": "Mayor fluidez en habitaciones y vistas complejas.",
+    "Adaptive Performance keeps movement and interaction smooth while preserving sun shadows, alongside Room audio and TV playback fixes.": "El rendimiento adaptable mantiene la fluidez al moverte e interactuar conservando las sombras solares, junto con correcciones de audio de habitación y reproducción de TV.",
+    "Adaptive Performance & smoother rendering": "Rendimiento adaptable y renderizado más fluido",
+    "Locus now automatically trims background effects during movement, toolbar summon, or heavy load to keep interaction smooth while preserving sun shadows. You can adjust this anytime in Settings. Optimized sun-path lighting, Room shadow rendering, and foliage shaders further improve frame rates across complex Rooms and Views.": "Locus reduce ahora automáticamente los efectos de fondo al moverte, abrir la barra de herramientas o con mucha carga para mantener la fluidez conservando las sombras solares. Puedes ajustarlo en cualquier momento en Ajustes. Las mejoras en la iluminación solar, las sombras de la habitación y los shaders de vegetación aumentan la fluidez en habitaciones y vistas complejas.",
+    "Room audio & TV playback fixes": "Correcciones de audio de habitación y reproducción de TV",
+    "Room Music now pauses automatically while Room TV audio is playing, and TV playback stops immediately when switching Rooms.": "La música de la habitación se pausa automáticamente mientras suena el audio del televisor, y la reproducción de TV se detiene al instante al cambiar de habitación."
   }
 }

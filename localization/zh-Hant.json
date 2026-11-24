@@ -4314,6 +4314,18 @@
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "升級為烘焙輻照度光照貼圖（mode: \"irradiance\"），使全解析度表面紋理在開啟 Room 燈光時依然保持清晰銳利。",
     "See downloads and features in the Gallery.": "在藝廊中查看下載檔案與特性。",
     "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "擁有 8 組烘焙輻照度燈光圖層（mode: \"irradiance\"）的哥德式石拱圖書館。",
-    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "具備 3D 中景地形與程序星空的 1600 公尺大尺度視差高山峽谷景觀。"
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "具備 3D 中景地形與程序星空的 1600 公尺大尺度視差高山峽谷景觀。",
+    "Locus 1.6.1": "Locus 1.6.1",
+    "Locus 1.6.1 · Latest": "Locus 1.6.1 · 最新",
+    "New in Locus 1.6.1": "Locus 1.6.1 新功能",
+    "Locus 1.6.1 for Apple Vision Pro": "適用於 Apple Vision Pro 的 Locus 1.6.1",
+    "Locus 1.6.1: Adaptive Performance and smoother rendering": "Locus 1.6.1：自動調整效能與更流暢的渲染",
+    "Adaptive Performance, smoother rendering across complex Rooms and Views, and Room Music and TV playback fixes in Locus 1.6.1.": "Locus 1.6.1 帶來自動調整效能、複雜房間與景觀的流暢度最佳化，以及房間音樂與電視播放修正。",
+    "Smoother frame rates across complex Rooms and Views.": "複雜房間與景觀，畫面更流暢。",
+    "Adaptive Performance keeps movement and interaction smooth while preserving sun shadows, alongside Room audio and TV playback fixes.": "自動調整效能在保留日光陰影的同時讓移動與操作保持流暢，並帶來房間音樂與電視播放修正。",
+    "Adaptive Performance & smoother rendering": "自動調整效能與更流暢的渲染",
+    "Locus now automatically trims background effects during movement, toolbar summon, or heavy load to keep interaction smooth while preserving sun shadows. You can adjust this anytime in Settings. Optimized sun-path lighting, Room shadow rendering, and foliage shaders further improve frame rates across complex Rooms and Views.": "現在於移動、召喚工具列或裝置負載較高時，Locus 會自動精簡背景動態效果並保留日光陰影，優先維持操作流暢；你也可以隨時在設定中切換。同時最佳化了日照光影、房間陰影渲染與植被著色器，進一步提升複雜房間與景觀的畫面流暢度。",
+    "Room audio & TV playback fixes": "房間音樂與電視播放修正",
+    "Room Music now pauses automatically while Room TV audio is playing, and TV playback stops immediately when switching Rooms.": "房間電視播放音訊時會自動暫停房間音樂；切換房間時會立即停止電視播放。"
   }
 }

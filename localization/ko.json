@@ -4312,6 +4312,18 @@
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "베이크된 조도 라이트맵(mode: \"irradiance\")으로 업그레이드되어 Room 조명을 켜도 전체 해상도 표면 텍스처가 선명하게 유지됩니다.",
     "See downloads and features in the Gallery.": "갤러리에서 다운로드와 기능을 확인하세요.",
     "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "8개의 베이크된 이래디언스 조명 레이어 그룹(mode: \"irradiance\")을 갖춘 고딕 석조 도서관입니다.",
-    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "3D 중경 지형과 프로시저럴 별하늘을 갖춘 1600m 스케일의 대규모 패럴랙스 알프스 계곡 뷰입니다."
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "3D 중경 지형과 프로시저럴 별하늘을 갖춘 1600m 스케일의 대규모 패럴랙스 알프스 계곡 뷰입니다.",
+    "Locus 1.6.1": "Locus 1.6.1",
+    "Locus 1.6.1 · Latest": "Locus 1.6.1 · 최신",
+    "New in Locus 1.6.1": "Locus 1.6.1의 새로운 기능",
+    "Locus 1.6.1 for Apple Vision Pro": "Apple Vision Pro용 Locus 1.6.1",
+    "Locus 1.6.1: Adaptive Performance and smoother rendering": "Locus 1.6.1: 적응형 성능 및 더욱 부드러운 렌더링",
+    "Adaptive Performance, smoother rendering across complex Rooms and Views, and Room Music and TV playback fixes in Locus 1.6.1.": "Locus 1.6.1은 적응형 성능, 복잡한 룸과 뷰의 렌더링 최적화, 룸 음악 및 TV 재생 수정 사항을 제공합니다.",
+    "Smoother frame rates across complex Rooms and Views.": "복잡한 룸과 뷰에서도 더욱 부드러운 프레임 속도를.",
+    "Adaptive Performance keeps movement and interaction smooth while preserving sun shadows, alongside Room audio and TV playback fixes.": "적응형 성능이 태양 그림자를 유지하면서 이동과 조작을 부드럽게 유지하며, 룸 오디오 및 TV 재생 수정도 포함됩니다.",
+    "Adaptive Performance & smoother rendering": "적응형 성능 및 더욱 부드러운 렌더링",
+    "Locus now automatically trims background effects during movement, toolbar summon, or heavy load to keep interaction smooth while preserving sun shadows. You can adjust this anytime in Settings. Optimized sun-path lighting, Room shadow rendering, and foliage shaders further improve frame rates across complex Rooms and Views.": "이동 중이거나 도구 막대를 불러올 때, 또는 부하가 높을 때 태양 그림자를 유지하면서 배경 효과를 자동으로 줄여 조작을 부드럽게 유지합니다. 설정에서 언제든 켜거나 끌 수 있습니다. 태양 경로 조명, 룸 그림자 렌더링, 식생 셰이더 최적화로 복잡한 룸과 뷰에서의 프레임 속도도 더욱 향상되었습니다.",
+    "Room audio & TV playback fixes": "룸 오디오 및 TV 재생 수정",
+    "Room Music now pauses automatically while Room TV audio is playing, and TV playback stops immediately when switching Rooms.": "룸 TV 오디오가 재생되는 동안 룸 음악이 자동으로 일시 정지되며, 룸을 전환하면 TV 재생이 즉시 중지됩니다."
   }
 }
