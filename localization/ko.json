@@ -4310,6 +4310,8 @@
     "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\").": "핀치로 조작할 수 있는 7개의 인터랙티브 상태(문 및 퍼걸러 루버)와 베이크된 조도 라이트맵(mode: \"irradiance\")이 추가되었습니다.",
     "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\").": "핀치로 조작할 수 있는 3개의 인터랙티브 문과 베이크된 조도 라이트맵(mode: \"irradiance\")이 추가되었습니다.",
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "베이크된 조도 라이트맵(mode: \"irradiance\")으로 업그레이드되어 Room 조명을 켜도 전체 해상도 표면 텍스처가 선명하게 유지됩니다.",
-    "See downloads and features in the Gallery.": "갤러리에서 다운로드와 기능을 확인하세요."
+    "See downloads and features in the Gallery.": "갤러리에서 다운로드와 기능을 확인하세요.",
+    "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "8개의 베이크된 이래디언스 조명 레이어 그룹(mode: \"irradiance\")을 갖춘 고딕 석조 도서관입니다.",
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "3D 중경 지형과 프로시저럴 별하늘을 갖춘 1600m 스케일의 대규모 패럴랙스 알프스 계곡 뷰입니다."
   }
 }

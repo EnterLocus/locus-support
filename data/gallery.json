@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "appVersion": "1.6.0",
-  "catalogGeneration": "d407b4a5-edd2-4d5b-acfb-77229ab6fd39",
+  "catalogGeneration": "aef33a99-9ec0-4d4a-adbd-a025aa2fa6e5",
   "places": [
     {
       "id": "destination.moonlit-bay",
@@ -406,17 +406,17 @@
       "title": "Hilltop Villa",
       "description": "Double-height hilltop villa living room with a travertine fireplace wall and linear fire, a long ivory sofa, cream bouclé swivel chairs and a cascade of glass tube pendants. Sliding glass opens onto a terrace with a fire table lounge, outdoor dining for eight and an infinity-edge pool. Upstairs, a glazed bridge, a gallery library and a cantilevered glass Sky Room with a desk look out over the view.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-d9b12ca762b12c4ecfc788e53f22b50372855f3fe20d4b5e3090b1aac08f6d57.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "a8154a78d6698a9142434277d3dd18ee1519afe0a867d871679e43d716910e85"
+        "sha256": "d9b12ca762b12c4ecfc788e53f22b50372855f3fe20d4b5e3090b1aac08f6d57"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.1.1",
+      "contentVersion": "1.1.2",
       "addedAt": "2026-10-24T16:43:41Z",
       "updatedAt": "2026-11-19T04:51:56Z",
       "searchTerms": [
@@ -1377,17 +1377,17 @@
       "title": "Observation Deck",
       "description": "The bow observation rotunda of a starship: a panoramic window thirteen metres tall sweeps around a round command dais and a sunken lounge with two reclining chairs at a bronze table. A console station, a wall-mounted TV and an upper gallery with catwalks complete the interior.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-84c7cdc9fcc80d665ced3fab0466b033067755ef95b70eaaa892a0fc73d94c8d.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-6ebc7d46eb13d47896731862b49aeea8cb7cd180a89a609ec591bf54d4530f11.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "84c7cdc9fcc80d665ced3fab0466b033067755ef95b70eaaa892a0fc73d94c8d"
+        "sha256": "6ebc7d46eb13d47896731862b49aeea8cb7cd180a89a609ec591bf54d4530f11"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": false,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.1",
+      "contentVersion": "1.0.3",
       "addedAt": "2026-11-11T22:57:22Z",
       "updatedAt": "2026-11-12T18:54:36Z",
       "searchTerms": [
@@ -2135,17 +2135,17 @@
       "title": "Layered Lodge",
       "description": "A low-poly timber-and-glass lodge in four offset levels around a stepped waterfall. A window desk and a reading nook sit on the ground floor, a falls sofa and a hidden alcove share the terrace level, a library opens above, and a rooftop pergola with a swing looks out over the canopy. Stairs, planted decks and lanterns join the levels, and the falls drop from trough to trough into a garden pool.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-ef81af088c540050217d40a310d62f939f6224d3781d2a94a1103b7d095feaaa.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-b57645c33248e18264c2990642a44a59f5e866135d5354635eed8b1925e1d117.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "ef81af088c540050217d40a310d62f939f6224d3781d2a94a1103b7d095feaaa"
+        "sha256": "b57645c33248e18264c2990642a44a59f5e866135d5354635eed8b1925e1d117"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.10",
+      "contentVersion": "1.0.12",
       "addedAt": "2026-11-02T17:11:52Z",
       "updatedAt": "2026-11-03T20:43:45Z",
       "searchTerms": [
@@ -2280,17 +2280,17 @@
       "title": "Root Library",
       "description": "A round low-poly library carved into the foot of a giant tree, under a ribbed wooden dome. Curved bookshelves with a rolling ladder wrap the back of the room, a writing desk faces a wide open arch, and a moss armchair sits by a round window under a glowing mushroom lamp. Outside, a deck of roots and flagstones with a twisting root rail holds a bench and a mushroom lantern. High up the trunk, a spiral stair rises to a reading loft whose balcony looks out over the forest.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-46188b3b9197f63abfb3f09a19d0897b2473906f7ba93e2e7a026824c94c71ea.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "a1792f57ad13ca43a9fdd7bb3cef1a2044b9b77d2eb6a00e528e18f4ca35d934"
+        "sha256": "46188b3b9197f63abfb3f09a19d0897b2473906f7ba93e2e7a026824c94c71ea"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.1.6",
+      "contentVersion": "1.1.9",
       "addedAt": "2026-11-01T22:30:09Z",
       "updatedAt": "2026-11-03T20:43:45Z",
       "searchTerms": [
@@ -2624,17 +2624,17 @@
       "title": "Pacific Palapa House",
       "description": "Cliff-top house on Mexico's Pacific coast. A great oval palapa of palm thatch on round timber columns shelters a linen lounge and a long parota table beside a curved infinity pool. A board-formed concrete library with a desk opens onto the deck, a sunset terrace holds a daybed, and a walled entry patio with a fig, palms and a stone rill leads in through the zaguán. A garden path winds down the cliff to a mirador banquette, a morning desk, a bench by a still-water basin and a hammock.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-0f567268d4a5b0aca6fccc740f35a13e041bd4d70b5d657813b345aacf1f1034.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-b5da8480380f67e34798e9dd54d57b7c01151587769e2ed5e642cde7252c11e7.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "0f567268d4a5b0aca6fccc740f35a13e041bd4d70b5d657813b345aacf1f1034"
+        "sha256": "b5da8480380f67e34798e9dd54d57b7c01151587769e2ed5e642cde7252c11e7"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.5",
+      "contentVersion": "1.1.3",
       "addedAt": "2026-10-28T18:34:14Z",
       "updatedAt": "2026-10-29T03:24:26Z",
       "searchTerms": [
@@ -4544,17 +4544,17 @@
       "title": "Free Capsule",
       "description": "A warm observation capsule with three faceted windows, a folding work desk and a dedicated View seat.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-8fba4559aeaf4e96b41e36badb1c01b4f860dfefe5b9e499990a1b4a64096335.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-e4cfb918f8fc585d7846dcfdb962bc6b15217b449ea8399d865e3f85de1c8863.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "8fba4559aeaf4e96b41e36badb1c01b4f860dfefe5b9e499990a1b4a64096335"
+        "sha256": "e4cfb918f8fc585d7846dcfdb962bc6b15217b449ea8399d865e3f85de1c8863"
       },
       "access": "free",
       "animated": false,
       "hasSound": false,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.7",
+      "contentVersion": "1.0.10",
       "addedAt": "2026-10-16T00:02:15Z",
       "updatedAt": "2026-10-16T14:57:00Z",
       "searchTerms": [
@@ -4671,17 +4671,17 @@
       "title": "Illustrated Harbor Cottage",
       "description": "A warm crafted harbor cottage with an arched niche, writing desk, cushioned corner and continuous seaside terrace with a round table.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-18599ad2d689659dc42efda646a85ec4093b1abb0ec5cbdf82ad7ce200826e6f.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-548808bdb4957ccb29be0cd23bdd822c9b0229ace5492f500820d2c49606169f.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "18599ad2d689659dc42efda646a85ec4093b1abb0ec5cbdf82ad7ce200826e6f"
+        "sha256": "548808bdb4957ccb29be0cd23bdd822c9b0229ace5492f500820d2c49606169f"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.12",
+      "contentVersion": "1.0.15",
       "addedAt": "2026-10-02T20:38:24Z",
       "updatedAt": "2026-10-12T22:46:59Z",
       "searchTerms": [
@@ -4816,17 +4816,17 @@
       "title": "Tidal Veranda",
       "description": "A sheltered coastal veranda with deep timber eaves, pale lime plaster, a sea-facing worktable and a woven linen banquette.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-6ded6b1f8f2f342f2cf157ea49bbab36588e7c6e3e7616f0f7a9f29689a0e00d.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-148f2408ef4b16e53a9f752f3f6734fc678d4e8b4997394d3bdccb3861b876b8.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "6ded6b1f8f2f342f2cf157ea49bbab36588e7c6e3e7616f0f7a9f29689a0e00d"
+        "sha256": "148f2408ef4b16e53a9f752f3f6734fc678d4e8b4997394d3bdccb3861b876b8"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.12",
+      "contentVersion": "1.0.15",
       "addedAt": "2026-10-02T20:38:24Z",
       "updatedAt": "2026-10-12T22:46:58Z",
       "searchTerms": [
@@ -6310,17 +6310,17 @@
       "title": "Lakeside Cabin",
       "description": "Cozy timber cabin with glass walls, a writing desk, and stone fireplace. Warm wood floors and ceilings frame a compact lounge with a white sofa, armchair, round dining table, and tall bookcase. A desk lamp, floor lamp, pendant light, and deck seating support quiet work and relaxed reading.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-45e3e0bc10869d39c69e4e5c2ab63433404968ee61f0d633e53a09cfdefb2732.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "2313dd640336dc7ab7087c899afda820ea156c79dac67b7e2fd468ccf8216086"
+        "sha256": "45e3e0bc10869d39c69e4e5c2ab63433404968ee61f0d633e53a09cfdefb2732"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.17",
+      "contentVersion": "1.0.22",
       "addedAt": "2026-09-25T17:43:20Z",
       "updatedAt": "2026-09-27T19:07:10Z",
       "searchTerms": [
@@ -6601,17 +6601,17 @@
       "title": "Skyline Office",
       "description": "Modern executive office with floor-to-ceiling corner glass, a walnut desk, and lounge seating that faces the view. The spacious room has dark-framed windows, polished gray veined marble floor tiles, cream wall panels with a walnut feature panel, and a black ceiling with recessed downlights and warm cove lighting. A dark sectional sofa, low metal coffee table, small plant, and black leather desk chair create a quiet, polished workspace.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-c3a8f38b233f08c9867a9fb0665fc9856ab2c26fcfad52a342ad2835f23c87bb.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-c00a0ea8dc22e52ef235263a5c2db3b3d416c2181ebd9c29befdc2d0226c9900.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "c3a8f38b233f08c9867a9fb0665fc9856ab2c26fcfad52a342ad2835f23c87bb"
+        "sha256": "c00a0ea8dc22e52ef235263a5c2db3b3d416c2181ebd9c29befdc2d0226c9900"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.7",
+      "contentVersion": "1.0.9",
       "addedAt": "2026-09-25T18:03:52Z",
       "updatedAt": "2026-09-26T02:44:49Z",
       "searchTerms": [
@@ -6882,17 +6882,17 @@
       "title": "Midnight 1997 Bedroom",
       "description": "Cozy wood-furnished bedroom study with a large window and desk. A wide wooden desk with a rolling chair, books, stationery, and two table lamps creates a quiet workspace. The compact room includes a neatly made bed with a plaid blanket, a tall bookcase, potted plants, framed wall art, and a patterned rug.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-fab32aaa14539857d238d6d60fb0185172c668674dcaf3918d0a0f157c2ecf28.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-5a1924255e3a372c39cabc4046093cb263dc7e4a3064d1e4230335eed0e02baa.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "fab32aaa14539857d238d6d60fb0185172c668674dcaf3918d0a0f157c2ecf28"
+        "sha256": "5a1924255e3a372c39cabc4046093cb263dc7e4a3064d1e4230335eed0e02baa"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.17",
+      "contentVersion": "1.0.20",
       "addedAt": "2026-09-20T16:23:15Z",
       "updatedAt": "2026-09-21T05:25:44Z",
       "searchTerms": [
@@ -7018,17 +7018,17 @@
       "title": "Old Town Café",
       "description": "Cozy Old Town Café with warm wood, arched windows, and a coffee counter. The compact café has wood floors, dark wood trim, cream plaster walls, and curved ceiling beams. Round bistro tables, bentwood chairs, and long brown upholstered banquettes provide relaxed seating. Pendant lamps and small wall sconces give the space a quiet, nostalgic feel.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-e41ccd69262e9b322975dc178a676dd62a57f774acc7c0902d13a34c0b410084.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-d3114ec3458bc73141ed5ed916d027b55a7abe1cb69f501ee7304458689d0eb2.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "e41ccd69262e9b322975dc178a676dd62a57f774acc7c0902d13a34c0b410084"
+        "sha256": "d3114ec3458bc73141ed5ed916d027b55a7abe1cb69f501ee7304458689d0eb2"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.10",
+      "contentVersion": "1.0.17",
       "addedAt": "2026-09-20T04:21:30Z",
       "updatedAt": "2026-09-21T04:26:52Z",
       "searchTerms": [
@@ -7136,17 +7136,17 @@
       "title": "Olive & Oak Café",
       "description": "Cozy oak café with tall windows, a coffee bar, and banquette seating. Exposed wood ceiling beams, cream plaster walls, pale wood furniture, and green cushions give the compact space a warm, minimalist look. Round tables, upholstered armchairs, counter stools, potted plants, and white pendant lamps support quiet coffee breaks or casual work.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-40702c6d060915f5893a0f63dd09389dc3a0412e81161f66522d6f00579e9509.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-14553e0895f8702e90d33cd71a5f16d4faaa52e563a991986e8cfacfe120775c.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "40702c6d060915f5893a0f63dd09389dc3a0412e81161f66522d6f00579e9509"
+        "sha256": "14553e0895f8702e90d33cd71a5f16d4faaa52e563a991986e8cfacfe120775c"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.14",
+      "contentVersion": "1.0.16",
       "addedAt": "2026-09-19T00:00:00Z",
       "updatedAt": "2026-09-20T04:45:50Z",
       "searchTerms": [
@@ -7244,17 +7244,17 @@
       "title": "Rooftop Garden",
       "description": "Modern rooftop garden terrace with planted borders, dining tables, and a covered lounge. Large stone tiles and low pale-stone planters frame the open-air seating, with a mature tree and shrubs. Under the wood-paneled canopy, a built-in counter, cushioned bench sofa, pendant lamp, wall sconce, table lamps, and floor lamp create a calm, cozy retreat.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-5521f5586226f83cba1e45d9c13ae31063b94da9492f17cae644ab051ebbb0c5.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-bad8713281888fdecb959cccec53ee981a53f8f4cd09eea48c220ab59f0e88f9.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "5521f5586226f83cba1e45d9c13ae31063b94da9492f17cae644ab051ebbb0c5"
+        "sha256": "bad8713281888fdecb959cccec53ee981a53f8f4cd09eea48c220ab59f0e88f9"
       },
       "access": "supporter",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.15",
+      "contentVersion": "1.0.19",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T14:10:06Z",
       "searchTerms": [
@@ -7571,17 +7571,17 @@
       "title": "Cloud Fan Pavilion",
       "description": "Warm wood pavilion with an open-air desk and lounge seating. A broad curved roof of exposed timber beams shelters a concrete floor, plaster wall, and wide open sides framed by wood posts. The compact interior includes a wooden worktable, cushioned bench, low coffee table, storage cabinet and display niche, potted plant, pendant lights, and floor lamp for a calm, cozy workspace.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-0781aece25789e13b2baa83ebefde15bb0f2001f55a3c32aa63e96c93cd561fb.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-300d450f1a44ae799092434e0a61ac9db809ce9976eaff524e6a5a8c5222c105.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "0781aece25789e13b2baa83ebefde15bb0f2001f55a3c32aa63e96c93cd561fb"
+        "sha256": "300d450f1a44ae799092434e0a61ac9db809ce9976eaff524e6a5a8c5222c105"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.17",
+      "contentVersion": "1.0.20",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T02:25:36Z",
       "searchTerms": [
@@ -7680,17 +7680,17 @@
       "title": "Cloudvault Retreat",
       "description": "Cozy modern wood cabin with panoramic windows, desk, and lounge seating. Curved timber beams, wood floors, and white paneled walls shape the compact interior. A window-facing worktable, cushioned sofa, built-in cabinets, shelves, and counter provide places to work or relax. Warm wall lights, reading lamps, and a pendant fixture create a quiet, sheltered feel.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-4850db1017b74c7dd75459f5a4b58f510a314c7055ca68d7fb3713c8bb429a19.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-72b4db2249658b1076f9922950d9fe549f6a76d31f11091588efb315ff56893b.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "4850db1017b74c7dd75459f5a4b58f510a314c7055ca68d7fb3713c8bb429a19"
+        "sha256": "72b4db2249658b1076f9922950d9fe549f6a76d31f11091588efb315ff56893b"
       },
       "access": "free",
       "animated": false,
       "hasSound": false,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.7",
+      "contentVersion": "1.0.9",
       "addedAt": "2026-09-07T00:00:00Z",
       "updatedAt": "2026-09-18T02:25:36Z",
       "searchTerms": [
@@ -13525,7 +13525,8 @@
         "destination.galactic-ledge",
         "destination.silverpine-night-lake",
         "destination.aurora-black-ice-shore",
-        "destination.moonlit-silvergrass-ridge"
+        "destination.moonlit-silvergrass-ridge",
+        "destination.moonlit-bay"
       ],
       "type": "view"
     },

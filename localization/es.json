@@ -4310,6 +4310,8 @@
     "Adds seven pinch-operable interactive states (doors and pergola louvers) and baked irradiance lightmaps (mode: \"irradiance\").": "Añade siete estados interactivos operables mediante pellizco (puertas y lamas de pérgola) y mapas de irradiancia horneada (mode: \"irradiance\").",
     "Adds three pinch-operable interactive doors and baked irradiance lightmaps (mode: \"irradiance\").": "Añade tres puertas interactivas operables mediante pellizco y mapas de irradiancia horneada (mode: \"irradiance\").",
     "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights.": "Actualizado a mapas de irradiancia horneada (mode: \"irradiance\") para que las texturas de superficie a resolución completa sigan nítidas con las luces de la Room encendidas.",
-    "See downloads and features in the Gallery.": "Consulta las descargas y funciones en la galería."
+    "See downloads and features in the Gallery.": "Consulta las descargas y funciones en la galería.",
+    "Gothic vaulted stone library with eight baked irradiance light-layer groups (mode: \"irradiance\").": "Biblioteca gótica abovedada de piedra con ocho grupos de capas de luz por irradiancia horneada (mode: \"irradiance\").",
+    "Large-scale 1600 m parallax alpine valley View with 3D midground terrain and procedural star sky.": "Vista alpina de paralaje a gran escala (1600 m) con terreno 3D de plano medio y cielo estrellado procedural."
   }
 }
