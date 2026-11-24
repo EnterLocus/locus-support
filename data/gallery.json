@@ -1,7 +1,7 @@
 {
   "formatVersion": 1,
   "appVersion": "1.6.0",
-  "catalogGeneration": "67275f4a-5cc1-4a71-b4e9-c662d06ce1c2",
+  "catalogGeneration": "88359609-f6a0-4a04-bfb3-1780694392f3",
   "places": [
     {
       "id": "destination.moonlit-bay",
@@ -1990,17 +1990,17 @@
       "title": "Cloud Garden Cabin",
       "description": "A small low-poly cabin of cream plaster and warm oak on a faceted stone plinth, under an open-rafter gable roof of sage shingles. A wide open gable frames the view from a writing desk, and a sage armchair sits by the window beside a reading lamp, a bookshelf and a small wood stove. A covered porch with a railing holds a bench, and stone steps lead down into the garden.",
       "image": {
-        "url": "https://media.enterlocus.net/gallery/library-5e7c639aa00090a6d07d9ae02e59eeeb88568b28cfcdca36d00a654a6df19893.jpg",
+        "url": "https://media.enterlocus.net/gallery/library-20e7d54e34d260bd40bf1c8805b9d42b0618b3343acce925e4c714d0d9f34e5f.jpg",
         "width": 1280,
         "height": 720,
-        "sha256": "5e7c639aa00090a6d07d9ae02e59eeeb88568b28cfcdca36d00a654a6df19893"
+        "sha256": "20e7d54e34d260bd40bf1c8805b9d42b0618b3343acce925e4c714d0d9f34e5f"
       },
       "access": "free",
       "animated": false,
       "hasSound": true,
       "builtIn": false,
       "credits": {},
-      "contentVersion": "1.0.8",
+      "contentVersion": "1.0.13",
       "addedAt": "2026-10-31T16:19:08Z",
       "updatedAt": "2026-11-03T20:43:45Z",
       "searchTerms": [

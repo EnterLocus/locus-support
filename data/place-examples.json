@@ -327,24 +327,26 @@
       "license": "LicenseRef-EnterLocus-Example",
       "features": [
         "music",
-        "light-layers"
+        "light-layers",
+        "baked-irradiance"
       ],
       "package": {
-        "contentVersion": "1.0.8",
-        "minimumAppVersion": "1.4.5",
-        "fileName": "space.cloud-garden-cabin-1.0.8.locusplace",
-        "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-1.0.8.locusplace",
-        "byteCount": 18783851,
-        "sha256": "771c1ae34b9c3565504b5d6a051de35b1ed898a2767c80c7ef32e831ee1573af"
+        "contentVersion": "1.0.13",
+        "minimumAppVersion": "1.5.2",
+        "fileName": "space.cloud-garden-cabin-1.0.13.locusplace",
+        "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-1.0.13.locusplace",
+        "byteCount": 11411066,
+        "sha256": "dd4139554abf2864fbf6d84106604930697bcd825a23bf5b8d43be24af361488"
       },
       "source": {
-        "sourceVersion": "1.0.8",
-        "blenderVersion": "5.2.1",
-        "fileName": "space.cloud-garden-cabin-source-1.0.8-r2.zip",
-        "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-source-1.0.8-r2.zip",
-        "byteCount": 3283575,
-        "sha256": "2092e60017f48ade531375a0efc0ba03e464e95d75398b1a2cc101a61c8c6666"
-      }
+        "sourceVersion": "1.0.13",
+        "blenderVersion": "5.3.0",
+        "fileName": "space.cloud-garden-cabin-source-1.0.13.zip",
+        "url": "https://media.enterlocus.net/examples/space.cloud-garden-cabin/space.cloud-garden-cabin-source-1.0.13.zip",
+        "byteCount": 10411623,
+        "sha256": "dfbe9b96aa904d4312a1efae605cb2865d6abc305871857c51e409a7bd01a2b9"
+      },
+      "notes": "Upgraded to baked irradiance lightmaps (mode: \"irradiance\") so full-resolution surface textures stay crisp under Room Lights."
     },
     {
       "packageID": "space.tidal-veranda",
