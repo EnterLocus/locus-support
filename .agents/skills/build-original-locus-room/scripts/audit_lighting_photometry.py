@@ -377,6 +377,7 @@ def audit_lighting_photometry(
 
         lin_luma: List[float] = []
         clipped = 0
+        overbright = 0
         max_lin = 0.0
         for r, g_c, b in rgb:
             if max(r, g_c, b) >= 250.0 / 255.0:
@@ -387,12 +388,16 @@ def audit_lighting_photometry(
             peak_c = max(lr, lg, lb)
             if peak_c > max_lin:
                 max_lin = peak_c
-            lin_luma.append(0.2126 * lr + 0.7152 * lg + 0.0722 * lb)
+            luma_val = 0.2126 * lr + 0.7152 * lg + 0.0722 * lb
+            if luma_val > 2.5:
+                overbright += 1
+            lin_luma.append(luma_val)
 
         layer_linear_luma[gid] = lin_luma
         lit = sorted(v for v in lin_luma if v > 0.002)
         lit_pct = 100.0 * len(lit) / float(len(lin_luma))
         clipped_pct = 100.0 * clipped / float(len(lin_luma))
+        overbright_pct = (100.0 * overbright / float(len(lit))) if lit else 0.0
         p50 = _percentile(lit, 50.0)
         p90 = _percentile(lit, 90.0)
         p99 = _percentile(lit, 99.0)
@@ -426,6 +431,7 @@ def audit_lighting_photometry(
             "bitDepth": bit_depth,
             "litPercent": round(lit_pct, 2),
             "clippedPercent": round(clipped_pct, 4),
+            "overbrightPercent": round(overbright_pct, 2),
             "maxLinear": round(max_lin, 4),
             "medianLitLinear": round(p50, 4),
             "p90LitLinear": round(p90, 4),
@@ -445,11 +451,38 @@ def audit_lighting_photometry(
                 "Light layer {} clips {:.2f}% of pixels >= 250/255 (> 0.5% ceiling; raise irradianceScale or lower fixture lumens)".format(gid, clipped_pct),
                 subject=gid,
             ))
+        if mode == "irradiance" and (max_lin > 6.5 or p99 > 3.5 or overbright_pct > 2.0):
+            findings.append(_finding(
+                "LIGHTING_LAYER_OVEREXPOSED", "High",
+                "Irradiance layer {} is overexposed (maxLinear={:.2f} [<=6.5], p99Lit={:.2f} [<=3.5], overbright>2.5={:.2f}% [<=2%]; lower near-surface fixture wattage/lumens or apply soft-knee calibration so wood and plaster do not blow out on device)".format(
+                    gid, max_lin, p99, overbright_pct
+                ),
+                subject=gid,
+                details={"maxLinear": round(max_lin, 4), "p99LitLinear": round(p99, 4), "overbrightPercent": round(overbright_pct, 2)},
+            ))
         if speckle_pct > 1.5:
             findings.append(_finding(
                 "LIGHTING_BOUNCE_SPECKLES", "High",
                 "Light layer {} has {:.2f}% isolated high-pass speckle spikes (> 1.5%; increase indirect samples or low-pass the bounce pass)".format(gid, speckle_pct),
                 subject=gid,
+            ))
+
+    if mode == "irradiance":
+        if irradiance_scale > 8.5:
+            findings.append(_finding(
+                "LIGHTING_EXCESSIVE_IRRADIANCE_SCALE", "High",
+                "Shared irradianceScale={:.2f} exceeds 8.5 ceiling; an over-powered near-surface lamp inflates irradianceScale, clips highlights on device, and wastes 16-bit dark-end precision (lower near-lamp power and keep irradianceScale <= 6.0)".format(
+                    irradiance_scale
+                ),
+                details={"irradianceScale": irradiance_scale},
+            ))
+        elif irradiance_scale > 6.0:
+            findings.append(_finding(
+                "LIGHTING_HIGH_IRRADIANCE_SCALE", "Medium",
+                "Shared irradianceScale={:.2f} exceeds recommended 6.0 target; inspect near-lamp pools for whiteout clipping".format(
+                    irradiance_scale
+                ),
+                details={"irradianceScale": irradiance_scale},
             ))
 
     mood_summary: Dict[str, Any] = {}

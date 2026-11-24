@@ -337,6 +337,17 @@ class RoomLightingScriptsAndSkillTests(unittest.TestCase):
             self.assertFalse(washed["passed"])
             self.assertIn("LIGHTING_OVERHEADS_OFF_NO_MOOD_DELTA", {f["code"] for f in washed["findings"]})
 
+            # Inflated irradianceScale (e.g. 16.0) with unclipped PNG values still blows out surfaces on device
+            manifest["lighting"]["bakedIndirect"]["irradianceScale"] = 16.0
+            (root / "space.json").write_text(json.dumps(manifest), encoding="utf-8")
+            (root / "light-overheads.png").write_bytes(solid_16_png(52000))
+            (root / "light-desk-lamp.png").write_bytes(solid_16_png(12000))
+            overexposed = mod.audit_lighting_photometry(root)
+            self.assertFalse(overexposed["passed"])
+            codes = {f["code"] for f in overexposed["findings"]}
+            self.assertIn("LIGHTING_EXCESSIVE_IRRADIANCE_SCALE", codes)
+            self.assertIn("LIGHTING_LAYER_OVEREXPOSED", codes)
+
     def test_room_skill_is_public_safe_and_weaves_irradiance_baking(self):
         skill_dir = ROOT / ".agents" / "skills" / "build-original-locus-room"
         combined = []

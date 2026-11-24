@@ -144,10 +144,13 @@ detail, and review the finished Room against both the image and layout.
 Render the principal view, exterior and thumbnail views, plus enough
 overlapping views at every declared seat to inspect the forward view, complete
 surround, above, and below. Fix the editable source—not a hand-edited ZIP—for
-floating or intersecting objects, unsupported props, incomplete walls, light
-leaks, backwards fixtures, clipping, poor sightlines, or unusable desk space.
+floating or intersecting objects, unsupported props, incomplete walls or door
+frames, light leaks, backwards fixtures, single-sided lamp shades culled from
+below, luminaires buried inside cabinets, clipping, poor sightlines, or clutter
+blocking the central work zone of mapped desks.
 Seat eye points belong in front of the backrest over the cushion, not at a
-chair center. Use [Materials and export](references/materials-and-export.md)
+chair center, and `sourceFloorOffset` must compensate for any negative-Y
+foundation plinth (`authoredFloorY - boundsMinY`). Use [Materials and export](references/materials-and-export.md)
 for export-safe PBR and [Lighting and glass](references/lighting-and-glass.md)
 for controlled fixtures, baked irradiance lighting, and glazing. A lamp that
 only glows as a fixture is incomplete when the scene calls for it to light
@@ -160,9 +163,10 @@ grain, rugs, and fabrics sharp when Room Lights turn on. Use the bundled
 standalone baker (`scripts/bake_irradiance.py`) and photometry checker
 (`scripts/audit_lighting_photometry.py`) to lint light groups, pack
 `LocusIndirectUV`, deduplicate indirect materials, bake sharp direct plus
-low-passed bounce passes into 16-bit sRGB PNGs with a shared `irradianceScale`,
-and verify zero highlight clipping and clear overhead-off mood contrast before
-packaging. A single shared atlas (`bakedIndirect.image`) is only appropriate
+low-passed bounce passes into 16-bit sRGB PNGs with a bounded shared
+`irradianceScale` (target `<= 6.0`, ceiling `<= 8.5`),
+and verify zero highlight clipping, bounded near-lamp exposure, and clear
+overhead-off mood contrast before packaging. A single shared atlas (`bakedIndirect.image`) is only appropriate
 when every lamp is controlled solely by Room master/overall EV, and legacy
 `mode: "radiance"` is only for untextured flat-palette Rooms or older targets.
 

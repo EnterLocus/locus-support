@@ -78,9 +78,18 @@ materials, scale, topology, or licensing beyond its recorded terms.
 ## Known RealityKit failures
 
 **Do not rely on a double-sided material flag.** It can be back-face culled.
-Give open shells—lamp shades, cups, leaves, curtains, and open boxes—real
-thickness or closed geometry. For intentionally thin cards such as leaves,
-point normals toward the side visible from the seats.
+Give open shells—lamp shades (watertight 4–8 mm closed shells with `0` boundary
+edges), cups, leaves, curtains, and open boxes—real thickness or closed
+geometry. For intentionally thin cards such as leaves, point normals toward the
+side visible from the seats, and give uplighted foliage double-sided or varied-pitch
+geometry so floor/planter uplights do not strike only backfaces and bake black.
+
+**Give close-range primary wood and hero surfaces dedicated 2K maps and metric UVs.**
+Even in stylized or illustrated Rooms, packing desktops, floors, or bed frames
+into small quadrants of a low-resolution shared atlas blurs noticeably at
+headset viewing distance. Give primary close-range surfaces dedicated seamless
+2K maps with metric UVs, restrained matte roughness (for example `0.82–0.95` on
+natural wood), and subtle normal maps.
 
 **Do not ship one packed ORM image.** An occlusion/roughness/metallic texture
 can render black in the target path. Split it into separate grayscale roughness

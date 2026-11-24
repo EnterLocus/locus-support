@@ -13,8 +13,11 @@ A still render and an import-validator pass cannot establish temporal stability.
   outside, and underside. Close a solid only where that closure is intended.
 - Integrate trim and panels into the supporting surface, or give intentionally
   separate parts a justified physical separation. Avoid a second wall/floor
-  skin on the same plane. Do not apply a tiny arbitrary offset as a universal
-  fix: the useful separation depends on scale, distance, and the renderer.
+  skin on the same plane. For mezzanine or void balustrade base shoes and metal
+  edge trim meeting floor slab end-grain, project the shoe `5–6 mm` proud into
+  the void and lap its bottom `3 mm` below the floor/soffit seam rather than
+  sitting `0 mm` flush. Do not apply a tiny arbitrary offset as a universal fix:
+  the useful separation depends on scale, distance, and the renderer.
 - Give glazing a deliberate construction. Remove unintended duplicate glass
   panes and stacked transparent shells; inspect overlapping transparent props.
 - Avoid subpixel geometry and dense high-contrast patterns at the intended

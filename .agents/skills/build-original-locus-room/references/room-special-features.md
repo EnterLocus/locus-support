@@ -33,8 +33,15 @@ the burner surface or top of the logs:
 - `sizeMeters` is `[width, height, depth]` in `(0, 3]` meters in the anchor's
   local `+Y`-up frame. Flames originate at the anchor origin and rise along its
   local `+Y` — widen X/Z for a long linear burner rather than scaling an image.
-- Runs continuously; never tied to `luminaireGroups` and carries no sound. Pair
-  it with an emitter in `sound.json` if crackling audio is wanted.
+  A Blender Empty keeps its Z-up frame through USD export, so rotate the emitter
+  Empty `+90°` about X (`rotation_euler = (+pi/2, 0, 0)`) so local `+Y` points
+  straight up in RealityKit. Tuck the emitter slightly behind the front log so
+  flames rise naturally from the log stack without clipping the grate or lintel.
+- Runs continuously by default (never tied to `luminaireGroups` and carries no
+  sound; pair it with an emitter in `sound.json` if crackling audio is wanted).
+  To let visitors cycle multi-stage fire states (for example `off`, `embers`,
+  `low`, `full`), bind the particle effect in
+  [`interactiveStates`](room-interactive-states.md).
 - Translate `displayName` via `localizations.<lang>.particleTitles` keyed by
   `id`.
 

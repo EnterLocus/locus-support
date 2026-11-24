@@ -100,11 +100,18 @@ images with their camera and lighting settings.
 Inspect the rendered pixels with an image-capable tool. Compare composition,
 openings, floor levels, path clearance, focal points, and seating with both the
 concept image and the metric plan. Check scale, contact with floors, clipping,
-glass, texture scale, lighting, and usable desk space. Repair the source and
-rerender affected views. Contact sheets and geometry checks help organize
-review but do not prove app appearance. If image inspection is unavailable,
-retain the renders and report visual review as pending. Do not ask the creator
-to watch each modeling iteration.
+glass, texture scale, lighting, and usable desk space: keep the central work
+reach zone of every mapped desk (`deskEntitiesByTeleportID`) completely clear of
+open books or loose clutter (place edge lamps, book stacks, and candles only at
+far side corners), build complete full-depth door frames (jamb liners spanning
+wall thickness, threshold/sill, and interior/exterior casings rather than
+face-only trim that exposes wall edges or leaks light), and always evaluate
+vertex heights in **world space (`obj.matrix_world @ v.co`)** in grounding or
+overlap-repair scripts so non-zero object origins never float furniture. Repair
+the source and rerender affected views. Contact sheets and geometry checks help
+organize review but do not prove app appearance. If image inspection is
+unavailable, retain the renders and report visual review as pending. Do not ask
+the creator to watch each modeling iteration.
 
 Headless describes how Blender runs; visual review uses its saved images.
 Choose render settings for the purpose: a polished Cycles image helps judge the
